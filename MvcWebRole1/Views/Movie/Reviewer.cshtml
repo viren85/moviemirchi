@@ -3,6 +3,39 @@
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title" id="title"></h3>
+    </div>
+    <div class="panel-body">
+        <div id="reviewer">
+            <div id="reviewImage">
+            </div>
+            <div id="name">
+                <h2>Vasim Ahmed</h2>
+            </div>
+            <div id="affiliation">
+                <b class=" affiliation">Affiliation :</b>
+            </div>
+        </div>
+        <div id="movie">
+            <div id="moviename">
+                <h2>Awarapan</h2>
+            </div>
+            <div id="rating1">
+                <div class='titlePageSprite star-box-giga-star' id="rating"> 7</div>
+                <b class="rating">Rating :</b>
+            </div>
+        </div>
+        <div id="reivew">
+        </div>
+        <div id="navigation">
+            <div id="previous" class="btn btn-primary">Previous</div>
+            <div id="next" class="btn btn-primary">Next</div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function () {
         var qs = GetQueryStringsForHtmPage();
@@ -11,41 +44,3 @@
         GetReviewerAndReviews(name, movie);
     });
 </script>
-
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title" id="title"></h3>
-    </div>
-    <div class="panel-body">
-        <div id="reviewer" style="float: left;width: 100%;border-bottom: 1px solid #eee;padding-bottom: 2%;">
-            <div id="img" style="float: left;width: 25%;">
-                @*<img class="img-thumbnail" style="width: 150px; height: 150px;margin-right: 1%" data-src="holder.js/200x200" alt="Awarapan" src="~/Images/awarapan2.jpg">*@
-            </div>
-            <div id="name" style="float: left;width: 30%;">
-                <h2>Vasim Ahmed</h2>
-            </div>
-            <div id="affiliation" style="float: right;width: 40%;text-align: right;">
-                <b style="margin-top: 6%; margin-right: 3%">Affiliation :</b>
-                @*<img class="img-thumbnail" style="width: 50px; height: 50px;margin-right: 1%" data-src="holder.js/200x200" alt="Awarapan" src="~/Images/awarapan2.jpg">
-                    <img class="img-thumbnail" style="width: 50px; height: 50px;margin-right: 1%" data-src="holder.js/200x200" alt="Awarapan" src="~/Images/awarapan2.jpg">
-                    <img class="img-thumbnail" style="width: 50px; height: 50px;margin-right: 1%" data-src="holder.js/200x200" alt="Awarapan" src="~/Images/awarapan2.jpg">*@
-            </div>
-        </div>
-        <div id="movie" style="float: left;width: 100%;">
-            <div id="moviename" style="float: left;width: 45%;">
-                <h2>Awarapan</h2>
-            </div>
-            <div id="rating1" style="float: right;width: 55%;">
-                <div class='titlePageSprite star-box-giga-star' id="rating" style="float:right"> 7</div><b style='float: right; margin-top: 6%; margin-right: 3%'>Rating :</b>
-            </div>
-        </div>
-        <div id="reivew" style="float: left; border: 1px solid #e8e8e8; padding: 10px; border-radius: 5px; text-align: justify; width: 100%;">
-
-        </div>
-        <div id="navigation" style="float: left;width: 100%;margin-top: 1%;">
-            <div id="previous" class="btn btn-primary" style="float: left;">Previous</div>
-            <div id="next" class="btn btn-primary" style="float: right;">Next</div>
-        </div>
-    </div>
-</div>

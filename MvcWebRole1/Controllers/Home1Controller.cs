@@ -156,11 +156,12 @@ namespace MvcWebRole1.Controllers
             entity.Casts = @"[{""name"" : ""ben affleck"",""charactername"" : ""mickey"",""image"" : {""height"" : 300,""width"": 200,""url"" : ""test""},""role"" : ""producer""}, 
                             {""name"" : ""jerry afflect"",""charactername"" : ""mouse"",""image"" : {""height"" : 300,""width"" : 200,""url"" : ""test""},""role"" : ""actor""}]";
             entity.Pictures = @"[{""caption"" : ""test caption"",""image"" : {""height"" : 300,""width"" : 200,""url"" : ""test""}}]";
-            entity.Name = string.Format("aashique {0}", rand.Next());
+            entity.Name = "Gangster";
             entity.Synopsis = "this is a brilliant scary movie";
             entity.Posters = @"[{""height"" : 300,""width"" : 200,""url"" : ""test""}]";
             entity.Genre = "Action";
             entity.Month = "March";
+            entity.UniqueName = "Gangster";
             entity.Year = "2014";
 
             //var reviewIds = entity.GetReviewIds();
@@ -185,7 +186,7 @@ namespace MvcWebRole1.Controllers
 
             var tableMgr = new TableManager();
             tableMgr.UpdateMovieById(entity);
-            tableMgr.UpdateReviewsById(reviewList);
+            //tableMgr.UpdateReviewsById(reviewList);
 
             return string.Format("Created movie id {0}", entity.MovieId);
 

@@ -3,13 +3,6 @@
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var qs = GetQueryStringsForHtmPage();
-        var id = qs["movieid"];
-        LoadSingleMovie(id);
-    });
-</script>
 
 
 <div class="panel panel-default">
@@ -23,10 +16,10 @@
         <div id="posters" class="movieposters" style="margin-bottom: 1%; margin-top: 1%;">
 
         </div>
-        <div id="genre" class="moviegenre">
+        <div id="genre" class="movie-detail">
 
         </div>
-        <div id="synopsis" class="moviegenre">
+        <div id="synopsis" class="movie-detail">
 
         </div>
         <div id="director" class="moviegenre">
@@ -50,3 +43,11 @@
     </div>
 </div>
 
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var qs = GetQueryStringsForHtmPage();
+        var id = qs["movieid"];
+        LoadSingleMovie(id);
+    });
+</script>

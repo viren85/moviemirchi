@@ -8,6 +8,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Mirchi</title>
+
+    @Styles.Render("~/Content/movie.style.css")
     @*@Styles.Render("~/Content/bootstrap.css")*@
     @Styles.Render("~/Content/bootstrap.min.css")
     @*@Styles.Render("~/Content/bootstrap-theme.min.css")*@
@@ -309,8 +311,21 @@
                         </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a data-toggle="modal" href="#" data-target="#">Login</a></li>
-                        <li><a data-toggle="modal" href="#" data-target="#">Register</a></li>
+                        
+@if (Session["UserName"] != null)
+                        {
+    <li style="float: right;">
+        @Html.ActionLink("Logout", "Logout", "LogOut")
+    </li>
+    <li class="authenticate" >
+        Welcome, @Session["UserName"].ToString().ToUpper()
+    </li>
+                        }
+                        else
+                        {
+    <li style="float: right;">
+        @Html.ActionLink("Login", "UserLogin", "Login")
+    </li>}
                     </ul>
                 </div>
             </div>

@@ -4,31 +4,32 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
-<script type="text/javascript">
-    $(document).ready(function () {
-        LoadCurrentMovies();
-    });
-</script>
-
 
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Current Movies</h3>
     </div>
     <div class="panel-body">
-        <div style="float: left; width: 103%; min-height: 10px; position: relative; top: 90px; margin: 0 -13px; cursor:pointer">
-            <div style="float:left;width:10%; min-height:10px; display:none" title="Previous" id="previousMovies" onclick="PreviousMovies();">
-                <img src="~/Images/pervious.png" alt="pervios" />
+        <div class="review-navigation">
+            <div title="Previous" id="previousMovies" class="previous-movies" onclick="PreviousMovies();">
+                <img src="~/Images/pervious.png" alt="pervious" />
             </div>
-            <div style="float: right; min-height: 10px;display: none" title="Next" id="nextMovies" onclick="NextMovies();">
-                <img src="~/Images/next.png" alt="pervios" />
+            <div title="Next" id="nextMovies" class="next-movies" onclick="NextMovies();">
+                <img src="~/Images/next.png" alt="next" />
             </div>
         </div>
-        <div id="currentmovie" style="float: left; width: 96%; margin: 0 2%;">
+        <div id="currentmovie" class="movieDetail">
 
         </div>
-        <div id="movieTitle" style="float: left; width: 96%; margin: 0 2%;">
+        <div id="movieTitle" class="movieDetail">
 
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        LoadCurrentMovies();
+    });
+</script>

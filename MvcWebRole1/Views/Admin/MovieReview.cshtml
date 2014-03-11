@@ -3,66 +3,6 @@
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-            var x = this;
-            reviewDetail();
-            x.submit();
-
-        });
-    });
-
-
-
-    function reviewDetail() {
-        var reviewerName = $("#reviewerName").val();
-
-        if (reviewerName == null || reviewerName == "") {
-            alert("Reviewer name is required");
-            return false;
-        }
-
-        var reviewerRating = $("#reviewerRating").val();
-        var systemRating = $("#systemRating").val();
-        var review = $("#review").val();
-        var outlink = $("#outlink").val();
-        var hot = $("#hot").val();
-        var movieId = $('#movieId :selected').val();
-
-        //creating array of Affilation
-        var afName = $("#afName").val().split(",");
-        var afLInk = $("#afLInk").val().split(",");
-        var afReviewLink = $("#afReviewLink").val().split(",");
-        var afLogo = $("#afLogo").val().split(",");
-
-        var affilation = [];
-
-        for (var a = 0; a < afName.length; a++) {
-            affilation.push({ "name": afName[a], "link": afLInk[a], "reviewlink": afReviewLink[a], "logoimage": afLogo[a] });
-        }
-
-        //creating object of review and inserting data into it
-
-        var review = { "Affiliation": JSON.stringify(affilation), "Hot": hot, "OutLink": outlink, "Review": review, "ReviewerName": reviewerName, "ReviewerRating": reviewerRating, "SystemRating": systemRating, "MovieId":movieId };
-
-        alert(JSON.stringify(review))
-
-        $("#hfReview").val(JSON.stringify(review));
-
-        alert(JSON.stringify(review))
-
-
-
-    }
-</script>
-
-
-
-
-
 <h2>MovieReview</h2>
 
 @using (Html.BeginForm())
@@ -106,7 +46,6 @@
     <div>
         <label>Movie List</label>
        @Html.DropDownList("movieId", (SelectList)ViewBag.movie, "--Select movie--" )
-      
     </div>
     
     <div>
@@ -116,3 +55,50 @@
     @Html.Hidden("hfReview", "")
 }
 
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var x = this;
+            reviewDetail();
+            x.submit();
+
+        });
+    });
+
+    function reviewDetail() {
+        var reviewerName = $("#reviewerName").val();
+
+        if (reviewerName == null || reviewerName == "") {
+            alert("Reviewer name is required");
+            return false;
+        }
+
+        var reviewerRating = $("#reviewerRating").val();
+        var systemRating = $("#systemRating").val();
+        var review = $("#review").val();
+        var outlink = $("#outlink").val();
+        var hot = $("#hot").val();
+        var movieId = $('#movieId :selected').val();
+
+        //creating array of Affilation
+        var afName = $("#afName").val().split(",");
+        var afLInk = $("#afLInk").val().split(",");
+        var afReviewLink = $("#afReviewLink").val().split(",");
+        var afLogo = $("#afLogo").val().split(",");
+
+        var affilation = [];
+
+        for (var a = 0; a < afName.length; a++) {
+            affilation.push({ "name": afName[a], "link": afLInk[a], "reviewlink": afReviewLink[a], "logoimage": afLogo[a] });
+        }
+
+        //creating object of review and inserting data into it
+
+        var review = { "Affiliation": JSON.stringify(affilation), "Hot": hot, "OutLink": outlink, "Review": review, "ReviewerName": reviewerName, "ReviewerRating": reviewerRating, "SystemRating": systemRating, "MovieId": movieId };
+
+        $("#hfReview").val(JSON.stringify(review));
+    }
+</script>

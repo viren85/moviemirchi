@@ -228,6 +228,7 @@
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\movie.core.js" />
+    <Content Include="Content\movie.style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
