@@ -1,0 +1,326 @@
+﻿@{
+    ViewBag.Title = "AddMovie";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var x = this;
+            saveMoviedetail();
+            x.submit();
+
+        });
+    });
+
+    function saveMoviedetail() {
+
+        var movieName = $("#movieName").val();
+        if (movieName == null || movieName == "") {
+            alert("Movie Name Required");
+            return false;
+        }
+
+        var movieAltName = $("#movieAltName").val();
+        var genre = $("#genre").val();
+        var synopsis = $("#synops").val();
+        var month = $('#month :selected').text();//$("#month").val();  // dropdown
+        var year = $("#year").val();
+
+        //creating cast
+        var castName = $("#castName").val().split(",");
+
+        if (castName == null || castName == " ") {
+            alert("Cast Name Required");
+            return false;
+        }
+        var castCharName = $("#charName").val().split(",");
+        var castImageHeight = $("#castImgHeight").val().split(",");
+        var castImageWidth = $("#castImgWidth").val().split(",");
+        var castImageUrl = $("#castImgUrl").val().split(",");
+        var castRole = $('#roles :selected').text();//$("#roles").val();  // dropdown
+
+        var cast = [];
+
+        for (var c = 0; c < castName.length; c++) {
+
+            //Here img is an object
+            var img = { "height": castImageHeight[c], "width": castImageWidth[c], "url": castImageUrl[c] };
+
+            cast.push({ "name": castName[c], "charactername": castCharName[c], "image": img, "role": castRole })
+        }
+
+        // creating pics
+        var picCaption = $("#picName").val().split(",");
+        var picImgHeight = $("#picImgHeight").val().split(",");
+        var picImgWidth = $("#picImgWidth").val().split(",");
+        var picImgUrl = $("#picImgUrl").val().split(",");
+
+        var picture = [];
+
+        for (var p = 0; p < picCaption.length; p++) {
+            var picImg = { "height": picImgHeight[p], "width": picImgWidth[p], "url": picImgUrl[p] };
+
+            picture.push({ "caption": picCaption[p], "image": picImg });
+        }
+
+        //creating poster
+        var postHeight = $("#posterHeight").val().split(",");
+        var postWidth = $("#posterWidth").val().split(",");
+        var postUrl = $("#posterUrl").val().split(",");
+
+        var poster = [];
+
+        for (var po = 0 ; po < postHeight.length; po++) {
+            poster.push({ "height": postHeight[po], "width": postWidth[po], "url": postUrl[po] });
+        }
+
+        // creating song
+        var songName = $("#songName").val().split(",");
+        var songUrl = $("#songUrl").val().split(",");
+
+        var song = [];
+
+        for (var s = 0; s < songName.length; s++) {
+            song.push({ "name": songName[s], "url": songUrl[s] });
+        }
+
+        //creating trailer
+        var trName = $("#movieTrailerName").val().split(",");
+        var trUrl = $("#movieTrailerUrl").val().split(",");
+
+
+        var trailer = [];
+
+        for (var t = 0; t < trName.length; t++) {
+            trailer.push({ "name": trName[t], "url": trUrl[t] });
+        }
+
+
+        //creating object of rating
+        var sysRating = $("#systemRating").val();
+        var criticRating = $("#criticRating").val();
+        var hotRating = $("#HotRating").val();
+
+        var rating = { "system": sysRating, "critic": criticRating, "hot": hotRating };
+
+        //creating object of stats
+        var statbudge = $("#budget").val();
+        var statBox = $("#boxOffice").val();
+
+        var stats = { "budget": statbudge, "boxoffice": statBox };
+
+        //filling data into movie table
+        var movie = { "Casts": JSON.stringify(cast), "Genre": genre, "Month": month, "Name": movieName, "Pictures": JSON.stringify(picture), "Posters": JSON.stringify(poster), "Ratings": JSON.stringify(rating), "Songs": JSON.stringify(song), "Stats": JSON.stringify(stats), "Synopsis": synopsis, "Trailers": JSON.stringify(trailer), "Year": year };
+
+        alert(JSON.stringify(movie))
+
+        $("#hfMovie").val(JSON.stringify(movie));
+
+        alert($("#hfMovie").val())
+
+    }
+
+</script>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Add New Movie</h3>
+    </div>
+    <div class="panel-body" id="movieinfo">
+        @using (Html.BeginForm())
+        {
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Movie Information</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="movie" class="row" style="margin-left:0px">
+                        <div class="col-sm-12">
+                            <input type="text" name="movie" id="movieName" style="width:40%" placeholder="Movie Name" />
+                        </div>
+                    </div>
+                    <div id="movie" class="row" style="margin-left:0px">
+                        <div class="col-sm-12">
+                            <input type="text" name="movieAltName" id="movieAltName" style="width:40%" placeholder="Movie Alternative Name" />
+                        </div>
+                    </div>
+
+                    <div id="movie" class="row" style="margin-left:0px">
+                        <div class="col-sm-12">
+                            <input type="text" name="genre" id="genre" style="width:40%" placeholder="Genre" />
+                        </div>
+                    </div>
+
+
+                    <div id="movie" class="row" style="margin-left:0px">
+                        <div class="col-sm-12">
+                            <input type="text" name="synops" id="synops" style="width:40%" placeholder="Synopsis" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Cast</h3>
+                </div>
+                <div id="casts" class="panel-body">
+                    <div id="castError" style="display:none" class="alert alert-danger"></div>
+                    <input type="hidden" id="hfCast" value="1" />
+                    <div id="cast_well_0" class="well" style="padding: 10px;margin-bottom: 5px;">
+                        <input type="text" name="cast" placeholder="Name" id="castName_0" style="width:30%;"/>
+                        <input type="text" name="charName" placeholder="Character Name" id="charName_0" style="width:30%;" />
+                        <select name="role" id="roles_0">
+                            <option value="select">--Select Role--</option>
+                            <option value="Actor">Actor</option>
+                            <option value="Director">Director</option>
+                            <option value="Producer">Producer</option>
+                            <option value="Writer">Writer</option>
+                        </select><br />
+                        <label for="image">Cast Image : </label>
+                        <input type="text" name="url" placeholder="Image URL" id="castImgUrl_0" style="width:30%;" />
+                        <input type="text" name="height" placeholder="Height" id="castImgHeight_0" class="HWtextBoxes" />
+                        <input type="text" name="weight" placeholder="Width" id="castImgWidth_0" class="HWtextBoxes" />                        
+                        <div class="btn btn-success" onclick="AddCastControls();">Add More Cast</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Pictures</h3>
+                </div>
+                <div id="picture" class="panel-body">
+                    <div id="pictureError" style="display:none" class="alert alert-danger"></div>
+                    <input type="hidden" id="hfPictures" value="1"/>
+                    <div id="well_0" class="well" style="padding: 10px;margin-bottom: 5px;">
+                        <input type="text" name="url" placeholder="Picture URL" id="picImgUrl_0" style="width: 30%" />
+                        <input type="text" name="caption" placeholder="Picture Caption" id="picName_0" style="width:30%" />
+                        <input type="text" name="height" placeholder="Height" id="picImgHeight_0" class="HWtextBoxes" />
+                        <input type="text" name="width" placeholder="Width" id="picImgWidth_0" class="HWtextBoxes" />
+                        <div class="btn btn-success" onclick="AddPictureControls();">Add More Pictures</div>
+                    </div>                    
+                </div>                
+            </div>
+
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Posters</h3>
+                </div>
+                <div id="poster" class="panel-body">
+                    <div id="posterError" style="display:none" class="alert alert-danger"></div>
+                    <input type="hidden" id="hfPoster" value="1" />
+                    <div id="poster_well_0" class="well" style="padding: 10px;margin-bottom: 5px;">
+                        <input type="text" name="url" placeholder="Poster URL" id="posterUrl_0" style="width:30%" />
+                        <input type="text" name="height" placeholder="Height" id="posterHeight_0" class="HWtextBoxes" />
+                        <input type="text" name="weight" placeholder="Weight" id="posterWidth_0" class="HWtextBoxes" />
+                        <div class="btn btn-success" onclick="AddPosterControls();">Add More Posters</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Rating</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="ratings">
+                        <input type="text" name="system" placeholder="System" id="systemRating" />
+                        <input type="text" name="Critic" placeholder="Critic" id="criticRating" />
+                        <label for="hot">Hot</label>
+                        <input type="checkbox" name="Hot" id="hot" />
+                    </div>
+                </div>
+            </div>
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Songs</h3>
+                </div>
+                <div id="songs" class="panel-body">
+                    <div id="songsError" style="display:none" class="alert alert-danger"></div>
+                    <input type="hidden" id="hfSongs" value="1" />
+                    <div id="songs_well_0" class="well" style="padding: 10px;margin-bottom: 5px;">
+                        <input type="text" name="songName" placeholder="Song Name" id="songName_0" style="width:30%"/>
+                        <input type="text" name="songUrl" placeholder="Song Url" id="songUrl_0" style="width:30%" />
+
+                        <div class="btn btn-success" onclick="AddSongsControls();">Add More Songs</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Stats</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="stats">
+                        <input type="text" name="budget" placeholder="Budget" id="budget" />
+                        <input type="text" name="boxoffice" placeholder="BoxOffice Collection" id="boxOffice" />
+                    </div>
+                </div>
+            </div>
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Trailers</h3>
+                </div>
+                <div id="trailers" class="panel-body">
+                    <div id="trailerError" style="display:none" class="alert alert-danger"></div>
+                    <input type="hidden" id="hfTrailer" value="1" />
+                    <div id="trailer_well_0" class="well" style="padding: 10px;margin-bottom: 5px;">
+                        <input type="text" name="name" placeholder="Trailer Name" id="movieTrailerName_0" style="width:30%" />
+                        <input type="text" name="url" placeholder="Trailer Url" id="movieTrailerUrl_0" style="width:30%" />
+
+                        <div class="btn btn-success" onclick="AddTrailerControls();">Add More Trailers</div>
+                    </div>
+                </div>
+            </div>
+            <div class="page-break"></div>
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Release Details</h3>
+                </div>
+                <div class="panel-body">
+                    <div id="months">
+                        <label>Month : </label>
+                        <select name="month" id="month">
+                            <option value="select">-- Select Month--</option>
+                            <option value="January">January</option>
+                            <option value="February">February</option>
+                            <option value="March">March</option>
+                            <option value="April">April</option>
+                            <option value="May">May</option>
+                            <option value="June">June</option>
+                            <option value="July">July</option>
+                            <option value="August">August</option>
+                            <option value="September">September</option>
+                            <option value="October">October</option>
+                            <option value="November">November</option>
+                            <option value="December">December</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="year">Year</label>
+                        <input type="text" name="year" id="year" />
+                    </div>
+                </div>
+            </div>
+
+            <input type="submit" name="Save" value="Save" id="saveMovie" />
+
+
+
+            @Html.Hidden("hfMovie", "")
+        }
+    </div>
+</div>

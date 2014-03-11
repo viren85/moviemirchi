@@ -1,0 +1,329 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Mirchi</title>
+    @*@Styles.Render("~/Content/bootstrap.css")*@
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @*@Styles.Render("~/Content/bootstrap-theme.min.css")*@
+    @Styles.Render("~/Content/bootstrap-responsive.css")
+    @Scripts.Render("~/Content/jquery-1.9.1.js")
+    @Scripts.Render("~/Content/bootstrap.min.js")
+    @Scripts.Render("~/Content/movie.core.js")
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryui")
+        @Styles.Render("~/Content/themes/base/css")*@
+
+    <meta name="robots" content="NOODP" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css">
+        .movie-title {
+            float: left;
+            width: 19%;
+            padding: 4px;
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .activity {
+            float: left;
+            width: 100%;
+            padding: 0%;
+            text-align: left;
+            list-style: none;
+        }
+
+        .activityContainer {
+            border-top: solid 1px #ccc;
+            padding: 1%;
+            width: 100%;
+            float: left;
+        }
+
+            .activityContainer:hover {
+                background-color: #F5F5F5;
+                cursor: pointer;
+                border-radius: 0px;
+            }
+
+        .reviewer {
+            float: left;
+            width: 15%;
+        }
+
+        .review {
+            float: left;
+            width: 85%;
+        }
+
+        .moviegenre {
+            margin-top: 1%;
+            float: left;
+            width: 100%;
+        }
+
+        .star-box-giga-star {
+            background-position: -180px -71px;
+            width: 66px;
+            height: 66px;
+            line-height: 66px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            font-size: 15px;
+            font-weight: bold;
+            color: black;
+            font-family: tahoma;
+            float: left;
+            padding-right: 5px;
+        }
+
+        .titlePageSprite {
+            background-image: url(/images/titlePageSprite-407338954._V_.png);
+            display: inline-block;
+            vertical-align: middle;
+        }
+
+        #targetUL {
+            width: 100%;
+            border: 1px solid silver;
+            margin-top: 2px;
+            list-style: none;
+            position: absolute;
+            background-color: white;
+            z-index: 1;
+            display: none;
+        }
+
+            #targetUL li {
+                margin-left: -40px;
+                border-bottom: 1px solid silver;
+                height: 70px;
+                padding-left: 5px;
+                padding-top: 8px;
+                cursor: pointer;
+            }
+
+                #targetUL li:hover {
+                    cursor: pointer;
+                    background-color: #fcecec;
+                }
+
+        textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+            background-color: #fff !important;
+            border: 1px solid #ccc !important;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+            -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
+            -webkit-transition: border linear .2s,box-shadow linear .2s !important;
+            -moz-transition: border linear .2s,box-shadow linear .2s !important;
+            -o-transition: border linear .2s,box-shadow linear .2s !important;
+            transition: border linear .2s,box-shadow linear .2s !important;
+        }
+        select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
+            display: inline-block;
+            padding: 4px 6px;
+            margin-bottom: 10px;
+            font-size: 14px;
+            line-height: 20px;
+            color: #555;
+            vertical-align: middle;
+            -webkit-border-radius: 4px;
+            -moz-border-radius: 4px;
+            border-radius: 4px;
+        }
+
+        .page-break {
+            padding-bottom: 9px;
+            margin: 10px 0 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+    </style>
+
+    <script type="text/javascript">
+
+
+        /*$(document).click(function (e) {
+            var container = $("#targetUL");
+            if (!container.is(e.target) // if the target of the click isn't the container...
+                && container.has(e.target).length === 0) // ... nor a descendant of the container
+            {
+                container.hide();
+            }
+        });*/
+
+        $(document).ready(function () {
+
+            //We have used keyup event to track the user enter value in the textbox.
+            $("#target").keyup(function () {
+                //Fetching the textbox value.
+                var query = $(this).val();
+                //Calling GetItems method.
+                getItems(query);
+            });
+
+            function getItems(query) {
+
+                //Here we are using ajax get method to fetch data from the list based on the user entered value in the textbox.
+                //We are sending query i.e textbox as data.
+                $.ajax({
+                    url: '@Url.Action("AutoComplete", "Movie")',
+                    data: { "query": query },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: PopulateSearchResult,
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        });
+
+        function PopulateSearchResult(response) {
+            if (response != null) {
+                if ($("#targetUL") != undefined) {
+                    //If the UL element is not null or undefined we are clearing it, so that the result is appended in new UL every next time.
+                    $("#targetUL").remove();
+                }
+                //assigning json response data to local variable. It is basically list of values.
+                data = response;
+
+                if (data.length < 1 || data.length == undefined) {
+                    $("#targetDiv").append($("<ul id='targetUL' style='display:none;'></ul>"));
+                }
+                else {
+                    //appending an UL element to show the values.
+                    $("#targetDiv").append($("<ul id='targetUL' style='display:block;'></ul>"));
+                    //Removing previously added li elements to the list.
+                    $("#targetUL").find("li").remove();
+                    //We are iterating over the list returned by the json and for each element we are creating a li element and appending the li element to ul element.
+                    $.each(data, function (i, value) {
+                        //On click of li element we are calling a method.
+                        var li = $("<li>");
+                        var divImage = $("<div>");
+                        $(divImage).attr("style", "width: 15%;float: left;");
+                        var img = $("<img/>")
+                        img.attr("class", "img-thumbnail");
+                        img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
+                        img.attr("data-src", "holder.js/200x200");
+                        img.attr("src", value.TitleImageURL);
+                        divImage.append(img);
+
+                        var divTitleDesc = $("<div>");
+                        $(divTitleDesc).attr("style", "width: 80%;float: left;");
+
+                        $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + value.Description + "</span>");
+
+                        var anchor = $("<a>");
+                        $(anchor).attr("href", value.Link);
+
+                        $(anchor).append(divImage);
+                        $(anchor).append(divTitleDesc);
+
+                        $(li).append(anchor);
+
+                        $("#targetUL").append(li);
+
+                        //$("#targetUL").append($("<li class='targetLI' onclick='javascript:appendTextToTextBox(this)'>" + value.Title + "</li>"));
+
+                    });
+                }
+            }
+            else {
+                //If data is null the we are removing the li and ul elements.
+                $("#targetUL").find("li").remove();
+                $("#targetUL").remove();
+            }
+        }
+        //This method appends the text oc clicked li element to textbox.
+        function appendTextToTextBox(e) {
+            //Getting the text of selected li element.
+            var textToappend = e.innerText;
+            //setting the value attribute of textbox with selected li element.
+            $("#target").val(textToappend);
+            //Removing the ul element once selected element is set to textbox.
+            $("#targetUL").remove();
+            $("#targetUL").css("display", "none");
+        }
+    </script>
+</head>
+<body style="background-color: #D5D5D5">
+    <div class="container">
+        <div class="row">
+            <div class="navbar navbar-inverse" role="navigation">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    @Html.ActionLink("Movie Mirchi", "Index", "Home", null, new { @class = "navbar-brand", @title = "Find your movie", @rel = "home" })
+                </div>
+                <div class="collapse navbar-collapse navbar-ex1-collapse">
+                    <div class="col-sm-6 col-md-6">
+                        <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
+                            <div class="btn-group pull-left" style="margin-right:10px; display:block">
+                                <select id="searchtype" class="form-control" style="margin: 0;margin-left: 11%;border-radius: 4px 0px 0px 4px;">
+                                    <option>
+                                        All
+                                    </option>
+                                    <option>
+                                        Title
+                                    </option>
+                                    <option>
+                                        Character
+                                    </option>
+                                    <option>
+                                        Name
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <div id="targetDiv">
+                                    <input type="text" class="form-control" placeholder="Search..." id="target" name="query" value="" style="border-radius: 0px;" autocomplete="off">
+                                </div>
+                                <div class="input-group-btn">
+                                    <button type="submit" class="btn btn-success">Go</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-2 col-md-2" style="display:none">
+                        <form class="navbar-form navbar-right" role="search">
+                            <div class="input-group"><a href="#" class="btn btn-warning">Post Your Ads</a></div>
+                        </form>
+                    </div>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a data-toggle="modal" href="#" data-target="#">Login</a></li>
+                        <li><a data-toggle="modal" href="#" data-target="#">Register</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-8" style="padding:0">
+                @RenderBody()
+            </div>
+            <div class="col-sm-4" style="padding: 0px 0px 0px 5px; float: right; ">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">News</h3>
+                    </div>
+                    <div class="panel-body">
+                        <img src="~/Images/breaking-news.jpg" style="width:99%; height: 250px;" data-src="holder.js/200x200" class="img-thumbnail" alt="200x200">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

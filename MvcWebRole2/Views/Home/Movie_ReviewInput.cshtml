@@ -1,0 +1,40 @@
+﻿@model MvcWebRole2.Models.MovieModel
+
+@{
+    ViewBag.Title = "Movie_ReviewInput";
+}
+
+<h2>Movie_ReviewInput</h2>
+
+
+<div>
+    <div>
+    <h3>Enter Movie</h3>
+        </div>
+
+    @using( @Html.BeginForm("Submit_MovieInput", "Home", FormMethod.Get))
+    {
+    
+        @Html.ValidationSummary(true);
+        <div>
+            <table>
+                <tr>
+                    <td>Movie Id</td>
+                    <td>@Html.Label(Model.MovieId)</td>
+                </tr>
+                <tr>
+                    <td>Movie Name</td>
+                    <td>@Html.TextBox("MovieName", Model.MovieName)</td>
+                </tr>
+                <tr>
+                    <td>Alternate names for movie</td>
+                    <td>@Html.TextBox("AltMovieNames", Model.AltMovieNames)</td>
+                </tr>
+            </table>
+        </div>
+        
+        <input type="submit" value="Search" />
+    }
+
+    
+</div>

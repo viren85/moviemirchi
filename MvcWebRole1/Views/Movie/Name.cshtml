@@ -1,0 +1,15 @@
+﻿@{
+    ViewBag.Title = "Name";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+}
+
+
+@if (ViewBag.ActorName != null)
+{
+    <h2>Profile of : @ViewBag.ActorName</h2>
+}
+else
+{
+     <h2>Sorry! no profile found</h2>
+}
+

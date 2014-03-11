@@ -1,0 +1,118 @@
+﻿@{
+    ViewBag.Title = "MovieReview";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var x = this;
+            reviewDetail();
+            x.submit();
+
+        });
+    });
+
+
+
+    function reviewDetail() {
+        var reviewerName = $("#reviewerName").val();
+
+        if (reviewerName == null || reviewerName == "") {
+            alert("Reviewer name is required");
+            return false;
+        }
+
+        var reviewerRating = $("#reviewerRating").val();
+        var systemRating = $("#systemRating").val();
+        var review = $("#review").val();
+        var outlink = $("#outlink").val();
+        var hot = $("#hot").val();
+        var movieId = $('#movieId :selected').val();
+
+        //creating array of Affilation
+        var afName = $("#afName").val().split(",");
+        var afLInk = $("#afLInk").val().split(",");
+        var afReviewLink = $("#afReviewLink").val().split(",");
+        var afLogo = $("#afLogo").val().split(",");
+
+        var affilation = [];
+
+        for (var a = 0; a < afName.length; a++) {
+            affilation.push({ "name": afName[a], "link": afLInk[a], "reviewlink": afReviewLink[a], "logoimage": afLogo[a] });
+        }
+
+        //creating object of review and inserting data into it
+
+        var review = { "Affiliation": JSON.stringify(affilation), "Hot": hot, "OutLink": outlink, "Review": review, "ReviewerName": reviewerName, "ReviewerRating": reviewerRating, "SystemRating": systemRating, "MovieId":movieId };
+
+        alert(JSON.stringify(review))
+
+        $("#hfReview").val(JSON.stringify(review));
+
+        alert(JSON.stringify(review))
+
+
+
+    }
+</script>
+
+
+
+
+
+<h2>MovieReview</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        <label>ReviewerName </label>
+        <input type="text" name="reviewerName" id="reviewerName" />
+
+    </div>
+    <div>
+        <label>Reviewr Rating</label>
+        <input type="text" name="reviewerRating" id="reviewerRating" />
+    </div>
+    @*<div>
+            <label>Reviewer Id</label>
+            <input type="text" name="reviewerId" id="reviewerId" />
+        </div>*@
+    <div>
+        <label>System Rating</label>
+        <input type="text" name="systemRating" id="systemRating" />
+    </div>
+    <div>
+        <label>Review</label>
+        <input type="text" name="review" id="review" />
+    </div>
+    <div>
+        <label>Outlink</label>
+        <input type="text" name="outlink" id="outlink" />
+    </div>
+    <div>
+        <label>Hot</label>
+        <input type="text" name="hot" id="hot" />
+    </div>
+    <div>
+        <label>Affilation</label>
+        <input type="text" name="afName" id="afName" placeholder="Affilation Name" />
+        <input type="text" name="afLink" id="afLInk" placeholder="Affilation Link" />
+        <input type="text" name="afReviewLink" id="afReviewLink" placeholder="Review Link" />
+        <input type="text" name="afLogo" id="afLogo" placeholder="Affilation Logo" />
+    </div>
+    <div>
+        <label>Movie List</label>
+       @Html.DropDownList("movieId", (SelectList)ViewBag.movie, "--Select movie--" )
+      
+    </div>
+    
+    <div>
+        <input type="submit" value="Save" name="Submit" id="saveReview"/>
+    </div>
+    
+    @Html.Hidden("hfReview", "")
+}
+

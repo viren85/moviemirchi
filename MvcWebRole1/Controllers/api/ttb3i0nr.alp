@@ -1,0 +1,34 @@
+﻿using DataStoreLib.Storage;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Web;
+using System.Web.Http;
+using System.Web.Script.Serialization;
+
+namespace MvcWebRole1.Controllers.api
+{
+    public class MoviesController : BaseController
+    {
+        // get : api/Movies?type={current/all order by name etc}         
+        protected override string ProcessRequest()
+        {
+            JavaScriptSerializer json = new JavaScriptSerializer();
+
+            var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
+            if (string.IsNullOrEmpty(qpParams["type"]))
+            {
+                throw new ArgumentException("movieId is not present");
+            }
+
+            string movieId = qpParams["movieId"].ToString();
+
+            var tableMgr = new TableManager();
+            var movie = tableMgr.GetMovieById(movieId);
+
+            return "";
+        }
+    }
+}

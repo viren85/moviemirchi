@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        var qs = GetQueryStringsForHtmPage();
+        var id = qs["movieid"];
+        LoadSingleMovie(id);
+    });
+</script>
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        @*<h3 class="panel-title">Movie Information</h3>*@
+        <h3 class="panel-title"><div id="title"></div></h3>
+        @*<div id="title"></div>*@
+    </div>
+    <div class="panel-body" id="movieinfo">
+        @*<div id="title" class="movietitle"></div>*@
+        <div id="posters" class="movieposters" style="margin-bottom: 1%; margin-top: 1%;">
+
+        </div>
+        <div id="genre" class="moviegenre">
+
+        </div>
+        <div id="synopsis" class="moviegenre">
+
+        </div>
+        <div id="director" class="moviegenre">
+
+        </div>
+        <div id="writer" class="moviegenre">
+
+        </div>
+        <div id="cast" class="moviegenre">
+
+        </div>
+        <div id="rating" class="moviegenre">
+
+        </div>
+        <div class="moviegenre">
+            <b>User Reviews :</b>
+        </div>
+        <div class="col-sm-10" style="padding:0; width:100%">
+            <ul id="reviews" class="activity"></ul>
+        </div>
+    </div>
+</div>
+

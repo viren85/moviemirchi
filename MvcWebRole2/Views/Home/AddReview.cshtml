@@ -1,0 +1,39 @@
+﻿@model MvcWebRole2.Models.ReviewModel
+
+@{
+    ViewBag.Title = "AddReview";
+}
+
+<h2>AddReview</h2>
+
+<div>
+    @using (@Html.BeginForm("Submit_Review", "Home", FormMethod.Post))
+    {
+        @Html.ValidationSummary(true);
+        <div>
+            <table>
+                <tr>
+                    <td>Movie Id</td>
+                    <td>@Html.Label(Model.MovieId)</td>
+                </tr>
+                <tr>
+                    <td>Review Id</td>
+                    <td>@Html.Label(Model.ReviewId)</td>
+                </tr>
+                <tr>
+                    <td>Reviewer Name</td>
+                    <td>@Html.TextBox("Revier Name", Model.ReviewerName)</td>
+                </tr>
+                <tr>
+                    <td>Review Text</td>
+                    <td>@Html.TextArea("Movie reivew", Model.Review)</td>
+                </tr>
+                <tr>
+                    <td>Rating</td>
+                    <td>@Html.TextBox("Movie Rating, on a scale of 10", Model.Rating)</td>
+                </tr>
+            </table>
+        </div>
+        <input type="submit" value="Add Review" />
+    }
+</div>
