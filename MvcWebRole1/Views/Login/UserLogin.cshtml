@@ -1,0 +1,78 @@
+﻿@{
+    ViewBag.Title = "UserAuthentication";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+}
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('form').on('submit', function (e) {
+            e.preventDefault();
+            var x = this;
+            reviewDetail();
+            x.submit();
+
+        });
+    });
+
+
+
+    function reviewDetail() {
+        var userName = $("#userName").val();
+
+        if (userName == null || userName == "") {
+            alert("UserName and Password is required");
+            return false;
+        }
+
+        var password = $("#password").val();
+       
+
+       
+
+        var login = { "UserName": userName, "Password":password };
+
+        //alert(JSON.stringify(login))
+
+        $("#hfLogin").val(JSON.stringify(login));
+
+       
+
+        
+
+    }
+</script>
+
+
+
+
+
+<h2>Please Sign In</h2>
+
+@using (Html.BeginForm())
+{
+    <div>
+        @if (TempData["Error"] != null)
+        {
+           <div style="float: left; padding-bottom: 6px; color: red; display:block;margin-bottom:20px;">@TempData["Error"]</div>
+        }
+    </div>
+    <div>
+        <label>User Name </label>
+        <input type="text" name="userName" id="userName" />
+
+    </div>
+    <div>
+        <label>Password</label>
+        <input type="password" name="password" id="password" />
+    </div>
+   
+    <div>
+        <input type="submit" value="Submit" name="Login" id="auth" />
+    </div>
+   <div>
+       @Html.ActionLink("Cancel", "Index", "Home")
+   </div>
+    @Html.Hidden("hfLogin", "")
+}
+

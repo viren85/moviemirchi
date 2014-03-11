@@ -44,6 +44,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\AuthenticationEntity.cs" />
     <Compile Include="Models\ITableEntity.cs" />
     <Compile Include="Models\MovieEntity.cs" />
     <Compile Include="Models\ReviewEntity.cs" />

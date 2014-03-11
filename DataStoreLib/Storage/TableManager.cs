@@ -83,5 +83,39 @@ namespace DataStoreLib.Storage
             return reviewTable.GetItemsByReivewer<ReviewEntity>(reviewerName);
         }
         /*end*/
+
+        public IDictionary<string, AuthenticationEntity> GetUsersByName(string userName)
+        {
+            var loginTable = TableStore.Instance.GetTable(TableStore.LoginTableName) as LoginTable;
+            return loginTable.GetItemsByUserName<AuthenticationEntity>(userName);
+        }
+        /*end*/
+
+        public IDictionary<string, Models.AuthenticationEntity> GetUserById(List<string> ids)
+        {
+            var reviewTable = TableStore.Instance.GetTable(TableStore.LoginTableName);
+            return reviewTable.GetItemsById<AuthenticationEntity>(ids);
+        }
+        public IDictionary<string, AuthenticationEntity> GetAllUser()
+        {
+            var loginTable = TableStore.Instance.GetTable(TableStore.LoginTableName);
+            return loginTable.GetAllItems<AuthenticationEntity>();
+        }
+
+        public IDictionary<AuthenticationEntity, bool> UpdateUsersById(List<Models.AuthenticationEntity> movies)
+        {
+            var loginTable = TableStore.Instance.GetTable(TableStore.LoginTableName);
+            Debug.Assert(loginTable != null);
+
+            var userList = new List<DataStoreLib.Models.TableEntity>(movies).ConvertAll(x => (ITableEntity)x);
+            var returnOp = loginTable.UpdateItemsById(userList);
+
+            var returnTranslateOp = new Dictionary<AuthenticationEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as AuthenticationEntity, returnOp[b]);
+            }
+            return returnTranslateOp;
+        }
     }
 }

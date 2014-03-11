@@ -33,7 +33,7 @@ namespace DataStoreLib.Storage
             {
                 operationList[id] = _table.Execute(TableOperation.Retrieve<TEntity>(partitionKey, id));
             }
-            
+
             var returnDict = new Dictionary<string, TEntity>();
             int iter = 0;
             foreach (var tableResult in operationList)
@@ -124,7 +124,7 @@ namespace DataStoreLib.Storage
 
             TableQuery<ReviewEntity> query = new TableQuery<ReviewEntity>().Where(TableQuery.GenerateFilterCondition("MovieId", QueryComparisons.Equal, movieId));
             //TableQuery<TEntity> query = new TableQuery<TEntity>().Where(TableQuery.GenerateFilterCondition("MovieId", QueryComparisons.Equal, movieId));
-            
+
             // execute query
             //IEnumerable<TEntity> reviewResults = _table.ExecuteQuery<TEntity>(query);
             IEnumerable<ReviewEntity> reviewResults = _table.ExecuteQuery<ReviewEntity>(query);
@@ -151,7 +151,7 @@ namespace DataStoreLib.Storage
             var operationList = new Dictionary<string, TableResult>();
 
             TableQuery<ReviewEntity> query = new TableQuery<ReviewEntity>().Where(TableQuery.GenerateFilterCondition("ReviewerName", QueryComparisons.Equal, reviewerName));
-            
+
             IEnumerable<ReviewEntity> reviewResults = _table.ExecuteQuery<ReviewEntity>(query);
 
             var returnDict = new Dictionary<string, TEntity>();
@@ -197,7 +197,7 @@ namespace DataStoreLib.Storage
             var operationList = new Dictionary<string, TableResult>();
 
             TableQuery<MovieEntity> query = new TableQuery<MovieEntity>().Where(TableQuery.GenerateFilterCondition("UniqueName", QueryComparisons.Equal, name));
-            
+
             //execute query
             IEnumerable<MovieEntity> reviewResults = _table.ExecuteQuery<MovieEntity>(query);
 
@@ -233,6 +233,55 @@ namespace DataStoreLib.Storage
         protected override string GetParitionKey()
         {
             return ReviewEntity.PARTITION_KEY;
+        }
+    }
+
+    internal class LoginTable : Table
+    {
+        protected LoginTable(CloudTable table)
+            : base(table)
+        {
+        }
+
+        internal static Table CreateTable(CloudTable table)
+        {
+            return new LoginTable(table);
+        }
+
+        protected override string GetParitionKey()
+        {
+            return ReviewEntity.PARTITION_KEY;
+        }
+
+
+        public IDictionary<string, TEntity> GetItemsByUserName<TEntity>(string userName) where TEntity : DataStoreLib.Models.TableEntity
+        {
+
+            Debug.Assert(_table != null);
+
+            var operationList = new Dictionary<string, TableResult>();
+
+            TableQuery<AuthenticationEntity> query = new TableQuery<AuthenticationEntity>().Where(TableQuery.GenerateFilterCondition("UserName", QueryComparisons.Equal, userName));
+            //TableQuery<TEntity> query = new TableQuery<TEntity>().Where(TableQuery.GenerateFilterCondition("MovieId", QueryComparisons.Equal, movieId));
+
+            // execute query
+            //IEnumerable<TEntity> reviewResults = _table.ExecuteQuery<TEntity>(query);
+            IEnumerable<AuthenticationEntity> loginResults = _table.ExecuteQuery<AuthenticationEntity>(query);
+
+            var returnDict = new Dictionary<string, TEntity>();
+            int iter = 0;
+
+            foreach (var tableResult in loginResults)
+            {
+                TEntity entity = null;
+
+                entity = tableResult as TEntity;
+
+                returnDict.Add(tableResult.UserName, entity);
+                iter++;
+            }
+
+            return returnDict;
         }
     }
 }

@@ -209,6 +209,8 @@
     <Compile Include="Controllers\api\TrailerController.cs" />
     <Compile Include="Controllers\Home1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LogOutController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -352,6 +354,7 @@
     <Content Include="Views\Admin\AddMovie.cshtml" />
     <Content Include="Views\Admin\MovieReview.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
+    <Content Include="Views\Login\UserLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

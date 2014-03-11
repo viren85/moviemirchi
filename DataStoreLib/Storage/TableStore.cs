@@ -43,12 +43,14 @@ namespace DataStoreLib.Storage
 
         public static readonly string MovieTableName = "Movie";
         public static readonly string ReviewTableName = "Review";
+        public static readonly string LoginTableName = "Login";
         public static readonly string ToBeIndexedTableName = "TobeIndexedTable";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
             new Dictionary<string, Func<CloudTable, Table>>()
                 {
                     {MovieTableName, MovieTable.CreateTable},
+                     {LoginTableName, LoginTable.CreateTable},
                     {ReviewTableName, ReviewTable.CreateTable},
                     {ToBeIndexedTableName, ToBeIndexedTable.CreateTable}
                 }; 

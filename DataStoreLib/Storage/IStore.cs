@@ -23,6 +23,11 @@ namespace DataStoreLib.Storage
 
         IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
         IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
+
+        IDictionary<string, AuthenticationEntity> GetUsersByName(string userName);
+        IDictionary<AuthenticationEntity, bool> UpdateUsersById(List<AuthenticationEntity> user);
+
+        IDictionary<string, AuthenticationEntity> GetAllUser();
     }
 
     public static class IStoreHelpers
@@ -245,6 +250,50 @@ namespace DataStoreLib.Storage
             }
             
             return characters;
+        }
+
+        public static List<AuthenticationEntity> SearchUser(this IStore store, string searchText)
+        {
+            var retList = store.GetAllUser();
+            Debug.Assert(retList.Count == 1);
+
+            List<AuthenticationEntity> users = new List<AuthenticationEntity>();
+
+            foreach (var user in retList.Values)
+            {
+                if (user.UserName.Contains(searchText.ToLower()))
+                {
+                    users.Add(user);
+                }
+            }
+
+            users.Equals(searchText);
+
+            //currentSongs.Sort();
+            return users;
+        }
+
+        public static AuthenticationEntity GetUserByName(this IStore store, string userName)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(userName));
+
+            var retList = store.GetUsersByName(userName);
+
+            Debug.Assert(retList.Count == 1);
+            if (retList.Count > 0)
+                return retList[retList.Keys.FirstOrDefault()];
+            else
+                return null;
+        }
+
+        public static bool UpdateUserById(this IStore store, AuthenticationEntity user)
+        {
+            Debug.Assert(user != null);
+            var list = new List<AuthenticationEntity> { user };
+            var retList = store.UpdateUsersById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
         }
     }
 }
