@@ -12,6 +12,7 @@ using Lucene.Net.Search;
 using Lucene.Net.Store;
 using Version = Lucene.Net.Util.Version;
 using Lucene.Net.QueryParsers;
+using Lucene.Net.Analysis;
 
 namespace LuceneSearchLibrarby
 {
@@ -37,7 +38,7 @@ namespace LuceneSearchLibrarby
                 }
 
                 var lockFilePath = Path.Combine(_luceneDir, "write.lock");
-                
+
                 if (File.Exists(lockFilePath))
                 {
                     File.Delete(lockFilePath);
@@ -65,7 +66,7 @@ namespace LuceneSearchLibrarby
             doc.Add(new Field("Id", movieSearchData.Id.ToString(), Field.Store.YES, Field.Index.NOT_ANALYZED));
             doc.Add(new Field("Title", movieSearchData.Title, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("UniqueName", movieSearchData.UniqueName, Field.Store.YES, Field.Index.ANALYZED));
-            doc.Add(new Field("TitleImageURL ", movieSearchData.TitleImageURL, Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field("TitleImageURL", movieSearchData.TitleImageURL, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Type", movieSearchData.Type, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Link", movieSearchData.Link, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Description", movieSearchData.Description, Field.Store.YES, Field.Index.ANALYZED));
@@ -82,6 +83,7 @@ namespace LuceneSearchLibrarby
         {
             // init lucene
             var analyzer = new StandardAnalyzer(Version.LUCENE_30);
+            //var analyzer = new WhitespaceAnalyzer();
             using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 // add data to lucene search index (replaces older entry if any)
@@ -110,6 +112,7 @@ namespace LuceneSearchLibrarby
         {
             // init lucene
             var analyzer = new StandardAnalyzer(Version.LUCENE_30);
+            //var analyzer = new WhitespaceAnalyzer();
             using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 // remove older index entry
@@ -131,6 +134,7 @@ namespace LuceneSearchLibrarby
             try
             {
                 var analyzer = new StandardAnalyzer(Version.LUCENE_30);
+                //var analyzer = new WhitespaceAnalyzer();
                 using (var writer = new IndexWriter(_directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     // remove older index entries
@@ -154,6 +158,7 @@ namespace LuceneSearchLibrarby
         public static void Optimize()
         {
             var analyzer = new StandardAnalyzer(Version.LUCENE_30);
+            //var analyzer = new WhitespaceAnalyzer();
             using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
             {
                 analyzer.Close();
@@ -202,7 +207,7 @@ namespace LuceneSearchLibrarby
         private static IEnumerable<MovieSearchData> _search(string searchQuery, string searchField = "")
         {
             // validation
-            if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", ""))) 
+            if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", "")))
                 return new List<MovieSearchData>();
 
             // set up lucene searcher
@@ -210,6 +215,7 @@ namespace LuceneSearchLibrarby
             {
                 var hits_limit = 10;
                 var analyzer = new StandardAnalyzer(Version.LUCENE_30);
+                //var analyzer = new WhitespaceAnalyzer();
 
                 // search by single field
                 if (!string.IsNullOrEmpty(searchField))
@@ -225,8 +231,8 @@ namespace LuceneSearchLibrarby
                 // search by multiple fields (ordered by RELEVANCE)
                 else
                 {
-                    var parser = new MultiFieldQueryParser
-                        (Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
+                    //var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
+                    var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description" }, analyzer);
                     var query = parseQuery(searchQuery, parser);
                     var hits = searcher.Search
                     (query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;

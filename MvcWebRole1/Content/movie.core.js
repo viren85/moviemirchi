@@ -128,7 +128,7 @@ function PopulatingMovies(movie) {
     img.attr("src", poster[0].url);
 
     var anchor = $("<a/>");
-    anchor.attr("href", "Movie?movieid=" + movie.MovieId);
+    anchor.attr("href", "Movie?name=" + movie.UniqueName);
     anchor.attr("title", movie.Name)
     anchor.append(img);
 
@@ -139,7 +139,7 @@ function PopulatingMoviesTitle(movieTitle) {
     var name = $("<div/>");
     name.attr("class", "movie-title");
     name.attr("style", "margin-right: 1%;");
-    name.html("<a href='Movie?movieid=" + movieTitle.MovieId + "'>" + movieTitle.Name + "</a>");
+    name.html("<a href='Movie?name=" + movieTitle.UniqueName + "'>" + movieTitle.Name + "</a>");
 
     var parent = $("#movieTitle");
 
@@ -147,7 +147,7 @@ function PopulatingMoviesTitle(movieTitle) {
 }
 
 function LoadSingleMovie(movieId) {
-    var path = "api/MovieInfo?movieId=" + movieId;
+    var path = "api/MovieInfo?q=" + movieId;
 
     CallHandler(path, onSuccessLoadSingleMovie);
 }

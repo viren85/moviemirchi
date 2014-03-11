@@ -9,10 +9,17 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web;
 using System.Web.Script.Serialization;
+using DataStoreLib.Constants;
 
 
 namespace MvcWebRole1.Controllers.api
 {
+    /// <summary>
+    /// This API returns all the movies found based on actor name. e.g. Aamir Khan. This api will return list of movies which have aamir khan 
+    /// (as actor, as singer, as director, as producer etc.)
+    /// If movies are found, JSON string contains all movies information. This excludes reviews about these movies. Otherwise, empty string
+    /// throw ArgumentException
+    /// </summary>
     public class ActorController : BaseController
     {
         // get : api/Actor?n={actor/actress/producer...etc name}
@@ -22,24 +29,28 @@ namespace MvcWebRole1.Controllers.api
 
             try
             {
+                var tableMgr = new TableManager();
+
+                // get query string parameters
                 var qpParam = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
 
                 if (string.IsNullOrEmpty(qpParam["n"]))
                 {
-                    throw new ArgumentException("Search Actor/Actress is not found");
+                    throw new ArgumentException(Constants.API_EXC_SEARCH_TEXT_NOT_EXIST);
                 }
 
-                string searchActor = qpParam["n"].ToString();
+                string actorName = qpParam["n"].ToString();
 
-                var tableMgr = new TableManager();
+                // get movies by actor(roles like actor, actress, producer, director... etc) 
+                var movies = tableMgr.SearchMoviesByActor(actorName);
 
-                var movies = tableMgr.SearchMoviesByActor(searchActor);
-
+                // serialize movie list and return
                 return json.Serialize(movies);
             }
             catch (Exception ex)
             {
-                return json.Serialize(new { Status = "Error", UserMessage = "Error occured while getting movie's trailers", ActualError = ex.Message });
+                // if any error occured then return User friendly message with system error message
+                return json.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_SEARCHING_MOVIES, ActualError = ex.Message });
             }
         }
     }

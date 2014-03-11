@@ -195,11 +195,9 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
-    <Compile Include="Controllers\api\AllCharactersController.cs" />
-    <Compile Include="Controllers\api\AllMovieTitleController.cs" />
-    <Compile Include="Controllers\api\AllMovieTrailerController.cs" />
     <Compile Include="Controllers\api\AllSongsController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
+    <Compile Include="Controllers\api\MovieInfo.cs" />
     <Compile Include="Controllers\api\MovieInfoController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\api\PosterController.cs" />
