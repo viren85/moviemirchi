@@ -16,25 +16,24 @@ namespace MvcWebRole1.Controllers.api
 {
     public class TrailerController : BaseController
     {
-        // get : api/Movies?type={current/all Trailer}        
+        // get : api/Trailer?n={movie's unique name}        
 
         protected override string ProcessRequest()
         {
             JavaScriptSerializer json = new JavaScriptSerializer();
-            MovieInfo movieInfo = new MovieInfo();
-            Multimedia mult = new Multimedia();
 
             try
             {
                 var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
-                if (string.IsNullOrEmpty(qpParams["movieId"]))
+                if (string.IsNullOrEmpty(qpParams["n"]))
                 {
-                    throw new ArgumentException("Movie not found.");
+                    throw new ArgumentException("Movie name is not supplied.");
                 }
 
-                string movieId = qpParams["movieId"].ToString();
+                string movieUniqueName = qpParams["n"].ToString();
+
                 var tableMgr = new TableManager();
-                var movie = tableMgr.GetMovieById(movieId);
+                var movie = tableMgr.GetMovieByUniqueName(movieUniqueName);
 
                 if (movie != null)
                 {
@@ -43,7 +42,7 @@ namespace MvcWebRole1.Controllers.api
             }
             catch (Exception ex)
             {
-                throw ex;
+                return json.Serialize(new { Status = "Error", UserMessage = "Error occured while getting movie's trailers", ActualError = ex.Message });
             }
 
             return string.Empty;

@@ -116,8 +116,7 @@ namespace DataStoreLib.Storage
         public static List<MovieEntity> SearchMovies(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
-            //Debug.Assert(retList.Count == 1);
-
+            
             List<MovieEntity> currentMovies = new List<MovieEntity>();
 
             foreach (var currentMovie in retList.Values)
@@ -176,7 +175,7 @@ namespace DataStoreLib.Storage
             return currentSongs;
         }
 
-        public static List<MovieEntity> SearchActor(this IStore store, string searchText)
+        public static List<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
             Debug.Assert(retList.Count == 1);
@@ -185,7 +184,7 @@ namespace DataStoreLib.Storage
 
             foreach (var actor in retList.Values)
             {
-                if (actor.Casts.Contains(searchText.ToLower()))
+                if (actor.Casts.ToString().Contains(searchText.ToLower()))
                 {
                     actors.Add(actor);
                 }

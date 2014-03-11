@@ -73,7 +73,7 @@ namespace MvcWebRole1.Controllers.api
             }
             catch (Exception ex)
             {
-                return json.Serialize(new { Error = "There are some error!", ActualError = ex.Message });
+                return json.Serialize(new { Status = "Error", ActualError = ex.Message });
             }
         }
     }

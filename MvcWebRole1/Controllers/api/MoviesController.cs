@@ -16,8 +16,8 @@ namespace MvcWebRole1.Controllers.api
 {
     public class MoviesController : BaseController
     {
-        // get : api/Movies?type={current/all}&resultlimit={15}          
-        protected override string ProcessRequest()                       
+        // get : api/Movies?type={current/all (default)}&resultlimit={default 100}          
+        protected override string ProcessRequest()
         {
             JavaScriptSerializer json = new JavaScriptSerializer();
             try
@@ -27,11 +27,16 @@ namespace MvcWebRole1.Controllers.api
                 var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
 
                 string type = "all";
+                int resultLimit = 100;
 
                 if (!string.IsNullOrEmpty(qpParams["type"]))
                 {
                     type = qpParams["type"].ToString();
-                    //throw new ArgumentException("type is not present");
+                }
+
+                if (!string.IsNullOrEmpty(qpParams["resultlimit"]))
+                {
+                    resultLimit = Convert.ToInt32(qpParams["resultlimit"].ToString());
                 }
 
                 var tableMgr = new TableManager();
@@ -40,18 +45,44 @@ namespace MvcWebRole1.Controllers.api
 
                 if (type.ToLower() == "all")
                 {
-                    movies = tableMgr.GetSortedMoviesByName();
+                    var tempMovies = tableMgr.GetSortedMoviesByName();
+
+                    if (tempMovies != null)
+                    {
+                        if (tempMovies.Count < resultLimit)
+                        {
+                            resultLimit = tempMovies.Count;
+                        }
+
+                        for (int i = 0; i < resultLimit; i++)
+                        {
+                            movies.Add(tempMovies[i]);
+                        }
+                    }
                 }
                 else if (type.ToLower() == "current")
                 {
-                    movies = tableMgr.GetCurrentMovies();
+                    var tempMovies = tableMgr.GetCurrentMovies();
+
+                    if (tempMovies != null)
+                    {
+                        if (tempMovies.Count < resultLimit)
+                        {
+                            resultLimit = tempMovies.Count;
+                        }
+
+                        for (int i = 0; i < resultLimit; i++)
+                        {
+                            movies.Add(tempMovies[i]);
+                        }
+                    }
                 }
 
-                return json.Serialize(movies);                
+                return json.Serialize(movies);
             }
             catch (Exception ex)
             {
-               return  json.Serialize(new { Status = "Error", Message = ex.Message });
+                return json.Serialize(new { Status = "Error", Message = ex.Message });
             }
         }
 
