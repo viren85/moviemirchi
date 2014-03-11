@@ -16,8 +16,8 @@ namespace MvcWebRole1.Controllers.api
 {
     public class MoviesController : BaseController
     {
-        // get : api/Movies?type={current/all}&resultlimit={15}         
-        protected override string ProcessRequest()
+        // get : api/Movies?type={current/all}&resultlimit={15}          
+        protected override string ProcessRequest()                       
         {
             JavaScriptSerializer json = new JavaScriptSerializer();
             try
