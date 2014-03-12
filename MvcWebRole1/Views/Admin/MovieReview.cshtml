@@ -1,59 +1,66 @@
 ﻿@{
     ViewBag.Title = "MovieReview";
-    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h2>MovieReview</h2>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Review</h3>
+    </div>
+    <div class="panel-body" id="reviewinfo">
+        @using (Html.BeginForm())
+        {
 
-@using (Html.BeginForm())
-{
-    <div>
-        <label>ReviewerName </label>
-        <input type="text" name="reviewerName" id="reviewerName" />
 
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" />
+                </div>
+            </div>
+
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" name="Review" id="review" class="reviewInput" placeholder="review" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" />
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <input type="submit" value="Save" class="btn btn-primary" name="Submit" id="saveReview" />
+                </div>
+            </div>
+
+
+
+            @Html.Hidden("hfReview", "")
+        }
     </div>
-    <div>
-        <label>Reviewr Rating</label>
-        <input type="text" name="reviewerRating" id="reviewerRating" />
-    </div>
-    @*<div>
-            <label>Reviewer Id</label>
-            <input type="text" name="reviewerId" id="reviewerId" />
-        </div>*@
-    <div>
-        <label>System Rating</label>
-        <input type="text" name="systemRating" id="systemRating" />
-    </div>
-    <div>
-        <label>Review</label>
-        <input type="text" name="review" id="review" />
-    </div>
-    <div>
-        <label>Outlink</label>
-        <input type="text" name="outlink" id="outlink" />
-    </div>
-    <div>
-        <label>Hot</label>
-        <input type="text" name="hot" id="hot" />
-    </div>
-    <div>
-        <label>Affilation</label>
-        <input type="text" name="afName" id="afName" placeholder="Affilation Name" />
-        <input type="text" name="afLink" id="afLInk" placeholder="Affilation Link" />
-        <input type="text" name="afReviewLink" id="afReviewLink" placeholder="Review Link" />
-        <input type="text" name="afLogo" id="afLogo" placeholder="Affilation Logo" />
-    </div>
-    <div>
-        <label>Movie List</label>
-       @Html.DropDownList("movieId", (SelectList)ViewBag.movie, "--Select movie--" )
-    </div>
-    
-    <div>
-        <input type="submit" value="Save" name="Submit" id="saveReview"/>
-    </div>
-    
-    @Html.Hidden("hfReview", "")
-}
+</div>
+
 
 
 <script type="text/javascript">

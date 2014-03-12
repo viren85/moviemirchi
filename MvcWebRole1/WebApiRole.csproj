@@ -354,6 +354,8 @@
     <Content Include="Views\Admin\MovieReview.cshtml" />
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Login\UserLogin.cshtml" />
+    <Content Include="Views\Admin\Affilation.cshtml" />
+    <Content Include="Views\Admin\Reviewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

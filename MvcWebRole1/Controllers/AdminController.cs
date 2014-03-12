@@ -132,15 +132,16 @@ namespace MvcWebRole1.Controllers
                     //var m = new MovieEntity();
                     //entity.MovieId = m.MovieId = Guid.NewGuid().ToString();
                     //entity.ReviewId = 
-                    entity.MovieId = review.MovieId;
-                    entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
+                   entity.MovieId = review.MovieId;
+                    //entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
                     entity.Review = review.Review;
                     entity.ReviewerName = review.ReviewerName;
                     entity.ReviewerRating = review.ReviewerRating;
-                    entity.SystemRating = review.SystemRating;
+                    //entity.SystemRating = review.SystemRating;
                     entity.OutLink = review.OutLink;
                     entity.Affiliation = review.Affiliation;
                     entity.Hot = review.Hot;
+                    //enitity.
 
                     var tableMgr = new TableManager();
                     tableMgr.UpdateReviewById(entity);
@@ -186,6 +187,8 @@ namespace MvcWebRole1.Controllers
         }
 
 
+
+
         private void SetConnectionString()
         {
             var connectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
@@ -193,6 +196,21 @@ namespace MvcWebRole1.Controllers
             ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
         }
 
+        [HttpGet]
+        public ActionResult Affilation()
+        {
+            //SetConnectionString();
 
+         //   ViewBag.movie = GetMovie();
+
+
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Reviewer()
+        {
+            return View();
+        }
     }
 }

@@ -146,8 +146,8 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <div class="col-sm-6 col-md-6">
                         <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
-                            <div class="btn-group pull-left" style="margin-right:10px; display:block">
-                                <select id="searchtype" class="form-control" style="margin: 0;margin-left: 11%;border-radius: 4px 0px 0px 4px;">
+                            <div class="btn-group pull-left" id="btngroup">
+                                <select id="searchtype" class="form-control" >
                                     <option>
                                         All
                                     </option>
@@ -180,16 +180,17 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (Session["UserName"] != null)
                         {
-                            <li style="float: right;">
-                                @Html.ActionLink("Logout", "Logout", "LogOut")
-                            </li>
-                            <li style="float: right; margin-top:10px;color:white;">
+                            
+                            <li class="session">
                                 Welcome, @Session["UserName"].ToString().ToUpper()
+                            </li>
+                            <li class="log">
+                                @Html.ActionLink("Logout", "Logout", "LogOut")
                             </li>
                         }
                         else
                         {
-                            <li style="float: right;">
+                            <li class="log">
                                 @Html.ActionLink("Login", "UserLogin", "Login")
                             </li>
                         }
@@ -203,13 +204,13 @@
             <div class="col-sm-8" style="padding:0">
                 @RenderBody()
             </div>
-            <div class="col-sm-4" style="padding: 0px 0px 0px 5px; float: right; ">
+            <div class="col-sm-4" id="panel">
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">News</h3>
                     </div>
                     <div class="panel-body">
-                        <img src="~/Images/breaking-news.jpg" style="width:99%; height: 250px;" data-src="holder.js/200x200" class="img-thumbnail" alt="200x200">
+                        <img src="~/Images/breaking-news.jpg" id="thumbnail" data-src="holder.js/200x200" class="img-thumbnail" alt="200x200">
                     </div>
                 </div>
             </div>

@@ -905,6 +905,7 @@ function GetTrailerJson() {
     return JSON.stringify(trailer);
 }
 
+
 function ClearMoviesControl() {
     $("#bottomError").html("");
     $("#bottomError").show();
@@ -1048,3 +1049,102 @@ function ClearTrailerControl() {
         }
     }
 }
+
+/*Creating Affilation Control*******************/
+function AddAffilationControl() {
+    var counter = 0;
+
+    if ($("#hfAffilation").val() != "") {
+        counter = $("#hfAffilation").val();
+    }
+
+    var affilationContainer = $("#affilation");
+
+    var well = $("<div/>");
+    well.attr("id", "affilation_well_" + counter);
+    well.attr("class", "col-sm-12");
+    well.attr("style", "display:block;");
+
+    //generating affilation name
+    var affilationName = $("<input/>");
+    affilationName.attr("style", "width: 35%;padding: 1%;border-radius: 4px;margin-left: 2%;margin-bottom: 1%;border-width: 1px;");
+    affilationName.attr("name", "affilationName");
+    affilationName.attr("type", "text");
+    affilationName.attr("placeholder", "Affilation Name");
+    affilationName.attr("id", "affilationName_" + counter);
+    well.append(affilationName);
+    well.append($("<br>"));
+
+   
+
+    //generating website Name
+    var websiteName = $("<input/>");
+    websiteName.attr("style", "width: 35%;padding: 1%;border-radius: 4px;margin-left: 2%;margin-bottom: 1%;border-width: 1px;");
+    websiteName.attr("type", "text");
+    websiteName.attr("placeholder", "Website Name");
+    websiteName.attr("name", "websiteName");
+    websiteName.attr("id", "websiteName_" + counter);
+    well.append(websiteName);
+    well.append($("<br>"));
+
+    //generating website Link
+    var websiteLink = $("<input/>");
+    websiteLink.attr("style", "width: 35%;padding: 1%;border-radius: 4px;margin-left: 2%;margin-bottom: 1%;border-width: 1px;");
+    websiteLink.attr("type", "text");
+    websiteLink.attr("placeholder", "Website Link");
+    websiteLink.attr("name", "websiteLink");
+    websiteLink.attr("id", "websiteLink_" + counter);
+    well.append(websiteLink);
+    well.append($("<br>"));
+
+    //generating logo link
+    var logoLink = $("<input/>");
+    logoLink.attr("style", "width: 35%;padding: 1%;border-radius: 4px;margin-left: 2%;margin-bottom: 1%;border-width: 1px;");
+    logoLink.attr("type", "text");
+    logoLink.attr("placeholder", "Logo Link");
+    logoLink.attr("name", "logoLink");
+    logoLink.attr("id", "logoLink_" + counter);
+    well.append(logoLink);
+    well.append($("<br>"));
+
+    //generating country
+    var country = $("<input/>");
+    country.attr("style", "width: 35%;padding: 1%;border-radius: 4px;margin-left: 2%;margin-bottom: 1%;border-width: 1px;");
+    country.attr("type", "text");
+    country.attr("placeholder", "Country");
+    country.attr("name", "Country");
+    country.attr("id", "country_" + counter);
+    well.append(country);
+
+
+    //
+    var close = $("<input/>");
+    close.attr("type", "button");
+    close.attr("style", "margin-left:1%;");
+    close.attr("class", "btn btn-danger");
+    close.attr("value", "Remove");
+    close.attr("name", "ramove");
+    close.attr("onClick", "RemoveAffilation(" + counter + ")");
+    //close.html("X");
+    well.append(close);
+
+    //remove div
+    // var close1 = $("<div/>");
+    //close1.attr("class", "btn btn-danger");
+    //close1.attr("onClick", "RemoveAffilation(" + counter + ")");
+    //close1.html("X");
+    // well.append(close1);
+
+    affilationContainer.append(well);
+    counter++;
+
+    $("#hfAffilation").val(counter);
+}
+
+function RemoveAffilation(counter) {
+    var well = $("#affilation_well_" + counter);
+    well.remove();
+}
+
+/*End*/
+

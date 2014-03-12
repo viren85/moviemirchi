@@ -25,142 +25,9 @@
     <meta name="robots" content="NOODP" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <style type="text/css">
-        .movie-title {
-            float: left;
-            width: 19%;
-            padding: 4px;
-            text-align: center;
-            font-size: 10px;
-        }
 
-        .activity {
-            float: left;
-            width: 100%;
-            padding: 0%;
-            text-align: left;
-            list-style: none;
-        }
-
-        .activityContainer {
-            border-top: solid 1px #ccc;
-            padding: 1%;
-            width: 100%;
-            float: left;
-        }
-
-            .activityContainer:hover {
-                background-color: #F5F5F5;
-                cursor: pointer;
-                border-radius: 0px;
-            }
-
-        .reviewer {
-            float: left;
-            width: 15%;
-        }
-
-        .review {
-            float: left;
-            width: 85%;
-        }
-
-        .moviegenre {
-            margin-top: 1%;
-            float: left;
-            width: 100%;
-        }
-
-        .star-box-giga-star {
-            background-position: -180px -71px;
-            width: 66px;
-            height: 66px;
-            line-height: 66px;
-            display: inline-block;
-            text-align: center;
-            vertical-align: middle;
-            font-size: 15px;
-            font-weight: bold;
-            color: black;
-            font-family: tahoma;
-            float: left;
-            padding-right: 5px;
-        }
-
-        .titlePageSprite {
-            background-image: url(/images/titlePageSprite-407338954._V_.png);
-            display: inline-block;
-            vertical-align: middle;
-        }
-
-        #targetUL {
-            width: 100%;
-            border: 1px solid silver;
-            margin-top: 2px;
-            list-style: none;
-            position: absolute;
-            background-color: white;
-            z-index: 1;
-            display: none;
-        }
-
-            #targetUL li {
-                margin-left: -40px;
-                border-bottom: 1px solid silver;
-                height: 70px;
-                padding-left: 5px;
-                padding-top: 8px;
-                cursor: pointer;
-            }
-
-                #targetUL li:hover {
-                    cursor: pointer;
-                    background-color: #fcecec;
-                }
-
-        textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-            background-color: #fff !important;
-            border: 1px solid #ccc !important;
-            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
-            -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
-            box-shadow: inset 0 1px 1px rgba(0,0,0,0.075) !important;
-            -webkit-transition: border linear .2s,box-shadow linear .2s !important;
-            -moz-transition: border linear .2s,box-shadow linear .2s !important;
-            -o-transition: border linear .2s,box-shadow linear .2s !important;
-            transition: border linear .2s,box-shadow linear .2s !important;
-        }
-
-        select, textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-            display: inline-block;
-            padding: 4px 6px;
-            margin-bottom: 10px;
-            font-size: 14px;
-            line-height: 20px;
-            color: #555;
-            vertical-align: middle;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
-        }
-
-        .page-break {
-            padding-bottom: 0px;
-            margin: 10px 0 10px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .textBoxes {
-            width: 40%;
-        }
-
-        .HWtextBoxes {
-            width: 60px;
-        }
-    </style>
 
     <script type="text/javascript">
-
-
         /*$(document).click(function (e) {
             var container = $("#targetUL");
             if (!container.is(e.target) // if the target of the click isn't the container...
@@ -171,7 +38,6 @@
         });*/
 
         $(document).ready(function () {
-
             //We have used keyup event to track the user enter value in the textbox.
             $("#target").keyup(function () {
                 //Fetching the textbox value.
@@ -181,7 +47,6 @@
             });
 
             function getItems(query) {
-
                 //Here we are using ajax get method to fetch data from the list based on the user entered value in the textbox.
                 //We are sending query i.e textbox as data.
                 $.ajax({
@@ -263,7 +128,7 @@
         }
     </script>
 </head>
-<body style="background-color: #D5D5D5">
+<body>
     <div class="container">
         <div class="row">
             <div class="navbar navbar-inverse" role="navigation">
@@ -279,8 +144,8 @@
                 <div class="collapse navbar-collapse navbar-ex1-collapse">
                     <div class="col-sm-6 col-md-6">
                         <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
-                            <div class="btn-group pull-left" style="margin-right:10px; display:block">
-                                <select id="searchtype" class="form-control" style="margin: 0;margin-left: 11%;border-radius: 4px 0px 0px 4px;">
+                            <div class="btn-group pull-left" id="btngroup">
+                                <select id="searchtype" class="form-control">
                                     <option>
                                         All
                                     </option>
@@ -311,21 +176,22 @@
                         </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        
-@if (Session["UserName"] != null)
+
+                        @if (Session["UserName"] != null)
                         {
-    <li style="float: right;">
-        @Html.ActionLink("Logout", "Logout", "LogOut")
-    </li>
-    <li class="authenticate" >
-        Welcome, @Session["UserName"].ToString().ToUpper()
-    </li>
+                           
+                            <li class="authenticate">
+                                Welcome, @Session["UserName"].ToString().ToUpper()
+                            </li>
+                             <li class="log">
+                                @Html.ActionLink("Logout", "Logout", "LogOut")
+                            </li>
                         }
                         else
                         {
-    <li style="float: right;">
-        @Html.ActionLink("Login", "UserLogin", "Login")
-    </li>}
+                            <li class="log">
+                                @Html.ActionLink("Login", "UserLogin", "Login")
+                            </li>}
                     </ul>
                 </div>
             </div>

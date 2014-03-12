@@ -44,24 +44,22 @@ namespace MvcWebRole1.Controllers
                     SetConnectionString();
 
                     TableManager tblMgr = new TableManager();
-                    AuthenticationEntity entity = tblMgr.GetUserByName(auth.UserName);
-
-                    //AuthenticationEntity entity = new  AuthenticationEntity();
-                   
+                    AuthenticationEntity entity = tblMgr.GetUserByName(auth.UserName);        
 
                     if (entity.UserName == auth.UserName && entity.Password == auth.Password){
 
                         Session["UserName"] = auth.UserName;
                         return RedirectToAction("AddMovie", "Admin");
-
                     }
                 }
-
-             
+                else
+                {
+                    TempData["Error"] = "Username or Password Require.";
+                }
             }
             catch (Exception)
             {
-                TempData["Error"] = "Login Failed";
+                TempData["Failed"] = "Login Failed.";
             }
 
             return View();

@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "Affilation";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Affilation</h3>
+    </div>
+    <div class="panel-body" id="affilationinfo">
+        @using (Html.BeginForm())
+        {
+            <div class="row">
+                <div class="col-sm-12">
+                    <div id="affilation">
+                        <div id="affilationError" class="alert alert-danger" style="display:none;"></div>
+                        <input type="hidden" id="hfAffilation" value="1" style="display:none;" />
+                        <div id="affilation_well_0" class="col-sm-12">
+                            <input type="text" name="affilationName" id="affilationName_0" class="reviewInput" placeholder="Affilation Name" />
+
+                            <input type="button" class="btn btn-success" name="Add More" value="Add More" id="addMore" onclick="AddAffilationControl();" /> <br />
+                            <input type="text" name="websiteName" id="websiteName_0" class="reviewInput" placeholder="Website Name" /><br />
+                            <input type="text" name="websiteLink" id="websiteLink_0" class="reviewInput" placeholder="Website Link" /><br />
+                            <input type="text" name="logoLink" id="logoLink_0" class="reviewInput" placeholder="Logo" /><br />
+                            <input type="text" name="country" id="country_0" class="reviewInput" placeholder="Country" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <input type="submit" name="Create" value="Create" id="create" class="btn btn-primary" />
+            </div>
+        }
+    </div>
+</div>
