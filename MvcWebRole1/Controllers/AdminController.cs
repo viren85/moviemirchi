@@ -75,7 +75,7 @@ namespace MvcWebRole1.Controllers
                     entity.Year = movie.Year;
                     entity.AltNames = movie.Name;
 
-                    string uniqueName = movie.Name.Replace(" ", "_").Replace("&", "_and_").Replace(".", "").Replace("'", "").ToLower();
+                    string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
                     entity.UniqueName = uniqueName;
 
                     tableMgr.UpdateMovieById(entity);
