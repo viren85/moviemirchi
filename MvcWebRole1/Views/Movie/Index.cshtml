@@ -46,8 +46,8 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        var qs = GetQueryStringsForHtmPage();
-        var id = qs["name"];
-        LoadSingleMovie(id);
+        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        
+        LoadSingleMovie(name);
     });
 </script>

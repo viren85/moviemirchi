@@ -1,9 +1,6 @@
-﻿var BASE_URL = "http://127.0.0.1:81/";
-
-
-function CallHandler(queryString, OnComp) {
+﻿function CallHandler(queryString, OnComp) {
     $.ajax({
-        url: BASE_URL + queryString,
+        url: queryString,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
         responseType: "json",
@@ -93,8 +90,6 @@ function NextMovies() {
 }
 function PreviousMovies() {
     MovieIndexer--;
-    Movie--;
-
     if (MovieIndexer >= 0) {
         $("#nextMovies").show();
         $("#currentmovie").html("");
@@ -117,13 +112,8 @@ function PreviousMovies() {
                 break;
             }
         }
-        //MovieIndexer--;
-        //Movie--;
-        //MovieIndexer--;
-    }
 
-    if (MovieIndexer < 0) {
-        MovieIndexer = 0;
+        //MovieIndexer--;
     }
 }
 
@@ -144,8 +134,7 @@ function PopulatingMovies(movie) {
     img.attr("src", poster[0].url);
 
     var anchor = $("<a/>");
-    //anchor.attr("href", "Movie?name=" + movie.UniqueName);
-    anchor.attr("href", "Movie/" + movie.UniqueName);
+    anchor.attr("href", "Movie?name=" + movie.UniqueName);
     anchor.attr("title", movie.Name)
     anchor.append(img);
 
@@ -156,8 +145,7 @@ function PopulatingMoviesTitle(movieTitle) {
     var name = $("<div/>");
     name.attr("class", "movie-title");
     name.attr("style", "margin-right: 1%;");
-    //name.html("<a href='Movie?name=" + movieTitle.UniqueName + "'>" + movieTitle.Name + "</a>");
-    name.html("<a href='Movie/" + movieTitle.UniqueName + "'>" + movieTitle.Name + "</a>");
+    name.html("<a href='Movie?name=" + movieTitle.UniqueName + "'>" + movieTitle.Name + "</a>");
 
     var parent = $("#movieTitle");
 
@@ -165,7 +153,7 @@ function PopulatingMoviesTitle(movieTitle) {
 }
 
 function LoadSingleMovie(movieId) {
-    var path = "../api/MovieInfo?q=" + movieId;
+    var path = "api/MovieInfo?q=" + movieId;
 
     CallHandler(path, onSuccessLoadSingleMovie);
 }
@@ -309,7 +297,7 @@ function onSuccessLoadSingleMovie(result) {
 }
 
 function GetReviewerAndReviews(name, movie) {
-    var path = "api/ReviewerInfo?name=" + name;
+    var path = "../api/ReviewerInfo?name=" + name;
 
     CallHandler(path, onSuccessPopulateReviewsAndReviews);
 }
@@ -924,8 +912,8 @@ function ClearMoviesControl() {
     ClearTrailerControl();
 
     //clear ratings controls 
-    $("#systemRating").val("");
-    $("#criticRating").val("");
+    $("#systemRating").val(""); 
+    $("#criticRating").val(""); 
     $("#hot").prop("checked", true);
 
     // clear budget and boxoffice control
@@ -996,7 +984,7 @@ function ClearPosterControl() {
     for (var p = 0; p < counter; p++) {
         if ($("#poster_well_" + p) != undefined) {
             if (p == 0) {
-                $("#posterUrl_" + p).val("");
+                $("#posterUrl_" + p).val("");                
                 $("#posterHeight_" + p).val("");
                 $("#posterWidth_" + p).val("");
             } else {
@@ -1018,7 +1006,7 @@ function ClearSongsControl() {
 
     for (var p = 0; p < counter; p++) {
         if ($("#songs_well_" + p) != undefined) {
-            if (p == 0) {
+            if (p == 0) {                
                 $("#songName_" + p).val("");
                 $("#songUrl_" + p).val("");
             } else {

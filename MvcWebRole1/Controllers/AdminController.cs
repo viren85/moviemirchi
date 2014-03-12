@@ -28,14 +28,12 @@ namespace MvcWebRole1.Controllers
         {
             if (string.IsNullOrEmpty(hfMovie))
             {
-                return View();
+                //return View();
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
-
-
 
             try
             {
-
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 MovieEntity movie = json.Deserialize(hfMovie, typeof(MovieEntity)) as MovieEntity;
 
@@ -55,10 +53,10 @@ namespace MvcWebRole1.Controllers
 
                         tableMgr.UpdateMovieById(oldEntity);
                     }
-                    
+
 
                     MovieEntity entity = new MovieEntity();
-                    
+
 
 
                     entity.RowKey = entity.MovieId = Guid.NewGuid().ToString();
@@ -69,7 +67,7 @@ namespace MvcWebRole1.Controllers
                     entity.Casts = movie.Casts;
                     entity.Pictures = movie.Pictures;
                     entity.Name = movie.Name;
-                    entity.UniqueName = movie.Name;
+                    //entity.UniqueName = movie.Name;
                     entity.Synopsis = movie.Synopsis;
                     entity.Posters = movie.Posters;
                     entity.Genre = movie.Genre;
@@ -77,18 +75,21 @@ namespace MvcWebRole1.Controllers
                     entity.Year = movie.Year;
                     entity.AltNames = movie.Name;
 
-                   
+                    string uniqueName = movie.Name.Replace(" ", "_").Replace("&", "_and_").Replace(".", "").Replace("'", "").ToLower();
+                    entity.UniqueName = uniqueName;
+
                     tableMgr.UpdateMovieById(entity);
                 }
 
             }
             catch (Exception ex)
             {
-                
-                throw new ArgumentException("Error Found in Admin controller");
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                //throw new ArgumentException("Error Found in Admin controller");
             }
 
-            return View();
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+            //return View();
         }
 
 
@@ -157,7 +158,7 @@ namespace MvcWebRole1.Controllers
             return View();
         }
 
-       
+
         //public IEnumerable<SelectListItem> GetMovie()
         //{
         //    var tableMgr = new TableManager();
