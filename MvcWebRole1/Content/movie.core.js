@@ -1148,3 +1148,5 @@ function RemoveAffilation(counter) {
 
 /*End*/
 
+function Conflict()
+{ }
