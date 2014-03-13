@@ -84,38 +84,38 @@ namespace DataStoreLib.Storage
         }
         /*end*/
 
-        public IDictionary<string, AuthenticationEntity> GetUsersByName(string userName)
+        public IDictionary<string, UserEntity> GetUsersByName(string userName)
         {
-            var loginTable = TableStore.Instance.GetTable(TableStore.LoginTableName) as LoginTable;
-            return loginTable.GetItemsByUserName<AuthenticationEntity>(userName);
+            var loginTable = TableStore.Instance.GetTable(TableStore.UserTableName) as UserTable;
+            return loginTable.GetItemsByUserName<UserEntity>(userName);
         }
         /*end*/
 
-        public IDictionary<string, Models.AuthenticationEntity> GetUserById(List<string> ids)
+        public IDictionary<string, UserEntity> GetUsersById(List<string> userIds)
         {
-            var reviewTable = TableStore.Instance.GetTable(TableStore.LoginTableName);
-            return reviewTable.GetItemsById<AuthenticationEntity>(ids);
+            var userTable = TableStore.Instance.GetTable(TableStore.UserTableName);
+            return userTable.GetItemsById<UserEntity>(userIds);
         }
-        public IDictionary<string, AuthenticationEntity> GetAllUser()
+        public IDictionary<string, UserEntity> GetAllUser()
         {
-            var loginTable = TableStore.Instance.GetTable(TableStore.LoginTableName);
-            return loginTable.GetAllItems<AuthenticationEntity>();
+            var loginTable = TableStore.Instance.GetTable(TableStore.UserTableName);
+            return loginTable.GetAllItems<UserEntity>();
         }
 
-        public IDictionary<AuthenticationEntity, bool> UpdateUsersById(List<Models.AuthenticationEntity> movies)
+        public IDictionary<UserEntity, bool> UpdateUsersById(List<Models.UserEntity> users)
         {
-            var loginTable = TableStore.Instance.GetTable(TableStore.LoginTableName);
-            Debug.Assert(loginTable != null);
+            var userTable = TableStore.Instance.GetTable(TableStore.UserTableName);
+            Debug.Assert(userTable != null);
 
-            var userList = new List<DataStoreLib.Models.TableEntity>(movies).ConvertAll(x => (ITableEntity)x);
-            var returnOp = loginTable.UpdateItemsById(userList);
+            var userList = new List<DataStoreLib.Models.TableEntity>(users).ConvertAll(x => (ITableEntity)x);
+            var returnOp = userTable.UpdateItemsById(userList);
 
-            var returnTranslateOp = new Dictionary<AuthenticationEntity, bool>();
+            var returnTranslateOp = new Dictionary<UserEntity, bool>();
             foreach (var b in returnOp.Keys)
             {
-                returnTranslateOp.Add(b as AuthenticationEntity, returnOp[b]);
+                returnTranslateOp.Add(b as UserEntity, returnOp[b]);
             }
             return returnTranslateOp;
-        }
+        }       
     }
 }

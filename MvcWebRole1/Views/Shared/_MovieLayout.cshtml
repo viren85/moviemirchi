@@ -1,4 +1,6 @@
-﻿@{
+﻿@using System.Configuration;
+
+@{
     Layout = null;
 }
 
@@ -24,7 +26,8 @@
     <meta name="robots" content="NOODP" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
+
 
     <script type="text/javascript">
         /*$(document).click(function (e) {
@@ -147,7 +150,7 @@
                     <div class="col-sm-6 col-md-6">
                         <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
                             <div class="btn-group pull-left" id="btngroup">
-                                <select id="searchtype" class="form-control" >
+                                <select id="searchtype" class="form-control">
                                     <option>
                                         All
                                     </option>
@@ -164,7 +167,7 @@
                             </div>
                             <div class="input-group">
                                 <div id="targetDiv">
-                                    <input type="text" class="form-control" placeholder="Search..." id="target" name="query" value=""  autocomplete="off">
+                                    <input type="text" class="form-control" placeholder="Search..." id="target" name="query" value="" autocomplete="off">
                                 </div>
                                 <div class="input-group-btn">
                                     <button type="submit" class="btn btn-success">Go</button>
@@ -180,19 +183,19 @@
                     <ul class="nav navbar-nav navbar-right">
                         @if (Session["UserName"] != null)
                         {
-                            
-                            <li class="session">
-                                Welcome, @Session["UserName"].ToString().ToUpper()
-                            </li>
-                            <li class="log">
-                                @Html.ActionLink("Logout", "Logout", "LogOut")
-                            </li>
+
+                        <li class="session">
+                            Welcome, @Session["UserName"].ToString().ToUpper()
+                        </li>
+                        <li class="log">
+                            @Html.ActionLink("Logout", "Logout", "LogOut")
+                        </li>
                         }
                         else
                         {
-                            <li class="log">
-                                @Html.ActionLink("Login", "UserLogin", "Login")
-                            </li>
+                        <li class="log">
+                            @Html.ActionLink("Login", "UserLogin", "Login")
+                        </li>
                         }
                     </ul>
                 </div>
@@ -216,5 +219,6 @@
             </div>
         </div>
     </div>
+
 </body>
 </html>

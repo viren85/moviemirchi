@@ -1147,12 +1147,3 @@ function RemoveAffilation(counter) {
 }
 
 /*End*/
-
-<<<<<<< HEAD
-function ConflictFG()
-||||||| merged common ancestors
-function ConflictF()
-=======
-function ConflictFF()
->>>>>>> d92e6d5c618e0f2edf72b48699f9ab139a4877e6
-{ }

@@ -14,6 +14,7 @@ namespace DataStoreLib.Storage
         IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
 
         /* added a new method for getting all movies*/
+        IDictionary<string, UserEntity> GetUsersById(List<string> userId);
         IDictionary<string, MovieEntity> GetAllMovies();
         IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name);
         IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
@@ -24,10 +25,10 @@ namespace DataStoreLib.Storage
         IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
         IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
 
-        IDictionary<string, AuthenticationEntity> GetUsersByName(string userName);
-        IDictionary<AuthenticationEntity, bool> UpdateUsersById(List<AuthenticationEntity> user);
+        IDictionary<string, UserEntity> GetUsersByName(string userName);
+        IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
 
-        IDictionary<string, AuthenticationEntity> GetAllUser();
+        IDictionary<string, UserEntity> GetAllUser();
     }
 
     public static class IStoreHelpers
@@ -252,12 +253,12 @@ namespace DataStoreLib.Storage
             return characters;
         }
 
-        public static List<AuthenticationEntity> SearchUser(this IStore store, string searchText)
+        public static List<UserEntity> SearchUser(this IStore store, string searchText)
         {
             var retList = store.GetAllUser();
             Debug.Assert(retList.Count == 1);
 
-            List<AuthenticationEntity> users = new List<AuthenticationEntity>();
+            List<UserEntity> users = new List<UserEntity>();
 
             foreach (var user in retList.Values)
             {
@@ -273,7 +274,7 @@ namespace DataStoreLib.Storage
             return users;
         }
 
-        public static AuthenticationEntity GetUserByName(this IStore store, string userName)
+        public static UserEntity GetUserByName(this IStore store, string userName)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(userName));
 
@@ -286,11 +287,21 @@ namespace DataStoreLib.Storage
                 return null;
         }
 
-        public static bool UpdateUserById(this IStore store, AuthenticationEntity user)
+        public static bool UpdateUserById(this IStore store, UserEntity user)
         {
             Debug.Assert(user != null);
-            var list = new List<AuthenticationEntity> { user };
+            var list = new List<UserEntity> { user };
             var retList = store.UpdateUsersById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        public static UserEntity GetUserById(this IStore store, string userId)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(userId));
+            var list = new List<string> { userId };
+            var retList = store.GetUsersById(list);
 
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];

@@ -45,7 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
-    <Compile Include="Models\AuthenticationEntity.cs" />
+    <Compile Include="Models\UserEntity.cs" />
     <Compile Include="Models\ITableEntity.cs" />
     <Compile Include="Models\MovieEntity.cs" />
     <Compile Include="Models\ReviewEntity.cs" />
