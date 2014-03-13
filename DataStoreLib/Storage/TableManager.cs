@@ -116,6 +116,25 @@ namespace DataStoreLib.Storage
                 returnTranslateOp.Add(b as UserEntity, returnOp[b]);
             }
             return returnTranslateOp;
-        }       
+
+        }
+
+
+        public IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilations)
+        {
+            var affilationTable = TableStore.Instance.GetTable(TableStore.AffilationTableName);
+            Debug.Assert(affilationTable != null);
+
+            var afillationList = new List<DataStoreLib.Models.TableEntity>(affilations).ConvertAll(x => (ITableEntity)x);
+            var returnOp = affilationTable.UpdateItemsById(afillationList);
+
+            var returnTranslateOp = new Dictionary<AffilationEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as AffilationEntity, returnOp[b]);
+            }
+            return returnTranslateOp;
+        }
+
     }
 }

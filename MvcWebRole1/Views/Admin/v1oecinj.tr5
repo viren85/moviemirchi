@@ -51,7 +51,9 @@
             x.submit();
         });
     });
-    
+
+
+
     function insertAffilaion() {
         //var isValid = true;
 
@@ -61,9 +63,8 @@
         var logoLink_0 = $("#logoLink_0").val();
         var country_0 = $("#country_0").val();
 
-        
+
         validate();
-        
 
         var affilation = {
             "AffilationName": affilationName_0,
@@ -80,14 +81,12 @@
 
     function validate() {
 
-     
         if (affilationName_0 == "") {
+            $("#affilationError").html("Please provide Affilation Name.");
+            $("#affilationError").show();
+            $("#affilationName_0").focus();
+
          
-                $("#affilationError").html("Please provide Affilation Name.");
-                $("#affilationError").show();
-                $("#affilationName_0").focus();
-          
-            //return false;
         }
 
         if (websiteName_0 == "") {
@@ -116,7 +115,7 @@
             $("#country_0").focus();
            
         }
-     
+
         return false;
     }
 

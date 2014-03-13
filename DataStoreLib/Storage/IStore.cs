@@ -28,7 +28,13 @@ namespace DataStoreLib.Storage
         IDictionary<string, UserEntity> GetUsersByName(string userName);
         IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
 
+
         IDictionary<string, UserEntity> GetAllUser();
+
+
+
+        IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
+
     }
 
     public static class IStoreHelpers
@@ -294,14 +300,28 @@ namespace DataStoreLib.Storage
             var retList = store.UpdateUsersById(list);
 
             Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
+             if (retList.Count > 0)
+                return retList[retList.Keys.FirstOrDefault()];
+            else
+                return false;
         }
+
 
         public static UserEntity GetUserById(this IStore store, string userId)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(userId));
             var list = new List<string> { userId };
             var retList = store.GetUsersById(list);
+
+             return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        public static bool UpdateAffilationById(this IStore store, AffilationEntity affilation)
+        {
+            Debug.Assert(affilation != null);
+            var list = new List<AffilationEntity> { affilation };
+            var retList = store.UpdateAffilationsById(list);
+
 
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];

@@ -82,7 +82,7 @@ namespace MvcWebRole1.Controllers
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
                 //throw new ArgumentException("Error Found in Admin controller");
@@ -199,12 +199,50 @@ namespace MvcWebRole1.Controllers
         [HttpGet]
         public ActionResult Affilation()
         {
-            //SetConnectionString();
-
-         //   ViewBag.movie = GetMovie();
-
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Affilation(string hfAffilations)
+        {
+            if (string.IsNullOrEmpty(hfAffilations))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                AffilationEntity affil = json.Deserialize(hfAffilations, typeof(AffilationEntity)) as AffilationEntity;
+                if (affil != null)
+                {
+                    SetConnectionString();
+                    AffilationEntity entity = new AffilationEntity();
+
+                    entity.RowKey = entity.AffilationId = Guid.NewGuid().ToString();
+                    entity.AffilationName = affil.AffilationName;
+                    entity.WebsiteName = affil.WebsiteName;
+                    entity.WebsiteLink = affil.WebsiteLink;
+                    entity.LogoLink = affil.LogoLink;
+                    entity.Country = affil.Country;
+
+                    TableManager tblMgr = new TableManager();
+                    tblMgr.UpdateAffilationById(entity);
+                }
+                else
+                {
+                    TempData["Error"] = "Please provide required information";
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]

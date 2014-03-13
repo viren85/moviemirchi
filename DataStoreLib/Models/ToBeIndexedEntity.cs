@@ -11,6 +11,7 @@ namespace DataStoreLib.Models
     {
         public static readonly string MoviePartitionKey = "Movie";
         public static readonly string ReviewPartitionkey = "Review";
+        public static readonly string AffilationPartitionkey = "Affilation";
         public static readonly string LoginPartitionkey = "Login";
         public string EntityId { get; set; }
 
@@ -57,6 +58,11 @@ namespace DataStoreLib.Models
         public static ToBeIndexedEntity CreateReveiewEntity(string entityId)
         {
             return new ToBeIndexedEntity(ReviewPartitionkey, entityId);
+        }
+
+        public static ToBeIndexedEntity CreateAffilationEntity(string entityId)
+        {
+            return new ToBeIndexedEntity(AffilationPartitionkey, entityId);
         }
 
         public static ToBeIndexedEntity CreateLoginEntity(string entityId)
