@@ -48,6 +48,8 @@ namespace DataStoreLib.Storage
 
         public static readonly string AffilationTableName = "Affilation";
 
+        public static readonly string ReviewerTableName = "Reviewer";
+
         public static readonly string ToBeIndexedTableName = "TobeIndexedTable";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
@@ -58,6 +60,9 @@ namespace DataStoreLib.Storage
                     {UserTableName, UserTable.CreateTable},
 
                      {AffilationTableName, AffilationTable.CreateTable},
+
+                     {ReviewerTableName, ReviewerTable.CreateTable},
+                     
 
                     {ReviewTableName, ReviewTable.CreateTable},
                     {ToBeIndexedTableName, ToBeIndexedTable.CreateTable}

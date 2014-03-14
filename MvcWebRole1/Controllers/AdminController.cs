@@ -228,6 +228,7 @@ namespace MvcWebRole1.Controllers
 
                     TableManager tblMgr = new TableManager();
                     tblMgr.UpdateAffilationById(entity);
+                   // ModelState.Clear();
                 }
                 else
                 {
@@ -242,13 +243,78 @@ namespace MvcWebRole1.Controllers
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
 
+            //ModelState.Clear();
             return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+         
         }
+
+
 
         [HttpGet]
         public ActionResult Reviewer()
         {
+            SetConnectionString();
+
+            ViewBag.affilation = GetAffilationName();
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Reviewer(string hfReviewer)
+        {
+            if (string.IsNullOrEmpty(hfReviewer))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                ReviewerEntity reviewer = json.Deserialize(hfReviewer, typeof(ReviewerEntity)) as ReviewerEntity;
+                if (reviewer != null)
+                {
+                    SetConnectionString();
+                    ReviewerEntity entity = new ReviewerEntity();
+
+                    entity.RowKey = entity.ReviewerId = Guid.NewGuid().ToString();
+                    entity.ReviewerName = reviewer.ReviewerName;
+                    entity.ReviewerImage = reviewer.ReviewerImage;
+                    entity.Affilation = reviewer.Affilation;
+
+
+                    TableManager tblMgr = new TableManager();
+                    tblMgr.UpdateReviewerById(entity);
+                    // ModelState.Clear();
+                }
+                else
+                {
+                    TempData["Error"] = "Please provide required information";
+                }
+
+
+            }
+            catch (Exception)
+            {
+
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            //ModelState.Clear();
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        public IEnumerable<SelectListItem> GetAffilationName()
+        {
+            var tableMgr = new TableManager();
+            var affilation = tableMgr.GetSortedAffilationByName().Select(
+                x => new SelectListItem
+                {
+                    Value = x.AffilationId.ToString(),
+                    Text = x.AffilationName
+                }
+                );
+            return new SelectList(affilation, "Value", "Text");
         }
     }
 }

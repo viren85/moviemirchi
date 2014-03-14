@@ -170,8 +170,39 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
+        public virtual IDictionary<string, TEntity> GetAllAffilationItems<TEntity>() where TEntity : DataStoreLib.Models.TableEntity
+        {
+            Debug.Assert(_table != null);
+
+            var operationList = new Dictionary<string, TableResult>();
+
+            TableQuery<AffilationEntity> query = new TableQuery<AffilationEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "CloudMovie"));
+
+            // execute query
+            IEnumerable<AffilationEntity> results = _table.ExecuteQuery<AffilationEntity>(query);
+
+            var returnDict = new Dictionary<string, TEntity>();
+            int iter = 0;
+
+            foreach (var tableResult in results)
+            {
+                TEntity entity = null;
+
+                entity = tableResult as TEntity;
+
+                returnDict.Add(tableResult.AffilationId, entity);
+                iter++;
+            }
+
+            return returnDict;
+        }
+
         protected abstract string GetParitionKey();
     }
+
+
+   
+
 
     internal class MovieTable : Table
     {
@@ -327,5 +358,29 @@ namespace DataStoreLib.Storage
         {
             return AffilationEntity.PARTITION_KEY;
         }
+
+      
     }
+
+    internal class ReviewerTable : Table
+    {
+        protected ReviewerTable(CloudTable table)
+            : base(table)
+        {
+        }
+
+        internal static Table CreateTable(CloudTable table)
+        {
+            return new ReviewerTable(table);
+        }
+
+        protected override string GetParitionKey()
+        {
+            return ReviewerEntity.PARTITION_KEY;
+        }
+
+     
+    }
+
+    
 }

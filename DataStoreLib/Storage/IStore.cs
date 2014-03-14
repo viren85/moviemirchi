@@ -20,8 +20,7 @@ namespace DataStoreLib.Storage
         IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
         IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);
         /* end */
-
-
+        
         IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
         IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
 
@@ -34,6 +33,11 @@ namespace DataStoreLib.Storage
 
 
         IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
+
+
+       IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
+       IDictionary<string, AffilationEntity> GetAllAffilation();
+       // object UpdateReviewersById(List<ReviewerEntity> list);
 
     }
 
@@ -326,5 +330,35 @@ namespace DataStoreLib.Storage
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];
         }
+
+        public static bool UpdateReviewerById(this IStore store, ReviewerEntity reviewer)
+        {
+            Debug.Assert(reviewer != null);
+            var list = new List<ReviewerEntity> { reviewer };
+            var retList = store.UpdateReviewers(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+
+        public static List<AffilationEntity> GetSortedAffilationByName(this IStore store)
+        {
+            var retList = store.GetAllAffilation();
+
+            //Debug.Assert(retList.Count == 1);
+
+            List<AffilationEntity> allAffilation = new List<AffilationEntity>();
+
+            if (retList != null && retList.Values != null)
+            {
+                allAffilation = (List<AffilationEntity>)retList.Values.OrderBy(m => m.AffilationName).ToList();
+            }
+
+            return allAffilation;
+        }
+
+
     }
+     
 }

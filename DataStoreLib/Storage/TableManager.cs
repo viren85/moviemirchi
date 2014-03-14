@@ -136,5 +136,32 @@ namespace DataStoreLib.Storage
             return returnTranslateOp;
         }
 
+
+        public IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewers)
+        {
+            var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
+            Debug.Assert(reviewerTable != null);
+
+            var reviewerList = new List<DataStoreLib.Models.TableEntity>(reviewers).ConvertAll(x => (ITableEntity)x);
+            var returnOp = reviewerTable.UpdateItemsById(reviewerList);
+
+            var returnTranslateOp = new Dictionary<ReviewerEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as ReviewerEntity, returnOp[b]);
+            }
+            return returnTranslateOp;
+        }
+
+       public IDictionary<string, AffilationEntity> GetAllAffilation()
+        {
+            var affilationTable = TableStore.Instance.GetTable(TableStore.AffilationTableName);
+            return affilationTable.GetAllAffilationItems<AffilationEntity>();
+        }
+
+
+
+
+
     }
 }
