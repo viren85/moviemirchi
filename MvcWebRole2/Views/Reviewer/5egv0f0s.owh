@@ -2,7 +2,7 @@
     ViewBag.Title = "Affilation";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
- 
+
 <div class="panel panel-default">
     <div class="panel-heading">
         <h3 class="panel-title">Affilation</h3>
@@ -17,12 +17,12 @@
             <div class="row">
                 <div class="col-sm-12">
                     <div id="affilation">
-                        
-                        <input type="hidden" id="hfAffilation" value="1" style="display:none;" />
-    <div id="affilation_well_0" class="col-sm-12">
 
-        <input type="text" name="affilationName" id="affilationName_0" class="reviewInput" placeholder="Affilation Name" /><br />
-        @*<input type="button" class="btn btn-success" name="Add More" value="Add More" id="addMore" onclick="AddAffilationControl();" />*@
+                        <input type="hidden" id="hfAffilation" value="1" style="display:none;" />
+                        <div id="affilation_well_0" class="col-sm-12">
+
+                            <input type="text" name="affilationName" id="affilationName_0" class="reviewInput" placeholder="Affilation Name" /><br />
+                            @*<input type="button" class="btn btn-success" name="Add More" value="Add More" id="addMore" onclick="AddAffilationControl();" />*@
                             <input type="text" name="websiteName" id="websiteName_0" class="reviewInput" placeholder="Website Name" /><br />
                             <input type="text" name="websiteLink" id="websiteLink_0" class="reviewInput" placeholder="Website Link" /><br />
                             <input type="text" name="logoLink" id="logoLink_0" class="reviewInput" placeholder="Logo" /><br />
@@ -32,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <div>     
+            <div>
 
                 <input type="submit" name="Create" value="Create" id="create" class="btn btn-primary" onclick="insertAffilaion(); return false;" />
             </div>
@@ -213,7 +213,7 @@
             $("#successStatus").show();
             ClearformData();
            // $('cform')[0].reset();
-           
+
 
             // ClearMoviesControl();
         } else if (result.Status == "Error") {
@@ -273,7 +273,7 @@
             $("#affilationError").html("Please provide Website Name.");
             $("#affilationError").show();
             $("#websiteName_0").focus();
-            
+
         }
 
         if (websiteLink_0 != "") {
@@ -286,7 +286,7 @@
             $("#affilationError").html("Please provide Logo Link.");
             $("#affilationError").show();
             $("#logoLink_0").focus();
-           
+
 
         }
 
@@ -294,7 +294,7 @@
             $("#affilationError").html("Please provide Country.");
             $("#affilationError").show();
             $("#country_0").focus();
-           
+
         }
     }*/
 

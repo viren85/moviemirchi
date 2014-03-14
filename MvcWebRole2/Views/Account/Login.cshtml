@@ -1,50 +1,41 @@
-﻿@model MvcWebRole2.Models.LoginModel
-
-@{
-    ViewBag.Title = "Log in";
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
 }
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
+<div class="col-sm-12" style="padding: 0px 0px 0px 0px;">
 
-<section id="loginForm">
-<h2>Use a local account to log in.</h2>
-@using (Html.BeginForm(new { ReturnUrl = ViewBag.ReturnUrl })) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">Login</h3>
+        </div>
+        <div class="panel-body">
+            @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "form-signin" }))
+            {
+                <div>
+                    <h2 class="form-signin-heading" id="logintitle">Please sign in</h2>
 
-    <fieldset>
-        <legend>Log in Form</legend>
-        <ol>
-            <li>
-                @Html.LabelFor(m => m.UserName)
-                @Html.TextBoxFor(m => m.UserName)
-                @Html.ValidationMessageFor(m => m.UserName)
-            </li>
-            <li>
-                @Html.LabelFor(m => m.Password)
-                @Html.PasswordFor(m => m.Password)
-                @Html.ValidationMessageFor(m => m.Password)
-            </li>
-            <li>
-                @Html.CheckBoxFor(m => m.RememberMe)
-                @Html.LabelFor(m => m.RememberMe, new { @class = "checkbox" })
-            </li>
-        </ol>
-        <input type="submit" value="Log in" />
-    </fieldset>
-    <p>
-        @Html.ActionLink("Register", "Register") if you don't have an account.
-    </p>
-}
-</section>
+                    @if (TempData["Error"] != null)
+                    {
+                        <div class="alert alert-danger">@TempData["Error"]</div>
+                    }
 
-<section class="social" id="socialLoginForm">
-    <h2>Use another service to log in.</h2>
-    @Html.Action("ExternalLoginsList", new { ReturnUrl = ViewBag.ReturnUrl })
-</section>
+                    @if (TempData["Success"] != null)
+                    {
+                        <div class="alert alert-success">@TempData["Success"]</div>
+                    }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+                    @Html.TextBox("UserName", "", new { @class = "input-block-level", placeholder = "Username" })
+                    @Html.Password("Password", "", new { @class = "input-block-level", placeholder = "Password" })
+
+                    <input type="submit" value="Sign in" class="btn btn-large btn-primary" />
+
+                </div>
+
+                <div class="Record">
+                    @Html.ActionLink("Click here for Registeration", "SignUp", "Account")
+                </div>
+            }
+        </div>
+    </div>
+</div>

@@ -21,6 +21,7 @@ namespace DataStoreLib.Models
         public bool Hot { get; set; }
         public string OutLink { get; set; }
         public string Affiliation { get; set; }
+        public string Summary { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {

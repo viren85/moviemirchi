@@ -6,12 +6,12 @@ using System.Web.Mvc;
 
 namespace MvcWebRole2.Controllers
 {
-    public class HomeController : Controller
+    public class ReviewController : Controller
     {
         //
-        // GET: /Home/
+        // GET: /Review/
 
-        public ActionResult Index()
+        public ActionResult MovieReview()
         {
             return View();
         }

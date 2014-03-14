@@ -1,0 +1,154 @@
+﻿@{
+    ViewBag.Title = "MovieReview";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Review</h3>
+    </div>
+    <div class="panel-body" id="reviewinfo">
+
+        <div id="successStatus" style="display:none" class="alert alert-success"></div>
+        <div id="affilationError" class="alert alert-danger" style="display:none;"></div>
+
+
+        @using (Html.BeginForm())
+        {
+
+            <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
+
+            <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
+
+            <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
+
+            @*<input type="text" name="Review" id="review" class="reviewInput" placeholder="review" />*@
+            <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea><br />
+
+            <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" /><br />
+
+            <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea><br />
+
+            @*<input type="submit" value="Save" class="btn btn-primary" name="Submit" id="saveReview" />*@
+            <div class="btn btn-primary" onclick="SaveReviewDetail();">Add Movie Review</div>
+
+            @Html.Hidden("hfReview", "")
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function SaveReviewDetail() {
+        var isValid = true;
+        try {
+            var movieName = $("#movieName").val();
+            var reviewerName = $("#reviewerName").val();
+            var reviewerRating = $("#reviewerRating").val();
+            var review = $("#review").val();
+            var outlink = $("#outlink").val();
+            var summary = $("#summary").val();
+
+            if (movieName == "") {
+
+                $("#affilationError").html("Please provide Movie Name.");
+                $("#affilationError").show();
+                $("#movieName").focus();
+                isValid = false;
+                return;
+            }
+
+            if (reviewerName == "") {
+                $("#affilationError").html("Please provide Reviewer Name.");
+                $("#affilationError").show();
+                $("#reviewerName").focus();
+                isValid = false;
+                return;
+            }
+
+            if (reviewerRating == "") {
+                $("#affilationError").html("Please provide Rating.");
+                $("#affilationError").show();
+                $("#reviewerRating").focus();
+                isValid = false;
+                return;
+            }
+
+            if (review == "") {
+                $("#affilationError").html("Please provide Review.");
+                $("#affilationError").show();
+                $("#review").focus();
+                isValid = false;
+                return;
+
+            }
+
+            if (outlink == "") {
+                $("#affilationError").html("Please provide Outlink.");
+                $("#affilationError").show();
+                $("#outlink").focus();
+                isValid = false;
+                return;
+            }
+
+            if (summary == "") {
+                $("#affilationError").html("Please provide Summary.");
+                $("#affilationError").show();
+                $("#summary").focus();
+                isValid = false;
+                return;
+            }
+
+            if (isValid) {
+                var reviewDetails = {
+                    "MovieId": movieName,
+                    "ReviewerName": reviewerName,
+                    "ReviewerRating": reviewerRating,
+                    "Review": review,
+                    "OutLink": outlink,
+                    "Summary": summary
+                };
+
+                alert(JSON.stringify(reviewDetails));
+                $("#hfAffilations").val(JSON.stringify(reviewDetails));
+                alert(JSON.stringify(reviewDetails));
+
+                $.ajax({
+                    url: '@Url.Action("AddMovieReview", "Review")',
+                    data: { "reviewJson": JSON.stringify(reviewDetails) },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: ShowSuccessMessage,
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        } catch (e) {
+            $("#affilationError").html("There some error please try again.");
+            $("#affilationError").show();
+        }
+    }
+
+    function ShowSuccessMessage(result) {
+        if (result.Status == "Ok") {
+            $("#successStatus").html("Review details saved successfully");
+            $("#successStatus").show();
+            ClearformData();
+        } else if (result.Status == "Error") {
+            $("#successStatus").removeAttr("class");
+            $("#successStatus").attr("class", "alert alert-danger");
+            $("#successStatus").html("Unable to save Review details. Please try again after some time.");
+            $("#successStatus").show();
+        }
+    }
+
+    function ClearformData() {
+        $("#movieName").val("");
+        $("#reviewerName").val("");
+        $("#reviewerRating").val("");
+        $("#review").val("");
+        $("#outlink").val("");
+        $("#summary").val("");
+        $("#affilationError").hide();
+    }
+</script>

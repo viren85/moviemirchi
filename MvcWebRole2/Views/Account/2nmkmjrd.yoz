@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Register now (it's free)</h3>
+    </div>
+    <div class="panel-body" id="singupinfo">
+
+        <div id="successStatus" style="display:none" class="alert alert-success"></div>
+        <div id="error" class="alert alert-danger" style="display:none;"></div>
+
+
+        @using (Html.BeginForm())
+        {
+
+            <input type="text"  id="firstName" class="reviewInput" placeholder="First Name" /><br />
+
+            <input type="text"  id="lastName" class="reviewInput" placeholder="Last Name" /><br />
+
+            <input type="text"  id="email" class="reviewInput" placeholder="Email Address" /><br />
+
+            <input type="text"  id="userName" class="reviewInput" placeholder="UserName" /><br />
+            
+            <input type="password"  id="password" class="reviewInput" placeholder="Password" /><br />
+            
+            <input type="password"  id="confirmPassword" class="reviewInput" placeholder="Confirm Password" /><br />
+            
+            <div class="btn btn-primary" onclick="Register();">Register</div>
+
+            @Html.Hidden("hfReview", "")
+        }
+
+    </div>
+</div>

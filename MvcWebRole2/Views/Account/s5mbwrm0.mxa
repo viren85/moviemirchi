@@ -1,0 +1,138 @@
+﻿@{
+    ViewBag.Title = "SignUp";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Register now (it's free)</h3>
+    </div>
+    <div class="panel-body" id="singupinfo">
+
+        <div id="successStatus" style="display:none" class="alert alert-success"></div>
+        <div id="affilationError" class="alert alert-danger" style="display:none;"></div>
+
+
+        @using (Html.BeginForm())
+        {
+            <input type="text"  id="firstName" class="reviewInput" placeholder="First Name" /><br />
+
+            <input type="text"  id="lastName" class="reviewInput" placeholder="Last Name" /><br />
+
+            <input type="text"  id="email" class="reviewInput" placeholder="Email Address" /><br />
+
+            <input type="text"  id="userName" class="reviewInput" placeholder="UserName" /><br />
+            
+            <input type="password"  id="password" class="reviewInput" placeholder="Password" /><br />
+            
+            <input type="password"  id="confirmPassword" class="reviewInput" placeholder="Confirm Password" /><br />
+            
+            <div class="btn btn-primary" onclick="Register();">Register</div>
+        }
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    function Register() {
+        var isValid = true;
+        try {
+            var firstName = $("#firstName").val();
+            var lastName = $("#lastName").val();
+            var email = $("#email").val();
+            var userName = $("#userName").val();
+            var password = $("#password").val();
+            var confirmPassword = $("#confirmPassword").val();
+
+            if (firstName == "") {
+                $("#affilationError").html("Please provide first Name.");
+                $("#affilationError").show();
+                $("#firstName").focus();
+                isValid = false;
+                return;
+            }
+
+            if (lastName == "") {
+                $("#affilationError").html("Please provide lastName Name.");
+                $("#affilationError").show();
+                $("#lastName").focus();
+                isValid = false;
+                return;
+            }
+
+            if (email == "") {
+                $("#affilationError").html("Please provide Website Link.");
+                $("#affilationError").show();
+                $("#email").focus();
+                isValid = false;
+                return;
+            }
+
+            if (logoLink_0 == "") {
+                $("#affilationError").html("Please provide Logo Link.");
+                $("#affilationError").show();
+                $("#logoLink_0").focus();
+                isValid = false;
+                return;
+
+            }
+
+            if (country_0 == "") {
+                $("#affilationError").html("Please provide Country.");
+                $("#affilationError").show();
+                $("#country_0").focus();
+                isValid = false;
+                return;
+            }
+
+            if (isValid) {
+                var affilation = {
+                    "AffilationName": affilationName_0,
+                    "WebsiteName": websiteName_0,
+                    "WebsiteLink": websiteLink_0,
+                    "LogoLink": logoLink_0,
+                    "Country": country_0
+                };
+
+                alert(JSON.stringify(affilation));
+                $("#hfAffilations").val(JSON.stringify(affilation));
+                alert(JSON.stringify(affilation));
+
+                $.ajax({
+                    url: '@Url.Action("AddAffiliation", "Reviewer")',
+                    data: { "affiliationJson": JSON.stringify(affilation) },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: ShowSuccessMessage,
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        } catch (e) {
+            $("#affilationError").html("There some error please try again.");
+            $("#affilationError").show();
+        }
+    }
+
+    function ShowSuccessMessage(result) {
+        if (result.Status == "Ok") {
+            $("#successStatus").html("Affiliation details saved successfully");
+            $("#successStatus").show();
+            ClearformData();
+        } else if (result.Status == "Error") {
+            $("#successStatus").removeAttr("class");
+            $("#successStatus").attr("class", "alert alert-danger");
+            $("#successStatus").html("Unable to save Affilation details. Please try again after some time.");
+            $("#successStatus").show();
+        }
+    }
+
+    function ClearformData() {
+        $("#affilationName_0").val("");
+        $("#websiteName_0").val("");
+        $("#websiteLink_0").val("");
+        $("#logoLink_0").val("");
+        $("#country_0").val("");
+        $("#affilationError").hide();
+    }
+</script>

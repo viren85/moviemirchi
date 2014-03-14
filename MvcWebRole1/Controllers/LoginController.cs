@@ -125,6 +125,7 @@ namespace MvcWebRole1.Controllers
 
                     return Json(new { success = true, createdUser = true });
                 }
+
                 return Json(new { success = true, createdUser = false });
             }
             catch (Exception ex)

@@ -15,6 +15,5 @@ namespace MvcWebRole2.Controllers
         {
             return View();
         }
-
     }
 }
