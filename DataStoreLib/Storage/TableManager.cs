@@ -159,6 +159,11 @@ namespace DataStoreLib.Storage
             return affilationTable.GetAllAffilationItems<AffilationEntity>();
         }
 
+       public IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> ids)
+       {
+           var affilationTable = TableStore.Instance.GetTable(TableStore.AffilationTableName);
+           return affilationTable.GetItemsById<AffilationEntity>(ids);
+       }
 
 
 

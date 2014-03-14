@@ -105,4 +105,4 @@
             border-radius: 4px;
         }
 
-#affilationId{width: 35%;border-radius: 4px;margin-left: 2%;margin-bottom: 1%;border-width: 1px;}
+.col-sm-12 #affilationId{width: 35% !important;border-radius: 4px !important;margin-left: 2% !important;margin-bottom: 1% !important;border-width: 1px !important;}

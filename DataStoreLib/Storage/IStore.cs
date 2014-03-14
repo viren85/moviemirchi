@@ -37,8 +37,11 @@ namespace DataStoreLib.Storage
 
        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
        IDictionary<string, AffilationEntity> GetAllAffilation();
+       IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
        // object UpdateReviewersById(List<ReviewerEntity> list);
 
+
+       //object GetAffilationsById(List<string> list);
     }
 
     public static class IStoreHelpers
@@ -358,7 +361,15 @@ namespace DataStoreLib.Storage
             return allAffilation;
         }
 
+        public static AffilationEntity GetAffilationById(this IStore store, string id)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(id));
+            var list = new List<string> { id };
+            var retList = store.GetAffilationsByid(list);
 
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
     }
      
 }

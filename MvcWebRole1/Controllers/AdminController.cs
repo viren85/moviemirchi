@@ -279,10 +279,40 @@ namespace MvcWebRole1.Controllers
                     entity.RowKey = entity.ReviewerId = Guid.NewGuid().ToString();
                     entity.ReviewerName = reviewer.ReviewerName;
                     entity.ReviewerImage = reviewer.ReviewerImage;
-                    entity.Affilation = reviewer.Affilation;
+
+                    AffilationEntity affil = new AffilationEntity();
+
+                     affil.AffilationId = reviewer.Affilation;
+                     
+
+                    //AffilationEntity affil = new AffilationEntity();
+                    //if (reviewer.Affilation != null)
+                    //{                   
+                    //    string affilId = reviewer.Affilation;
+
+
+                    //    AffilationEntity affil = new AffilationEntity();
+
+                    //    affil = 
+
+                    //    JavaScriptSerializer json1 = new JavaScriptSerializer();
+                    //    entity.Affilation = json1.Serialize(affil);
+                    //  // affil = (from affilId in ) 
+
+
+
+                        
+                    //}
+                   // entity.Affilation = json1.Serialize(affil);
+                   // entity.Affilation = reviewer.Affilation;
 
 
                     TableManager tblMgr = new TableManager();
+                    var a = tblMgr.GetAffilationById(affil.AffilationId);
+                    //JavaScriptSerializer json1 = new JavaScriptSerializer();
+                    
+                    entity.Affilation = json.Serialize(a);
+
                     tblMgr.UpdateReviewerById(entity);
                     // ModelState.Clear();
                 }
@@ -314,6 +344,8 @@ namespace MvcWebRole1.Controllers
                     Text = x.AffilationName
                 }
                 );
+
+            
             return new SelectList(affilation, "Value", "Text");
         }
     }
