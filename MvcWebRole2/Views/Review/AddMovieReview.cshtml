@@ -74,6 +74,7 @@
             var movieName = $("#movieName").val();
             var movieId = $("#hfMovieId").val();
             var reviewerName = $("#reviewerName").val();
+            var reviewerId = $("#hfReviewerId").val();
             var reviewerRating = $("#reviewerRating").val();
             var review = $("#review").val();
             var outlink = $("#outlink").val();
@@ -88,7 +89,7 @@
                 return;
             }
 
-            if (reviewerName == "") {
+            if (reviewerName == "" || reviewerId == "") {
                 $("#affilationError").html("Please provide Reviewer Name.");
                 $("#affilationError").show();
                 $("#reviewerName").focus();
@@ -132,7 +133,7 @@
             if (isValid) {
                 var reviewDetails = {
                     "MovieId": movieId,
-                    "ReviewerName": reviewerName,
+                    "ReviewerName": reviewerId,
                     "ReviewerRating": reviewerRating,
                     "Review": review,
                     "OutLink": outlink,

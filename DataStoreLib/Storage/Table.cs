@@ -379,7 +379,32 @@ namespace DataStoreLib.Storage
             return ReviewerEntity.PARTITION_KEY;
         }
 
-     
+        public virtual IDictionary<string, TEntity> GetAllReviewers<TEntity>() where TEntity : DataStoreLib.Models.TableEntity
+        {
+            Debug.Assert(_table != null);
+
+            var operationList = new Dictionary<string, TableResult>();
+
+            TableQuery<ReviewerEntity> query = new TableQuery<ReviewerEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "CloudMovie"));
+
+            // execute query
+            IEnumerable<ReviewerEntity> movieResults = _table.ExecuteQuery<ReviewerEntity>(query);
+
+            var returnDict = new Dictionary<string, TEntity>();
+            int iter = 0;
+
+            foreach (var tableResult in movieResults)
+            {
+                TEntity entity = null;
+
+                entity = tableResult as TEntity;
+
+                returnDict.Add(tableResult.ReviewerId, entity);
+                iter++;
+            }
+
+            return returnDict;
+        }
     }
 
     

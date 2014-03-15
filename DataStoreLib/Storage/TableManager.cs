@@ -173,8 +173,8 @@ namespace DataStoreLib.Storage
 
        public IDictionary<string, ReviewerEntity> GetAllReviewer()
        {
-           var movieTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
-           return movieTable.GetAllItems<ReviewerEntity>();
+           var movieTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName) as ReviewerTable;
+           return movieTable.GetAllReviewers<ReviewerEntity>();
        }
 
         

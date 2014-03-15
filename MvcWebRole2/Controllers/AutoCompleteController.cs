@@ -61,13 +61,17 @@ namespace MvcWebRole2.Controllers
             SetConnectionString();
 
             var tableMgr = new TableManager();
-            var movies = tableMgr.SearchMovies(query);
+            var reviewers = tableMgr.GetAllReviewer();
 
-            if (movies != null)
+            var reviewerList = (from u in reviewers
+                         where u.Value.ReviewerName.ToLower().Contains(query.ToLower())
+                         select u.Value).Distinct().ToArray().ToList();
+
+            if (reviewers != null)
             {
-                foreach (MovieEntity movieEntity in movies)
+                foreach (ReviewerEntity movieEntity in reviewerList)
                 {
-                    list.Add(new { id = movieEntity.MovieId, name = movieEntity.Name + " (" + movieEntity.Year + ")" });
+                    list.Add(new { id = movieEntity.ReviewerId, name = movieEntity.ReviewerName });
                 }
             }
 
