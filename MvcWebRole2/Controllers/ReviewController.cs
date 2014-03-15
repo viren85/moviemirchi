@@ -49,7 +49,7 @@ namespace MvcWebRole2.Controllers
 
                     ReviewEntity entity = new ReviewEntity();
 
-                    entity.RowKey = entity.ReviewId= Guid.NewGuid().ToString();
+                    entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
                     entity.MovieId = affil.MovieId;
                     entity.ReviewerName = affil.ReviewerName;
                     entity.ReviewerRating = affil.ReviewerRating;
@@ -76,6 +76,8 @@ namespace MvcWebRole2.Controllers
         [HttpGet]
         public ActionResult UpdateMovieReview()
         {
+            SetConnectionString();
+
             ViewBag.movieReview = GetReviewer();
             ViewBag.movie = GetMovie();
 
@@ -85,6 +87,8 @@ namespace MvcWebRole2.Controllers
         [HttpPost]
         public ActionResult UpdateMovieReview(string hfUpdateMovieReview)
         {
+            SetConnectionString();
+
             if (string.IsNullOrEmpty(hfUpdateMovieReview))
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
@@ -98,30 +102,21 @@ namespace MvcWebRole2.Controllers
                 TableManager tblMgr = new TableManager();
 
                 ReviewEntity entity = new ReviewEntity();
-               var movieId = tblMgr.GetMovieById(entity.MovieId);
-               if (movieId != null)
-               {
-                   if (review.MovieId.Equals(movieId))
-                   {
+                var movieId = tblMgr.GetMovieById(entity.MovieId);
+                if (movieId != null)
+                {
+                    if (review.MovieId.Equals(movieId))
+                    {
 
-                       entity.ReviewerRating = review.ReviewerRating;
-                       entity.Review = review.Review;
-                       entity.OutLink = review.OutLink;
-                       entity.Summary = review.Summary;
-                   }
-               }
-              
-             /*
-                    
-                   entity.ReviewerRating = review.ReviewerRating;
-                    entity.Review = review.Review;
-                    entity.OutLink = review.OutLink;
-                    entity.Summary = review.Summary;
-              
-                */
-               
+                        entity.ReviewerRating = review.ReviewerRating;
+                        entity.Review = review.Review;
+                        entity.OutLink = review.OutLink;
+                        entity.Summary = review.Summary;
+                    }
+                }
+
                 tblMgr.UpdateReviewById(entity);
-             }
+            }
 
             return View();
         }

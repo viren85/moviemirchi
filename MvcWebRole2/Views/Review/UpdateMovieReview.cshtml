@@ -21,10 +21,10 @@
 
         @using (Html.BeginForm())
         {
-            @Html.DropDownList("reviewerId", (SelectList)ViewBag.Reviewer, "-- Select Reviewer Name --")
+            @Html.DropDownList("reviewerId", (SelectList)ViewBag.movieReview, "-- Select Reviewer Name --", new { @class = "reviewInput" })
             <br />
             @*@Html.DropDownList("movieId", (SelectList)ViewBag.movie, "-- Select Movie Name --")*@
-            <br />
+            //<br />
             @*<input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />*@
 
             @*<input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />*@

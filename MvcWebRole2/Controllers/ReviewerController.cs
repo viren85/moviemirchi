@@ -73,6 +73,20 @@ namespace MvcWebRole2.Controllers
 
         #endregion
 
+        #region Update Affiliation
+        [HttpGet]
+        public ActionResult UpdateAffiliation()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateAffiliation(string affiliationJson)
+        {
+            return View();
+        }
+        #endregion
+
         #region Add Reviewer
         [HttpGet]
         public ActionResult AddReviewer()
@@ -112,6 +126,61 @@ namespace MvcWebRole2.Controllers
                     entity.Affilation = json.Serialize(affiliation);
 
                     tblMgr.UpdateReviewerById(entity);                    
+                }
+                else
+                {
+                    return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet); ;
+                }
+            }
+            catch (Exception)
+            {
+
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+
+        #region Update Reviewer
+        [HttpGet]
+        public ActionResult UpdateReviewer()
+        {
+            SetConnectionString();
+
+            ViewBag.affilation = GetAffilationName();
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateReviewer(string reviewerJson)
+        {
+            if (string.IsNullOrEmpty(reviewerJson))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                ReviewerEntity reviewer = json.Deserialize(reviewerJson, typeof(ReviewerEntity)) as ReviewerEntity;
+
+                if (reviewer != null)
+                {
+                    SetConnectionString();
+                    ReviewerEntity entity = new ReviewerEntity();
+
+                    entity.RowKey = entity.ReviewerId = Guid.NewGuid().ToString();
+                    entity.ReviewerName = reviewer.ReviewerName;
+                    entity.ReviewerImage = reviewer.ReviewerImage;
+
+                    TableManager tblMgr = new TableManager();
+
+                    var affiliation = tblMgr.GetAffilationById(reviewer.Affilation); // use as a id
+
+                    entity.Affilation = json.Serialize(affiliation);
+
+                    tblMgr.UpdateReviewerById(entity);
                 }
                 else
                 {

@@ -334,6 +334,8 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Reviewer\AddReviewer.cshtml" />
     <Content Include="Views\Review\UpdateMovieReview.cshtml" />
+    <Content Include="Views\Reviewer\UpdateAffiliation.cshtml" />
+    <Content Include="Views\Reviewer\UpdateReviewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
