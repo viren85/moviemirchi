@@ -95,7 +95,6 @@ namespace MvcWebRole2.Controllers
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 ReviewerEntity reviewer = json.Deserialize(reviewerJson, typeof(ReviewerEntity)) as ReviewerEntity;
-
                 if (reviewer != null)
                 {
                     SetConnectionString();
@@ -105,18 +104,48 @@ namespace MvcWebRole2.Controllers
                     entity.ReviewerName = reviewer.ReviewerName;
                     entity.ReviewerImage = reviewer.ReviewerImage;
 
+                    AffilationEntity affil = new AffilationEntity();
+
+                    affil.AffilationId = reviewer.Affilation;
+
+
+                    //AffilationEntity affil = new AffilationEntity();
+                    //if (reviewer.Affilation != null)
+                    //{                   
+                    //    string affilId = reviewer.Affilation;
+
+
+                    //    AffilationEntity affil = new AffilationEntity();
+
+                    //    affil = 
+
+                    //    JavaScriptSerializer json1 = new JavaScriptSerializer();
+                    //    entity.Affilation = json1.Serialize(affil);
+                    //  // affil = (from affilId in ) 
+
+
+
+
+                    //}
+                    // entity.Affilation = json1.Serialize(affil);
+                    // entity.Affilation = reviewer.Affilation;
+
+
                     TableManager tblMgr = new TableManager();
+                    var a = tblMgr.GetAffilationById(affil.AffilationId);
+                    //JavaScriptSerializer json1 = new JavaScriptSerializer();
 
-                    var affiliation = tblMgr.GetAffilationById(reviewer.Affilation); // use as a id
-                    
-                    entity.Affilation = json.Serialize(affiliation);
+                    entity.Affilation = json.Serialize(a);
 
-                    tblMgr.UpdateReviewerById(entity);                    
+                    tblMgr.UpdateReviewerById(entity);
+                    // ModelState.Clear();
                 }
                 else
                 {
-                    return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet); ;
+                    TempData["Error"] = "Please provide required information";
                 }
+
+
             }
             catch (Exception)
             {
@@ -124,6 +153,7 @@ namespace MvcWebRole2.Controllers
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
 
+            //ModelState.Clear();
             return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
@@ -132,17 +162,16 @@ namespace MvcWebRole2.Controllers
         private IEnumerable<SelectListItem> GetAffilationName()
         {
             var tableMgr = new TableManager();
-
-            var affiliations = tableMgr.GetSortedAffilationByName().Select(
+            var affilation = tableMgr.GetSortedAffilationByName().Select(
                 x => new SelectListItem
                 {
                     Value = x.AffilationId.ToString(),
                     Text = x.AffilationName
                 }
-            );
+                );
 
 
-            return new SelectList(affiliations, "Value", "Text");
+            return new SelectList(affilation, "Value", "Text");
         }
         #endregion
     }

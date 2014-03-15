@@ -1,0 +1,125 @@
+﻿@{
+    ViewBag.Title = "Reviewer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Reviewer Detail</h3>
+    </div>
+    <div class="panel-body" id="reviewerinfo">
+
+        <div id="successStatus" class="alert alert-success" style="display:none"></div>
+        <div id="reviewerError" class="alert alert-danger" style="display:none;"></div>
+        @using (Html.BeginForm())
+        {
+
+            @Html.DropDownList("affilationId", (SelectList)ViewBag.affilation, "-- Select Affilation Name --") <br />
+
+            <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
+
+            <input type="text" name="reviewerImage" id="reviewerImage" class="reviewInput" placeholder="Reviewer Image" /><br />
+
+            @*<input type="submit" value="submit" id="saveReviewDetail" name="Save" class="btn btn-primary" onclick="insertReviewerDetail();" />*@
+
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+
+    function insertReviewerDetail() {
+        var isValid = true;
+        try {
+            // var strUser = e.options[e.selectedIndex].value;
+            //$('#affilationId :selected').text();
+            //var affiltionId = document.getElementById("affiltionId");
+            //var strUser = affiltionId.options[affiltionId.selectedIndex].value;
+
+            var affilationId = $('#affilationId :selected').val();
+            var reviewerName = $("#reviewerName").val();
+            var reviewerImage = $("#reviewerImage").val();
+
+
+            if (affilationId == "") {
+
+                $("#reviewerError").html("Please Select Affilation Name.");
+                $("#reviewerError").show();
+                $("#affiltionId").focus();
+                isValid = false;
+            }
+
+            if (reviewerName == "") {
+                $("#reviewerError").html("Please provide Reviewer Name.");
+                $("#reviewerError").show();
+                $("#reviewerName").focus();
+                isValid = false;
+            }
+
+            if (reviewerImage == "") {
+                $("#reviewerError").html("Please provide Reviewer Image.");
+                $("#reviewerError").show();
+                $("#reviewerImage").focus();
+                isValid = false;
+            }
+
+
+            if (isValid) {
+                var reviewer = {
+                    "ReviewerName": reviewerName,
+                    "ReviewerImage": reviewerImage,
+                    "Affilation": affilationId
+                    //"Affilation": affilationId  // changes required
+
+                };
+
+                alert(JSON.stringify(reviewer));
+                $("#hfReviewer").val(JSON.stringify(reviewer));
+                alert(JSON.stringify(reviewer));
+
+                $.ajax({
+                    url: '@Url.Action("AddReviewer", "Reviewer")',
+                    data: { "reviewerJson": JSON.stringify(reviewer) },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: ShowSuccessMessage,
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        } catch (e) {
+            $("#reviewerError").html("There is some error, please try again.");
+            $("#reviewerError").show();
+        }
+
+
+
+    }
+    function ShowSuccessMessage(result) {
+        if (result.Status == "Ok") {
+            $("#successStatus").html("Reviewer details saved successfully");
+            $("#successStatus").show();
+            ClearformData();
+            // $('cform')[0].reset();
+
+
+            // ClearMoviesControl();
+        } else if (result.Status == "Error") {
+            $("#successStatus").removeAttr("class");
+            $("#successStatus").attr("class", "alert alert-danger");
+            $("#successStatus").html("Unable to save Reviewer details. Please try again after some time.");
+            $("#successStatus").show();
+        }
+    }
+
+    function ClearformData() {
+        $("#affilationId").val("");
+        $("#reviewerName").val("");
+        $("#reviewerImage").val("");
+
+        $("#reviewerError").hide();
+    }
+
+
+</script>

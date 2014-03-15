@@ -222,8 +222,8 @@
 }
 
 #saveReviewDetail {
-    /*float: left;
-    margin-left: 3%;*/
+    float: left;
+    margin-left: 3%;
 }
 
 #create {

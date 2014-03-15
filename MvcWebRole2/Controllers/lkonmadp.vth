@@ -105,11 +105,14 @@ namespace MvcWebRole2.Controllers
                     entity.ReviewerName = reviewer.ReviewerName;
                     entity.ReviewerImage = reviewer.ReviewerImage;
 
-                    TableManager tblMgr = new TableManager();
+                    AffilationEntity affil = new AffilationEntity();
 
-                    var affiliation = tblMgr.GetAffilationById(reviewer.Affilation); // use as a id
+                    affil.AffilationId = reviewer.Affilation;
+
+                    TableManager tblMgr = new TableManager();
+                    var a = tblMgr.GetAffilationById(affil.AffilationId);
                     
-                    entity.Affilation = json.Serialize(affiliation);
+                    entity.Affilation = json.Serialize(a);
 
                     tblMgr.UpdateReviewerById(entity);                    
                 }
@@ -132,17 +135,16 @@ namespace MvcWebRole2.Controllers
         private IEnumerable<SelectListItem> GetAffilationName()
         {
             var tableMgr = new TableManager();
-
-            var affiliations = tableMgr.GetSortedAffilationByName().Select(
+            var affilation = tableMgr.GetSortedAffilationByName().Select(
                 x => new SelectListItem
                 {
                     Value = x.AffilationId.ToString(),
                     Text = x.AffilationName
                 }
-            );
+                );
 
 
-            return new SelectList(affiliations, "Value", "Text");
+            return new SelectList(affilation, "Value", "Text");
         }
         #endregion
     }

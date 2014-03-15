@@ -330,6 +330,7 @@
     <Content Include="Views\Reviewer\AddAffiliation.cshtml" />
     <Content Include="Views\Review\AddMovieReview.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\Reviewer\AddReviewer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
