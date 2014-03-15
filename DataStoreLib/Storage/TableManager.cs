@@ -165,6 +165,11 @@ namespace DataStoreLib.Storage
            return affilationTable.GetItemsById<AffilationEntity>(ids);
        }
 
+       public IDictionary<string, ReviewerEntity> GetReviewerById(List<string> reviewerIds)
+       {
+           var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
+           return reviewerTable.GetItemsById<ReviewerEntity>(reviewerIds);
+       }
 
 
 

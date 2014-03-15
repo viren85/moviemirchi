@@ -26,7 +26,7 @@ namespace DataStoreLib.Storage
 
         IDictionary<string, UserEntity> GetUsersByName(string userName);
         IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
-
+        //IDictionary<ReviewEntity, bool> UpdateReviewsById(<List<ReviewEntity> revi)
 
         IDictionary<string, UserEntity> GetAllUser();
 
@@ -370,6 +370,8 @@ namespace DataStoreLib.Storage
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];
         }
+
+       
     }
      
 }

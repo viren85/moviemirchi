@@ -71,5 +71,41 @@ namespace MvcWebRole2.Controllers
             return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpGet]
+        public ActionResult UpdateMovieReview()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateMovieReview(string hfUpdateMovieReview)
+        {
+            if (string.IsNullOrEmpty(hfUpdateMovieReview))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            JavaScriptSerializer json = new JavaScriptSerializer();
+            ReviewEntity review = json.Deserialize(hfUpdateMovieReview, typeof(ReviewEntity)) as ReviewEntity;
+
+            if (review != null)
+            {
+                ReviewEntity entity = new ReviewEntity();
+                if (entity.ReviewId == review.ReviewId)
+                {
+                    entity.ReviewerName = review.ReviewerName;
+                    entity.ReviewerRating = review.ReviewerRating;
+                    entity.Review = review.Review;
+                    entity.OutLink = review.OutLink;
+                    entity.Summary = review.Summary;
+                }
+
+                TableManager tblMgr = new TableManager();
+                tblMgr.UpdateReviewById(entity);
+                
+            }
+
+            return View();
+        }
     }
 }
