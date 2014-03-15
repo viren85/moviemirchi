@@ -15,10 +15,13 @@
 
         @using (Html.BeginForm())
         {
+            @Html.DropDownList("reviewerId", (SelectList)ViewBag.Reviewer, "-- Select Reviewer Name --")
+            <br />
+            @*@Html.DropDownList("movieId", (SelectList)ViewBag.movie, "-- Select Movie Name --")*@
+            <br />
+            @*<input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />*@
 
-            <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
-
-            <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
+            @*<input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />*@
 
             <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
 
@@ -42,26 +45,29 @@
     function UpdateMovieReviewDetail() {
         var isValid = true;
         try {
-            var movieName = $("#movieName").val();
-            var reviewerName = $("#reviewerName").val();
+            var reviewerId = $('#reviewerId :selected').val();
+            var movieId = $('#movieId :selected').val();
+
+            //var movieName = $("#movieName").val();
+            //var reviewerName = $("#reviewerName").val();
             var reviewerRating = $("#reviewerRating").val();
             var review = $("#review").val();
             var outlink = $("#outlink").val();
             var summary = $("#summary").val();
 
-            if (movieName == "") {
+            if (movieId == "") {
 
                 $("#updationMovieReviewError").html("Please provide Movie Name.");
                 $("#updationMovieReviewError").show();
-                $("#movieName").focus();
+                $("#movieId").focus();
                 isValid = false;
                 return;
             }
 
-            if (reviewerName == "") {
+            if (reviewerId == "") {
                 $("#updationMovieReviewError").html("Please provide Reviewer Name.");
                 $("#updationMovieReviewError").show();
-                $("#reviewerName").focus();
+                $("#reviewerId").focus();
                 isValid = false;
                 return;
             }
@@ -101,8 +107,8 @@
 
             if (isValid) {
                 var updateReviewDetails = {
-                    "MovieId": movieName,
-                    "ReviewerId": reviewerName,
+                    "MovieId": movieId,
+                    "ReviewerId": reviewerId,
                     "ReviewerRating": reviewerRating,
                     "Review": review,
                     "OutLink": outlink,
@@ -124,27 +130,27 @@
                 });
             }
         } catch (e) {
-            $("#updationMovieReviewError").html("There some error please try again.");
+            $("#updationMovieReviewError").html("There is some error, please try again.");
             $("#updationMovieReviewError").show();
         }
     }
 
     function ShowSuccessMessage(result) {
         if (result.Status == "Ok") {
-            $("#successStatus").html("Review details updated successfully");
+            $("#successStatus").html("Movie Review details updated successfully");
             $("#successStatus").show();
             ClearformData();
         } else if (result.Status == "Error") {
             $("#successStatus").removeAttr("class");
             $("#successStatus").attr("class", "alert alert-danger");
-            $("#successStatus").html("Unable to update Review details. Please try again after some time.");
+            $("#successStatus").html("Unable to update movie review details. Please try again after some time.");
             $("#successStatus").show();
         }
     }
 
     function ClearformData() {
-        $("#movieName").val("");
-        $("#reviewerName").val("");
+        $("#movieId").val("");
+        $("#reviewerId").val("");
         $("#reviewerRating").val("");
         $("#review").val("");
         $("#outlink").val("");

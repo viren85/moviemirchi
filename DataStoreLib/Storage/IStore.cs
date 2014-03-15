@@ -37,6 +37,8 @@ namespace DataStoreLib.Storage
 
        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
        IDictionary<string, AffilationEntity> GetAllAffilation();
+
+       IDictionary<string, ReviewerEntity> GetAllReviewer();
        IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
        // object UpdateReviewersById(List<ReviewerEntity> list);
 
@@ -99,6 +101,16 @@ namespace DataStoreLib.Storage
             return retList[retList.Keys.FirstOrDefault()];
         }
 
+
+        public static bool UpdateReviewByReviewerId(this IStore store, ReviewEntity id)
+        {
+            Debug.Assert(id != null);
+            var list = new List<ReviewEntity> { id };
+            var retList = store.UpdateReviewsById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
         /* Method added */
         /// <summary>
         /// get list of current running (in theaters) movies
@@ -371,7 +383,31 @@ namespace DataStoreLib.Storage
             return retList[retList.Keys.FirstOrDefault()];
         }
 
-       
+        public static bool UpdateMoviewReviewById(this IStore store, ReviewerEntity ids)
+        {
+            Debug.Assert(ids != null);
+            var list = new List<ReviewerEntity> { ids };
+            var retList = store.UpdateReviewers(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        public static List<ReviewerEntity> GetSortedReviewerByName(this IStore store)
+        {
+            var retList = store.GetAllReviewer();
+
+            //Debug.Assert(retList.Count == 1);
+
+            List<ReviewerEntity> reviewers = new List<ReviewerEntity>();
+
+            if (retList != null && retList.Values != null)
+            {
+                reviewers = (List<ReviewerEntity>)retList.Values.OrderBy(m => m.ReviewerName).ToList();
+            }
+
+            return reviewers;
+        }
     }
      
 }

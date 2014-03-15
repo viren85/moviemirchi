@@ -14,6 +14,7 @@ namespace DataStoreLib.Models
 
         public string ReviewId { get; set; }
         public string MovieId { get; set; }
+        public string ReviewerId { get; set; }
         public string ReviewerName { get; set; }
         public string Review { get; set; }
         public int ReviewerRating { get; set; }
@@ -28,6 +29,7 @@ namespace DataStoreLib.Models
             base.ReadEntity(properties, operationContext);
 
             ReviewId = ReadString(properties, "ReviewId");
+            ReviewerId = ReadString(properties, "ReviewerId");
             ReviewerName = ReadString(properties, "ReviewerName");
             Review = ReadString(properties, "Review");
             ReviewerRating = ReadInt(properties, "ReviewerRating");
@@ -36,6 +38,7 @@ namespace DataStoreLib.Models
             Hot = ReadBool(properties, "Hot");
             OutLink = ReadString(properties, "OutLink");
             Affiliation = ReadString(properties, "Affiliation");
+            Summary = ReadString(properties, "Summary");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -48,10 +51,11 @@ namespace DataStoreLib.Models
             WriteInt(dict, "ReviewerRating", ReviewerRating);
             WriteInt(dict, "SystemRating", SystemRating);
             WriteString(dict, "MovieId", MovieId);
+            WriteString(dict, "ReviewerId", ReviewerId);
             WriteBool(dict, "Hot", Hot);
             WriteString(dict, "OutLink", OutLink);
             WriteString(dict, "Affiliation", Affiliation);
-
+            WriteString(dict, "Summary", Summary);
             return dict;
         }
 
@@ -81,9 +85,10 @@ namespace DataStoreLib.Models
             Hot = review.Hot;
             OutLink = review.OutLink;
             Affiliation = review.Affiliation;
+            Summary = review.Summary;
         }
 
-        public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, bool hot, string outLink, string affiliation, int reviewerRating = 0, int systemRating = 0)
+        public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, string reviewerId, bool hot, string outLink, string affiliation, string summary, int reviewerRating = 0, int systemRating = 0)
         {
             var reviewId = Guid.NewGuid().ToString();
             var reviewEntity = new ReviewEntity(reviewId);
@@ -93,9 +98,11 @@ namespace DataStoreLib.Models
             reviewEntity.ReviewerRating = reviewerRating;
             reviewEntity.SystemRating = systemRating;
             reviewEntity.MovieId = movieId;
+            reviewEntity.ReviewerId = reviewerId;
             reviewEntity.Hot = hot;
             reviewEntity.OutLink = outLink;
             reviewEntity.Affiliation = affiliation;
+            reviewEntity.Summary = summary;
             return reviewEntity;
         }
     }

@@ -40,6 +40,8 @@ namespace MvcWebRole2.Controllers
             try
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
+
+
                 ReviewEntity affil = json.Deserialize(reviewJson, typeof(ReviewEntity)) as ReviewEntity;
                 if (affil != null)
                 {
@@ -74,6 +76,9 @@ namespace MvcWebRole2.Controllers
         [HttpGet]
         public ActionResult UpdateMovieReview()
         {
+            ViewBag.movieReview = GetReviewer();
+            ViewBag.movie = GetMovie();
+
             return View();
         }
 
@@ -90,22 +95,64 @@ namespace MvcWebRole2.Controllers
 
             if (review != null)
             {
+                TableManager tblMgr = new TableManager();
+
                 ReviewEntity entity = new ReviewEntity();
-                if (entity.ReviewId == review.ReviewId)
-                {
-                    entity.ReviewerName = review.ReviewerName;
-                    entity.ReviewerRating = review.ReviewerRating;
+               var movieId = tblMgr.GetMovieById(entity.MovieId);
+               if (movieId != null)
+               {
+                   if (review.MovieId.Equals(movieId))
+                   {
+
+                       entity.ReviewerRating = review.ReviewerRating;
+                       entity.Review = review.Review;
+                       entity.OutLink = review.OutLink;
+                       entity.Summary = review.Summary;
+                   }
+               }
+              
+             /*
+                    
+                   entity.ReviewerRating = review.ReviewerRating;
                     entity.Review = review.Review;
                     entity.OutLink = review.OutLink;
                     entity.Summary = review.Summary;
-                }
-
-                TableManager tblMgr = new TableManager();
+              
+                */
+               
                 tblMgr.UpdateReviewById(entity);
-                
-            }
+             }
 
             return View();
         }
+
+        public IEnumerable<SelectListItem> GetReviewer()
+        {
+            var tableMgr = new TableManager();
+            var reviewers = tableMgr.GetSortedReviewerByName().Select(
+                x => new SelectListItem
+                {
+                    Value = x.ReviewerId.ToString(),
+                    Text = x.ReviewerName
+                }
+                );
+            return new SelectList(reviewers, "Value", "Text");
+        }
+
+        public IEnumerable<SelectListItem> GetMovie()
+        {
+            var tableMgr = new TableManager();
+            var movies = tableMgr.GetSortedMoviesByName().Select(
+                x => new SelectListItem
+                {
+                    Value = x.MovieId.ToString(),
+                    Text = x.Name
+                }
+                );
+            return new SelectList(movies, "Value", "Text");
+        }
+
+
+
     }
 }

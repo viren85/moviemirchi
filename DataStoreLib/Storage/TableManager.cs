@@ -171,7 +171,13 @@ namespace DataStoreLib.Storage
            return reviewerTable.GetItemsById<ReviewerEntity>(reviewerIds);
        }
 
+       public IDictionary<string, ReviewerEntity> GetAllReviewer()
+       {
+           var movieTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
+           return movieTable.GetAllItems<ReviewerEntity>();
+       }
 
+        
 
     }
 }
