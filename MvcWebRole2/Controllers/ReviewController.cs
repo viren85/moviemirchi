@@ -116,7 +116,9 @@ namespace MvcWebRole2.Controllers
             return View();
         }
 
-        public ActionResult GetReviewDetailById(string )
+        public ActionResult GetReviewDetailById(string value) {
+            return View();
+        }
 
         public IEnumerable<SelectListItem> GetReviewer()
         {
