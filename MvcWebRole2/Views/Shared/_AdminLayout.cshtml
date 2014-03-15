@@ -14,6 +14,7 @@
     @Scripts.Render("~/Content/bootstrap.min.js")
     @Scripts.Render("~/Content/movie.core.js")
     @Styles.Render("~/Content/movie.style.css")
+    @Scripts.Render("~/Content/movie.autocomplete.js")
     <meta name="robots" content="NOODP" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,27 +62,16 @@
 
             <div class="col-sm-2" style="padding: 0px 5px 0px 0px; float: left; ">
                 <div class="list-group">
-                    @Html.ActionLink("Add Movie", "AddMovie", "Movie", null, new { @class = "list-group-item" })
-                    @Html.ActionLink("Update Movie", "UpdateMovie", "Movie", null, new { @class = "list-group-item" })
-
-                    @Html.ActionLink("Add Affiliation", "AddAffiliation", "Reviewer", null, new { @class = "list-group-item" })
-                    @Html.ActionLink("Update Affiliation", "UpdateAffiliation", "Reviewer", null, new { @class = "list-group-item" })
-
-                    @Html.ActionLink("Add Reviewer", "AddReviewer", "Reviewer", null, new { @class = "list-group-item" })
-                    @Html.ActionLink("Update Reviewer", "UpdateReviewer", "Reviewer", null, new { @class = "list-group-item" })
-
-                    @Html.ActionLink("Add Movie Review", "AddMovieReview", "Review", null, new { @class = "list-group-item" })
-                    @Html.ActionLink("Update Movie Reivew", "UpdateMovieReview", "Review", null, new { @class = "list-group-item" })
-
-
-                    @*<a href="#" class="list-group-item">Cras justo odio</a>
-                    <a href="#" class="list-group-item">Dapibus ac facilisis in</a>
-                    <a href="#" class="list-group-item">Morbi leo risus</a>
-                    <a href="#" class="list-group-item">Porta ac consectetur ac</a>
-                    <a href="#" class="list-group-item">Vestibulum at eros</a>*@
+                    @Html.ActionLink("Add Movie", "AddMovie", "Movie", null, new { @class = "list-group-item", @id="addmovie" })
+                    @Html.ActionLink("Update Movie", "UpdateMovie", "Movie", null, new { @class = "list-group-item", @id = "updatemovie" })
+                    @Html.ActionLink("Add Affiliation", "AddAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "addaffliation" })
+                    @Html.ActionLink("Update Affiliation", "UpdateAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "updateaffliation" })
+                    @Html.ActionLink("Add Reviewer", "AddReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "addreviewer" })
+                    @Html.ActionLink("Update Reviewer", "UpdateReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "updatereviewer" })
+                    @Html.ActionLink("Add Movie Review", "AddMovieReview", "Review", null, new { @class = "list-group-item", @id = "addreview" })
+                    @Html.ActionLink("Update Movie Reivew", "UpdateMovieReview", "Review", null, new { @class = "list-group-item", @id = "updatereview" })
                 </div>
             </div>
-
 
             <div class="col-sm-10" style="padding: 0px; float: left; ">
                 @RenderBody()
