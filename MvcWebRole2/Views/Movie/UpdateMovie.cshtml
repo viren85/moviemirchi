@@ -245,7 +245,7 @@
                     </div>
                     <div>
                         <label for="year">Year</label>
-                        <input type="text" name="year" id="year" />
+                        <input type="text" name="year" id="year" placeholder="Year" />
                     </div>
                 </div>
             </div>
@@ -336,9 +336,9 @@
                     "Year": year
                 };
 
-                alert(JSON.stringify(movie))
+                //alert(JSON.stringify(movie))
                 $("#hfMovie").val(JSON.stringify(movie));
-                alert($("#hfMovie").val())
+                //alert($("#hfMovie").val())
 
                 $.ajax({
                     url: '@Url.Action("UpdateMovie", "Movie")',

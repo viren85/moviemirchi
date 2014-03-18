@@ -6,7 +6,28 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#updatereviewer").attr("style", "background-color:#f5f5f5;");
+
+        BindValueChangeEvent('#hfReviewerId', GetReviewerById);
+        //get reviewer
+        $("#searchReviewer").keyup(function () {
+            //Fetching the textbox value.
+            var query = $(this).val();
+            //Calling GetItems method.
+            //alert(1);
+            autoCompleteTextBox(query, "AutoComplete/AutoCompleteReviewer", "autoCompleteReviewer", "reviewUL", "searchReviewer", "hfReviewerId");
+        });
     });
+
+    function GetReviewerById() {
+        var reviewerId = $("#hfReviewerId").val();
+        if (reviewerId != "0") {
+            $("#successStatus").html("");
+            $("#successStatus").hide();
+
+            CallHandler(reviewerId, "Reviewer/GetReviewerById", PopulateReviewerDetails)
+        }
+    }
+
 </script>
 
 <div class="panel panel-default">
@@ -19,6 +40,10 @@
         <div id="reviewerError" class="alert alert-danger" style="display:none;"></div>
         @using (Html.BeginForm())
         {
+            <div id="autoCompleteReviewer">
+                <input type="text" name="searchReviewer" id="searchReviewer" class="reviewInput" placeholder="Search Reviewer" /><br />
+                <input type="hidden" id="hfReviewerId" />
+            </div><br />
 
             @Html.DropDownList("affilationId", (SelectList)ViewBag.affilation, "-- Select Affilation Name --") <br />
 
@@ -26,8 +51,7 @@
 
             <input type="text" name="reviewerImage" id="reviewerImage" class="reviewInput" placeholder="Reviewer Image" /><br />
 
-            @*<input type="submit" value="submit" id="saveReviewDetail" name="Save" class="btn btn-primary" onclick="insertReviewerDetail();" />*@
-            <div class="btn btn-primary" onclick="insertReviewerDetail();">Save Reviewer</div>
+            <div class="btn btn-primary" onclick="UpdateReviewerDetail();">Update Reviewer</div>
 
         }
     </div>
@@ -36,20 +60,16 @@
 <script type="text/javascript">
 
 
-    function insertReviewerDetail() {
+    function UpdateReviewerDetail() {
         var isValid = true;
         try {
-            // var strUser = e.options[e.selectedIndex].value;
-            //$('#affilationId :selected').text();
-            //var affiltionId = document.getElementById("affiltionId");
-            //var strUser = affiltionId.options[affiltionId.selectedIndex].value;
-
             var affilationId = $('#affilationId :selected').val();
             var reviewerName = $("#reviewerName").val();
+            var reviewerId = $("#hfReviewerId").val();
             var reviewerImage = $("#reviewerImage").val();
 
 
-            if (affilationId == "") {
+            if (affilationId == "" || reviewerId == "") {
 
                 $("#reviewerError").html("Please Select Affilation Name.");
                 $("#reviewerError").show();
@@ -74,19 +94,18 @@
 
             if (isValid) {
                 var reviewer = {
+                    "ReviewerId": reviewerId,
                     "ReviewerName": reviewerName,
                     "ReviewerImage": reviewerImage,
                     "Affilation": affilationId
-                    //"Affilation": affilationId  // changes required
-
                 };
 
-                alert(JSON.stringify(reviewer));
+                //alert(JSON.stringify(reviewer));
                 $("#hfReviewer").val(JSON.stringify(reviewer));
-                alert(JSON.stringify(reviewer));
+                //alert(JSON.stringify(reviewer));
 
                 $.ajax({
-                    url: '@Url.Action("AddReviewer", "Reviewer")',
+                    url: '@Url.Action("UpdateReviewer", "Reviewer")',
                     data: { "reviewerJson": JSON.stringify(reviewer) },
                     type: 'POST',
                     dataType: 'json',
@@ -105,12 +124,13 @@
     }
     function ShowSuccessMessage(result) {
         if (result.Status == "Ok") {
-            $("#successStatus").html("Reviewer details saved successfully");
+            $("#successStatus").html("Reviewer details updated successfully");
             $("#successStatus").show();
             ClearformData();
             // $('cform')[0].reset();
 
-
+            $("#searchReviewer").val("");
+            $("#hfReviewerId").val("0");
             // ClearMoviesControl();
         } else if (result.Status == "Error") {
             $("#successStatus").removeAttr("class");

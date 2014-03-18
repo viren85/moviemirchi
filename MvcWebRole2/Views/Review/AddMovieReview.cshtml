@@ -50,11 +50,11 @@
         @using (Html.BeginForm())
         {
             <div id="autoCompleteMovie">
-                <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
+                <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie" /><br />
                 <input type="hidden" id="hfMovieId" />
             </div>
             <div id="autoCompleteReviewer">
-                <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
+                <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Search Reviewer" /><br />
                 <input type="hidden" id="hfReviewerId" />
             </div>
             <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
@@ -146,9 +146,9 @@
                     "Summary": summary
                 };
 
-                alert(JSON.stringify(reviewDetails));
+                //alert(JSON.stringify(reviewDetails));
                 $("#hfAffilations").val(JSON.stringify(reviewDetails));
-                alert(JSON.stringify(reviewDetails));
+                //alert(JSON.stringify(reviewDetails));
 
                 $.ajax({
                     url: '@Url.Action("AddMovieReview", "Review")',

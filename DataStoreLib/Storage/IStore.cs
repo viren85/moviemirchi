@@ -11,8 +11,8 @@ namespace DataStoreLib.Storage
     public interface IStore
     {
         IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
-        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id); 
-             IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
+        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
+        IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
 
         /* added a new method for getting all movies*/
         IDictionary<string, UserEntity> GetUsersById(List<string> userId);
@@ -21,7 +21,7 @@ namespace DataStoreLib.Storage
         IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
         IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);
         /* end */
-        
+
         IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
         IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
 
@@ -36,17 +36,17 @@ namespace DataStoreLib.Storage
         IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
 
 
-       IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
+        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
 
-       IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> reviewer);
-       IDictionary<string, AffilationEntity> GetAllAffilation();
+        IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> reviewer);
+        IDictionary<string, AffilationEntity> GetAllAffilation();
 
-       IDictionary<string, ReviewerEntity> GetAllReviewer();
-       IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
-       // object UpdateReviewersById(List<ReviewerEntity> list);
+        IDictionary<string, ReviewerEntity> GetAllReviewer();
+        IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
+        // object UpdateReviewersById(List<ReviewerEntity> list);
 
 
-       //object GetAffilationsById(List<string> list);
+        //object GetAffilationsById(List<string> list);
     }
 
     public static class IStoreHelpers
@@ -77,7 +77,7 @@ namespace DataStoreLib.Storage
         public static ReviewEntity GetReviewById(this IStore store, string id)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
-           var list = new List<string> { id };
+            var list = new List<string> { id };
             var retList = store.GetReviewsById(list);
 
             Debug.Assert(retList.Count == 1);
@@ -86,7 +86,7 @@ namespace DataStoreLib.Storage
 
         public static bool UpdateMovieById(this IStore store, MovieEntity movie)
         {
-            Debug.Assert( movie != null );
+            Debug.Assert(movie != null);
             var list = new List<MovieEntity> { movie };
             var retList = store.UpdateMoviesById(list);
 
@@ -105,7 +105,7 @@ namespace DataStoreLib.Storage
         }
 
 
-      
+
         /* Method added */
         /// <summary>
         /// get list of current running (in theaters) movies
@@ -142,7 +142,7 @@ namespace DataStoreLib.Storage
         public static List<MovieEntity> SearchMovies(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
-            
+
             List<MovieEntity> currentMovies = new List<MovieEntity>();
 
             foreach (var currentMovie in retList.Values)
@@ -197,7 +197,7 @@ namespace DataStoreLib.Storage
                     currentSongs.Add(currentSong);
                 }
             }
-            
+
             return currentSongs;
         }
 
@@ -215,7 +215,7 @@ namespace DataStoreLib.Storage
                     actors.Add(actor);
                 }
             }
-            
+
             return actors;
         }
 
@@ -233,7 +233,7 @@ namespace DataStoreLib.Storage
                     titles.Add(title);
                 }
             }
-            
+
             return titles;
         }
 
@@ -251,7 +251,7 @@ namespace DataStoreLib.Storage
                     traileres.Add(trailer);
                 }
             }
-            
+
             return traileres;
         }
 
@@ -269,7 +269,7 @@ namespace DataStoreLib.Storage
                     characters.Add(character);
                 }
             }
-            
+
             return characters;
         }
 
@@ -314,7 +314,7 @@ namespace DataStoreLib.Storage
             var retList = store.UpdateUsersById(list);
 
             Debug.Assert(retList.Count == 1);
-             if (retList.Count > 0)
+            if (retList.Count > 0)
                 return retList[retList.Keys.FirstOrDefault()];
             else
                 return false;
@@ -327,7 +327,7 @@ namespace DataStoreLib.Storage
             var list = new List<string> { userId };
             var retList = store.GetUsersById(list);
 
-             return retList[retList.Keys.FirstOrDefault()];
+            return retList[retList.Keys.FirstOrDefault()];
         }
 
         public static bool UpdateAffilationById(this IStore store, AffilationEntity affilation)
@@ -405,8 +405,16 @@ namespace DataStoreLib.Storage
         }
 
 
+        public static ReviewerEntity GetReviewerById(this IStore store, string id)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(id));
+            var list = new List<string> { id };
+            var retList = store.GetReviewersById(list);
 
-    
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
     }
-     
+
 }

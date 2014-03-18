@@ -1574,3 +1574,30 @@ function PopulateTrailers(trailer, counter) {
 }
 
 /*----------------Populate affiliation details----------------------*/
+function PopulateAffliliationDetails(result)
+{
+    console.log(result);
+
+    if (result != undefined && result != null)
+    {
+        $("#affilationName_0").val(result.AffilationName);
+        $("#websiteName_0").val(result.WebsiteName);
+        $("#websiteLink_0").val(result.WebsiteLink);
+        $("#logoLink_0").val(result.LogoLink);
+        $("#country_0").val(result.Country);
+    }
+}
+
+/*----------------Populate Reviewer details----------------------*/
+function PopulateReviewerDetails(result) {
+    console.log(result);
+
+    if (result != undefined && result != null) {
+
+        var affliation = JSON.parse(result.Affilation)
+
+        $("#affilationId").val(affliation.AffilationId);
+        $("#reviewerName").val(result.ReviewerName);
+        $("#reviewerImage").val(result.ReviewerImage);        
+    }
+}

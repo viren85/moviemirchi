@@ -40,12 +40,12 @@
                         @if (Session["username"] != null)
                         {
 
-                        <li class="authenticate">
-                            Welcome, @Session["username"].ToString().ToUpper()
-                        </li>
-                        <li class="log">
-                            @Html.ActionLink("Logout", "Logout", "Account")
-                        </li>
+                            <li class="authenticate">
+                                Welcome, @Session["username"].ToString().ToUpper()
+                            </li>
+                            <li class="log">
+                                @Html.ActionLink("Logout", "Logout", "Account")
+                            </li>
                         }
                         else
                         {
@@ -62,14 +62,27 @@
 
             <div class="col-sm-2" style="padding: 0px 5px 0px 0px; float: left; ">
                 <div class="list-group">
-                    @Html.ActionLink("Add Movie", "AddMovie", "Movie", null, new { @class = "list-group-item", @id="addmovie" })
+
+                    <a href="@Url.Action("AddMovie", "Movie")" id="addmovie" class="list-group-item"><span class=" glyphicon glyphicon-film"></span>  Add Movie</a>
+                    <a href="@Url.Action("UpdateMovie", "Movie")" id="updatemovie" class="list-group-item"><span class=" glyphicon glyphicon-pencil"></span>  Update Movie</a>
+
+                    <a href="@Url.Action("AddAffiliation", "Reviewer")" id="addaffliation" class="list-group-item"><span class=" glyphicon glyphicon-bookmark"></span>  Add Affiliation</a>
+                    <a href="@Url.Action("UpdateAffiliation", "Reviewer")" id="updateaffliation" class="list-group-item"><span class=" glyphicon glyphicon-pencil"></span>  Update Affiliation</a>
+
+                    <a href="@Url.Action("AddReviewer", "Reviewer")" id="addreviewer" class="list-group-item"><span class=" glyphicon glyphicon-user"></span>  Add Reviewer</a>
+                    <a href="@Url.Action("UpdateReviewer", "Reviewer")" id="updatereviewer" class="list-group-item"><span class=" glyphicon glyphicon-pencil"></span>  Update Reviewer</a>
+
+                    <a href="@Url.Action("AddMovieReview", "Review")" id="addreview" class="list-group-item"><span class=" glyphicon glyphicon-align-center"></span>  Add Movie Review</a>
+                    <a href="@Url.Action("UpdateMovieReview", "Review")" id="updatereview" class="list-group-item"><span class=" glyphicon glyphicon-pencil"></span>  Update Movie Reivew</a>
+
+                    @*@Html.ActionLink("  Add Movie", "AddMovie", "Movie", null, new { @class = "list-group-item glyphicon glyphicon-film", @id = "addmovie" })
                     @Html.ActionLink("Update Movie", "UpdateMovie", "Movie", null, new { @class = "list-group-item", @id = "updatemovie" })
                     @Html.ActionLink("Add Affiliation", "AddAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "addaffliation" })
                     @Html.ActionLink("Update Affiliation", "UpdateAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "updateaffliation" })
                     @Html.ActionLink("Add Reviewer", "AddReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "addreviewer" })
                     @Html.ActionLink("Update Reviewer", "UpdateReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "updatereviewer" })
                     @Html.ActionLink("Add Movie Review", "AddMovieReview", "Review", null, new { @class = "list-group-item", @id = "addreview" })
-                    @Html.ActionLink("Update Movie Reivew", "UpdateMovieReview", "Review", null, new { @class = "list-group-item", @id = "updatereview" })
+                    @Html.ActionLink("Update Movie Reivew", "UpdateMovieReview", "Review", null, new { @class = "list-group-item", @id = "updatereview" })*@
                 </div>
             </div>
 

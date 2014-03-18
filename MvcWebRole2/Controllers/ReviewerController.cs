@@ -83,7 +83,43 @@ namespace MvcWebRole2.Controllers
         [HttpPost]
         public ActionResult UpdateAffiliation(string affiliationJson)
         {
-            return View();
+            if (string.IsNullOrEmpty(affiliationJson))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                AffilationEntity affil = json.Deserialize(affiliationJson, typeof(AffilationEntity)) as AffilationEntity;
+
+                if (affil != null)
+                {
+                    SetConnectionString();
+
+                    AffilationEntity entity = new AffilationEntity();
+
+                    entity.RowKey = entity.AffilationId = affil.AffilationId;
+                    entity.AffilationName = affil.AffilationName;
+                    entity.WebsiteName = affil.WebsiteName;
+                    entity.WebsiteLink = affil.WebsiteLink;
+                    entity.LogoLink = affil.LogoLink;
+                    entity.Country = affil.Country;
+
+                    TableManager tblMgr = new TableManager();
+                    tblMgr.UpdateAffilationById(entity);
+                }
+                else
+                {
+                    return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -170,7 +206,7 @@ namespace MvcWebRole2.Controllers
                     SetConnectionString();
                     ReviewerEntity entity = new ReviewerEntity();
 
-                    entity.RowKey = entity.ReviewerId = Guid.NewGuid().ToString();
+                    entity.RowKey = entity.ReviewerId = reviewer.ReviewerId;
                     entity.ReviewerName = reviewer.ReviewerName;
                     entity.ReviewerImage = reviewer.ReviewerImage;
 
@@ -214,5 +250,19 @@ namespace MvcWebRole2.Controllers
             return new SelectList(affiliations, "Value", "Text");
         }
         #endregion
+
+        public ActionResult GetAffiliationById(string query)
+        {
+            var movie = new TableManager().GetAffilationById(query);
+
+            return Json(movie, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult GetReviewerById(string query)
+        {
+            var movie = new TableManager().GetReviewerById(query);
+
+            return Json(movie, JsonRequestBehavior.AllowGet);
+        }
     }
 }

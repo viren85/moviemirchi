@@ -148,9 +148,9 @@
                     "Summary": summary
                 };
 
-                alert(JSON.stringify(updateReviewDetails));
+                //alert(JSON.stringify(updateReviewDetails));
                 $("#hfUpdateMovieReview").val(JSON.stringify(updateReviewDetails));
-                alert(JSON.stringify(updateReviewDetails));
+                //alert(JSON.stringify(updateReviewDetails));
 
                 $.ajax({
                     url: '@Url.Action("UpdateMovieReview", "Review")',
