@@ -1574,3 +1574,4 @@ function PopulateTrailers(trailer, counter) {
 }
 
 /*----------------Populate affiliation details----------------------*/
+

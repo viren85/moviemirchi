@@ -76,14 +76,6 @@ namespace MvcWebRole2.Controllers
         [HttpGet]
         public ActionResult UpdateMovieReview()
         {
-            //SetConnectionString();
-
-
-            //ViewBag.movieReview = GetReviewer();
-          // ViewBag.movie = GetMovie();
-           // ViewBag.movieReview = GetReviewer();
-          
-
             return View();
         }
 
@@ -103,12 +95,15 @@ namespace MvcWebRole2.Controllers
             if (review != null)
             {
                 TableManager tblMgr = new TableManager();
-               ReviewEntity entity = tblMgr.GetReviewById(review.ReviewId);
-
-               entity.ReviewerRating = review.ReviewerRating;
-               entity.Review = review.Review;
-               entity.OutLink = review.OutLink;
-               entity.Summary = review.Summary;       
+                ReviewEntity entity = new ReviewEntity();
+               
+                entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
+                entity.MovieId = review.MovieId;
+                entity.ReviewerId = review.ReviewerId;
+                entity.ReviewerRating = review.ReviewerRating;
+                entity.Review = review.Review;
+                entity.OutLink = review.OutLink;
+                entity.Summary = review.Summary;
 
                 tblMgr.UpdateReviewById(entity);   
             }
@@ -116,8 +111,10 @@ namespace MvcWebRole2.Controllers
             return View();
         }
 
-        public ActionResult GetReviewDetailById(string value) {
-            return View();
+        public ActionResult GetReviewDetailByReviewerId(string query) {
+            TableManager tblMgr = new TableManager();
+            var review = tblMgr.GetReviewDetailById(query);
+         return Json(review, JsonRequestBehavior.AllowGet);
         }
 
         public IEnumerable<SelectListItem> GetReviewer()

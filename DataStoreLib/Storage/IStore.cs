@@ -11,7 +11,13 @@ namespace DataStoreLib.Storage
     public interface IStore
     {
         IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
-        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id); 
+        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
+        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId);
+
+      //  IDictionary<string, ReviewEntity> GetDetailByMovieAndReviewerId(List<string> reviewerId, List<string>movieId);
+
+        IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid);
+
              IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
 
         /* added a new method for getting all movies*/
@@ -26,6 +32,10 @@ namespace DataStoreLib.Storage
         IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
 
         IDictionary<string, UserEntity> GetUsersByName(string userName);
+
+        //IDictionary<string, UserEntity> GetDetailsByReviewerAndMovieId(string reviewerId);
+
+        IDictionary<string, ReviewEntity> GetReviewDetailsById(string reviewerId);
         IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
         //IDictionary<ReviewEntity, bool> UpdateReviewsById(<List<ReviewEntity> revi)
 
@@ -84,6 +94,19 @@ namespace DataStoreLib.Storage
             return retList[retList.Keys.FirstOrDefault()];
         }
 
+
+        //public static ReviewEntity GetMovieReviewDetailById(this IStore store, string movieId, string reviewerId) where TEntity : DataStoreLib.Models
+        //{
+        //    var reviewerlist = new List<string> { reviewerId };
+        //    var movielist = new List<string> { movieId };
+           
+
+        //    //var list = reviewerlist + "," + movielist;
+        //    //var retList = store.GetReviewsById(list);
+        //    var retList = store.GetDetailByMovieAndReviewerId(reviewerlist, movielist);
+        //    return retList[retList.Keys.FirstOrDefault()];
+
+        //} 
         public static bool UpdateMovieById(this IStore store, MovieEntity movie)
         {
             Debug.Assert( movie != null );
@@ -306,6 +329,15 @@ namespace DataStoreLib.Storage
             else
                 return null;
         }
+
+        public static ReviewEntity GetReviewDetailById(this IStore store, string reviewerId)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(reviewerId));
+
+            var retList = store.GetReviewsDetailById(reviewerId);
+            return retList[retList.Keys.FirstOrDefault()];
+           // Debug.Assert(retList.Count = 1);
+           }
 
         public static bool UpdateUserById(this IStore store, UserEntity user)
         {

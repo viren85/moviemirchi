@@ -294,6 +294,58 @@ namespace DataStoreLib.Storage
         {
             return ReviewEntity.PARTITION_KEY;
         }
+
+        public IDictionary<string, TEntity> GetItemsByReviewerAndMovieId<TEntity>(string reviewerId) where TEntity : DataStoreLib.Models.TableEntity
+        {
+            Debug.Assert(_table != null);
+
+            var operationList = new Dictionary<string, TableResult>();
+
+            TableQuery<ReviewEntity> query = new TableQuery<ReviewEntity>().Where(TableQuery.GenerateFilterCondition("ReviewerId", QueryComparisons.Equal, reviewerId));
+
+            IEnumerable<ReviewEntity> reviewResults = _table.ExecuteQuery<ReviewEntity>(query);
+
+            var returnDict = new Dictionary<string, TEntity>();
+            int iter = 0;
+
+            foreach (var tableResult in reviewResults)
+            {
+                TEntity entity = null;
+
+                entity = tableResult as TEntity;
+
+                returnDict.Add(tableResult.ReviewerId, entity);
+                iter++;
+            }
+
+            return returnDict;
+        }
+
+
+        public IDictionary<string, TEntity> GetReviewByMovieAndReviewId<TEntity>(string reviewerId, string movieId) where TEntity : DataStoreLib.Models.TableEntity
+        {
+            var operationList = new Dictionary<string, TableResult>();
+
+            TableQuery<ReviewEntity> query = new TableQuery<ReviewEntity>().Where(TableQuery.CombineFilters(
+                                                                TableQuery.GenerateFilterCondition("ReviewerId", QueryComparisons.Equal, reviewerId),
+                                                                TableOperators.And,
+                                                                TableQuery.GenerateFilterCondition("MovieId", QueryComparisons.Equal, movieId)));
+            IEnumerable<ReviewEntity> updateReviewResult = _table.ExecuteQuery<ReviewEntity>(query);
+            var returnDict = new Dictionary<string, TEntity>();
+            int iter = 0;
+            foreach (var tableResult in updateReviewResult)
+            {
+
+                TEntity entity = null;
+
+                entity = tableResult as TEntity;
+
+                returnDict.Add(tableResult.ReviewerId, entity);
+                iter++;
+            }
+
+            return returnDict;
+        }
     }
 
     internal class UserTable : Table
@@ -339,7 +391,9 @@ namespace DataStoreLib.Storage
 
             return returnDict;
         }
-
+        /*
+       
+        */
         public IDictionary<string, TEntity> UserAuthentication<TEntity>(string userName, string password) where TEntity : DataStoreLib.Models.TableEntity
         {
 
@@ -350,7 +404,7 @@ namespace DataStoreLib.Storage
             TableQuery<UserEntity> query = new TableQuery<UserEntity>().Where(TableQuery.CombineFilters(
                                                                                 TableQuery.GenerateFilterCondition("UserName", QueryComparisons.Equal, userName),
                                                                                 TableOperators.And,
-                                                                                TableQuery.GenerateFilterCondition("Password", QueryComparisons.LessThan, password)));
+                                                                                TableQuery.GenerateFilterCondition("Password", QueryComparisons.Equal, password)));
 
             
             IEnumerable<UserEntity> loginResults = _table.ExecuteQuery<UserEntity>(query);
@@ -370,7 +424,7 @@ namespace DataStoreLib.Storage
 
             return returnDict;
         }
-    }
+    }   
     internal class AffilationTable : Table
     {
         protected AffilationTable(CloudTable table)

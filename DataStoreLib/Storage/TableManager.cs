@@ -20,6 +20,11 @@ namespace DataStoreLib.Storage
             return movieTable.GetItemsById<MovieEntity>(ids);
         }
 
+       public IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId)
+       {
+           var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName) as ReviewTable;
+           return reviewTable.GetItemsByReviewerAndMovieId<ReviewEntity>(reviewerId); 
+       }
        public IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name)
        {
            var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName) as MovieTable;
@@ -94,6 +99,8 @@ namespace DataStoreLib.Storage
             var loginTable = TableStore.Instance.GetTable(TableStore.UserTableName) as UserTable;
             return loginTable.GetItemsByUserName<UserEntity>(userName);
         }
+
+      
         /*end*/
 
         public IDictionary<string, UserEntity> GetUsersById(List<string> userIds)
@@ -197,25 +204,6 @@ namespace DataStoreLib.Storage
 
        }
 
-
-
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
        public IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> review)
        {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
@@ -232,6 +220,17 @@ namespace DataStoreLib.Storage
             return returnTranslateOp;
        }
 
-       
+
+
+
+       public IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid)
+       {
+           throw new NotImplementedException();
+       }
+
+       public IDictionary<string, ReviewEntity> GetReviewDetailsById(string reviewerId)
+       {
+           throw new NotImplementedException();
+       }
     }
 }

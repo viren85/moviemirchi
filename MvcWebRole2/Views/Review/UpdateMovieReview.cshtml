@@ -1,12 +1,12 @@
 ﻿@{
-    ViewBag.Title = "MovieReview";
+    ViewBag.Title = "Update Movie Review";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#addreview").attr("style", "background-color:#f5f5f5;");
-
+        $("#updateReview").attr("style", "background-color:#f5f5f5;");
+        BindValueChangeEvent('#hfReviewerId', GetReviewDetailByReviewerId);
         //get movies
         $("#movieName").keyup(function (e) {
             //Fetching the textbox value.
@@ -31,6 +31,37 @@
         });
     });
 
+
+    function GetReviewDetailById() {
+       
+        var reviewid = $("#hfMovieId").val();
+        var movieId = $("#hfReviewerId").val();
+        var detail = reviewid + "," + movieId;
+
+        if (detail != null || detail != "") {
+            $("#successStatus").html("");
+            $("#successStatus").hide();
+
+            CallHandler(detail, "Review/GetReviewDetailsById", PopulateReviewDetails);
+
+        } else {
+            $("#updationMovieReviewError").html("Please Provide Reviewer Name and Movie Name.");
+            $("#updationMovieReviewError").show();
+        }
+
+        //var detail = detail.push({"ReviewId": reviewid[r], "movieId": movieId[c]});
+           
+    }
+
+    function PopulateReviewDetails(result) {
+       $("movieName").val(result.MovieId);
+       $("reviewerName").val(result.ReviewerId);
+        $("#reviewerRating").val(result.ReviewerRating);
+        $("#review").val(result.Review);
+        $("#outlink").val(result.OutLink);
+        $("#summary").val(result.Summary);
+
+    }
 
 </script>
 
@@ -83,12 +114,14 @@
 
             var movieId = $("#hfMovieId").val();
             var reviewerId = $("#hfReviewerId").val();
+            var movieName = $("#movieName").val();
+            var reviewerName = $("#reviewerName").val();
             var reviewerRating = $("#reviewerRating").val();
             var review = $("#review").val();
             var outlink = $("#outlink").val();
             var summary = $("#summary").val();
 
-            if (movieId == "") {
+            if (movieId == "" || movieName == "") {
 
                 $("#updationMovieReviewError").html("Please provide Movie Name.");
                 $("#updationMovieReviewError").show();

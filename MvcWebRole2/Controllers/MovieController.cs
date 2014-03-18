@@ -151,7 +151,7 @@ namespace MvcWebRole2.Controllers
 
         public ActionResult GetMovieDetailsById(string query)
         {
-            var movie = new TableManager().GetMovieById(query);
+            var movie = new TableManager().GetMovieById(query); 
 
             return Json(movie, JsonRequestBehavior.AllowGet);
         }
