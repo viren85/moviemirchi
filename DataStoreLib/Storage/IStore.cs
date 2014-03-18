@@ -13,6 +13,7 @@ namespace DataStoreLib.Storage
         IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
         IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
 <<<<<<< HEAD
+<<<<<<< HEAD
         IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId);
 
       //  IDictionary<string, ReviewEntity> GetDetailByMovieAndReviewerId(List<string> reviewerId, List<string>movieId);
@@ -20,6 +21,9 @@ namespace DataStoreLib.Storage
         IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid);
 
              IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
+=======
+        IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
+>>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
 =======
         IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
 >>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
