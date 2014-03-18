@@ -16,7 +16,37 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#updatemovie").attr("style", "background-color:#f5f5f5;");
+
+        //survey('#hfMovieId', function () { console.log('changed'); alert($("#hfMovieId").val()); });
+        BindValueChangeEvent('#hfMovieId', GetMovieDetailById);
+
+        $("#searchMovie").keyup(function (e) {
+            //Fetching the textbox value.
+            if (e.keyCode == 40 || e.keyCode == 38) {
+
+
+            }
+            else {
+                var query = $(this).val();
+                //Calling GetItems method.
+                //alert(1);
+                autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "searchMovie", "hfMovieId");
+            }
+        });
     });
+
+    function GetMovieDetailById() {
+        var movieId = $("#hfMovieId").val();
+        if (movieId != "0") {
+            $("#successStatus").html("");
+            $("#successStatus").hide();
+
+            //PopulateMovieDetails(movieId);
+            CallHandler(movieId, "Movie/GetMovieDetailsById", PopulateMovieDetails)
+        }
+    }
+
+
 </script>
 
 
@@ -30,6 +60,11 @@
 
         @using (Html.BeginForm())
         {
+            <div id="autoCompleteMovie">
+                <input type="text" id="searchMovie" class="reviewInput" placeholder="Search Movie" />
+                <input type="hidden" id="hfMovieId" value="NoId" />
+            </div>
+
             <div class="panel panel-info">
                 <div class="panel-heading">
                     <h3 class="panel-title">Movie Information</h3>
@@ -47,7 +82,6 @@
                         </div>
 
                         <div class="col-sm-12">
-                            @*<input type="text" class="text40" name="genre" id="genre" placeholder="Genre" />*@
                             <select name="genre" id="genre" class="text40">
                                 <option value="select">--Genre--</option>
                                 <option value="Action">Action</option>
@@ -58,7 +92,6 @@
                         </div>
 
                         <div class="col-sm-12">
-                            @*<input type="text" name="synops" id="synops" placeholder="Synopsis" />*@
                             <textarea id="synops" cols="68" rows="5" placeholder="Synopsis" class="text40"></textarea>
                         </div>
                     </div>
@@ -217,10 +250,9 @@
                 </div>
             </div>
 
-
             <div id="bottomError" style="display:none" class="alert alert-danger"></div>
 
-            <div class="btn btn-primary" onclick="javascript:void(0);">Update</div>
+            <div class="btn btn-primary" onclick="UpdateMoviedetail();">Update</div>
 
             @Html.Hidden("hfMovie", "")
         }
@@ -229,19 +261,23 @@
 
 <script type="text/javascript">
 
-    function saveMoviedetail() {
+    function UpdateMoviedetail() {
+
         var isValid = true;
         try {
+            var movieId = $("#hfMovieId").val();
             var movieName = $("#movieName").val();
+            var movieUniqueName = $("#movieName").attr("uniquename");
             var movieAltName = $("#movieAltName").val();
             var genre = $('#genre :selected').text();
             var synopsis = $("#synops").val();
             var month = $('#month :selected').text();
             var year = $("#year").val();
 
-            if (movieAltName == "") {
+            if (movieName == "" || movieId == "") {
                 $("#movieInfoError").html("Please enter movie name.");
                 $("#movieInfoError").show();
+                $("#movieInfoError").focus();
                 isValid = false;
             }
 
@@ -283,11 +319,12 @@
             if (isValid) {
                 //filling data into movie table
                 var movie = {
+                    "MovieId": movieId,
                     "Casts": castJson,
                     "Genre": genre,
                     "Month": month,
                     "Name": movieName,
-                    "UniqueName": movieName,
+                    "UniqueName": movieUniqueName,
                     "AltNames": movieAltName,
                     "Pictures": pictureJson,
                     "Posters": posterJson,
@@ -304,8 +341,8 @@
                 alert($("#hfMovie").val())
 
                 $.ajax({
-                    url: '@Url.Action("AddMovie", "Movie")',
-                    data: { "hfMovie": JSON.stringify(movie) },
+                    url: '@Url.Action("UpdateMovie", "Movie")',
+                    data: { "movieJson": JSON.stringify(movie) },
                     type: 'POST',
                     dataType: 'json',
                     success: ShowSuccessMessage,
@@ -313,6 +350,11 @@
                     }
                 });
             }
+            else {
+                $("#bottomError").html("There some error. Please check it out.");
+                $("#bottomError").show();
+            }
+
         } catch (e) {
             $("#movieInfoError").html("There some error please try again.");
             $("#movieInfoError").show();
@@ -326,7 +368,8 @@
         if (result.Status == "Ok") {
             $("#successStatus").html("Movie details saved successfully");
             $("#successStatus").show();
-
+            $("#searchMovie").val("");
+            $("#hfMovieId").val("0");
             ClearMoviesControl();
         } else if (result.Status == "Error") {
             $("#successStatus").removeAttr("class");

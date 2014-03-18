@@ -44,8 +44,11 @@ namespace MvcWebRole2.Controllers
                 {
                     SetConnectionString();
 
+                    string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
+
                     var tableMgr = new TableManager();
-                    MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(movie.Name);
+                    //MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(movie.Name);
+                    MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(uniqueName);
 
                     if (oldEntity != null)
                     {
@@ -72,9 +75,7 @@ namespace MvcWebRole2.Controllers
                     entity.Genre = movie.Genre;
                     entity.Month = movie.Month;
                     entity.Year = movie.Year;
-                    entity.AltNames = movie.Name;
-
-                    string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
+                    entity.AltNames = movie.AltNames;
                     entity.UniqueName = uniqueName;
 
                     tableMgr.UpdateMovieById(entity);
@@ -98,11 +99,61 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateMovie(string movie)
+        public ActionResult UpdateMovie(string movieJson)
         {
-            return View();
+            if (string.IsNullOrEmpty(movieJson))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                MovieEntity movie = json.Deserialize(movieJson, typeof(MovieEntity)) as MovieEntity;
+
+                if (movie != null)
+                {
+                    SetConnectionString();
+
+                    var tableMgr = new TableManager();
+                    
+                    MovieEntity entity = new MovieEntity();
+
+                    entity.RowKey = entity.MovieId = movie.MovieId;
+                    entity.Stats = movie.Stats;
+                    entity.Songs = movie.Songs;
+                    entity.Ratings = movie.Ratings;
+                    entity.Trailers = movie.Trailers;
+                    entity.Casts = movie.Casts;
+                    entity.Pictures = movie.Pictures;
+                    entity.Name = movie.Name;
+                    entity.Synopsis = movie.Synopsis;
+                    entity.Posters = movie.Posters;
+                    entity.Genre = movie.Genre;
+                    entity.Month = movie.Month;
+                    entity.Year = movie.Year;
+                    entity.AltNames = movie.AltNames;
+                    entity.UniqueName = movie.UniqueName;
+
+                    tableMgr.UpdateMovieById(entity);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
 
         #endregion
+
+        public ActionResult GetMovieDetailsById(string query)
+        {
+            var movie = new TableManager().GetMovieById(query);
+
+            return Json(movie, JsonRequestBehavior.AllowGet);
+        }
     }
 }

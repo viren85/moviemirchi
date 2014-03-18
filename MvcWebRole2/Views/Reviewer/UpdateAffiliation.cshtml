@@ -6,7 +6,34 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#updateaffliation").attr("style", "background-color:#f5f5f5;");
+
+        BindValueChangeEvent('#hfMovieId', GetMovieDetailById);
+
+        $("#searchMovie").keyup(function (e) {
+            //Fetching the textbox value.
+            if (e.keyCode == 40 || e.keyCode == 38) {
+
+
+            }
+            else {
+                var query = $(this).val();
+                //Calling GetItems method.
+                //alert(1);
+                autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "searchMovie", "hfMovieId");
+            }
+        });
     });
+
+    function GetAffiliationDetailById() {
+        var affiliationId = $("#hfAffiliationId").val();
+        if (affiliationId != "0") {
+            $("#successStatus").html("");
+            $("#successStatus").hide();
+
+            //PopulateMovieDetails(movieId);
+            CallHandler(affiliationId, "Movie/GetMovieDetailsById", PopulateMovieDetails)
+        }
+    }
 </script>
 
 <div class="panel panel-default">
@@ -20,6 +47,11 @@
 
         @using (Html.BeginForm())
         {
+            <div id="autoCompleteAffilialtion">
+                <input type="text" id="searchAffiliation" class="reviewInput" placeholder="Search Affiliation" />
+                <input type="hidden" id="hfAffiliationId" value="NoId" />
+            </div>
+            <br />
             <div class="row">
                 <div class="col-sm-12">
                     <div id="affilation">
