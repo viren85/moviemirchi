@@ -51,7 +51,7 @@ namespace MvcWebRole2.Controllers
 
                     entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
                     entity.MovieId = affil.MovieId;
-                    entity.ReviewerName = affil.ReviewerName;
+                    entity.ReviewerId = affil.ReviewerId;
                     entity.ReviewerRating = affil.ReviewerRating;
                     entity.Review = affil.Review;
                     entity.OutLink = affil.OutLink;
@@ -76,10 +76,13 @@ namespace MvcWebRole2.Controllers
         [HttpGet]
         public ActionResult UpdateMovieReview()
         {
-            SetConnectionString();
+            //SetConnectionString();
 
-            ViewBag.movieReview = GetReviewer();
-            ViewBag.movie = GetMovie();
+
+            //ViewBag.movieReview = GetReviewer();
+          // ViewBag.movie = GetMovie();
+           // ViewBag.movieReview = GetReviewer();
+          
 
             return View();
         }
@@ -100,26 +103,20 @@ namespace MvcWebRole2.Controllers
             if (review != null)
             {
                 TableManager tblMgr = new TableManager();
+               ReviewEntity entity = tblMgr.GetReviewById(review.ReviewId);
 
-                ReviewEntity entity = new ReviewEntity();
-                var movieId = tblMgr.GetMovieById(entity.MovieId);
-                if (movieId != null)
-                {
-                    if (review.MovieId.Equals(movieId))
-                    {
+               entity.ReviewerRating = review.ReviewerRating;
+               entity.Review = review.Review;
+               entity.OutLink = review.OutLink;
+               entity.Summary = review.Summary;       
 
-                        entity.ReviewerRating = review.ReviewerRating;
-                        entity.Review = review.Review;
-                        entity.OutLink = review.OutLink;
-                        entity.Summary = review.Summary;
-                    }
-                }
-
-                tblMgr.UpdateReviewById(entity);
+                tblMgr.UpdateReviewById(entity);   
             }
 
             return View();
         }
+
+        public ActionResult GetReviewDetailById(string )
 
         public IEnumerable<SelectListItem> GetReviewer()
         {
@@ -147,7 +144,7 @@ namespace MvcWebRole2.Controllers
             return new SelectList(movies, "Value", "Text");
         }
 
-
+     
 
     }
 }

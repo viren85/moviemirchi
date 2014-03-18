@@ -5,8 +5,33 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-        $("#updatereview").attr("style", "background-color:#f5f5f5;");
+        $("#addreview").attr("style", "background-color:#f5f5f5;");
+
+        //get movies
+        $("#movieName").keyup(function (e) {
+            //Fetching the textbox value.
+            if (e.keyCode == 40 || e.keyCode == 38) {
+
+            }
+            else {
+                var query = $(this).val();
+                //Calling GetItems method.
+                //alert(1);
+                autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "movieName", "hfMovieId");
+            }
+        });
+
+        //get reviewer
+        $("#reviewerName").keyup(function () {
+            //Fetching the textbox value.
+            var query = $(this).val();
+            //Calling GetItems method.
+            //alert(1);
+            autoCompleteTextBox(query, "AutoComplete/AutoCompleteReviewer", "autoCompleteReviewer", "reviewUL", "reviewerName", "hfReviewerId");
+        });
     });
+
+
 </script>
 
 <div class="panel panel-default">
@@ -21,25 +46,27 @@
 
         @using (Html.BeginForm())
         {
-            @Html.DropDownList("reviewerId", (SelectList)ViewBag.movieReview, "-- Select Reviewer Name --", new { @class = "reviewInput" })
-            <br />
-            @*@Html.DropDownList("movieId", (SelectList)ViewBag.movie, "-- Select Movie Name --")*@
-            //<br />
-            @*<input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />*@
+          <div id="autoCompleteMovie">
+                <input type="text" name="movieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
+                <input type="hidden" id="hfMovieId" />
+            </div>
+            <div id="autoCompleteReviewer">
+                <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
+                <input type="hidden" id="hfReviewerId" />
+            </div>           
+         
 
-            @*<input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />*@
+    <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
 
-            <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
-
-            @*<input type="text" name="Review" id="review" class="reviewInput" placeholder="review" />*@
+    @*<input type="text" name="Review" id="review" class="reviewInput" placeholder="review" />*@
             <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea><br />
 
             <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" /><br />
 
             <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea><br />
 
-            @*<input type="submit" value="Save" class="btn btn-primary" name="Submit" id="saveReview" />*@
-            <div class="btn btn-primary" onclick="UpdateMovieReviewDetail();">Add Movie Review</div>
+           
+            <div class="btn btn-primary" onclick="UpdateMovieReviewDetail();">Update Movie Review</div>
 
             @Html.Hidden("hfUpdateMovieReview", "")
         }
@@ -51,11 +78,11 @@
     function UpdateMovieReviewDetail() {
         var isValid = true;
         try {
-            var reviewerId = $('#reviewerId :selected').val();
-            var movieId = $('#movieId :selected').val();
+            //var reviewerId = $('#reviewerId :selected').val();
+            //var movieId = $('#movieId :selected').val();
 
-            //var movieName = $("#movieName").val();
-            //var reviewerName = $("#reviewerName").val();
+            var movieId = $("#hfMovieId").val();
+            var reviewerId = $("#hfReviewerId").val();
             var reviewerRating = $("#reviewerRating").val();
             var review = $("#review").val();
             var outlink = $("#outlink").val();

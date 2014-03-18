@@ -48,7 +48,7 @@ namespace MvcWebRole2.Controllers
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
-
+        
         public ActionResult AutoCompleteReviewer(string query)
         {
             var list = new List<object>();
@@ -77,5 +77,6 @@ namespace MvcWebRole2.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+         
     }
 }

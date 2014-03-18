@@ -11,7 +11,8 @@ namespace DataStoreLib.Storage
     public interface IStore
     {
         IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
-        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
+        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id); 
+             IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
 
         /* added a new method for getting all movies*/
         IDictionary<string, UserEntity> GetUsersById(List<string> userId);
@@ -36,6 +37,8 @@ namespace DataStoreLib.Storage
 
 
        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
+
+       IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> reviewer);
        IDictionary<string, AffilationEntity> GetAllAffilation();
 
        IDictionary<string, ReviewerEntity> GetAllReviewer();
@@ -74,7 +77,7 @@ namespace DataStoreLib.Storage
         public static ReviewEntity GetReviewById(this IStore store, string id)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
-            var list = new List<string> { id };
+           var list = new List<string> { id };
             var retList = store.GetReviewsById(list);
 
             Debug.Assert(retList.Count == 1);
@@ -102,15 +105,7 @@ namespace DataStoreLib.Storage
         }
 
 
-        public static bool UpdateReviewByReviewerId(this IStore store, ReviewEntity id)
-        {
-            Debug.Assert(id != null);
-            var list = new List<ReviewEntity> { id };
-            var retList = store.UpdateReviewsById(list);
-
-            Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
-        }
+      
         /* Method added */
         /// <summary>
         /// get list of current running (in theaters) movies
@@ -383,15 +378,15 @@ namespace DataStoreLib.Storage
             return retList[retList.Keys.FirstOrDefault()];
         }
 
-        public static bool UpdateMoviewReviewById(this IStore store, ReviewerEntity ids)
-        {
-            Debug.Assert(ids != null);
-            var list = new List<ReviewerEntity> { ids };
-            var retList = store.UpdateReviewers(list);
+        //public static ReviewEntity UpdateMovieReviewByReviewerId(this IStore store, ReviewEntity reviewerid)
+        //{
+        //    Debug.Assert(reviewerid != null);
+        //    var list = new List<ReviewEntity> { reviewerid };
+        //    var retList = store.UpdateReviewesByReviewerId(list);
 
-            Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
-        }
+        //    Debug.Assert(retList.Count == 1);
+        //    return retList[retList.Keys.FirstOrDefault()];
+        //}
 
         public static List<ReviewerEntity> GetSortedReviewerByName(this IStore store)
         {
@@ -408,6 +403,10 @@ namespace DataStoreLib.Storage
 
             return reviewers;
         }
+
+
+
+    
     }
      
 }

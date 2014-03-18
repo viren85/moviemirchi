@@ -26,12 +26,17 @@ namespace DataStoreLib.Storage
            return movieTable.GetItemsByName<MovieEntity>(name);
        }
 
-        public IDictionary<string, Models.ReviewEntity> GetReviewsById(List<string> ids)
+        public IDictionary<string, ReviewEntity> GetReviewsById(List<string> ids)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             return reviewTable.GetItemsById<ReviewEntity>(ids);
         }
 
+        public IDictionary<string, Models.ReviewerEntity> GetReviewersById(List<string> ids)
+        {
+            var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
+            return reviewerTable.GetItemsById<ReviewerEntity>(ids);
+        }
         public IDictionary<MovieEntity, bool> UpdateMoviesById(List<Models.MovieEntity> movies)
         {
             var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
@@ -171,13 +176,62 @@ namespace DataStoreLib.Storage
            return reviewerTable.GetItemsById<ReviewerEntity>(reviewerIds);
        }
 
+
+
+
        public IDictionary<string, ReviewerEntity> GetAllReviewer()
        {
-           var movieTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName) as ReviewerTable;
-           return movieTable.GetAllReviewers<ReviewerEntity>();
+
+           var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName) as ReviewerTable;
+           return reviewTable.GetAllReviewers<ReviewerEntity>();
+
+           //var reviewList = TableStore.Instance.GetTable(TableStore.ReviewTableName) as ReviewTable; ;
+           //return reviewList.GetAllReviewItems<ReviewEntity>();
        }
 
-        
+       public IDictionary<string, ReviewEntity> UpdateReviewesByReviewerId(List<string> ids)
+       {
+          // var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
+        var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
+        return reviewerTable.GetItemsById<ReviewEntity>(ids);
 
+       }
+
+
+
+   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       public IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> review)
+       {
+            var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
+            Debug.Assert(reviewTable != null);
+
+            var reviewerList = new List<DataStoreLib.Models.TableEntity>(review).ConvertAll(x => (ITableEntity)x);
+            var returnOp = reviewTable.UpdateItemsById(reviewerList);
+
+            var returnTranslateOp = new Dictionary<ReviewEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as ReviewEntity, returnOp[b]);
+            }
+            return returnTranslateOp;
+       }
+
+       
     }
 }
