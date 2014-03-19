@@ -77,6 +77,35 @@ namespace MvcWebRole2.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult AutoCompleteAffiliation(string query)
+        {
+            var list = new List<object>();
+
+            if (string.IsNullOrEmpty(query))
+            {
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+            SetConnectionString();
+
+            var tableMgr = new TableManager();
+            var reviewers = tableMgr.GetAllAffilation();
+
+            var reviewerList = (from u in reviewers
+                                where u.Value.AffilationName.ToLower().Contains(query.ToLower()) || u.Value.WebsiteLink.ToLower().Contains(query.ToLower())
+                                select u.Value).Distinct().ToArray().ToList();
+
+            if (reviewers != null)
+            {
+                foreach (AffilationEntity movieEntity in reviewerList)
+                {
+                    list.Add(new { id = movieEntity.AffilationId, name = movieEntity.AffilationName });
+                }
+            }
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
          
     }
 }

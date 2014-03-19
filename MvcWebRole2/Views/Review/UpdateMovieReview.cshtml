@@ -5,8 +5,13 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+<<<<<<< HEAD
         $("#updateReview").attr("style", "background-color:#f5f5f5;");
         BindValueChangeEvent('#hfReviewerId', GetReviewDetailByReviewerId);
+=======
+        $("#updatereview").attr("style", "background-color:#f5f5f5;");
+
+>>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
         //get movies
         $("#movieName").keyup(function (e) {
             //Fetching the textbox value.
@@ -77,26 +82,25 @@
 
         @using (Html.BeginForm())
         {
-          <div id="autoCompleteMovie">
+            <div id="autoCompleteMovie">
                 <input type="text" name="movieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
                 <input type="hidden" id="hfMovieId" />
             </div>
             <div id="autoCompleteReviewer">
                 <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
                 <input type="hidden" id="hfReviewerId" />
-            </div>           
-         
+            </div>
 
-    <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
 
-    @*<input type="text" name="Review" id="review" class="reviewInput" placeholder="review" />*@
+            <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
+
             <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea><br />
 
             <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" /><br />
 
             <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea><br />
 
-           
+
             <div class="btn btn-primary" onclick="UpdateMovieReviewDetail();">Update Movie Review</div>
 
             @Html.Hidden("hfUpdateMovieReview", "")
@@ -109,9 +113,6 @@
     function UpdateMovieReviewDetail() {
         var isValid = true;
         try {
-            //var reviewerId = $('#reviewerId :selected').val();
-            //var movieId = $('#movieId :selected').val();
-
             var movieId = $("#hfMovieId").val();
             var reviewerId = $("#hfReviewerId").val();
             var movieName = $("#movieName").val();
@@ -181,9 +182,9 @@
                     "Summary": summary
                 };
 
-                alert(JSON.stringify(updateReviewDetails));
+                //alert(JSON.stringify(updateReviewDetails));
                 $("#hfUpdateMovieReview").val(JSON.stringify(updateReviewDetails));
-                alert(JSON.stringify(updateReviewDetails));
+                //alert(JSON.stringify(updateReviewDetails));
 
                 $.ajax({
                     url: '@Url.Action("UpdateMovieReview", "Review")',

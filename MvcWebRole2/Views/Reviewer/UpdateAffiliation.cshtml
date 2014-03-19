@@ -7,9 +7,9 @@
     $(document).ready(function () {
         $("#updateaffliation").attr("style", "background-color:#f5f5f5;");
 
-        BindValueChangeEvent('#hfMovieId', GetMovieDetailById);
+        BindValueChangeEvent('#hfAffiliationId', GetAffiliationDetailById);
 
-        $("#searchMovie").keyup(function (e) {
+        $("#searchAffiliation").keyup(function (e) {
             //Fetching the textbox value.
             if (e.keyCode == 40 || e.keyCode == 38) {
 
@@ -19,7 +19,7 @@
                 var query = $(this).val();
                 //Calling GetItems method.
                 //alert(1);
-                autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "searchMovie", "hfMovieId");
+                autoCompleteTextBox(query, "AutoComplete/AutoCompleteAffiliation", "autoCompleteAffilialtion", "affliationUL", "searchAffiliation", "hfAffiliationId");
             }
         });
     });
@@ -30,8 +30,7 @@
             $("#successStatus").html("");
             $("#successStatus").hide();
 
-            //PopulateMovieDetails(movieId);
-            CallHandler(affiliationId, "Movie/GetMovieDetailsById", PopulateMovieDetails)
+            CallHandler(affiliationId, "Reviewer/GetAffiliationById", PopulateAffliliationDetails)
         }
     }
 </script>
@@ -63,15 +62,12 @@
                             <input type="text" name="logoLink" id="logoLink_0" class="reviewInput" placeholder="Logo" /><br />
                             <input type="text" name="country" id="country_0" class="reviewInput" placeholder="Country" /><br />
 
-                            <div class="btn btn-primary" onclick="insertAffilaion();">Add Affiliation </div>
+                            <div class="btn btn-primary" onclick="UpdateAffilaion();">Update Affiliation </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div>
-                @*<input type="submit" name="Create" value="Create" id="create" class="btn btn-primary" onclick="insertAffilaion(); return false;" />*@
-            </div>
-
+            
             @Html.Hidden("hfAffilations", "")
         }
     </div>
@@ -79,9 +75,10 @@
 
 <script type="text/javascript">
 
-    function insertAffilaion() {
+    function UpdateAffilaion() {
         var isValid = true;
         try {
+            var affliationId = $("#hfAffiliationId").val();
             var affilationName_0 = $("#affilationName_0").val();
             var websiteName_0 = $("#websiteName_0").val();
             var websiteLink_0 = $("#websiteLink_0").val();
@@ -132,6 +129,7 @@
 
             if (isValid) {
                 var affilation = {
+                    "AffilationId": affliationId,
                     "AffilationName": affilationName_0,
                     "WebsiteName": websiteName_0,
                     "WebsiteLink": websiteLink_0,
@@ -139,12 +137,12 @@
                     "Country": country_0
                 };
 
-                alert(JSON.stringify(affilation));
+                //alert(JSON.stringify(affilation));
                 $("#hfAffilations").val(JSON.stringify(affilation));
-                alert(JSON.stringify(affilation));
+                //alert(JSON.stringify(affilation));
 
                 $.ajax({
-                    url: '@Url.Action("AddAffiliation", "Reviewer")',
+                    url: '@Url.Action("UpdateAffiliation", "Reviewer")',
                     data: { "affiliationJson": JSON.stringify(affilation) },
                     type: 'POST',
                     dataType: 'json',
@@ -161,7 +159,7 @@
 
     function ShowSuccessMessage(result) {
         if (result.Status == "Ok") {
-            $("#successStatus").html("Affiliation details saved successfully");
+            $("#successStatus").html("Affiliation details updated successfully");
             $("#successStatus").show();
             ClearformData();
         } else if (result.Status == "Error") {
@@ -173,6 +171,8 @@
     }
 
     function ClearformData() {
+        $("#searchAffiliation").val("");
+        $("#hfAffiliationId").val("0"); 
         $("#affilationName_0").val("");
         $("#websiteName_0").val("");
         $("#websiteLink_0").val("");
