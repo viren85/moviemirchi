@@ -96,8 +96,8 @@ namespace MvcWebRole2.Controllers
             {
                 TableManager tblMgr = new TableManager();
                 ReviewEntity entity = new ReviewEntity();
-               
-                entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
+
+                entity.RowKey = entity.ReviewId = review.ReviewId;
                 entity.MovieId = review.MovieId;
                 entity.ReviewerId = review.ReviewerId;
                 entity.ReviewerRating = review.ReviewerRating;
@@ -112,8 +112,9 @@ namespace MvcWebRole2.Controllers
         }
 
         public ActionResult GetReviewDetailByReviewerId(string query) {
+            string[] ids = query.Split(',');
             TableManager tblMgr = new TableManager();
-            var review = tblMgr.GetReviewDetailById(query);
+             var review = tblMgr.GetReviewDetailById(ids[0], ids[1]);
          return Json(review, JsonRequestBehavior.AllowGet);
         }
 

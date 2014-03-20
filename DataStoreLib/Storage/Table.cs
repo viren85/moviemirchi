@@ -340,7 +340,7 @@ namespace DataStoreLib.Storage
 
                 entity = tableResult as TEntity;
 
-                returnDict.Add(tableResult.ReviewerId, entity);
+                returnDict.Add(tableResult.ReviewId, entity);
                 iter++;
             }
 

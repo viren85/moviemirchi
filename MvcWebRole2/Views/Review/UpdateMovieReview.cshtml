@@ -5,16 +5,9 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        $("#updateReview").attr("style", "background-color:#f5f5f5;");
-        BindValueChangeEvent('#hfReviewerId', GetReviewDetailByReviewerId);
-=======
-=======
->>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
-        $("#updatereview").attr("style", "background-color:#f5f5f5;");
 
->>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
+        $("#updateReview").attr("style", "background-color:#f5f5f5;");
+        BindValueChangeEvent('#hfReviewerId', GetReviewDetailById);
         //get movies
         $("#movieName").keyup(function (e) {
             //Fetching the textbox value.
@@ -50,7 +43,7 @@
             $("#successStatus").html("");
             $("#successStatus").hide();
 
-            CallHandler(detail, "Review/GetReviewDetailsById", PopulateReviewDetails);
+            CallHandler(detail, "Review/GetReviewDetailByReviewerId", PopulateReviewDetails);
 
         } else {
             $("#updationMovieReviewError").html("Please Provide Reviewer Name and Movie Name.");
@@ -62,8 +55,8 @@
     }
 
     function PopulateReviewDetails(result) {
-       $("movieName").val(result.MovieId);
-       $("reviewerName").val(result.ReviewerId);
+       $("#movieName").val(result.MovieId);
+       $("#reviewerName").val(result.ReviewerId);
         $("#reviewerRating").val(result.ReviewerRating);
         $("#review").val(result.Review);
         $("#outlink").val(result.OutLink);
@@ -85,6 +78,7 @@
 
         @using (Html.BeginForm())
         {
+            <input type="hidden" id="reviewId" />
             <div id="autoCompleteMovie">
                 <input type="text" name="movieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
                 <input type="hidden" id="hfMovieId" />
@@ -93,17 +87,16 @@
                 <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
                 <input type="hidden" id="hfReviewerId" />
             </div>
-<<<<<<< HEAD
+
+            <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
+
 
 
             <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
 
-=======
-
 
             <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
 
->>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
             <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea><br />
 
             <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" /><br />
@@ -123,6 +116,7 @@
     function UpdateMovieReviewDetail() {
         var isValid = true;
         try {
+            var reviewId = $("#reviewId").val();
             var movieId = $("#hfMovieId").val();
             var reviewerId = $("#hfReviewerId").val();
             var movieName = $("#movieName").val();
@@ -184,6 +178,7 @@
 
             if (isValid) {
                 var updateReviewDetails = {
+                    "ReviewId":reviewId,
                     "MovieId": movieId,
                     "ReviewerId": reviewerId,
                     "ReviewerRating": reviewerRating,
@@ -228,6 +223,8 @@
     function ClearformData() {
         $("#movieId").val("");
         $("#reviewerId").val("");
+       $("#movieName").val("");
+       $("#reviewerName").val("");
         $("#reviewerRating").val("");
         $("#review").val("");
         $("#outlink").val("");

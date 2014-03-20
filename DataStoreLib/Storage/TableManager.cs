@@ -20,10 +20,10 @@ namespace DataStoreLib.Storage
             return movieTable.GetItemsById<MovieEntity>(ids);
         }
 
-       public IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId)
+       public IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId)
        {
            var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName) as ReviewTable;
-           return reviewTable.GetItemsByReviewerAndMovieId<ReviewEntity>(reviewerId); 
+           return reviewTable.GetReviewByMovieAndReviewId<ReviewEntity>(reviewerId, movieId); 
        }
        public IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name)
        {

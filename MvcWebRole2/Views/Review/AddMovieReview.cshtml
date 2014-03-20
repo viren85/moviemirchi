@@ -6,13 +6,13 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#addreview").attr("style", "background-color:#f5f5f5;");
-
+        BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
         //get movies
         $("#movieName").keyup(function (e) {
             //Fetching the textbox value.
             if (e.keyCode == 40 || e.keyCode == 38) {
 
-               
+
             }
             else {
                 var query = $(this).val();
@@ -32,8 +32,23 @@
         });
     });
 
+    function GetReviewerDetail() {
+        var movieId = $("#hfMovieId").val();
+        var reviewerId = $("#hfReviewerId").val();
+        CallHandler(detail, "Review/GetReviewDetailByReviewerId", PopulateMovieDetailById);
+    }
 
-    
+
+    function PopulateMovieDetailById(result) {
+        if (result.ReviewId != null || result.ReviewId != "") {
+            $("#affilationError").html("You can not provide the review for the same Movie again.")
+        } else {
+            var reviewId = $("#reviewId").val(result.ReviewId);
+            var reviewerId = $("#hfReviewerId").val(result.ReviewerId);
+            var movieId = $("#hfMovieId").val(result.MovieId);
+        }
+    }
+
 
 </script>
 
@@ -49,6 +64,7 @@
 
         @using (Html.BeginForm())
         {
+            <input type="hidden" id="reviewId" />
             <div id="autoCompleteMovie">
                 <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie" /><br />
                 <input type="hidden" id="hfMovieId" />

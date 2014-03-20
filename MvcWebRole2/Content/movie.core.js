@@ -1574,12 +1574,6 @@ function PopulateTrailers(trailer, counter) {
 }
 
 /*----------------Populate affiliation details----------------------*/
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
 function PopulateAffliliationDetails(result)
 {
     console.log(result);
@@ -1606,9 +1600,6 @@ function PopulateReviewerDetails(result) {
         $("#reviewerName").val(result.ReviewerName);
         $("#reviewerImage").val(result.ReviewerImage);        
     }
-<<<<<<< HEAD
+
 }
->>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
-=======
-}
->>>>>>> 9edaca004c3caeda82b2f0e3a05e652b49a5a0ec
+
