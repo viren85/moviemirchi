@@ -12,6 +12,7 @@ namespace DataStoreLib.Storage
     {
         IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
         IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
+
         IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);
 
       //  IDictionary<string, ReviewEntity> GetDetailByMovieAndReviewerId(List<string> reviewerId, List<string>movieId);
@@ -25,6 +26,8 @@ namespace DataStoreLib.Storage
         //IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
 
         //IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
+
+        IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
 
         /* added a new method for getting all movies*/
         IDictionary<string, UserEntity> GetUsersById(List<string> userId);

@@ -921,7 +921,7 @@ function GetTrailerJson() {
 
 /* Clear control data */
 function ClearMoviesControl() {
-    
+
     $("#movieInfoError").html("");
     $("#movieInfoError").hide();
 
@@ -1177,25 +1177,22 @@ function IsEmailValid(emailText) {
 }
 
 /* Populate movie details */
-function PopulateMovieDetails(result)
-{
-    if (result != undefined && result != null)
-    {
+function PopulateMovieDetails(result) {
+    if (result != undefined && result != null) {
         ClearMoviesControl();
 
         // movie information
         $("#movieName").val(result.Name);
         $("#movieName").attr("uniqueName", result.UniqueName);
 
-        $("#movieAltName").val(result.AltNames);        
+        $("#movieAltName").val(result.AltNames);
         $('#genre').val(result.Genre);
         $("#synops").val(result.Synopsis);
 
         // cast infor
         var cast = JSON.parse(result.Casts);
 
-        for (var c = 0; c < cast.length; c++)
-        {
+        for (var c = 0; c < cast.length; c++) {
             PopulateCast(cast[c], c);
         }
         $("#hfCast").val(cast.length)
@@ -1245,10 +1242,8 @@ function PopulateMovieDetails(result)
     }
 }
 
-function PopulateCast(cast, counter)
-{
-    if (counter == 0)
-    {
+function PopulateCast(cast, counter) {
+    if (counter == 0) {
         $("#castName_0").val(cast.name);
         $("#charName_0").val(cast.charactername);
         $('#roles_0').val(cast.role);
@@ -1257,8 +1252,7 @@ function PopulateCast(cast, counter)
         $("#castImgHeight_0").val(cast.image.height);
         $('#castImgWidth_0').val(cast.image.width);
     }
-    else
-    {
+    else {
         var pictureContainer = $("#casts");
         var well = $("<div/>");
         well.attr("id", "cast_well_" + counter);
@@ -1362,22 +1356,19 @@ function PopulateCast(cast, counter)
         well.append(close);
 
         pictureContainer.append(well);
-        
+
         $("#hfCast").val(counter);
     }
 }
 
-function PopulatePictures(picture, counter)
-{
-    if (counter == 0)
-    {
+function PopulatePictures(picture, counter) {
+    if (counter == 0) {
         $("#picName_0").val(picture.caption);
         $("#picImgUrl_0").val(picture.image.url);
         $("#picImgHeight_0").val(picture.image.height);
         $("#picImgWidth_0").val(picture.image.width);
     }
-    else
-    {
+    else {
         var pictureContainer = $("#picture");
         var well = $("<div/>");
         well.attr("id", "well_" + counter);
@@ -1429,20 +1420,17 @@ function PopulatePictures(picture, counter)
         well.append(close);
 
         pictureContainer.append(well);
-        counter++;        
+        counter++;
     }
 }
 
-function PopulatePosters(poster, counter)
-{
-    if (counter == 0)
-    {
+function PopulatePosters(poster, counter) {
+    if (counter == 0) {
         $("#posterUrl_0").val(poster.url);
         $("#posterHeight_0").val(poster.height);
         $("#posterWidth_0").val(poster.width);
     }
-    else
-    {
+    else {
         var pictureContainer = $("#poster");
         var well = $("<div/>");
         well.attr("id", "poster_well_" + counter);
@@ -1484,19 +1472,16 @@ function PopulatePosters(poster, counter)
         close.html("X");
         well.append(close);
 
-        pictureContainer.append(well);        
+        pictureContainer.append(well);
     }
 }
 
-function PopulateSongs(song, counter)
-{
-    if (counter == 0)
-    {
+function PopulateSongs(song, counter) {
+    if (counter == 0) {
         $("#songName_0").val(song.name);
         $("#songUrl_0").val(song.url);
     }
-    else
-    {
+    else {
         var pictureContainer = $("#songs");
         var well = $("<div/>");
         well.attr("id", "songs_well_" + counter);
@@ -1527,18 +1512,16 @@ function PopulateSongs(song, counter)
         close.html("X");
         well.append(close);
 
-        pictureContainer.append(well);        
+        pictureContainer.append(well);
     }
 }
 
 function PopulateTrailers(trailer, counter) {
-    if (counter == 0)
-    {
+    if (counter == 0) {
         $("#movieTrailerName_0").val(trailer.name);
         $("#movieTrailerUrl_0").val(trailer.url);
     }
-    else
-    {
+    else {
         var pictureContainer = $("#trailers");
         var well = $("<div/>");
         well.attr("id", "trailer_well_" + counter);
@@ -1574,12 +1557,10 @@ function PopulateTrailers(trailer, counter) {
 }
 
 /*----------------Populate affiliation details----------------------*/
-function PopulateAffliliationDetails(result)
-{
+function PopulateAffliliationDetails(result) {
     console.log(result);
 
-    if (result != undefined && result != null)
-    {
+    if (result != undefined && result != null) {
         $("#affilationName_0").val(result.AffilationName);
         $("#websiteName_0").val(result.WebsiteName);
         $("#websiteLink_0").val(result.WebsiteLink);
@@ -1598,8 +1579,7 @@ function PopulateReviewerDetails(result) {
 
         $("#affilationId").val(affliation.AffilationId);
         $("#reviewerName").val(result.ReviewerName);
-        $("#reviewerImage").val(result.ReviewerImage);        
+        $("#reviewerImage").val(result.ReviewerImage);
     }
-
 }
 
