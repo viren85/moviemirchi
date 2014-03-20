@@ -25,9 +25,7 @@ namespace DataStoreLib.Storage
         #endregion
 
         #region Review
-        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);
-        IDictionary<string, ReviewEntity> GetReviewDetailsById(string reviewerId);
-        IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid);
+        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);        
         IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
         IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
         IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);

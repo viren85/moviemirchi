@@ -201,6 +201,7 @@ namespace DataStoreLib.Storage
             }
             return returnTranslateOp;
         }
+
         /// <summary>
         /// Update Reviewes by reviewerId
         /// </summary>
@@ -212,25 +213,7 @@ namespace DataStoreLib.Storage
             var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
             return reviewerTable.GetItemsById<ReviewEntity>(ids);
 
-        }
-        /// <summary>
-        /// Return Nothing
-        /// </summary>
-        /// <param name="reviewerid"></param>
-        /// <returns></returns>
-        public IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid)
-        {
-            throw new NotImplementedException();
-        }
-        /// <summary>
-        /// Return Nothing
-        /// </summary>
-        /// <param name="reviewerId"></param>
-        /// <returns></returns>
-        public IDictionary<string, ReviewEntity> GetReviewDetailsById(string reviewerId)
-        {
-            throw new NotImplementedException();
-        }
+        }        
         #endregion
 
         #region Reviewer
