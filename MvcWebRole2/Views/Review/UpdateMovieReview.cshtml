@@ -9,6 +9,9 @@
 
         $("#updatereview").attr("style", "background-color:#f5f5f5;");
 
+
+
+      
         BindValueChangeEvent('#hfReviewerId', GetReviewDetailById);
         //get movies
         $("#movieName").keyup(function (e) {
@@ -81,7 +84,9 @@
         @using (Html.BeginForm())
         {
 
+
             <input type="hidden" id="reviewId" />
+
 
             <div id="autoCompleteMovie">
                 <input type="text" name="movieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
@@ -91,6 +96,7 @@
                 <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
                 <input type="hidden" id="hfReviewerId" />
             </div>
+
 
 
             <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
@@ -117,7 +123,9 @@
         var isValid = true;
         try {
 
+
             var reviewId = $("#reviewId").val();
+
 
             var movieId = $("#hfMovieId").val();
             var reviewerId = $("#hfReviewerId").val();

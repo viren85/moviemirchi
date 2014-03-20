@@ -1560,13 +1560,14 @@ function PopulateTrailers(trailer, counter) {
 
 
 
+
+
 function PopulateAffliliationDetails(result)
 {
     console.log(result);
 
     if (result != undefined && result != null)
     {
-
         $("#affilationName_0").val(result.AffilationName);
         $("#websiteName_0").val(result.WebsiteName);
         $("#websiteLink_0").val(result.WebsiteLink);
@@ -1585,6 +1586,7 @@ function PopulateReviewerDetails(result) {
 
         $("#affilationId").val(affliation.AffilationId);
         $("#reviewerName").val(result.ReviewerName);
+
 
         $("#reviewerImage").val(result.ReviewerImage);
     }
