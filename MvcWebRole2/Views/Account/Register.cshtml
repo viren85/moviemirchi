@@ -118,11 +118,7 @@
                     "Email": email,
                     "Mobile": confirmPassword // mobile no use as confirm password
                 };
-
-                alert(JSON.stringify(user));
                 //$("#hfAffilations").val(JSON.stringify(user));
-                alert(JSON.stringify(user));
-
                 $.ajax({
                     url: '@Url.Action("Register", "Account")',
                     data: { "userJson": JSON.stringify(user) },
@@ -163,10 +159,5 @@
         $("#userName").val("");
         $("#password").val("");
         $("#confirmPassword").val("");
-
-        /*$("#successStatus").hide();
-        $("#affilationError").hide();
-        $("#successStatus").html("");
-        $("#affilationError").html("");*/
     }
 </script>

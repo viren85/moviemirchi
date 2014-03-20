@@ -16,8 +16,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $("#updatemovie").attr("style", "background-color:#f5f5f5;");
-
-        //survey('#hfMovieId', function () { console.log('changed'); alert($("#hfMovieId").val()); });
+        
         BindValueChangeEvent('#hfMovieId', GetMovieDetailById);
 
         $("#searchMovie").keyup(function (e) {
@@ -28,7 +27,6 @@
             else {
                 var query = $(this).val();
                 //Calling GetItems method.
-                //alert(1);
                 autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "searchMovie", "hfMovieId");
             }
         });
@@ -335,9 +333,7 @@
                     "Year": year
                 };
 
-                //alert(JSON.stringify(movie))
                 $("#hfMovie").val(JSON.stringify(movie));
-                //alert($("#hfMovie").val())
 
                 $.ajax({
                     url: '@Url.Action("UpdateMovie", "Movie")',

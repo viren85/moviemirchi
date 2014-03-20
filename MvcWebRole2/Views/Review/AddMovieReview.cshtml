@@ -11,13 +11,10 @@
         $("#movieName").keyup(function (e) {
             //Fetching the textbox value.
             if (e.keyCode == 40 || e.keyCode == 38) {
-
-
             }
             else {
                 var query = $(this).val();
                 //Calling GetItems method.
-                //alert(1);
                 autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "movieName", "hfMovieId");
             }
         });
@@ -27,7 +24,6 @@
             //Fetching the textbox value.
             var query = $(this).val();
             //Calling GetItems method.
-            //alert(1);
             autoCompleteTextBox(query, "AutoComplete/AutoCompleteReviewer", "autoCompleteReviewer", "reviewUL", "reviewerName", "hfReviewerId");
         });
     });
@@ -39,9 +35,7 @@
         if (reviewerId != "" && movieId != "") {
             CallHandler(detail, "Review/GetReviewDetailByReviewerId", PopulateMovieDetailById);
         }
-        
     }
-
 
     function PopulateMovieDetailById(result) {
         if (result.ReviewId != null || result.ReviewId != "") {
@@ -54,7 +48,6 @@
             $("#hfsummary").val(result.Summary);
             $("#affilationError").html("You can not provide the review for the same Movie again.");
         }
-
     }
 </script>
 
@@ -180,9 +173,7 @@
                     "Summary": summary
                 };
 
-                //alert(JSON.stringify(reviewDetails));
                 $("#hfAffilations").val(JSON.stringify(reviewDetails));
-                //alert(JSON.stringify(reviewDetails));
 
                 $.ajax({
                     url: '@Url.Action("AddMovieReview", "Review")',

@@ -13,7 +13,6 @@
             //Fetching the textbox value.
             var query = $(this).val();
             //Calling GetItems method.
-            //alert(1);
             autoCompleteTextBox(query, "AutoComplete/AutoCompleteReviewer", "autoCompleteReviewer", "reviewUL", "searchReviewer", "hfReviewerId");
         });
     });
@@ -100,9 +99,7 @@
                     "Affilation": affilationId
                 };
 
-                //alert(JSON.stringify(reviewer));
                 $("#hfReviewer").val(JSON.stringify(reviewer));
-                //alert(JSON.stringify(reviewer));
 
                 $.ajax({
                     url: '@Url.Action("UpdateReviewer", "Reviewer")',
@@ -127,11 +124,9 @@
             $("#successStatus").html("Reviewer details updated successfully");
             $("#successStatus").show();
             ClearformData();
-            // $('cform')[0].reset();
 
             $("#searchReviewer").val("");
             $("#hfReviewerId").val("0");
-            // ClearMoviesControl();
         } else if (result.Status == "Error") {
             $("#successStatus").removeAttr("class");
             $("#successStatus").attr("class", "alert alert-danger");
@@ -144,7 +139,6 @@
         $("#affilationId").val("");
         $("#reviewerName").val("");
         $("#reviewerImage").val("");
-
         $("#reviewerError").hide();
     }
 

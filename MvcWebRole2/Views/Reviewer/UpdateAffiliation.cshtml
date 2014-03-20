@@ -12,13 +12,10 @@
         $("#searchAffiliation").keyup(function (e) {
             //Fetching the textbox value.
             if (e.keyCode == 40 || e.keyCode == 38) {
-
-
             }
             else {
                 var query = $(this).val();
                 //Calling GetItems method.
-                //alert(1);
                 autoCompleteTextBox(query, "AutoComplete/AutoCompleteAffiliation", "autoCompleteAffilialtion", "affliationUL", "searchAffiliation", "hfAffiliationId");
             }
         });
@@ -137,9 +134,7 @@
                     "Country": country_0
                 };
 
-                //alert(JSON.stringify(affilation));
                 $("#hfAffilations").val(JSON.stringify(affilation));
-                //alert(JSON.stringify(affilation));
 
                 $.ajax({
                     url: '@Url.Action("UpdateAffiliation", "Reviewer")',

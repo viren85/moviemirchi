@@ -43,9 +43,7 @@
                         <div class="col-sm-12">
                             <input type="text" class="text40" name="movieAltName" id="movieAltName" placeholder="Movie Alternative Name" />
                         </div>
-
                         <div class="col-sm-12">
-                            @*<input type="text" class="text40" name="genre" id="genre" placeholder="Genre" />*@
                             <select name="genre" id="genre" class="text40">
                                 <option value="select">--Genre--</option>
                                 <option value="Action">Action</option>
@@ -54,9 +52,7 @@
                                 <option value="Horror">Horror</option>
                             </select>
                         </div>
-
                         <div class="col-sm-12">
-                            @*<input type="text" name="synops" id="synops" placeholder="Synopsis" />*@
                             <textarea id="synops" cols="68" rows="5" placeholder="Synopsis" class="text40"></textarea>
                         </div>
                     </div>
@@ -296,11 +292,7 @@
                     "Trailers": trailerJson,
                     "Year": year
                 };
-
-                //alert(JSON.stringify(movie))
                 $("#hfMovie").val(JSON.stringify(movie));
-                //alert($("#hfMovie").val())
-
                 $.ajax({
                     url: '@Url.Action("AddMovie", "Movie")',
                     data: { "hfMovie": JSON.stringify(movie) },
@@ -314,7 +306,6 @@
         } catch (e) {
             $("#movieInfoError").html("There some error please try again.");
             $("#movieInfoError").show();
-
             $("#bottomError").html("There some error. Please check it out.");
             $("#bottomError").show();
         }
@@ -324,8 +315,8 @@
         if (result.Status == "Ok") {
             $("#successStatus").html("Movie details saved successfully");
             $("#successStatus").show();
-
             ClearMoviesControl();
+
         } else if (result.Status == "Error") {
             $("#successStatus").removeAttr("class");
             $("#successStatus").attr("class", "alert alert-danger");

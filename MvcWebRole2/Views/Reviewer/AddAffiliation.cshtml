@@ -36,9 +36,6 @@
                     </div>
                 </div>
             </div>
-            <div>
-                @*<input type="submit" name="Create" value="Create" id="create" class="btn btn-primary" onclick="insertAffilaion(); return false;" />*@               
-            </div>
 
             @Html.Hidden("hfAffilations", "")
         }
@@ -107,9 +104,7 @@
                     "Country": country_0
                 };
 
-                //alert(JSON.stringify(affilation));
                 $("#hfAffilations").val(JSON.stringify(affilation));
-                //alert(JSON.stringify(affilation));
 
                 $.ajax({
                     url: '@Url.Action("AddAffiliation", "Reviewer")',

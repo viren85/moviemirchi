@@ -5,24 +5,17 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
-
         $("#updatereview").attr("style", "background-color:#f5f5f5;");
-
-
-
-      
         BindValueChangeEvent('#hfReviewerId', GetReviewDetailById);
         //get movies
         $("#movieName").keyup(function (e) {
             //Fetching the textbox value.
             if (e.keyCode == 40 || e.keyCode == 38) {
-
             }
             else {
                 var query = $(this).val();
+
                 //Calling GetItems method.
-                //alert(1);
                 autoCompleteTextBox(query, "AutoComplete/AutoCompleteMovie", "autoCompleteMovie", "movieUL", "movieName", "hfMovieId");
             }
         });
@@ -32,7 +25,6 @@
             //Fetching the textbox value.
             var query = $(this).val();
             //Calling GetItems method.
-            //alert(1);
             autoCompleteTextBox(query, "AutoComplete/AutoCompleteReviewer", "autoCompleteReviewer", "reviewUL", "reviewerName", "hfReviewerId");
         });
     });
@@ -54,14 +46,9 @@
             $("#updationMovieReviewError").html("Please Provide Reviewer Name and Movie Name.");
             $("#updationMovieReviewError").show();
         }
-
-        //var detail = detail.push({"ReviewId": reviewid[r], "movieId": movieId[c]});
-
     }
 
     function PopulateReviewDetails(result) {
-        //$("#movieName").val(result.MovieId);
-        //$("#reviewerName").val(result.ReviewerId);
         $("#reviewId").val(result.ReviewId);
         $("#hfMovieId").val(result.MovieId);
         $("#hfReviewerId").val(result.ReviewerId);
@@ -79,18 +66,11 @@
         <h3 class="panel-title">Update Movie Review</h3>
     </div>
     <div class="panel-body" id="reviewinfo">
-
         <div id="successStatus" style="display:none" class="alert alert-success"></div>
         <div id="updationMovieReviewError" class="alert alert-danger" style="display:none;"></div>
-
-
         @using (Html.BeginForm())
         {
-
-
             <input type="hidden" id="reviewId" />
-
-
             <div id="autoCompleteMovie">
                 <input type="text" name="movieName" id="movieName" class="reviewInput" placeholder="Search Movie Name" /><br />
                 <input type="hidden" id="hfMovieId" />
@@ -99,25 +79,14 @@
                 <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Reviewer Name" /><br />
                 <input type="hidden" id="hfReviewerId" />
             </div>
-
-
-
             <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
-
-
             <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea><br />
-
-
             <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" /><br />
-
             <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea><br />
-
-
             <div class="btn btn-primary" id="updateMovieReviewBautton" style="display:none !important" onclick="UpdateMovieReviewDetail();">Update Movie Review</div>
 
             @Html.Hidden("hfUpdateMovieReview", "")
         }
-
     </div>
 </div>
 
@@ -125,11 +94,7 @@
     function UpdateMovieReviewDetail() {
         var isValid = true;
         try {
-
-
             var reviewId = $("#reviewId").val();
-
-
             var movieId = $("#hfMovieId").val();
             var reviewerId = $("#hfReviewerId").val();
             var movieName = $("#movieName").val();
@@ -170,7 +135,6 @@
                 $("#review").focus();
                 isValid = false;
                 return;
-
             }
 
             if (outlink == "") {
@@ -199,11 +163,9 @@
                     "OutLink": outlink,
                     "Summary": summary
                 };
-
-                alert(JSON.stringify(updateReviewDetails));
+              
                 $("#hfUpdateMovieReview").val(JSON.stringify(updateReviewDetails));
-                //alert(JSON.stringify(updateReviewDetails));
-
+              
                 $.ajax({
                     url: '@Url.Action("UpdateMovieReview", "Review")',
                     data: { "hfUpdateMovieReview": JSON.stringify(updateReviewDetails) },
