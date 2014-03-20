@@ -60,6 +60,7 @@
     <Compile Include="Storage\TableStore.cs" />
     <Compile Include="Storage\ToBeIndexedTable.cs" />
     <Compile Include="Utils\ConnectionSettingsSingleton.cs" />
+    <Compile Include="Utils\MailManager.cs" />
     <Compile Include="Utils\utils.cs" />
   </ItemGroup>
   <ItemGroup>
