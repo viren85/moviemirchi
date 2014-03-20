@@ -10,70 +10,137 @@ namespace DataStoreLib.Storage
 {
     public interface IStore
     {
-        IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
-        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
-
-
-
-        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);
-
-      //  IDictionary<string, ReviewEntity> GetDetailByMovieAndReviewerId(List<string> reviewerId, List<string>movieId);
-
-        IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid);
-
-
-        //IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
-
-
-        //IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
-
-        //IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
-
-
-
-        IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
-
-        /* added a new method for getting all movies*/
-        IDictionary<string, UserEntity> GetUsersById(List<string> userId);
-        IDictionary<string, MovieEntity> GetAllMovies();
-        IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name);
-        IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
-        IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);
-        /* end */
-
-        IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
-        IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
-
-        IDictionary<string, UserEntity> GetUsersByName(string userName);
-
-        //IDictionary<string, UserEntity> GetDetailsByReviewerAndMovieId(string reviewerId);
-
-        IDictionary<string, ReviewEntity> GetReviewDetailsById(string reviewerId);
-        IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
-        //IDictionary<ReviewEntity, bool> UpdateReviewsById(<List<ReviewEntity> revi)
-
+        #region Login 
         IDictionary<string, UserEntity> GetAllUser();
+        IDictionary<string, UserEntity> GetUsersById(List<string> userId);
+        IDictionary<string, UserEntity> GetUsersByName(string userName);
+        IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
+        #endregion
 
+        #region Movie
+        IDictionary<string, MovieEntity> GetAllMovies();
+        IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
+        IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name);
+        IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
+        #endregion
 
-
-        IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
-
-
-        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
-
+        #region Review
+        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);
+        IDictionary<string, ReviewEntity> GetReviewDetailsById(string reviewerId);
+        IDictionary<string, ReviewEntity> GetDetailsByMovieAndReviewerId(string reviewerid);
+        IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
+        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
+        IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);
+        IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
         IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> reviewer);
-        IDictionary<string, AffilationEntity> GetAllAffilation();
+        #endregion
 
+        #region Reviewer
         IDictionary<string, ReviewerEntity> GetAllReviewer();
+        IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
+        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
+        #endregion
+
+        #region Affiliation
+        IDictionary<string, AffilationEntity> GetAllAffilation();
         IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
-        // object UpdateReviewersById(List<ReviewerEntity> list);
-
-
-        //object GetAffilationsById(List<string> list);
+        IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
+        #endregion
     }
 
     public static class IStoreHelpers
     {
+        #region Login
+
+        /// <summary>
+        /// Return the List of UserName
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
+        public static List<UserEntity> SearchUser(this IStore store, string searchText)
+        {
+            var retList = store.GetAllUser();
+            Debug.Assert(retList.Count == 1);
+
+            List<UserEntity> users = new List<UserEntity>();
+
+            foreach (var user in retList.Values)
+            {
+                if (user.UserName.Contains(searchText.ToLower()))
+                {
+                    users.Add(user);
+                }
+            }
+
+            users.Equals(searchText);
+
+            //currentSongs.Sort();
+            return users;
+        }
+
+        /// <summary>
+        /// Return particular User By Id
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="userId"></param>
+        /// <returns></returns>
+        public static UserEntity GetUserById(this IStore store, string userId)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(userId));
+            var list = new List<string> { userId };
+            var retList = store.GetUsersById(list);
+
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        /// <summary>
+        /// Return the user if key(Name) found  
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="userName"></param>
+        /// <returns></returns>
+        public static UserEntity GetUserByName(this IStore store, string userName)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(userName));
+
+            var retList = store.GetUsersByName(userName);
+
+            Debug.Assert(retList.Count == 1);
+            if (retList.Count > 0)
+                return retList[retList.Keys.FirstOrDefault()];
+            else
+                return null;
+        }
+
+        /// <summary>
+        /// Return update the user if user is found
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="user"></param>
+        /// <returns></returns>
+        public static bool UpdateUserById(this IStore store, UserEntity user)
+        {
+            Debug.Assert(user != null);
+            var list = new List<UserEntity> { user };
+            var retList = store.UpdateUsersById(list);
+
+            Debug.Assert(retList.Count == 1);
+            if (retList.Count > 0)
+                return retList[retList.Keys.FirstOrDefault()];
+            else
+                return false;
+        }
+        #endregion
+
+        #region Movie
+
+        /// <summary>
+        /// Return the movie By MovieId
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static MovieEntity GetMovieById(this IStore store, string id)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
@@ -84,6 +151,12 @@ namespace DataStoreLib.Storage
             return retList[retList.Keys.FirstOrDefault()];
         }
 
+        /// <summary>
+        /// Return the  Movie name
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="name"></param>
+        /// <returns></returns>
         public static MovieEntity GetMovieByUniqueName(this IStore store, string name)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(name));
@@ -96,30 +169,12 @@ namespace DataStoreLib.Storage
             else
                 return null;
         }
-
-        public static ReviewEntity GetReviewById(this IStore store, string id)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(id));
-            var list = new List<string> { id };
-            var retList = store.GetReviewsById(list);
-
-            Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
-        }
-
-
-        //public static ReviewEntity GetMovieReviewDetailById(this IStore store, string movieId, string reviewerId) where TEntity : DataStoreLib.Models
-        //{
-        //    var reviewerlist = new List<string> { reviewerId };
-        //    var movielist = new List<string> { movieId };
-           
-
-        //    //var list = reviewerlist + "," + movielist;
-        //    //var retList = store.GetReviewsById(list);
-        //    var retList = store.GetDetailByMovieAndReviewerId(reviewerlist, movielist);
-        //    return retList[retList.Keys.FirstOrDefault()];
-
-        //} 
+        /// <summary>
+        /// Update the movie detail by its id 
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="movie"></param>
+        /// <returns></returns>
         public static bool UpdateMovieById(this IStore store, MovieEntity movie)
         {
             Debug.Assert(movie != null);
@@ -129,22 +184,8 @@ namespace DataStoreLib.Storage
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];
         }
-
-        public static bool UpdateReviewById(this IStore store, ReviewEntity review)
-        {
-            Debug.Assert(review != null);
-            var list = new List<ReviewEntity> { review };
-            var retList = store.UpdateReviewsById(list);
-
-            Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
-        }
-
-
-
-        /* Method added */
         /// <summary>
-        /// get list of current running (in theaters) movies
+        /// Return the runing movie  
         /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
@@ -168,35 +209,11 @@ namespace DataStoreLib.Storage
 
             return currentMovies;
         }
-
-        /// <summary>
-        /// search movies and return a list of movies according to search text
-        /// </summary>
-        /// <param name="store">IStore interface type object</param>
-        /// <param name="searchText">search text like name of the movie etc</param>
-        /// <returns></returns>
-        public static List<MovieEntity> SearchMovies(this IStore store, string searchText)
-        {
-            var retList = store.GetAllMovies();
-
-            List<MovieEntity> currentMovies = new List<MovieEntity>();
-
-            foreach (var currentMovie in retList.Values)
-            {
-                if (currentMovie.Name.ToLower().Contains(searchText.ToLower()))
-                {
-                    currentMovies.Add(currentMovie);
-                }
-            }
-
-            return currentMovies;
-        }
-
-        /// <summary>
-        /// Return a list of movies order by name
-        /// </summary>
-        /// <param name="store">IStore interface type object</param>        
-        /// <returns></returns>
+       /// <summary>
+       /// Return the movie name in sorted order
+       /// </summary>
+       /// <param name="store"></param>
+       /// <returns></returns>
         public static List<MovieEntity> GetSortedMoviesByName(this IStore store)
         {
             var retList = store.GetAllMovies();
@@ -212,13 +229,9 @@ namespace DataStoreLib.Storage
 
             return currentMovies;
         }
+      
 
-        /// <summary>
-        /// return the list of song in sorted order
-        /// </summary>
-        /// <param name="store"></param>
-        /// <param name="searchText"></param>
-        /// <returns></returns>
+        #region Search
         public static List<MovieEntity> SearchSongs(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
@@ -236,7 +249,22 @@ namespace DataStoreLib.Storage
 
             return currentSongs;
         }
+        public static List<MovieEntity> SearchMovies(this IStore store, string searchText)
+        {
+            var retList = store.GetAllMovies();
 
+            List<MovieEntity> currentMovies = new List<MovieEntity>();
+
+            foreach (var currentMovie in retList.Values)
+            {
+                if (currentMovie.Name.ToLower().Contains(searchText.ToLower()))
+                {
+                    currentMovies.Add(currentMovie);
+                }
+            }
+
+            return currentMovies;
+        }
         public static List<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
@@ -309,40 +337,48 @@ namespace DataStoreLib.Storage
             return characters;
         }
 
-        public static List<UserEntity> SearchUser(this IStore store, string searchText)
+        #endregion
+
+        #endregion of Movie
+
+        #region Review
+        /// <summary>
+        /// Update the review by its id
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="review"></param>
+        /// <returns></returns>
+        public static bool UpdateReviewById(this IStore store, ReviewEntity review)
         {
-            var retList = store.GetAllUser();
-            Debug.Assert(retList.Count == 1);
-
-            List<UserEntity> users = new List<UserEntity>();
-
-            foreach (var user in retList.Values)
-            {
-                if (user.UserName.Contains(searchText.ToLower()))
-                {
-                    users.Add(user);
-                }
-            }
-
-            users.Equals(searchText);
-
-            //currentSongs.Sort();
-            return users;
-        }
-
-        public static UserEntity GetUserByName(this IStore store, string userName)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(userName));
-
-            var retList = store.GetUsersByName(userName);
+            Debug.Assert(review != null);
+            var list = new List<ReviewEntity> { review };
+            var retList = store.UpdateReviewsById(list);
 
             Debug.Assert(retList.Count == 1);
-            if (retList.Count > 0)
-                return retList[retList.Keys.FirstOrDefault()];
-            else
-                return null;
+            return retList[retList.Keys.FirstOrDefault()];
         }
+        /// <summary>
+        /// Return the Review by the Id
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static ReviewEntity GetReviewById(this IStore store, string id)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(id));
+            var list = new List<string> { id };
+            var retList = store.GetReviewsById(list);
 
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+        /// <summary>
+        /// Return the review detail by its id
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="reviewerId"></param>
+        /// <param name="movieId"></param>
+        /// <returns></returns>
         public static ReviewEntity GetReviewDetailById(this IStore store, string reviewerId, string movieId)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(reviewerId));
@@ -353,43 +389,18 @@ namespace DataStoreLib.Storage
                 return retList[retList.Keys.FirstOrDefault()];
             }
             return null;
-           // Debug.Assert(retList.Count = 1);
-           }
-
-        public static bool UpdateUserById(this IStore store, UserEntity user)
-        {
-            Debug.Assert(user != null);
-            var list = new List<UserEntity> { user };
-            var retList = store.UpdateUsersById(list);
-
-            Debug.Assert(retList.Count == 1);
-            if (retList.Count > 0)
-                return retList[retList.Keys.FirstOrDefault()];
-            else
-                return false;
+            // Debug.Assert(retList.Count = 1);
         }
 
+        #endregion
 
-        public static UserEntity GetUserById(this IStore store, string userId)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(userId));
-            var list = new List<string> { userId };
-            var retList = store.GetUsersById(list);
-
-            return retList[retList.Keys.FirstOrDefault()];
-        }
-
-        public static bool UpdateAffilationById(this IStore store, AffilationEntity affilation)
-        {
-            Debug.Assert(affilation != null);
-            var list = new List<AffilationEntity> { affilation };
-            var retList = store.UpdateAffilationsById(list);
-
-
-            Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
-        }
-
+        #region Reviewer
+        /// <summary>
+        /// Update the reviewer by reviewerid
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="reviewer"></param>
+        /// <returns></returns>
         public static bool UpdateReviewerById(this IStore store, ReviewerEntity reviewer)
         {
             Debug.Assert(reviewer != null);
@@ -399,44 +410,11 @@ namespace DataStoreLib.Storage
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];
         }
-
-
-        public static List<AffilationEntity> GetSortedAffilationByName(this IStore store)
-        {
-            var retList = store.GetAllAffilation();
-
-            //Debug.Assert(retList.Count == 1);
-
-            List<AffilationEntity> allAffilation = new List<AffilationEntity>();
-
-            if (retList != null && retList.Values != null)
-            {
-                allAffilation = (List<AffilationEntity>)retList.Values.OrderBy(m => m.AffilationName).ToList();
-            }
-
-            return allAffilation;
-        }
-
-        public static AffilationEntity GetAffilationById(this IStore store, string id)
-        {
-            Debug.Assert(!string.IsNullOrWhiteSpace(id));
-            var list = new List<string> { id };
-            var retList = store.GetAffilationsByid(list);
-
-            Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
-        }
-
-        //public static ReviewEntity UpdateMovieReviewByReviewerId(this IStore store, ReviewEntity reviewerid)
-        //{
-        //    Debug.Assert(reviewerid != null);
-        //    var list = new List<ReviewEntity> { reviewerid };
-        //    var retList = store.UpdateReviewesByReviewerId(list);
-
-        //    Debug.Assert(retList.Count == 1);
-        //    return retList[retList.Keys.FirstOrDefault()];
-        //}
-
+        /// <summary>
+        /// Return the Reviewer name in sorted order
+        /// </summary>
+        /// <param name="store"></param>
+        /// <returns></returns>
         public static List<ReviewerEntity> GetSortedReviewerByName(this IStore store)
         {
             var retList = store.GetAllReviewer();
@@ -452,8 +430,12 @@ namespace DataStoreLib.Storage
 
             return reviewers;
         }
-
-
+        /// <summary>
+        /// Return the reviewer by Reviewerid
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public static ReviewerEntity GetReviewerById(this IStore store, string id)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
@@ -463,7 +445,61 @@ namespace DataStoreLib.Storage
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];
         }
+        #endregion
 
+        #region Affiliation
+        /// <summary>
+        /// Update the affiliation by Affiliation id
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="affilation"></param>
+        /// <returns></returns>
+        public static bool UpdateAffilationById(this IStore store, AffilationEntity affilation)
+        {
+            Debug.Assert(affilation != null);
+            var list = new List<AffilationEntity> { affilation };
+            var retList = store.UpdateAffilationsById(list);
+
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+        /// <summary>
+        /// Return the list of Affiliation name in the sorted order
+        /// </summary>
+        /// <param name="store"></param>
+        /// <returns></returns>
+        public static List<AffilationEntity> GetSortedAffilationByName(this IStore store)
+        {
+            var retList = store.GetAllAffilation();
+
+            //Debug.Assert(retList.Count == 1);
+
+            List<AffilationEntity> allAffilation = new List<AffilationEntity>();
+
+            if (retList != null && retList.Values != null)
+            {
+                allAffilation = (List<AffilationEntity>)retList.Values.OrderBy(m => m.AffilationName).ToList();
+            }
+
+            return allAffilation;
+        }
+        /// <summary>
+        /// Return the Affiliation by affiliation id
+        /// </summary>
+        /// <param name="store"></param>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public static AffilationEntity GetAffilationById(this IStore store, string id)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(id));
+            var list = new List<string> { id };
+            var retList = store.GetAffilationsByid(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+        #endregion
     }
 
 }

@@ -35,21 +35,27 @@
     function GetReviewerDetail() {
         var movieId = $("#hfMovieId").val();
         var reviewerId = $("#hfReviewerId").val();
-        CallHandler(detail, "Review/GetReviewDetailByReviewerId", PopulateMovieDetailById);
+        var detail = reviewerId + "," + movieId;
+        if (reviewerId != "" && movieId != "") {
+            CallHandler(detail, "Review/GetReviewDetailByReviewerId", PopulateMovieDetailById);
+        }
+        
     }
 
 
     function PopulateMovieDetailById(result) {
         if (result.ReviewId != null || result.ReviewId != "") {
-            $("#affilationError").html("You can not provide the review for the same Movie again.")
-        } else {
-            var reviewId = $("#reviewId").val(result.ReviewId);
-            var reviewerId = $("#hfReviewerId").val(result.ReviewerId);
-            var movieId = $("#hfMovieId").val(result.MovieId);
+            $("#reviewId").val(result.ReviewId);
+            $("#hfReviewerId").val(result.ReviewerId);
+            $("#hfMovieId").val(result.MovieId);
+            $("#hfreviewerRating").val(result.ReviewerRating);
+            $("#hfreview").val(result.Review);
+            $("#hfoutlink").val(result.OutLink);
+            $("#hfsummary").val(result.Summary);
+            $("#affilationError").html("You can not provide the review for the same Movie again.");
         }
+
     }
-
-
 </script>
 
 <div class="panel panel-default">
@@ -65,6 +71,7 @@
         @using (Html.BeginForm())
         {
             <input type="hidden" id="reviewId" />
+
             <div id="autoCompleteMovie">
                 <input type="text" name="mvoieName" id="movieName" class="reviewInput" placeholder="Search Movie" /><br />
                 <input type="hidden" id="hfMovieId" />
@@ -73,13 +80,22 @@
                 <input type="text" name="reviewerName" id="reviewerName" class="reviewInput" placeholder="Search Reviewer" /><br />
                 <input type="hidden" id="hfReviewerId" />
             </div>
-            <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" /><br />
 
-            <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea><br />
+            <input type="text" name="reviewerRating" id="reviewerRating" class="reviewInput" placeholder="Reviewer Rating" />
+            <input type="hidden" id="hfreviewerRating" />
+            <br />
 
-            <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" /><br />
+            <textarea name="summary" id="review" class="reviewInput" placeholder="Review"></textarea>
+            <input type="hidden" id="hfreview" />
+            <br />
 
-            <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea><br />
+
+            <input type="text" name="outlink" id="outlink" class="reviewInput" placeholder="Outlink" />
+            <input type="hidden" id="hfoutlink" />
+            <br />
+            <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea>
+            <input type="hidden" id="hfsummary" />
+            <br />
 
             <div class="btn btn-primary" onclick="SaveReviewDetail();">Add Movie Review</div>
 
@@ -93,6 +109,7 @@
     function SaveReviewDetail() {
         var isValid = true;
         try {
+            var reviewId = $("#reviewId").val();
             var movieName = $("#movieName").val();
             var movieId = $("#hfMovieId").val();
             var reviewerName = $("#reviewerName").val();
@@ -154,6 +171,7 @@
 
             if (isValid) {
                 var reviewDetails = {
+                    "ReviewId": reviewId,
                     "MovieId": movieId,
                     "ReviewerId": reviewerId,
                     "ReviewerRating": reviewerRating,
@@ -190,7 +208,12 @@
         } else if (result.Status == "Error") {
             $("#successStatus").removeAttr("class");
             $("#successStatus").attr("class", "alert alert-danger");
-            $("#successStatus").html("Unable to save Review details. Please try again after some time.");
+            $("#successStatus").html("Unable to save Review details. Try Again after some time.");
+            $("#successStatus").show();
+        } else if (result.Status == "Exist") {
+            $("#successStatus").removeAttr("class");
+            $("#successStatus").attr("class", "alert alert-danger");
+            $("#successStatus").html("You can not provide the review for the same Movie again.");
             $("#successStatus").show();
         }
     }

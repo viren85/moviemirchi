@@ -40,9 +40,9 @@
 
     function GetReviewDetailById() {
 
-        var reviewid = $("#hfMovieId").val();
-        var movieId = $("#hfReviewerId").val();
-        var detail = reviewid + "," + movieId;
+        var movieId  = $("#hfMovieId").val();
+        var reviewerId = $("#hfReviewerId").val();
+        var detail = reviewerId + "," + movieId;
 
         if (detail != null || detail != "") {
             $("#successStatus").html("");
@@ -60,13 +60,16 @@
     }
 
     function PopulateReviewDetails(result) {
-        $("#movieName").val(result.MovieId);
-        $("#reviewerName").val(result.ReviewerId);
+        //$("#movieName").val(result.MovieId);
+        //$("#reviewerName").val(result.ReviewerId);
+        $("#reviewId").val(result.ReviewId);
+        $("#hfMovieId").val(result.MovieId);
+        $("#hfReviewerId").val(result.ReviewerId);
         $("#reviewerRating").val(result.ReviewerRating);
         $("#review").val(result.Review);
         $("#outlink").val(result.OutLink);
         $("#summary").val(result.Summary);
-
+        $("#updateMovieReviewBautton").show();
     }
 
 </script>
@@ -110,7 +113,7 @@
             <textarea name="summary" id="summary" class="reviewInput" placeholder="summary"></textarea><br />
 
 
-            <div class="btn btn-primary" onclick="UpdateMovieReviewDetail();">Update Movie Review</div>
+            <div class="btn btn-primary" id="updateMovieReviewBautton" style="display:none !important" onclick="UpdateMovieReviewDetail();">Update Movie Review</div>
 
             @Html.Hidden("hfUpdateMovieReview", "")
         }
@@ -197,7 +200,7 @@
                     "Summary": summary
                 };
 
-                //alert(JSON.stringify(updateReviewDetails));
+                alert(JSON.stringify(updateReviewDetails));
                 $("#hfUpdateMovieReview").val(JSON.stringify(updateReviewDetails));
                 //alert(JSON.stringify(updateReviewDetails));
 
@@ -239,6 +242,7 @@
         $("#review").val("");
         $("#outlink").val("");
         $("#summary").val("");
+        $("#updateMovieReviewBautton").hide();
         $("#updationMovieReviewError").hide();
     }
 </script>

@@ -46,26 +46,36 @@ namespace MvcWebRole2.Controllers
                 if (affil != null)
                 {
                     SetConnectionString();
-
                     ReviewEntity entity = new ReviewEntity();
-
-                    entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
-                    entity.MovieId = affil.MovieId;
-                    entity.ReviewerId = affil.ReviewerId;
-                    entity.ReviewerRating = affil.ReviewerRating;
-                    entity.Review = affil.Review;
-                    entity.OutLink = affil.OutLink;
-                    entity.Summary = affil.Summary;
-
                     TableManager tblMgr = new TableManager();
-                    tblMgr.UpdateReviewById(entity);
+                    //var review = tblMgr.GetReviewDetailById(entity.ReviewerId, entity.MovieId);
+
+                    if (affil.ReviewId != "")
+                    {
+                        return Json(new { Status = "Exist" }, JsonRequestBehavior.AllowGet);
+                    }
+                    else
+                    {
+                        entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
+                        entity.MovieId = affil.MovieId;
+                        entity.ReviewerId = affil.ReviewerId;
+                        entity.ReviewerRating = affil.ReviewerRating;
+                        entity.Review = affil.Review;
+                        entity.OutLink = affil.OutLink;
+                        entity.Summary = affil.Summary;
+                        tblMgr.UpdateReviewById(entity);
+                    }
+                    
+
+                    //TableManager tblMgr = new TableManager();
+                   
                 }
                 else
                 {
                     return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
@@ -89,33 +99,44 @@ namespace MvcWebRole2.Controllers
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
 
-            JavaScriptSerializer json = new JavaScriptSerializer();
-            ReviewEntity review = json.Deserialize(hfUpdateMovieReview, typeof(ReviewEntity)) as ReviewEntity;
-
-            if (review != null)
+            try
             {
-                TableManager tblMgr = new TableManager();
-                ReviewEntity entity = new ReviewEntity();
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                ReviewEntity review = json.Deserialize(hfUpdateMovieReview, typeof(ReviewEntity)) as ReviewEntity;
 
-                entity.RowKey = entity.ReviewId = review.ReviewId;
-                entity.MovieId = review.MovieId;
-                entity.ReviewerId = review.ReviewerId;
-                entity.ReviewerRating = review.ReviewerRating;
-                entity.Review = review.Review;
-                entity.OutLink = review.OutLink;
-                entity.Summary = review.Summary;
+                if (review != null)
+                {
+                    TableManager tblMgr = new TableManager();
+                    ReviewEntity entity = new ReviewEntity();
 
-                tblMgr.UpdateReviewById(entity);   
+                    entity.RowKey = entity.ReviewId = review.ReviewId;
+                    entity.MovieId = review.MovieId;
+                    entity.ReviewerId = review.ReviewerId;
+                    entity.ReviewerRating = review.ReviewerRating;
+                    entity.Review = review.Review;
+                    entity.OutLink = review.OutLink;
+                    entity.Summary = review.Summary;
+
+                    tblMgr.UpdateReviewById(entity);
+                }
+            }
+            catch (Exception)
+            {
+
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
 
-            return View();
+
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
 
-        public ActionResult GetReviewDetailByReviewerId(string query) {
+        public ActionResult GetReviewDetailByReviewerId(string query)
+        {
             string[] ids = query.Split(',');
             TableManager tblMgr = new TableManager();
-             var review = tblMgr.GetReviewDetailById(ids[0], ids[1]);
-         return Json(review, JsonRequestBehavior.AllowGet);
+            var review = tblMgr.GetReviewDetailById(ids[0], ids[1]);
+            return Json(review, JsonRequestBehavior.AllowGet);
         }
 
         public IEnumerable<SelectListItem> GetReviewer()
@@ -144,7 +165,7 @@ namespace MvcWebRole2.Controllers
             return new SelectList(movies, "Value", "Text");
         }
 
-     
+
 
     }
 }
