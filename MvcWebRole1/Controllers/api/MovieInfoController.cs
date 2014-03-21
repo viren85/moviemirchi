@@ -53,7 +53,14 @@ namespace MvcWebRole1.Controllers.api
                         // if reviews not null then add review to review list.
                         foreach (var review in reviewList)
                         {
-                            userReviews.Add(review.Value);
+                            ReviewerEntity reviewer = tableMgr.GetReviewerById(review.Value.ReviewerId);
+
+                            ReviewEntity objReview = review.Value as ReviewEntity;
+
+                            objReview.ReviewerName = reviewer.ReviewerName;
+                            objReview.OutLink = reviewer.ReviewerImage;
+
+                            userReviews.Add(objReview);
                         }
                     }
 

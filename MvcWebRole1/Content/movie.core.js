@@ -1075,7 +1075,7 @@ function AddAffilationControl() {
     well.append(affilationName);
     well.append($("<br>"));
 
-   
+
 
     //generating website Name
     var websiteName = $("<input/>");
@@ -1145,5 +1145,35 @@ function RemoveAffilation(counter) {
     var well = $("#affilation_well_" + counter);
     well.remove();
 }
-
 /*End*/
+
+function SaveUserFavorite() {
+    var actorName = $("#txtActorName").val();
+    var genre = $("#genre :selected").val();
+
+    var isValid = false;
+
+    var FavoriteList = [];
+
+    if (actorName != "") {
+        isValid = true;
+        FavoriteList.push({ "Type": "Actor", "Name": actorName });
+    }
+
+    if (genre != "" && genre != "select") {
+        isValid = true;
+        FavoriteList.push({ "Type": "Genre", "Name": genre });
+    }
+
+    if (isValid) {
+        $("#favStatus").removeAttr("class");
+        $("#favStatus").attr("class", "alert alert-success");
+        $("#favStatus").attr("style", "display:block");
+        $("#favStatus").html("Successfully saved your favorite list.");
+    }
+    else {
+        $("#favStatus").attr("style", "display:block");
+        $("#favStatus").html("Please enter actor name or select genre");
+    }
+    console.log(FavoriteList);
+}
