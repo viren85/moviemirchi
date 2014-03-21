@@ -19,5 +19,12 @@ namespace MvcWebRole1.Controllers
             return View();
         }
 
+        public ActionResult SetVariable(string value)
+        {
+            Session["favorite"] = value;
+
+            return this.Json(new { Status = "Ok" });
+        }
+
     }
 }

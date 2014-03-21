@@ -1,4 +1,5 @@
 ﻿@using System.Configuration;
+@using DataStoreLib.Storage;
 
 @{
     Layout = null;
@@ -242,8 +243,9 @@
         
     </script>
 
-    @if (Session["username"] != null && Session["favorite"] == null)
+    @if ((Session["username"] != null && Session["favorite"] == null) || (Session["username"] != null && Session["favorite"] != null && string.IsNullOrEmpty(Session["favorite"].ToString())))
     {
+        <input type="hidden" value="@Session["userid"]" id="hfUserId" />
         <div>
             <div id="ql_SideBar">
                 <div title="Click here for any help" id="ql_Display" onclick="showMayIHelpYouWindow();" style="background-color: #404040 !important; color: White; background-image: none;
@@ -256,7 +258,7 @@
                     <div id="ql_List">
                         <div id="favStatus" style="display:none" class="alert alert-danger"></div>
                         <div id="autoCompleteMovie">
-                            <input type="text" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>                            
+                            <input type="text" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>
                         </div>
                         <select name="genre" id="genre" style="width:96%">
                             <option value="select">--Genre--</option>
@@ -279,5 +281,6 @@
             </div>
         </div>
     }
+
 </body>
 </html>
