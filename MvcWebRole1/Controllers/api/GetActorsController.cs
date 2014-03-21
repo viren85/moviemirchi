@@ -27,28 +27,31 @@ namespace MvcWebRole1.Controllers.api
                 //var movies = tblMgr.GetAllMovies();
                  var qpParam = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
 
-                if (string.IsNullOrEmpty(qpParam["n"]))
+                if (string.IsNullOrEmpty(qpParam["query"]))
                 {
                     throw new ArgumentException(Constants.API_EXC_SEARCH_TEXT_NOT_EXIST);
                 }
 
-                string actorName = qpParam["n"].ToString();
+                string actorName = qpParam["query"].ToString();
 
                 // get movies by actor(roles like actor, actress, producer, director... etc) 
                 var movies = tblMgr.SearchMoviesByActor(actorName);
 
-                List<Cast> allCast = new List<Cast>();
-
+                List<Object> allCast = new List<Object>();
+                List<Cast> tempCast = new List<Cast>();
+                int counter = 0;
                 foreach (var movie in movies)
                 {
-                    List<Cast> castList = json.Deserialize(movie.Casts, typeof(Cast)) as List<Cast>;
+                    List<Cast> castList = json.Deserialize(movie.Casts, typeof(List<Cast>)) as List<Cast>;
                     if (castList != null)
                     {
+                       
                         foreach (var cast in castList)
-                        {                            
-                            if (!castList.Exists(c => c.name == cast.name))
+                        {
+                            if (!tempCast.Exists(c => c.name == cast.name))
                             {
-                                allCast.Add(cast);
+                                tempCast.Add(cast);
+                                allCast.Add(new { id = ++counter, name = cast.name });
                             }
                         }
                         

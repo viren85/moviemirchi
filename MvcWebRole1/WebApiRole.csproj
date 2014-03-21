@@ -210,6 +210,7 @@
     <Compile Include="Controllers\api\SendMailController.cs" />
     <Compile Include="Controllers\api\SongController.cs" />
     <Compile Include="Controllers\api\TrailerController.cs" />
+    <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\Home1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

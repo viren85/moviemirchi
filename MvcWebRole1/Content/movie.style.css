@@ -163,3 +163,32 @@ height: 30px;
     .authenticate:hover {
         color: white;
     }
+
+    
+.targetAutoUL {
+   width: 92%;
+border: 1px solid silver;
+margin-top: -4%;
+list-style: none;
+position: absolute;
+background-color: white;
+z-index: 1;
+display: none;
+border-radius: 4px;
+max-height: 90px;
+overflow: auto;
+}
+
+    .targetAutoUL li {
+        margin-left: -40px;
+        border-bottom: 1px solid silver;
+        height: 30px;
+        padding-left: 5px;
+        padding-top: 5px;
+        cursor: pointer;
+    }
+
+        .targetAutoUL li:hover {
+            cursor: pointer;
+            background-color: #fcecec;
+        }

@@ -41,17 +41,6 @@ namespace MvcWebRole1.Controllers
             return View();
         }
 
-        public JsonResult AutoComplete(string query)
-        {
-            if (string.IsNullOrEmpty(query))
-            {
-                //return null;
-                return Json(new MovieSearchData(), JsonRequestBehavior.AllowGet);
-            }
-
-            var users = LuceneSearch.Search(query);
-
-            return Json(users, JsonRequestBehavior.AllowGet);
-        }
+      
     }
 }

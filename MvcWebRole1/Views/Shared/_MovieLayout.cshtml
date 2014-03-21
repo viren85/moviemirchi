@@ -31,14 +31,7 @@
 
 
     <script type="text/javascript">
-        /*$(document).click(function (e) {
-            var container = $("#targetUL");
-            if (!container.is(e.target) // if the target of the click isn't the container...
-                && container.has(e.target).length === 0) // ... nor a descendant of the container
-            {
-                container.hide();
-            }
-        });*/
+        
 
         $(document).ready(function () {
 
@@ -55,7 +48,7 @@
                 //Here we are using ajax get method to fetch data from the list based on the user entered value in the textbox.
                 //We are sending query i.e textbox as data.
                 $.ajax({
-                    url: '@Url.Action("AutoComplete", "Movie")',
+                    url: '@Url.Action("AutoCompleteMovies", "AutoComplete")',
                     data: { "query": query },
                     type: 'POST',
                     dataType: 'json',
@@ -132,7 +125,39 @@
             $("#targetUL").remove();
             $("#targetUL").css("display", "none");
         }
+        </script>
+
+    <script type="text/javascript">
+
+   
+
+
+
+        //Added code for load actorname
+        $(document).ready(function () {
+
+            // BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
+            //get movies
+            $("#txtActorName").keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteActors", "autoCompleteActor", "actorUL", "txtActorName", "hfMovieId");
+                }
+            });
+
+        });
+
+        //end
+
+
     </script>
+        
+
+    
 </head>
 <body>
     <div class="container">
@@ -177,7 +202,7 @@
                         </form>
                     </div>
 
-                    <input type="text" name="query" id="txtActorName" placeholder="search Actor Name" autocomplete="on"/>
+                   
 
                     <div class="col-sm-2 col-md-2" style="display:none">
                         <form class="navbar-form navbar-right" role="search">
@@ -222,26 +247,11 @@
             </div>
         </div>
     </div>
+    @*
     <script type="text/javascript">
-        $(document).ready(function () {
-            
-           // BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
-            //get movies
-            $("#txtActorName").keyup(function (e) {
-                //Fetching the textbox value.
-                if (e.keyCode == 40 || e.keyCode == 38) {
-                }
-                else {
-                    var query = $(this).val();
-                    //Calling GetItems method.
-                    autoCompleteTextBox(query, "api/GetActors", "autoCompleteMovie", "movieUL", "movieName", "hfMovieId");
-                }
-            });
 
-         
-        
     </script>
-
+*@
     @if (Session["username"] != null && Session["favorite"] == null)
     {
         <div>
@@ -255,8 +265,8 @@
                 <div id="ql_Tab" style="display:block">
                     <div id="ql_List">
                         <div id="favStatus" style="display:none" class="alert alert-danger"></div>
-                        <div id="autoCompleteMovie">
-                            <input type="text" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>                            
+                        <div id="autoCompleteActor">
+                            <input type="text" name="txtActorName" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>                            
                         </div>
                         <select name="genre" id="genre" style="width:96%">
                             <option value="select">--Genre--</option>
