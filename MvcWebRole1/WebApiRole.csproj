@@ -198,6 +198,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
+    <Compile Include="Controllers\api\GetActorsController.cs" />
     <Compile Include="Controllers\api\AllSongsController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\MovieInfo.cs" />
@@ -229,6 +230,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\jquery-1.9.1.js" />
+    <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\movie.style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

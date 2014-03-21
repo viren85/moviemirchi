@@ -239,7 +239,7 @@ namespace DataStoreLib.Storage
 
             foreach (var currentSong in retList.Values)
             {
-                if (currentSong.Songs.Contains(searchText.ToLower()))
+                if (currentSong.Songs.ToLower().Contains(searchText.ToLower()))
                 {
                     currentSongs.Add(currentSong);
                 }
@@ -272,7 +272,7 @@ namespace DataStoreLib.Storage
 
             foreach (var actor in retList.Values)
             {
-                if (actor.Casts.ToString().Contains(searchText.ToLower()))
+                if (actor.Casts.ToString().ToLower().Contains(searchText.ToLower()))
                 {
                     actors.Add(actor);
                 }
@@ -280,6 +280,7 @@ namespace DataStoreLib.Storage
 
             return actors;
         }
+
 
         public static List<MovieEntity> SearchTitle(this IStore store, string searchText)
         {
@@ -290,7 +291,7 @@ namespace DataStoreLib.Storage
 
             foreach (var title in retList.Values)
             {
-                if (title.Name.Contains(searchText.ToLower()))
+                if (title.Name.ToLower().Contains(searchText.ToLower()))
                 {
                     titles.Add(title);
                 }
@@ -308,7 +309,7 @@ namespace DataStoreLib.Storage
 
             foreach (var trailer in retList.Values)
             {
-                if (trailer.Trailers.Contains(searchText.ToLower()))
+                if (trailer.Trailers.ToLower().Contains(searchText.ToLower()))
                 {
                     traileres.Add(trailer);
                 }
@@ -326,7 +327,7 @@ namespace DataStoreLib.Storage
 
             foreach (var character in retList.Values)
             {
-                if (character.Casts.Contains(searchText.ToLower()))
+                if (character.Casts.ToLower().Contains(searchText.ToLower()))
                 {
                     characters.Add(character);
                 }
@@ -334,6 +335,8 @@ namespace DataStoreLib.Storage
 
             return characters;
         }
+
+        //public static List<MovieEntity> 
 
         #endregion
 

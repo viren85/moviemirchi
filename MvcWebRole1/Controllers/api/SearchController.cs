@@ -44,7 +44,7 @@ namespace MvcWebRole1.Controllers.api
             }
             catch (Exception ex)
             {
-                // if any error occured then return User friendly message with system error message
+                // if any error occured then return User friendly message with sys  tem error message
                 return json.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_SEARCHING_MOVIES, ActualError = ex.Message });
             }
         }
