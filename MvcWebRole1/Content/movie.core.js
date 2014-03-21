@@ -1150,10 +1150,15 @@ function RemoveAffilation(counter) {
 function SaveUserFavorite() {
     var actorName = $("#txtActorName").val();
     var genre = $("#genre :selected").val();
+    var userId = $("#hfUserId").val();
 
     var isValid = false;
 
     var FavoriteList = [];
+
+    if (userId != "") {
+        isValid = true;
+    }
 
     if (actorName != "") {
         isValid = true;
@@ -1166,14 +1171,38 @@ function SaveUserFavorite() {
     }
 
     if (isValid) {
-        $("#favStatus").removeAttr("class");
-        $("#favStatus").attr("class", "alert alert-success");
-        $("#favStatus").attr("style", "display:block");
-        $("#favStatus").html("Successfully saved your favorite list.");
+        CallHandler("api/SaveUserFavorite?u=" + userId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
     }
     else {
         $("#favStatus").attr("style", "display:block");
         $("#favStatus").html("Please enter actor name or select genre");
     }
-    console.log(FavoriteList);
+}
+
+function OnSuccessSaveUserFavorite(result) {
+    result = JSON.parse(result);
+
+    if (result.Status == "Ok") {
+
+        $.post(BASE_URL + 'Home/SetVariable', { value: 'Set favorite' }, function (data) {
+            if (data.Status == "Ok") {
+                $("#favStatus").removeAttr("class");
+                $("#favStatus").attr("class", "alert alert-success");
+                $("#favStatus").attr("style", "display:block");
+                $("#favStatus").html("Successfully saved your favorite list.");
+
+                var intverval = setInterval(function () {
+                    $("#ql_SideBar").hide(500);
+                }, 1500);
+            }
+            else {
+                $("#favStatus").attr("style", "display:block");
+                $("#favStatus").html("Ops! there is some error. Please try again.");
+            }
+        });
+    }
+    else {
+        $("#favStatus").attr("style", "display:block");
+        $("#favStatus").html("Ops! there is some error. Please try again.");
+    }
 }

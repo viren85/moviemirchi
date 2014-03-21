@@ -206,6 +206,7 @@
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\api\PosterController.cs" />
     <Compile Include="Controllers\api\ReviewerInfoController.cs" />
+    <Compile Include="Controllers\api\SaveUserFavoriteController.cs" />
     <Compile Include="Controllers\api\SearchController.cs" />
     <Compile Include="Controllers\api\SendMailController.cs" />
     <Compile Include="Controllers\api\SongController.cs" />

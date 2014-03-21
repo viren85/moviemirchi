@@ -1,4 +1,5 @@
 ﻿@using System.Configuration;
+@using DataStoreLib.Storage;
 
 @{
     Layout = null;
@@ -31,7 +32,7 @@
 
 
     <script type="text/javascript">
-        
+
 
         $(document).ready(function () {
 
@@ -125,11 +126,11 @@
             $("#targetUL").remove();
             $("#targetUL").css("display", "none");
         }
-        </script>
+    </script>
 
     <script type="text/javascript">
 
-   
+
 
 
 
@@ -155,9 +156,9 @@
 
 
     </script>
-        
 
-    
+
+
 </head>
 <body>
     <div class="container">
@@ -202,7 +203,7 @@
                         </form>
                     </div>
 
-                   
+
 
                     <div class="col-sm-2 col-md-2" style="display:none">
                         <form class="navbar-form navbar-right" role="search">
@@ -247,16 +248,16 @@
             </div>
         </div>
     </div>
-    @*
-    <script type="text/javascript">
 
-    </script>
-*@
-    @if (Session["username"] != null && Session["favorite"] == null)
+
+
+
+    @if ((Session["username"] != null && Session["favorite"] == null) || (Session["username"] != null && Session["favorite"] != null && string.IsNullOrEmpty(Session["favorite"].ToString())))
     {
+        <input type="hidden" value="@Session["userid"]" id="hfUserId" />
         <div>
             <div id="ql_SideBar">
-                <div title="Click here for any help" id="ql_Display" onclick="showMayIHelpYouWindow();" style="background-color: #404040 !important; color: White; background-image: none;
+                <div title="Click here for any help" id="ql_Display" style="background-color: #404040 !important; color: White; background-image: none;
                 border-top-left-radius: 3px; border-top-right-radius: 3px;">
                     <span>
                         Choose your favorite
@@ -265,8 +266,10 @@
                 <div id="ql_Tab" style="display:block">
                     <div id="ql_List">
                         <div id="favStatus" style="display:none" class="alert alert-danger"></div>
+
                         <div id="autoCompleteActor">
-                            <input type="text" name="txtActorName" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>                            
+                            <input type="text" name="txtActorName" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>
+
                         </div>
                         <select name="genre" id="genre" style="width:96%">
                             <option value="select">--Genre--</option>
@@ -289,5 +292,6 @@
             </div>
         </div>
     }
+
 </body>
 </html>
