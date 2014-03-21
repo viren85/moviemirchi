@@ -249,6 +249,7 @@
         </div>
     </div>
 
+
     @if ((Session["username"] != null && Session["favorite"] == null) || (Session["username"] != null && Session["favorite"] != null && string.IsNullOrEmpty(Session["favorite"].ToString())))
     {
         <input type="hidden" value="@Session["userid"]" id="hfUserId" />
@@ -263,6 +264,7 @@
                 <div id="ql_Tab" style="display:block">
                     <div id="ql_List">
                         <div id="favStatus" style="display:none" class="alert alert-danger"></div>
+
 
 
                         <div id="autoCompleteActor">
