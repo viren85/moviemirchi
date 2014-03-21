@@ -185,21 +185,20 @@
                         </form>
                     </div>
                     <ul class="nav navbar-nav navbar-right">
-                        @if (Session["UserName"] != null)
+                        @if (Session["username"] != null)
                         {
-
-                        <li class="session">
-                            Welcome, @Session["UserName"].ToString().ToUpper()
-                        </li>
-                        <li class="log">
-                            @Html.ActionLink("Logout", "Logout", "LogOut")
-                        </li>
+                            <li class="authenticate">
+                                Welcome, @Session["username"].ToString().ToUpper()
+                            </li>
+                            <li class="log">
+                                @Html.ActionLink("Logout", "Logout", "Login")
+                            </li>
                         }
                         else
                         {
-                        <li class="log">
-                            @Html.ActionLink("Login", "UserLogin", "Login")
-                        </li>
+                            <li class="log">
+                                @Html.ActionLink("Login", "UserLogin", "Login")
+                            </li>
                         }
                     </ul>
                 </div>
@@ -243,5 +242,42 @@
         
     </script>
 
+    @if (Session["username"] != null && Session["favorite"] == null)
+    {
+        <div>
+            <div id="ql_SideBar">
+                <div title="Click here for any help" id="ql_Display" onclick="showMayIHelpYouWindow();" style="background-color: #404040 !important; color: White; background-image: none;
+                border-top-left-radius: 3px; border-top-right-radius: 3px;">
+                    <span>
+                        Choose your favorite
+                    </span>
+                </div>
+                <div id="ql_Tab" style="display:block">
+                    <div id="ql_List">
+                        <div id="favStatus" style="display:none" class="alert alert-danger"></div>
+                        <div id="autoCompleteMovie">
+                            <input type="text" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>                            
+                        </div>
+                        <select name="genre" id="genre" style="width:96%">
+                            <option value="select">--Genre--</option>
+                            <option value="Action">Action</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Crime">Crime</option>
+                            <option value="Horror">Horror</option>
+                        </select>
+                        <div id="buttons" style="padding: 5px 0px;">
+                            <input type="button" id="btnSubmit" value="Save your favorites" class="btn btn-success" onclick="SaveUserFavorite();">
+                            <input type="button" id="btnClose" value="Close" class="btn btn-convert" onclick='$("#ql_SideBar").hide(500);' style="text-align: left">
+                        </div>
+                        <div id="queryStatus" style="color: Green"></div>
+                        <div id="ql_EmptyText">
+                        </div>
+                    </div>
+                    <div id="ql_Foot" style="text-align: justify; height: 0%; text-align: left;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
 </body>
 </html>

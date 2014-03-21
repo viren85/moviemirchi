@@ -48,7 +48,7 @@
 
 .form-control{border-radius: 0px;}
 
-.authenticate{float: right; margin-top:5%;color:white;font-size:12px;}
+/*.authenticate{float: right; margin-top:5%;color:white;font-size:12px;}*/
 
 .review-navigation{ float: left; width: 103%; min-height: 3%; position: relative; top: 90px;margin: 0 -1%;cursor:pointer;}
 
@@ -106,3 +106,60 @@
         }
 
 .col-sm-12 #affilationId{width: 35% !important;border-radius: 4px !important;margin-left: 2% !important;margin-bottom: 1% !important;border-width: 1px !important;}
+
+#ql_SideBar {
+position: fixed;
+z-index: 1001;
+width: 250px;
+right: 20px;
+bottom: 0;
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+border: 1px solid #bbb;
+}
+#ql_Display {
+border-top-left-radius: 5px;
+border-top-right-radius: 5px;
+padding: 10px;
+font-size: .9em;
+font-weight: bold;
+cursor: pointer;
+background-color: #ccc;
+background-image: -webkit-gradient(linear,left top,left bottom,from(#fff),to(#ccc));
+background-image: -webkit-linear-gradient(top,#fff,#ccc);
+background-image: -moz-linear-gradient(top,#fff,#ccc);
+background-image: -ms-linear-gradient(top,#fff,#ccc);
+background-image: -o-linear-gradient(top,#fff,#ccc);
+background-image: linear-gradient(top,#fff,#ccc);
+filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff',EndColorStr='#cccccc');
+-webkit-box-shadow: 0 1px 0 rgba(200,200,200,0.2);
+-moz-box-shadow: 0 1px 0 rgba(200,200,200,0.2);
+box-shadow: 0 1px 0 rgba(200,200,200,0.2);
+}
+#ql_Tab {
+background-color: white;
+}
+#ql_List {
+padding: 5px;
+max-height: 450px;
+min-height: 20px;
+overflow-y: auto;
+}
+#ql_Foot {
+background-color: #eee;
+padding: 7px;
+text-align: right;
+height: 30px;
+}
+
+.authenticate {
+    float: right;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: gray;
+    cursor: pointer;
+}
+
+    .authenticate:hover {
+        color: white;
+    }

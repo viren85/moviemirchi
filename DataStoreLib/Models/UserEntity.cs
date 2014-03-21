@@ -25,6 +25,7 @@ namespace DataStoreLib.Models
         public string Profile_Pic_Https { get; set; }
         public string Country { get; set; }
         public int Status { get; set; }
+        public string Favorite { get; set; }
         public DateTimeOffset Created_At { get; set; }
 
 
@@ -50,6 +51,7 @@ namespace DataStoreLib.Models
             Country = ReadString(properties, "Country");
             Status = ReadInt(properties, "Status");
             Created_At = ReadTimestamp(properties, "Created_At");
+            Favorite = ReadString(properties, "Favorite");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -73,6 +75,7 @@ namespace DataStoreLib.Models
             WriteString(dict, "Country", Country);
             WriteInt(dict, "Status", Status);
             WriteTimestamp(dict, "Created_At", Created_At);
+            WriteString(dict, "Favorite", Favorite);
 
             return dict;
         }
@@ -101,6 +104,7 @@ namespace DataStoreLib.Models
             Country = entity.Country;
             Status = entity.Status;
             Created_At = entity.Created_At;
+            Favorite = entity.Favorite;
         }
 
         public static UserEntity CreateUserEntity(string userName, string password)

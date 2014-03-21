@@ -40,17 +40,29 @@ namespace MvcWebRole1.Controllers
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 UserEntity auth = json.Deserialize(hfLogin, typeof(UserEntity)) as UserEntity;
+
                 if (auth != null)
                 {
                     SetConnectionString();
 
                     TableManager tblMgr = new TableManager();
-                    UserEntity entity = tblMgr.GetUserByName(auth.UserName);        
+                    UserEntity user = tblMgr.GetUserByName(auth.UserName);
 
-                    if (entity.UserName == auth.UserName && entity.Password == auth.Password){
+                    if (user.UserName == auth.UserName && user.Password == auth.Password)
+                    {
+                        Session["userid"] = user.UserId;
+                        Session["type"] = user.UserType;
+                        Session["firstname"] = user.FirstName;
+                        Session["lastname"] = user.LastName;
+                        Session["email"] = user.Email;
+                        Session["mobile"] = user.Mobile;
+                        Session["dob"] = user.DateOfBirth;
+                        Session["gender"] = user.Gender;
+                        Session["city"] = user.City;
+                        Session["username"] = user.FirstName + " " + user.LastName;
+                        Session["favorite"] = user.Favorite;
 
-                        Session["UserName"] = auth.UserName;
-                        return RedirectToAction("AddMovie", "Admin");
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 else
@@ -58,9 +70,9 @@ namespace MvcWebRole1.Controllers
                     TempData["Error"] = "Username or Password Require.";
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                TempData["Failed"] = "Login Failed.";
+                TempData["Failed"] = "Login Failed. Please try again";
             }
 
             return View();
@@ -73,15 +85,14 @@ namespace MvcWebRole1.Controllers
             ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
         }
 
-
         public ActionResult ConnectUser(UserEntity user)
         {
             SetConnectionString();
 
-            TableManager tblMgr = new TableManager ();
+            TableManager tblMgr = new TableManager();
 
             try
-            {                
+            {
                 Session["userid"] = user.UserId;
                 Session["type"] = user.UserType;
                 Session["firstname"] = user.FirstName;
@@ -95,6 +106,7 @@ namespace MvcWebRole1.Controllers
                 Session["profile_pic"] = user.Profile_Pic_Http;
                 Session["profile_pic_https"] = user.Profile_Pic_Https;
                 Session["facebook_access_token"] = user.Country;
+                Session["favorite"] = user.Favorite = null;
 
                 if (user.UserType == "facebook")
                 {
@@ -107,9 +119,6 @@ namespace MvcWebRole1.Controllers
                                                 grant_type = "fb_exchange_token",
                                                 fb_exchange_token = user.Country
                                             });
-
-                    //SocialMediaToken token = new SocialMediaToken();
-                    //token.ManageSocialToken(user.UserId.ToString(), "facebook", result.access_token, string.Empty, user.FirstName);
                 }
 
                 var userResponse = tblMgr.GetUserById(user.UserId);
@@ -132,6 +141,29 @@ namespace MvcWebRole1.Controllers
             {
                 return Json(new { success = false });
             }
+        }
+
+        public ActionResult Logout()
+        {
+            Session["userid"] = null;
+            Session["type"] = null;
+            Session["firstname"] = null;
+            Session["lastname"] = null;
+            Session["email"] = null;
+            Session["mobile"] = null;
+            Session["dob"] = null;
+            Session["gender"] = null;
+            Session["city"] = null;
+            Session["username"] = null;
+            Session["profile_pic"] = null;
+            Session["profile_pic_https"] = null;
+            Session["facebook_access_token"] = null;
+            Session["favorite"] = null;
+
+            Session.Abandon();
+            Session.Clear();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }
