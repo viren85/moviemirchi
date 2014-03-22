@@ -78,7 +78,7 @@
 
 #addMore{margin-top: -1%;margin-left: 1%;}
 
-#auth{margin-left: 17.5%}
+#auth{margin-left: 2%}
 
  textarea, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
             background-color: #fff !important;
@@ -192,3 +192,27 @@ overflow: auto;
             cursor: pointer;
             background-color: #fcecec;
         }
+
+#registrationbutton{margin-left:15px; !important}
+
+#popup{width: 25%;
+       margin-top:10%;
+height: auto !important;}
+
+.popup-input{width: 95%;
+padding: 4% !important; 
+margin: 2% !important;}
+
+#popup-footer{margin-top: 0%;
+padding-top: 5px;
+padding-bottom: 5px;}
+
+#popup-auth{width: 95%;
+margin-top: 2%;
+margin-left: 2%;
+border-radius: 2px;
+font-weight: bold;
+font-size: 15px;
+}
+
+#popup-header{background-color:#efefef;color:black;font-size:large;font-weight:bold;border-bottom:solid;border-bottom-color:#ccc;border-bottom-width:thin;}

@@ -222,12 +222,19 @@
                         }
                         else
                         {
+                            
+                            @*  this is the old login page
                             <li class="log">
                                 @Html.ActionLink("Login", "UserLogin", "Login")
+                            </li>*@
+                            <li class="log">
+                                @Html.ActionLink("Register", "Register", "Login")
                             </li>
+                           <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-1">Login</a></li>
                         }
                     </ul>
-                </div>
+                    
+                    
             </div>
         </div>
     </div>
@@ -291,5 +298,52 @@
         </div>
     }
 
+    @*Added popup for Login*@
+        <div class="modal fade" id="Login" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-haspopup="false">
+                <div class="modal-dialog" id="popup">
+                    <div class="modal-content">
+                        <div class="modal-header" id="popup-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                                &times;
+                            </button>
+                            <h3 class="panel-title">
+                                Log In
+                            </h3>
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="Record">
+                                <div class="ErrorContainer" id="successStatus" style="display: none">
+                                </div>
+                            </div>
+                            <div class="Record">
+                                <div class="Column2">
+                                    <input type="text" id="email" placeholder="Email Address" class="popup-input" />
+                                </div>
+                            </div>
+                            <div class="Record">
+                                <div class="Column2">
+                                    <input type="password" id="password" placeholder="Password" class="popup-input" />
+                                </div>
+                            </div>
+                            <div class="Record">
+                                <div class="Column2">
+                                    <input type="button" id="popup-auth" class="btn btn-primary" name="LogIn" value="Log In" />
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer" id="popup-footer">
+                            Dont Have an Account?<a href="Javascript:void(0)" class="btn" data-dismiss="modal" onclick="$('#ChangePassword').fadeOut(600);"
+                               title="click to close popup">Sign Up</a>
+                            
+                        </div>
+                    </div>
+                    <!-- /.modal-content -->
+                </div>
+                <!-- /.modal-dialog -->
+            </div>
+        </div>
+    @*End popup for login*@
 </body>
 </html>

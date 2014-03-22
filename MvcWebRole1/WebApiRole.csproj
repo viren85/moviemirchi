@@ -201,7 +201,6 @@
     <Compile Include="Controllers\api\GetActorsController.cs" />
     <Compile Include="Controllers\api\AllSongsController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
-    <Compile Include="Controllers\api\MovieInfo.cs" />
     <Compile Include="Controllers\api\MovieInfoController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\api\PosterController.cs" />
@@ -363,6 +362,8 @@
     <Content Include="Views\Login\UserLogin.cshtml" />
     <Content Include="Views\Admin\Affilation.cshtml" />
     <Content Include="Views\Admin\Reviewer.cshtml" />
+    <Content Include="Views\Login\Register.cshtml" />
+    <Content Include="Views\Login\Test.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

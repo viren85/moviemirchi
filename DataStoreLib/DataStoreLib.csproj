@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Models\AffilationEntity.cs" />
+    <Compile Include="Models\MovieInfo.cs" />
     <Compile Include="Models\UserEntity.cs" />
     <Compile Include="Models\ITableEntity.cs" />
     <Compile Include="Models\MovieEntity.cs" />

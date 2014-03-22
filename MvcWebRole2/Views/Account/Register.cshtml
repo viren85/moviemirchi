@@ -21,13 +21,16 @@
 
             <input type="text" id="email" class="reviewInput" placeholder="Email Address" /><br />
 
-            <input type="text" id="userName" class="reviewInput" placeholder="UserName" /><br />
+           
 
             <input type="password" id="password" class="reviewInput" placeholder="Password" /><br />
 
             <input type="password" id="confirmPassword" class="reviewInput" placeholder="Confirm Password" /><br />
 
             <div class="btn btn-primary" onclick="Register();">Register</div>
+            <br /><br />
+              @Html.ActionLink("Click here for Login", "Login", "Account")
+          
         }
 
     </div>
@@ -40,7 +43,7 @@
             var firstName = $("#firstName").val();
             var lastName = $("#lastName").val();
             var email = $("#email").val();
-            var userName = $("#userName").val();
+           
             var password = $("#password").val();
             var confirmPassword = $("#confirmPassword").val();
 
@@ -68,14 +71,7 @@
                 return;
             }
 
-            if (userName == "") {
-                $("#affilationError").html("Please provide userName.");
-                $("#affilationError").show();
-                $("#userName").focus();
-                isValid = false;
-                return;
-
-            }
+           
 
             if (password == "") {
                 $("#affilationError").html("Please provide password.");
@@ -111,7 +107,7 @@
 
             if (isValid) {
                 var user = {
-                    "UserName": userName,
+                    "UserName": email,
                     "Password": password,
                     "FirstName": firstName,
                     "LastName": lastName,

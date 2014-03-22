@@ -143,6 +143,91 @@ namespace MvcWebRole1.Controllers
             }
         }
 
+        #region Registration
+
+        [HttpGet]
+        public ActionResult Register()
+        {
+            if (Session["userid"] != null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(string userJson)
+        {
+            if (string.IsNullOrEmpty(userJson))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+
+                UserEntity deUser = json.Deserialize(userJson, typeof(UserEntity)) as UserEntity;
+
+                if (deUser != null)
+                {
+                    try
+                    {
+                        System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(deUser.Email);
+                    }
+                    catch (Exception)
+                    {
+                        return Json(new { Status = "Error", Message = "Please provide valid email address." }, JsonRequestBehavior.AllowGet);
+                    }
+
+
+                    if (deUser.Password != deUser.Mobile) //mobile number used to hold confirm password
+                    {
+                        return Json(new { Status = "Error", Message = "Password and confirm password does not match." }, JsonRequestBehavior.AllowGet);
+                    }
+
+                    SetConnectionString();
+
+                    TableManager tblMgr = new TableManager();
+
+                    UserEntity oldUser = tblMgr.GetUserByName(deUser.UserName);
+
+                    if (oldUser == null)
+                    {
+                        UserEntity entity = new UserEntity();
+                        entity.RowKey = entity.UserId = Guid.NewGuid().ToString();
+                        entity.UserName = deUser.UserName;
+                        entity.Email = deUser.Email;
+                        entity.Password = deUser.Password;
+                        entity.UserType = "Application";
+                        entity.Status = 1;
+                        entity.Created_At = DateTime.Now;
+                        entity.Country = string.Empty;
+
+                        tblMgr.UpdateUserById(entity);
+                    }
+                    else
+                    {
+                        return Json(new { Status = "Error", Message = "Username (" + deUser.UserName + ") already exist. Please choose another username." }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { Status = "Error", Message = "" }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+        }
+
+        #endregion
+
+
         public ActionResult Logout()
         {
             Session["userid"] = null;
@@ -165,5 +250,12 @@ namespace MvcWebRole1.Controllers
 
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        public ActionResult Test()
+        {
+            return View();
+        }
+
     }
 }

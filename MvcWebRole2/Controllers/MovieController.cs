@@ -3,6 +3,7 @@ using DataStoreLib.Storage;
 using DataStoreLib.Utils;
 using Microsoft.WindowsAzure;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
@@ -30,6 +31,8 @@ namespace MvcWebRole2.Controllers
         [HttpPost]
         public ActionResult AddMovie(string hfMovie)
         {
+            SetConnectionString();
+
             if (string.IsNullOrEmpty(hfMovie))
             {                
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
@@ -39,16 +42,18 @@ namespace MvcWebRole2.Controllers
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 MovieEntity movie = json.Deserialize(hfMovie, typeof(MovieEntity)) as MovieEntity;
+                
+                
 
                 if (movie != null)
                 {
-                    SetConnectionString();
-
                     string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
 
                     var tableMgr = new TableManager();
                     //MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(movie.Name);
                     MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(uniqueName);
+
+                    
 
                     if (oldEntity != null)
                     {
@@ -60,7 +65,7 @@ namespace MvcWebRole2.Controllers
                         tableMgr.UpdateMovieById(oldEntity);
                     }
 
-                    MovieEntity entity = new MovieEntity();
+                    MovieEntity entity = new MovieEntity();                   
 
                     entity.RowKey = entity.MovieId = Guid.NewGuid().ToString();
                     entity.Stats = movie.Stats;
@@ -77,8 +82,21 @@ namespace MvcWebRole2.Controllers
                     entity.Year = movie.Year;
                     entity.AltNames = movie.AltNames;
                     entity.UniqueName = uniqueName;
-
+                    
                     tableMgr.UpdateMovieById(entity);
+
+                    List<Cast> casts = json.Deserialize(entity.Casts, typeof(List<Cast>)) as List<Cast>;
+                    List<String> actors = new List<string>();
+
+                    if (casts != null)
+                    {
+                        //List<string> act = new List<string>();
+                        foreach (var actor in casts)
+                        {
+                            actors.Add(actor.name);
+                        }
+                    }
+
                 }
 
             }
@@ -87,7 +105,7 @@ namespace MvcWebRole2.Controllers
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);                
             }
 
-            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+            return Json(new { Status = "Ok", actors = "Actors" }, JsonRequestBehavior.AllowGet);
         }
         #endregion 
 

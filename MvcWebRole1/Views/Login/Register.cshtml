@@ -1,75 +1,137 @@
 ﻿@using System.Configuration
 
 @{
-    ViewBag.Title = "UserAuthentication";
+    ViewBag.Title = "Register";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 
-
-
-
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Please Sign In</h3>
+        <h3 class="panel-title">Register now (It's free)</h3>
     </div>
-    <div class="panel-body">
+    <div class="panel-body" id="singupinfo">
+        <div id="successStatus" style="display:none" class="alert alert-success"></div>
+        <div id="registerError" class="alert alert-danger" style="display:none;"></div>
 
         @using (Html.BeginForm())
         {
-            <div>
-                @if (TempData["Failed"] != null)
-                {
-                    <div class="btn btn-danger">@TempData["Failed"]</div>
-                }
-            </div>
-            <div>
-                @if (TempData["Error"] != null)
-                {
-                    <div class="btn btn-danger">@TempData["Error"]</div>
-                }
-                
-                <input type="text" name="userName" id="userName" class="reviewInput" placeholder="User Name"/>
-            </div>
-            <div>
-                
-                <input type="password" name="password" id="password" class="reviewInput" placeholder="Password"/>
-            </div>
-            <div>
-                <input type="submit" value="Submit" class="btn btn-primary" name="Login" id="auth" />
-                @Html.ActionLink("Cancel", "Index", "Home", null, new { @class = "btn btn-warning" })
-            </div>
-
-            
-            
-            @Html.Hidden("hfLogin", "")
-
+            <input type="text" id="email" class="reviewInput" placeholder="Email Address" /><br />
+            <input type="password" id="password" class="reviewInput" placeholder="Password" /><br />
+            <input type="password" id="confirmPassword" class="reviewInput" placeholder="Confirm Password" /><br />
+            <div class="btn btn-primary" id="registrationbutton" onclick="Register();">Register</div>
+            <br /> <br />
+            @Html.ActionLink("Click here for Login", "UserLogin", "Login")
+            //@Html.Hidden("userJson", "")
             <br />
             <div style="margin:10px">
-                <a href="#" class="facebook-login-btn"></a><a href="#" class="fr twitter-login-btn"></a>
+                <a href="#" class="facebook-login-btn"></a>
+                <a href="#" class="fr twitter-login-btn"></a>
             </div>
-            
-            @Html.ActionLink("Click here for Registration", "Register", "Login")
         }
+
     </div>
 </div>
+
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('form').on('submit', function (e) {
-            e.preventDefault();
-            var x = this;
-            reviewDetail();
-            x.submit();
+    function Register() {
+        var isValid = true;
+        try {
+            var email = $("#email").val();
+            var password = $("#password").val();
+            var confirmPassword = $("#confirmPassword").val();
 
-        });
-    });
+            if (email == "") {
+                $("#registerError").html("Please provide email address.");
+                $("#registerError").show();
+                $("#email").focus();
+                isValid = false;
+                return;
+            }
 
-    function reviewDetail() {
-        var userName = $("#userName").val();
-        var password = $("#password").val();
-        var login = { "UserName": userName, "Password": password };
-        $("#hfLogin").val(JSON.stringify(login));
+            if (password == "") {
+                $("#registerError").html("Please provide password.");
+                $("#registerError").show();
+                $("#password").focus();
+                isValid = false;
+                return;
+            }
+
+            if (confirmPassword == "") {
+                $("#registerError").html("Please provide confirm password.");
+                $("#registerError").show();
+                $("#confirmPassword").focus();
+                isValid = false;
+                return;
+            }
+
+            if (!IsEmailValid(email)) {
+                $("#registerError").html("Please provide valid email address.");
+                $("#registerError").show();
+                $("#email").focus();
+                isValid = false;
+                return;
+            }
+
+            if (password != confirmPassword) {
+                $("#registerError").html("Password and confirm password does not match.");
+                $("#registerError").show();
+                $("#confirmPassword").focus();
+                isValid = false;
+                return;
+            }
+
+            if (isValid) {
+                var user = {
+                    "UserName": email,
+                    "Email": email,
+                    "Password": password,
+                    "Mobile": confirmPassword // mobile no use as confirm password
+                };
+                //$("#hfAffilations").val(JSON.stringify(user));
+                $.ajax({
+                    url: '@Url.Action("Register", "Login")',
+                    data: { "userJson": JSON.stringify(user) },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: ShowSuccessMessage,
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        } catch (e) {
+            $("#registerError").html("There some error please try again.");
+            $("#registerError").show();
+        }
+    }
+
+    function ShowSuccessMessage(result) {
+        if (result.Status == "Ok") {
+            $("#successStatus").html("Your successfully register. Please login to access your account.");
+            $("#successStatus").show();
+            ClearformData();
+        } else if (result.Status == "Error") {
+            if (result.Message != undefined) {
+                $("#registerError").html(result.Message);
+            }
+            else {
+                $("#registerError").html("Unable to register. Please try again after some time.");
+            }
+
+            $("#registerError").show();
+        }
+    }
+
+    function ClearformData() {
+        $("#email").val("");
+        $("#password").val("");
+        $("#confirmPassword").val("");
+        $("#registerError").hide("");
     }
 </script>
+
+
+@*Facebook Login Link Detail*@
+
 
 <div id="fb-root"></div>
 <script>
@@ -158,7 +220,7 @@
         FB.api('/me', function (response) {
             console.log(response);
             console.log('Good to see you, ' + response.name + '.');
-            
+
             userFields.UserId = response.id;
             userFields.UserType = "facebook";
             userFields.FirstName = response.first_name;
@@ -218,9 +280,9 @@
     }
 
     window.connectUser = function () {
-        $.post("@Url.Action("ConnectUser", "Login")", userFields, function(response) {
+        $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
             if (response.success == true) {
-                if( /iPhone/i.test(navigator.userAgent) ) {
+                if (/iPhone/i.test(navigator.userAgent)) {
                     location.reload(true);
                 }
             }
