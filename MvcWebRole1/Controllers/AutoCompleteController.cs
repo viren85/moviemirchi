@@ -39,14 +39,14 @@ namespace MvcWebRole1.Controllers
             SetConnectionString();
 
             var tableMgr = new TableManager();
-            var movies = tableMgr.GetAllMovies();
+            var movies = tableMgr.SearchMoviesByActor(query);
 
            // List<Object> allCast = new List<Object>();
             List<Cast> tempCast = new List<Cast>();
             //int counter = 0;
             foreach (var movie in movies)
             {
-                List<Cast> castList = json.Deserialize(movie.Value.Casts, typeof(List<Cast>)) as List<Cast>;
+                List<Cast> castList = json.Deserialize(movie.Casts, typeof(List<Cast>)) as List<Cast>;
                 if (castList != null)
                 {
 
