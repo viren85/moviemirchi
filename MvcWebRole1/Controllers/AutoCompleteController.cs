@@ -54,22 +54,22 @@ namespace MvcWebRole1.Controllers
                     {
                         if (!tempCast.Exists(c => c.name == cast.name))
                         {
-                            tempCast.Add(cast);
-                            list.Add(new {name = cast.name });
+                            tempCast.Add(cast);                            
                         }
                     }
 
                 }
             }
-            /*
-            if (movies != null)
+
+            var actors = (from u in tempCast
+                          where u.name.ToLower().Contains(query.ToLower())
+                         select u).Distinct().ToArray().ToList();
+
+            foreach (var actor in actors)
             {
-                foreach (MovieEntity movieEntity in movies)
-                {
-                    list.Add(new { id = movieEntity.MovieId, name = movieEntity.Name + " (" + movieEntity.Year + ")" });
-                }
+                list.Add(new { name = actor.name });
             }
-            */
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 
