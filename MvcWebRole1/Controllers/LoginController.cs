@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Web;
 using System.Web.Mvc;
@@ -61,20 +62,22 @@ namespace MvcWebRole1.Controllers
                         Session["city"] = user.City;
                         Session["username"] = user.FirstName + " " + user.LastName;
                         Session["favorite"] = user.Favorite;
-
-                        return RedirectToAction("Index", "Home");
+                        return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+                        //return RedirectToAction("Index", "Home");
                     }
                 }
                 else
                 {
-                    TempData["Error"] = "Username or Password Require.";
+                    //TempData["Error"] = "Username or Password Require.";
+                    return Json(new { Status = "Require" }, JsonRequestBehavior.AllowGet);
                 }
             }
             catch (Exception ex)
             {
-                TempData["Failed"] = "Login Failed. Please try again";
+                //TempData["Failed"] = "Login Failed. Please try again";
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
-
+           
             return View();
         }
 
@@ -251,10 +254,21 @@ namespace MvcWebRole1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+
         [HttpGet]
         public ActionResult Test()
         {
             return View();
+        }
+
+        /// <summary>
+        /// this funcion will return users ip address
+        /// </summary>
+        /// <returns></returns>
+        public static IEnumerable<string> GetAddresses()
+        {
+            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+            return (from ip in host.AddressList where ip.AddressFamily == AddressFamily.InterNetwork select ip.ToString()).ToList();
         }
 
     }

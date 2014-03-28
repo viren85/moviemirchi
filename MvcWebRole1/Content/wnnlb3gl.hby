@@ -276,8 +276,8 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
 #ql_SideBar {
     position: fixed;
     z-index: 1001;
-    width: 100%;
-    right: 0px;
+    width: 250px;
+    right: 20px;
     bottom: 0;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
@@ -334,9 +334,9 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
         color: white;
     }
 
-    /*
+
 .targetAutoUL {
-    width: 92%; //23%
+    width: 92%;
     border: 1px solid silver;
     margin-top: -4%;
     list-style: none;
@@ -348,22 +348,7 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     max-height: 90px;
     overflow: auto;
 }
-*/
 
-.targetAutoUL {
-    width: 21.5%;
-    border: 1px solid silver;
-    margin-top: -10%;
-    list-style: none;
-    position: absolute;
-    background-color: white;
-    z-index: 1;
-    display: none;
-    border-radius: 4px;
-    max-height: 90px;
-    overflow: auto;
-}
-    
     .targetAutoUL li {
         margin-left: -40px;
         border-bottom: 1px solid silver;
@@ -422,23 +407,25 @@ select, textarea, input[type="text"], input[type="password"], input[type="dateti
     border-bottom-width: thin;
 }
 
-.popup-or {
-    border-bottom: 1px solid #ccc;
-    height: 0.6em;
-    width: 92%;
-    text-align: center;
-    margin-bottom: 1em;
-    margin-top: 3%;
-    margin-left: 3%;
-    margin-top: 3%;
+.popup-or
+{
+    border-bottom:1px solid #ccc;
+    height:0.6em;
+    width:92%;
+    text-align:center;
+    margin-bottom:1em;
+    margin-top:3%;
+    margin-left:3%;
+    margin-top:3%;
+    
 }
-
-    .popup-or > span {
-        text-decoration: none;
-        background: white;
-        color: #ccc;
-        font-weight: 500;
-    }
+.popup-or > span
+{
+    text-decoration:none;
+    background:white;
+    color:#ccc;
+    font-weight:500;
+}
 
 
 #remember_me2, .remember_me {
@@ -454,9 +441,9 @@ label {
     font-weight: 100 !important;
 }
 
-input[type=checkbox] {
-    margin-right: 4px !important;
-    border-radius: 1px !important;
+input[type=checkbox]{
+    margin-right:4px !important;
+    border-radius:1px !important;
 }
 
 .forgot_password {
@@ -465,26 +452,9 @@ input[type=checkbox] {
     margin-right: 3%;
 }
 
-.favourate {
-    display: inline;
-    width: 24%;
-    float: left;
-    margin-left: 10px;
-}
-
-#actorUL .targetAutoUL, #actorUL .targetAutoUL li {
-    width: 23% !important;
-}
-
-.test{
-  padding-left: 17px;
-}
-
-.survey_button{
-    margin-right: 1%;
-    width:100%;
-}
-
-#btnLater{float:right;}
-#btnSubmit{float:right;margin-right: -15%;
+.favourate{
+    display:inline;
+    width:200px;
+    float:left;
+    margin-left:5px
 }

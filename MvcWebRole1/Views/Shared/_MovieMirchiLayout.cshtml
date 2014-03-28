@@ -1,0 +1,574 @@
+﻿@using System.Configuration;
+@using DataStoreLib.Storage;
+
+@{
+    ViewBag.Title = "_MovieMirchiLayout";
+}
+
+@{
+    Layout = null;
+}
+
+
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Mirchi</title>
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @Styles.Render("~/Content/bootstrap.css")
+    @Styles.Render("~/Content/style.css")
+
+    @Scripts.Render("~/Content/bootstrap.min.js")
+    @Scripts.Render("~/Scripts/jquery-1.8.3.min.js")
+    @Scripts.Render("~/Scripts/jquery.cycle2.min.js")
+    @Scripts.Render("~/Content/movie.core.js")
+    @Scripts.Render("~/Content/movie.autocomplete.js")
+
+    <script type="text/javascript">
+
+
+        $(document).ready(function () {
+
+            //We have used keyup event to track the user enter value in the textbox.
+            $("#target").keyup(function () {
+                //Fetching the textbox value.
+                var query = $(this).val();
+                //Calling GetItems method.
+                getItems(query);
+            });
+
+            function getItems(query) {
+
+                //Here we are using ajax get method to fetch data from the list based on the user entered value in the textbox.
+                //We are sending query i.e textbox as data.
+                $.ajax({
+                    url: '@Url.Action("AutoCompleteMovies", "AutoComplete")',
+                    data: { "query": query },
+                    type: 'POST',
+                    dataType: 'json',
+                    success: PopulateSearchResult,
+                    error: function (xhr, status, error) {
+                    }
+                });
+            }
+        });
+
+        function PopulateSearchResult(response) {
+            if (response != null) {
+                if ($("#targetUL") != undefined) {
+                    //If the UL element is not null or undefined we are clearing it, so that the result is appended in new UL every next time.
+                    $("#targetUL").remove();
+                }
+                //assigning json response data to local variable. It is basically list of values.
+                data = response;
+
+                if (data.length < 1 || data.length == undefined) {
+                    $("#targetDiv").append($("<ul id='targetUL' style='display:none;'></ul>"));
+                }
+                else {
+                    //appending an UL element to show the values.
+                    $("#targetDiv").append($("<ul id='targetUL' style='display:block;'></ul>"));
+                    //Removing previously added li elements to the list.
+                    $("#targetUL").find("li").remove();
+                    //We are iterating over the list returned by the json and for each element we are creating a li element and appending the li element to ul element.
+                    $.each(data, function (i, value) {
+                        //On click of li element we are calling a method.
+                        var li = $("<li>");
+                        var divImage = $("<div>");
+                        $(divImage).attr("style", "width: 15%;float: left;");
+                        var img = $("<img/>")
+                        img.attr("class", "img-thumbnail");
+                        img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
+                        img.attr("data-src", "holder.js/200x200");
+                        img.attr("src", value.TitleImageURL);
+                        divImage.append(img);
+
+                        var divTitleDesc = $("<div>");
+                        $(divTitleDesc).attr("style", "width: 80%;float: left;");
+
+                        $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + value.Description + "</span>");
+
+                        var anchor = $("<a>");
+                        $(anchor).attr("href", value.Link);
+
+                        $(anchor).append(divImage);
+                        $(anchor).append(divTitleDesc);
+
+                        $(li).append(anchor);
+
+                        $("#targetUL").append(li);
+
+                        //$("#targetUL").append($("<li class='targetLI' onclick='javascript:appendTextToTextBox(this)'>" + value.Title + "</li>"));
+
+                    });
+                }
+            }
+            else {
+                //If data is null the we are removing the li and ul elements.
+                $("#targetUL").find("li").remove();
+                $("#targetUL").remove();
+            }
+        }
+        //This method appends the text oc clicked li element to textbox.
+        function appendTextToTextBox(e) {
+            //Getting the text of selected li element.
+            var textToappend = e.innerText;
+            //setting the value attribute of textbox with selected li element.
+            $("#target").val(textToappend);
+            //Removing the ul element once selected element is set to textbox.
+            $("#targetUL").remove();
+            $("#targetUL").css("display", "none");
+        }
+    </script>
+
+    <script type="text/javascript">
+
+
+
+
+
+        //Added code for load actorname
+        $(document).ready(function () {
+
+            // BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
+            //get movies
+            $("#txtActorName").keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteActors", "autoCompleteActor", "actorUL", "txtActorName", "hfMovieId");
+                }
+            });
+
+        });
+
+        //end
+
+
+        //Added code to load Director
+        $(document).ready(function () {
+
+            // BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
+            //get movies
+            $("#txtDirectorName").keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteDirectors", "autoCompleteDirector", "directorUL", "txtDirectorName", "hfMovieId");
+                }
+            });
+
+        });
+
+        //end
+
+        //Added code to load music Director
+        $(document).ready(function () {
+
+            // BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
+            //get movies
+            $("#txtMusicDirectorName").keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteMusicDirectors", "autoCompleteMusicDirector", "musicDirectorUL", "txtMusicDirectorName", "hfMovieId");
+                }
+            });
+
+        });
+        //ended music director loading
+    </script>
+
+</head>
+<body>
+ 
+    <div id="page">
+        <div class="page-container">
+            <div class="header">
+                <div class="top-navigation">
+                    <div class="logo">
+                        Movie Mirchi
+                    </div>
+                    <div class="search-bar">
+                        <div class="component">
+                            <div class="dropdown">
+                                <a data-toggle="dropdown" href="#">All <b class="caret"></b></a>
+                                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                                    <li><a href="#">All</a></li>
+                                    <li><a href="#">Titles</a></li>
+                                    <li><a href="#">Characters</a></li>
+                                    <li><a href="#">Names</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="component">
+                            <input type="text" class="form-control" placeholder="Search..." id="Text1" name="query"
+                                   value="" />
+                        </div>
+                    </div>
+                    <div class="top-navlinks">
+                        <ul>
+                            <li onclick="javascript:$('#sign-up').fadeIn(500);ShowHideFav('none');void(0);">
+                                <a>
+                                    Sign
+                                    up
+                                </a>
+                            </li>
+                            <li onclick="javascript:$('#login').fadeIn(500);ShowHideFav('none');void(0);"><a>Login</a></li>
+                            <li class="fav" onclick="javascript:void(0);"><a>Favorites</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            @*
+    <div class="banner">
+        <img src="static/banner-images/ramaiya-vastavaiya.jpg" />
+        <img src="static/banner-images/02-purani-jeans.jpg" />
+        <img src="static/banner-images/02-states.jpg" />
+        <img src="static/banner-images/7-khoon-maaf.jpg" />
+        <img src="static/banner-images/purani-jeans.jpg" />
+    </div>
+
+            <div class="movies">
+                <div class="movies-header">
+                    Recent Releases
+                </div>
+                <div class="movie-list">
+                    <ul>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/02-purani-jeans.jpg" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/02-states.jpg" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/youngistan.jpg" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/gang-of-ghosts.jpg" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/revolver-rani.jpg" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="movies">
+                <div class="movies-header">
+                    Popular on Movie Mirchi
+                </div>
+                <div class="movie-list">
+                    <ul>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/tees-maar-khan.png" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/7-khoon-maaf.jpg" />
+                            </div>
+                        </li>
+                        <li>
+                            <div>
+                                <img src="static/banner-images/ramaiya-vastavaiya.jpg" />
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+*@
+
+
+            <div class="user-fav">
+                <div class="fav-actors">
+                    <div class="fav-title">
+                        Actors
+                    </div>
+                    <div class="fav-content">
+                        <span>
+                            <input type="checkbox" />Ranbir Kapoor
+                        </span> <span>
+                            <input type="checkbox" />Shahrukh Khan
+                        </span> <span>
+                            <input type="checkbox" />Hritik Roshan
+                        </span> <span>
+                            <input type="checkbox" />Amitabh Bachhan
+                        </span> <span style="margin-top: 10px; margin-bottom: 10px;">
+                            <input type="text" placeholder="Actor Name..." />
+                        </span>
+                    </div>
+                </div>
+                <div class="fav-actors">
+                    <div class="fav-title">
+                        Directors
+                    </div>
+                    <div class="fav-content">
+                        <span>
+                            <input type="checkbox" />Rajkumar Hirani
+                        </span> <span>
+                            <input type="checkbox" />Karan Johar
+                        </span> <span>
+                            <input type="checkbox" />Anurag Kashyap
+                        </span> <span>
+                            <input type="checkbox" />Sanjay Leela Bhanshali
+                        </span> <span style="margin-top: 10px;
+                                            margin-bottom: 10px;">
+                            <input type="text" placeholder="Director Name..." />
+                        </span>
+                    </div>
+                </div>
+                <div class="fav-actors">
+                    <div class="fav-title">
+                        Music Directors
+                    </div>
+                    <div class="fav-content">
+                        <span>
+                            <input type="checkbox" />Pritam
+                        </span> <span>
+                            <input type="checkbox" />Vishal/Shekhar
+                        </span> <span>
+                            <input type="checkbox" />A.R. Rehman
+                        </span> <span>
+                            <input type="checkbox" />Salim/Suleman
+                        </span> <span style="margin-top: 10px; margin-bottom: 10px;">
+                            <input type="text" placeholder="Music Director Name..." />
+                        </span>
+                    </div>
+                </div>
+                <div class="fav-actors">
+                    <div class="fav-title">
+                        Genre
+                    </div>
+                    <div class="fav-content">
+                        <span>
+                            <input type="checkbox" />Action
+                        </span> <span>
+                            <input type="checkbox" />Comedy
+                        </span> <span>
+                            <input type="checkbox" />Drama
+                        </span> <span>
+                            <input type="checkbox" />Romance
+                        </span>
+                    </div>
+                </div>
+                <div class="buttons">
+                    <div class="btn btn-success">
+                        Save
+                    </div>
+                    <div class="btn" onclick="ShowHideFav('none');">
+                        Close
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <div id="footer">
+        &copy; 2014. Movie Mirchi
+    </div>
+    <div id="modal" style="display: none">
+        <div class="background">
+        </div>
+        <div id="login" style="display: none" class="modal-content">
+            <div class="modal-header-content">
+                Log in
+            </div>
+            <div class="modal-content-container">
+                <div class="fb-login">
+                    <span class="text-container">Log in with Facebook </span>
+                </div>
+                <div class="signup-or-separator">
+                    <h6 class="text shift text-special">
+                        or
+                    </h6>
+                </div>
+                <form accept-charset="UTF-8" class="signin-form login-form" data-action="Signin"
+                      method="post">
+                    <div class="control-group row-space-1">
+                        <input class="decorative-input" id="signin_email" name="email" placeholder="Email Address"
+                               type="email">
+                    </div>
+                    <div class="control-group row-space-2">
+                        <input class="decorative-input" id="signin_password" name="password" placeholder="Password"
+                               type="password">
+                    </div>
+                    <div class="clearfix row-space-2">
+                        <label for="remember_me2" class="checkbox remember-me">
+                            <input type="checkbox" name="remember_me" id="remember_me2" value="true" class="remember_me">
+                            Remember me
+                        </label>
+                        <a href="/forgot_password" class="forgot-password">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-success">
+                        Log In
+                    </button>
+                </form>
+                <hr />
+                <div class="sign-up-link">
+                    Don't have an account?<a onclick="ShowWindow('#sign-up');">Sign up</a>
+                </div>
+            </div>
+        </div>
+        <div id="sign-up" style="display: none" class="modal-content">
+            <div class="modal-header-content">
+                Sign up
+            </div>
+            <div class="modal-content-container">
+                <div class="fb-login">
+                    <span class="text-container">Sign up with Facebook </span>
+                </div>
+                <div class="signup-or-separator">
+                    <h6 class="text shift text-special">
+                        or
+                    </h6>
+                </div>
+                <div class="sign-up-link">
+                    <a onclick="ShowWindow('#sign-up-email')" style="margin: 0px;">
+                        Sign up with Email
+                    </a>
+                </div>
+                <div class="terms">
+                    By signing up, I agree to MovieMirchi's <a>Terms of Service</a> and <a>Privacy Policy</a>.
+                </div>
+                <hr class="separator" />
+                <div class="sign-up-link">
+                    Already a member?<a onclick="ShowWindow('#login');">Sign in</a>
+                </div>
+            </div>
+        </div>
+        <div id="sign-up-email" style="display: none" class="modal-content">
+            <div class="modal-header-content">
+                Sign up
+            </div>
+            <div class="modal-content-container">
+                <div class="fb-login">
+                    <span class="text-container">Sign up with Facebook </span>
+                </div>
+                <div class="signup-or-separator">
+                    <h6 class="text shift text-special">
+                        or
+                    </h6>
+                </div>
+                <form accept-charset="UTF-8" class="signin-form login-form" data-action="Signin"
+                      method="post">
+                    <div class="control-group row-space-1">
+                        <input class="decorative-input" id="FirstName" name="firstname" placeholder="First Name"
+                               type="text">
+                    </div>
+                    <div class="control-group row-space-1">
+                        <input class="decorative-input" id="LastName" name="lastname" placeholder="Last Name"
+                               type="text">
+                    </div>
+                    <div class="control-group row-space-1">
+                        <input class="decorative-input" id="Email1" name="email" placeholder="Email Address"
+                               type="email">
+                    </div>
+                    <div class="control-group row-space-2">
+                        <input class="decorative-input" id="password2" name="password" placeholder="Password"
+                               type="password">
+                    </div>
+                    <div class="control-group row-space-2">
+                        <input class="decorative-input" id="password3" name="password" placeholder="Retype Password"
+                               type="password">
+                    </div>
+                    <div class="clearfix row-space-2">
+                        <label for="remember_me2" class="checkbox remember-me">
+                            <input type="checkbox" name="news" id="chkNews" value="true" class="remember_me">
+                            Send me MovieMirchi Updates
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-block btn-success">
+                        Sign up
+                    </button>
+                </form>
+                <div class="terms">
+                    By signing up, I agree to MovieMirchi's <a>Terms of Service</a> and <a>Privacy Policy</a>.
+                </div>
+                <hr class="separator" />
+                <div class="sign-up-link">
+                    Already a member?<a onclick="ShowWindow('#login');">Sign in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+  
+</body>
+</html>
+
+
+<script type="text/javascript">
+    $(".top-navlinks li").click(function () {
+        if ($(this).attr("class") != "fav") {
+            $("#modal").show();
+        }
+    });
+
+    $("#modal").click(function () {
+        $(this).hide();
+        $('#sign-up').hide();
+        $('#login').hide();
+    });
+
+    $("#login").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $("#sign-up").click(function (e) {
+        e.stopPropagation();
+    });
+
+    $("#sign-up-email").click(function (e) {
+        e.stopPropagation();
+    });
+
+    function ShowWindow(id) {
+        $('#sign-up').hide();
+        $('#login').hide();
+        $('#sign-up-email').hide();
+        $(".fav").click();
+        $(id).show();
+    }
+
+    $(document).ready(function () {
+        $('.banner').cycle({
+            fx: 'fade' // choose your transition type, ex: fade, scrollUp, shuffle, etc...
+        });
+
+        $(".fav").click(function () {
+            $(".user-fav").slideToggle("slow");
+        });
+    });
+
+
+    function ShowHideFav(display) {
+        $(".user-fav").css("display", display);
+    }
+</script>

@@ -62,7 +62,7 @@ namespace MvcWebRole1.Controllers
             }
 
             var actors = (from u in tempCast
-                          where u.name.ToLower().Contains(query.ToLower())
+                          where u.name.ToLower().Contains(query.ToLower()) && u.role.ToLower() == "actor"
                          select u).Distinct().ToArray().ToList();
 
             foreach (var actor in actors)
@@ -72,6 +72,109 @@ namespace MvcWebRole1.Controllers
 
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
+          public ActionResult AutoCompleteDirectors(string query)
+        {
+         JavaScriptSerializer json = new JavaScriptSerializer();
+            var list = new List<object>();
+
+            if (string.IsNullOrEmpty(query))
+            {
+                return Json(list, JsonRequestBehavior.AllowGet);
+            }
+
+            SetConnectionString();
+
+            var tableMgr = new TableManager();
+            var movies = tableMgr.SearchMoviesByActor(query);
+
+           // List<Object> allCast = new List<Object>();
+            List<Cast> tempCast = new List<Cast>();
+            //int counter = 0;
+            foreach (var movie in movies)
+            {
+                List<Cast> castList = json.Deserialize(movie.Casts, typeof(List<Cast>)) as List<Cast>;
+                if (castList != null)
+                {
+
+                    foreach (var cast in castList)
+                    {
+                        if (!tempCast.Exists(c => c.name == cast.name))
+                        {
+                            tempCast.Add(cast);                            
+                        }
+                    }
+
+                }
+            }
+
+            var directors = (from u in tempCast
+                             where u.name.ToLower().Contains(query.ToLower()) && u.role.ToLower() == "director" 
+                             
+                         select u).Distinct().ToArray().ToList();
+
+            foreach (var director in directors)
+            {
+                if (director.role.ToLower() == "director")
+                {
+                    list.Add(new { name = director.name });
+                }
+
+            }
+
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+
+          public ActionResult AutoCompleteMusicDirectors(string query)
+          {
+              JavaScriptSerializer json = new JavaScriptSerializer();
+              var list = new List<object>();
+
+              if (string.IsNullOrEmpty(query))
+              {
+                  return Json(list, JsonRequestBehavior.AllowGet);
+              }
+
+              SetConnectionString();
+
+              var tableMgr = new TableManager();
+              var movies = tableMgr.SearchMoviesByActor(query);
+
+              // List<Object> allCast = new List<Object>();
+              List<Cast> tempCast = new List<Cast>();
+              //int counter = 0;
+              foreach (var movie in movies)
+              {
+                  List<Cast> castList = json.Deserialize(movie.Casts, typeof(List<Cast>)) as List<Cast>;
+                  if (castList != null)
+                  {
+
+                      foreach (var cast in castList)
+                      {
+                          if (!tempCast.Exists(c => c.name == cast.name))
+                          {
+                              tempCast.Add(cast);
+                          }
+                      }
+
+                  }
+              }
+
+              var directors = (from u in tempCast
+                               where u.name.ToLower().Contains(query.ToLower()) && u.role.ToLower() == "music director"
+                              ||
+                              u.name.ToLower().Contains(query.ToLower()) && u.role.ToLower() == "musicdirector"
+                               select u).Distinct().ToArray().ToList();
+
+              foreach (var director in directors)
+              {
+                  list.Add(new { name = director.name });
+              }
+
+              return Json(list, JsonRequestBehavior.AllowGet);
+          }
+
 
         public JsonResult AutoCompleteMovies(string query)
         {

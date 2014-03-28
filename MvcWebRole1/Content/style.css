@@ -1,0 +1,49 @@
+﻿#page { float: left; width: 100%; font-size: 100%; }
+.page-container { float: left; width: 100%; }
+/* Header */
+.header { float: left; width: 100%; margin-top: 1%; }
+.logo { float: left; font-family: Segoe UI; font-size: xx-large; color: Red; margin-right: 10%; margin-left: 10%; font-weight: bolder; }
+.search-bar { float: left; }
+.search-bar .component { float: left; margin-right: 10px; margin-top: 5px; }
+.dropdown { float: left; margin-top: 5px; margin-right: 10px; }
+.dropdown-menu { margin-top: 5px; }
+.top-navigation { float: left; width: 100%; background-color: White; }
+.top-navlinks { float: right; margin-right: 10%; }
+.top-navlinks ul { list-style: none; }
+.top-navlinks ul li { float: left; margin-right: 20px; text-transform: uppercase; font-size: 11px; color: #333; font-weight: bold; cursor: pointer; }
+#modal { position:absolute; width:100%; height:100%; z-index:100; text-align:center; vertical-align:middle; }
+.modal-content { position:absolute; z-index: 101; top: 15%; left: 40%; width: 20%; border: 1px solid #999; border-radius: 3px; background-color: White; }
+.background {top: 0; bottom: 0; width: 100%; height: 100%; overflow: none; background-color:#000000; left: 0; right: 0; filter:alpha(opacity=90); opacity:0.9; -moz-opacity:0.9;}
+.modal-header-content { float: left; width: 100%; padding: 5%; background-color: #EEE; border-bottom: 1px solid #AAA;  color: #222; font-weight: bold; text-align: left; }
+.modal-content-container { float: left; padding: 5%; width: 100%; margin-left: 1%; }
+.fb-login { float: left; width: 97%; cursor: pointer; }
+.text-container { text-align: center; width: 100%; font-size: 13px; color: White; float: left; background-color: #3b5998; padding: 10px; }
+.text-special { float: left; text-align: center; text-transform: uppercase; width: 100%; }
+.signup-or-separator { float: left; width: 100%; text-align: center; }
+.remember-me { float: left; margin-right: 10%; font-size: 12px; }
+.forgot-password { font-size: 12px;margin-top: 3% !important;float: left; }
+.sign-up-link { float: left; font-size: 12px; width: 100%; }
+.sign-up-link a { margin-left: 10%; cursor: pointer; }
+.terms { float: left; width: 100%; font-size: 12px; margin-top: 10px;  }
+.terms a { cursor: pointer; }
+.separator { float: left; width: 100%; margin-top: 10px; margin-bottom: 10px; }
+.banner { float: left; width: 100%; height: 60%;}
+.banner img { float: left; border: none; width: 100%; height: 100%;}
+.movies { float: left; width: 80%; height: auto; margin-left: 10%; margin-top: 3%; margin-right: 10%; }
+.movies-header { float: left; font-size: 24px; color: #666; margin-bottom: 2%; font-family: Segoe UI Light; }
+.movie-list { float: left; width: 100%; }
+.movie-list ul { list-style: none; float: left; margin: 0px; width: 100%; }
+.movie-list ul li { float: left; width: 22%; height: 15%; cursor: pointer; }
+.movie-list ul li div { float: left; margin-bottom: 20px;  }
+.movie-list ul li div img { border: none; float: left; width: 200px; height: 160px; }
+#footer { float: left; width: 100%; height: 50px; border-top: 2px solid #CCC; padding-left: 10%; padding-right: 10%; padding-top: 1%; }
+.user-fav { position: absolute; right: 0px; top: 8%; padding: 10px; border-left: 1px solid #666; width: 20%; opacity: 0.98; z-index: 1111; background-color: White; height: 98%; display: none; }
+.fav-title { float: left; width: 100%; font-size: large; font-family: Segoe UI Light; margin-bottom: 10px; }
+.fav-actors { border-bottom: 1px solid #CCC; float: left; margin-bottom: 2%; }
+.buttons { position: absolute; bottom: 9%; margin-right: 2%; right: 0px; }
+.fav-content { float: left; width: 100%; font-family: Segoe UI Light; }
+.fav-content span { float: left; width: 100%; }
+.fav-content span input { float: left; margin-right: 10px; }
+
+.decorative-input{padding: 5% !important;}
+.form-control{padding-top: 13px !important;padding-bottom: 13px!important;}

@@ -15,6 +15,11 @@ namespace MvcWebRole1.Controllers
         // GET: /Home/
 
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        public ActionResult Index2()
         {        
             return View();
         }

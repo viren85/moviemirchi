@@ -266,7 +266,7 @@ namespace DataStoreLib.Storage
         public static List<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
-            Debug.Assert(retList.Count == 1);
+            //Debug.Assert(retList.Count == 1);
 
             List<MovieEntity> actors = new List<MovieEntity>();
 

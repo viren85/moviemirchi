@@ -109,7 +109,7 @@ namespace MvcWebRole2.Controllers
         }
         #endregion 
 
-        #region Update Moive
+        #region Update Movie
         [HttpGet]
         public ActionResult UpdateMovie()
         {
