@@ -64,7 +64,6 @@ namespace MvcWebRole1.Controllers.api
                 return json.Serialize(new { staus = "Error", UserMessage = Constants.UM_WHILE_GETTING_CURRENT_MOVIES, ActualError = ex.Message });
                 //throw new ArgumentException();
             }
-
         }
     }
 }

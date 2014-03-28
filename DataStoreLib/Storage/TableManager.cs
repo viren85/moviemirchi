@@ -311,5 +311,8 @@ namespace DataStoreLib.Storage
             return affilationTable.GetAllAffilationItems<AffilationEntity>();
         }
         #endregion
+
+        #region User favorites tables functions
+        #endregion
     }
 }

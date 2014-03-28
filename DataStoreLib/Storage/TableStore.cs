@@ -43,29 +43,24 @@ namespace DataStoreLib.Storage
 
         public static readonly string MovieTableName = "Movie";
         public static readonly string ReviewTableName = "Review";
-
         public static readonly string UserTableName = "User";
-
         public static readonly string AffilationTableName = "Affilation";
-
         public static readonly string ReviewerTableName = "Reviewer";
-
         public static readonly string ToBeIndexedTableName = "TobeIndexedTable";
+        public static readonly string UserFavoriteTableName = "UserFavorites";
+        public static readonly string PopularOnMovieMirchiName = "PopularOnMovieMirchi";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
             new Dictionary<string, Func<CloudTable, Table>>()
                 {
                     {MovieTableName, MovieTable.CreateTable},
-
                     {UserTableName, UserTable.CreateTable},
-
-                     {AffilationTableName, AffilationTable.CreateTable},
-
-                     {ReviewerTableName, ReviewerTable.CreateTable},
-                     
-
+                    {AffilationTableName, AffilationTable.CreateTable},
+                    {ReviewerTableName, ReviewerTable.CreateTable},                    
                     {ReviewTableName, ReviewTable.CreateTable},
-                    {ToBeIndexedTableName, ToBeIndexedTable.CreateTable}
+                    {ToBeIndexedTableName, ToBeIndexedTable.CreateTable},
+                    {UserFavoriteTableName, UserFavoriteTable.CreateTable},
+                    {PopularOnMovieMirchiName, PopularOnMovieMirchiTable.CreateTable}
                 };
 
         public Table GetTable(string tableName)
@@ -99,7 +94,5 @@ namespace DataStoreLib.Storage
 
             return tableDict[tableName](table);
         }
-
-
     }
 }
