@@ -1233,13 +1233,13 @@ function IsEmailValid(emailText) {
 function authenticateUser() {
     var isValid = true;
     try {
-        var username = $("#username").val();
-        var loginPassword = $("#loginPassword").val();
+        var username = $("#signin_email").val();
+        var loginPassword = $("#signin_password").val();
 
         if (username == "") {
             $("#loginError").html("Email address require.");
             $("#loginError").show();
-            $("#username").focus();
+            $("#signin_email").focus();
             isValid = false;
            return;
         }
@@ -1247,7 +1247,7 @@ function authenticateUser() {
         if (loginPassword == "") {
             $("#loginError").html("Password require.");
             $("#loginError").show();
-            $("#loginPassword").focus();
+            $("#signin_password").focus();
             isValid = false;
             return;
         }
@@ -1293,8 +1293,8 @@ function ShowSuccessMessageLogin(result) {
 
 function ClearLoginformData() {
     alert("calling clear");
-    $("#username").val("");
-    $("#password").val("");
+    $("#signin_email").val("");
+    $("#signin_password").val("");
     $("#loginError").hide("");
     //$("#Login"). data-dismiss("modal");
 }
@@ -1304,16 +1304,16 @@ function ClearLoginformData() {
 function RegisterUser() {
     var isValid = true;
     try {
-        var fname = $("#firstName").val();
-        var lname = $("#lastName").val();
-        var email = $("#emailAddress").val();
-        var pwd = $("#userPassword").val();
-        var confirmPassword = $("#confirmPassword").val();
+        var fname = $("#FirstName").val();
+        var lname = $("#LastName").val();
+        var email = $("#Email1").val();
+        var pwd = $("#password2").val();
+        var confirmPassword = $("#password3").val();
 
         if (fname == "") {
             $("#registerError").html("Please provide First Name.");
             $("#registerError").show();
-            $("#firstName").focus();
+            $("#FirstName").focus();
             isValid = false;
             return;
         }
@@ -1322,16 +1322,15 @@ function RegisterUser() {
         if (lname == "") {
             $("#registerError").html("Please provide Last Name.");
             $("#registerError").show();
-            $("#lastName").focus();
+            $("#LastName").focus();
             isValid = false;
             return;
         }
 
-
         if (email == "") {
             $("#registerError").html("Please provide email address.");
             $("#registerError").show();
-            $("#emailAddress").focus();
+            $("#Email1").focus();
             isValid = false;
             return;
         }
@@ -1339,7 +1338,7 @@ function RegisterUser() {
         if (pwd == "") {
             $("#registerError").html("Please provide password.");
             $("#registerError").show();
-            $("#userPassword").focus();
+            $("#password2").focus();
             isValid = false;
             return;
         }
@@ -1347,7 +1346,7 @@ function RegisterUser() {
         if (confirmPassword == "") {
             $("#registerError").html("Please provide confirm password.");
             $("#registerError").show();
-            $("#confirmPassword").focus();
+            $("#password3").focus();
             isValid = false;
             return;
         }
@@ -1355,7 +1354,7 @@ function RegisterUser() {
         if (!IsEmailValid(email)) {
             $("#registerError").html("Please provide valid email address.");
             $("#registerError").show();
-            $("#email").focus();
+            $("#Email1").focus();
             isValid = false;
             return;
         }
@@ -1363,7 +1362,7 @@ function RegisterUser() {
         if (pwd != confirmPassword) {
             $("#registerError").html("Password and confirm password does not match.");
             $("#registerError").show();
-            $("#confirmPassword").focus();
+            $("#password3").focus();
             isValid = false;
             return;
         }
@@ -1418,15 +1417,13 @@ function ShowSuccessMessage(result) {
 
 
 function ClearformData() {
-    $("#firstName").val("");
-    $("#lastName").val("");
-    $("#emailAddress").val("");
-    $("#userPassword").val("");
-    $("#confirmPassword").val("");
+    $("#FirstName").val("");
+    $("#LastName").val("");
+    $("#Email1").val("");
+    $("#password2").val("");
+    $("#password3").val("");
     $("#registerError").hide("");
 }
-
-
 
 /* end Login*/
 

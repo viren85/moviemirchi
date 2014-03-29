@@ -1,6 +1,9 @@
 ﻿using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using DataStoreLib.Utils;
+using DotNetOpenAuth.AspNet.Clients;
+using Facebook;
+using DotNetOpenAuth.OpenId;
 using Microsoft.WindowsAzure;
 using MvcWebRole1.Models;
 using System;
@@ -13,6 +16,7 @@ using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Web.Caching;
 
 namespace MvcWebRole1.Controllers
 {
@@ -77,7 +81,7 @@ namespace MvcWebRole1.Controllers
                 //TempData["Failed"] = "Login Failed. Please try again";
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
-           
+
             return View();
         }
 
@@ -134,11 +138,12 @@ namespace MvcWebRole1.Controllers
                     user.RowKey = user.UserId;
 
                     tblMgr.UpdateUserById(user);
-
+                    //return RedirectToAction("Index", "Home");
                     return Json(new { success = true, createdUser = true });
                 }
 
                 return Json(new { success = true, createdUser = false });
+
             }
             catch (Exception ex)
             {
@@ -233,24 +238,41 @@ namespace MvcWebRole1.Controllers
 
         public ActionResult Logout()
         {
-            Session["userid"] = null;
-            Session["type"] = null;
-            Session["firstname"] = null;
-            Session["lastname"] = null;
-            Session["email"] = null;
-            Session["mobile"] = null;
-            Session["dob"] = null;
-            Session["gender"] = null;
-            Session["city"] = null;
-            Session["username"] = null;
-            Session["profile_pic"] = null;
-            Session["profile_pic_https"] = null;
-            Session["facebook_access_token"] = null;
-            Session["favorite"] = null;
+            if (Session["username"] != null)
+            {
+                var fb = new Facebook.FacebookClient();
+                var result = fb.GetLogoutUrl(new
+                {
+                    client_id = ConfigurationManager.AppSettings["FacebookAppId"],
+                    client_secret = ConfigurationManager.AppSettings["FacebookAppSecret"],
+                    grant_type = "fb_exchange_token",
+                    fb_exchange_token = Session["facebook_access_token"]
+                });
+
+                
+
+                Session["userid"] = null;
+                Session["type"] = null;
+                Session["firstname"] = null;
+                Session["lastname"] = null;
+                Session["email"] = null;
+                Session["mobile"] = null;
+                Session["dob"] = null;
+                Session["gender"] = null;
+                Session["city"] = null;
+
+                Session["profile_pic"] = null;
+                Session["profile_pic_https"] = null;
+                Session["facebook_access_token"] = null;
+                Session["favorite"] = null;
+                Session["username"] = null;
+
+                Session.Abandon();
+                Session.Clear();
+            }
 
             Session.Abandon();
             Session.Clear();
-
             return RedirectToAction("Index", "Home");
         }
 

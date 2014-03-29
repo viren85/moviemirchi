@@ -256,6 +256,7 @@
                             </li>
                             <li class="log">
                                 @Html.ActionLink("Logout", "Logout", "Login")
+                               
                             </li>
                         }
                         else
@@ -458,18 +459,18 @@
                 <div class="modal-body">
                     @using (Html.BeginForm())
                     {
-                    <div class="Record">
-                        <div class="Column2">
+                        <div class="Record">
+                            <div class="Column2">
 
 
-                            <div class="alert alert-danger" id="loginError" style="display: none"></div>
+                                <div class="alert alert-danger" id="loginError" style="display: none"></div>
 
+                            </div>
                         </div>
-                    </div>
 
-                    <div id="fb-root"></div>
+                        <div id="fb-root"></div>
                         <!--Fb Login Srcipt-->
-                    <script>
+                        <script>
                                 window.userFields = {
                                     UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
                                     UserType: "@(Session["type"] != null ? Session["type"] : "")",
@@ -623,56 +624,56 @@
                                     }, 'json');
                                 }
 
-                    </script>
+                        </script>
 
-                    <!--
-                    Below we include the Login Button social plugin. This button uses the JavaScript SDK to
-                    present a graphical Login button that triggers the FB.login() function when clicked. -->
+                        <!--
+                        Below we include the Login Button social plugin. This button uses the JavaScript SDK to
+                        present a graphical Login button that triggers the FB.login() function when clicked. -->
 
-                    <div class="Record">
+                        <div class="Record">
 
-                        <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
-                            Login with Facebook
-                        </fb:login-button>
-                    </div>
+                            <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
+                                Login with Facebook
+                            </fb:login-button>
+                        </div>
 
-                    <div class="Record">
-                        <div class="Column2">
-                            <div class="popup-or">
-                                <span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    Or
-                                    &nbsp;&nbsp;&nbsp;
-                                </span>
+                        <div class="Record">
+                            <div class="Column2">
+                                <div class="popup-or">
+                                    <span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        Or
+                                        &nbsp;&nbsp;&nbsp;
+                                    </span>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="text" id="username" placeholder="Email Address" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="text" id="username" placeholder="Email Address" class="popup-input" />
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="password" id="loginPassword" placeholder="Password" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="password" id="loginPassword" placeholder="Password" class="popup-input" />
 
-                            <label class="checkbox remember-me" for="remember_me2">
-                                <input id="remember_me2" class="remember_me" type="checkbox" value="true" name="remember_me" />
-                                Remember me
-                            </label>
-                            <a href="#" class="forgot_password">Forgot Password</a>
+                                <label class="checkbox remember-me" for="remember_me2">
+                                    <input id="remember_me2" class="remember_me" type="checkbox" value="true" name="remember_me" />
+                                    Remember me
+                                </label>
+                                <a href="#" class="forgot_password">Forgot Password</a>
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                           
-                            <div id="popup-auth" class="btn btn-primary" onclick="authenticateUser();">Login</div>
-                            @Html.Hidden("hfLogin", "")
+                        <div class="Record">
+                            <div class="Column2">
 
+                                <div id="popup-auth" class="btn btn-primary" onclick="authenticateUser();">Login</div>
+                                @Html.Hidden("hfLogin", "")
+
+                            </div>
                         </div>
-                    </div>
                     }
                 </div>
                 <div class="modal-footer" id="popup-footer">
@@ -925,72 +926,72 @@
                 <div class="modal-body">
                     @using (Html.BeginForm())
                     {
-                    <div class="Record">
-                        <div class="Column2">
-                            <div class="alert alert-danger" id="registerError" style="display: none"></div>
-                            <div class="alert alert-success" id="successStatusR" style="display: none"></div>
-                        </div>
-                    </div>
-                    <div id="fb-root"></div>
-                    <div class="Record">
-
-                        <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
-                            Sign up with Facebook
-                        </fb:login-button>
-                    </div>
-
-                    <div class="Record">
-                        <div class="Column2">
-                            <div class="popup-or">
-                                <span>
-                                    &nbsp;&nbsp;&nbsp;
-                                    Or&nbsp;&nbsp;&nbsp;
-                                </span>
+                        <div class="Record">
+                            <div class="Column2">
+                                <div class="alert alert-danger" id="registerError" style="display: none"></div>
+                                <div class="alert alert-success" id="successStatusR" style="display: none"></div>
                             </div>
                         </div>
-                    </div>
+                        <div id="fb-root"></div>
+                        <div class="Record">
+
+                            <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
+                                Sign up with Facebook
+                            </fb:login-button>
+                        </div>
+
+                        <div class="Record">
+                            <div class="Column2">
+                                <div class="popup-or">
+                                    <span>
+                                        &nbsp;&nbsp;&nbsp;
+                                        Or&nbsp;&nbsp;&nbsp;
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
 
 
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="text" id="firstName" placeholder="First Name" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="text" id="firstName" placeholder="First Name" class="popup-input" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="text" id="lastName" placeholder="Last Name" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="text" id="lastName" placeholder="Last Name" class="popup-input" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="email" id="emailAddress" placeholder="Email Address" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="email" id="emailAddress" placeholder="Email Address" class="popup-input" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="password" id="userPassword" placeholder="Password" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="password" id="userPassword" placeholder="Password" class="popup-input" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                            <input type="password" id="confirmPassword" placeholder="Confirm Password" class="popup-input" />
+                        <div class="Record">
+                            <div class="Column2">
+                                <input type="password" id="confirmPassword" placeholder="Confirm Password" class="popup-input" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                            <label class="checkbox remember-me" for="remember_me2">
-                                <input id="remember_me2" class="remember_me" type="checkbox" value="true" name="remember_me" />
-                                Tell me about MovieMirchi
-                            </label>
+                        <div class="Record">
+                            <div class="Column2">
+                                <label class="checkbox remember-me" for="remember_me2">
+                                    <input id="remember_me2" class="remember_me" type="checkbox" value="true" name="remember_me" />
+                                    Tell me about MovieMirchi
+                                </label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="Record">
-                        <div class="Column2">
-                            
-                            <div class="btn btn-primary" id="popup-auth" onclick="RegisterUser();">Register</div>
-                            @Html.Hidden("userJson", "")
+                        <div class="Record">
+                            <div class="Column2">
+
+                                <div class="btn btn-primary" id="popup-auth" onclick="RegisterUser();">Register</div>
+                                @Html.Hidden("userJson", "")
+                            </div>
                         </div>
-                    </div>
 
 
 

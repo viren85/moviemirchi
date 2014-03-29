@@ -19,7 +19,7 @@
 .fb-login { float: left; width: 97%; cursor: pointer; }
 .text-container { text-align: center; width: 100%; font-size: 13px; color: White; float: left; background-color: #3b5998; padding: 10px; }
 .text-special { float: left; text-align: center; text-transform: uppercase; width: 100%; }
-.signup-or-separator { float: left; width: 100%; text-align: center; }
+.signup-or-separator { margin-left: 5%;float: left;width: 90%;text-align: center;}
 .remember-me { float: left; margin-right: 10%; font-size: 12px; }
 .forgot-password { font-size: 12px;margin-top: 3% !important;float: left; }
 .sign-up-link { float: left; font-size: 12px; width: 100%; }

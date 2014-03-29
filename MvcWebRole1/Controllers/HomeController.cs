@@ -16,6 +16,7 @@ namespace MvcWebRole1.Controllers
 
         public ActionResult Index()
         {
+            
             return View();
         }
 
