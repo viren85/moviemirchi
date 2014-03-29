@@ -38,8 +38,8 @@
 .movie-list ul li div img { border: none; float: left; width: 200px; height: 160px; }
 #footer { float: left; width: 100%; height: 50px; border-top: 2px solid #CCC; padding-left: 10%; padding-right: 10%; padding-top: 1%; }
 .user-fav { position: absolute; right: 0px; top: 8%; padding: 10px; border-left: 1px solid #666; width: 20%; opacity: 0.98; z-index: 1111; background-color: White; height: 98%; display: none; }
-.fav-title { float: left; width: 100%; font-size: large; font-family: Segoe UI Light; margin-bottom: 10px; }
-.fav-actors { border-bottom: 1px solid #CCC; float: left; margin-bottom: 2%; }
+.fav-title { float: left; width: 100%; font-size: large; font-family: Segoe UI Light; margin-bottom: 6px; }
+.fav-actors { border-bottom: 1px solid #CCC; float: left; margin-bottom: 1%; }
 .buttons { position: absolute; bottom: 9%; margin-right: 2%; right: 0px; }
 .fav-content { float: left; width: 100%; font-family: Segoe UI Light; }
 .fav-content span { float: left; width: 100%; }

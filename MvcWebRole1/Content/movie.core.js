@@ -1148,15 +1148,55 @@ function RemoveAffilation(counter) {
 /*End*/
 
 function SaveUserFavorite() {
-    var actorName = $("#txtActorName").val();
-    var directorName = $("#txtDirectorName").val();
-    var musicDirectorName = $("#txtMusicDirectorName").val();
-    var genre = $("#genre :selected").val();
+    var actorName = $("#txtSearchActor").val();
+    var directorName = $("#txtSearchDirector").val();
+    var musicDirectorName = $("#txtSearchMusicDirector").val();
+    //var genre = $("#genre :selected").val();
     var userId = $("#hfUserId").val();
 
     var isValid = false;
 
     var FavoriteList = [];
+    console.log("befor favorite list");
+    console.log(FavoriteList);
+
+    $("#fav_actor").find('input[type="checkbox"]').each(function () {
+        if ($(this).attr("checked")) {
+            isValid = true;
+            var acName = $(this).next("label").html();
+            FavoriteList.push({ "Type": "Actor", "Name": acName });
+        }
+    });
+
+    $("#fav_director").find('input[type="checkbox"]').each(function () {
+        if ($(this).attr("checked")) {
+            isValid = true;
+            var dirName = $(this).next("label").html();
+            //alert(dirName);
+            FavoriteList.push({ "Type": "Director", "Name": dirName });
+        }
+    });
+
+    $("#fav_musicdirector").find('input[type="checkbox"]').each(function () {
+        if ($(this).attr("checked")) {
+            isValid = true;
+            var musDirName = $(this).next("label").html();
+            //alert(musDirName);
+            FavoriteList.push({ "Type": "Music Director", "Name": musDirName });
+        }
+    });
+
+    $("#fav_genre").find('input[type="checkbox"]').each(function () {
+        if ($(this).attr("checked")) {
+            isValid = true;
+            var genre = $(this).next("label").html();
+            //alert(genre);
+            FavoriteList.push({ "Type": "Genre", "Name": genre });
+        }
+    });
+
+    console.log("after favorite list");
+    console.log(FavoriteList);
 
     if (userId != "") {
         isValid = true;
@@ -1177,13 +1217,8 @@ function SaveUserFavorite() {
         FavoriteList.push({ "Type": "Music Director", "Name": musicDirectorName });
     }
 
-    if (genre != "" && genre != "select") {
-        isValid = true;
-        FavoriteList.push({ "Type": "Genre", "Name": genre });
-    }
-
     if (isValid) {
-        CallHandler("api/SaveUserFavorite?u=" + userId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
+        //CallHandler("api/SaveUserFavorite?u=" + userId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
     }
     else {
         $("#favStatus").attr("style", "display:block");

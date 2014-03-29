@@ -250,45 +250,45 @@
 
 
             <div class="user-fav">
-                <div class="fav-actors">
+                <div class="fav-actors" title="Popular actors/actress on movie mirchi">
                     <div class="fav-title">
                         Actors
                     </div>
-                    <div class="fav-content" id="fav_actor">                       
+                    <div class="fav-content" id="fav_actor">
                     </div>
                 </div>
-                <div class="fav-actors">
+                <div class="fav-actors" title="Popular directors on movie mirchi">
                     <div class="fav-title">
                         Directors
                     </div>
-                    <div class="fav-content" id="fav_director">                        
+                    <div class="fav-content" id="fav_director">
                     </div>
                 </div>
-                <div class="fav-actors">
+                <div class="fav-actors" title="Popular music directors on movie mirchi">
                     <div class="fav-title">
                         Music Directors
                     </div>
-                    <div class="fav-content" id="fav_musicdirector">                        
+                    <div class="fav-content" id="fav_musicdirector">
                     </div>
                 </div>
                 <div class="fav-actors">
                     <div class="fav-title">
                         Genre
                     </div>
-                    <div class="fav-content">
+                    <div class="fav-content" id="fav_genre">
                         <span>
-                            <input type="checkbox" />Action
+                            <input type="checkbox" id="chkAction" /><label for="chkAction">Action</label>
                         </span> <span>
-                            <input type="checkbox" />Comedy
+                            <input type="checkbox" id="chkComedy" /><label for="chkComedy">Comedy</label>
                         </span> <span>
-                            <input type="checkbox" />Drama
+                            <input type="checkbox" id="chkDrama" /><label for="chkDrama">Drama</label>
                         </span> <span>
-                            <input type="checkbox" />Romance
+                            <input type="checkbox" id="chkRomance" /><label for="chkRomance">Romance</label>
                         </span>
                     </div>
                 </div>
                 <div class="buttons" style="right: 48%;">
-                    <div class="btn btn-success">
+                    <div class="btn btn-success" onclick="SaveUserFavorite();">
                         Save
                     </div>
                     <div class="btn" onclick='$(".user-fav").slideToggle("slow");'>
