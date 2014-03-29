@@ -505,6 +505,20 @@ namespace DataStoreLib.Storage
         {
             return UserFavoriteEntity.PARTITION_KEY;
         }
+
+        public UserFavoriteEntity GetUserFavoritesByUserId(string userId)
+        {
+            TableQuery<UserFavoriteEntity> query = new TableQuery<UserFavoriteEntity>().Where(TableQuery.GenerateFilterCondition("UserId", QueryComparisons.Equal, userId));
+            
+            IEnumerable<UserFavoriteEntity> reviewResults = _table.ExecuteQuery<UserFavoriteEntity>(query);
+
+            foreach (var tableResult in reviewResults)
+            {
+                return tableResult;                
+            }
+
+            return null;
+        }
     }
 
     internal class PopularOnMovieMirchiTable : Table

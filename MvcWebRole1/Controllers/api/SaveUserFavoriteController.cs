@@ -32,7 +32,6 @@ namespace MvcWebRole1.Controllers.api
 
                 string userId = qpParams["u"];
                 string cFavoriteId = qpParams["c"];
-
                 string favorites = qpParams["d"];
 
                 List<PopularOnMovieMirchiEntity> popularOnMovieMirchi = json.Deserialize(favorites, typeof(List<PopularOnMovieMirchiEntity>)) as List<PopularOnMovieMirchiEntity>;
@@ -74,25 +73,49 @@ namespace MvcWebRole1.Controllers.api
 
                     return json.Serialize(new { Status = "Ok", Message = "Set Cookie", FavoriteId = userFavorite.UserFavoriteId });
                 }
-                else
+                else if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(cFavoriteId))
                 {
- 
+                    UserFavoriteEntity userFavorite = tableMgr.GetUserFavoritesByUserId(userId);
+
+                    if (userFavorite == null)
+                    {
+                        userFavorite = tableMgr.GetUserFavoriteById(cFavoriteId);
+
+                        if (userFavorite != null)
+                        {
+                            userFavorite.UserId = userId;
+                            userFavorite.Favorites = favorites;
+                            userFavorite.DateCreated = DateTime.Now.ToString();
+
+                            tableMgr.UpdateUserFavoriteById(userFavorite);
+                        }
+                    }
+                    else
+                    {
+                        userFavorite.Favorites = favorites;
+                        userFavorite.DateCreated = DateTime.Now.ToString();
+
+                        tableMgr.UpdateUserFavoriteById(userFavorite);
+                    }
+
+                    return json.Serialize(new { Status = "Ok", Message = "Updated" });
+                }
+                else if (!string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(cFavoriteId))
+                {
+                    UserFavoriteEntity userFavorite = tableMgr.GetUserFavoritesByUserId(userId);
+
+                    if (userFavorite != null)
+                    {
+                        userFavorite.Favorites = favorites;
+                        userFavorite.DateCreated = DateTime.Now.ToString();
+
+                        tableMgr.UpdateUserFavoriteById(userFavorite);
+
+                        return json.Serialize(new { Status = "Ok", Message = "Updated" });
+                    }                    
                 }
 
-                var user = tableMgr.GetUserById(userId);
-
-                if (user != null)
-                {
-                    user.Favorite = favorites;
-                    tableMgr.UpdateUserById(user);
-
-                    // serialize songs list and then return.
-                    return json.Serialize(new { Status = "Ok", Favorite = favorites });
-                }
-                else
-                {
-                    return json.Serialize(new { Status = "Error" });
-                }
+                return json.Serialize(new { Status = "Error", Message = "No Updated" });
             }
             catch (Exception ex)
             {

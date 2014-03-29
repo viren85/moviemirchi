@@ -319,6 +319,12 @@ namespace DataStoreLib.Storage
             return userFavoritesTable.GetItemsById<UserFavoriteEntity>(ids);
         }
 
+        public UserFavoriteEntity GetUserFavoritesByUserId(string userId)
+        {
+            var userFavoriteTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName) as UserFavoriteTable;
+            return userFavoriteTable.GetUserFavoritesByUserId(userId);
+        }
+
         public IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(List<Models.UserFavoriteEntity> userFavorites)
         {
             var userFavoriteTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName);

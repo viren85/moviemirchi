@@ -1230,32 +1230,40 @@ function SaveUserFavorite() {
 function OnSuccessSaveUserFavorite(result) {
     result = JSON.parse(result);
 
-    ClearUserFavoriteControls();
-
     if (result.Status == "Ok") {
+
+        if (result.Message == "Set Cookie") {
+            setCookie("favoriteId", result.FavoriteId, 365);
+        }
 
         ClearUserFavoriteControls();
 
-        $.post(BASE_URL + 'Home/SetVariable', { value: 'Set favorite' }, function (data) {
-            if (data.Status == "Ok") {
-                $("#favStatus").removeAttr("class");
-                $("#favStatus").attr("class", "alert alert-success");
-                $("#favStatus").attr("style", "display:block");
-                $("#favStatus").html("Successfully saved your favorite list.");
+        $("#favStatus").removeAttr("class");
+        $("#favStatus").attr("class", "alert alert-success");
+        $("#favStatus").attr("style", "display:block");
+        $("#favStatus").html("Successfully saved your favorite list.");
 
-                var intverval = setInterval(function () {
-                    $("#ql_SideBar").hide(500);
-                }, 1500);
-            }
-            else {
-                $("#favStatus").attr("style", "display:block");
-                $("#favStatus").html("Ops! there is some error. Please try again.");
-            }
-        });
+        var intverval = setInterval(function () {
+            $(".user-fav").slideToggle("slow");
+            clearInterval(intverval);
+            $("#favStatus").html("");
+            $("#favStatus").hide();
+        }, 10000);
+
     }
     else {
         $("#favStatus").attr("style", "display:block");
         $("#favStatus").html("Ops! there is some error. Please try again.");
+
+        if (result.Message == "No Updated") {
+            $("#favStatus").html("You already set your favorites. Login for update.");
+        }
+
+        var intverval = setInterval(function () {
+            $("#favStatus").hide(500);
+            $("#favStatus").html("");            
+            clearInterval(intverval);
+        }, 10000);
     }
 }
 
