@@ -1151,7 +1151,6 @@ function SaveUserFavorite() {
     var actorName = $("#txtSearchActor").val();
     var directorName = $("#txtSearchDirector").val();
     var musicDirectorName = $("#txtSearchMusicDirector").val();
-    //var genre = $("#genre :selected").val();
     var userId = $("#hfUserId").val();
 
     var isValid = false;
@@ -1198,10 +1197,6 @@ function SaveUserFavorite() {
     console.log("after favorite list");
     console.log(FavoriteList);
 
-    if (userId != "") {
-        isValid = true;
-    }
-
     if (actorName != "") {
         isValid = true;
         FavoriteList.push({ "Type": "Actor", "Name": actorName });
@@ -1217,8 +1212,14 @@ function SaveUserFavorite() {
         FavoriteList.push({ "Type": "Music Director", "Name": musicDirectorName });
     }
 
+    if (userId != "") {
+        //setCookie("favoriteId", "userid", 365);
+    }
+
+    var cFavoriteId = getCookie("favoriteId");
+
     if (isValid) {
-        //CallHandler("api/SaveUserFavorite?u=" + userId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
+        CallHandler("api/SaveUserFavorite?u=" + userId + "&c=" + cFavoriteId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
     }
     else {
         $("#favStatus").attr("style", "display:block");
@@ -1229,7 +1230,11 @@ function SaveUserFavorite() {
 function OnSuccessSaveUserFavorite(result) {
     result = JSON.parse(result);
 
+    ClearUserFavoriteControls();
+
     if (result.Status == "Ok") {
+
+        ClearUserFavoriteControls();
 
         $.post(BASE_URL + 'Home/SetVariable', { value: 'Set favorite' }, function (data) {
             if (data.Status == "Ok") {
@@ -1252,6 +1257,28 @@ function OnSuccessSaveUserFavorite(result) {
         $("#favStatus").attr("style", "display:block");
         $("#favStatus").html("Ops! there is some error. Please try again.");
     }
+}
+
+function ClearUserFavoriteControls() {
+    $("#fav_actor").find('input[type="checkbox"]').each(function () {
+        $(this).attr("checked", false);
+    });
+
+    $("#fav_director").find('input[type="checkbox"]').each(function () {
+        $(this).attr("checked", false);
+    });
+
+    $("#fav_musicdirector").find('input[type="checkbox"]').each(function () {
+        $(this).attr("checked", false);
+    });
+
+    $("#fav_genre").find('input[type="checkbox"]').each(function () {
+        $(this).attr("checked", false);
+    });
+
+    $("#txtSearchActor").val("");
+    $("#txtSearchDirector").val("");
+    $("#txtSearchMusicDirector").val("");
 }
 
 /* -------------- Validate email address ---------------- */
@@ -1577,19 +1604,6 @@ function getCookie(cname) {
         if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
     }
     return "";
-}
-
-function checkCookie() {
-    var user = getCookie("username");
-    if (user != "") {
-        alert("Welcome again " + user);
-    }
-    else {
-        user = prompt("Please enter your name:", "");
-        if (user != "" && user != null) {
-            setCookie("username", user, 30);
-        }
-    }
 }
 /*--------------end cookies related functions----------------*/
 

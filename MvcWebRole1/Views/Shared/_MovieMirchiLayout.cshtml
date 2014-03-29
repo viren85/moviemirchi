@@ -220,6 +220,8 @@
                             @if (Session["username"] != null)
                             {
                                 <li class="authenticate">
+                                    <input type="hidden" id="hfUserId" value="@Session["userid"]" />
+
                                     Welcome, @Session["username"].ToString().ToUpper()
                                 </li>
                                 <li class="fav" onclick="javascript:void(0);"><a>Favorites</a></li>
@@ -232,6 +234,7 @@
                             else
                             {
                                 <li onclick="javascript:$('#sign-up').fadeIn(500);ShowHideFav('none');void(0);">
+                                    <input type="hidden" id="hfUserId" value="" />
                                     <a>
                                         Sign up
                                     </a>
@@ -239,9 +242,7 @@
                                 <li onclick="javascript:$('#login').fadeIn(500);ShowHideFav('none');void(0);"><a>Login</a></li>
                             }
 
-
-
-
+                            <li class="fav" onclick="javascript:void(0);"><a>Favorites</a></li>
                         </ul>
                     </div>
                 </div>

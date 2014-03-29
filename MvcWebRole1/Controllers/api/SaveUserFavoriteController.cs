@@ -1,4 +1,5 @@
 ﻿using DataStoreLib.Constants;
+using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using System;
 using System.Collections.Generic;
@@ -23,13 +24,60 @@ namespace MvcWebRole1.Controllers.api
 
                 // get query string parameters
                 var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
-                if (string.IsNullOrEmpty(qpParams["u"]) || string.IsNullOrEmpty(qpParams["d"]))
+                if (string.IsNullOrEmpty(qpParams["d"]))
                 {
-                    throw new ArgumentException(Constants.API_EXC_SEARCH_TEXT_NOT_EXIST);
+                    //throw new ArgumentException(Constants.API_EXC_SEARCH_TEXT_NOT_EXIST);
+                    return json.Serialize(new { Status = "Error", Message = Constants.API_EXC_SEARCH_TEXT_NOT_EXIST });
                 }
 
                 string userId = qpParams["u"];
+                string cFavoriteId = qpParams["c"];
+
                 string favorites = qpParams["d"];
+
+                List<PopularOnMovieMirchiEntity> popularOnMovieMirchi = json.Deserialize(favorites, typeof(List<PopularOnMovieMirchiEntity>)) as List<PopularOnMovieMirchiEntity>;
+
+                if (popularOnMovieMirchi != null)
+                {
+                    foreach (PopularOnMovieMirchiEntity objPopular in popularOnMovieMirchi)
+                    {
+                        PopularOnMovieMirchiEntity oldObjPopular = tableMgr.GetPopularOnMovieMirchiById(objPopular.Name + "=" + objPopular.Type);
+
+                        if (oldObjPopular == null)
+                        {
+                            objPopular.PopularOnMovieMirchiId = Guid.NewGuid().ToString();
+                            objPopular.RowKey = objPopular.Name + "=" + objPopular.Type;
+                            objPopular.Counter = 1;
+                            objPopular.DateUpdated = DateTime.Now.ToString();
+
+                            tableMgr.UpdatePopularOnMovieMirchiId(objPopular);
+                        }
+                        else
+                        {
+                            oldObjPopular.Counter = oldObjPopular.Counter + 1;
+                            objPopular.DateUpdated = DateTime.Now.ToString();
+
+                            tableMgr.UpdatePopularOnMovieMirchiId(oldObjPopular);
+                        }
+                    }
+                }
+
+                if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(cFavoriteId))
+                {
+                    UserFavoriteEntity userFavorite = new UserFavoriteEntity();
+                    userFavorite.RowKey = userFavorite.UserFavoriteId = Guid.NewGuid().ToString();
+                    userFavorite.UserId = "";
+                    userFavorite.Favorites = favorites;
+                    userFavorite.DateCreated = DateTime.Now.ToString();
+
+                    tableMgr.UpdateUserFavoriteById(userFavorite);
+
+                    return json.Serialize(new { Status = "Ok", Message = "Set Cookie", FavoriteId = userFavorite.UserFavoriteId });
+                }
+                else
+                {
+ 
+                }
 
                 var user = tableMgr.GetUserById(userId);
 
@@ -39,7 +87,7 @@ namespace MvcWebRole1.Controllers.api
                     tableMgr.UpdateUserById(user);
 
                     // serialize songs list and then return.
-                    return json.Serialize(new { Status = "Ok", Favorite= favorites });
+                    return json.Serialize(new { Status = "Ok", Favorite = favorites });
                 }
                 else
                 {

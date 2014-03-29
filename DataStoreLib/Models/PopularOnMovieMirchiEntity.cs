@@ -21,8 +21,8 @@ namespace DataStoreLib.Models
         {
             base.ReadEntity(properties, operationContext);
 
-            PopularOnMovieMirchiId = ReadString(properties, "PopularOnMovieMirchiId ");
-            Name = ReadString(properties, "Name ");
+            PopularOnMovieMirchiId = ReadString(properties, "PopularOnMovieMirchiId");
+            Name = ReadString(properties, "Name");
             Type = ReadString(properties, "Type");
             Counter = ReadInt(properties, "Counter");
             DateUpdated = ReadString(properties, "DateUpdated");

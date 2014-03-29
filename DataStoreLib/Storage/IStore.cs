@@ -44,6 +44,16 @@ namespace DataStoreLib.Storage
         IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
         IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
         #endregion
+
+        #region User favorites tables functions
+        IDictionary<string, UserFavoriteEntity> GetUserFavoritesById(List<string> ids);
+        IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(List<Models.UserFavoriteEntity> userFavorites);
+        #endregion
+
+        #region Popular on movie mirchi table
+        IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(List<string> id);
+        IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(List<PopularOnMovieMirchiEntity> popularOnMovieMirchi);
+        #endregion
     }
 
     public static class IStoreHelpers
@@ -496,6 +506,50 @@ namespace DataStoreLib.Storage
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
             var list = new List<string> { id };
             var retList = store.GetAffilationsByid(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+        #endregion
+
+        #region User favorites tables functions
+        public static UserFavoriteEntity GetUserFavoriteById(this IStore store, string id)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(id));
+            var list = new List<string> { id };
+            var retList = store.GetUserFavoritesById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        public static bool UpdateUserFavoriteById(this IStore store, UserFavoriteEntity userFavorite)
+        {
+            Debug.Assert(userFavorite != null);
+            var list = new List<UserFavoriteEntity> { userFavorite };
+            var retList = store.UpdateUserFavoritesById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+        #endregion
+
+        #region Popular on Movie mirchi table
+        public static PopularOnMovieMirchiEntity GetPopularOnMovieMirchiById(this IStore store, string id)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(id));
+            var list = new List<string> { id };
+            var retList = store.GetPopularOnMovieMirchisById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        public static bool UpdatePopularOnMovieMirchiId(this IStore store, PopularOnMovieMirchiEntity popularOnMovieMirchi)
+        {
+            Debug.Assert(popularOnMovieMirchi != null);
+            var list = new List<PopularOnMovieMirchiEntity> { popularOnMovieMirchi };
+            var retList = store.UpdatePopularOnMovieMirchisById(list);
 
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];

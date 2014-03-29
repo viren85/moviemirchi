@@ -313,6 +313,51 @@ namespace DataStoreLib.Storage
         #endregion
 
         #region User favorites tables functions
+        public IDictionary<string, UserFavoriteEntity> GetUserFavoritesById(List<string> ids)
+        {
+            var userFavoritesTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName);
+            return userFavoritesTable.GetItemsById<UserFavoriteEntity>(ids);
+        }
+
+        public IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(List<Models.UserFavoriteEntity> userFavorites)
+        {
+            var userFavoriteTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName);
+            Debug.Assert(userFavoriteTable != null);
+
+            var movieList = new List<DataStoreLib.Models.TableEntity>(userFavorites).ConvertAll(x => (ITableEntity)x);
+            var returnOp = userFavoriteTable.UpdateItemsById(movieList);
+
+            var returnTranslateOp = new Dictionary<UserFavoriteEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as UserFavoriteEntity, returnOp[b]);
+            }
+            return returnTranslateOp;
+        }
+        #endregion
+
+        #region Popular on movie mirchi table
+        public IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(List<string> ids)
+        {
+            var popularOnMoiveMirchiTable = TableStore.Instance.GetTable(TableStore.PopularOnMovieMirchiName);
+            return popularOnMoiveMirchiTable.GetItemsById<PopularOnMovieMirchiEntity>(ids);
+        }
+
+        public IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(List<Models.PopularOnMovieMirchiEntity> popularOnMovieMirchis)
+        {
+            var popularOnMoiveMirchiTable = TableStore.Instance.GetTable(TableStore.PopularOnMovieMirchiName);
+            Debug.Assert(popularOnMoiveMirchiTable != null);
+
+            var movieList = new List<DataStoreLib.Models.TableEntity>(popularOnMovieMirchis).ConvertAll(x => (ITableEntity)x);
+            var returnOp = popularOnMoiveMirchiTable.UpdateItemsById(movieList);
+
+            var returnTranslateOp = new Dictionary<PopularOnMovieMirchiEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as PopularOnMovieMirchiEntity, returnOp[b]);
+            }
+            return returnTranslateOp;
+        }
         #endregion
     }
 }
