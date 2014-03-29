@@ -1425,8 +1425,7 @@ function ClearformData() {
 }
 
 /* end Login*/
-<<<<<<< HEAD
-=======
+
 
 /*--------------Populating user favorit----------------*/
 function PopulatingUserFavorite() {
@@ -1437,7 +1436,6 @@ function PopulatingUserFavorite() {
 
 function OnSuccessPopulatingUserFavorite(result) {
     result = JSON.parse(result);
->>>>>>> bf01b52afb737043fdf723dc74759d5988e24e15
 
     if (result.Status == "Ok") {
         /* getting actor */
