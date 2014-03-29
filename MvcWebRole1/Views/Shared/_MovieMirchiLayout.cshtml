@@ -216,6 +216,7 @@
                     </div>
                     <div class="top-navlinks">
                         <ul>
+<<<<<<< HEAD
                             @if (Session["username"] != null)
                             {
                                 <li class="authenticate">
@@ -239,67 +240,43 @@
                             }
 
 
+=======
+                            <li onclick="javascript:$('#sign-up').fadeIn(500);ShowHideFav('none');void(0);">
+                                <a>Sign up</a>
+                            </li>
+                            <li onclick="javascript:$('#login').fadeIn(500);ShowHideFav('none');void(0);"><a>Login</a></li>
+                            <li class="fav" onclick="javascript:void(0);"><a>Favorites</a></li>
+>>>>>>> bf01b52afb737043fdf723dc74759d5988e24e15
                         </ul>
                     </div>
                 </div>
             </div>
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> bf01b52afb737043fdf723dc74759d5988e24e15
 
             <div class="user-fav">
                 <div class="fav-actors">
                     <div class="fav-title">
                         Actors
                     </div>
-                    <div class="fav-content">
-                        <span>
-                            <input type="checkbox" />Ranbir Kapoor
-                        </span> <span>
-                            <input type="checkbox" />Shahrukh Khan
-                        </span> <span>
-                            <input type="checkbox" />Hritik Roshan
-                        </span> <span>
-                            <input type="checkbox" />Amitabh Bachhan
-                        </span> <span style="margin-top: 10px; margin-bottom: 10px;">
-                            <input type="text" placeholder="Actor Name..." />
-                        </span>
+                    <div class="fav-content" id="fav_actor">                       
                     </div>
                 </div>
                 <div class="fav-actors">
                     <div class="fav-title">
                         Directors
                     </div>
-                    <div class="fav-content">
-                        <span>
-                            <input type="checkbox" />Rajkumar Hirani
-                        </span> <span>
-                            <input type="checkbox" />Karan Johar
-                        </span> <span>
-                            <input type="checkbox" />Anurag Kashyap
-                        </span> <span>
-                            <input type="checkbox" />Sanjay Leela Bhanshali
-                        </span> <span style="margin-top: 10px;
-                                            margin-bottom: 10px;">
-                            <input type="text" placeholder="Director Name..." />
-                        </span>
+                    <div class="fav-content" id="fav_director">                        
                     </div>
                 </div>
                 <div class="fav-actors">
                     <div class="fav-title">
                         Music Directors
                     </div>
-                    <div class="fav-content">
-                        <span>
-                            <input type="checkbox" />Pritam
-                        </span> <span>
-                            <input type="checkbox" />Vishal/Shekhar
-                        </span> <span>
-                            <input type="checkbox" />A.R. Rehman
-                        </span> <span>
-                            <input type="checkbox" />Salim/Suleman
-                        </span> <span style="margin-top: 10px; margin-bottom: 10px;">
-                            <input type="text" placeholder="Music Director Name..." />
-                        </span>
+                    <div class="fav-content" id="fav_musicdirector">                        
                     </div>
                 </div>
                 <div class="fav-actors">
@@ -318,11 +295,12 @@
                         </span>
                     </div>
                 </div>
-                <div class="buttons">
+                <div class="buttons" style="right: 48%;">
                     <div class="btn btn-success">
                         Save
                     </div>
-                    <div class="btn" onclick="ShowHideFav('none');">
+                    <div class="btn" onclick='$(".user-fav").slideToggle("slow");'>
+                        @*onclick="ShowHideFav('none');"*@
                         Close
                     </div>
                 </div>
@@ -682,11 +660,14 @@
 
     </div>
 
+<<<<<<< HEAD
 
 
 
 
 
+=======
+>>>>>>> bf01b52afb737043fdf723dc74759d5988e24e15
 </body>
 
 
@@ -722,7 +703,7 @@
         $('#sign-up').hide();
         $('#login').hide();
         $('#sign-up-email').hide();
-        $(".fav").click();
+        //$(".fav").click();
         $(id).show();
     }
 
@@ -735,9 +716,13 @@
             $(".user-fav").slideToggle("slow");
         });
 
+<<<<<<< HEAD
 
 
 
+=======
+        PopulatingUserFavorite();
+>>>>>>> bf01b52afb737043fdf723dc74759d5988e24e15
     });
 
 

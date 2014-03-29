@@ -230,7 +230,7 @@ namespace DataStoreLib.Storage
     }
 
 
-   
+
 
 
     internal class MovieTable : Table
@@ -373,7 +373,7 @@ namespace DataStoreLib.Storage
             var operationList = new Dictionary<string, TableResult>();
 
             TableQuery<UserEntity> query = new TableQuery<UserEntity>().Where(TableQuery.GenerateFilterCondition("UserName", QueryComparisons.Equal, userName));
-            
+
             IEnumerable<UserEntity> loginResults = _table.ExecuteQuery<UserEntity>(query);
 
             var returnDict = new Dictionary<string, TEntity>();
@@ -406,7 +406,7 @@ namespace DataStoreLib.Storage
                                                                                 TableOperators.And,
                                                                                 TableQuery.GenerateFilterCondition("Password", QueryComparisons.Equal, password)));
 
-            
+
             IEnumerable<UserEntity> loginResults = _table.ExecuteQuery<UserEntity>(query);
 
             var returnDict = new Dictionary<string, TEntity>();
@@ -424,7 +424,7 @@ namespace DataStoreLib.Storage
 
             return returnDict;
         }
-    }   
+    }
     internal class AffilationTable : Table
     {
         protected AffilationTable(CloudTable table)
@@ -441,8 +441,6 @@ namespace DataStoreLib.Storage
         {
             return AffilationEntity.PARTITION_KEY;
         }
-
-      
     }
 
     internal class ReviewerTable : Table
@@ -490,5 +488,40 @@ namespace DataStoreLib.Storage
         }
     }
 
-    
+
+    internal class UserFavoriteTable : Table
+    {
+        protected UserFavoriteTable(CloudTable table)
+            : base(table)
+        {
+        }
+
+        internal static Table CreateTable(CloudTable table)
+        {
+            return new UserFavoriteTable(table);
+        }
+
+        protected override string GetParitionKey()
+        {
+            return UserFavoriteEntity.PARTITION_KEY;
+        }
+    }
+
+    internal class PopularOnMovieMirchiTable : Table
+    {
+        protected PopularOnMovieMirchiTable(CloudTable table)
+            : base(table)
+        {
+        }
+
+        internal static Table CreateTable(CloudTable table)
+        {
+            return new PopularOnMovieMirchiTable(table);
+        }
+
+        protected override string GetParitionKey()
+        {
+            return PopularOnMovieMirchiEntity.PARTITION_KEY;
+        }
+    }
 }

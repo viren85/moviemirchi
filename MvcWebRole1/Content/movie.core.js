@@ -1241,7 +1241,7 @@ function authenticateUser() {
             $("#loginError").show();
             $("#signin_email").focus();
             isValid = false;
-           return;
+            return;
         }
 
         if (loginPassword == "") {
@@ -1255,8 +1255,8 @@ function authenticateUser() {
 
         if (isValid) {
             var hflogin = ({ "UserName": username, "Email": username, "Password": loginPassword });
-           // $("#hfLogin").val(JSON.stringify(hfLogin));
-         
+            // $("#hfLogin").val(JSON.stringify(hfLogin));
+
             $.ajax({
                 url: 'Login/UserLogin',
                 data: { "hfLogin": JSON.stringify(hflogin) },
@@ -1278,7 +1278,7 @@ function authenticateUser() {
 }
 
 function ShowSuccessMessageLogin(result) {
-    if (result.Status == "Ok") {       
+    if (result.Status == "Ok") {
         window.location = 'Home/Index';
     } else if (result.Status == "Require") {
         $("#loginError").html("Username and Password require.");
@@ -1404,7 +1404,7 @@ function ShowSuccessMessage(result) {
         if (result.Message != undefined) {
             $("#registerError").html(result.Message);
         }
-       
+
         $("#registerError").show();
     }
     else {
@@ -1414,7 +1414,6 @@ function ShowSuccessMessage(result) {
 
 
 }
-
 
 function ClearformData() {
     $("#FirstName").val("");
@@ -1426,7 +1425,140 @@ function ClearformData() {
 }
 
 /* end Login*/
+<<<<<<< HEAD
+=======
 
+/*--------------Populating user favorit----------------*/
+function PopulatingUserFavorite() {
+    var url = "api/GetCastByType?t=all&l=3";
+    CallHandler(url, OnSuccessPopulatingUserFavorite);
+}
+
+
+function OnSuccessPopulatingUserFavorite(result) {
+    result = JSON.parse(result);
+>>>>>>> bf01b52afb737043fdf723dc74759d5988e24e15
+
+    if (result.Status == "Ok") {
+        /* getting actor */
+        for (var a = 0; a < result.Actor.length; a++) {
+            //alert(result.Actor[a].name);
+            var span = $("<span/>");
+            var checkBox = $("<input/>");
+            $(checkBox).attr("type", "checkbox");
+            $(checkBox).attr("id", "fav_actor_" + a);
+
+            var checkBoxLabel = $("<label/>");
+            $(checkBoxLabel).attr("for", "fav_actor_" + a);
+            $(checkBoxLabel).html(result.Actor[a].name);
+
+            $(span).append(checkBox);
+            $(span).append(checkBoxLabel);
+
+            $("#fav_actor").append(span);
+        }
+        // adding textbox for search acotr
+        var span = $("<span/>");
+        $(span).attr("class", "fav-span");
+        var searchActor = $("<input/>");
+        $(searchActor).attr("type", "text");
+        $(searchActor).attr("id", "txtSearchActor");
+        $(searchActor).attr("placeholder", "Actor Name...");
+        $(searchActor).attr("class", "form-control");
+        $(span).append(searchActor);
+        $("#fav_actor").append(span);
+
+        /* getting director */
+        for (var d = 0; d < result.Director.length; d++) {
+
+            var span = $("<span/>");
+            var checkBox = $("<input/>");
+            $(checkBox).attr("type", "checkbox");
+            $(checkBox).attr("id", "fav_director_" + d);
+
+            var checkBoxLabel = $("<label/>");
+            $(checkBoxLabel).attr("for", "fav_director_" + d);
+            $(checkBoxLabel).html(result.Director[d].name);
+
+            $(span).append(checkBox);
+            $(span).append(checkBoxLabel);
+
+            $("#fav_director").append(span);
+        }
+        // adding textbox for search acotr
+        var dSpan = $("<span/>");
+        $(dSpan).attr("class", "fav-span");
+        var searchDirector = $("<input/>");
+        $(searchDirector).attr("type", "text");
+        $(searchDirector).attr("id", "txtSearchDirector");
+        $(searchDirector).attr("placeholder", "Director Name...");
+        $(searchDirector).attr("class", "form-control");
+        $(dSpan).append(searchDirector);
+        $("#fav_director").append(dSpan);
+
+        /* getting music director*/
+        for (var md = 0; md < result.MusicDirector.length; md++) {
+
+            var span = $("<span/>");
+            var checkBox = $("<input/>");
+            $(checkBox).attr("type", "checkbox");
+            $(checkBox).attr("id", "fav_musicdirector_" + md);
+
+            var checkBoxLabel = $("<label/>");
+            $(checkBoxLabel).attr("for", "fav_musicdirector_" + md);
+            $(checkBoxLabel).html(result.MusicDirector[md].name);
+
+            $(span).append(checkBox);
+            $(span).append(checkBoxLabel);
+
+            $("#fav_musicdirector").append(span);
+        }
+
+        // adding textbox for search acotr
+        var mdSpan = $("<span/>");
+        $(mdSpan).attr("class", "fav-span");
+        var searchMusicDirector = $("<input/>");
+        $(searchMusicDirector).attr("type", "text");
+        $(searchMusicDirector).attr("id", "txtSearchMusicDirector");
+        $(searchMusicDirector).attr("placeholder", "Music Director Name...");
+        $(searchMusicDirector).attr("class", "form-control");
+        $(mdSpan).append(searchMusicDirector);
+        $("#fav_musicdirector").append(mdSpan);
+    }
+}
+/*--------------end user favorit----------------*/
+
+/*--------------cookies related functions----------------*/
+function setCookie(cname, cvalue, exdays) {
+    var d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    var expires = "expires=" + d.toGMTString();
+    document.cookie = cname + "=" + cvalue + "; " + expires;
+}
+
+function getCookie(cname) {
+    var name = cname + "=";
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+        var c = ca[i].trim();
+        if (c.indexOf(name) == 0) return c.substring(name.length, c.length);
+    }
+    return "";
+}
+
+function checkCookie() {
+    var user = getCookie("username");
+    if (user != "") {
+        alert("Welcome again " + user);
+    }
+    else {
+        user = prompt("Please enter your name:", "");
+        if (user != "" && user != null) {
+            setCookie("username", user, 30);
+        }
+    }
+}
+/*--------------end cookies related functions----------------*/
 
 
 
