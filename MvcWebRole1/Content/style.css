@@ -49,3 +49,58 @@
 .form-control{padding-top: 13px !important;padding-bottom: 13px!important;}
 
 .fav-span {margin-top: 5px;margin-bottom: 0px;margin:0;}
+#targetUL {
+    width: 25%;
+    border: 1px solid silver;
+    margin-top: -10px;
+    list-style: none;
+    position: absolute;
+    background-color: white;
+    z-index: 999;
+    display: none;
+    margin-left: 0;
+}
+
+    #targetUL li {
+        /*margin-left: -40px;*/
+        border-bottom: 1px solid silver;
+        height: 70px;
+        padding-left: 5px;
+        padding-top: 8px;
+        cursor: pointer;
+    }
+
+        #targetUL li:hover {
+            cursor: pointer;
+            background-color: #fcecec;
+        }
+
+.targetAutoUL {
+    /*width: 21.5%;*/
+    width: 92%;
+    border: 1px solid silver;
+    margin-top: 10%;
+    list-style: none;
+    position: absolute;
+    background-color: white;
+    z-index: 1;
+    display: none;
+    border-radius: 4px;
+    max-height: 90px;
+    overflow: auto;
+    margin-left: 0;
+}
+    
+    .targetAutoUL li {
+        /*margin-left: -40px;*/
+        border-bottom: 1px solid silver;
+        height: 30px;
+        padding-left: 5px;
+        padding-top: 5px;
+        cursor: pointer;
+    }
+
+        .targetAutoUL li:hover {
+            cursor: pointer;
+            background-color: #fcecec;
+        }

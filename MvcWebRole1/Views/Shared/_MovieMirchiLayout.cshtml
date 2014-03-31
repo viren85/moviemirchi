@@ -21,7 +21,7 @@
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/Content/bootstrap.css")
     @Styles.Render("~/Content/style.css")
-
+    @*@Styles.Render("~/Content/movie.style.css")*@
     @Scripts.Render("~/Content/bootstrap.min.js")
     @Scripts.Render("~/Scripts/jquery-1.8.3.min.js")
     @Scripts.Render("~/Scripts/jquery.cycle2.min.js")
@@ -34,6 +34,7 @@
 
         $(document).ready(function () {
 
+            //PopulatingUserFavorite();
             //We have used keyup event to track the user enter value in the textbox.
             $("#target").keyup(function () {
                 //Fetching the textbox value.
@@ -80,7 +81,7 @@
                         //On click of li element we are calling a method.
                         var li = $("<li>");
                         var divImage = $("<div>");
-                        $(divImage).attr("style", "width: 15%;float: left;");
+                        $(divImage).attr("style", "width: 18%;float: left;");
                         var img = $("<img/>")
                         img.attr("class", "img-thumbnail");
                         img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
@@ -89,7 +90,7 @@
                         divImage.append(img);
 
                         var divTitleDesc = $("<div>");
-                        $(divTitleDesc).attr("style", "width: 80%;float: left;");
+                        $(divTitleDesc).attr("style", "width: 80%;float: left;margin-top: 4px;");
 
                         $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + value.Description + "</span>");
 
@@ -131,7 +132,7 @@
 
             // BindValueChangeEvent('#hfReviewerId', GetReviewerDetail);
             //get movies
-            $("#txtActorName").keyup(function (e) {
+            $("#txtSearchActor").keyup(function (e) {
                 //Fetching the textbox value.
                 if (e.keyCode == 40 || e.keyCode == 38) {
                 }
@@ -210,8 +211,11 @@
                             </div>
                         </div>
                         <div class="component">
-                            <input type="text" class="form-control" placeholder="Search..." id="Text1" name="query"
-                                   value="" />
+                            <div id="targetDiv">
+                                <input type="text" class="form-control" style="width: 204%;" placeholder="Search..." id="target" name="query" value="" autocomplete="off">
+                            </div>
+                            @*<input type="text" class="form-control" placeholder="Search..." id="target" name="query"
+                                value="" />*@
                         </div>
                     </div>
                     <div class="top-navlinks">
@@ -224,8 +228,8 @@
 
                                     Welcome, @Session["username"].ToString().ToUpper()
                                 </li>
-                                <li class="fav" onclick="javascript:void(0);"><a>Favorites</a></li>
-                                <li>
+                                <li id="profile"><a>Profile</a></li>
+                                <li id="logout">
                                     @Html.ActionLink("LogOut", "Logout", "Login", null, new { @id = "auth_logoutlink" })
 
                                 </li>
@@ -240,9 +244,9 @@
                                     </a>
                                 </li>
                                 <li onclick="javascript:$('#login').fadeIn(500);ShowHideFav('none');void(0);"><a>Login</a></li>
+                                <li class="fav" onclick="javascript: void (0);"><a onclick="ClearUserFavoriteControls();">Favorites</a></li>
                             }
-
-                            <li class="fav" onclick="javascript:void(0);"><a>Favorites</a></li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -293,7 +297,7 @@
                     <div class="btn btn-success" onclick="SaveUserFavorite();">
                         Save
                     </div>
-                    <div class="btn" onclick='$(".user-fav").slideToggle("slow");'>
+                    <div class="btn" onclick='$(".user-fav").slideToggle("slow"), ClearUserFavoriteControls();'>
                         @*onclick="ShowHideFav('none');"*@
                         Close
                     </div>
@@ -662,7 +666,7 @@
 
 <script type="text/javascript">
     $(".top-navlinks li").click(function () {
-        if ($(this).attr("class") != "fav") {
+        if ($(this).attr("class") != "fav" && (($(this).attr("id") != "profile" && $(this).attr("id") != "logout") || $(this).attr("id") == undefined)) {
             $("#modal").show();
         }
     });

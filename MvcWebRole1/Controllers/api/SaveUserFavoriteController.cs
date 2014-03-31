@@ -73,7 +73,7 @@ namespace MvcWebRole1.Controllers.api
 
                     return json.Serialize(new { Status = "Ok", Message = "Set Cookie", FavoriteId = userFavorite.UserFavoriteId });
                 }
-                else if (!string.IsNullOrEmpty(userId) && !string.IsNullOrEmpty(cFavoriteId))
+                else if (!string.IsNullOrEmpty(userId) && userId.ToLower() != "undefined" && !string.IsNullOrEmpty(cFavoriteId))
                 {
                     UserFavoriteEntity userFavorite = tableMgr.GetUserFavoritesByUserId(userId);
 

@@ -1261,7 +1261,7 @@ function OnSuccessSaveUserFavorite(result) {
 
         var intverval = setInterval(function () {
             $("#favStatus").hide(500);
-            $("#favStatus").html("");            
+            $("#favStatus").html("");
             clearInterval(intverval);
         }, 10000);
     }
@@ -1328,7 +1328,7 @@ function authenticateUser() {
             // $("#hfLogin").val(JSON.stringify(hfLogin));
 
             $.ajax({
-                url: 'Login/UserLogin',
+                url: BASE_URL + 'Login/UserLogin',
                 data: { "hfLogin": JSON.stringify(hflogin) },
                 type: 'Post',
                 dataType: 'json',
@@ -1349,7 +1349,7 @@ function authenticateUser() {
 
 function ShowSuccessMessageLogin(result) {
     if (result.Status == "Ok") {
-        window.location = 'Home/Index';
+        window.location = BASE_URL + 'Home/Index';
     } else if (result.Status == "Require") {
         $("#loginError").html("Username and Password require.");
         $("#loginError").show();
@@ -1533,7 +1533,25 @@ function OnSuccessPopulatingUserFavorite(result) {
         $(searchActor).attr("id", "txtSearchActor");
         $(searchActor).attr("placeholder", "Actor Name...");
         $(searchActor).attr("class", "form-control");
-        $(span).append(searchActor);
+
+        $(searchActor).keyup(function (e) {
+            //Fetching the textbox value.
+            if (e.keyCode == 40 || e.keyCode == 38) {
+            }
+            else {
+                var query = $(this).val();
+                //Calling GetItems method.
+                autoCompleteTextBox1(query, "AutoComplete/AutoCompleteActors", "autoCompleteActor", "actorUL", "txtSearchActor", "hfMovieId");
+            }
+        });
+
+        var autoCompleteActor = $("<div>");
+        $(autoCompleteActor).attr("id", "autoCompleteActor");
+
+        $(autoCompleteActor).append(searchActor);
+
+        $(span).append(autoCompleteActor);
+        //$(span).append(searchActor);
         $("#fav_actor").append(span);
 
         /* getting director */
@@ -1561,7 +1579,26 @@ function OnSuccessPopulatingUserFavorite(result) {
         $(searchDirector).attr("id", "txtSearchDirector");
         $(searchDirector).attr("placeholder", "Director Name...");
         $(searchDirector).attr("class", "form-control");
-        $(dSpan).append(searchDirector);
+
+        $(searchDirector).keyup(function (e) {
+            //Fetching the textbox value.
+            if (e.keyCode == 40 || e.keyCode == 38) {
+            }
+            else {
+                var query = $(this).val();
+                //Calling GetItems method.
+                autoCompleteTextBox1(query, "AutoComplete/AutoCompleteDirectors", "autoCompleteDirector", "directorUL", "txtSearchDirector", "hfMovieId");
+            }
+        });
+
+        var autoCompleteDirector = $("<div>");
+        $(autoCompleteDirector).attr("id", "autoCompleteDirector");
+
+        $(autoCompleteDirector).append(searchDirector);
+
+        $(dSpan).append(autoCompleteDirector);
+
+        //$(dSpan).append(searchDirector);
         $("#fav_director").append(dSpan);
 
         /* getting music director*/
@@ -1590,7 +1627,26 @@ function OnSuccessPopulatingUserFavorite(result) {
         $(searchMusicDirector).attr("id", "txtSearchMusicDirector");
         $(searchMusicDirector).attr("placeholder", "Music Director Name...");
         $(searchMusicDirector).attr("class", "form-control");
-        $(mdSpan).append(searchMusicDirector);
+
+        $(searchMusicDirector).keyup(function (e) {
+            //Fetching the textbox value.
+            if (e.keyCode == 40 || e.keyCode == 38) {
+            }
+            else {
+                var query = $(this).val();
+                //Calling GetItems method.
+                autoCompleteTextBox1(query, "AutoComplete/AutoCompleteMusicDirectors", "autoCompleteMusicDirector", "musicDirectorUL", "txtSearchMusicDirector", "hfMovieId");
+            }
+        });
+
+        var autoCompleteMusicDirector = $("<div>");
+        $(autoCompleteMusicDirector).attr("id", "autoCompleteMusicDirector");
+
+        $(autoCompleteMusicDirector).append(searchMusicDirector);
+
+        $(mdSpan).append(autoCompleteMusicDirector);
+
+        //$(mdSpan).append(searchMusicDirector);
         $("#fav_musicdirector").append(mdSpan);
     }
 }
