@@ -3,12 +3,12 @@ using DataStoreLib.Storage;
 using DataStoreLib.Utils;
 using Microsoft.WindowsAzure;
 using System;
-using System.Collections.Generic;
+using System.Configuration;
 using System.Diagnostics;
-using System.Linq;
-using System.Web;
+using System.IO;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using System.Xml;
 
 
 namespace MvcWebRole2.Controllers
@@ -92,6 +92,54 @@ namespace MvcWebRole2.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public void Crawl()
+        {
+            SetConnectionString();
+            Crawler.MovieCrawler movieCrawler = new Crawler.MovieCrawler();
+            try
+            {
+                XmlDocument xdoc = new XmlDocument();
+                var file = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+                xdoc.Load(file);
+
+                var movies = xdoc.SelectNodes("Movies[@year='2013']/Month/Movie");
+
+                if (!Directory.Exists(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters")))
+                {
+                    Directory.CreateDirectory(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"));
+                }
+
+                if (!Directory.Exists(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images"));
+                }
+
+                if (!Directory.Exists(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails"));
+                }
+
+
+                foreach (XmlNode movie in movies)
+                {
+                    if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
+                    {
+                        
+                        MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
+
+                        TableManager tblMgr = new TableManager();
+                        tblMgr.UpdateMovieById(mov);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
         }
 
         [HttpPost]

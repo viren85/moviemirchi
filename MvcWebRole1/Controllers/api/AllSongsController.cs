@@ -43,7 +43,7 @@ namespace MvcWebRole1.Controllers.api
                 //get movie list based on song's title
                 var movies = tableMgr.SearchSongs(searchSong);  //Collection of movie
 
-                List<SongTrailer> movieSongs = new List<SongTrailer>();
+                List<Songs> movieSongs = new List<Songs>();
 
                 if (movies != null)
                 {
@@ -51,7 +51,7 @@ namespace MvcWebRole1.Controllers.api
                     foreach (var movie in movies)
                     {
                         // deserialize movie songs 
-                        List<SongTrailer> songs = json.Deserialize(movie.Songs, typeof(SongTrailer)) as List<SongTrailer>;
+                        List<Songs> songs = json.Deserialize(movie.Songs, typeof(Songs)) as List<Songs>;
 
                         if (songs != null)
                         {

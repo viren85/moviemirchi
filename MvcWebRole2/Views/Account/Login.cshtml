@@ -29,11 +29,15 @@
                     @Html.Password("Password", "", new { @class = "input-block-level", placeholder = "Password" })
 
                     <input type="submit" value="Sign in" class="btn btn-large btn-primary" />
+                    
 
                 </div>
 
                 <div class="Record">
                     @Html.ActionLink("Click here for Registration", "Register", "Account")
+                </div>
+                <div class="Record">
+                    @Html.ActionLink("Crawl", "Crawl", "Account")
                 </div>
             }
         </div>

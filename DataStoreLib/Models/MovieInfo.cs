@@ -58,15 +58,24 @@ namespace DataStoreLib.Models
 
     public class Multimedia
     {
-        public List<SongTrailer> songs { get; set; }
-        public List<SongTrailer> trailers { get; set; }
+        public List<Songs> songs { get; set; }
+        public List<Songs> trailers { get; set; }
         public List<Picture> pics { get; set; }
     }
 
-    public class SongTrailer
+    public class Songs
     {
-        public string name { get; set; }
-        public string url { get; set; }
+        public string SongTitle { get; set; }
+
+        public string Lyrics { get; set; }
+
+        public string Composed { get; set; }
+
+        public string Performer { get; set; }
+
+        public string Recite { get; set; }
+
+        public string Courtsey { get; set; }
     }
 
     public class Picture
