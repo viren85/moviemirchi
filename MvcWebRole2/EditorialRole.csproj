@@ -200,7 +200,8 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\MovieList.xml" />
+    <Content Include="App_Data\MovieList-2012.xml" />
+    <Content Include="App_Data\MovieList-2013.xml" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />

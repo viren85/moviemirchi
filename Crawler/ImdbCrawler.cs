@@ -28,11 +28,11 @@ namespace MovieCrawler
             movie.Month = GetMovieMonth(body);
             movie.Year = GetMovieYear(body);
             movie.Stats = GetMovieStats(body);
-            movie.Casts = GetMovieCast(body);
-            movie.Posters = GetMoviePoster(body);
+            //movie.Casts = GetMovieCast(body);
+            //movie.Posters = GetMoviePoster(body);
             //movie.Songs = GetMovieSongs(body);
-            movie.Trailers = GetMovieTrailers(body);
-            movie.Pictures = GetMoviePictures(body);
+            //movie.Trailers = GetMovieTrailers(body);
+            //movie.Pictures = GetMoviePictures(body);
             return movie;
         }
 
@@ -101,7 +101,9 @@ namespace MovieCrawler
                 var writerNode = helper.GetElementWithAttribute(storyNode, "em", "class", "nobr");
                 var parent = storyNode.Element("p");
 
-                storyNode = parent.RemoveChild(writerNode);
+                if (writerNode != null)
+                    storyNode = parent.RemoveChild(writerNode);
+
                 return parent != null ? parent.InnerText : string.Empty;
             }
             catch (Exception ex)
@@ -240,7 +242,8 @@ namespace MovieCrawler
                                 songDetail.Recite = recite.Trim();
                                 songDetail.Courtsey = courtsey.Trim();
 
-                                songs.Add(songDetail);
+                                if (!title.Contains("It looks like we don't have any Soundtracks for this title yet."))
+                                    songs.Add(songDetail);
                             }
                         }
                     }
@@ -481,19 +484,20 @@ namespace MovieCrawler
                             var posterThumbnail = helper.GetElementWithAttribute(thumbnailContainer, "img", "class", "poster");
 
                             var poster = helper.GetElementWithAttribute(bodyNode, "img", "id", "primary-img");
+                            string newImageName = string.Empty;
 
                             if (posterThumbnail != null && posterThumbnail.Attributes["src"] != null && !isThumbnailDownloaded)
                             {
-                                string thumbnailPath = GetNewImageName(movieName, GetFileExtension(posterThumbnail.Attributes["src"].Value), imageCounter, true); //PosterThumbPath
+                                string thumbnailPath = GetNewImageName(movieName, GetFileExtension(posterThumbnail.Attributes["src"].Value), imageCounter, true, ref newImageName);
                                 DownloadImage(posterThumbnail.Attributes["src"].Value, thumbnailPath);
-                                thumbnailImagePath = thumbnailPath;
+                                thumbnailImagePath = newImageName;
                                 isThumbnailDownloaded = true;
                             }
 
                             if (poster != null && poster.Attributes["id"] != null)
                             {
-                                string posterPath = GetNewImageName(movieName, GetFileExtension(poster.Attributes["src"].Value), imageCounter, false); //PosterThumbPath
-                                posterImagePath.Add(posterPath);
+                                string posterPath = GetNewImageName(movieName, GetFileExtension(poster.Attributes["src"].Value), imageCounter, false, ref newImageName);
+                                posterImagePath.Add(newImageName);
                                 DownloadImage(poster.Attributes["src"].Value, posterPath);
                             }
                         }
@@ -626,7 +630,7 @@ namespace MovieCrawler
             return true;
         }
 
-        private string GetNewImageName(string movieName, string extension, int counter, bool isThumbnail)
+        private string GetNewImageName(string movieName, string extension, int counter, bool isThumbnail, ref string newImageName)
         {
 
             string tempImageName = string.Empty;
@@ -646,18 +650,19 @@ namespace MovieCrawler
                 if (isThumbnail)
                 {
                     tempImageName += "thumb-";
+                    tempImageName += counter + extension;
+                    newImageName = tempImageName;
                     tempImageName = Path.Combine(posterThumbnailPath, tempImageName);
                 }
                 else
                 {
+                    tempImageName += counter + extension;
+                    newImageName = tempImageName;
                     tempImageName = Path.Combine(posterImagePath, tempImageName);
                 }
-
-                tempImageName += counter + extension;
             }
             catch (Exception ex)
             {
-
 
             }
 

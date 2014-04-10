@@ -74,7 +74,16 @@ namespace Crawler
 
                 movie.Casts = JsonConvert.SerializeObject(cast);
                 movie.Songs = JsonConvert.SerializeObject(songs);
-                movie.Posters = JsonConvert.SerializeObject(poster);
+
+                if (poster != null && poster.Count > 0)
+                {
+                    movie.Posters = JsonConvert.SerializeObject(poster);
+                }
+                else
+                {
+                    movie.Posters = "[]";
+                }
+
                 return true;
             }
             catch (Exception e)
@@ -134,6 +143,7 @@ namespace Crawler
                         readStream = new StreamReader(receiveStream);
                     else
                         readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+
                     string data = readStream.ReadToEnd();
 
                     posters = GetPosters(data, movieName, ref posters, ref thumbnailPath);

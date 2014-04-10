@@ -3,6 +3,7 @@ using DataStoreLib.Storage;
 using DataStoreLib.Utils;
 using Microsoft.WindowsAzure;
 using System;
+using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
 using System.IO;
@@ -105,7 +106,7 @@ namespace MvcWebRole2.Controllers
                 var file = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
                 xdoc.Load(file);
 
-                var movies = xdoc.SelectNodes("Movies[@year='2013']/Month/Movie");
+                var movies = xdoc.SelectNodes("MovieList/Movies/Month/Movie");
 
                 if (!Directory.Exists(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters")))
                 {
@@ -122,18 +123,35 @@ namespace MvcWebRole2.Controllers
                     Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails"));
                 }
 
+                List<string> processedList = new List<string>();
 
                 foreach (XmlNode movie in movies)
                 {
                     if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
                     {
-                        
-                        MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
-
-                        TableManager tblMgr = new TableManager();
-                        tblMgr.UpdateMovieById(mov);
+                        try
+                        {
+                            MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
+                            TableManager tblMgr = new TableManager();
+                            tblMgr.UpdateMovieById(mov);
+                            processedList.Add(movie.Attributes["link"].Value);
+                        }
+                        catch (Exception e)
+                        {
+                            Debug.WriteLine("Error while crawling movie - " + movie.Attributes["link"].Value);
+                        }
                     }
                 }
+
+                if (processedList.Count > 0)
+                {
+                    foreach (string name in processedList)
+                    {
+                        XmlNode node = xdoc.SelectSingleNode("MovieList/Movies/Month/Movie[@link='" + name + "']");
+                        xdoc.RemoveChild(node);
+                    }
+                }
+
             }
             catch (Exception ex)
             {
