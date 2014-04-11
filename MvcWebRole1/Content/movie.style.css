@@ -1,8 +1,4 @@
-﻿body {
-    background-color: #D5D5D5 !important;
-}
-
-.error {
+﻿.error {
     color: red;
     font-size: medium;
     display: block;

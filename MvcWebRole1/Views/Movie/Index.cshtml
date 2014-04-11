@@ -3,51 +3,60 @@
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 
+<div class="bb-custom-wrapper">
+    <div id="bb-bookblock" class="bb-bookblock">
+        <div class="bb-item" id="item1">
+            <div class="content">
+                <div class="scroller">
+                    <div class="movie-name">
 
+                    </div>
+                    <div class="left-content">
+                        <span class="critic-label">Critic Review - </span><span class="critic-rating"></span>
+                        <img class="home-poster" />
+                        <div class="genre"></div>
+                    </div>
+                    <p class="story-plot">
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        @*<h3 class="panel-title">Movie Information</h3>*@
-        <h3 class="panel-title"><div id="title"></div></h3>
-        @*<div id="title"></div>*@
-    </div>
-    <div class="panel-body" id="movieinfo">
-        @*<div id="title" class="movietitle"></div>*@
-        <div id="posters" class="movieposters" style="margin-bottom: 1%; margin-top: 1%;">
+                    </p>
+                    <p class="movie-gap-margin">
+                        <div id="director">
+                            <strong>Director:</strong>  <a href="">Rakesh Omprakash Mehra</a> (as Rakesh Omprakash Mehra)
+                        </div>
+                        <div id="writer">
+                            <strong>Writers:</strong> <a href="" class="link-space">Ranzil D'silva</a> (Screenplay), <a href="" class="link-space">Rakesh Omprakash Mehra</a> (Screenplay), <a href="" class="link-space">1 more credit >></a>
+                        </div>
+                        <div id="producer">
+                            <strong>Producer:</strong>  <a href="">A.R. Rehman</a>
+                        </div>
+                        <div id="music">
+                            <strong>Music Director:</strong> <a href="">Rakesh Omprakash Mehra</a>
+                        </div>
+                        <div id="cast">
+                            <strong>Cast:</strong> <a href="">Rakesh Omprakash Mehra</a>
+                        </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="bb-item" id="item2">
+            <div class="content">
+                <div class="scroller">
+                    <div id="imagearea">
 
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="genre" class="movie-detail">
-
-        </div>
-        <div id="synopsis" class="movie-detail">
-
-        </div>
-        <div id="director" class="moviegenre">
-
-        </div>
-        <div id="writer" class="moviegenre">
-
-        </div>
-        <div id="cast" class="moviegenre">
-
-        </div>
-        <div id="rating" class="moviegenre">
-
-        </div>
-        <div class="moviegenre">
-            <b>User Reviews :</b>
-        </div>
-        <div class="col-sm-10" style="padding:0; width:100%">
-            <ul id="reviews" class="activity"></ul>
-        </div>
+        <nav>
+            <span id="bb-nav-prev">&larr;</span>
+            <span id="bb-nav-next">&rarr;</span>
+        </nav>
     </div>
 </div>
-
-
 <script type="text/javascript">
     $(document).ready(function () {
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-        
         LoadSingleMovie(name);
     });
 </script>

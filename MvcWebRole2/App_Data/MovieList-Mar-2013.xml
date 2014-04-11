@@ -1,25 +1,17 @@
 <?xml version="1.0"?>
-  <Movies year="2013">
-<Month name="March">
-      <Movie name="I, Me, aur Main" link="http://www.imdb.com/title/tt2064816/"/>
-      <Movie name="The Attacks of 26/11" link="http://www.imdb.com/title/tt2635622/"/>
-      <Movie name="Bloody Isshq" link="http://www.imdb.com/title/tt2404187/"/>
-      <Movie name="Saheb, Biwi Aur Gangster Returns" link="http://www.imdb.com/title/tt2362778/"/>
-      <Movie name="Saare Jahaan Se Mehnga" link="http://www.imdb.com/title/tt2857500/"/>
-      <Movie name="3G" link="http://www.imdb.com/title/tt2404519/"/>
-      <Movie name="Mere Dad Ki Maruti" link="http://www.imdb.com/title/tt2323964/"/>
-      <Movie name="Jolly LLB" link="http://www.imdb.com/title/tt2621000/"/>
-      <Movie name="Rangrezz" link="http://www.imdb.com/title/tt2706264/"/>
-      <Movie name="Aatma" link="http://www.imdb.com/title/tt2389974/"/>
-      <Movie name="Sona Spa" link="http://www.imdb.com/title/tt2609468/"/>
-      <Movie name="Himmatwala" link="http://www.imdb.com/title/tt2344678/"/>
-    </Month>
-    </Movies>
-    
-    
-    
-    
-    
-    
-    
-    
+<Movies year="2013">
+  <Month name="March">
+    <Movie name="I, Me, aur Main" link="http://www.imdb.com/title/tt2064816/"/>
+    <Movie name="The Attacks of 26/11" link="http://www.imdb.com/title/tt2635622/"/>
+    <Movie name="Bloody Isshq" link="http://www.imdb.com/title/tt2404187/"/>
+    <Movie name="Saheb, Biwi Aur Gangster Returns" link="http://www.imdb.com/title/tt2362778/"/>
+    <Movie name="Saare Jahaan Se Mehnga" link="http://www.imdb.com/title/tt2857500/"/>
+    <Movie name="3G" link="http://www.imdb.com/title/tt2404519/"/>
+    <Movie name="Mere Dad Ki Maruti" link="http://www.imdb.com/title/tt2323964/"/>
+    <Movie name="Jolly LLB" link="http://www.imdb.com/title/tt2621000/"/>
+    <Movie name="Rangrezz" link="http://www.imdb.com/title/tt2706264/"/>
+    <Movie name="Aatma" link="http://www.imdb.com/title/tt2389974/"/>
+    <Movie name="Sona Spa" link="http://www.imdb.com/title/tt2609468/"/>
+    <Movie name="Himmatwala" link="http://www.imdb.com/title/tt2344678/"/>
+  </Month>
+</Movies>

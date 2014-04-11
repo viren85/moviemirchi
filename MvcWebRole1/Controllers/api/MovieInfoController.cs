@@ -54,12 +54,10 @@ namespace MvcWebRole1.Controllers.api
                         foreach (var review in reviewList)
                         {
                             ReviewerEntity reviewer = tableMgr.GetReviewerById(review.Value.ReviewerId);
-
                             ReviewEntity objReview = review.Value as ReviewEntity;
 
                             objReview.ReviewerName = reviewer.ReviewerName;
                             objReview.OutLink = reviewer.ReviewerImage;
-
                             userReviews.Add(objReview);
                         }
                     }

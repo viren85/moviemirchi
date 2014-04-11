@@ -9,33 +9,26 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Mirchi</title>
+    <meta name="robots" content="NOODP" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     @Styles.Render("~/Content/movie.style.css")
     @*@Styles.Render("~/Content/bootstrap.css")*@
     @Styles.Render("~/Content/bootstrap.min.css")
     @*@Styles.Render("~/Content/bootstrap-theme.min.css")*@
     @Styles.Render("~/Content/bootstrap-responsive.css")
+    @Styles.Render("~/Content/jquery.jscrollpane.custom.css")
+    @Styles.Render("~/Content/bookblock.css")
+    @Styles.Render("~/Content/custom.css")
     @Scripts.Render("~/Content/jquery-1.9.1.js")
+    @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
     @Scripts.Render("~/Content/bootstrap.min.js")
-    @Scripts.Render("~/Content/movie.core.js")
-    @Scripts.Render("~/Content/movie.autocomplete.js")
-    @*@Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/jqueryui")
-        @Styles.Render("~/Content/themes/base/css")*@
-
-    <meta name="robots" content="NOODP" />
-    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
+    @Scripts.Render("~/Content/modernizr.custom.js")
 
     <script type="text/javascript">
-
-
         $(document).ready(function () {
-
             //We have used keyup event to track the user enter value in the textbox.
             $("#target").keyup(function () {
                 //Fetching the textbox value.
@@ -129,11 +122,6 @@
     </script>
 
     <script type="text/javascript">
-
-
-
-
-
         //Added code for load actorname
         $(document).ready(function () {
 
@@ -194,99 +182,87 @@
         });
         //ended music director loading
     </script>
-
-
-
 </head>
 <body>
-    <div class="container">
-        <div class="row">
-            <div class="navbar navbar-inverse" role="navigation">
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    @Html.ActionLink("Movie Mirchi", "Index", "Home", null, new { @class = "navbar-brand", @title = "Find your movie", @rel = "home" })
-                </div>
-                <div class="collapse navbar-collapse navbar-ex1-collapse">
-                    <div class="col-sm-6 col-md-6">
-                        <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
-                            <div class="btn-group pull-left" id="btngroup">
-                                <select id="searchtype" class="form-control">
-                                    <option>
-                                        All
-                                    </option>
-                                    <option>
-                                        Title
-                                    </option>
-                                    <option>
-                                        Character
-                                    </option>
-                                    <option>
-                                        Name
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="input-group">
-                                <div id="targetDiv">
-                                    <input type="text" class="form-control" placeholder="Search..." id="target" name="query" value="" autocomplete="off">
-                                </div>
-                                <div class="input-group-btn">
-                                    <button type="submit" class="btn btn-success">Go</button>
-                                </div>
-                            </div>
-                        </form>
+    <div class="movie-container">
+        <div id="top-nav">
+            <div class="logo">
+                @Html.ActionLink("Movie Mirchi", "Index", "Home", null, new { @title = "Find your movie", @rel = "home" })
+            </div>
+            <div class="col-sm-6 col-md-6">
+                <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
+                    <div class="btn-group pull-left" id="btngroup">
+                        <select id="searchtype" class="form-control">
+                            <option>
+                                All
+                            </option>
+                            <option>
+                                Title
+                            </option>
+                            <option>
+                                Character
+                            </option>
+                            <option>
+                                Name
+                            </option>
+                        </select>
                     </div>
-
-
-
-                    <div class="col-sm-2 col-md-2" style="display:none">
-                        <form class="navbar-form navbar-right" role="search">
-                            <div class="input-group"><a href="#" class="btn btn-warning">Post Your Ads</a></div>
-                        </form>
+                    <div class="input-group">
+                        <div id="targetDiv">
+                            <input type="text" class="form-control" placeholder="Search..." id="target" name="query" value="" autocomplete="off">
+                        </div>
+                        <div class="input-group-btn">
+                            <button type="submit" class="btn btn-success">Go</button>
+                        </div>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (Session["username"] != null)
-                        {
-                            <li class="authenticate">
-                                Welcome, @Session["username"].ToString().ToUpper()
-                            </li>
-                            <li class="log">
-                                @Html.ActionLink("Logout", "Logout", "Login")
-                               
-                            </li>
-                        }
-                        else
-                        {
-                            <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">sign up</a></li>
-                            <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Login</a></li>
+                </form>
+            </div>
+            <div class="status">
+                <ul>
+                    @if (Session["username"] != null)
+                    {
+                        <li class="authenticate">
+                            Welcome, @Session["username"].ToString().ToUpper()
+                        </li>
+                        <li class="log">
+                            @Html.ActionLink("Logout", "Logout", "Login")
 
-                        }
-                    </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">Sign Up</a></li>
+                        <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Sign In</a></li>
 
-
-                </div>
+                    }
+                </ul>
             </div>
         </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-8" style="padding:0">
-                    @RenderBody()
-                </div>
-                <div class="col-sm-4" id="panel">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">News</h3>
-                        </div>
-                        <div class="panel-body">
-                            <img src="~/Images/breaking-news.jpg" id="thumbnail" data-src="holder.js/200x200" class="img-thumbnail" alt="200x200">
+
+        @*<div class="row">
+                <div class="navbar navbar-inverse" role="navigation">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+
+                    </div>
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <div class="col-sm-2 col-md-2" style="display:none">
+                            <form class="navbar-form navbar-right" role="search">
+                                <div class="input-group"><a href="#" class="btn btn-warning">Post Your Ads</a></div>
+                            </form>
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>*@
+        <div id="container" class="movie-panel">
+
+            @RenderBody()
+
         </div>
 
         @*        @if ((Session["username"] != null && Session["favorite"] == null) || (Session["username"] != null && Session["favorite"] != null && string.IsNullOrEmpty(Session["favorite"].ToString())))
@@ -338,109 +314,6 @@
                 </div>
             }
         *@
-
-        @*Added for survey*@
-        <div>
-            <div id="ql_SideBar">
-                <div title="Click here for any help" id="ql_Display" style="background-color: #404040 !important; color: White; background-image: none;
-                border-top-left-radius: 3px; border-top-right-radius: 3px;">
-                    <span>
-                        Choose Your Favourite
-                    </span>
-                    <span style="float: right; margin-top: -8px;">
-                        <input type="button" id="btnClose" value="X" class="btn btn-convert" onclick='$("#ql_SideBar").hide(500);'>
-                    </span>
-                </div>
-
-                <div id="ql_Tab">
-                    <div id="ql_List">
-                        <div id="favStatus" style="display:none" class="alert alert-danger"></div>
-
-                        <div class="favourate">
-                            <div id="autoCompleteActor">
-                                <h5>Actors</h5>
-
-                                <input type="text" name="txtActorName" id="txtActorName" placeholder="Actor Name" style="width:90%;" class="btn-group dropup">
-                                <div class="test">
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="favourate">
-                            <h5>Genre</h5>
-                            @*
-                                <select name="genre" id="genre" style="width:96%">
-                                    <option value="select">--Genre--</option>
-                                    <option value="Action">Action</option>
-                                    <option value="Comedy">Comedy</option>
-                                    <option value="Crime">Crime</option>
-                                    <option value="Horror">Horror</option>
-                                </select>*@
-                            <div class="test">
-                                <input type="checkbox" name="A" value="A" /><label>Action</label><br />
-                                <input type="checkbox" name="A" value="A" /><label>Comedy</label><br />
-                                <input type="checkbox" name="A" value="A" /><label>Crime</label><br />
-                                <input type="checkbox" name="A" value="A" /><label>Horror</label><br />
-                                <input type="checkbox" name="A" value="A" /><label>Fight</label><br />
-                            </div>
-                        </div>
-
-                        <div class="favourate">
-                            <div id="autoCompleteMusicDirector">
-                                <h5>Music Director</h5>
-
-
-                                <input type="text" name="txtMusicDirectorName" id="txtMusicDirectorName" placeholder="Music Director Name" style="width:90%">
-                                <div class="test">
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="favourate">
-                            <div id="autoCompleteDirector">
-                                <h5>Director</h5>
-                                <input type="text" name="txtDirectorName" id="txtDirectorName" placeholder="Director Name" style="width:90%">
-                                <div class="test">
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                    <input type="checkbox" name="A" value="A" /><label>Shahrukh Khan</label><br />
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="buttons" class="survey_button">
-
-                            <input type="button" id="btnLater" value="Later" class="btn btn-primary">
-                            <input type="button" id="btnSubmit" value="Save" class="btn btn-success" onclick="SaveUserFavorite();">
-
-                        </div>
-
-                        <div id="queryStatus" style="color: Green"></div>
-                        <div id="ql_EmptyText">
-                        </div>
-                    </div>
-                    <div id="ql_Foot" style="text-align: justify; height: 0%; text-align: left;">
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        @*end survey*@
-
-
-
     </div>
 
     @*Added popup for Login*@
@@ -471,158 +344,158 @@
                         <div id="fb-root"></div>
                         <!--Fb Login Srcipt-->
                         <script>
-                                window.userFields = {
-                                    UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
-                                    UserType: "@(Session["type"] != null ? Session["type"] : "")",
-                                    FirstName: "@(Session["firstname"] != null ? Session["firstname"] : "")",
-                                    LastName: "@(Session["lastname"] != null ? Session["lastname"] : "")",
-                                    Email: "@(Session["email"] != null ? Session["email"] : "")",
-                                    Mobile: "@(Session["mobile"] != null ? Session["mobile"] : "")",
-                                    DateOfBirth: "@(Session["dob"] != null ? Session["dob"] : "")",
-                                    Gender: "@(Session["gender"] != null ? Session["gender"] : "")",
-                                    City: "@(Session["city"] != null ? Session["city"] : "")",
-                                    Profile_Pic_Http: "@(Session["profile_pic"] != null ? Session["profile_pic"] : "")",
-                                    Profile_Pic_Https: "@(Session["profile_pic_https"] != null ? Session["profile_pic_https"] : "")",
-                                    Country: "@(Session["country"] != null ? Session["country"] : "")",
-                                    accessToken: "@(Session["fb_access_token"] != null ? Session["fb_access_token"] : "")"
-                                };
+                            window.userFields = {
+                                UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
+                                UserType: "@(Session["type"] != null ? Session["type"] : "")",
+                                FirstName: "@(Session["firstname"] != null ? Session["firstname"] : "")",
+                                LastName: "@(Session["lastname"] != null ? Session["lastname"] : "")",
+                                Email: "@(Session["email"] != null ? Session["email"] : "")",
+                                Mobile: "@(Session["mobile"] != null ? Session["mobile"] : "")",
+                                DateOfBirth: "@(Session["dob"] != null ? Session["dob"] : "")",
+                                Gender: "@(Session["gender"] != null ? Session["gender"] : "")",
+                                City: "@(Session["city"] != null ? Session["city"] : "")",
+                                Profile_Pic_Http: "@(Session["profile_pic"] != null ? Session["profile_pic"] : "")",
+                                Profile_Pic_Https: "@(Session["profile_pic_https"] != null ? Session["profile_pic_https"] : "")",
+                                Country: "@(Session["country"] != null ? Session["country"] : "")",
+                                accessToken: "@(Session["fb_access_token"] != null ? Session["fb_access_token"] : "")"
+                            };
 
 
-                                window.fbAsyncInit = function () {
-                                    FB.init({
-                                        appId: '@ConfigurationManager.AppSettings["FacebookAppId"]',
-                                        status: true, // check login status
-                                        cookie: true, // enable cookies to allow the server to access the session
-                                        xfbml: true  // parse XFBML
-                                    });
+                            window.fbAsyncInit = function () {
+                                FB.init({
+                                    appId: '@ConfigurationManager.AppSettings["FacebookAppId"]',
+                                    status: true, // check login status
+                                    cookie: true, // enable cookies to allow the server to access the session
+                                    xfbml: true  // parse XFBML
+                                });
 
-                                    // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
-                                    // for any authentication related change, such as login, logout or session refresh. This means that
-                                    // whenever someone who was previously logged out tries to log in again, the correct case below
-                                    // will be handled.
-                                    FB.Event.subscribe('auth.authResponseChange', function (response) {
-                                        // Here we specify what we do with the response anytime this event occurs.
+                                // Here we subscribe to the auth.authResponseChange JavaScript event. This event is fired
+                                // for any authentication related change, such as login, logout or session refresh. This means that
+                                // whenever someone who was previously logged out tries to log in again, the correct case below
+                                // will be handled.
+                                FB.Event.subscribe('auth.authResponseChange', function (response) {
+                                    // Here we specify what we do with the response anytime this event occurs.
+                                    if (response.status === 'connected') {
+                                        // The response object is returned with a status field that lets the app know the current
+                                        // login status of the person. In this case, we're handling the situation where they
+                                        // have logged in to the app.
+                                        //testAPI();
+                                        var uid = response.authResponse.userID;
+                                        var accessToken = response.authResponse.accessToken;
+                                        //fbLogin();
+                                        testAPI(response);
+                                    } else if (response.status === 'not_authorized') {
+                                        // In this case, the person is logged into Facebook, but not into the app, so we call
+                                        // FB.login() to prompt them to do so.
+                                        // In real-life usage, you wouldn't want to immediately prompt someone to login
+                                        // like this, for two reasons:
+                                        // (1) JavaScript created popup windows are blocked by most browsers unless they
+                                        // result from direct interaction from people using the app (such as a mouse click)
+                                        // (2) it is a bad experience to be continually prompted to login upon page load.
+                                        //FB.login();
+                                        //fbLogin();
+                                        testAPI(response);
+                                    } else {
+                                        // In this case, the person is not logged into Facebook, so we call the login()
+                                        // function to prompt them to do so. Note that at this stage there is no indication
+                                        // of whether they are logged into the app. If they aren't then they'll see the Login
+                                        // dialog right after they log in to Facebook.
+                                        // The same caveats as above apply to the FB.login() call here.
+                                        //FB.login();
+                                        //fbLogin();
+                                        testAPI(response);
+                                    }
+                                });
+                            };
+
+                            // Load the SDK asynchronously
+                            (function (d) {
+                                var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+                                if (d.getElementById(id)) { return; }
+                                js = d.createElement('script'); js.id = id; js.async = true;
+                                js.src = "//connect.facebook.net/en_US/all.js";
+                                ref.parentNode.insertBefore(js, ref);
+                            }(document));
+
+                            // Here we run a very simple test of the Graph API after login is successful.
+                            // This testAPI() function is only called in those cases.
+                            function testAPI(response) {
+                                console.log('Welcome!  Fetching your information.... ');
+
+                                accessToken = "";
+                                accessToken = response.authResponse.accessToken;
+
+                                FB.api('/me', function (response) {
+                                    console.log(response);
+                                    console.log('Good to see you, ' + response.name + '.');
+
+                                    userFields.UserId = response.id;
+                                    userFields.UserType = "facebook";
+                                    userFields.FirstName = response.first_name;
+                                    userFields.LastName = response.last_name;
+                                    userFields.Email = response.email;
+                                    userFields.Mobile = "";
+                                    userFields.DateOfBirth = response.birthday;
+                                    userFields.Gender = response.gender;
+                                    userFields.City = "";
+                                    userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
+                                    userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
+                                    userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
+                                    connectUser();
+                                });
+                            }
+
+                            var accessToken;
+                            var fbLogin = function () {
+
+                                FB.login(function (response) {
+
+                                    if (response.authResponse) {
+                                        //$('#cboxClose').trigger('click');
+                                        accessToken = "";
+                                        accessToken = response.authResponse.accessToken;
+
+                                        $(window).colorbox.close();
+                                        //console.log('Welcome!  Fetching your information.... ');
                                         if (response.status === 'connected') {
-                                            // The response object is returned with a status field that lets the app know the current
-                                            // login status of the person. In this case, we're handling the situation where they
-                                            // have logged in to the app.
-                                            //testAPI();
-                                            var uid = response.authResponse.userID;
-                                            var accessToken = response.authResponse.accessToken;
-                                            //fbLogin();
-                                            testAPI(response);
-                                        } else if (response.status === 'not_authorized') {
-                                            // In this case, the person is logged into Facebook, but not into the app, so we call
-                                            // FB.login() to prompt them to do so.
-                                            // In real-life usage, you wouldn't want to immediately prompt someone to login
-                                            // like this, for two reasons:
-                                            // (1) JavaScript created popup windows are blocked by most browsers unless they
-                                            // result from direct interaction from people using the app (such as a mouse click)
-                                            // (2) it is a bad experience to be continually prompted to login upon page load.
-                                            //FB.login();
-                                            //fbLogin();
-                                            testAPI(response);
-                                        } else {
-                                            // In this case, the person is not logged into Facebook, so we call the login()
-                                            // function to prompt them to do so. Note that at this stage there is no indication
-                                            // of whether they are logged into the app. If they aren't then they'll see the Login
-                                            // dialog right after they log in to Facebook.
-                                            // The same caveats as above apply to the FB.login() call here.
-                                            //FB.login();
-                                            //fbLogin();
-                                            testAPI(response);
+                                            loginStatus = true;
+
+                                            FB.api('/me', function (response) {
+                                                console.log(response);
+                                                console.log('Good to see you, ' + response.name + '.');
+
+                                                alert(response.name);
+
+                                                userFields.UserId = response.id;
+                                                userFields.UserType = "facebook";
+                                                userFields.FirstName = response.first_name;
+                                                userFields.LastName = response.last_name;
+                                                userFields.Email = response.email;
+                                                userFields.Mobile = "";
+                                                userFields.DateOfBirth = response.birthday;
+                                                userFields.Gender = response.gender;
+                                                userFields.City = "";
+                                                userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
+                                                userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
+                                                userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
+                                                connectUser();
+                                            });
                                         }
-                                    });
-                                };
+                                    } else {
+                                        //console.log('User cancelled login or did not fully authorize.');
+                                    }
+                                }, { scope: 'email,user_about_me,user_birthday,user_website,publish_actions' });
+                            }
 
-                                // Load the SDK asynchronously
-                                (function (d) {
-                                    var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-                                    if (d.getElementById(id)) { return; }
-                                    js = d.createElement('script'); js.id = id; js.async = true;
-                                    js.src = "//connect.facebook.net/en_US/all.js";
-                                    ref.parentNode.insertBefore(js, ref);
-                                }(document));
-
-                                // Here we run a very simple test of the Graph API after login is successful.
-                                // This testAPI() function is only called in those cases.
-                                function testAPI(response) {
-                                    console.log('Welcome!  Fetching your information.... ');
-
-                                    accessToken = "";
-                                    accessToken = response.authResponse.accessToken;
-
-                                    FB.api('/me', function (response) {
-                                        console.log(response);
-                                        console.log('Good to see you, ' + response.name + '.');
-
-                                        userFields.UserId = response.id;
-                                        userFields.UserType = "facebook";
-                                        userFields.FirstName = response.first_name;
-                                        userFields.LastName = response.last_name;
-                                        userFields.Email = response.email;
-                                        userFields.Mobile = "";
-                                        userFields.DateOfBirth = response.birthday;
-                                        userFields.Gender = response.gender;
-                                        userFields.City = "";
-                                        userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
-                                        userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
-                                        userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
-                                        connectUser();
-                                    });
-                                }
-
-                                var accessToken;
-                                var fbLogin = function () {
-
-                                    FB.login(function (response) {
-
-                                        if (response.authResponse) {
-                                            //$('#cboxClose').trigger('click');
-                                            accessToken = "";
-                                            accessToken = response.authResponse.accessToken;
-
-                                            $(window).colorbox.close();
-                                            //console.log('Welcome!  Fetching your information.... ');
-                                            if (response.status === 'connected') {
-                                                loginStatus = true;
-
-                                                FB.api('/me', function (response) {
-                                                    console.log(response);
-                                                    console.log('Good to see you, ' + response.name + '.');
-
-                                                    alert(response.name);
-
-                                                    userFields.UserId = response.id;
-                                                    userFields.UserType = "facebook";
-                                                    userFields.FirstName = response.first_name;
-                                                    userFields.LastName = response.last_name;
-                                                    userFields.Email = response.email;
-                                                    userFields.Mobile = "";
-                                                    userFields.DateOfBirth = response.birthday;
-                                                    userFields.Gender = response.gender;
-                                                    userFields.City = "";
-                                                    userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
-                                                    userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
-                                                    userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
-                                                    connectUser();
-                                                });
-                                            }
-                                        } else {
-                                            //console.log('User cancelled login or did not fully authorize.');
+                            window.connectUser = function () {
+                                $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
+                                    if (response.success == true) {
+                                        if (/iPhone/i.test(navigator.userAgent)) {
+                                            location.reload(true);
                                         }
-                                    }, { scope: 'email,user_about_me,user_birthday,user_website,publish_actions' });
-                                }
-
-                                window.connectUser = function () {
-                                    $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
-                                        if (response.success == true) {
-                                            if (/iPhone/i.test(navigator.userAgent)) {
-                                                location.reload(true);
-                                            }
-                                        }
-                                    }, 'json');
-                                }
+                                    }
+                                }, 'json');
+                            }
 
                         </script>
 
@@ -1010,3 +883,16 @@
 
 </body>
 </html>
+
+<script type="text/javascript" src="/Content/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/Content/jquery.jscrollpane.min.js"></script>
+<script type="text/javascript" src="/Content/jquerypp.custom.js"></script>
+<script type="text/javascript" src="/Content/jquery.bookblock.js"></script>
+<script type="text/javascript" src="/Content/page.js"></script>
+<script type="text/javascript" src="/Content/movie.core.js"></script>
+<script type="text/javascript" src="/Content/movie.autocomplete.js"></script>
+<script>
+    $(function () {
+        Page.init();
+    });
+</script>

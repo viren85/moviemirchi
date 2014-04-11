@@ -98,59 +98,55 @@ namespace MvcWebRole2.Controllers
         [HttpGet]
         public void Crawl()
         {
-            SetConnectionString();
             Crawler.MovieCrawler movieCrawler = new Crawler.MovieCrawler();
+
+            SetConnectionString();
+            CreatePosterDirectory();
+
             try
             {
                 XmlDocument xdoc = new XmlDocument();
-                var file = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-                xdoc.Load(file);
 
-                var movies = xdoc.SelectNodes("MovieList/Movies/Month/Movie");
+                string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
 
-                if (!Directory.Exists(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters")))
+                string[] moviesFilePath = Directory.GetFiles(basePath, "*.xml");
+
+                foreach (string filePath in moviesFilePath)
                 {
-                    Directory.CreateDirectory(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"));
-                }
+                    //var file = Server.MapPath(filePath);
+                    xdoc.Load(filePath);
 
-                if (!Directory.Exists(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images")))
-                {
-                    Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images"));
-                }
+                    var movies = xdoc.SelectNodes("Movies/Month/Movie");
 
-                if (!Directory.Exists(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails")))
-                {
-                    Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails"));
-                }
+                    //List<string> processedList = new List<string>();
 
-                List<string> processedList = new List<string>();
-
-                foreach (XmlNode movie in movies)
-                {
-                    if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
+                    foreach (XmlNode movie in movies)
                     {
-                        try
+                        if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
                         {
-                            MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
-                            TableManager tblMgr = new TableManager();
-                            tblMgr.UpdateMovieById(mov);
-                            processedList.Add(movie.Attributes["link"].Value);
-                        }
-                        catch (Exception e)
-                        {
-                            Debug.WriteLine("Error while crawling movie - " + movie.Attributes["link"].Value);
+                            try
+                            {
+                                MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
+                                TableManager tblMgr = new TableManager();
+                                tblMgr.UpdateMovieById(mov);
+                                //processedList.Add(movie.Attributes["link"].Value);
+                            }
+                            catch (Exception e)
+                            {
+                                Debug.WriteLine("Error while crawling movie - " + movie.Attributes["link"].Value);
+                            }
                         }
                     }
                 }
 
-                if (processedList.Count > 0)
+                /*if (processedList.Count > 0)
                 {
                     foreach (string name in processedList)
                     {
                         XmlNode node = xdoc.SelectSingleNode("MovieList/Movies/Month/Movie[@link='" + name + "']");
                         xdoc.RemoveChild(node);
                     }
-                }
+                }*/
 
             }
             catch (Exception ex)
@@ -242,6 +238,31 @@ namespace MvcWebRole2.Controllers
             Session.Clear();
 
             return RedirectToAction("Login", "Account");
+        }
+
+        private void CreatePosterDirectory()
+        {
+            try
+            {
+                if (!Directory.Exists(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters")))
+                {
+                    Directory.CreateDirectory(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"));
+                }
+
+                if (!Directory.Exists(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images"));
+                }
+
+                if (!Directory.Exists(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails")))
+                {
+                    Directory.CreateDirectory(Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Thumbnails"));
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Unable to create the poster directories. Message=" + ex.Message);
+            }
         }
         #endregion
     }

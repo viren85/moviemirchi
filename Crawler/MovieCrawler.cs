@@ -51,7 +51,19 @@ namespace Crawler
                     #endregion
 
                     movie = PopulateMovieDetails(moviePageContent);
-                    PopulateMovieDetails(ref movie, url);
+                    bool crawlPosters = true;
+
+                    TableManager tblMgr = new TableManager();
+
+                    MovieEntity me = tblMgr.GetMovieByUniqueName(movie.UniqueName);
+                    if (me != null && !string.IsNullOrEmpty(me.RowKey))
+                    {
+                        movie.RowKey = me.RowKey;
+                        movie.MovieId = me.MovieId;
+                        crawlPosters = false;
+                    }
+
+                    PopulateMovieDetails(ref movie, url, crawlPosters);
                     return movie;
                     //tableMgr.UpdateMovieById(movie);
                 }
@@ -64,13 +76,18 @@ namespace Crawler
             return movie;
         }
 
-        private bool PopulateMovieDetails(ref MovieEntity movie, string url)
+        private bool PopulateMovieDetails(ref MovieEntity movie, string url, bool isCrawlPosters)
         {
             try
             {
+                List<string> poster = new List<string>();
                 List<Cast> cast = CrawlCast(url + "fullcredits");
-                List<string> poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
                 List<Songs> songs = CrawlSongs(url + "soundtrack");
+
+                if (isCrawlPosters)
+                {
+                    poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
+                }
 
                 movie.Casts = JsonConvert.SerializeObject(cast);
                 movie.Songs = JsonConvert.SerializeObject(songs);

@@ -173,33 +173,34 @@ function LoadSingleMovie(movieId) {
 function onSuccessLoadSingleMovie(result) {
     result = JSON.parse(result);
 
-    console.log(result);
-
     if (result.Movie != undefined) {
 
-        $("#title").html("<span style='font-size: 16px; font-weight: bold'>" + result.Movie.Name + "</span> (" + result.Movie.Year + ")");
+        $(".content .movie-name").html(result.Movie.Name + "(" + result.Movie.Year + ")");
 
         var poster = [];
         poster = JSON.parse(result.Movie.Posters);
-
+        
         if (poster.length > 0) {
+            $("img.home-poster").attr("src", "/Posters/Images/" + poster[0]);
+
             //showing movies posters
             for (var p = 0; p < poster.length; p++) {
                 var img = $("<img/>")
-                img.attr("class", "img-thumbnail");
-                img.attr("style", "width: 150px; height: 150px;margin-right: 1%");
-                img.attr("data-src", "holder.js/200x200");
+                img.attr("class", "gallery-image");
                 img.attr("alt", result.Movie.Name);
-                img.attr("src", poster[p].url);
-
-                $("#posters").append(img);
+                img.attr("src", "/Posters/Images/" + poster[p]);
+                $("#imagearea").append(img);
             }
         }
 
-        $("#genre").html("<b>Genre :</b> " + result.Movie.Genre);
-        $("#synopsis").html("<b>Synopsis :</b> " + result.Movie.Synopsis);
+        $("div.genre").html(result.Movie.Genre);
+        $("p.story-plot").html(result.Movie.Synopsis);
 
-        var directors = ""; var writers = ""; var cast = "";
+        var directors = "";
+        var writers = "";
+        var producers = "";
+        var music = "";
+        var cast = "";
 
         var casts = [];
         casts = JSON.parse(result.Movie.Casts);
@@ -213,7 +214,13 @@ function onSuccessLoadSingleMovie(result) {
                 else if (casts[c].role.toLowerCase() == "writer") {
                     writers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
                 }
-                else {
+                else if (casts[c].role.toLowerCase() == "music") {
+                    music += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                }
+                else if (casts[c].role.toLowerCase() == "producer") {
+                    producers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                }
+                else if (casts[c].role.toLowerCase() == "actor") {
                     cast += "<a href='javascript:void(0);' title='click here to view profile'> " + casts[c].name + "</a>, ";
                 }
             }
@@ -228,21 +235,30 @@ function onSuccessLoadSingleMovie(result) {
         if (writers.length > 0) {
             writers = writers.substring(0, writers.lastIndexOf(","));
         }
+        if (music.length > 0) {
+            music = music.substring(0, music.lastIndexOf(","));
+        }
+        if (producers.length > 0) {
+            producers = producers.substring(0, producers.lastIndexOf(","));
+        }
 
         $("#director").html("<b>Director :</b> " + directors);
         $("#writer").html("<b>Writer :</b> " + writers);
+        $("#producer").html("<b>Producer :</b> " + producers);
+        $("#music").html("<b>Music Director :</b> " + music);
         $("#cast").html("<b>Cast :</b> " + cast);
 
         var ratings = [];
         ratings = JSON.parse(result.Movie.Ratings);
 
-        console.log(ratings);
-        var rating = 3;
+        
+        /*var rating = 3;
         if (ratings.critic != undefined)
             rating = ratings.critic;
+            */
 
         //$("#rating").html("<b>Rating :</b>  System = " + ratings.system + ", Critics = " + ratings.critic + ", Hot = " + ratings.hot);
-        $("#rating").html("<b style='float: left; margin-top: 3%; margin-right: 3%'>Rating :</b><div class='titlePageSprite star-box-giga-star'> " + rating + " </div>");
+        $(".critic-rating").html(result.Movie.Ratings);
 
         // populating Reviews
         var reviews = [];
@@ -305,6 +321,14 @@ function onSuccessLoadSingleMovie(result) {
         else {
             $("#reviews").html("<li class='activityContainer'>No reviews</li>");
         }
+
+        var width = $(document).width();
+        $("#imagearea").find("img").each(function () {
+            var ratio = this.width / this.height;
+            var newWidth = 200 * ratio;
+            $(this).width(newWidth + "px").height("200px");
+        });
+        //Page.init();
     }
 }
 

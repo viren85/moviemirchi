@@ -1,9 +1,6 @@
 <?xml version="1.0"?>
-  <Movies year="2013">
-<Month name="December">
-      <Movie name="R... Rajkumar" link="http://www.imdb.com/title/tt2369154/"/>
-      <Movie name="Jackpot" link="http://www.imdb.com/title/tt3309662"/>
-      <Movie name="What the Fish" link="http://www.imdb.com/title/tt3357416/"/>
-      <Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/‎"/>
-    </Month>
-	</Movies>
+<Movies year="2013">
+  <Month name="December">
+    <Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/"/>
+  </Month>
+</Movies>
