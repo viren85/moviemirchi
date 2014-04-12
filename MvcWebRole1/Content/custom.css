@@ -192,33 +192,51 @@ a {
 .js .content {
     position: relative;
     width: 100%;
-    overflow: hidden !important;
-    margin-top: 1%;
-    height: 95%;
     -webkit-font-smoothing: subpixel-antialiased;
 }
 
 .content p {
     font-size: 1em;
     line-height: 1.7;
-    padding: 5px 8%;
+    padding: 5px 0%;
     text-align: justify;
 }
-
+.story-plot{
+    float: left;
+    width: 60%;
+}
+.star{
+    float: left;
+    width: 16%;
+}
+.star-image{
+    float: left;
+    border: 0px;
+    margin-right: 2px;
+    width: 16px;
+    height: 16px;
+}
+#castdetails{
+    float: left;
+    width: 60%;
+}
 .content a {
     color: #2793e6;
     text-decoration: none;
 }
-
+    .content a:hover {
+    text-decoration: underline;
+    }
 .movie-content-heading {
     margin-top: 2%;
     color: goldenrod;
 }
 
 .movie-gap-margin {
+    float: left;
     margin-top: 2%;
+    width: 60%;
 }
-
 .content-writup {
     padding-bottom: 4% !important;
 }
@@ -236,13 +254,6 @@ a {
     margin-left: 0%;
     display: inline;
 }
-
-.movie-rating {
-    float: left;
-    margin-left: 1%;
-    display: inline;
-}
-
 
 .movie-rating {
     float: left;
@@ -308,11 +319,7 @@ a {
     float: left;
     width: 100%;
     margin-top: 10px;
-    margin-left: 40px;
 }
-
-
-
 .left-content {
     float: left;
     width: 25%;
@@ -324,14 +331,21 @@ a {
 .movie-name {
     color: purple;
     float: left;
-    width: 55%;
+    width: 72%;
     font-size: xx-large;
     font-family: Segoe UI;
-    margin-left: 31%;
-    margin-right: 10%;
-    margin-bottom: 2%;
+    margin-left: 6%;
+    margin-right: 1%;
+    margin-bottom: 1%;
 }
-
+.role-name{
+    float: left;
+    width: 100px;
+}
+.role-details {
+    float: left;
+    width: 85%;
+}
 .home-poster {
     float: left;
     width: 75%;
@@ -342,31 +356,109 @@ a {
     float: left;
     font-size: medium;
     margin-right: 2%;
-    margin-top: 5%;
+    margin-top: 1%;
 }
-
+/*.class-container-header {
+    float: left;
+    font-size: medium;
+}
+.person-details {
+    float: left;
+    padding: 1%;
+    width: 30%;
+    height: 100%;
+    border-left: 1px solid #666;
+}
+.cast-item { 
+    float: left;
+    width: 100%;
+}
+.cast-details {
+    float: left;
+    margin-left: 1%;
+    margin-right: 2%;
+}*/
 .critic-rating {
     float: left;
     font-size: xx-large;
     font-family: Segoe UI;
+    /*background-image: url(../Images/star-rating.png)*/
 }
-
+.section-header, .class-container-header {
+    float: left;
+    width: 60%;
+    font-size: large;
+    font-family: 'Segoe UI';
+    margin-top: 10px;
+}
+.class-container-header { width: 100%;}
+.cast-container ul {
+float: left;
+list-style: none;
+width: 90%;
+margin-right: 10%;
+}
+.cast-item { float: left; width: 100%; }
+.cast-item:hover {background-color:#EEE;}
+.cast-details {float: left; min-width: 100px;}
+.cast-details a { cursor: pointer; }
+    .cast-details a:hover {
+        text-decoration: underline;
+    }
+.cast-details-right {float: right;}
+.person-details {
+float: left;
+width: 50%;
+}
+#music-details {
+float: left;
+ width: 65%;
+}
+.song-item {
+float: left; 
+width: 35%;
+margin: 1%;
+margin-left: 0%;
+min-height: 100px;
+padding: 1%;
+border: 1px solid #999;
+}
+.song-item:hover{
+    background-color: #EEE;
+}
+.song-details {
+    float: left;
+    width: 100%;
+}
 .gallery-image {
     float: left;
     padding: 5px;
     background-color: White;
 }
-
-
+#director, #writer , #producer, #music, #stats{
+    float: left;
+    width: 60%;
+    padding: 5px;
+    padding-left: 0px;
+}
+#director:hover, #writer:hover , #producer:hover, #music:hover, #stats:hover
+{
+    background-color: #EEE;
+}
+.team-item{
+    float: left;
+    margin-right: 10px;
+}
+    .team-item a {
+    cursor: pointer;
+    }
 #imagearea {
-    margin: 2%;
-    margin-left: 10%;
-    margin-right: 10%;
+    margin: 0% 6% 0% 6%;
 }
 
-    #imagearea img:hover {
-        background-color: #2793e6;
-    }
+#imagearea img:hover {
+  background-color: #2793e6;
+}
 
 @media screen and (max-width: 800px) {
     .no-js .menu-panel {

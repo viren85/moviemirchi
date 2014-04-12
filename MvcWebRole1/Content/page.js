@@ -41,7 +41,7 @@ var Page = (function () {
     function init() {
 
         // initialize jScrollPane on the content div of the first item
-        setJSP('init');
+        //setJSP('init');
         initEvents();
 
     }
@@ -137,10 +137,12 @@ var Page = (function () {
     }
 
     function setJSP(action, idx) {
-
+        alert(current);
+        console.log(current);
         var idx = idx === undefined ? current : idx,
+
 			$content = $items.eq(idx).children('div.content'),
-			apiJSP = $content.data('jsp');
+            apiJSP = $content.data('jsp');
         if (action === 'init' && apiJSP === undefined) {
             $content.jScrollPane({ verticalGutter: -10, hideFocus: true, show: true });
         }
@@ -150,7 +152,6 @@ var Page = (function () {
         else if (action === 'destroy' && apiJSP !== undefined) {
             apiJSP.destroy();
         }
-
     }
 
     function updateTOC() {

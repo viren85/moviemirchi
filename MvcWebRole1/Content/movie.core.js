@@ -175,13 +175,13 @@ function onSuccessLoadSingleMovie(result) {
 
     if (result.Movie != undefined) {
 
-        $(".content .movie-name").html(result.Movie.Name + "(" + result.Movie.Year + ")");
+        $(".content .movie-name").html(result.Movie.Name);// + "(" + result.Movie.Year + ")");
 
         var poster = [];
         poster = JSON.parse(result.Movie.Posters);
-        
+
         if (poster.length > 0) {
-            $("img.home-poster").attr("src", "/Posters/Images/" + poster[0]);
+            $("img.home-poster").attr("src", "/Posters/Images/" + poster[poster.length - 1]);
 
             //showing movies posters
             for (var p = 0; p < poster.length; p++) {
@@ -196,33 +196,53 @@ function onSuccessLoadSingleMovie(result) {
         $("div.genre").html(result.Movie.Genre);
         $("p.story-plot").html(result.Movie.Synopsis);
 
-        var directors = "";
-        var writers = "";
-        var producers = "";
-        var music = "";
-        var cast = "";
+        var directors = "", directorsList = "";
+        var writers = "", writerList = "";
+        var producers = "", producersList = "";
+        var music = "", musicList = "";
+        var cast = "", actorList = "";
+        var songsList = "";
 
-        var casts = [];
+        var casts = [], songs = [];
         casts = JSON.parse(result.Movie.Casts);
+        songs = JSON.parse(result.Movie.Songs);
 
         if (casts.length > 0) {
             for (var c = 0; c < casts.length; c++) {
 
                 if (casts[c].role.toLowerCase() == "director") {
-                    directors += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    if (casts[c].charactername == null) {
+                        directors += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                        directorsList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                    }
                 }
                 else if (casts[c].role.toLowerCase() == "writer") {
                     writers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    writerList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
                 }
                 else if (casts[c].role.toLowerCase() == "music") {
-                    music += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    if (casts[c].charactername == null) {
+                        music += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                        musicList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                    }
                 }
                 else if (casts[c].role.toLowerCase() == "producer") {
-                    producers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    if (casts[c].charactername == "producer") {
+                        producers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
+                        producersList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                    }
                 }
                 else if (casts[c].role.toLowerCase() == "actor") {
                     cast += "<a href='javascript:void(0);' title='click here to view profile'> " + casts[c].name + "</a>, ";
+                    actorList += "<li class='cast-item'><span class='cast-details'><a>" + casts[c].name + "</a></span><span class='cast-details-right'>" + casts[c].charactername + "</span></li>";
                 }
+            }
+        }
+
+        if (songs.length > 0) {
+            for (var s = 0; s < songs.length; s++) {
+                
+                songsList += "<li class='song-item'><div class='song-details'><span>Title: </span>" + songs[s].SongTitle + "</div><div class='song-details'><span>Performer: </span>" + songs[s].Performer + "</div><div class='song-details'><span>Lyrics: </span>" + songs[s].Lyrics + "</div></li>";
             }
         }
 
@@ -242,16 +262,24 @@ function onSuccessLoadSingleMovie(result) {
             producers = producers.substring(0, producers.lastIndexOf(","));
         }
 
-        $("#director").html("<b>Director :</b> " + directors);
-        $("#writer").html("<b>Writer :</b> " + writers);
-        $("#producer").html("<b>Producer :</b> " + producers);
-        $("#music").html("<b>Music Director :</b> " + music);
-        $("#cast").html("<b>Cast :</b> " + cast);
+        $("#director").html("<span class='role-name'>Director:</span><span class='role-details'>" + directors + "</span>");
+        $("#writer").html("<span class='role-name'>Writer :</span><span class='role-details'>" + writers + "</span>");
+        $("#producer").html("<span class='role-name'>Producer:</span><span class='role-details'>" + producers + "</span>");
+        $("#music").html("<span class='role-name'>Music Director:</span><span class='role-details'>" + music + "</span>");
+        //$("#cast").html("<b>Cast :</b> " + cast);
+
+        $("#cast-list").html(actorList);
+        $("#director-list").html(directorsList);
+        $("#producer-list").html(producersList);
+        $("#writer-list").html(writerList);
+        $("#music-list").html(musicList);
+        $("#song-list").html(songsList);
+
 
         var ratings = [];
         ratings = JSON.parse(result.Movie.Ratings);
 
-        
+
         /*var rating = 3;
         if (ratings.critic != undefined)
             rating = ratings.critic;
@@ -259,6 +287,14 @@ function onSuccessLoadSingleMovie(result) {
 
         //$("#rating").html("<b>Rating :</b>  System = " + ratings.system + ", Critics = " + ratings.critic + ", Hot = " + ratings.hot);
         $(".critic-rating").html(result.Movie.Ratings);
+        $("#stats").html(result.Movie.Stats);
+
+        var rate = Math.round(result.Movie.Ratings);
+
+        for (var i = 1; i <= rate; i++) {
+            var star = $("<img/>").addClass("star-image").attr("src", "../Images/small_gold_star.png");
+            $(".star").append(star);
+        }
 
         // populating Reviews
         var reviews = [];
@@ -1694,9 +1730,3 @@ function getCookie(cname) {
     return "";
 }
 /*--------------end cookies related functions----------------*/
-
-
-
-
-
-

@@ -11,6 +11,8 @@
 <head>
     <title>Movie Mirchi</title>
     <meta name="robots" content="NOODP" />
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -22,9 +24,9 @@
     @Styles.Render("~/Content/jquery.jscrollpane.custom.css")
     @Styles.Render("~/Content/bookblock.css")
     @Styles.Render("~/Content/custom.css")
-    @Scripts.Render("~/Content/jquery-1.9.1.js")
-    @*<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>*@
-    @Scripts.Render("~/Content/bootstrap.min.js")
+    
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    
     @Scripts.Render("~/Content/modernizr.custom.js")
 
     <script type="text/javascript">
@@ -503,12 +505,12 @@
                         Below we include the Login Button social plugin. This button uses the JavaScript SDK to
                         present a graphical Login button that triggers the FB.login() function when clicked. -->
 
-                        <div class="Record">
+                        @*<div class="Record">
 
-                            <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
-                                Login with Facebook
-                            </fb:login-button>
-                        </div>
+                                <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
+                                    Login with Facebook
+                                </fb:login-button>
+                            </div>*@
 
                         <div class="Record">
                             <div class="Column2">
@@ -702,11 +704,6 @@
                                         loginStatus = true;
 
                                         FB.api('/me', function (response) {
-                                            console.log(response);
-                                            console.log('Good to see you, ' + response.name + '.');
-
-                                            alert(response.name);
-
                                             userFields.UserId = response.id;
                                             userFields.UserType = "facebook";
                                             userFields.FirstName = response.first_name;
@@ -794,8 +791,6 @@
                         Sign up
                     </h3>
                 </div>
-
-
                 <div class="modal-body">
                     @using (Html.BeginForm())
                     {
@@ -823,8 +818,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="Record">
                             <div class="Column2">
                                 <input type="text" id="firstName" placeholder="First Name" class="popup-input" />
@@ -865,22 +858,14 @@
                                 @Html.Hidden("userJson", "")
                             </div>
                         </div>
-
-
-
-
                     }
                 </div>
                 <div class="modal-footer" id="popup-footer">
                     Already an moviemirchi member?<a data-toggle="modal" href="#Login" role="presentation" data-dismiss="modal"> Log in</a>
                 </div>
             </div>
-
             @*end signup input popup*@
-
         </div>
-
-
 </body>
 </html>
 
