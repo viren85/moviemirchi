@@ -1422,7 +1422,7 @@ function ShowSuccessMessageLogin(result) {
 
 
 function ClearLoginformData() {
-    alert("calling clear");
+    
     $("#signin_email").val("");
     $("#signin_password").val("");
     $("#loginError").hide("");

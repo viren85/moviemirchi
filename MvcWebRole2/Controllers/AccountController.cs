@@ -1,6 +1,7 @@
 ﻿using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using DataStoreLib.Utils;
+using LuceneSearchLibrarby;
 using Microsoft.WindowsAzure;
 using System;
 using System.Collections.Generic;
@@ -113,12 +114,9 @@ namespace MvcWebRole2.Controllers
 
                 foreach (string filePath in moviesFilePath)
                 {
-                    //var file = Server.MapPath(filePath);
                     xdoc.Load(filePath);
 
                     var movies = xdoc.SelectNodes("Movies/Month/Movie");
-
-                    //List<string> processedList = new List<string>();
 
                     foreach (XmlNode movie in movies)
                     {
@@ -129,7 +127,16 @@ namespace MvcWebRole2.Controllers
                                 MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                                 TableManager tblMgr = new TableManager();
                                 tblMgr.UpdateMovieById(mov);
-                                //processedList.Add(movie.Attributes["link"].Value);
+
+                                MovieSearchData movieSearchIndex = new MovieSearchData();
+                                movieSearchIndex.Id = mov.RowKey;
+                                movieSearchIndex.Title = mov.Name;
+                                movieSearchIndex.Type = mov.Genre;
+                                movieSearchIndex.TitleImageURL = mov.Posters;
+                                movieSearchIndex.UniqueName = mov.UniqueName;
+                                movieSearchIndex.Description = mov.Synopsis;
+                                movieSearchIndex.Link = mov.UniqueName;
+                                LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                             }
                             catch (Exception e)
                             {
@@ -138,16 +145,6 @@ namespace MvcWebRole2.Controllers
                         }
                     }
                 }
-
-                /*if (processedList.Count > 0)
-                {
-                    foreach (string name in processedList)
-                    {
-                        XmlNode node = xdoc.SelectSingleNode("MovieList/Movies/Month/Movie[@link='" + name + "']");
-                        xdoc.RemoveChild(node);
-                    }
-                }*/
-
             }
             catch (Exception ex)
             {

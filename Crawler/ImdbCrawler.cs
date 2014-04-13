@@ -8,6 +8,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Net;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace MovieCrawler
 {
@@ -725,16 +726,28 @@ namespace MovieCrawler
             tempImageName += "-poster-*";
             int maxId = 0;
 
-            DirectoryInfo dir = new DirectoryInfo(Path.Combine(Path.Combine(ConfigurationSettings.AppSettings["ImagePath"], "Posters"), "Images"));
-            FileInfo[] files = dir.GetFiles(tempImageName);
-            foreach (FileInfo file in files)
+            try
             {
-                int id = 0;
-                string fileName = file.Name.Substring(file.Name.LastIndexOf("-") + 1);
-                fileName = fileName.Substring(0, fileName.IndexOf("."));
-                int.TryParse(fileName, out id);
-                if (id > maxId)
-                    maxId = id;
+                string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+                Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+                tempImageName = r.Replace(tempImageName, "");
+
+                DirectoryInfo dir = new DirectoryInfo(Path.Combine(Path.Combine(ConfigurationSettings.AppSettings["ImagePath"], "Posters"), "Images"));
+                FileInfo[] files = dir.GetFiles(tempImageName);
+                foreach (FileInfo file in files)
+                {
+                    int id = 0;
+                    string fileName = file.Name.Substring(file.Name.LastIndexOf("-") + 1);
+                    fileName = fileName.Substring(0, fileName.IndexOf("."));
+                    int.TryParse(fileName, out id);
+                    if (id > maxId)
+                        maxId = id;
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Debug.WriteLine("An error occurred while getting the max poster count for movie named - " + movieName);
             }
 
             return maxId + 1;
