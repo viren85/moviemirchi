@@ -43,8 +43,6 @@ var MOVIES = [];
 function onSuccessLoadCurrentMovies(result) {
     result = JSON.parse(result);
 
-    console.log(result);
-
     if (result.length > 0) {
 
         MOVIES = result;
@@ -53,19 +51,27 @@ function onSuccessLoadCurrentMovies(result) {
         for (var i = 0; i < result.length; i++) {
             PopulatingMovies(result[i]);
             PopulatingMoviesTitle(result[i]);
-            if (i == 4)
+            if (i == 2)
                 break;
         }
 
-        if (result.length > 5) {
+        if (result.length > 3) {
             $("#nextMovies").show();
             //$("#previousMovies").show();
         }
+
+        var width = $(document).width();
+
+        $(".movie-list").find("img").each(function () {
+            var ratio = this.width / this.height;
+            var newWidth = 400 * ratio;
+            $(this).width(newWidth + "px").height("400px");
+        });
     }
 }
-var MovieCounter = 5;
+var MovieCounter = 3;
 var MovieIndexer = 0;
-var Movie = 5;
+var Movie = 3;
 function NextMovies() {
     if (MovieIndexer < MOVIES.length) {
         $("#previousMovies").show();
@@ -80,15 +86,26 @@ function NextMovies() {
             $("#nextMovies").hide();
         }
 
+        var movieContainer = $(".movie-list ul");
+        $(movieContainer).html("");
+
         for (var i = MovieIndexer; i < MOVIES.length; i++) {
             MovieCounter++;
             PopulatingMovies(MOVIES[i]);
             PopulatingMoviesTitle(MOVIES[i]);
 
-            if (MovieCounter % 5 == 0) {
+            if (MovieCounter % 3 == 0) {
                 break;
             }
         }
+
+        var width = $(document).width();
+
+        $(".movie-list").find("img").each(function () {
+            var ratio = this.width / this.height;
+            var newWidth = 400 * ratio;
+            $(this).width(newWidth + "px").height("400px");
+        });
     }
 }
 function PreviousMovies() {
@@ -100,7 +117,10 @@ function PreviousMovies() {
         $("#currentmovie").html("");
         $("#movieTitle").html("");
 
-        if (Movie == 5) {
+        var movieContainer = $(".movie-list ul");
+        $(movieContainer).html("");
+
+        if (Movie == 3) {
             $("#previousMovies").hide();
         }
 
@@ -113,7 +133,7 @@ function PreviousMovies() {
                 $("#previousMovies").hide();
             }*/
 
-            if (MovieCounter % 5 == 0) {
+            if (MovieCounter % 3 == 0) {
                 break;
             }
         }
@@ -125,31 +145,45 @@ function PreviousMovies() {
     if (MovieIndexer < 0) {
         MovieIndexer = 0;
     }
+
+    var width = $(document).width();
+
+    $(".movie-list").find("img").each(function () {
+        var ratio = this.width / this.height;
+        var newWidth = 400 * ratio;
+        $(this).width(newWidth + "px").height("400px");
+    });
 }
 
 function PopulatingMovies(movie) {
-    var movieContainer = $("#currentmovie");
+    var movieContainer = $(".movie-list ul");
 
     var img = $("<img/>")
-    img.attr("class", "img-thumbnail");
-    img.attr("style", "width: 19%; height: 150px;margin-right: 1%");
-    img.attr("data-src", "holder.js/200x200");
+    //img.attr("class", "img-thumbnail");
+    //img.attr("style", "width: 19%; height: 150px;margin-right: 1%");
+    //img.attr("data-src", "holder.js/200x200");
     img.attr("alt", movie.Name);
 
     var poster = [];
     poster = JSON.parse(movie.Posters);
 
-    console.log(poster);
-
-    img.attr("src", poster[0].url);
+    if (poster != null && poster.length > 0) {
+        img.attr("src", "/Posters/Images/" + poster[poster.length - 1]);
+    }
+    else {
+        img.attr("src", "/Posters/Images/default-movie.jpg");
+    }
 
     var anchor = $("<a/>");
+    var list = $("<li/>");
     //anchor.attr("href", "Movie?name=" + movie.UniqueName);
     anchor.attr("href", "Movie/" + movie.UniqueName);
-    anchor.attr("title", movie.Name)
+    anchor.attr("title", movie.Name);
     anchor.append(img);
 
-    movieContainer.append(anchor);
+    list.append(anchor);
+
+    movieContainer.append(list);
 }
 
 function PopulatingMoviesTitle(movieTitle) {
@@ -241,8 +275,20 @@ function onSuccessLoadSingleMovie(result) {
 
         if (songs.length > 0) {
             for (var s = 0; s < songs.length; s++) {
-                
-                songsList += "<li class='song-item'><div class='song-details'><span>Title: </span>" + songs[s].SongTitle + "</div><div class='song-details'><span>Performer: </span>" + songs[s].Performer + "</div><div class='song-details'><span>Lyrics: </span>" + songs[s].Lyrics + "</div></li>";
+                if (songs[s].SongTitle != "") {
+                    songsList += "<li class='song-item'>";
+                    songsList += "<div class='song-details'><span>Title: </span>" + songs[s].SongTitle + "</div>";
+
+                    if (songs[s].Performer != "") {
+                        songsList += "<div class='song-details'><span>Performer: </span>" + songs[s].Performer + "</div>";
+                    }
+
+                    if (songs[s].Lyrics != "") {
+                        songsList += "<div class='song-details'><span>Lyrics: </span>" + songs[s].Lyrics + "</div>";
+                    }
+
+                    songsList += "</li>";
+                }
             }
         }
 
@@ -261,6 +307,7 @@ function onSuccessLoadSingleMovie(result) {
         if (producers.length > 0) {
             producers = producers.substring(0, producers.lastIndexOf(","));
         }
+
 
         $("#director").html("<span class='role-name'>Director:</span><span class='role-details'>" + directors + "</span>");
         $("#writer").html("<span class='role-name'>Writer :</span><span class='role-details'>" + writers + "</span>");
@@ -364,7 +411,8 @@ function onSuccessLoadSingleMovie(result) {
             var newWidth = 200 * ratio;
             $(this).width(newWidth + "px").height("200px");
         });
-        //Page.init();
+
+        Page.init();
     }
 }
 
@@ -1422,7 +1470,7 @@ function ShowSuccessMessageLogin(result) {
 
 
 function ClearLoginformData() {
-    
+
     $("#signin_email").val("");
     $("#signin_password").val("");
     $("#loginError").hide("");

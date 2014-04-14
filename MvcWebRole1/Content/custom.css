@@ -1,7 +1,9 @@
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
+
 html {
     height: 100%;
 }
+
 *,
 *:after,
 *:before {
@@ -53,6 +55,7 @@ a {
     width: 100%;
     height: 100%;
     overflow: hidden !important;
+    margin-top: 1%;
 }
 
 .movie-container {
@@ -193,6 +196,7 @@ a {
     position: relative;
     width: 100%;
     -webkit-font-smoothing: subpixel-antialiased;
+    height: 550px !important;
 }
 
 .content p {
@@ -201,32 +205,39 @@ a {
     padding: 5px 0%;
     text-align: justify;
 }
-.story-plot{
+
+.story-plot {
     float: left;
     width: 60%;
 }
-.star{
+
+.star {
     float: left;
     width: 16%;
 }
-.star-image{
+
+.star-image {
     float: left;
     border: 0px;
     margin-right: 2px;
     width: 16px;
     height: 16px;
 }
-#castdetails{
+
+#castdetails {
     float: left;
     width: 60%;
 }
+
 .content a {
     color: #2793e6;
     text-decoration: none;
 }
+
     .content a:hover {
-    text-decoration: underline;
+        text-decoration: underline;
     }
+
 .movie-content-heading {
     margin-top: 2%;
     color: goldenrod;
@@ -237,6 +248,7 @@ a {
     margin-top: 2%;
     width: 60%;
 }
+
 .content-writup {
     padding-bottom: 4% !important;
 }
@@ -310,8 +322,7 @@ a {
 
 .movie-panel {
     float: left;
-    margin: 1%;
-    width: 98%;
+    width: 100%;
     height: 90%;
 }
 
@@ -320,6 +331,7 @@ a {
     width: 100%;
     margin-top: 10px;
 }
+
 .left-content {
     float: left;
     width: 25%;
@@ -338,14 +350,17 @@ a {
     margin-right: 1%;
     margin-bottom: 1%;
 }
-.role-name{
+
+.role-name {
     float: left;
     width: 100px;
 }
+
 .role-details {
     float: left;
     width: 85%;
 }
+
 .home-poster {
     float: left;
     width: 75%;
@@ -384,6 +399,7 @@ a {
     font-family: Segoe UI;
     /*background-image: url(../Images/star-rating.png)*/
 }
+
 .section-header, .class-container-header {
     float: left;
     width: 60%;
@@ -391,75 +407,144 @@ a {
     font-family: 'Segoe UI';
     margin-top: 10px;
 }
-.class-container-header { width: 100%;}
+
+.class-container-header {
+    width: 100%;
+}
+
 .cast-container ul {
-float: left;
-list-style: none;
-width: 90%;
-margin-right: 10%;
+    float: left;
+    list-style: none;
+    width: 90%;
+    margin-right: 10%;
 }
-.cast-item { float: left; width: 100%; }
-.cast-item:hover {background-color:#EEE;}
-.cast-details {float: left; min-width: 100px;}
-.cast-details a { cursor: pointer; }
-    .cast-details a:hover {
-        text-decoration: underline;
+
+.cast-item {
+    float: left;
+    width: 100%;
+}
+
+    .cast-item:hover {
+        background-color: #EEE;
     }
-.cast-details-right {float: right;}
+
+.cast-details {
+    float: left;
+    min-width: 100px;
+}
+
+    .cast-details a {
+        cursor: pointer;
+    }
+
+        .cast-details a:hover {
+            text-decoration: underline;
+        }
+
+.cast-details-right {
+    float: right;
+}
+
 .person-details {
-float: left;
-width: 50%;
+    float: left;
+    width: 50%;
 }
+
 #music-details {
-float: left;
- width: 65%;
+    float: left;
+    width: 65%;
 }
+
 .song-item {
-float: left; 
-width: 35%;
-margin: 1%;
-margin-left: 0%;
-min-height: 100px;
-padding: 1%;
-border: 1px solid #999;
+    float: left;
+    width: 35%;
+    margin: 1%;
+    margin-left: 0%;
+    min-height: 100px;
+    padding: 1%;
+    border: 1px solid #999;
 }
-.song-item:hover{
-    background-color: #EEE;
-}
+
+    .song-item:hover {
+        background-color: #EEE;
+    }
+
 .song-details {
     float: left;
     width: 100%;
 }
+
 .gallery-image {
     float: left;
     padding: 5px;
     background-color: White;
 }
-#director, #writer , #producer, #music, #stats{
+
+#director, #writer, #producer, #music, #stats {
     float: left;
     width: 60%;
     padding: 5px;
     padding-left: 0px;
 }
-#director:hover, #writer:hover , #producer:hover, #music:hover, #stats:hover
-{
-    background-color: #EEE;
-}
-.team-item{
+
+    #director:hover, #writer:hover, #producer:hover, #music:hover, #stats:hover {
+        background-color: #EEE;
+    }
+
+.team-item {
     float: left;
     margin-right: 10px;
 }
+
     .team-item a {
-    cursor: pointer;
+        cursor: pointer;
     }
+
 #imagearea {
     margin: 0% 6% 0% 6%;
 }
 
-#imagearea img:hover {
-  background-color: #2793e6;
+    #imagearea img:hover {
+        background-color: #2793e6;
+    }
+
+.banner {
+    float: left;
+    width: 100%;
+    text-align: center;
 }
 
+    .banner img {
+        width: 100%;
+        height: 550px;
+    }
+
+.movie-list {
+    float: left;
+    width: 80%;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 10%;
+}
+
+    .movie-list ul {
+        float: left;
+        list-style: none;
+        padding: 0px;
+        margin: 0px;
+        width: 100%;
+    }
+
+        .movie-list ul li {
+            float: left;
+            list-style: none;
+            width: 30%;
+            margin-right: 3%;
+        }
+        .movie-list ul li img {
+            float: left;
+            border: 0px;
+        }
 @media screen and (max-width: 800px) {
     .no-js .menu-panel {
         display: none;

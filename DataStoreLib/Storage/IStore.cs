@@ -206,13 +206,17 @@ namespace DataStoreLib.Storage
 
             foreach (var currentMovie in retList.Values)
             {
+                
+                currentMovies.Add(currentMovie);
+                /*
                 string currentMonth = DateTime.Now.ToString("MMMM");
                 string year = DateTime.Now.Year.ToString();
-
+                
+                 
                 if (currentMovie.Month == currentMonth && currentMovie.Year == year)
                 {
                     currentMovies.Add(currentMovie);
-                }
+                }*/
             }
 
             return currentMovies;

@@ -1,73 +1,100 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_MovieMirchiLayout.cshtml";
+    //Layout = "~/Views/Shared/_MovieMirchiLayout.cshtml";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
-
-
-<div class="banner">
-    <img src="~/Images/banner-images/ramaiya-vastavaiya.jpg" />
-    <img src="~/Images/banner-images/02-purani-jeans.jpg" />
-    <img src="~/Images/banner-images/02-states.jpg" />
-    <img src="~/Images/banner-images/7-khoon-maaf.jpg" />
-    <img src="~/Images/banner-images/purani-jeans.jpg" />
-</div>
-<div class="movies">
-    <div class="movies-header">
-        Recent Releases
-    </div>
-    <div class="movie-list">
-        <ul>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/02-purani-jeans.jpg" />
+<style>
+    .movie-panel {
+        overflow-y: auto !important;
+    }
+</style>
+<div class="content">
+    <div class="scroller">
+        <div class="banner">
+            <img src="~/Images/banner-images/7-khoon-maaf.jpg" />
+        </div>
+        <div class="movies">
+            <div class="review-navigation">
+                <div title="Previous" id="previousMovies" class="previous-movies" style="display:none" onclick="PreviousMovies();">
+                    <img src="~/Images/pervious.png" alt="pervious" />
                 </div>
-            </li>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/02-states.jpg" />
+                <div title="Next" id="nextMovies" class="next-movies" style="display:none" onclick="NextMovies();">
+                    <img src="~/Images/next.png" alt="next" />
                 </div>
-            </li>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/youngistan.jpg" />
-                </div>
-            </li>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/gang-of-ghosts.jpg" />
-                </div>
-            </li>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/revolver-rani.jpg" />
-                </div>
-            </li>
-        </ul>
+            </div>
+            <div class="movie-name" style="margin-left: 10%;">
+                Recent Releases
+            </div>
+            <div class="movie-list">
+                <ul>
+                    
+                </ul>
+            </div>
+        </div>
     </div>
 </div>
+<script>
+    $(document).ready(function () {
+        LoadCurrentMovies();
+    });
+</script>
+@*<div class="movies">
+        <div class="movies-header">
+            Recent Releases
+        </div>
+        <div class="movie-list">
+            <ul>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/02-purani-jeans.jpg" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/02-states.jpg" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/youngistan.jpg" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/gang-of-ghosts.jpg" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/revolver-rani.jpg" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
 
 
-<div class="movies">
-    <div class="movies-header">
-        Popular on Movie Mirchi
-    </div>
-    <div class="movie-list">
-        <ul>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/tees-maar-khan.png" />
-                </div>
-            </li>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/7-khoon-maaf.jpg" />
-                </div>
-            </li>
-            <li>
-                <div>
-                    <img src="~/Images/banner-images/ramaiya-vastavaiya.jpg" />
-                </div>
-            </li>
-        </ul>
-    </div>
-</div>
+    <div class="movies">
+        <div class="movies-header">
+            Popular on Movie Mirchi
+        </div>
+        <div class="movie-list">
+            <ul>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/tees-maar-khan.png" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/7-khoon-maaf.jpg" />
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <img src="~/Images/banner-images/ramaiya-vastavaiya.jpg" />
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>*@

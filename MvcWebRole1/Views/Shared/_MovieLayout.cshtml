@@ -24,9 +24,9 @@
     @Styles.Render("~/Content/jquery.jscrollpane.custom.css")
     @Styles.Render("~/Content/bookblock.css")
     @Styles.Render("~/Content/custom.css")
-    
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-    
+
     @Scripts.Render("~/Content/modernizr.custom.js")
 
     <script type="text/javascript">
@@ -73,35 +73,59 @@
                     //Removing previously added li elements to the list.
                     $("#targetUL").find("li").remove();
                     //We are iterating over the list returned by the json and for each element we are creating a li element and appending the li element to ul element.
+                    var searchResultCounter = 0;
+
                     $.each(data, function (i, value) {
                         //On click of li element we are calling a method.
-                        var li = $("<li>");
-                        var divImage = $("<div>");
-                        $(divImage).attr("style", "width: 15%;float: left;");
-                        var img = $("<img/>")
-                        img.attr("class", "img-thumbnail");
-                        img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
-                        img.attr("data-src", "holder.js/200x200");
-                        img.attr("src", value.TitleImageURL);
-                        divImage.append(img);
+                        if (searchResultCounter < 6) {
+                            searchResultCounter++;
+                            var li = $("<li>");
+                            var divImage = $("<div>");
+                            $(divImage).attr("style", "min-width: 15%; min-height: 50px; float: left;");
+                            var img = $("<img/>")
+                            img.attr("class", "img-thumbnail");
+                            img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
+                            //img.attr("data-src", "holder.js/200x200");
+                            //img.attr("src", value.TitleImageURL);
 
-                        var divTitleDesc = $("<div>");
-                        $(divTitleDesc).attr("style", "width: 80%;float: left;");
+                            var description = JSON.parse(value.Description);
 
-                        $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + value.Description + "</span>");
+                            var actors = "";
 
-                        var anchor = $("<a>");
-                        $(anchor).attr("href", value.Link);
+                            for (var i = 0; i < description.length; i++) {
+                                actors += description[i] + ", ";
+                            }
 
-                        $(anchor).append(divImage);
-                        $(anchor).append(divTitleDesc);
+                            if (actors.length > 0) {
+                                actors = actors.substring(0, actors.lastIndexOf(","));
+                            }
 
-                        $(li).append(anchor);
+                            if (value.TitleImageURL != "") {
+                                img.attr("src", "/Posters/Images/" + value.TitleImageURL);
+                            }
+                            else {
+                                img.attr("src", "/Posters/Images/default-movie.jpg");
+                            }
 
-                        $("#targetUL").append(li);
+                            divImage.append(img);
 
-                        //$("#targetUL").append($("<li class='targetLI' onclick='javascript:appendTextToTextBox(this)'>" + value.Title + "</li>"));
+                            var divTitleDesc = $("<div>");
+                            $(divTitleDesc).attr("style", "width: 80%;float: left;");
 
+                            $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + actors + "</span>");
+
+                            var anchor = $("<a>");
+                            $(anchor).attr("href", "/Movie/" + value.Link);
+
+                            $(anchor).append(divImage);
+                            $(anchor).append(divTitleDesc);
+
+                            $(li).append(anchor);
+
+                            $("#targetUL").append(li);
+
+                            //$("#targetUL").append($("<li class='targetLI' onclick='javascript:appendTextToTextBox(this)'>" + value.Title + "</li>"));
+                        }
                     });
                 }
             }

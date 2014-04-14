@@ -43,8 +43,6 @@ namespace MvcWebRole2.Controllers
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 MovieEntity movie = json.Deserialize(hfMovie, typeof(MovieEntity)) as MovieEntity;
                 
-                
-
                 if (movie != null)
                 {
                     string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
@@ -52,8 +50,6 @@ namespace MvcWebRole2.Controllers
                     var tableMgr = new TableManager();
                     //MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(movie.Name);
                     MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(uniqueName);
-
-                    
 
                     if (oldEntity != null)
                     {
@@ -96,9 +92,7 @@ namespace MvcWebRole2.Controllers
                             actors.Add(actor.name);
                         }
                     }
-
                 }
-
             }
             catch (Exception ex)
             {

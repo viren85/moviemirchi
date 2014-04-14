@@ -32,8 +32,13 @@ namespace MovieCrawler
             //movie.Casts = GetMovieCast(body);
             //movie.Posters = GetMoviePoster(body);
             //movie.Songs = GetMovieSongs(body);
-            //movie.Trailers = GetMovieTrailers(body);
-            //movie.Pictures = GetMoviePictures(body);
+            movie.Trailers = string.Empty;
+            movie.Pictures = string.Empty;
+
+            movie.Name = movie.Name.Replace(":", "");
+            movie.AltNames = movie.AltNames.Replace(":", "");
+            movie.UniqueName = movie.UniqueName.Replace(":", "");
+
             return movie;
         }
 
@@ -236,12 +241,12 @@ namespace MovieCrawler
                                 string courtsey = string.Empty;
 
                                 GetSongDetails(song, out title, out lyrics, out composer, out performer, out recite, out courtsey);
-                                songDetail.SongTitle = title.Trim();
-                                songDetail.Lyrics = lyrics.Trim();
-                                songDetail.Composed = composer.Trim();
-                                songDetail.Performer = performer.Trim();
-                                songDetail.Recite = recite.Trim();
-                                songDetail.Courtsey = courtsey.Trim();
+                                songDetail.SongTitle = title.Replace(":", "").Replace(",", "").Trim();
+                                songDetail.Lyrics = lyrics.Replace(":", "").Replace(",", "").Trim();
+                                songDetail.Composed = composer.Replace(":", "").Replace(",", "").Trim();
+                                songDetail.Performer = performer.Replace(":", "").Replace(",", "").Trim();
+                                songDetail.Recite = recite.Replace(":", "").Replace(",", "").Trim();
+                                songDetail.Courtsey = courtsey.Replace(":", "").Replace(",", "").Trim();
 
                                 if (!title.Contains("It looks like we don't have any Soundtracks for this title yet."))
                                     songs.Add(songDetail);
@@ -648,6 +653,11 @@ namespace MovieCrawler
                 tempImageName = movieName.Replace(" ", "-").ToLower();
                 tempImageName += "-poster-";
 
+                string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
+                Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+                tempImageName = r.Replace(tempImageName, "");
+
+
                 if (isThumbnail)
                 {
                     tempImageName += "thumb-";
@@ -690,18 +700,16 @@ namespace MovieCrawler
                             Cast cast = new Cast();
                             cast.role = roleName;
 
-
-
                             foreach (HtmlNode node in nameNodes)
                             {
                                 if (node.Attributes["itemprop"] != null && node.Attributes["itemprop"].Value == "actor")
                                 {
                                     var link = node.Element("a");
-                                    cast.name = link.InnerText;
+                                    cast.name = link.InnerText.Replace("&", "").Trim();
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "character")
                                 {
-                                    cast.charactername = node.InnerText;
+                                    cast.charactername = node.InnerText.Replace("&", "").Trim(); ;
                                 }
                             }
 

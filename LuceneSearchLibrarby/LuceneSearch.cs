@@ -13,6 +13,7 @@ using Lucene.Net.Store;
 using Version = Lucene.Net.Util.Version;
 using Lucene.Net.QueryParsers;
 using Lucene.Net.Analysis;
+using System.Configuration;
 
 namespace LuceneSearchLibrarby
 {
@@ -21,7 +22,7 @@ namespace LuceneSearchLibrarby
         /// <summary>
         /// We have added Lucene search index directory handler to make our LuceneSearch class ready to have search methods added.
         /// </summary>        
-        private static string _luceneDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "lucene_index");
+        private static string _luceneDir = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "lucene_index");
         private static FSDirectory _directoryTemp;
         private static FSDirectory _directory
         {

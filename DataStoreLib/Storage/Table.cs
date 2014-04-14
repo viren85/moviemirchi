@@ -105,12 +105,15 @@ namespace DataStoreLib.Storage
 
             foreach (var tableResult in movieResults)
             {
-                TEntity entity = null;
+                if (tableResult.MovieId != null)
+                {
+                    TEntity entity = null;
 
-                entity = tableResult as TEntity;
+                    entity = tableResult as TEntity;
 
-                returnDict.Add(tableResult.MovieId, entity);
-                iter++;
+                    returnDict.Add(tableResult.MovieId, entity);
+                    iter++;
+                }
             }
 
             return returnDict;

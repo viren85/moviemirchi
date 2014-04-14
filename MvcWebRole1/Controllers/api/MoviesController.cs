@@ -32,7 +32,7 @@ namespace MvcWebRole1.Controllers.api
                 var movies = new List<MovieEntity>();
 
                 string type = "all";
-                int resultLimit = 100;
+                int resultLimit = 15;
 
                 // get query string parameters
                 var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);

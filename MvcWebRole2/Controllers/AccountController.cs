@@ -100,6 +100,7 @@ namespace MvcWebRole2.Controllers
         public void Crawl()
         {
             Crawler.MovieCrawler movieCrawler = new Crawler.MovieCrawler();
+            JavaScriptSerializer json = new JavaScriptSerializer();
 
             SetConnectionString();
             CreatePosterDirectory();
@@ -126,15 +127,42 @@ namespace MvcWebRole2.Controllers
                             {
                                 MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                                 TableManager tblMgr = new TableManager();
+                                string posterUrl = string.Empty;
+
                                 tblMgr.UpdateMovieById(mov);
+
+
+                                List<Cast> casts = json.Deserialize(mov.Casts, typeof(List<Cast>)) as List<Cast>;
+                                List<String> posters = json.Deserialize(mov.Posters, typeof(List<String>)) as List<String>;
+                                List<String> actors = new List<string>();
+
+                                if (casts != null)
+                                {
+                                    int actorCount = 0;
+                                    foreach (var actor in casts)
+                                    {
+                                        if (actor.role.ToLower() == "actor" && actorCount < 6)
+                                            actors.Add(actor.name);
+
+                                        actorCount++;
+
+                                        if (actorCount > 6)
+                                            break;
+                                    }
+                                }
+
+                                if (posters != null && posters.Count > 0)
+                                {
+                                    posterUrl = posters[posters.Count - 1];
+                                }
 
                                 MovieSearchData movieSearchIndex = new MovieSearchData();
                                 movieSearchIndex.Id = mov.RowKey;
                                 movieSearchIndex.Title = mov.Name;
                                 movieSearchIndex.Type = mov.Genre;
-                                movieSearchIndex.TitleImageURL = mov.Posters;
+                                movieSearchIndex.TitleImageURL = posterUrl;
                                 movieSearchIndex.UniqueName = mov.UniqueName;
-                                movieSearchIndex.Description = mov.Synopsis;
+                                movieSearchIndex.Description = json.Serialize(actors);
                                 movieSearchIndex.Link = mov.UniqueName;
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                             }

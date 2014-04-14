@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Movies year="2013">
   <Month name="July">
-    <!--<Movie name="Lootera" link="http://www.imdb.com/title/tt2224317/"/>-->
+    <Movie name="Lootera" link="http://www.imdb.com/title/tt2224317/"/>
     <Movie name="Policegiri" link="http://www.imdb.com/title/tt2861320/"/>
     <Movie name="Bhaag Milkha Bhaag" link="http://www.imdb.com/title/tt2356180/"/>
     <Movie name="Sixteen" link="http://www.imdb.com/title/tt2976172/"/>
