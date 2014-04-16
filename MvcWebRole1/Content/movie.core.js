@@ -49,8 +49,11 @@ function onSuccessLoadCurrentMovies(result) {
 
         // adding images        
         for (var i = 0; i < result.length; i++) {
-            PopulatingMovies(result[i]);
-            PopulatingMoviesTitle(result[i]);
+            var list = PopulatingMovies(result[i]);
+            PopulatingMoviesTitle(result[i], list);
+
+            //$(list).append(movie);
+
             if (i == 2)
                 break;
         }
@@ -66,6 +69,19 @@ function onSuccessLoadCurrentMovies(result) {
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
+            /*$(this).parent().parent().find(".movie-title").each(function () {
+                $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
+            });*/
+        });
+
+        $(".movie-poster").hover(function () {
+            $(this).css("-webkit-transform", "scale(1.5)");
+            $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
+        },
+        function () {
+            $(this).css("-webkit-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
+            //$(".movie-title").css("-webkit-transform", "scale(1.5)").css("background-color", "#333").css("opacity", "0.7");
+            $(this).css("box-shadow", "none");
         });
     }
 }
@@ -105,6 +121,15 @@ function NextMovies() {
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
+        });
+
+        $(".movie-poster").hover(function () {
+            $(this).css("-webkit-transform", "scale(1.5)");
+            $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
+        },
+        function () {
+            $(this).css("-webkit-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
+            $(this).css("box-shadow", "none");
         });
     }
 }
@@ -153,6 +178,15 @@ function PreviousMovies() {
         var newWidth = 400 * ratio;
         $(this).width(newWidth + "px").height("400px");
     });
+
+    $(".movie-poster").hover(function () {
+        $(this).css("-webkit-transform", "scale(1.5)");
+        $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
+    },
+        function () {
+            $(this).css("-webkit-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
+            $(this).css("box-shadow", "none");
+        });
 }
 
 function PopulatingMovies(movie) {
@@ -174,8 +208,12 @@ function PopulatingMovies(movie) {
         img.attr("src", "/Posters/Images/default-movie.jpg");
     }
 
+    img.attr("class", "movie-poster");
+
     var anchor = $("<a/>");
     var list = $("<li/>");
+
+    list.attr("class", "movie")
     //anchor.attr("href", "Movie?name=" + movie.UniqueName);
     anchor.attr("href", "Movie/" + movie.UniqueName);
     anchor.attr("title", movie.Name);
@@ -184,18 +222,16 @@ function PopulatingMovies(movie) {
     list.append(anchor);
 
     movieContainer.append(list);
+    return list;
 }
 
-function PopulatingMoviesTitle(movieTitle) {
+function PopulatingMoviesTitle(movieTitle, parentElment) {
     var name = $("<div/>");
+    var movieName = $("<span/>");
     name.attr("class", "movie-title");
-    name.attr("style", "margin-right: 1%;");
-    //name.html("<a href='Movie?name=" + movieTitle.UniqueName + "'>" + movieTitle.Name + "</a>");
-    name.html("<a href='Movie/" + movieTitle.UniqueName + "'>" + movieTitle.Name + "</a>");
-
-    var parent = $("#movieTitle");
-
-    parent.append(name);
+    movieName.html(movieTitle.Name).attr("style", "position: absolute;z-index: 2;color: white;font-size: 24px;text-align: center;width: 18%;margin-top: 20%;");
+    //parentElment.append(name);
+    //parentElment.append(movieName);
 }
 
 function LoadSingleMovie(movieId) {
@@ -226,6 +262,9 @@ function onSuccessLoadSingleMovie(result) {
                 $("#imagearea").append(img);
             }
         }
+        /*else if (poster.length < 2) {
+            $("#imagearea").parent(".bb-item").remove();
+        }*/
 
         $("div.genre").html(result.Movie.Genre);
         $("p.story-plot").html(result.Movie.Synopsis);
@@ -244,23 +283,23 @@ function onSuccessLoadSingleMovie(result) {
         if (casts.length > 0) {
             for (var c = 0; c < casts.length; c++) {
 
-                if (casts[c].role.toLowerCase() == "director") {
+                if (casts[c].role.toLowerCase() == "director" && casts[c].name != null) {
                     if (casts[c].charactername == null) {
                         directors += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
                         directorsList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
                     }
                 }
-                else if (casts[c].role.toLowerCase() == "writer") {
+                else if (casts[c].role.toLowerCase() == "writer" && casts[c].name != null) {
                     writers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
                     writerList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
                 }
-                else if (casts[c].role.toLowerCase() == "music") {
+                else if (casts[c].role.toLowerCase() == "music" && casts[c].name != null) {
                     if (casts[c].charactername == null) {
                         music += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
                         musicList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
                     }
                 }
-                else if (casts[c].role.toLowerCase() == "producer") {
+                else if (casts[c].role.toLowerCase() == "producer" && casts[c].name != null) {
                     if (casts[c].charactername == "producer") {
                         producers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
                         producersList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
@@ -291,6 +330,11 @@ function onSuccessLoadSingleMovie(result) {
                 }
             }
         }
+        /*else {
+            var musicNode = $("#music-details");
+            var par = $(musicNode).parent().parent().parent();
+            $(par).remove();
+        }*/
 
         if (directors.length > 0) {
             directors = directors.substring(0, directors.lastIndexOf(","));

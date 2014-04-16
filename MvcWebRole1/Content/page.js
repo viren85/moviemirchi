@@ -41,7 +41,7 @@ var Page = (function () {
     function init() {
 
         // initialize jScrollPane on the content div of the first item
-        //setJSP('init');
+        setJSP('init');
         initEvents();
 
     }
@@ -80,11 +80,13 @@ var Page = (function () {
             if (e.originalEvent.wheelDelta < 0) {
                 //scroll down
                 //console.log('Down');
-                $navNext.click();
+                if (current < $(".bb-bookblock .bb-item").length - 1)
+                    $navNext.click();
             } else {
                 //scroll up
                 //console.log('Up');
-                $navPrev.click();
+                if (current > 0)
+                    $navPrev.click();
             }
 
             //prevent page fom scrolling

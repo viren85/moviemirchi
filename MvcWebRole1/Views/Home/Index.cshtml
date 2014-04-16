@@ -9,27 +9,32 @@
     }
 </style>
 <div class="content">
-    <div class="scroller">
-        <div class="banner">
-            <img src="~/Images/banner-images/7-khoon-maaf.jpg" />
+    <div class="banner">
+        <img src="~/Images/banner-images/movies-collage.jpg" />
+        <div class="banner-layer"></div>
+        <div class="home-search-bar">
+            <div class="input-group">
+                <div id="targetDiv">
+                    <input type="text" class="form-control" placeholder="Search Movies, Actors, Celebrities..." id="home-search" name="query" value="" autocomplete="off">
+                    <div id="search-results"></div>
+                </div>
+            </div>
         </div>
-        <div class="movies">
-            <div class="review-navigation">
-                <div title="Previous" id="previousMovies" class="previous-movies" style="display:none" onclick="PreviousMovies();">
-                    <img src="~/Images/pervious.png" alt="pervious" />
-                </div>
-                <div title="Next" id="nextMovies" class="next-movies" style="display:none" onclick="NextMovies();">
-                    <img src="~/Images/next.png" alt="next" />
-                </div>
+    </div>
+    <div class="movies">
+        <div class="review-navigation">
+            <div title="Previous" id="previousMovies" class="previous-movies" style="display:none" onclick="PreviousMovies();">
+                <img src="~/Images/pervious.png" alt="pervious" />
             </div>
-            <div class="movie-name" style="margin-left: 10%;">
-                Recent Releases
+            <div title="Next" id="nextMovies" class="next-movies" style="display:none" onclick="NextMovies();">
+                <img src="~/Images/next.png" alt="next" />
             </div>
-            <div class="movie-list">
-                <ul>
-                    
-                </ul>
-            </div>
+        </div>
+        <div class="movie-name" style="margin-left: 10%;">
+            Recent Releases
+        </div>
+        <div class="movie-list">
+            <ul></ul>
         </div>
     </div>
 </div>
@@ -38,63 +43,3 @@
         LoadCurrentMovies();
     });
 </script>
-@*<div class="movies">
-        <div class="movies-header">
-            Recent Releases
-        </div>
-        <div class="movie-list">
-            <ul>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/02-purani-jeans.jpg" />
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/02-states.jpg" />
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/youngistan.jpg" />
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/gang-of-ghosts.jpg" />
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/revolver-rani.jpg" />
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-
-    <div class="movies">
-        <div class="movies-header">
-            Popular on Movie Mirchi
-        </div>
-        <div class="movie-list">
-            <ul>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/tees-maar-khan.png" />
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/7-khoon-maaf.jpg" />
-                    </div>
-                </li>
-                <li>
-                    <div>
-                        <img src="~/Images/banner-images/ramaiya-vastavaiya.jpg" />
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>*@
