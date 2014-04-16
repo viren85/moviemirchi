@@ -1,47 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DataStoreLib.Utils
 {
-    public class utils
-    {
-        public static List<string> GetListFromCommaSeparatedString(string str)
-        {
-            var retList = new List<string>();
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
 
-            if (!string.IsNullOrWhiteSpace(str))
+    public static class Utils
+    {
+        public static IEnumerable<string> GetListFromCommaSeparatedString(string source)
+        {
+            if (!string.IsNullOrWhiteSpace(source))
             {
-                string[] splitStr = str.Split(',');
-                foreach (var token in splitStr)
-                {
-                    retList.Add(token);
-                }
+                return source.Split(',');
             }
 
-            return retList;
+            return Enumerable.Empty<string>();
         }
 
-        public static string GetCommaSeparatedStringFromList(List<string> actors)
+        public static string GetCommaSeparatedStringFromList(IEnumerable<string> source)
         {
-            Debug.Assert(actors != null);
+            Debug.Assert(source != null);
 
-            StringBuilder sb = new StringBuilder("");
-
-            for (int iter = 0; iter < actors.Count; iter++)
-            {
-                sb.Append(actors[iter]);
-
-                if (iter != actors.Count - 1)
-                {
-                    sb.Append(",");
-                }
-            }
-
-            return sb.ToString();
+            return string.Join(",", source);
         }
     }
 }

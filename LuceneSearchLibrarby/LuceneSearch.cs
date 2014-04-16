@@ -24,6 +24,7 @@ namespace LuceneSearchLibrarby
         /// </summary>        
         private static string _luceneDir = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "lucene_index");
         private static FSDirectory _directoryTemp;
+
         private static FSDirectory _directory
         {
             get
@@ -42,7 +43,12 @@ namespace LuceneSearchLibrarby
 
                 if (File.Exists(lockFilePath))
                 {
-                    File.Delete(lockFilePath);
+                    try
+                    {
+                        File.Delete(lockFilePath);
+                    }
+                    catch (IOException)
+                    { }
                 }
 
                 return _directoryTemp;
@@ -83,16 +89,20 @@ namespace LuceneSearchLibrarby
         public static void AddUpdateLuceneIndex(IEnumerable<MovieSearchData> movieSearchDatas)
         {
             // init lucene
-            var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            //var analyzer = new WhitespaceAnalyzer();
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                // add data to lucene search index (replaces older entry if any)
-                foreach (var movieSearchData in movieSearchDatas) _addToLuceneIndex(movieSearchData, writer);
+                //var analyzer = new WhitespaceAnalyzer();
+                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                {
+                    // add data to lucene search index (replaces older entry if any)
+                    foreach (var movieSearchData in movieSearchDatas)
+                    {
+                        _addToLuceneIndex(movieSearchData, writer);
+                    }
 
-                // close handles
-                analyzer.Close();
-                writer.Dispose();
+                    // close handles
+                    analyzer.Close();
+                }
             }
         }
 
@@ -102,7 +112,7 @@ namespace LuceneSearchLibrarby
         /// <param name="movieSearchData"></param>
         public static void AddUpdateLuceneIndex(MovieSearchData movieSearchData)
         {
-            AddUpdateLuceneIndex(new List<MovieSearchData> { movieSearchData });
+            AddUpdateLuceneIndex(new MovieSearchData[] { movieSearchData });
         }
 
         /// <summary>
@@ -112,17 +122,18 @@ namespace LuceneSearchLibrarby
         public static void ClearLuceneIndexRecord(int record_id)
         {
             // init lucene
-            var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            //var analyzer = new WhitespaceAnalyzer();
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                // remove older index entry
-                var searchQuery = new TermQuery(new Term("Id", record_id.ToString()));
-                writer.DeleteDocuments(searchQuery);
+                //var analyzer = new WhitespaceAnalyzer();
+                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                {
+                    // remove older index entry
+                    var searchQuery = new TermQuery(new Term("Id", record_id.ToString()));
+                    writer.DeleteDocuments(searchQuery);
 
-                // close handles
-                analyzer.Close();
-                writer.Dispose();
+                    // close handles
+                    analyzer.Close();
+                }
             }
         }
 
@@ -134,22 +145,24 @@ namespace LuceneSearchLibrarby
         {
             try
             {
-                var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-                //var analyzer = new WhitespaceAnalyzer();
-                using (var writer = new IndexWriter(_directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
+                using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
                 {
-                    // remove older index entries
-                    writer.DeleteAll();
+                    //var analyzer = new WhitespaceAnalyzer();
+                    using (var writer = new IndexWriter(_directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
+                    {
+                        // remove older index entries
+                        writer.DeleteAll();
 
-                    // close handles
-                    analyzer.Close();
-                    writer.Dispose();
+                        // close handles
+                        analyzer.Close();
+                    }
                 }
             }
             catch (Exception)
             {
                 return false;
             }
+
             return true;
         }
 
@@ -184,16 +197,18 @@ namespace LuceneSearchLibrarby
 
         private static IEnumerable<MovieSearchData> _mapLuceneToDataList(IEnumerable<Document> hits)
         {
-            return hits.Select(_mapLuceneDocumentToData).ToList();
+            return hits.Select(_mapLuceneDocumentToData);
         }
+
         private static IEnumerable<MovieSearchData> _mapLuceneToDataList(IEnumerable<ScoreDoc> hits, IndexSearcher searcher)
         {
-            return hits.Select(hit => _mapLuceneDocumentToData(searcher.Doc(hit.Doc))).ToList();
+            return hits.Select(hit => _mapLuceneDocumentToData(searcher.Doc(hit.Doc)));
         }
 
         private static Query parseQuery(string searchQuery, QueryParser parser)
         {
-            Query query;
+            Query query = null;
+
             try
             {
                 query = parser.Parse(searchQuery.Trim());
@@ -202,79 +217,97 @@ namespace LuceneSearchLibrarby
             {
                 query = parser.Parse(QueryParser.Escape(searchQuery.Trim()));
             }
+
             return query;
         }
 
         private static IEnumerable<MovieSearchData> _search(string searchQuery, string searchField = "")
         {
             // validation
-            if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", "")))
-                return new List<MovieSearchData>();
+            if (string.IsNullOrEmpty(searchQuery.Replace("*", string.Empty).Replace("?", string.Empty)))
+            {
+                return Enumerable.Empty<MovieSearchData>();
+            }
 
             // set up lucene searcher
+            var results = Enumerable.Empty<MovieSearchData>();
             using (var searcher = new IndexSearcher(_directory, false))
             {
                 var hits_limit = 10;
-                var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-                //var analyzer = new WhitespaceAnalyzer();
+                using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
+                {
+                    //var analyzer = new WhitespaceAnalyzer();
 
-                // search by single field
-                if (!string.IsNullOrEmpty(searchField))
-                {
-                    var parser = new QueryParser(Version.LUCENE_30, searchField, analyzer);
-                    var query = parseQuery(searchQuery, parser);
-                    var hits = searcher.Search(query, hits_limit).ScoreDocs;
-                    var results = _mapLuceneToDataList(hits, searcher);
+                    // search by single field
+                    if (!string.IsNullOrEmpty(searchField))
+                    {
+                        var parser = new QueryParser(Version.LUCENE_30, searchField, analyzer);
+                        var query = parseQuery(searchQuery, parser);
+                        var hits = searcher.Search(query, hits_limit).ScoreDocs;
+                        results = _mapLuceneToDataList(hits, searcher);
+                    }
+                    // search by multiple fields (ordered by RELEVANCE)
+                    else
+                    {
+                        //var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
+                        var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description" }, analyzer);
+                        var query = parseQuery(searchQuery, parser);
+                        var hits = searcher.Search(query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;
+                        results = _mapLuceneToDataList(hits, searcher);
+                    }
+
                     analyzer.Close();
-                    searcher.Dispose();
-                    return results;
-                }
-                // search by multiple fields (ordered by RELEVANCE)
-                else
-                {
-                    //var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
-                    var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description" }, analyzer);
-                    var query = parseQuery(searchQuery, parser);
-                    var hits = searcher.Search
-                    (query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;
-                    var results = _mapLuceneToDataList(hits, searcher);
-                    analyzer.Close();
-                    searcher.Dispose();
-                    return results;
                 }
             }
+
+            return results;
         }
 
         public static IEnumerable<MovieSearchData> Search(string input, string fieldName = "")
         {
-            if (string.IsNullOrEmpty(input)) return new List<MovieSearchData>();
+            input = input.Trim().Replace("-", " ");
+            if (string.IsNullOrEmpty(input))
+            {
+                return Enumerable.Empty<MovieSearchData>();
+            }
 
-            var terms = input.Trim().Replace("-", " ").Split(' ')
-                .Where(x => !string.IsNullOrEmpty(x)).Select(x => x.Trim() + "*");
+            var terms =
+                input.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries)
+                .Select(x => x + "*");
 
             input = string.Join(" ", terms);
-
             return _search(input, fieldName);
         }
 
         public static IEnumerable<MovieSearchData> SearchDefault(string input, string fieldName = "")
         {
-            return string.IsNullOrEmpty(input) ? new List<MovieSearchData>() : _search(input, fieldName);
+            return string.IsNullOrEmpty(input) ?
+                Enumerable.Empty<MovieSearchData>() :
+                _search(input, fieldName);
         }
 
         public static IEnumerable<MovieSearchData> GetAllIndexRecords()
         {
             // validate search index
-            if (!System.IO.Directory.EnumerateFiles(_luceneDir).Any()) return new List<MovieSearchData>();
+            if (!System.IO.Directory.EnumerateFiles(_luceneDir).Any())
+            {
+                return Enumerable.Empty<MovieSearchData>();
+            }
 
             // set up lucene searcher
-            var searcher = new IndexSearcher(_directory, false);
-            var reader = IndexReader.Open(_directory, false);
             var docs = new List<Document>();
-            var term = reader.TermDocs();
-            while (term.Next()) docs.Add(searcher.Doc(term.Doc));
-            reader.Dispose();
-            searcher.Dispose();
+            using (var searcher = new IndexSearcher(_directory, false))
+            {
+                using (var reader = IndexReader.Open(_directory, false))
+                {
+                    var term = reader.TermDocs();
+                    while (term.Next())
+                    {
+                        docs.Add(searcher.Doc(term.Doc));
+                    }
+                }
+            }
+
             return _mapLuceneToDataList(docs);
         }
     }

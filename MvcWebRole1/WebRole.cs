@@ -1,14 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure;
-using Microsoft.WindowsAzure.Diagnostics;
-using Microsoft.WindowsAzure.ServiceRuntime;
 
 namespace MvcWebRole1
 {
+    using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure;
+    using Microsoft.WindowsAzure.ServiceRuntime;
+    using System.Diagnostics;
+
     public class WebRole : RoleEntryPoint
     {
         public override bool OnStart()
@@ -18,7 +15,7 @@ namespace MvcWebRole1
 
             var connectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
             Trace.TraceInformation("Connection str read");
-            ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;  
+            ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
 
             return base.OnStart();
         }

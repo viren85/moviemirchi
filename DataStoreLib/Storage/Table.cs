@@ -18,8 +18,9 @@ namespace DataStoreLib.Storage
             _table = table;
         }
 
-        public virtual IDictionary<string, TEntity> GetItemsById<TEntity>(List<string> ids, string partitionKey = "") where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetItemsById<TEntity>(IEnumerable<string> idSource, string partitionKey = "") where TEntity : DataStoreLib.Models.TableEntity
         {
+            var ids = idSource.ToList();
             Debug.Assert(ids.Count != 0);
             Debug.Assert(_table != null);
 
@@ -54,7 +55,7 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-        public virtual IDictionary<ITableEntity, bool> UpdateItemsById(List<ITableEntity> items, string partitionKey = "")
+        public virtual IDictionary<ITableEntity, bool> UpdateItemsById(IEnumerable<ITableEntity> items, string partitionKey = "")
         {
             var returnDict = new Dictionary<ITableEntity, bool>();
 

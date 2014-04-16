@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataStoreLib.Models;
-using Microsoft.WindowsAzure.Storage.Table;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
+    using DataStoreLib.Models;
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Table;
+
     public class ReviewerEntity : TableEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
@@ -15,21 +17,20 @@ namespace DataStoreLib.Models
         public string ReviewerName { get; set; }
         public string ReviewerImage { get; set; }
         public string Affilation { get; set; }
-        
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties,
-       Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+
+        public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
             ReviewerId = ReadString(properties, "ReviewerId");
             ReviewerName = ReadString(properties, "ReviewerName");
             ReviewerImage = ReadString(properties, "ReviewerImage");
             Affilation = ReadString(properties, "Affilation");
-           
+
 
         }
 
 
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
             var dict = MergeDicts(base.WriteEntity(operationContext));
 
@@ -41,7 +42,7 @@ namespace DataStoreLib.Models
         }
 
         public ReviewerEntity()
-            : base(PARTITION_KEY, "")
+            : base(PARTITION_KEY, string.Empty)
         {
 
         }
@@ -58,7 +59,6 @@ namespace DataStoreLib.Models
             ReviewerName = entity.ReviewerName;
             ReviewerImage = entity.ReviewerImage;
             Affilation = entity.Affilation;
-            
         }
 
 
@@ -70,41 +70,39 @@ namespace DataStoreLib.Models
             entity.ReviewerName = reviewerName;
             entity.ReviewerImage = reviewerImage;
             entity.Affilation = affilation;
-            
+
             return entity;
         }
 
-        public List<string> GetReviewerName()
+        public IEnumerable<string> GetReviewerName()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(ReviewerName);
+            return Utils.Utils.GetListFromCommaSeparatedString(ReviewerName);
         }
 
-        public List<string> GetReviewerImage()
+        public IEnumerable<string> GetReviewerImage()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(ReviewerImage);
+            return Utils.Utils.GetListFromCommaSeparatedString(ReviewerImage);
         }
 
-        public List<string> GetAffilation()
+        public IEnumerable<string> GetAffilation()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Affilation);
+            return Utils.Utils.GetListFromCommaSeparatedString(Affilation);
         }
 
 
         public void SetReviewerName(List<string> list)
         {
-            ReviewerName = Utils.utils.GetCommaSeparatedStringFromList(list);
+            ReviewerName = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
         public void SetReviewerImage(List<string> list)
         {
-            ReviewerImage = Utils.utils.GetCommaSeparatedStringFromList(list);
+            ReviewerImage = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
         public void SetAffilation(List<string> list)
         {
-            Affilation = Utils.utils.GetCommaSeparatedStringFromList(list);
+            Affilation = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
-
-     
     }
 }

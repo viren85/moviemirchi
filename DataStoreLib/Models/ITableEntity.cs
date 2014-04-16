@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.StorageClient;
-using Microsoft.WindowsAzure.Storage.Table;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Table;
+    using Microsoft.WindowsAzure.StorageClient;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     public class TableEntity : TableServiceEntity, ITableEntity
     {
         #region table elements
@@ -23,13 +22,13 @@ namespace DataStoreLib.Models
         public string ETag { get; set; }
         public new DateTimeOffset Timestamp { get; set; }
 
-        public virtual void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public virtual void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
             ETag = ReadString(properties, "ETag");
             Timestamp = ReadTimestamp(properties, "Timestamp");
         }
 
-        public virtual IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public virtual IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
             var dict = MergeDicts(null);
 
