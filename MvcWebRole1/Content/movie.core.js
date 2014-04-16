@@ -76,10 +76,16 @@ function onSuccessLoadCurrentMovies(result) {
 
         $(".movie-poster").hover(function () {
             $(this).css("-webkit-transform", "scale(1.5)");
+            $(this).css("-ms-transform", "scale(1.5)");
+            $(this).css("-moz-transform", "scale(1.5)");
+            $(this).css("-o-transform", "scale(1.5)");
             $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
         },
         function () {
-            $(this).css("-webkit-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
+            $(this).css("-webkit-transform", "scale(1)");
+            $(this).css("-ms-transform", "scale(1)");
+            $(this).css("-moz-transform", "scale(1)");
+            $(this).css("-o-transform", "scale(1)");
             //$(".movie-title").css("-webkit-transform", "scale(1.5)").css("background-color", "#333").css("opacity", "0.7");
             $(this).css("box-shadow", "none");
         });
@@ -121,14 +127,21 @@ function NextMovies() {
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
+            $(this).css("max-width", "300px");
         });
 
         $(".movie-poster").hover(function () {
             $(this).css("-webkit-transform", "scale(1.5)");
+            $(this).css("-ms-transform", "scale(1.5)");
+            $(this).css("-moz-transform", "scale(1.5)");
+            $(this).css("-o-transform", "scale(1.5)");
             $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
         },
         function () {
-            $(this).css("-webkit-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
+            $(this).css("-webkit-transform", "scale(1)");
+            $(this).css("-ms-transform", "scale(1)");
+            $(this).css("-moz-transform", "scale(1)");
+            $(this).css("-o-transform", "scale(1)");
             $(this).css("box-shadow", "none");
         });
     }
@@ -177,14 +190,21 @@ function PreviousMovies() {
         var ratio = this.width / this.height;
         var newWidth = 400 * ratio;
         $(this).width(newWidth + "px").height("400px");
+        $(this).css("max-width", "300px");
     });
 
     $(".movie-poster").hover(function () {
         $(this).css("-webkit-transform", "scale(1.5)");
+        $(this).css("-ms-transform", "scale(1.5)");
+        $(this).css("-moz-transform", "scale(1.5)");
+        $(this).css("-o-transform", "scale(1.5)");
         $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
     },
         function () {
-            $(this).css("-webkit-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
+            $(this).css("-webkit-transform", "scale(1)");
+            $(this).css("-ms-transform", "scale(1)");
+            $(this).css("-moz-transform", "scale(1)");
+            $(this).css("-o-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
             $(this).css("box-shadow", "none");
         });
 }
