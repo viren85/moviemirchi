@@ -136,7 +136,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IDictionary<string, ReviewEntity> GetReviewsById(List<string> ids)
+        public IDictionary<string, ReviewEntity> GetReviewsById(IEnumerable<string> ids)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             return reviewTable.GetItemsById<ReviewEntity>(ids);
@@ -146,7 +146,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="reviews"></param>
         /// <returns></returns>
-        public IDictionary<ReviewEntity, bool> UpdateReviewsById(List<Models.ReviewEntity> reviews)
+        public IDictionary<ReviewEntity, bool> UpdateReviewsById(IEnumerable<Models.ReviewEntity> reviews)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             Debug.Assert(reviewTable != null);
@@ -186,7 +186,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="review"></param>
         /// <returns></returns>
-        public IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> review)
+        public IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(IEnumerable<ReviewEntity> review)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             Debug.Assert(reviewTable != null);

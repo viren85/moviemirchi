@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DataStoreLib.Utils
 {
     public class ConnectionSettingsSingleton
@@ -25,11 +20,16 @@ namespace DataStoreLib.Utils
                     {
                         _instance = new ConnectionSettingsSingleton();
                     }
+
                     return _instance;
                 }
             }
         }
 
-        public string StorageConnectionString { get; set; }
+        public string StorageConnectionString
+        {
+            get;
+            set;
+        }
     }
 }

@@ -1,16 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Table;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
+
     public class MovieEntity : TableEntity
     {
         #region table members
-        public static readonly string PARTITION_KEY = "CloudMovie";
+        public const string PARTITION_KEY = "CloudMovie";
 
         public string MovieId { get; set; }
         public string Name { get; set; }
@@ -29,8 +28,7 @@ namespace DataStoreLib.Models
         public string UniqueName { get; set; }
 
 
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties,
-                                       Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
 
@@ -51,7 +49,7 @@ namespace DataStoreLib.Models
             UniqueName = ReadString(properties, "UniqueName");
         }
 
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
             var dict = MergeDicts(base.WriteEntity(operationContext));
 
@@ -75,7 +73,7 @@ namespace DataStoreLib.Models
         }
         #endregion
         public MovieEntity()
-            : base(PARTITION_KEY, "")
+            : base(PARTITION_KEY, string.Empty)
         {
 
         }
@@ -116,7 +114,8 @@ namespace DataStoreLib.Models
                                                     string pictures,
                                                     string genre,
                                                     string month,
-                                                    string year, string uniqueName)
+                                                    string year,
+                                                    string uniqueName)
         {
             var movieId = Guid.NewGuid().ToString();
             var entity = new MovieEntity(movieId);
@@ -139,59 +138,59 @@ namespace DataStoreLib.Models
         }
 
         #region AccessMethods
-        public List<string> GetAltNames()
+        public IEnumerable<string> GetAltNames()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(AltNames);
+            return Utils.Utils.GetListFromCommaSeparatedString(AltNames);
         }
 
-        public List<string> GetActors()
+        public IEnumerable<string> GetActors()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Posters);
+            return Utils.Utils.GetListFromCommaSeparatedString(Posters);
         }
 
-        public List<string> GetDirectors()
+        public IEnumerable<string> GetDirectors()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Ratings);
+            return Utils.Utils.GetListFromCommaSeparatedString(Ratings);
         }
 
-        public List<string> GetProducers()
+        public IEnumerable<string> GetProducers()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Synopsis);
+            return Utils.Utils.GetListFromCommaSeparatedString(Synopsis);
         }
 
-        public List<string> GetMusicDirectors()
+        public IEnumerable<string> GetMusicDirectors()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Casts);
+            return Utils.Utils.GetListFromCommaSeparatedString(Casts);
         }
 
-        public List<string> GetReviewIds()
+        public IEnumerable<string> GetReviewIds()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Stats);
+            return Utils.Utils.GetListFromCommaSeparatedString(Stats);
         }
 
-        public void SetAltNames(List<string> list)
+        public void SetAltNames(IEnumerable<string> list)
         {// todo :: 
             //AltNames = Utils.utils.GetListFromCommaSeparatedString(AltNames);
         }
 
-        public void SetActors(List<string> list)
+        public void SetActors(IEnumerable<string> list)
         {
-            Posters = Utils.utils.GetCommaSeparatedStringFromList(list);
+            Posters = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetDirectors(List<string> list)
+        public void SetDirectors(IEnumerable<string> list)
         {
-            Ratings = Utils.utils.GetCommaSeparatedStringFromList(list);
+            Ratings = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetMusicDirectors(List<string> list)
+        public void SetMusicDirectors(IEnumerable<string> list)
         {
-            Casts = Utils.utils.GetCommaSeparatedStringFromList(list);
+            Casts = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetReviewIds(List<string> list)
+        public void SetReviewIds(IEnumerable<string> list)
         {
-            Stats = Utils.utils.GetCommaSeparatedStringFromList(list);
+            Stats = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
         #endregion

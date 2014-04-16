@@ -1,17 +1,17 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataStoreLib.Models;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
+
     public class AffilationEntity : TableEntity
     {
-        public static readonly string PARTITION_KEY = "CloudMovie";
+        public const string PARTITION_KEY = "CloudMovie";
+
         public string AffilationId { get; set; }
+
         public string AffilationName { get; set; }
 
         public string WebsiteName { get; set; }
@@ -22,8 +22,7 @@ namespace DataStoreLib.Models
 
         public string Country { get; set; }
 
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties,
-       Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
 
@@ -33,11 +32,9 @@ namespace DataStoreLib.Models
             WebsiteLink = ReadString(properties, "WebsiteLink");
             LogoLink = ReadString(properties, "LogoLink");
             Country = ReadString(properties, "Country");
-
         }
 
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
             var dict = MergeDicts(base.WriteEntity(operationContext));
 
@@ -52,9 +49,8 @@ namespace DataStoreLib.Models
         }
 
         public AffilationEntity()
-            : base(PARTITION_KEY, "")
+            : base(PARTITION_KEY, string.Empty)
         {
-
         }
 
         public AffilationEntity(string rowKey)
@@ -73,7 +69,6 @@ namespace DataStoreLib.Models
             Country = entity.Country;
         }
 
-
         public static AffilationEntity CreateAffilationEntity(string affilationName, string websiteName, string websiteLink, string logoLink, string country)
         {
             var affilationId = Guid.NewGuid().ToString();
@@ -87,56 +82,54 @@ namespace DataStoreLib.Models
             return entity;
         }
 
-        public List<string> GetAffilationName()
+        public IEnumerable<string> GetAffilationName()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(AffilationName);
+            return Utils.Utils.GetListFromCommaSeparatedString(AffilationName);
         }
 
-        public List<string> GetWebsiteName()
+        public IEnumerable<string> GetWebsiteName()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(WebsiteName);
+            return Utils.Utils.GetListFromCommaSeparatedString(WebsiteName);
         }
 
-        public List<string> GetWebsiteLink()
+        public IEnumerable<string> GetWebsiteLink()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(WebsiteLink);
+            return Utils.Utils.GetListFromCommaSeparatedString(WebsiteLink);
         }
 
-        public List<string> GetLogoLink()
+        public IEnumerable<string> GetLogoLink()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(LogoLink);
+            return Utils.Utils.GetListFromCommaSeparatedString(LogoLink);
         }
 
-        public List<string> GetCountry()
+        public IEnumerable<string> GetCountry()
         {
-            return Utils.utils.GetListFromCommaSeparatedString(Country);
+            return Utils.Utils.GetListFromCommaSeparatedString(Country);
         }
 
-        public void SetAffilationName(List<string> list)
+        public void SetAffilationName(IEnumerable<string> list)
         {
-            AffilationName = Utils.utils.GetCommaSeparatedStringFromList(list);
+            AffilationName = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetWebsiteName(List<string> list)
+        public void SetWebsiteName(IEnumerable<string> list)
         {
-            WebsiteName = Utils.utils.GetCommaSeparatedStringFromList(list);
+            WebsiteName = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetWebsiteLink(List<string> list)
+        public void SetWebsiteLink(IEnumerable<string> list)
         {
-            WebsiteLink = Utils.utils.GetCommaSeparatedStringFromList(list);
+            WebsiteLink = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetLogoLink(List<string> list)
+        public void SetLogoLink(IEnumerable<string> list)
         {
-            LogoLink = Utils.utils.GetCommaSeparatedStringFromList(list);
+            LogoLink = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetCountry(List<string> list)
+        public void SetCountry(IEnumerable<string> list)
         {
-            Country = Utils.utils.GetCommaSeparatedStringFromList(list);
+            Country = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
-
-
     }
 }

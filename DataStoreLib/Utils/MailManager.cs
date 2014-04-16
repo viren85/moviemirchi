@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Configuration;
-
-using System.Net.Mail;
-
+﻿
 namespace DataStoreLib.Utils
 {
+    using System;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.Net;
+    using System.Net.Mail;
+
     /// <summary>
     /// This class use to send mails
     /// </summary>
@@ -25,19 +23,17 @@ namespace DataStoreLib.Utils
         {
             try
             {
-
-
-                string sUser = ConfigurationManager.AppSettings["User"];
-                string sPassword = ConfigurationManager.AppSettings["Password"];
-                string sHost = ConfigurationManager.AppSettings["Host"];
-                int iPort = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
-                bool bEnableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
-                // bool bUseDefaultCredentials = Convert.ToBoolean(ConfigurationManager.AppSettings["UseDefaultCredentials"]);
+                string user = ConfigurationManager.AppSettings["User"];
+                string password = ConfigurationManager.AppSettings["Password"];
+                string host = ConfigurationManager.AppSettings["Host"];
+                int port = Convert.ToInt32(ConfigurationManager.AppSettings["Port"]);
+                bool enableSsl = Convert.ToBoolean(ConfigurationManager.AppSettings["EnableSsl"]);
+                ////bool useDefaultCredentials = Convert.ToBoolean(ConfigurationManager.AppSettings["UseDefaultCredentials"]);
 
                 MailMessage mailMessage = new MailMessage();
                 mailMessage.IsBodyHtml = true;
 
-                if (fromAddress == "")
+                if (string.IsNullOrWhiteSpace(fromAddress))
                 {
                     mailMessage.From = new MailAddress(ConfigurationManager.AppSettings["fromAddress"]);  // Key from the config file
                 }
@@ -48,7 +44,7 @@ namespace DataStoreLib.Utils
 
                 mailMessage.To.Add(toAddress); // Key from the config file
 
-                if (subject == "")
+                if (string.IsNullOrWhiteSpace(subject))
                 {
                     mailMessage.Subject = ConfigurationManager.AppSettings["subject"]; // Key from the config file
                 }
@@ -58,14 +54,15 @@ namespace DataStoreLib.Utils
                 }
 
                 mailMessage.Body = body;
-                SmtpClient smtpServer = new SmtpClient(sHost);  // Key the mail server
-                smtpServer.Port = iPort;
-                smtpServer.Credentials = new System.Net.NetworkCredential(ConfigurationManager.AppSettings["fromAddress"], ConfigurationManager.AppSettings["Password"]);
-                smtpServer.EnableSsl = bEnableSsl;
+                SmtpClient smtpServer = new SmtpClient(host);  // Key the mail server
+                smtpServer.Port = port;
+                smtpServer.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["fromAddress"], ConfigurationManager.AppSettings["Password"]);
+                smtpServer.EnableSsl = enableSsl;
                 smtpServer.Send(mailMessage);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Trace.TraceWarning("Sending mail failed: {0}", ex);
                 return false;
             }
 

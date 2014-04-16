@@ -27,10 +27,10 @@ namespace DataStoreLib.Storage
         #region Review
         IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);        
         IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
-        IDictionary<string, ReviewEntity> GetReviewsById(List<string> id);
+        IDictionary<string, ReviewEntity> GetReviewsById(IEnumerable<string> id);
         IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);
-        IDictionary<ReviewEntity, bool> UpdateReviewsById(List<ReviewEntity> reviews);
-        IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(List<ReviewEntity> reviewer);
+        IDictionary<ReviewEntity, bool> UpdateReviewsById(IEnumerable<ReviewEntity> reviews);
+        IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(IEnumerable<ReviewEntity> reviewer);
         #endregion
 
         #region Reviewer
