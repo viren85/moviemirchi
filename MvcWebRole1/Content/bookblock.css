@@ -122,3 +122,19 @@
 .status ul { float: left; list-style: none; margin-top: 10px; }
 .status ul li { float: left; margin-right: 20px; }
 .status ul li a { color: #2793e6; text-decoration: underline; margin-top: 10px; }
+
+@media screen and (max-width: 320px) {
+    .logo { float: left; width: 100%; text-align: center; margin-top: 10px; margin-left: 0px; margin-bottom: 10px; }
+    
+}
+
+@media screen and (max-width: 800px) {
+    .no-js .menu-panel {
+        display: none;
+    }
+
+    .no-js .movie-container {
+        padding: 0;
+    }
+}
+

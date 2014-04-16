@@ -19,16 +19,6 @@
       <Setting name="StorageTableConnectionString" />
     </ConfigurationSettings>
   </WebRole>
-  <WorkerRole name="WorkerRole1" vmsize="Small">
-    <Imports>
-      <Import moduleName="Diagnostics" />
-      <Import moduleName="RemoteAccess" />
-      <Import moduleName="RemoteForwarder" />
-    </Imports>
-    <ConfigurationSettings>
-      <Setting name="StorageTableConnectionString" />
-    </ConfigurationSettings>
-  </WorkerRole>
   <WebRole name="EditorialRole" vmsize="Small">
     <Sites>
       <Site name="Web">

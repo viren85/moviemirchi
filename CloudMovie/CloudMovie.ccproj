@@ -52,14 +52,6 @@
       <RoleType>Web</RoleType>
       <RoleName>EditorialRole</RoleName>
     </ProjectReference>
-    <ProjectReference Include="..\WorkerRole1\WorkerRole1.csproj">
-      <Name>WorkerRole1</Name>
-      <Project>{85e6ff1b-089d-41fe-b606-4da386c55efc}</Project>
-      <Private>True</Private>
-      <RoleType>Worker</RoleType>
-      <RoleName>WorkerRole1</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IndexerRoleContent\" />
