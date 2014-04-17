@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample for NEWS controls</title>
+    <meta http-equiv="content-type"
+          content="text/html;charset=utf-8" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <script type="text/javascript">
+        ((function ShowNewsControl(url, selector) {
+
+            var callback = function (entries) {
+
+                entries.forEach(function (entry) {
+
+                    var getValue = function (coll, k) {
+                        var el = coll[k];
+                        return el ? el : "";
+                    };
+
+                    var getSpan = function (k, className) {
+                        return "<span class=\"" + className + "\">" + getValue(entry, k) + "</span>";
+                    };
+
+                    var html =
+                    "<div class='entryContainer'>" +
+                        "<div class='primary'>" + getSpan("title", "title") + "</div>" +
+                        "<div class='secondary'>" + getSpan("author", "author") + " | " + getSpan("publishedDate", "pubDate") + "</div>" +
+                        "<div class='content'>" + getSpan("contentSnippet", "snippet") + "</div>" +
+                        "<br/>" +
+                        "<div class='link'><a href=\"" + getValue(entry, "link") + "\">Link to article</a></div>" +
+                    "</div>";
+
+                    $(selector).append(html);
+                });
+            };
+
+            var displayError = function (v) {
+                $(selector).append();
+            };
+
+            $.ajax({
+                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+                dataType: 'json',
+                success: function (data) {
+                    if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
+                        callback(data.responseData.feed.entries);
+                    } else {
+                        displayError("Sorry we are unable to display NEWS at this time");
+                    }
+                },
+                error: function (err) {
+                    displayError("Sorry we are unable to display NEWS at this time");
+                }
+            });
+        })("http://www.bollywoodhungama.com/rss/news.xml", ".newsContainer"));
+    </script>
+</head>
+<body>
+    <div class="newsContainer"></div>
+</body>
+</html>
