@@ -42,8 +42,7 @@ namespace Crawler.Reviews
                     readStream.Close();
                     #endregion
 
-                    PopulateReviewDetails(reviewPageContent, affiliation);
-
+                    return PopulateReviewDetails(reviewPageContent, affiliation);
                 }
             }
             catch (Exception ex)
@@ -75,7 +74,7 @@ namespace Crawler.Reviews
                     var reviewerNameContainer = helper.GetElementWithAttribute(headerNode, "span", "class", "written");
                     var reviewerList = reviewerNameContainer.Elements("a");
                     string reviewerName = string.Empty;
-                    
+
                     if (reviewerList != null)
                     {
                         try
@@ -90,13 +89,39 @@ namespace Crawler.Reviews
                     var ratingNode = helper.GetElementWithAttribute(bodyNode, "span", "id", "rate_val_change");
                     var rating = ratingNode.Attributes["class"] != null ? ratingNode.Attributes["class"].Value : string.Empty;
                     rating = rating.Replace("rate", "");
+                    float multipliedRating = 0;
+                    
+                    float.TryParse(rating, out multipliedRating);
+
+                    if (multipliedRating > 0)
+                    {
+                        // All other rating are based out of 10 where as Filmfare is out of 5.
+                        rating = (multipliedRating * 2).ToString();
+                    }
+
                     #endregion
 
                     #region Get Review Content
                     var reviewContent = helper.GetElementWithAttribute(bodyNode, "div", "class", "upperBlk");
-                    var review = reviewContent.InnerText;
+                    var reviews = reviewContent.Element("figure");
+                    string review = string.Empty;
+
+                    if (reviews != null)
+                    {
+                        var reviewElements = reviews.Elements("p");
+
+                        foreach (var r in reviewElements)
+                        {
+                            if (!string.IsNullOrEmpty(r.InnerText) && r.InnerText.Length > 300)
+                            {
+                                review = r.InnerHtml;
+                                break;
+                            }
+                        }
+                    }
                     #endregion
 
+                    re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation;
                     re.Review = review;
                     re.ReviewerName = reviewerName;

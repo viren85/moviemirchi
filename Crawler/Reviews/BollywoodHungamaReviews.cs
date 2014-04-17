@@ -89,12 +89,21 @@ namespace Crawler.Reviews
                     var ratingNode = helper.GetElementWithAttribute(reviewrName, "img", "width", "93");
                     var rating = ratingNode.Attributes["title"] != null ? ratingNode.Attributes["title"].Value : string.Empty;
 
+                    float multipliedRating = 0;
+
+                    float.TryParse(rating, out multipliedRating);
+
+                    if (multipliedRating > 0)
+                    {
+                        // All other rating are based out of 10 where as Filmfare is out of 5.
+                        rating = (multipliedRating * 2).ToString();
+                    }
+
                     var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", " mfl mmb31 mfnt12 minline malignjus mmr18");
                     var review = reviewContent.InnerText;
 
                     re.Affiliation = affiliation;
-                    re.ReviewId = Guid.NewGuid().ToString();
-
+                    re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Review = review;
                     re.ReviewerName = reviewName;
                     re.ReviewerRating = rating.ToString();

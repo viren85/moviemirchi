@@ -115,8 +115,6 @@ namespace MvcWebRole2.Controllers
 
                 string[] moviesFilePath = Directory.GetFiles(basePath, "*.xml");
 
-
-
                 #region Movie Crawler
                 foreach (string filePath in moviesFilePath)
                 {
@@ -170,6 +168,7 @@ namespace MvcWebRole2.Controllers
 
                                         // update the IDs - Movie Id, Reviewer Id etc.
                                         string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
+                                        //re.RowKey = re.ReviewId = new Guid().ToString();
                                         re.ReviewerId = reviewerId;
                                         re.MovieId = mov.MovieId;
                                         tblMgr.UpdateReviewById(re);

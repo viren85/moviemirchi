@@ -1,4 +1,5 @@
 ﻿using DataStoreLib.Models;
+using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -69,20 +70,20 @@ namespace Crawler.Reviews
                 }
                 else
                 {
-                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "id", "celeb_article_postview_tab");
-                    var reviewrName = helper.GetElementWithAttribute(headerNode, "div", "class", "m9090");
-                    var reviewName = reviewrName.InnerText;
+                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story_wid");
+                    var reviewerName = helper.GetElementWithAttribute(headerNode, "span", "class", "sty_agn");
 
-                    var ratingNode = helper.GetElementWithAttribute(reviewrName, "img", "width", "93");
-                    var rating = ratingNode.Attributes["title"] != null ? ratingNode.Attributes["title"].Value : string.Empty;
+                    HtmlNode node = reviewerName.Element("a");
+                    var reviewName = node.InnerText;
 
-                    var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", " mfl mmb31 mfnt12 minline malignjus mmr18");
+                    var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", "sty_txt");
                     var review = reviewContent.InnerText;
 
+                    re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation;
                     re.Review = review;
                     re.ReviewerName = reviewName;
-                    re.ReviewerRating = rating.ToString();
+                    re.ReviewerRating = string.Empty;
 
                     return re;
                 }

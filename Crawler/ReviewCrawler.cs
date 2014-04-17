@@ -37,7 +37,7 @@ namespace Crawler
 
                 if (!isReviewerAlreadyPresent)
                 {
-                    reviewer.ReviewerId = Guid.NewGuid().ToString();
+                    reviewer.RowKey = reviewer.ReviewerId = Guid.NewGuid().ToString();
                     reviewer.ReviewerName = reviewerName;
                     reviewer.Affilation = affiliation;
                     reviewer.ReviewerImage = string.Empty;
