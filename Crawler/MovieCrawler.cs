@@ -63,7 +63,7 @@ namespace Crawler
                         crawlPosters = false;
                     }
 
-                    PopulateMovieDetails(ref movie, url, crawlPosters);
+                    //PopulateMovieDetails(ref movie, url, crawlPosters);
                     return movie;
                     //tableMgr.UpdateMovieById(movie);
                 }

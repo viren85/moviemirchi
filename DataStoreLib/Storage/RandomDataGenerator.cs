@@ -134,7 +134,7 @@ namespace DataStoreLib.Storage
             review.Review = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas libero erat, elementum at dictum quis, commodo eget augue. Suspendisse potenti. Sed a tempor magna. Maecenas quis metus ac sapien faucibus eleifend. Mauris id elementum augue, ac suscipit nunc. Sed non lorem at turpis pellentesque tempus gravida vitae lectus. Nullam quis blandit augue. Proin at pretium magna, quis rutrum arcu. Praesent consectetur aliquam magna, fermentum sodales dolor.";
             review.ReviewerName = GetRandomElementsFromList(Reviewers, rand);
             review.ReviewId = Guid.NewGuid().ToString();
-            review.ReviewerRating = rand.Next(10);
+            review.ReviewerRating = rand.Next(10).ToString();
             review.SystemRating = rand.Next(10);
 
             return review;

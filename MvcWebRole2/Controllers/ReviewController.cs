@@ -65,10 +65,6 @@ namespace MvcWebRole2.Controllers
                         entity.Summary = affil.Summary;
                         tblMgr.UpdateReviewById(entity);
                     }
-                    
-
-                    //TableManager tblMgr = new TableManager();
-                   
                 }
                 else
                 {

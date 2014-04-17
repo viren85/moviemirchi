@@ -149,7 +149,7 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-        public virtual IDictionary<string, TEntity> GetItemsByReivewer<TEntity>(string reviewerName) where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetItemsByReviewer<TEntity>(string reviewerName) where TEntity : DataStoreLib.Models.TableEntity
         {
             Debug.Assert(_table != null);
             var operationList = new Dictionary<string, TableResult>();
@@ -201,8 +201,6 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-
-
         public virtual IDictionary<string, TEntity> GetAllReviewItems<TEntity>() where TEntity : DataStoreLib.Models.TableEntity
         {
             Debug.Assert(_table != null);
@@ -232,10 +230,6 @@ namespace DataStoreLib.Storage
 
         protected abstract string GetParitionKey();
     }
-
-
-
-
 
     internal class MovieTable : Table
     {
@@ -491,7 +485,6 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
     }
-
 
     internal class UserFavoriteTable : Table
     {

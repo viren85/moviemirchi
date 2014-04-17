@@ -17,7 +17,7 @@ namespace DataStoreLib.Models
         public string ReviewerId { get; set; }
         public string ReviewerName { get; set; }
         public string Review { get; set; }
-        public int ReviewerRating { get; set; }
+        public string ReviewerRating { get; set; }
         public int SystemRating { get; set; }
         public bool Hot { get; set; }
         public string OutLink { get; set; }
@@ -32,7 +32,7 @@ namespace DataStoreLib.Models
             ReviewerId = ReadString(properties, "ReviewerId");
             ReviewerName = ReadString(properties, "ReviewerName");
             Review = ReadString(properties, "Review");
-            ReviewerRating = ReadInt(properties, "ReviewerRating");
+            ReviewerRating = ReadString(properties, "ReviewerRating");
             SystemRating = ReadInt(properties, "SystemRating");
             MovieId = ReadString(properties, "MovieId");
             Hot = ReadBool(properties, "Hot");
@@ -48,7 +48,7 @@ namespace DataStoreLib.Models
             WriteString(dict, "ReviewId", ReviewId);
             WriteString(dict, "ReviewerName", ReviewerName);
             WriteString(dict, "Review", Review);
-            WriteInt(dict, "ReviewerRating", ReviewerRating);
+            WriteString(dict, "ReviewerRating", ReviewerRating);
             WriteInt(dict, "SystemRating", SystemRating);
             WriteString(dict, "MovieId", MovieId);
             WriteString(dict, "ReviewerId", ReviewerId);
@@ -95,7 +95,7 @@ namespace DataStoreLib.Models
             reviewEntity.ReviewId = reviewId;
             reviewEntity.ReviewerName = reviewrName;
             reviewEntity.Review = review;
-            reviewEntity.ReviewerRating = reviewerRating;
+            reviewEntity.ReviewerRating = reviewerRating.ToString();
             reviewEntity.SystemRating = systemRating;
             reviewEntity.MovieId = movieId;
             reviewEntity.ReviewerId = reviewerId;

@@ -175,7 +175,7 @@ namespace MvcWebRole1.Controllers
                 reviewEntity.MovieId = entity.MovieId;
                 reviewEntity.Review = string.Format("This is review number {0}", reviewId);
                 reviewEntity.ReviewerName = string.Format("khan_{0}", rand.Next());
-                reviewEntity.ReviewerRating = rand.Next(10);
+                reviewEntity.ReviewerRating = rand.Next(10).ToString();
                 reviewEntity.SystemRating = rand.Next(10);
                 reviewEntity.Hot = false;
                 reviewEntity.OutLink = "this is a link";

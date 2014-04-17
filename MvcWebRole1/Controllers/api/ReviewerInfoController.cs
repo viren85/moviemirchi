@@ -99,7 +99,7 @@ namespace MvcWebRole1.Controllers.api
     {
         public string MovieId { get; set; }
         public string MovieName { get; set; }
-        public int CriticsRating { get; set; }
+        public string CriticsRating { get; set; }
         public string Review { get; set; }
         public string ReviewDate { get; set; }
     }

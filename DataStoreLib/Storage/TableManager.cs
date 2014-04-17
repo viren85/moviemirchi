@@ -179,7 +179,7 @@ namespace DataStoreLib.Storage
         public IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
-            return reviewTable.GetItemsByReivewer<ReviewEntity>(reviewerName);
+            return reviewTable.GetItemsByReviewer<ReviewEntity>(reviewerName);
         }
         /// <summary>
         /// Return the list of reviewes bu reviewerId

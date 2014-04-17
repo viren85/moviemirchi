@@ -1,4 +1,6 @@
-﻿using DataStoreLib.Models;
+﻿using Crawler;
+using Crawler.Reviews;
+using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using DataStoreLib.Utils;
 using LuceneSearchLibrarby;
@@ -113,11 +115,17 @@ namespace MvcWebRole2.Controllers
 
                 string[] moviesFilePath = Directory.GetFiles(basePath, "*.xml");
 
+
+
+                #region Movie Crawler
                 foreach (string filePath in moviesFilePath)
                 {
                     xdoc.Load(filePath);
 
-                    var movies = xdoc.SelectNodes("Movies/Month/Movie");
+                    var movies = xdoc.SelectNodes("Movies/Month[@name='December']/Movie");
+
+                    if (movies == null)
+                        continue;
 
                     foreach (XmlNode movie in movies)
                     {
@@ -125,29 +133,64 @@ namespace MvcWebRole2.Controllers
                         {
                             try
                             {
+                                #region Crawl Movie
                                 MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                                 TableManager tblMgr = new TableManager();
                                 string posterUrl = string.Empty;
 
                                 tblMgr.UpdateMovieById(mov);
+                                #endregion
 
+                                #region Crawl Movie Reviews
+                                #region Bollywood Hungama Crawler
+                                try
+                                {
+                                    BollywoodHungamaReviews bh = new BollywoodHungamaReviews();
+                                    HindustanTimesReviews ht = new HindustanTimesReviews();
+                                    FilmfareReviews ff = new FilmfareReviews();
 
+                                    var reviews = movie.SelectNodes("Review");
+                                    foreach (XmlNode review in reviews)
+                                    {
+                                        ReviewEntity re = new ReviewEntity();
+                                        string reviewLink = review.Attributes["link"].Value;
+
+                                        switch (review.Attributes["name"].Value)
+                                        {
+                                            case "Bollywood Hungama":
+                                                re = bh.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Hindustan Times":
+                                                re = ht.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Filmfare":
+                                                re = ff.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                        }
+
+                                        // update the IDs - Movie Id, Reviewer Id etc.
+                                        string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
+                                        re.ReviewerId = reviewerId;
+                                        re.MovieId = mov.MovieId;
+                                        tblMgr.UpdateReviewById(re);
+                                    }
+                                }
+                                catch (Exception ex)
+                                {
+                                }
+                                #endregion
+                                #endregion
+
+                                #region Lucene Search Index
                                 List<Cast> casts = json.Deserialize(mov.Casts, typeof(List<Cast>)) as List<Cast>;
                                 List<String> posters = json.Deserialize(mov.Posters, typeof(List<String>)) as List<String>;
                                 List<String> actors = new List<string>();
 
                                 if (casts != null)
                                 {
-                                    int actorCount = 0;
                                     foreach (var actor in casts)
                                     {
-                                        if (actor.role.ToLower() == "actor" && actorCount < 6)
-                                            actors.Add(actor.name);
-
-                                        actorCount++;
-
-                                        if (actorCount > 6)
-                                            break;
+                                        actors.Add(actor.name);
                                     }
                                 }
 
@@ -165,6 +208,7 @@ namespace MvcWebRole2.Controllers
                                 movieSearchIndex.Description = json.Serialize(actors);
                                 movieSearchIndex.Link = mov.UniqueName;
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
+                                #endregion
                             }
                             catch (Exception e)
                             {
@@ -173,6 +217,7 @@ namespace MvcWebRole2.Controllers
                         }
                     }
                 }
+                #endregion
             }
             catch (Exception ex)
             {
