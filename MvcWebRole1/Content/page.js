@@ -139,19 +139,19 @@ var Page = (function () {
     }
 
     function setJSP(action, idx) {
-        var idx = (idx || typeof idx === "undefined") ? current : idx,
+        var idx = (idx && typeof idx !== "undefined") ? idx : current;
 
-		$content = $items.eq(idx).children('div.content'),
+        $content = $items.eq(idx).children('div.content'),
         apiJSP = $content.data('jsp');
-        var isApiJSP = (apiJSP === null) || (typeof apiJSP === "undefined");
+        var isApiJSP = !(apiJSP === null) || (typeof apiJSP === "undefined");
 
-        if (action === 'init' && isApiJSP) {
+        if (action === 'init' && !isApiJSP) {
             $content.jScrollPane({ verticalGutter: -10, hideFocus: true, show: true });
         }
-        else if (action === 'reinit' && !isApiJSP) {
+        else if (action === 'reinit' && isApiJSP) {
             apiJSP.reinitialise();
         }
-        else if (action === 'destroy' && !isApiJSP) {
+        else if (action === 'destroy' && isApiJSP) {
             apiJSP.destroy();
         }
     }
