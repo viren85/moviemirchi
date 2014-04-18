@@ -143,7 +143,7 @@ var Page = (function () {
 
         $content = $items.eq(idx).children('div.content'),
         apiJSP = $content.data('jsp');
-        var isApiJSP = !(apiJSP === null) || (typeof apiJSP === "undefined");
+        var isApiJSP = apiJSP !== null && typeof apiJSP !== "undefined");
 
         if (action === 'init' && !isApiJSP) {
             $content.jScrollPane({ verticalGutter: -10, hideFocus: true, show: true });

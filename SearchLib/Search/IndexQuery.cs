@@ -127,7 +127,6 @@ namespace SearchLib.Search
             if (disposing)
             {
                 // Free any other managed objects here. 
-                _searcher.Close();
                 _searcher.Dispose();
             }
 
