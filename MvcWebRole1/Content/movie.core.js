@@ -1,5 +1,14 @@
-﻿var BASE_URL = "http://127.0.0.1:81/";
+﻿
+var BASE_URL = "http://127.255.0.1:81/";
 
+var MovieCounter = 3;
+var MovieIndexer = 0;
+var Movie = 3;
+
+var ReviewsDetails = [];
+var Index = 0;
+
+var MOVIES = [];
 
 function CallHandler(queryString, OnComp) {
     $.ajax({
@@ -37,8 +46,6 @@ function LoadCurrentMovies() {
     var path = "api/Movies?type=current";
     CallHandler(path, onSuccessLoadCurrentMovies);
 }
-
-var MOVIES = [];
 
 function onSuccessLoadCurrentMovies(result) {
     result = JSON.parse(result);
@@ -91,9 +98,7 @@ function onSuccessLoadCurrentMovies(result) {
         });
     }
 }
-var MovieCounter = 3;
-var MovieIndexer = 0;
-var Movie = 3;
+
 function NextMovies() {
     if (MovieIndexer < MOVIES.length) {
         $("#previousMovies").show();
@@ -146,6 +151,7 @@ function NextMovies() {
         });
     }
 }
+
 function PreviousMovies() {
     MovieIndexer--;
     Movie--;
@@ -212,23 +218,11 @@ function PreviousMovies() {
 function PopulatingMovies(movie) {
     var movieContainer = $(".movie-list ul");
 
-    var img = $("<img/>")
-    //img.attr("class", "img-thumbnail");
-    //img.attr("style", "width: 19%; height: 150px;margin-right: 1%");
-    //img.attr("data-src", "holder.js/200x200");
-    img.attr("alt", movie.Name);
-
     var poster = [];
     poster = JSON.parse(movie.Posters);
-
-    if (poster != null && poster.length > 0) {
-        img.attr("src", "/Posters/Images/" + poster[poster.length - 1]);
-    }
-    else {
-        img.attr("src", "/Posters/Images/default-movie.jpg");
-    }
-
-    img.attr("class", "movie-poster");
+    var src = (poster != null && poster.length > 0)?
+        "/Posters/Images/" + poster[poster.length - 1] :
+        "/Posters/Images/default-movie.jpg";
 
     var anchor = $("<a/>");
     var list = $("<li/>");
@@ -237,21 +231,52 @@ function PopulatingMovies(movie) {
     //anchor.attr("href", "Movie?name=" + movie.UniqueName);
     anchor.attr("href", "Movie/" + movie.UniqueName);
     anchor.attr("title", movie.Name);
-    anchor.append(img);
+    //anchor.append(img);
 
     list.append(anchor);
 
     movieContainer.append(list);
+
+    var html =
+    "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
+        "<div id=\"imageContainer\" onmouseover=\"showCaption('" + movie.UniqueName + "')\" onmouseout=\"hideCaption('" + movie.UniqueName + "')\" class=\"viewer\" style=\"width: 400px; height: 315px;\">" +
+            "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + "/Posters/Images/" + poster[poster.length - 1] + "\" style=\"margin: auto; cursor: default;\">" +
+        "</div>" +
+        "<div class=\"captionAndNavigate\" style=\"width:400px;\">" +
+            "<div id=\"captionCredit\" style=\"width: 398px; display: none;\" onmouseover=\"showCaption('" + movie.UniqueName + "')\" onmouseout=\"hideCaption('" + movie.UniqueName + "')\" class=\"multimediaCaption\">" +
+                "<div id=\"photoCaption\">" +
+                    "<div>" + movie.Name + "</div>" +
+                    "<div>" + movie.Month + "</div>" +
+                    "<div>" + movie.Synopsis + "</div>" +
+                "</div>" +
+            "</div>" +
+        "</div>" +
+    "</div>";
+
+    anchor.append(html);
+
     return list;
 }
 
+function showCaption(unqname, showCaption) {
+    var movieDiv = $("." + unqname)[0];
+    var picCaption = $("#captionCredit", movieDiv)[0];
+   picCaption.style.display = "inline";
+}
+
+function hideCaption(unqname) {
+    var movieDiv = $("." + unqname)[0];
+    var picCaption = $("#captionCredit", movieDiv)[0];
+    picCaption.style.display = "none";
+}
+
 function PopulatingMoviesTitle(movieTitle, parentElment) {
-    var name = $("<div/>");
-    var movieName = $("<span/>");
-    name.attr("class", "movie-title");
-    movieName.html(movieTitle.Name).attr("style", "position: absolute;z-index: 2;color: white;font-size: 24px;text-align: center;width: 18%;margin-top: 20%;");
-    //parentElment.append(name);
-    //parentElment.append(movieName);
+    ////var name = $("<div/>");
+    ////var movieName = $("<span/>");
+    ////name.attr("class", "movie-title");
+    ////movieName.html(movieTitle.Name).attr("style", "position: absolute;z-index: 2;color: white;font-size: 24px;text-align: center;width: 18%;margin-top: 20%;");
+    ////parentElment.append(name);
+    ////parentElment.append(movieName);
 }
 
 function LoadSingleMovie(movieId) {
@@ -485,9 +510,6 @@ function GetReviewerAndReviews(name, movie) {
 
     CallHandler(path, onSuccessPopulateReviewsAndReviews);
 }
-
-var ReviewsDetails = [];
-var Index = 0;
 
 function onSuccessPopulateReviewsAndReviews(result) {
     result = JSON.parse(result);
@@ -1076,7 +1098,6 @@ function GetTrailerJson() {
 
     return JSON.stringify(trailer);
 }
-
 
 function ClearMoviesControl() {
     $("#bottomError").html("");

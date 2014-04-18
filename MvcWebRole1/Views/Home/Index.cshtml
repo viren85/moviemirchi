@@ -7,6 +7,113 @@
     .movie-panel {
         overflow-y: auto !important;
     }
+
+    .viewingDiv {
+        float:none;
+        position:relative;
+        display:table;
+        /*overflow:hidden;*/
+    }
+
+    div.multimediaCaption {
+        font-family: Arial;
+        font-size: 12px;
+        display: none;
+    }
+
+    .viewer {
+        background-color: #EFEFEF;
+        text-align: center;
+        vertical-align: middle;
+        position: relative;
+    }
+
+    img.shownImage {
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        left: 0px;
+        border: solid 1px transparent;
+    }
+
+    div.navigate {
+        font-family: arial,tahoma,sans-serf;
+        font-size: 14px;
+        font-weight: bold;
+        /*text-transform:uppercase;*/
+    }
+
+    div.captionAndNavigate {
+        background-color: #000000;
+        bottom: 0;
+        color: #FFFFFF;
+        left: 0;
+        margin-bottom: 0;
+        margin-top: 0;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+        /*padding: 2px 0 2px 2px;*/
+        padding: 0px;
+        position: absolute;
+    }
+
+    .overLaying {
+        z-index: 20;
+        color: #000000;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+        position: absolute;
+        top: 20;
+        left: 0;
+    }
+
+
+    .overLayImg {
+        z-index: 20;
+        color: #000000;
+        opacity: 0.7;
+        filter: alpha(opacity=70);
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 42px;
+        height: 42px;
+        vertical-align: middle;
+        overflow: hidden;
+        cursor: pointer;
+        /*Chrome*/
+        -webkit-border-radius: 5em;
+        /*Firefox*/
+        -moz-border-radius: 5em;
+        /*IE*/
+        border-radius: 5em;
+        /*behavior: url(PIE.htc);*/
+        background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 0 transparent;
+    }
+
+        .overLayImg:hover {
+            background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -42px transparent;
+        }
+
+        .overLayImg[title="Play Video"] {
+            background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -126px transparent;
+        }
+
+            .overLayImg[title="Play Video"]:hover {
+                background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -168px transparent;
+            }
+
+        .overLayImg[title="Watch Flash"] {
+            background: url("/news/images/icons/flash.png") no-repeat scroll 0 0px transparent;
+        }
+
+            .overLayImg[title="Watch Flash"]:hover {
+                background: url("/news/images/icons/flash.png") no-repeat scroll 0 -42px transparent;
+            }
+
+
+
 </style>
 <div class="content">
     <div class="banner">
