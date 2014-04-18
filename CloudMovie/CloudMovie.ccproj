@@ -58,7 +58,6 @@
     <Folder Include="WebApiRoleContent" />
     <Folder Include="EditorialRoleContent" />
     <Folder Include="Profiles" />
-    <Folder Include="WorkerRole1Content\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="IndexerRoleContent\diagnostics.wadcfg">
@@ -68,9 +67,6 @@
       <SubType>Content</SubType>
     </Content>
     <Content Include="EditorialRoleContent\diagnostics.wadcfg">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="WorkerRole1Content\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>
