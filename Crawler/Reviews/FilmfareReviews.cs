@@ -45,9 +45,8 @@ namespace Crawler.Reviews
                     return PopulateReviewDetails(reviewPageContent, affiliation);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
             }
 
             return null;
@@ -81,7 +80,9 @@ namespace Crawler.Reviews
                         {
                             reviewerName = reviewerList.FirstOrDefault().InnerText;
                         }
-                        catch (Exception ex) { }
+                        catch (Exception)
+                        {
+                        }
                     }
                     #endregion
 
@@ -90,7 +91,7 @@ namespace Crawler.Reviews
                     var rating = ratingNode.Attributes["class"] != null ? ratingNode.Attributes["class"].Value : string.Empty;
                     rating = rating.Replace("rate", "");
                     float multipliedRating = 0;
-                    
+
                     float.TryParse(rating, out multipliedRating);
 
                     if (multipliedRating > 0)

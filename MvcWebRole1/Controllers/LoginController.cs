@@ -76,7 +76,7 @@ namespace MvcWebRole1.Controllers
                     return Json(new { Status = "Require" }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //TempData["Failed"] = "Login Failed. Please try again";
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
@@ -145,7 +145,7 @@ namespace MvcWebRole1.Controllers
                 return Json(new { success = true, createdUser = false });
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { success = false });
             }

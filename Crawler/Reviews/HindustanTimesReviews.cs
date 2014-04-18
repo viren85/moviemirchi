@@ -47,9 +47,8 @@ namespace Crawler.Reviews
 
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
             }
 
             return null;

@@ -51,7 +51,7 @@ namespace Crawler
                     #endregion
 
                     movie = PopulateMovieDetails(moviePageContent);
-                    bool crawlPosters = true;
+                    ////bool crawlPosters = true;
 
                     TableManager tblMgr = new TableManager();
 
@@ -60,12 +60,12 @@ namespace Crawler
                     {
                         movie.RowKey = me.RowKey;
                         movie.MovieId = me.MovieId;
-                        crawlPosters = false;
+                        ////crawlPosters = false;
                     }
 
-                    //PopulateMovieDetails(ref movie, url, crawlPosters);
+                    ////PopulateMovieDetails(ref movie, url, crawlPosters);
                     return movie;
-                    //tableMgr.UpdateMovieById(movie);
+                    ////tableMgr.UpdateMovieById(movie);
                 }
             }
             catch (Exception ex)

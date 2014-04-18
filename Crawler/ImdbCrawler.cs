@@ -1,20 +1,26 @@
-﻿using Crawler;
-using DataStoreLib.Models;
-using HtmlAgilityPack;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.IO;
-using System.Net;
-using System.Text;
-using System.Text.RegularExpressions;
-
+﻿
 namespace MovieCrawler
 {
+    using Crawler;
+    using DataStoreLib.Models;
+    using HtmlAgilityPack;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Net;
+    using System.Text;
+    using System.Text.RegularExpressions;
+
     public class ImdbCrawler
     {
+        private static readonly string PosterPath = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters");
+        private static readonly string PosterImagePath = Path.Combine(PosterPath, "Images");
+        private static readonly string PosterThumbnailPath = Path.Combine(PosterPath, "Thumbnails");
+
         private CrawlerHelper helper = new CrawlerHelper();
+
         // Parent Node/Body
         public MovieEntity GetMovieDetails(HtmlNode body)
         {
@@ -35,9 +41,9 @@ namespace MovieCrawler
             movie.Trailers = string.Empty;
             movie.Pictures = string.Empty;
 
-            movie.Name = movie.Name.Replace(":", "");
-            movie.AltNames = movie.AltNames.Replace(":", "");
-            movie.UniqueName = movie.UniqueName.Replace(":", "");
+            movie.Name = movie.Name.Replace(":", string.Empty);
+            movie.AltNames = movie.AltNames.Replace(":", string.Empty);
+            movie.UniqueName = movie.UniqueName.Replace(":", string.Empty);
 
             return movie;
         }
@@ -63,7 +69,7 @@ namespace MovieCrawler
         {
             var headerNode = helper.GetElementWithAttribute(body, "h1", "class", "header");
             var yearLink = helper.GetElementWithAttribute(headerNode, "span", "class", "nobr");
-            return yearLink != null ? yearLink.InnerText.Replace("(", "").Replace(")", "") : string.Empty;
+            return yearLink != null ? yearLink.InnerText.Replace("(", string.Empty).Replace(")", string.Empty) : string.Empty;
         }
 
         // Rating
@@ -112,7 +118,7 @@ namespace MovieCrawler
 
                 return parent != null ? parent.InnerText : string.Empty;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return string.Empty;
             }
@@ -151,7 +157,7 @@ namespace MovieCrawler
 
             //store href, src, height, width, name of image in innerhtml
             var fullcast = helper.GetElementWithAttribute(body, "table", "class", "cast_list");
-            //var castImg = helper.GetElementWithAttribute(fullcast, "td", "class", "");
+            //var castImg = helper.GetElementWithAttribute(fullcast, "td", "class", string.Empty);
             /*
             var characterName = helper.GetElements(body, "table", "class", "cast_list");
 
@@ -160,14 +166,14 @@ namespace MovieCrawler
 
 
             cast.Trim();
-            string replacement = Regex.Replace(cast, @"\n|\v|\\s", "");
+            string replacement = Regex.Replace(cast, @"\n|\v|\\s", string.Empty);
 
 
 
             replacement.Substring(0, 3);
 
             */
-            return fullcast != null ? fullcast.GetAttributeValue("altName", "") : string.Empty;
+            return fullcast != null ? fullcast.GetAttributeValue("altName", string.Empty) : string.Empty;
         }
 
         public string GetMovieStats(HtmlNode body)
@@ -241,12 +247,12 @@ namespace MovieCrawler
                                 string courtsey = string.Empty;
 
                                 GetSongDetails(song, out title, out lyrics, out composer, out performer, out recite, out courtsey);
-                                songDetail.SongTitle = title.Replace(":", "").Replace(",", "").Trim();
-                                songDetail.Lyrics = lyrics.Replace(":", "").Replace(",", "").Trim();
-                                songDetail.Composed = composer.Replace(":", "").Replace(",", "").Trim();
-                                songDetail.Performer = performer.Replace(":", "").Replace(",", "").Trim();
-                                songDetail.Recite = recite.Replace(":", "").Replace(",", "").Trim();
-                                songDetail.Courtsey = courtsey.Replace(":", "").Replace(",", "").Trim();
+                                songDetail.SongTitle = title.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
+                                songDetail.Lyrics = lyrics.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
+                                songDetail.Composed = composer.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
+                                songDetail.Performer = performer.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
+                                songDetail.Recite = recite.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
+                                songDetail.Courtsey = courtsey.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
 
                                 if (!title.Contains("It looks like we don't have any Soundtracks for this title yet."))
                                     songs.Add(songDetail);
@@ -386,12 +392,11 @@ namespace MovieCrawler
                 try
                 {
                     name = role.Substring(role.IndexOf("by"));
-                    name = name.Replace("by", "").Trim();
+                    name = name.Replace("by", string.Empty).Trim();
                     hasName = true;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-
                 }
             }
 
@@ -410,7 +415,7 @@ namespace MovieCrawler
 
         public string GetMovieUniqueName(string movieName)
         {
-            string uniqueName = movieName.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
+            string uniqueName = movieName.Replace(" ", "-").Replace("&", "-and-").Replace(".", string.Empty).Replace("'", string.Empty).ToLower();
 
             /*var tableMgr = new TableManager();
             
@@ -628,7 +633,7 @@ namespace MovieCrawler
                     client.DownloadFile(url, filePath);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return false;
             }
@@ -638,10 +643,7 @@ namespace MovieCrawler
 
         private string GetNewImageName(string movieName, string extension, int counter, bool isThumbnail, ref string newImageName)
         {
-
             string tempImageName = string.Empty;
-            string posterImagePath = Path.Combine(Path.Combine(ConfigurationSettings.AppSettings["ImagePath"], "Posters"), "Images");
-            string posterThumbnailPath = Path.Combine(Path.Combine(ConfigurationSettings.AppSettings["ImagePath"], "Posters"), "Thumbnails");
 
             if (string.IsNullOrEmpty(movieName) || string.IsNullOrEmpty(extension))
             {
@@ -655,7 +657,7 @@ namespace MovieCrawler
 
                 string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
                 Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-                tempImageName = r.Replace(tempImageName, "");
+                tempImageName = r.Replace(tempImageName, string.Empty);
 
 
                 if (isThumbnail)
@@ -663,18 +665,17 @@ namespace MovieCrawler
                     tempImageName += "thumb-";
                     tempImageName += counter + extension;
                     newImageName = tempImageName;
-                    tempImageName = Path.Combine(posterThumbnailPath, tempImageName);
+                    tempImageName = Path.Combine(PosterThumbnailPath, tempImageName);
                 }
                 else
                 {
                     tempImageName += counter + extension;
                     newImageName = tempImageName;
-                    tempImageName = Path.Combine(posterImagePath, tempImageName);
+                    tempImageName = Path.Combine(PosterImagePath, tempImageName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
             }
 
             return tempImageName; ;
@@ -705,11 +706,11 @@ namespace MovieCrawler
                                 if (node.Attributes["itemprop"] != null && node.Attributes["itemprop"].Value == "actor")
                                 {
                                     var link = node.Element("a");
-                                    cast.name = link.InnerText.Replace("&", "").Trim();
+                                    cast.name = link.InnerText.Replace("&", string.Empty).Trim();
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "character")
                                 {
-                                    cast.charactername = node.InnerText.Replace("&", "").Trim(); ;
+                                    cast.charactername = node.InnerText.Replace("&", string.Empty).Trim(); ;
                                 }
                             }
 
@@ -737,10 +738,10 @@ namespace MovieCrawler
             try
             {
                 string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
-                Regex r = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-                tempImageName = r.Replace(tempImageName, "");
+                Regex reg = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
+                tempImageName = reg.Replace(tempImageName, string.Empty);
 
-                DirectoryInfo dir = new DirectoryInfo(Path.Combine(Path.Combine(ConfigurationSettings.AppSettings["ImagePath"], "Posters"), "Images"));
+                DirectoryInfo dir = new DirectoryInfo(PosterImagePath);
                 FileInfo[] files = dir.GetFiles(tempImageName);
                 foreach (FileInfo file in files)
                 {
@@ -752,9 +753,8 @@ namespace MovieCrawler
                         maxId = id;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
                 Debug.WriteLine("An error occurred while getting the max poster count for movie named - " + movieName);
             }
 

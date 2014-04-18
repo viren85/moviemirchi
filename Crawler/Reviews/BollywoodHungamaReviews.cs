@@ -46,9 +46,8 @@ namespace Crawler.Reviews
                     return PopulateReviewDetails(reviewPageContent, affiliation);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
             }
 
             return null;

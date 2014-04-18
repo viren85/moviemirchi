@@ -174,7 +174,7 @@ namespace MvcWebRole2.Controllers
                                         tblMgr.UpdateReviewById(re);
                                     }
                                 }
-                                catch (Exception ex)
+                                catch (Exception)
                                 {
                                 }
                                 #endregion
@@ -209,7 +209,7 @@ namespace MvcWebRole2.Controllers
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                                 #endregion
                             }
-                            catch (Exception e)
+                            catch (Exception)
                             {
                                 Debug.WriteLine("Error while crawling movie - " + movie.Attributes["link"].Value);
                             }

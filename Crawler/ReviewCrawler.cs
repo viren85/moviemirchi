@@ -47,9 +47,8 @@ namespace Crawler
                 }
                 #endregion
             }
-            catch (Exception ex)
-            {
-                
+            catch (Exception)
+            {   
             }
 
             return reviewerKey;

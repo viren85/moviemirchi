@@ -89,7 +89,7 @@ namespace DataStoreLib.Storage
                         _table.Execute(tableOperation);
                         returnDict[toBeIndexedEntity.Value.EntityId] = true;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         Trace.TraceError("Couldn't delete entity id {0}", toBeIndexedEntity.Value.EntityId);
                     }

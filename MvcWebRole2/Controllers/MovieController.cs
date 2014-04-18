@@ -94,7 +94,7 @@ namespace MvcWebRole2.Controllers
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);                
             }
@@ -151,7 +151,7 @@ namespace MvcWebRole2.Controllers
                 }
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
