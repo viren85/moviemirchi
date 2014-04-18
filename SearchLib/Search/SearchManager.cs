@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Diagnostics;
-using System.IO;
-
+﻿
 namespace SearchLib.Search
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Threading;
+
     public class SearchManager
     {
-
         private static SearchManager _searchManager;
         private static object lockObj = new object();
 
@@ -26,20 +23,22 @@ namespace SearchLib.Search
                         _searchManager = new SearchManager();
                     }
                 }
+
                 return _searchManager;
             }
         }
 
         protected object readyLock = new object();
-        protected enum State {Error, Init, Ready, None};
+        protected enum State { Error, Init, Ready, None };
         protected State objectState = State.None;
         protected IndexQuery index = null;
 
+        [Serializable]
         public class NotReadyException : Exception
         {
             public NotReadyException()
-                :base("The indexer is still reading the index. Try querying it later")
-            {}
+                : base("The indexer is still reading the index. Try querying it later")
+            { }
         }
 
         protected void CheckIfReady()
@@ -75,8 +74,8 @@ namespace SearchLib.Search
             try
             {
                 index = IndexQuery.GetIndexReader(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "indexer"));
-                
-                lock(readyLock)
+
+                lock (readyLock)
                 {
                     objectState = State.Ready;
                 }

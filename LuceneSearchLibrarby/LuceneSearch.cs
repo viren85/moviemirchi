@@ -1,22 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
-using Lucene.Net.Analysis.Standard;
-using Lucene.Net.Documents;
-using Lucene.Net.Index;
-using Lucene.Net.Search;
-using Lucene.Net.Store;
-using Version = Lucene.Net.Util.Version;
-using Lucene.Net.QueryParsers;
-using Lucene.Net.Analysis;
-using System.Configuration;
-
+﻿
 namespace LuceneSearchLibrarby
 {
+    using Lucene.Net.Analysis.Standard;
+    using Lucene.Net.Documents;
+    using Lucene.Net.Index;
+    using Lucene.Net.QueryParsers;
+    using Lucene.Net.Search;
+    using Lucene.Net.Store;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.IO;
+    using System.Linq;
+    using Version = Lucene.Net.Util.Version;
+
     public class LuceneSearch
     {
         /// <summary>
@@ -79,20 +76,21 @@ namespace LuceneSearchLibrarby
         /// <summary>
         /// method that will use _addToLuceneIndex() in order to add a list of records to search index: 
         /// </summary>
-        /// <param name="movieSearchDatas">List of MovieSearchData</param>
-        public static void AddUpdateLuceneIndex(IEnumerable<MovieSearchData> movieSearchDatas)
+        /// <param name="movieSearchData">List of MovieSearchData</param>
+        public static void AddUpdateLuceneIndex(IEnumerable<MovieSearchData> movieSearchData)
         {
             // init lucene
-            var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            //var analyzer = new WhitespaceAnalyzer();
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                // add data to lucene search index (replaces older entry if any)
-                foreach (var movieSearchData in movieSearchDatas) _addToLuceneIndex(movieSearchData, writer);
-
-                // close handles
-                analyzer.Close();
-                writer.Dispose();
+                //var analyzer = new WhitespaceAnalyzer();
+                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                {
+                    // add data to lucene search index (replaces older entry if any)
+                    foreach (var data in movieSearchData)
+                    {
+                        _addToLuceneIndex(data, writer);
+                    }
+                }
             }
         }
 
@@ -102,7 +100,7 @@ namespace LuceneSearchLibrarby
         /// <param name="movieSearchData"></param>
         public static void AddUpdateLuceneIndex(MovieSearchData movieSearchData)
         {
-            AddUpdateLuceneIndex(new List<MovieSearchData> { movieSearchData });
+            AddUpdateLuceneIndex(new MovieSearchData[] { movieSearchData });
         }
 
         /// <summary>
@@ -112,17 +110,15 @@ namespace LuceneSearchLibrarby
         public static void ClearLuceneIndexRecord(int record_id)
         {
             // init lucene
-            var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            //var analyzer = new WhitespaceAnalyzer();
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                // remove older index entry
-                var searchQuery = new TermQuery(new Term("Id", record_id.ToString()));
-                writer.DeleteDocuments(searchQuery);
-
-                // close handles
-                analyzer.Close();
-                writer.Dispose();
+                //var analyzer = new WhitespaceAnalyzer();
+                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                {
+                    // remove older index entry
+                    var searchQuery = new TermQuery(new Term("Id", record_id.ToString()));
+                    writer.DeleteDocuments(searchQuery);
+                }
             }
         }
 
@@ -132,24 +128,23 @@ namespace LuceneSearchLibrarby
         /// <returns></returns>
         public static bool ClearLuceneIndex()
         {
-            try
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                var analyzer = new StandardAnalyzer(Version.LUCENE_30);
                 //var analyzer = new WhitespaceAnalyzer();
                 using (var writer = new IndexWriter(_directory, analyzer, true, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
-                    // remove older index entries
-                    writer.DeleteAll();
-
-                    // close handles
-                    analyzer.Close();
-                    writer.Dispose();
+                    try
+                    {
+                        // remove older index entries
+                        writer.DeleteAll();
+                    }
+                    catch (Exception)
+                    {
+                        return false;
+                    }
                 }
             }
-            catch (Exception)
-            {
-                return false;
-            }
+
             return true;
         }
 
@@ -158,13 +153,13 @@ namespace LuceneSearchLibrarby
         /// </summary>
         public static void Optimize()
         {
-            var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-            //var analyzer = new WhitespaceAnalyzer();
-            using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+            using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
             {
-                analyzer.Close();
-                writer.Optimize();
-                writer.Dispose();
+                //var analyzer = new WhitespaceAnalyzer();
+                using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
+                {
+                    writer.Optimize();
+                }
             }
         }
 
@@ -215,32 +210,29 @@ namespace LuceneSearchLibrarby
             using (var searcher = new IndexSearcher(_directory, false))
             {
                 var hits_limit = 10;
-                var analyzer = new StandardAnalyzer(Version.LUCENE_30);
-                //var analyzer = new WhitespaceAnalyzer();
+                using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
+                {
+                    //var analyzer = new WhitespaceAnalyzer();
 
-                // search by single field
-                if (!string.IsNullOrEmpty(searchField))
-                {
-                    var parser = new QueryParser(Version.LUCENE_30, searchField, analyzer);
-                    var query = parseQuery(searchQuery, parser);
-                    var hits = searcher.Search(query, hits_limit).ScoreDocs;
-                    var results = _mapLuceneToDataList(hits, searcher);
-                    analyzer.Close();
-                    searcher.Dispose();
-                    return results;
-                }
-                // search by multiple fields (ordered by RELEVANCE)
-                else
-                {
-                    //var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
-                    var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description" }, analyzer);
-                    var query = parseQuery(searchQuery, parser);
-                    var hits = searcher.Search
-                    (query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;
-                    var results = _mapLuceneToDataList(hits, searcher);
-                    analyzer.Close();
-                    searcher.Dispose();
-                    return results;
+                    // search by single field
+                    if (!string.IsNullOrEmpty(searchField))
+                    {
+                        var parser = new QueryParser(Version.LUCENE_30, searchField, analyzer);
+                        var query = parseQuery(searchQuery, parser);
+                        var hits = searcher.Search(query, hits_limit).ScoreDocs;
+                        var results = _mapLuceneToDataList(hits, searcher);
+                        return results;
+                    }
+                    // search by multiple fields (ordered by RELEVANCE)
+                    else
+                    {
+                        //var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
+                        var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description" }, analyzer);
+                        var query = parseQuery(searchQuery, parser);
+                        var hits = searcher.Search(query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;
+                        var results = _mapLuceneToDataList(hits, searcher);
+                        return results;
+                    }
                 }
             }
         }

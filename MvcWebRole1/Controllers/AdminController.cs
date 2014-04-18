@@ -132,7 +132,7 @@ namespace MvcWebRole1.Controllers
                     //var m = new MovieEntity();
                     //entity.MovieId = m.MovieId = Guid.NewGuid().ToString();
                     //entity.ReviewId = 
-                   entity.MovieId = review.MovieId;
+                    entity.MovieId = review.MovieId;
                     //entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
                     entity.Review = review.Review;
                     entity.ReviewerName = review.ReviewerName;
@@ -149,9 +149,9 @@ namespace MvcWebRole1.Controllers
 
 
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
             ViewBag.movie = GetMovie();
@@ -228,7 +228,7 @@ namespace MvcWebRole1.Controllers
 
                     TableManager tblMgr = new TableManager();
                     tblMgr.UpdateAffilationById(entity);
-                   // ModelState.Clear();
+                    // ModelState.Clear();
                 }
                 else
                 {
@@ -245,7 +245,7 @@ namespace MvcWebRole1.Controllers
 
             //ModelState.Clear();
             return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
-         
+
         }
 
 
@@ -282,8 +282,8 @@ namespace MvcWebRole1.Controllers
 
                     AffilationEntity affil = new AffilationEntity();
 
-                     affil.AffilationId = reviewer.Affilation;
-                     
+                    affil.AffilationId = reviewer.Affilation;
+
 
                     //AffilationEntity affil = new AffilationEntity();
                     //if (reviewer.Affilation != null)
@@ -301,16 +301,16 @@ namespace MvcWebRole1.Controllers
 
 
 
-                        
+
                     //}
-                   // entity.Affilation = json1.Serialize(affil);
-                   // entity.Affilation = reviewer.Affilation;
+                    // entity.Affilation = json1.Serialize(affil);
+                    // entity.Affilation = reviewer.Affilation;
 
 
                     TableManager tblMgr = new TableManager();
                     var a = tblMgr.GetAffilationById(affil.AffilationId);
                     //JavaScriptSerializer json1 = new JavaScriptSerializer();
-                    
+
                     entity.Affilation = json.Serialize(a);
 
                     tblMgr.UpdateReviewerById(entity);
@@ -345,7 +345,7 @@ namespace MvcWebRole1.Controllers
                 }
                 );
 
-            
+
             return new SelectList(affilation, "Value", "Text");
         }
     }

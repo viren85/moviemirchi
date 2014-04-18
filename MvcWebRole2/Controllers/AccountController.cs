@@ -220,7 +220,8 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                throw ex;
+                Debug.WriteLine("Exception: {0}", ex);
+                throw;
             }
 
         }

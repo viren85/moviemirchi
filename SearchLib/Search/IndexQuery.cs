@@ -1,27 +1,28 @@
-﻿using System.Diagnostics;
-using System.IO;
-using Lucene.Net.Analysis;
-using Lucene.Net.Analysis.Standard;
-using Lucene.Net.Documents;
-using Lucene.Net.Index;
-using Lucene.Net.Search;
-using Lucene.Net.Store;
-using SearchLib.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lucene.Net.QueryParsers;
-using Version = Lucene.Net.Util.Version;
-
+﻿
 namespace SearchLib.Search
 {
-    public class IndexQuery : ISearch
+    using Lucene.Net.Analysis;
+    using Lucene.Net.Analysis.Standard;
+    using Lucene.Net.Documents;
+    using Lucene.Net.QueryParsers;
+    using Lucene.Net.Search;
+    using Lucene.Net.Store;
+    using SearchLib.Interfaces;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using Version = Lucene.Net.Util.Version;
+
+    public class IndexQuery : ISearch, IDisposable
     {
         protected string _location;
         protected IndexSearcher _searcher;
         protected readonly int MaxCount = 100;
+
+        // Flag: Has Dispose already been called? 
+        private bool disposed = false;
 
         public static IndexQuery GetIndexReader(string location)
         {
@@ -43,7 +44,7 @@ namespace SearchLib.Search
 
         public void GetAllMoviesWith(string textSearch, int maxCount, out List<string> movies, out List<string> reviews, IList<string> filters = null)
         {
-            reviews  = new List<string>();
+            reviews = new List<string>();
             movies = new List<string>();
 
             try
@@ -68,7 +69,7 @@ namespace SearchLib.Search
             }
             catch (Exception err)
             {
-               Trace.TraceError("Get all movies failed with exception {0}", err);
+                Trace.TraceError("Get all movies failed with exception {0}", err);
                 throw;
             }
 
@@ -89,7 +90,7 @@ namespace SearchLib.Search
             }
         }
 
-        Query ParseQuery(string query, IList<string> filters, Analyzer analyzer)
+        private Query ParseQuery(string query, IList<string> filters, Analyzer analyzer)
         {
             query = query.Trim();
 
@@ -100,7 +101,7 @@ namespace SearchLib.Search
                 {
                     field = Constants.Constants.Field_Directors;
                 }
-                var parser = new QueryParser(Version.LUCENE_30, field , analyzer);
+                var parser = new QueryParser(Version.LUCENE_30, field, analyzer);
                 return parser.Parse(query);
             }
             else
@@ -109,6 +110,29 @@ namespace SearchLib.Search
                 return parser.Parse(query);
             }
         }
-         
+
+        // Public implementation of Dispose pattern callable by consumers. 
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern. 
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                // Free any other managed objects here. 
+                _searcher.Close();
+                _searcher.Dispose();
+            }
+
+            // Free any unmanaged objects here. 
+            disposed = true;
+        }
     }
 }
