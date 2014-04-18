@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace Crawler
@@ -43,7 +44,7 @@ namespace Crawler
             }
 
             return result;
-        } 
+        }
 
         private string SafeGetAttributeValue(HtmlNodeCollection collection, string name)
         {
@@ -71,6 +72,11 @@ namespace Crawler
                 result = attr.Value;
             }
             return result;
+        }
+
+        public string CleanHtmlText(string sourceHtml)
+        {
+            return Regex.Replace(sourceHtml, "|(<(?<t>script|object|applet|embbed|frameset|iframe|form|textarea|img)(\\s+.*?)?>.*?</\\k<t>>)|(<(script|object|applet|embbed|frameset|iframe|form|input|button|textarea)(<a>\\s+.*?)?/?>)</a>", string.Empty, RegexOptions.IgnoreCase);
         }
     }
 }

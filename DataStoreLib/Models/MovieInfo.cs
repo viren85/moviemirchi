@@ -48,6 +48,8 @@ namespace DataStoreLib.Models
         public string charactername { get; set; }
         public PosterInfo image { get; set; }
         public string role { get; set; }
+
+        public string link { get; set; }
     }
 
     public class Stats

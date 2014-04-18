@@ -190,6 +190,7 @@
     <Compile Include="Controllers\api\AllSongsController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\GetCastByTypeController.cs" />
+    <Compile Include="Controllers\api\MovieReviewController.cs" />
     <Compile Include="Controllers\api\MovieInfoController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\api\PosterController.cs" />

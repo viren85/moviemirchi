@@ -36,6 +36,8 @@ namespace MvcWebRole1.Controllers.api
 
                 string searchText = qpParams["q"];
 
+                searchText = string.IsNullOrEmpty(searchText) ? string.Empty : searchText.Replace(".", "");
+
                 // get movies by search keyword
                 var movie = tableMgr.SearchMovies(searchText);
 

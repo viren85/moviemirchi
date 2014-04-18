@@ -13,7 +13,7 @@ namespace MvcWebRole1.Controllers.api
     /// If movie result found, return JSON string contains, all the movie information including reviews. Otherwise, return empty string.
     /// throw ArgumentException
     /// </summary>
-    public class MovieInfoController : BaseController
+    public class MovieReviewController : BaseController
     {
         // get : api/MovieInfo?q={movieId}
         protected override string ProcessRequest()
@@ -43,9 +43,7 @@ namespace MvcWebRole1.Controllers.api
                     List<ReviewEntity> userReviews = new List<ReviewEntity>();
 
                     movieInfo.movieId = movie.MovieId;
-                    movieInfo.Movie = movie;
-
-                    /*
+                    
                     // get reviews for movie by movie id
                     var reviewList = tableMgr.GetReviewsByMovieId(movie.MovieId);
 
@@ -57,6 +55,7 @@ namespace MvcWebRole1.Controllers.api
                             ReviewerEntity reviewer = tableMgr.GetReviewerById(review.Value.ReviewerId);
                             ReviewEntity objReview = review.Value as ReviewEntity;
 
+                            objReview.Affiliation = reviewer.Affilation;
                             objReview.ReviewerName = reviewer.ReviewerName;
                             objReview.OutLink = reviewer.ReviewerImage;
                             userReviews.Add(objReview);
@@ -65,7 +64,7 @@ namespace MvcWebRole1.Controllers.api
 
                     //add reviewlist to movieinfo reviews
                     movieInfo.MovieReviews = userReviews;
-                    */
+                    
                     // serialize movie object and return.
                     return json.Serialize(movieInfo);
                 }

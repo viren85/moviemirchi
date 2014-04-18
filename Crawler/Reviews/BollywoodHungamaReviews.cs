@@ -99,7 +99,7 @@ namespace Crawler.Reviews
                     }
 
                     var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", " mfl mmb31 mfnt12 minline malignjus mmr18");
-                    var review = reviewContent.InnerText;
+                    var review = new CrawlerHelper().CleanHtmlText(reviewContent.InnerHtml);
 
                     re.Affiliation = affiliation;
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();

@@ -76,7 +76,7 @@ namespace Crawler.Reviews
                     var reviewName = node.InnerText;
 
                     var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", "sty_txt");
-                    var review = reviewContent.InnerText;
+                    var review = new CrawlerHelper().CleanHtmlText(reviewContent.InnerHtml);
 
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation;

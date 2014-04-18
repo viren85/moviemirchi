@@ -198,6 +198,7 @@ namespace MvcWebRole2.Controllers
                                     posterUrl = posters[posters.Count - 1];
                                 }
 
+                                // include reviewer & their affiliation in index file
                                 MovieSearchData movieSearchIndex = new MovieSearchData();
                                 movieSearchIndex.Id = mov.RowKey;
                                 movieSearchIndex.Title = mov.Name;

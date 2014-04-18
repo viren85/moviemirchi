@@ -610,6 +610,9 @@ namespace MovieCrawler
                                 {
                                     var link = node.Element("a");
                                     cast.name = link.InnerText.Trim();
+
+                                    if (link.Attributes["href"] != null)
+                                        cast.link = link.Attributes["href"].Value;
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "credit")
                                 {
@@ -707,6 +710,9 @@ namespace MovieCrawler
                                 {
                                     var link = node.Element("a");
                                     cast.name = link.InnerText.Replace("&", string.Empty).Trim();
+                                    
+                                    if (link.Attributes["href"] != null)
+                                        cast.link = link.Attributes["href"].Value;
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "character")
                                 {

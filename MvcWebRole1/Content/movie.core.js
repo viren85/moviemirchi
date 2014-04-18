@@ -220,7 +220,7 @@ function PopulatingMovies(movie) {
 
     var poster = [];
     poster = JSON.parse(movie.Posters);
-    var src = (poster != null && poster.length > 0)?
+    var src = (poster != null && poster.length > 0) ?
         "/Posters/Images/" + poster[poster.length - 1] :
         "/Posters/Images/default-movie.jpg";
 
@@ -261,7 +261,7 @@ function PopulatingMovies(movie) {
 function showCaption(unqname, showCaption) {
     var movieDiv = $("." + unqname)[0];
     var picCaption = $("#captionCredit", movieDiv)[0];
-   picCaption.style.display = "inline";
+    picCaption.style.display = "inline";
 }
 
 function hideCaption(unqname) {
@@ -281,8 +281,10 @@ function PopulatingMoviesTitle(movieTitle, parentElment) {
 
 function LoadSingleMovie(movieId) {
     var path = "../api/MovieInfo?q=" + movieId;
+    var reviewPath = "../api/MovieReview?q=" + movieId;
 
     CallHandler(path, onSuccessLoadSingleMovie);
+    CallHandler(reviewPath, onSuccessLoadMovieReviews);
 }
 
 function onSuccessLoadSingleMovie(result) {
@@ -295,7 +297,7 @@ function onSuccessLoadSingleMovie(result) {
         var poster = [];
         poster = JSON.parse(result.Movie.Posters);
 
-        if (poster.length > 0) {
+        if (poster != "undefined" && poster != null && poster.length > 0) {
             $("img.home-poster").attr("src", "/Posters/Images/" + poster[poster.length - 1]);
 
             //showing movies posters
@@ -307,6 +309,13 @@ function onSuccessLoadSingleMovie(result) {
                 $("#imagearea").append(img);
             }
         }
+        else {
+            $("img.home-poster").attr("src", "/Posters/Images/default-movie.jpg");
+
+            if (poster.length < 2)
+                $("#item2").remove();
+        }
+
         /*else if (poster.length < 2) {
             $("#imagearea").parent(".bb-item").remove();
         }*/
@@ -325,7 +334,7 @@ function onSuccessLoadSingleMovie(result) {
         casts = JSON.parse(result.Movie.Casts);
         songs = JSON.parse(result.Movie.Songs);
 
-        if (casts.length > 0) {
+        if (casts != "undefined" && casts != null && casts.length > 0) {
             for (var c = 0; c < casts.length; c++) {
 
                 if (casts[c].role.toLowerCase() == "director" && casts[c].name != null) {
@@ -356,8 +365,11 @@ function onSuccessLoadSingleMovie(result) {
                 }
             }
         }
+        else {
+            $("#item3").remove();
+        }
 
-        if (songs.length > 0) {
+        if (songs != "undefined" && songs != null && songs.length > 0) {
             for (var s = 0; s < songs.length; s++) {
                 if (songs[s].SongTitle != "") {
                     songsList += "<li class='song-item'>";
@@ -375,11 +387,9 @@ function onSuccessLoadSingleMovie(result) {
                 }
             }
         }
-        /*else {
-            var musicNode = $("#music-details");
-            var par = $(musicNode).parent().parent().parent();
-            $(par).remove();
-        }*/
+        else {
+            $("#item4").remove();
+        }
 
         if (directors.length > 0) {
             directors = directors.substring(0, directors.lastIndexOf(","));
@@ -415,13 +425,6 @@ function onSuccessLoadSingleMovie(result) {
         var ratings = [];
         ratings = JSON.parse(result.Movie.Ratings);
 
-
-        /*var rating = 3;
-        if (ratings.critic != undefined)
-            rating = ratings.critic;
-            */
-
-        //$("#rating").html("<b>Rating :</b>  System = " + ratings.system + ", Critics = " + ratings.critic + ", Hot = " + ratings.hot);
         $(".critic-rating").html(result.Movie.Ratings);
         $("#stats").html(result.Movie.Stats);
 
@@ -432,68 +435,6 @@ function onSuccessLoadSingleMovie(result) {
             $(".star").append(star);
         }
 
-        // populating Reviews
-        var reviews = [];
-        //reviews = JSON.parse(result.MovieReviews);
-        reviews = result.MovieReviews;
-
-        if (reviews.length > 0) {
-
-            var ul = $("#reviews");
-
-            for (var r = 0; r < reviews.length; r++) {
-                var li = $("<li>");
-                li.attr("class", "activityContainer");
-
-                var div = $("<div>");
-                div.attr("class", "reviewer");
-
-                var img = $("<img/>")
-                img.attr("class", "img-thumbnail");
-                img.attr("style", "width: 50px; height: 50px;");
-                img.attr("data-src", "holder.js/200x200");
-                img.attr("alt", reviews[r].ReviewerName);
-                img.attr("src", reviews[r].OutLink);
-                img.attr("title", reviews[r].ReviewerName);
-
-                var anchor = $("<a/>");
-                anchor.attr("href", "Movie/Reviewer?name=" + reviews[r].ReviewerName);
-                anchor.append(img);
-
-                var span = $("<span>");
-                span.attr("style", "width:100%; font-weight: bold;");
-                span.attr("title", reviews[r].ReviewerName);
-
-                var reviewerName = reviews[r].ReviewerName;
-
-                if (reviews[r].ReviewerName.length > 11) {
-                    reviews[r].ReviewerName = reviews[r].ReviewerName.substring(0, 11) + "...";
-                }
-
-                span.html("<a href='Movie/Reviewer?name=" + reviewerName + "'>" + reviews[r].ReviewerName + "</a>");
-                var br = $("<br/>");
-                //div.append(img);
-                div.append(anchor);
-                div.append(br);
-                div.append(span);
-
-                var review = $("<div>");
-                review.attr("class", "review");
-                if (reviews[r].Review.length > 190) {
-                    reviews[r].Review = reviews[r].Review.substring(0, 190) + "...";
-                }
-                review.html("<a href='Movie/Reviewer?name=" + reviewerName + "' >" + reviews[r].Review + "</a>");
-
-                li.append(div);
-                li.append(review);
-
-                ul.append(li);
-            }
-        }
-        else {
-            $("#reviews").html("<li class='activityContainer'>No reviews</li>");
-        }
-
         var width = $(document).width();
         $("#imagearea").find("img").each(function () {
             var ratio = this.width / this.height;
@@ -501,8 +442,154 @@ function onSuccessLoadSingleMovie(result) {
             $(this).width(newWidth + "px").height("200px");
         });
 
+        InitPage();
         Page.init();
     }
+}
+
+function onSuccessLoadMovieReviews(result) {
+
+    // populating Reviews
+    result = JSON.parse(result);
+
+    if (result.MovieReviews != undefined) {
+        var reviews = [];
+        //reviews = JSON.parse(result.MovieReviews);
+        reviews = result.MovieReviews;
+
+        if (reviews.length > 0) {
+
+            var ul = $("#reviewer-list");
+
+            // Clean loader image and any other child elements before adding fresh list of the reviewers
+            $(ul).html("");
+            $("#detailed-review").html("");
+
+            for (var r = 0; r < reviews.length; r++) {
+                var li = $("<li>");
+                var div = $("<div>");
+                div.attr("class", "reviewer");
+                div.attr("review-id", r);
+
+                div.click(function () {
+                    var id = $(this).attr("review-id");
+                    $("#detailed-review").find("div.critic-movie-review").each(function () {
+                        if ($(this).attr("review-id") == id) {
+                            $(this).show();
+                        }
+                        else {
+                            $(this).hide();
+                        }
+                    });
+
+                    $("#detailed-review").find("div.critic-review").each(function () {
+                        if ($(this).attr("review-id") == id) {
+                            $(this).show();
+                        }
+                        else {
+                            $(this).hide();
+                        }
+                    });
+
+                    $(this).parent().parent().find("li").css("background-color", "#FFF");
+                    $(this).parent().css("background-color", "#EEE");
+                });
+
+                var img = $("<img/>")
+                img.attr("alt", reviews[r].ReviewerName);
+
+                if (reviews[r].OutLink != "")
+                    img.attr("src", reviews[r].OutLink);
+                else
+                    img.attr("src", "/Images/user.png");
+
+                img.attr("title", reviews[r].ReviewerName);
+
+                var anchor = $("<a/>");
+                anchor.attr("href", "Movie/Reviewer?name=" + reviews[r].ReviewerName);
+                anchor.append(img);
+
+                var reviewer = $("<div/>");
+                reviewer.attr("class", "reviewer-name");
+                reviewer.attr("title", reviews[r].ReviewerName);
+
+                var reviewerName = reviews[r].ReviewerName;
+
+                if (reviews[r].ReviewerName.length > 31) {
+                    reviews[r].ReviewerName = reviews[r].ReviewerName.substring(0, 31) + "...";
+                }
+
+                reviewer.html("<a href='Movie/Reviewer?name=" + reviewerName + "'>" + reviews[r].ReviewerName + "</a>");
+
+                //div.append(img);
+                div.append(anchor);
+                div.append(reviewer);
+
+                var review = $("<div>");
+                review.attr("class", "reviewer-affiliation");
+                review.html(reviews[r].Affiliation);
+
+                div.append(review);
+                li.append(div);
+
+                ul.append(li);
+
+                var reviewDetail = $("<div/>").html(reviews[r].Review).attr("class", "critic-movie-review").attr("review-id", r).hide();
+
+                var criticReview = GetCriticDetails(reviews[r].ReviewerName, reviews[r].OutLink, reviews[r].Affiliation, reviews[r].ReviewerRating);
+                $(criticReview).attr("review-id", r);
+                $("#detailed-review").append(criticReview);
+
+
+                $("#detailed-review").append(reviewDetail);
+
+                if (r == 0) {
+                    $("#reviewer-list").find("li:first").css("background-color", "#EEE");
+                    reviewDetail.show();
+                }
+            }
+        }
+        else {
+            $("#reviewer-list").html("<li>Currently this movie does not have any reviews by critics.</li>");
+            //$("#item5").remove();
+        }
+    }
+}
+
+function GetCriticDetails(criticName, criticImagePath, criticAffiliation, criticRatingNumber) {
+    var critic = $("<div/>").attr("class", "critic-review");
+
+    var criticName = $("<div/>").attr("class", "critic-name").html(criticName);
+    var criticImage = $("<img/>").attr("class", "critic-review-image");
+    var criticAffiliation = $("<div/>").attr("class", "critic-affiliation").html(criticAffiliation);
+    var criticRate = $("<div/>").attr("class", "critic-rate-container");
+    var criticRating = $("<div/>").attr("class", "critic-rate").html("Rating: " + criticRatingNumber);
+    var criticRatingStars = $("<div/>").css("float", "right").css("width", "100%");
+
+    var rate = Math.round(criticRatingNumber);
+
+    for (var i = 1; i <= rate; i++) {
+        var star = $("<img/>").addClass("star-image").attr("src", "../Images/small_gold_star.png");
+        $(criticRatingStars).append(star);
+    }
+
+    $(criticRate).append(criticRating);
+    $(criticRate).append(criticRatingStars);
+
+
+
+    if (criticImagePath != "") {
+        $(criticImage).attr("src", criticImagePath);
+    }
+    else {
+        $(criticImage).attr("src", "/Images/user.png");
+    }
+
+    $(critic).append(criticImage);
+    $(critic).append(criticName);
+    $(critic).append(criticAffiliation);
+    $(critic).append(criticRate);
+    return critic;
 }
 
 function GetReviewerAndReviews(name, movie) {
