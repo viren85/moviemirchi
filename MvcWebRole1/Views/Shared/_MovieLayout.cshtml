@@ -237,12 +237,19 @@
         });
         //ended music director loading
     </script>
+    <style>
+        .logo-image {
+            width: 200px;
+            height: 40px;
+        }
+    </style>
 </head>
 <body>
     <div class="movie-container">
         <div id="top-nav">
             <div class="logo">
-                @Html.ActionLink("Movie Mirchi", "Index", "Home", null, new { @title = "Find your movie", @rel = "home" })
+                <a href="/Home" title="Movie Mirchi Home"><img src='/Images/logo.png' class="logo-image" /></a>
+                @*@Html.ActionLink("", "Index", "Home", null, new { @title = "Find your movie", @rel = "home" })*@
             </div>
             <div class="col-sm-6 col-md-6">
                 <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">

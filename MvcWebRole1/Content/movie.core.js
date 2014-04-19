@@ -86,7 +86,7 @@ function onSuccessLoadCurrentMovies(result) {
             $(this).css("-ms-transform", "scale(1.5)");
             $(this).css("-moz-transform", "scale(1.5)");
             $(this).css("-o-transform", "scale(1.5)");
-            $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
+            $(this).css("box-shadow", "0px 0px 10px #AAA");
         },
         function () {
             $(this).css("-webkit-transform", "scale(1)");
@@ -140,7 +140,7 @@ function NextMovies() {
             $(this).css("-ms-transform", "scale(1.5)");
             $(this).css("-moz-transform", "scale(1.5)");
             $(this).css("-o-transform", "scale(1.5)");
-            $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
+            $(this).css("box-shadow", "0px 0px 10px #AAA");
         },
         function () {
             $(this).css("-webkit-transform", "scale(1)");
@@ -204,7 +204,7 @@ function PreviousMovies() {
         $(this).css("-ms-transform", "scale(1.5)");
         $(this).css("-moz-transform", "scale(1.5)");
         $(this).css("-o-transform", "scale(1.5)");
-        $(this).css("box-shadow", "3px 3px 15px 5px #DDD");
+        $(this).css("box-shadow", "0px 0px 10px #AAA");
     },
         function () {
             $(this).css("-webkit-transform", "scale(1)");
@@ -246,6 +246,7 @@ function PopulatingMovies(movie) {
             "<div id=\"captionCredit\" style=\"width: 398px; display: none;\" onmouseover=\"showCaption('" + movie.UniqueName + "')\" onmouseout=\"hideCaption('" + movie.UniqueName + "')\" class=\"multimediaCaption\">" +
                 "<div id=\"photoCaption\">" +
                     "<div>" + movie.Name + "</div>" +
+                    "<div>" + movie.Genre + "</div>" +
                     "<div>" + movie.Month + "</div>" +
                     "<div>" + movie.Synopsis + "</div>" +
                 "</div>" +

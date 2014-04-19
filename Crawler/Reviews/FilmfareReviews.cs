@@ -115,7 +115,7 @@ namespace Crawler.Reviews
                         {
                             if (!string.IsNullOrEmpty(r.InnerText) && r.InnerText.Length > 300)
                             {
-                                review = new CrawlerHelper().CleanHtmlText(r.InnerHtml);
+                                review = r.InnerText;
                                 break;
                             }
                         }

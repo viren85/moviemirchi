@@ -74,9 +74,12 @@ namespace Crawler
             return result;
         }
 
+        /* will reuse this method in future as we need to clean the html chunk. 
+         * This code is not functional
         public string CleanHtmlText(string sourceHtml)
         {
             return Regex.Replace(sourceHtml, "|(<(?<t>script|object|applet|embbed|frameset|iframe|form|textarea|img)(\\s+.*?)?>.*?</\\k<t>>)|(<(script|object|applet|embbed|frameset|iframe|form|input|button|textarea)(<a>\\s+.*?)?/?>)</a>", string.Empty, RegexOptions.IgnoreCase);
         }
+         */ 
     }
 }
