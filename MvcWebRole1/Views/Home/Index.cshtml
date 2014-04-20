@@ -5,20 +5,20 @@
 }
 <style>
     .movie-panel {
-        overflow-y: auto !important;
+        margin-top: -10px;
     }
 
     .viewingDiv {
-        float:none;
-        position:relative;
-        display:table;
+        float: none;
+        position: relative;
+        display: table;
         /*overflow:hidden;*/
     }
 
     div.multimediaCaption {
         font-family: Arial;
         font-size: 12px;
-        display: none;
+        display: inline;
     }
 
     .viewer {
@@ -45,8 +45,8 @@
     }
 
     div.captionAndNavigate {
-        background-color: #000000;
-        bottom: 0;
+        background-color: #000;
+        bottom: -42px;
         color: #FFFFFF;
         left: 0;
         margin-bottom: 0;
@@ -56,6 +56,7 @@
         /*padding: 2px 0 2px 2px;*/
         padding: 0px;
         position: absolute;
+        text-align: left;
     }
 
     .overLaying {
@@ -111,21 +112,22 @@
             .overLayImg[title="Watch Flash"]:hover {
                 background: url("/news/images/icons/flash.png") no-repeat scroll 0 -42px transparent;
             }
-
-
-
 </style>
 <div class="content">
     <div class="banner">
         <img src="~/Images/banner-images/movies-collage.jpg" />
         <div class="banner-layer"></div>
         <div class="home-search-bar">
-            <div class="input-group">
-                <div id="search-bar">
-                    <input type="text" class="form-control" placeholder="What do you like? Movies, Celebrities, Artists, Reviewers..." id="home-search" name="query" value="" autocomplete="off" />
-                    <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
-                    <div id="search-results"></div>
+            <div class="header-title">Find the movie to watch</div>
+            <div class="search-container">
+                <div class="input-group search-input">
+                    <div id="search-bar">
+                        <input type="text" class="form-control search" placeholder="What do you like?" id="home-search" name="query" value="" autocomplete="off" />
+                        <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
+                        <div id="search-results"></div>
+                    </div>
                 </div>
+                <div class="search-button">Search</div>
             </div>
         </div>
     </div>
@@ -138,12 +140,16 @@
                 <img src="~/Images/next.png" alt="next" />
             </div>
         </div>
-        <div class="movie-name" style="margin-left: 10%;">
+        <div class="recent-movie-name">
             Recent Releases
         </div>
         <div class="movie-list">
             <ul></ul>
         </div>
+        <div class="recent-movie-name" style="margin-bottom: 1%;">
+            News
+        </div>
+        <div class="news-container"></div>
     </div>
 </div>
 <script>
@@ -151,3 +157,4 @@
         LoadCurrentMovies();
     });
 </script>
+<script type="text/javascript" src="/Content/movie.news.js"></script>

@@ -36,6 +36,7 @@ a {
     -webkit-font-smoothing: subpixel-antialiased;
     width: 100%;
     height: 95%;
+    overflow-y: auto;
 }
 
 #top-nav {
@@ -82,18 +83,18 @@ a {
     text-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
 
-    .js .menu-panel {
-        position: absolute;
-        left: -240px;
-    }
+.js .menu-panel {
+    position: absolute;
+    left: -240px;
+}
 
-    .menu-panel h3 {
-        font-size: 1.8em;
-        padding: 20px;
-        font-weight: 300;
-        color: #fff;
-        box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
-    }
+.menu-panel h3 {
+    font-size: 1.8em;
+    padding: 20px;
+    font-weight: 300;
+    color: #fff;
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
+}
 
 .menu-toc {
     list-style: none;
@@ -184,10 +185,10 @@ a {
         box-shadow: 0 -4px #fff, 0 4px #fff;
     }
 
-    .no-js .bb-custom-wrapper nav span,
-    .no-js .menu-button {
-        display: none;
-    }
+.no-js .bb-custom-wrapper nav span,
+.no-js .menu-button {
+    display: none;
+}
 
 .js .content {
     position: relative;
@@ -317,20 +318,24 @@ a {
     text-align: justify;
 }
 
-.movie-panel {
+.home-movie-panel {
     float: left;
     width: 100%;
     height: 90%;
+    background: #EEE; /* Old browsers */
+    background: -moz-linear-gradient(top, rgba(254,255,255,1) 0%, rgba(210,235,249,1) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,255,1)), color-stop(100%,rgba(210,235,249,1))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* IE10+ */
+    background: linear-gradient(to bottom, rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=0 ); /* IE6-9 */
+}
 
-    background: rgb(254,255,255); /* Old browsers */
-background: -moz-linear-gradient(top,  rgba(254,255,255,1) 0%, rgba(210,235,249,1) 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(254,255,255,1)), color-stop(100%,rgba(210,235,249,1))); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* IE10+ */
-background: linear-gradient(to bottom,  rgba(254,255,255,1) 0%,rgba(210,235,249,1) 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', endColorstr='#d2ebf9',GradientType=0 ); /* IE6-9 */
-
+.movie-panel {
+    float: left;
+    width: 100%;
+    height: 100%;
 }
 
 .genre {
@@ -347,7 +352,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
     margin-right: 0%;
 }
 
-.movie-name {
+.movie-name, .recent-movie-name {
     color: purple;
     float: left;
     width: 72%;
@@ -356,6 +361,19 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
     margin-left: 6%;
     margin-right: 1%;
     margin-bottom: 1%;
+}
+
+.recent-movie-name {
+    width: 90%;
+    margin-left: 5%;
+    margin-bottom: 5%;
+    margin-right: 5%;
+}
+
+.movie-synopsis {
+    float: left;
+    margin-top: 20px;
+    text-align: justify;
 }
 
 .role-name {
@@ -533,13 +551,17 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
 .home-search-bar {
     position: absolute;
     top: 200px;
-    left: 30%;
+    left: 25%;
 }
 
     .home-search-bar input {
         width: 500px !important;
         height: 50px;
     }
+
+.search {
+    border-radius: 5px !important;
+}
 
 .banner-layer {
     position: absolute;
@@ -550,12 +572,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
     top: 0px;
 }
 
-.movie-list {
+.movie-list, .news-container {
     float: left;
-    width: 80%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 10%;
+    width: 90%;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-bottom: 1%;
 }
 
     .movie-list ul {
@@ -569,8 +591,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
         .movie-list ul li {
             float: left;
             list-style: none;
-            width: 30%;
-            margin-right: 3%;
+            width: 23%;
+            margin-right: 2%;
+            min-height: 400px;
+            margin-bottom: 2%;
+            cursor: pointer;
+            text-align: left;
         }
 
             .movie-list ul li img {
@@ -593,6 +619,28 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
     left: 73%;
     width: 24px;
     height: 24px;
+}
+
+.img-movie-name {
+    float: left;
+    font-size: 2em;
+    color: white;
+    width: 100%;
+}
+
+.img-movie-genre {
+    float: left;
+    font-size: 1em;
+    color: #DDD;
+    margin-bottom: 5px;
+    width: 100%;
+}
+
+.img-movie-date {
+    float: left;
+    font-size: 0.8em;
+    color: #CCC;
+    width: 100%;
 }
 
 #reviewer-list {
@@ -682,18 +730,22 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
     cursor: pointer;
     display: none;
 }
+
 .clear-search-bar-button {
     float: right;
     width: 16px !important;
     height: 16px !important;
 }
-#search-bar .clear-search-bar{
+
+#search-bar .clear-search-bar {
     right: 10px;
 }
+
 #search-bar .clear-search-bar-button {
     width: 24px !important;
     height: 24px !important;
 }
+
 .critic-review {
     float: left;
     width: 100%;
@@ -733,6 +785,120 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#feffff', end
     .critic-rate-container .star-image {
         float: right;
     }
+
+.header-title {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+    font: 32px "ralewayregular", Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: white;
+    text-align: left;
+}
+
+.search-container {
+    background-color: #333;
+    border-radius: 5px;
+    padding: 5px;
+    height: 60px;
+    float: left;
+}
+
+.search-input {
+    float: left;
+}
+
+.search-button {
+    float: left;
+    color: white;
+    padding: 10px;
+    padding-top: 15px;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    background-color: skyblue;
+    font-weight: bold;
+    color: #333;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+
+/*News Section on home page - Start */
+.news-container .news-item {
+    float: left;
+    width: 31%;
+    background-color: #FFF;
+    padding: 0;
+    min-height: 150px;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    border:1px solid #4cae4c;
+    border-radius: 4px;
+    box-shadow: 0px 0px 10px #AAA;
+}
+
+    .news-container .news-item .error {
+        color: #999;
+        padding: 10px;
+    }
+
+    .news-container .news-item .news-title {
+        float: left;
+        width: 100%;
+        background-color: #47a447;
+        color: #fff;
+        padding: 5px;
+        text-align: left;
+    }
+
+    .news-container .news-item .news-content {
+        float: left;
+        padding: 10px;
+        text-align: justify;
+    }
+
+        .news-container .news-item .news-content .news-details {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            overflow: hidden;
+            text-align: left;
+            margin-top: 5px;
+            margin-bottom: 0;
+            color: #6F6F6F;
+            float: left;
+            height: 10%;
+        }
+
+        .news-container .news-item .news-content .news-date {
+            text-align: right;
+            margin: 0;
+            margin-top: 3px;
+            color: #6F6F6F;
+            font-size: smaller;
+        }
+
+        .news-container .news-item .news-content .news-author {
+            text-align: left;
+            margin: 0;
+            margin-top: 2px;
+            color: #6F6F6F;
+            font-size: smaller;
+            float: left;
+        }
+
+        .news-container .news-item .news-content .link {
+            float: right;
+        }
+
+            .news-container .news-item .news-content .link a {
+                color: #666;
+            }
+
+                .news-container .news-item .news-content .link a:hover {
+                    color: #dd0017;
+                }
+/*News section on home page end*/
 
 @media screen and (min-width: 315px) and (max-width: 480px) {
     body {

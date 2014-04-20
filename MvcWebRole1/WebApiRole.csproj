@@ -232,6 +232,7 @@
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\movie.style.css" />
+    <Content Include="Content\movie.news.js" />
     <Content Include="Content\page.js" />
     <Content Include="Content\style.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

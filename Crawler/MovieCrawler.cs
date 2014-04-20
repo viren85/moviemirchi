@@ -86,7 +86,7 @@ namespace Crawler
 
                 if (isCrawlPosters)
                 {
-                    poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
+                    //poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
                 }
 
                 movie.Casts = JsonConvert.SerializeObject(cast);

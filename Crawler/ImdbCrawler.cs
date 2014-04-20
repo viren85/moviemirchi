@@ -534,17 +534,21 @@ namespace MovieCrawler
 
             bool isThumbnailDownloaded = false;
             var thumbListNode = helper.GetElementWithAttribute(body, "div", "class", "media_index_thumb_list");
-            var thumbnails = thumbListNode.Elements("a");
-            if (thumbnails != null)
+
+            if (thumbListNode != null)
             {
-                int imageCounter = GetMaxImageCounter(movieName);
-                foreach (HtmlNode thumbnail in thumbnails)
+                var thumbnails = thumbListNode.Elements("a");
+                if (thumbnails != null)
                 {
-                    if (thumbnail.Attributes["itemprop"] != null && thumbnail.Attributes["itemprop"].Value == "thumbnailUrl")
+                    int imageCounter = GetMaxImageCounter(movieName);
+                    foreach (HtmlNode thumbnail in thumbnails)
                     {
-                        string href = thumbnail.Attributes["href"].Value;
-                        CrawlPosterImagePath("http://imdb.com" + href, movieName, imageCounter, ref isThumbnailDownloaded, ref posterPath, ref thumbnailPath);
-                        imageCounter++;
+                        if (thumbnail.Attributes["itemprop"] != null && thumbnail.Attributes["itemprop"].Value == "thumbnailUrl")
+                        {
+                            string href = thumbnail.Attributes["href"].Value;
+                            CrawlPosterImagePath("http://imdb.com" + href, movieName, imageCounter, ref isThumbnailDownloaded, ref posterPath, ref thumbnailPath);
+                            imageCounter++;
+                        }
                     }
                 }
             }

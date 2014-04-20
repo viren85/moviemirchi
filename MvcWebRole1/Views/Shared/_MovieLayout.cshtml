@@ -33,6 +33,7 @@
         $(document).ready(function () {
             $(".clear-search-bar").click(function () {
                 $("#target").val("");
+                $("#targetUL").hide();
                 $("#home-search").val("");
                 $(this).hide();
             });
@@ -44,7 +45,7 @@
                 var query = $(this).val().replace(".", "");
 
                 //clear-search-bar
-                if (query.length > 0) 
+                if (query.length > 0)
                     $("#targetDiv .clear-search-bar").show();
                 else
                     $("#targetDiv .clear-search-bar").hide();
@@ -112,7 +113,7 @@
                             img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
                             //img.attr("data-src", "holder.js/200x200");
                             //img.attr("src", value.TitleImageURL);
-
+                            
                             var description = JSON.parse(value.Description);
 
                             var actors = "";
@@ -138,7 +139,7 @@
                             var divTitleDesc = $("<div>");
                             $(divTitleDesc).attr("style", "width: 80%;float: left;");
 
-                            $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + actors + "</span>");
+                            $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'>" + value.Type + "</span>");
 
                             var anchor = $("<a>");
                             $(anchor).attr("href", "/Movie/" + value.Link);

@@ -1,9 +1,9 @@
 ﻿
 var BASE_URL = "http://127.255.0.1:81/";
 
-var MovieCounter = 3;
+var MovieCounter = 4;
 var MovieIndexer = 0;
-var Movie = 3;
+var Movie = 4;
 
 var ReviewsDetails = [];
 var Index = 0;
@@ -61,27 +61,32 @@ function onSuccessLoadCurrentMovies(result) {
 
             //$(list).append(movie);
 
-            if (i == 2)
+            if (i == 3)
                 break;
         }
 
-        if (result.length > 3) {
+        if (result.length > 4) {
             $("#nextMovies").show();
             //$("#previousMovies").show();
         }
 
+        /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
         $(".movie-list").find("img").each(function () {
+
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
+
+            if (newWidth > 270)
+                $(this).width("270px");
             /*$(this).parent().parent().find(".movie-title").each(function () {
                 $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
             });*/
         });
 
-        $(".movie-poster").hover(function () {
+        /*$(".movie-poster").hover(function () {
             $(this).css("-webkit-transform", "scale(1.5)");
             $(this).css("-ms-transform", "scale(1.5)");
             $(this).css("-moz-transform", "scale(1.5)");
@@ -95,7 +100,7 @@ function onSuccessLoadCurrentMovies(result) {
             $(this).css("-o-transform", "scale(1)");
             //$(".movie-title").css("-webkit-transform", "scale(1.5)").css("background-color", "#333").css("opacity", "0.7");
             $(this).css("box-shadow", "none");
-        });
+        });*/
     }
 }
 
@@ -121,21 +126,29 @@ function NextMovies() {
             PopulatingMovies(MOVIES[i]);
             PopulatingMoviesTitle(MOVIES[i]);
 
-            if (MovieCounter % 3 == 0) {
+            if (MovieCounter % 4 == 0) {
                 break;
             }
         }
 
         var width = $(document).width();
 
+        var width = $(document).width();
+
         $(".movie-list").find("img").each(function () {
+
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
-            $(this).css("max-width", "300px");
+
+            if (newWidth > 270)
+                $(this).width("270px");
+            /*$(this).parent().parent().find(".movie-title").each(function () {
+                $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
+            });*/
         });
 
-        $(".movie-poster").hover(function () {
+        /*$(".movie-poster").hover(function () {
             $(this).css("-webkit-transform", "scale(1.5)");
             $(this).css("-ms-transform", "scale(1.5)");
             $(this).css("-moz-transform", "scale(1.5)");
@@ -148,7 +161,7 @@ function NextMovies() {
             $(this).css("-moz-transform", "scale(1)");
             $(this).css("-o-transform", "scale(1)");
             $(this).css("box-shadow", "none");
-        });
+        });*/
     }
 }
 
@@ -164,7 +177,7 @@ function PreviousMovies() {
         var movieContainer = $(".movie-list ul");
         $(movieContainer).html("");
 
-        if (Movie == 3) {
+        if (Movie == 4) {
             $("#previousMovies").hide();
         }
 
@@ -177,7 +190,7 @@ function PreviousMovies() {
                 $("#previousMovies").hide();
             }*/
 
-            if (MovieCounter % 3 == 0) {
+            if (MovieCounter % 4 == 0) {
                 break;
             }
         }
@@ -193,13 +206,19 @@ function PreviousMovies() {
     var width = $(document).width();
 
     $(".movie-list").find("img").each(function () {
+
         var ratio = this.width / this.height;
         var newWidth = 400 * ratio;
         $(this).width(newWidth + "px").height("400px");
-        $(this).css("max-width", "300px");
+
+        if (newWidth > 270)
+            $(this).width("270px");
+        /*$(this).parent().parent().find(".movie-title").each(function () {
+            $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
+        });*/
     });
 
-    $(".movie-poster").hover(function () {
+    /*$(".movie-poster").hover(function () {
         $(this).css("-webkit-transform", "scale(1.5)");
         $(this).css("-ms-transform", "scale(1.5)");
         $(this).css("-moz-transform", "scale(1.5)");
@@ -212,7 +231,7 @@ function PreviousMovies() {
             $(this).css("-moz-transform", "scale(1)");
             $(this).css("-o-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
             $(this).css("box-shadow", "none");
-        });
+        });*/
 }
 
 function PopulatingMovies(movie) {
@@ -236,19 +255,20 @@ function PopulatingMovies(movie) {
     list.append(anchor);
 
     movieContainer.append(list);
+    var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
 
     var html =
     "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
-        "<div id=\"imageContainer\" onmouseover=\"showCaption('" + movie.UniqueName + "')\" onmouseout=\"hideCaption('" + movie.UniqueName + "')\" class=\"viewer\" style=\"width: 400px; height: 315px;\">" +
-            "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + "/Posters/Images/" + poster[poster.length - 1] + "\" style=\"margin: auto; cursor: default;\">" +
-        "</div>" +
-        "<div class=\"captionAndNavigate\" style=\"width:400px;\">" +
-            "<div id=\"captionCredit\" style=\"width: 398px; display: none;\" onmouseover=\"showCaption('" + movie.UniqueName + "')\" onmouseout=\"hideCaption('" + movie.UniqueName + "')\" class=\"multimediaCaption\">" +
-                "<div id=\"photoCaption\">" +
-                    "<div>" + movie.Name + "</div>" +
-                    "<div>" + movie.Genre + "</div>" +
-                    "<div>" + movie.Month + "</div>" +
-                    "<div>" + movie.Synopsis + "</div>" +
+        "<div id=\"imageContainer\" onmouseover=\"showCaption(this)\" onmouseout=\"hideCaption(this)\" class=\"viewer\" style=\"height: 315px;\">" +
+            "<img id=\"imageEl\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\">" +
+            "<div class=\"captionAndNavigate\" style=\"width:267px;padding: 15px\">" +
+                "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
+                    "<div id=\"photoCaption\">" +
+                        "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
+                        "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
+                        "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
+                        "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
+                    "</div>" +
                 "</div>" +
             "</div>" +
         "</div>" +
@@ -259,16 +279,54 @@ function PopulatingMovies(movie) {
     return list;
 }
 
-function showCaption(unqname, showCaption) {
-    var movieDiv = $("." + unqname)[0];
-    var picCaption = $("#captionCredit", movieDiv)[0];
-    picCaption.style.display = "inline";
+function MovieImageLoaded(img) {
+    var width = $(document).width();
+    var imgWidth = parseInt($(img).css("width").replace("px"));
+    var imgHeight = parseInt($(img).css("height").replace("px"));
+
+    var ratio = imgWidth / imgHeight;
+    var newWidth = 400 * ratio;
+    if (newWidth > 400) {
+        newWidth = 267;
+    }
+
+    $(img).css("width", newWidth + "px").css("height", "400px");
 }
 
-function hideCaption(unqname) {
-    var movieDiv = $("." + unqname)[0];
+function showCaption(element) {
+    /*var movieDiv = $("." + unqname)[0];
     var picCaption = $("#captionCredit", movieDiv)[0];
-    picCaption.style.display = "none";
+    picCaption.style.display = "inline";*/
+    $(element).find(".captionAndNavigate").each(function () {
+        $(this).height("370px");
+    });
+
+    $(element).find(".movie-synopsis").each(function () {
+        $(this).show();
+    });
+
+    /* $(element).css("-webkit-transform", "scale(1.05)");
+     $(element).css("-ms-transform", "scale(1.05)");
+     $(element).css("-moz-transform", "scale(1.05)");
+     $(element).css("-o-transform", "scale(1.05)");*/
+}
+
+function hideCaption(element) {
+    /*var movieDiv = $("." + unqname)[0];
+    var picCaption = $("#captionCredit", movieDiv)[0];
+    picCaption.style.display = "none";*/
+    $(element).find(".captionAndNavigate").each(function () {
+        $(this).height("auto");
+    });
+
+    $(element).find(".movie-synopsis").each(function () {
+        $(this).hide();
+    });
+
+    $(element).css("-webkit-transform", "scale(1)");
+    $(element).css("-ms-transform", "scale(1)");
+    $(element).css("-moz-transform", "scale(1)");
+    $(element).css("-o-transform", "scale(1)");
 }
 
 function PopulatingMoviesTitle(movieTitle, parentElment) {
@@ -307,6 +365,10 @@ function onSuccessLoadSingleMovie(result) {
                 img.attr("class", "gallery-image");
                 img.attr("alt", result.Movie.Name);
                 img.attr("src", "/Posters/Images/" + poster[p]);
+                img.error(function () {
+                    $(this).hide();
+                });
+
                 $("#imagearea").append(img);
             }
         }

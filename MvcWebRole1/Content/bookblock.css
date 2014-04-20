@@ -109,7 +109,7 @@
 .js .bb-item {
 	width: 100%;
 	position: relative;
-	float: left;
+	
 	display: none;
 	background: #fff;
 }
