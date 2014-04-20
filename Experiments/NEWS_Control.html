@@ -1,12 +1,11 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
           "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Sample for NEWS controls</title>
-    <meta http-equiv="content-type"
-          content="text/html;charset=utf-8" />
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js"></script>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
     <script type="text/javascript">
         ((function ShowNewsControl(url, selector) {
 
@@ -14,22 +13,29 @@
 
                 entries.forEach(function (entry) {
 
-                    var getValue = function (coll, k) {
-                        var el = coll[k];
+                    var getValue = function (k) {
+                        var el = entry[k];
                         return el ? el : "";
                     };
 
-                    var getSpan = function (k, className) {
-                        return "<span class=\"" + className + "\">" + getValue(entry, k) + "</span>";
+                    var getDateSpan = function (k) {
+                        var ds = getValue(k);
+                        return (ds && ds !== "" && ds !== " ") ? ("<span>" + new Date(ds).toUTCString() + "</span>") : "";
+                    }
+
+                    var getSpan = function (k) {
+                        return "<span>" + getValue(k) + "</span>";
                     };
 
                     var html =
                     "<div class='entryContainer'>" +
-                        "<div class='primary'>" + getSpan("title", "title") + "</div>" +
-                        "<div class='secondary'>" + getSpan("author", "author") + " | " + getSpan("publishedDate", "pubDate") + "</div>" +
-                        "<div class='content'>" + getSpan("contentSnippet", "snippet") + "</div>" +
-                        "<br/>" +
-                        "<div class='link'><a href=\"" + getValue(entry, "link") + "\">Link to article</a></div>" +
+                        "<div class='primary'>" + getSpan("title") + "</div>" +
+                        "<div class='secondary'>" +
+                            "<div class='pubDate'>" + getDateSpan("publishedDate") + "</div>" +
+                            "<div class='content'>" + getSpan("contentSnippet") + "</div>" +
+                            "<div class='author'>" + getSpan("author") + "</div>" +
+                            "<div class='link'><a href=\"" + getValue("link") + "\">Link to article</a></div>" +
+                        "</div>" +
                     "</div>";
 
                     $(selector).append(html);
@@ -37,7 +43,9 @@
             };
 
             var displayError = function (v) {
-                $(selector).append();
+                var html =
+                    "<div class='entryContainer'><span class='error'>" + v + "</span></div>";
+                $(selector).append(html);
             };
 
             $.ajax({
@@ -56,6 +64,101 @@
             });
         })("http://www.bollywoodhungama.com/rss/news.xml", ".newsContainer"));
     </script>
+    <style type="text/css">
+        .newsContainer {
+        }
+
+            .newsContainer .entryContainer {
+                width: 345px;
+                background-color: #FFF;
+                margin: 20px;
+                padding: 0;
+                min-height: 155px;
+                position: relative;
+                float: left;
+            }
+
+                .newsContainer .entryContainer .error {
+                    color: #999;
+                    padding: 10px;
+                }
+
+                .newsContainer .entryContainer .primary {
+                    width: 365px;
+                    color: #fff;
+                    margin-left: 5px;
+                    float: left;
+                    font-size: 14px;
+                    font-family: Georgia, "Times New Roman", Times, serif;
+                    font-weight: normal;
+                    font-style: italic;
+                    color: #fff;
+                    background-color: rgb(126, 151, 114);
+                    position: absolute;
+                    top: -12px;
+                    left: -20px;
+                    height: 25px;
+                    line-height: 25px;
+                    padding: 0 7px 1px 5px;
+                    border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    -moz-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                    -webkit-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                }
+
+                .newsContainer .entryContainer .secondary {
+                    position: absolute;
+                    top: +12px;
+                    padding: 0 7px 1px 7px;
+                    border-radius: 3px;
+                    -moz-border-radius: 3px;
+                    -webkit-border-radius: 3px;
+                    -moz-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                    -webkit-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                }
+
+                    .newsContainer .entryContainer .secondary .content {
+                        padding-top: 10px;
+                        padding-bottom: 10px;
+                        overflow: hidden;
+                        text-align: left;
+                        margin-top: 5px;
+                        margin-bottom: 0;
+                        color: #6F6F6F;
+                    }
+
+                    .newsContainer .entryContainer .secondary .pubDate {
+                        text-align: right;
+                        margin: 0;
+                        margin-top: 3px;
+                        color: #6F6F6F;
+                        font-size: smaller;
+                    }
+
+                    .newsContainer .entryContainer .secondary .author {
+                        text-align: left;
+                        margin: 0;
+                        margin-top: 2px;
+                        color: #6F6F6F;
+                        font-size: smaller;
+                        float: left;
+                    }
+
+                    .newsContainer .entryContainer .secondary .link {
+                        float: right;
+                    }
+
+                        .newsContainer .entryContainer .secondary .link a {
+                            color: #666;
+                        }
+
+                            .newsContainer .entryContainer .secondary .link a:hover {
+                                color: #dd0017;
+                            }
+    </style>
 </head>
 <body>
     <div class="newsContainer"></div>
