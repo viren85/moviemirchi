@@ -20,7 +20,7 @@
 
                     var getDateSpan = function (k) {
                         var ds = getValue(k);
-                        return (ds && ds !== "" && ds !== " ") ? ("<span>" + new Date(ds).toUTCString() + "</span>") : "";
+                        return (ds && ds !== "" && ds !== " ") ? ("<span>" + new Date(ds).toLocaleString() + "</span>") : "";
                     }
 
                     var getSpan = function (k) {
@@ -33,8 +33,7 @@
                         "<div class='secondary'>" +
                             "<div class='pubDate'>" + getDateSpan("publishedDate") + "</div>" +
                             "<div class='content'>" + getSpan("contentSnippet") + "</div>" +
-                            "<div class='author'>" + getSpan("author") + "</div>" +
-                            "<div class='link'><a href=\"" + getValue("link") + "\">Link to article</a></div>" +
+                            "<div class='author link'><a href=\"" + getValue("link") + "\">" + getSpan("author") + "</a></div>" +
                         "</div>" +
                     "</div>";
 
@@ -93,7 +92,7 @@
                     font-weight: normal;
                     font-style: italic;
                     color: #fff;
-                    background-color: rgb(126, 151, 114);
+                    background-color: rgba(85, 119, 214, 0.75);
                     position: absolute;
                     top: -12px;
                     left: -20px;
@@ -115,9 +114,9 @@
                     border-radius: 3px;
                     -moz-border-radius: 3px;
                     -webkit-border-radius: 3px;
-                    -moz-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
-                    -webkit-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
-                    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+                    -moz-box-shadow: 3px 3px 10px rgba(0, 0, 255, 0.15);
+                    -webkit-box-shadow: 3px 3px 10px rgba(0, 255, 0, 0.15);
+                    box-shadow: 3px 3px 10px rgba(0, 0, 255, 0.15);
                 }
 
                     .newsContainer .entryContainer .secondary .content {
@@ -127,13 +126,14 @@
                         text-align: left;
                         margin-top: 5px;
                         margin-bottom: 0;
-                        color: #6F6F6F;
+                        color: #424242;
                     }
 
                     .newsContainer .entryContainer .secondary .pubDate {
                         text-align: right;
                         margin: 0;
                         margin-top: 3px;
+                        padding-top: 3px;
                         color: #6F6F6F;
                         font-size: smaller;
                     }
@@ -142,7 +142,6 @@
                         text-align: left;
                         margin: 0;
                         margin-top: 2px;
-                        color: #6F6F6F;
                         font-size: smaller;
                         float: left;
                     }
@@ -152,11 +151,12 @@
                     }
 
                         .newsContainer .entryContainer .secondary .link a {
-                            color: #666;
+                            color: #5882FA;
+                            text-decoration: none;
                         }
 
                             .newsContainer .entryContainer .secondary .link a:hover {
-                                color: #dd0017;
+                                color: #01A9DB;
                             }
     </style>
 </head>
