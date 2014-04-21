@@ -18,11 +18,10 @@
                     };
 
                     var isOK = function (v) {
-                        return (v && v !== "" && v !== " ");
+                        return (v && v !== "");
                     };
 
                     var link = getValue("link");
-
                     if (isOK(link)) {
 
                         var getSpan = function (k, f) {
@@ -47,6 +46,7 @@
 
                         var url = getUrl();
                         var isUrl = isOK(url);
+                        var author = getSpan("author");
 
                         var html =
                         "<div class='entryContainer'>" +
@@ -60,7 +60,7 @@
                                     "<div class='" + (isUrl ? "right" : "both") + "'>" + getSpan("contentSnippet") + "</div>" +
                                 "</div>" +
                                 "<div class='author link'><a href=\"" + link + "\">" +
-                                    getSpan("author") +
+                                    (isOK(author) ? author : "Link") +
                                 "</a></div>" +
                             "</div>" +
                         "</div>";
@@ -83,43 +83,68 @@
                 v.forEach(function (f) {
                     entries.push(f);
                 });
-            };
 
+                if (startingpoint.deferred.state() === "resolved") {
+                    complete();
+                }
+            };
             var sort = function () {
                 entries.sort(function (a, b) {
                     return new Date(b.publishedDate) - new Date(a.publishedDate);
                 });
             };
-
-            $.ajax({
-                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(feedUrls[0]),
-                dataType: 'json',
-            }).done(function (data) {
-
-                if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
-                    accumulate(data.responseData.feed.entries);
+            var complete = function () {
+                if (entries && entries.length > 0) {
+                    sort();
+                    render(entries);
+                } else {
+                    displayError("We are unable to show news at this time");
                 }
+            };
 
-                $.ajax({
-                    url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(feedUrls[1]),
-                    dataType: 'json',
-                })
-                .done(function (data) {
+            function DeferredAjax(opts) {
+                this.deferred = $.Deferred();
+                this.feedUrl = opts.feedUrl;
+            }
+            DeferredAjax.prototype.invoke = function () {
+                var self = this;
 
-                    if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
-                        accumulate(data.responseData.feed.entries);
+                return $.ajax({
+                    type: "GET",
+                    url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(self.feedUrl),
+                    dataType: "JSON",
+                    success: function (data) {
+                        self.deferred.resolve();
+                        if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
+                            accumulate(data.responseData.feed.entries);
+                        }
                     }
+                });
+            };
+            DeferredAjax.prototype.promise = function () {
+                return this.deferred.promise();
+            };
 
-                    if (entries && entries.length > 0) {
-                        sort();
-                        render(entries);
-                    } else {
-                        displayError("We are unable to show news at this time");
-                    }
-                })
+            var startingpoint = $.Deferred();
+            startingpoint.resolve();
+
+            $.each(feedUrls, function (ix, feedUrl) {
+                var da = new DeferredAjax({
+                    feedUrl: feedUrl
+                });
+                $.when(startingpoint)
+                    .then(function () {
+                        da.invoke();
+                    });
+                startingpoint = da;
             });
 
-        })(["http://www.bollywoodhungama.com/rss/news.xml", "http://feeds.hindustantimes.com/HT-Bollywood"], ".newsContainer"));
+        })([
+            "http://www.bollywoodnewsworld.com/category/bollywood-news/feed",
+            "http://www.glamsham.com/rss/glamrss_scoops.xml",
+            "http://www.bollywoodhungama.com/rss/news.xml",
+            "http://feeds.hindustantimes.com/HT-Bollywood"
+        ], ".newsContainer"));
     </script>
     <style type="text/css">
         .newsContainer {
