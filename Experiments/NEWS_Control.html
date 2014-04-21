@@ -1,5 +1,4 @@
-﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -7,7 +6,7 @@
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
     <script type="text/javascript">
-        ((function ShowNewsControl(url, selector) {
+        ((function ShowNewsControl(feedUrls, selector) {
 
             var render = function (entries) {
 
@@ -57,7 +56,7 @@
                                     getSpan("publishedDate", function (v) { return new Date(v).toLocaleString(); }) +
                                 "</div>" +
                                 "<div class='content'>" +
-                                    (isUrl ? "<div class='left'><img src=\"" + url + "\" alt=\"Image\" /></div>" : "") +
+                                    (isUrl ? "<div class='left'><img class=\"img\" src=\"" + url + "\" alt=\"Image\" /></div>" : "") +
                                     "<div class='" + (isUrl ? "right" : "both") + "'>" + getSpan("contentSnippet") + "</div>" +
                                 "</div>" +
                                 "<div class='author link'><a href=\"" + link + "\">" +
@@ -69,6 +68,8 @@
                         $(selector).append(html);
                     }
                 });
+
+                entries = null;
             };
 
             var displayError = function (v) {
@@ -77,21 +78,48 @@
                 $(selector).append(html);
             };
 
+            var entries = [];
+            var accumulate = function (v) {
+                v.forEach(function (f) {
+                    entries.push(f);
+                });
+            };
+
+            var sort = function () {
+                entries.sort(function (a, b) {
+                    return new Date(b.publishedDate) - new Date(a.publishedDate);
+                });
+            };
+
             $.ajax({
-                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(url),
+                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(feedUrls[0]),
                 dataType: 'json',
-                success: function (data) {
-                    if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
-                        render(data.responseData.feed.entries);
-                    } else {
-                        displayError("Sorry we are unable to display NEWS at this time");
-                    }
-                },
-                error: function (err) {
-                    displayError("Sorry we are unable to display NEWS at this time");
+            }).done(function (data) {
+
+                if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
+                    accumulate(data.responseData.feed.entries);
                 }
+
+                $.ajax({
+                    url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(feedUrls[1]),
+                    dataType: 'json',
+                })
+                .done(function (data) {
+
+                    if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
+                        accumulate(data.responseData.feed.entries);
+                    }
+
+                    if (entries && entries.length > 0) {
+                        sort();
+                        render(entries);
+                    } else {
+                        displayError("We are unable to show news at this time");
+                    }
+                })
             });
-        })("http://feeds.hindustantimes.com/HT-Bollywood", ".newsContainer"));
+
+        })(["http://www.bollywoodhungama.com/rss/news.xml", "http://feeds.hindustantimes.com/HT-Bollywood"], ".newsContainer"));
     </script>
     <style type="text/css">
         .newsContainer {
@@ -169,6 +197,11 @@
                         color: #424242;
                         float: left;
                     }
+
+                        .newsContainer .entryContainer .secondary .left .img {
+                            width: 100px;
+                            height: 100px;
+                        }
 
                     .newsContainer .entryContainer .secondary .right {
                         padding-top: 10px;
