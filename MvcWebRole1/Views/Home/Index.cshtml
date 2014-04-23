@@ -163,83 +163,7 @@
             Top Critics
         </div>
         <div class="critics-container">
-            <ul>
-                <li class="reviewer" style="min-height: 300px;">
-                    <a href="Reviewer/omar-qureshi" title="Omar Qureshi">
-                        <div id="picAndCaption" class="viewingDiv">
-                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
-                                <img id="imageEl" class="movie-poster shownImage" title="Omar Qureshi" alt="Omar Qureshi" src="/Posters/Images/omar-qureshi.jpg" style="margin: auto; height: 300px; width: 263px;"><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
-                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
-                                        <div id="photoCaption">
-                                            <div class="img-movie-name">Omar Qureshi</div><div class="img-movie-genre">Zoom</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="reviewer" style="min-height: 300px;">
-                    <a href="Reviewer/tarun-adarsh" title="Tarun Adarsh">
-                        <div id="picAndCaption" class="viewingDiv">
-                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
-                                <img id="imageEl" class="movie-poster shownImage" title="Tarun Adarsh" alt="Tarun Adarsh" src="/Posters/Images/tarun-adarsh.jpg" style="margin: auto; height: 300px; width: 263px; "><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
-                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
-                                        <div id="photoCaption">
-                                            <div class="img-movie-name">Tarun Adarsh</div><div class="img-movie-genre">Bollywood Hungama</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="reviewer" style="min-height: 300px;">
-                    <a href="Reviewer/rajeev-masand" title="Rajeev Masand">
-                        <div id="picAndCaption" class="viewingDiv">
-                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
-                                <img id="imageEl" class="movie-poster shownImage" title="Rajeev Masand" alt="Rajeev Masand" src="/Posters/Images/rajeev-masand.jpg" style="margin: auto; height: 300px; width: 263px; "><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
-                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
-                                        <div id="photoCaption">
-                                            <div class="img-movie-name">Rajeev Masand</div><div class="img-movie-genre">CNN-IBN</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                <li class="reviewer" style="min-height: 300px;">
-                    <a href="Reviewer/anupama-chopra" title="Anupama Chopra">
-                        <div id="picAndCaption" class="viewingDiv">
-                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
-                                <img id="imageEl" class="movie-poster shownImage" title="Anupama Chopra" alt="Anupama Chopra" src="/Posters/Images/anupama-chopra.jpg" style="margin: auto; height: 300px; width: 263px;"><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
-                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
-                                        <div id="photoCaption">
-                                            <div class="img-movie-name">Anupama Chopra</div><div class="img-movie-genre">NDTV | India Today</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>
-                @*<li class="reviewer" style="min-height: 300px;">
-                    <a href="Reviewer/anupama-chopra" title="Khalid Mohamed">
-                        <div id="picAndCaption" class="viewingDiv">
-                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
-                                <img id="imageEl" class="movie-poster shownImage" title="Khalid Mohamed" alt="Khalid Mohamed" src="/Posters/Images/khalid-mohamed.jpg" style="margin: auto; height: 300px; width: 263px;"><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
-                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
-                                        <div id="photoCaption">
-                                            <div class="img-movie-name">Khalid Mohamed</div><div class="img-movie-genre">The Asian Age</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
-                </li>*@
-            </ul>
+            <ul></ul>
             <div id="critics-pager"></div>
         </div>
     </div>
@@ -252,6 +176,33 @@
         /*totalReviewers = $(".critics-container ul li.reviewer").length;
         var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 4, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager" };
         PreparePaginationControl($(".critics-container"), pagerJson);*/
+
+        // TOP CRITIC
+        var ul = $(".critics-container").find("ul");
+        critics = [
+            { href: 'omar-qureshi', title: 'Omar Qureshi', name: 'Omar Qureshi', poster: 'omar-qureshi.jpg', aff: 'Zoom', },
+            { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama', },
+            { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN-IBN', },
+            { href: 'anupama-chopra', title: 'Aupama Chopra', name: 'Aupama Chopra', poster: 'anupama-chopra.jpg', aff: 'NDTV | India Today', },
+            { href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age', },
+        ].forEach(function (critic) {
+            ul.append(
+                "<li class=\"reviewer\" style=\"min-height: 300px;\">" +
+                    "<a href=\"Reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
+                        "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
+                            "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 260px;\">" +
+                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 300px; width: 263px; \"><div class=\"captionAndNavigate\" style=\"width: 263px; padding: 15px; height: auto;\">" +
+                                    "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
+                                        "<div id=\"photoCaption\">" +
+                                            "<div class=\"img-movie-name\">" + critic.name + "</div><div class=\"img-movie-genre\">" + critic.aff + "</div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</a>" +
+                "</li>");
+        });
     });
 </script>
 <script type="text/javascript" src="/Content/movie.news.js"></script>
