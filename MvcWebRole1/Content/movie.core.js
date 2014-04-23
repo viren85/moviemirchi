@@ -1,5 +1,5 @@
 ﻿
-var BASE_URL = "http://127.255.0.1:81/";
+var BASE_URL = "http://127.255.0.1:82/";
 
 var MovieCounter = 4;
 var MovieIndexer = 0;
@@ -356,21 +356,47 @@ function onSuccessLoadSingleMovie(result) {
         var poster = [];
         poster = JSON.parse(result.Movie.Posters);
 
+        //$("#imagearea").css("class", "gallery-imagearea");
+
+        debugger;
+        $("#imagearea").append("<ul class='gallery clearfix'></ul>");
+        var ul = $("#imagearea").find("ul");
+        ////<li><a href="images/fullscreen/1.JPG?lol=lol" rel="prettyPhoto[gallery1]" title="You can add caption to pictures. You can add caption to pictures. You can add caption to pictures."><img src="images/thumbnails/t_1.jpg" width="60" height="60" alt="Red round shape" /></a></li>
+        ////<li><a href="images/fullscreen/2.jpg" rel="prettyPhoto[gallery1]"><img src="images/thumbnails/t_2.jpg" width="60" height="60" alt="Nice building" /></a></li>
+        ////<li><a href="images/fullscreen/3.jpg" rel="prettyPhoto[gallery1]"><img src="images/thumbnails/t_3.jpg" width="60" height="60" alt="Fire!" /></a></li>
+        ////<li><a href="images/fullscreen/4.jpg" rel="prettyPhoto[gallery1]"><img src="images/thumbnails/t_4.jpg" width="60" height="60" alt="Rock climbing" /></a></li>
+        ////<li><a href="images/fullscreen/5.jpg" rel="prettyPhoto[gallery1]"><img src="images/thumbnails/t_5.jpg" width="60" height="60" alt="Fly kite, fly!" /></a></li>
+        ////<li><a href="images/fullscreen/6.jpg" rel="prettyPhoto[gallery1]"><img src="images/thumbnails/t_2.jpg" width="60" height="60" alt="Nice building" /></a></li>
+
+
         if (poster != "undefined" && poster != null && poster.length > 0) {
             $("img.home-poster").attr("src", "/Posters/Images/" + poster[poster.length - 1]);
 
             //showing movies posters
             for (var p = 0; p < poster.length; p++) {
-                var img = $("<img/>")
-                img.attr("class", "gallery-image");
-                img.attr("alt", result.Movie.Name);
-                img.attr("src", "/Posters/Images/" + poster[p]);
-                img.error(function () {
-                    $(this).hide();
-                });
+                var u = "/Posters/Images/" + poster[p];
+                var ht =
+                    "<li><a href=\"" + u + "\" rel=\"prettyPhoto[gallery]\"><img alt=\"" + result.Movie.Name + "\" src=\"" + u + "\" /></a></li>";
+                ul.append(ht);
+                ////    var a = $("<a/>");
+                ////    a.attr("rel", "prettyPhoto[gallery-imagearea]");
+                ////    a.attr("href", "/Posters/Images/" + poster[p]);
 
-                $("#imagearea").append(img);
+                ////    var img = $("<img/>")
+                ////    img.attr("class", "gallery-image");
+
+                ////    img.attr("alt", result.Movie.Name);
+                ////    img.attr("src", "/Posters/Images/" + poster[p]);
+                ////    img.error(function () {
+                ////        $(this).hide();
+                ////    });
+
+                ////    a.append(img);
+                ////    $("#imagearea").append(a);
             }
+            ul.find("img").error(function () {
+                $(this).hide();
+            });
         }
         else {
             $("img.home-poster").attr("src", "/Posters/Images/default-movie.jpg");
