@@ -61,14 +61,14 @@ function onSuccessLoadCurrentMovies(result) {
 
             //$(list).append(movie);
 
-            if (i == 3)
-                break;
+            //if (i == 3)
+              //  break;
         }
 
-        if (result.length > 4) {
-            $("#nextMovies").show();
+        /*if (result.length > 4) {
+            //$("#nextMovies").show();
             //$("#previousMovies").show();
-        }
+        }*/
 
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
@@ -77,10 +77,10 @@ function onSuccessLoadCurrentMovies(result) {
 
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
-            $(this).width(newWidth + "px").height("400px");
-
-            if (newWidth > 270)
-                $(this).width("270px");
+            $(this).width(newWidth + "px").height("380px");
+            
+            if (newWidth > 250)
+                $(this).width("250px");
             /*$(this).parent().parent().find(".movie-title").each(function () {
                 $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
             });*/
@@ -101,10 +101,15 @@ function onSuccessLoadCurrentMovies(result) {
             //$(".movie-title").css("-webkit-transform", "scale(1.5)").css("background-color", "#333").css("opacity", "0.7");
             $(this).css("box-shadow", "none");
         });*/
+
+        // movie-list
+        PreparePaginationControl($(".movie-list"));
+        //PreparePaginationControl($(".news-container"));
     }
 }
 
 function NextMovies() {
+    //console.log(MovieIndexer + "," + MOVIES.length);
     if (MovieIndexer < MOVIES.length) {
         $("#previousMovies").show();
         $("#currentmovie").html("");
@@ -140,6 +145,8 @@ function NextMovies() {
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
+
+            
 
             if (newWidth > 270)
                 $(this).width("270px");
@@ -261,7 +268,7 @@ function PopulatingMovies(movie) {
     "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
         "<div id=\"imageContainer\" onmouseover=\"showCaption(this)\" onmouseout=\"hideCaption(this)\" class=\"viewer\" style=\"height: 315px;\">" +
             "<img id=\"imageEl\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\">" +
-            "<div class=\"captionAndNavigate\" style=\"width:267px;padding: 15px\">" +
+            "<div class=\"captionAndNavigate\" style=\"width:263px;padding: 15px\">" +
                 "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
                     "<div id=\"photoCaption\">" +
                         "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
@@ -286,8 +293,8 @@ function MovieImageLoaded(img) {
 
     var ratio = imgWidth / imgHeight;
     var newWidth = 400 * ratio;
-    if (newWidth > 400) {
-        newWidth = 267;
+    if (newWidth > 263) {
+        newWidth = 263;
     }
 
     $(img).css("width", newWidth + "px").css("height", "400px");
