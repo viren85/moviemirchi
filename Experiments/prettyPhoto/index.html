@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>jQuery lightbox clone - prettyPhoto - by Stephane Caron</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+		<link rel="stylesheet" href="css/prettyPhoto.css" type="text/css" media="screen" title="prettyPhoto main stylesheet" charset="utf-8" />
+		<script src="js/jquery.prettyPhoto.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body>
+		<div id="main">
+			<h2>Gallery</h2>
+			<ul class="gallery clearfix">
+				<li><a href="images/fullscreen/1.JPG?lol=lol" rel="prettyPhoto[gallery]" title="You can add caption to pictures. You can add caption to pictures. You can add caption to pictures."><img src="images/thumbnails/t_1.jpg" width="60" height="60" alt="Red round shape" /></a></li>
+				<li><a href="images/fullscreen/2.jpg" rel="prettyPhoto[gallery]"><img src="images/thumbnails/t_2.jpg" width="60" height="60" alt="Nice building" /></a></li>
+				<li><a href="images/fullscreen/3.jpg" rel="prettyPhoto[gallery]"><img src="images/thumbnails/t_3.jpg" width="60" height="60" alt="Fire!" /></a></li>
+				<li><a href="images/fullscreen/4.jpg" rel="prettyPhoto[gallery]"><img src="images/thumbnails/t_4.jpg" width="60" height="60" alt="Rock climbing" /></a></li>
+				<li><a href="images/fullscreen/5.jpg" rel="prettyPhoto[gallery]"><img src="images/thumbnails/t_5.jpg" width="60" height="60" alt="Fly kite, fly!" /></a></li>
+				<li><a href="images/fullscreen/6.jpg" rel="prettyPhoto[gallery]"><img src="images/thumbnails/t_2.jpg" width="60" height="60" alt="Nice building" /></a></li>
+			</ul>	
+	
+			<script type="text/javascript" charset="utf-8">
+			// REFER TO http://www.no-margin-for-errors.com/projects/prettyphoto-jquery-lightbox-clone/documentation
+			$(document).ready(function(){
+				$(".gallery a[rel^='prettyPhoto']").prettyPhoto({
+					animation_speed:'normal',
+					theme:'dark_square',
+					slideshow:false,
+					autoplay_slideshow: false,
+					show_title: true,
+					keyboard_shortcuts: true,
+					social_tools: false,
+					allow_resize: true,
+			    });
+			});
+			</script>
+	</div>
+	</body>
+</html>
