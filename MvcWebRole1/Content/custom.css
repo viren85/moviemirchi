@@ -35,7 +35,7 @@ a {
     position: relative;
     -webkit-font-smoothing: subpixel-antialiased;
     width: 100%;
-    height: 95%;
+    height: 100%;
     overflow-y: auto;
 }
 
@@ -365,9 +365,7 @@ a {
 
 .recent-movie-name {
     width: 90%;
-    margin-left: 5%;
-    margin-bottom: 5%;
-    margin-right: 5%;
+    margin: 2% 5% 5% 5%;
 }
 
 .movie-synopsis {
@@ -557,9 +555,14 @@ a {
     .home-search-bar input {
         width: 500px !important;
         height: 50px;
+        outline: none;
+        border: 2px solid #368BC1 !important;
+        border-radius: 5px !important;
     }
 
 .search {
+    outline: none;
+    border: 2px solid #368BC1 !important;
     border-radius: 5px !important;
 }
 
@@ -572,34 +575,35 @@ a {
     top: 0px;
 }
 
-.movie-list, .news-container {
+.movie-list, .news-container, .critics-container {
     float: left;
     width: 90%;
     margin-left: 5%;
-    margin-right: 5%;
+    margin-right: 0%;
     margin-bottom: 1%;
 }
 
-    .movie-list ul {
+    .movie-list ul, .critics-container ul {
         float: left;
         list-style: none;
         padding: 0px;
         margin: 0px;
         width: 100%;
+        height: 380px;
     }
 
-        .movie-list ul li {
+        .movie-list ul li, .critics-container ul li {
             float: left;
             list-style: none;
-            width: 23%;
-            margin-right: 2%;
-            min-height: 400px;
-            margin-bottom: 2%;
+            width: 20%;
+            margin-right: 5%;
+            min-height: 380px;
+            margin-bottom: 1%;
             cursor: pointer;
             text-align: left;
         }
 
-            .movie-list ul li img {
+            .movie-list ul li img, .critics-container ul li img {
                 float: left;
                 border: 0px;
             }
@@ -823,8 +827,137 @@ a {
     cursor: pointer;
 }
 
+.news-container ul {
+    float: left;
+    width: 100%;
+    height: 180px;
+    overflow-y: hidden;
+}
 
-/*News Section on home page - Start */
+.news-container .news-item {
+    width: 345px;
+    background-color: #FFF;
+    margin: 15px;
+    padding: 0;
+    min-height: 155px;
+    position: relative;
+    float: left;
+    list-style: none;
+}
+
+    .news-container .news-item .error {
+        color: #999;
+        padding: 10px;
+    }
+
+    .news-container .news-item .news-title {
+        width: 365px;
+        color: #fff;
+        margin-left: 5px;
+        float: left;
+        font-size: 14px;
+        font-family: Georgia, "Times New Roman", Times, serif;
+        font-weight: normal;
+        font-style: italic;
+        color: #fff;
+        background-color: rgba(85, 119, 214, 0.75);
+        position: absolute;
+        top: -12px;
+        left: -20px;
+        height: 25px;
+        line-height: 25px;
+        padding: 0 7px 10px 5px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+        -webkit-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+        box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+    }
+
+    .news-container .news-item .news-content-container {
+        position: absolute;
+        top: +12px;
+        padding: 0 7px 10px 7px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        -moz-box-shadow: 3px 3px 10px rgba(0, 0, 255, 0.15);
+        -webkit-box-shadow: 3px 3px 10px rgba(0, 255, 0, 0.15);
+        box-shadow: 3px 3px 10px rgba(0, 0, 255, 0.15);
+        height: 150px;
+    }
+
+        .news-container .news-item .news-content-container .content {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            overflow: hidden;
+            text-align: left;
+            margin-top: 5px;
+            margin-bottom: 0;
+            color: #424242;
+        }
+
+        .news-container .news-item .news-content-container .news-content {
+            height: 85px;
+            margin-top: 10px;
+        }
+
+        .news-container .news-item .news-content-container .left {
+            float: left;
+            overflow: hidden;
+        }
+
+            .news-container .news-item .news-content-container .left .img {
+                width: 100px;
+                height: 100px;
+            }
+
+        .news-container .news-item .news-content-container .news-right {
+            margin-left: 33%;
+        }
+        /*.news-container .news-item .news-content-container .right {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            overflow: hidden;
+            text-align: left;
+            margin-top: 5px;
+            margin-bottom: 0;
+            color: #424242;
+            float: right;
+        }*/
+
+        .news-container .news-item .news-content-container .news-publish-date {
+            text-align: left;
+            margin: 0;
+            margin-top: 3px;
+            padding: 5px 0px 5px 0px;
+            color: #6F6F6F;
+            font-size: smaller;
+        }
+
+        .news-container .news-item .news-content-container .news-author {
+            text-align: left;
+            margin: 0;
+            margin-top: 2px;
+            font-size: smaller;
+            float: left;
+        }
+
+        .news-container .news-item .news-content-container .news-link {
+            float: right;
+        }
+
+            .news-container .news-item .news-content-container .news-link a {
+                color: #5882FA;
+                text-decoration: none;
+            }
+
+                .news-container .news-item .news-content-container .news-link a:hover {
+                    color: #01A9DB;
+                }
+
+/*News Section on home page - Start 
 .news-container .news-item {
     float: left;
     width: 31%;
@@ -899,6 +1032,32 @@ a {
                     color: #dd0017;
                 }
 /*News section on home page end*/
+
+/**Pagination*/
+.pager-container, .news-pager {
+    height: 30px;
+    text-align: center;
+    width: 100%;
+}
+
+.active-page-index {
+    background-color: #368BC1 !important;
+}
+
+.page-index {
+    width: 8px;
+    height: 8px;
+    background-color: skyblue; /* #41A317;*/
+    margin-right: 10px;
+    margin-top: 10px;
+    display: inline-block;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+    .page-index:hover {
+        background-color: #368BC1;
+    }
 
 @media screen and (min-width: 315px) and (max-width: 480px) {
     body {

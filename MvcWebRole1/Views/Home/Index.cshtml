@@ -3,6 +3,7 @@
     //Layout = "~/Views/Shared/_MovieMirchiLayout.cshtml";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
+
 <style>
     .movie-panel {
         margin-top: -10px;
@@ -34,7 +35,7 @@
         right: 0px;
         left: 0px;
         border: solid 1px transparent;
-        box-shadow: 0px 0px 10px #999;
+        box-shadow: 0px 0px 15px #999;
     }
 
     div.navigate {
@@ -57,6 +58,10 @@
         padding: 0px;
         position: absolute;
         text-align: left;
+    }
+
+    li.reviewer .captionAndNavigate {
+        bottom: -20px;
     }
 
     .overLaying {
@@ -145,16 +150,109 @@
         </div>
         <div class="movie-list">
             <ul></ul>
+            <div id="pager"></div>
         </div>
         <div class="recent-movie-name" style="margin-bottom: 1%;">
             News
         </div>
-        <div class="news-container"></div>
+        <div class="news-container">
+            <ul></ul>
+            <div id="news-pager"></div>
+        </div>
+        <div class="recent-movie-name" style="margin-bottom: 3%;">
+            Top Critics
+        </div>
+        <div class="critics-container">
+            <ul>
+                <li class="reviewer" style="min-height: 300px;">
+                    <a href="Reviewer/omar-qureshi" title="Omar Qureshi">
+                        <div id="picAndCaption" class="viewingDiv">
+                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
+                                <img id="imageEl" class="movie-poster shownImage" title="Omar Qureshi" alt="Omar Qureshi" src="/Posters/Images/omar-qureshi.jpg" style="margin: auto; height: 300px; width: 263px;"><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
+                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
+                                        <div id="photoCaption">
+                                            <div class="img-movie-name">Omar Qureshi</div><div class="img-movie-genre">Zoom</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="reviewer" style="min-height: 300px;">
+                    <a href="Reviewer/tarun-adarsh" title="Tarun Adarsh">
+                        <div id="picAndCaption" class="viewingDiv">
+                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
+                                <img id="imageEl" class="movie-poster shownImage" title="Tarun Adarsh" alt="Tarun Adarsh" src="/Posters/Images/tarun-adarsh.jpg" style="margin: auto; height: 300px; width: 263px; "><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
+                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
+                                        <div id="photoCaption">
+                                            <div class="img-movie-name">Tarun Adarsh</div><div class="img-movie-genre">Bollywood Hungama</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="reviewer" style="min-height: 300px;">
+                    <a href="Reviewer/rajeev-masand" title="Rajeev Masand">
+                        <div id="picAndCaption" class="viewingDiv">
+                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
+                                <img id="imageEl" class="movie-poster shownImage" title="Rajeev Masand" alt="Rajeev Masand" src="/Posters/Images/rajeev-masand.jpg" style="margin: auto; height: 300px; width: 263px; "><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
+                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
+                                        <div id="photoCaption">
+                                            <div class="img-movie-name">Rajeev Masand</div><div class="img-movie-genre">CNN-IBN</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="reviewer" style="min-height: 300px;">
+                    <a href="Reviewer/anupama-chopra" title="Anupama Chopra">
+                        <div id="picAndCaption" class="viewingDiv">
+                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
+                                <img id="imageEl" class="movie-poster shownImage" title="Anupama Chopra" alt="Anupama Chopra" src="/Posters/Images/anupama-chopra.jpg" style="margin: auto; height: 300px; width: 263px;"><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
+                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
+                                        <div id="photoCaption">
+                                            <div class="img-movie-name">Anupama Chopra</div><div class="img-movie-genre">NDTV | India Today</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                @*<li class="reviewer" style="min-height: 300px;">
+                    <a href="Reviewer/anupama-chopra" title="Khalid Mohamed">
+                        <div id="picAndCaption" class="viewingDiv">
+                            <div id="imageContainer" onmouseover="$(this).find('.captionAndNavigate').height('270px');" onmouseout="hideCaption(this)" class="viewer" style="height: 260px;">
+                                <img id="imageEl" class="movie-poster shownImage" title="Khalid Mohamed" alt="Khalid Mohamed" src="/Posters/Images/khalid-mohamed.jpg" style="margin: auto; height: 300px; width: 263px;"><div class="captionAndNavigate" style="width: 263px; padding: 15px; height: auto;">
+                                    <div id="captionCredit" style="width: 398px;" class="multimediaCaption">
+                                        <div id="photoCaption">
+                                            <div class="img-movie-name">Khalid Mohamed</div><div class="img-movie-genre">The Asian Age</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </li>*@
+            </ul>
+            <div id="critics-pager"></div>
+        </div>
     </div>
 </div>
 <script>
+    var indexer = 0;
     $(document).ready(function () {
         LoadCurrentMovies();
+
+        /*totalReviewers = $(".critics-container ul li.reviewer").length;
+        var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 4, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager" };
+        PreparePaginationControl($(".critics-container"), pagerJson);*/
     });
 </script>
 <script type="text/javascript" src="/Content/movie.news.js"></script>
+<script type="text/javascript" src="/Content/PagerControl.js"></script>
