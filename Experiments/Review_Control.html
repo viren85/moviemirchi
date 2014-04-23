@@ -1,0 +1,105 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample for Review controls</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <style type="text/css">
+        .arrow_container {
+            margin: 30px;
+            padding: 30px;
+            border-radius: 50px;
+            -moz-border-radius: 50px;
+            -webkit-border-radius: 50px;
+            -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+            box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+            width: 450px;
+            height: 270px;
+        }
+
+        .left {
+            float: left;
+            width: 150px;
+        }
+
+            .left .info {
+                border: 2px solid red;
+                padding: 5px;
+            }
+
+        .right {
+            float: right;
+            width: 300px;
+        }
+
+            .right .review {
+                margin: 0px 20px 20px 20px;
+                padding: 0px 20px 20px 20px;
+                border: 2px solid red;
+            }
+
+        .clear {
+            clear: both;
+        }
+
+        .arrow_box {
+            position: relative;
+            background: #f5f5f5;
+            border: 2px solid #dedede;
+            height: 200px;
+        }
+
+            .arrow_box:after, .arrow_box:before {
+                right: 100%;
+                top: 20%;
+                border: solid transparent;
+                content: " ";
+                height: 0;
+                width: 0;
+                position: absolute;
+                pointer-events: none;
+            }
+
+            .arrow_box:after {
+                border-color: rgba(245, 245, 245, 0);
+                border-right-color: #f5f5f5;
+                border-width: 20px;
+                margin-top: -20px;
+            }
+
+            .arrow_box:before {
+                border-color: rgba(222, 222, 222, 0);
+                border-right-color: #dedede;
+                border-width: 23px;
+                margin-top: -23px;
+            }
+
+            .arrow_box .content {
+                padding: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="arrow_container">
+        <div class="left">
+            <div class="info">
+                <div class="reviewer">
+                    <div class="name">Rajeev Masand</div>
+                    <div class="affiliation">India Times | Bolly Times</div>
+                    <div class="other">lorem ipsum</div>
+                </div>
+            </div>
+        </div>
+        <div class="right">
+            <div class="review">
+                <div class="arrow_box">
+                    <div class="content">Here goes the content!</div>
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
