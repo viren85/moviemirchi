@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using Microsoft.WindowsAzure;
-using System.Diagnostics;
-using DataStoreLib.Constants;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using LuceneSearchLibrarby;
-
+﻿
 namespace MvcWebRole1.Controllers
 {
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
+    using LuceneSearchLibrarby;
+    using Microsoft.WindowsAzure;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Web.Mvc;
+    using System.Web.Script.Serialization;
+
     public class AutoCompleteController : Controller
     {
         private void SetConnectionString()

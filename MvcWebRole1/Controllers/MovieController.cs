@@ -1,16 +1,11 @@
-﻿using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using LuceneSearchLibrarby;
-
+﻿
 namespace MvcWebRole1.Controllers
 {
+    using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure;
+    using System.Diagnostics;
+    using System.Web.Mvc;
+
     public class MovieController : Controller
     {
 

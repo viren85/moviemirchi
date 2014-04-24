@@ -1,21 +1,20 @@
-﻿using System.IO;
-using System.Text;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using DataStoreLib.Models;
-using SearchLib.Builder;
-using SearchLib.Search;
-using Microsoft.WindowsAzure.ServiceRuntime;
-
+﻿
 namespace MvcWebRole1.Controllers
 {
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure;
+    using SearchLib.Builder;
+    using SearchLib.Search;
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Linq;
+    using System.Text;
+    using System.Web.Mvc;
+
     public class Home1Controller : Controller
     {
         public ActionResult Index()

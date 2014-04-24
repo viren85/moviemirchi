@@ -1,20 +1,15 @@
-﻿using DataStoreLib.Constants;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Script.Serialization;
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Constants;
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Script.Serialization;
+
     /// <summary>
     /// This API returns list of all the movies based on type. Type could be “current”, “all” “current” movies are having release date threshold of 1 month (configurable) 
     /// “all” movies type will return top 100 movies released recently.
@@ -28,9 +23,6 @@ namespace MvcWebRole1.Controllers.api
 
             try
             {
-                var tableMgr = new TableManager();
-                var movies = new List<MovieEntity>();
-
                 string type = "all";
                 int resultLimit = 15;
 
@@ -40,51 +32,25 @@ namespace MvcWebRole1.Controllers.api
                 if (!string.IsNullOrEmpty(qpParams["type"]))
                 {
                     //getting type
-                    type = qpParams["type"].ToString();
+                    type = qpParams["type"].ToString().ToLower();
                 }
 
                 if (!string.IsNullOrEmpty(qpParams["resultlimit"]))
                 {
-                    //getting resutl limit
+                    //getting result limit
                     resultLimit = Convert.ToInt32(qpParams["resultlimit"].ToString());
                 }
-                
-                if (type.ToLower() == "all")
-                {
-                    // if type is "all" then get all movies 
-                    var tempMovies = tableMgr.GetSortedMoviesByName();
 
-                    if (tempMovies != null)
-                    {
-                        if (tempMovies.Count < resultLimit)
-                        {
-                            resultLimit = tempMovies.Count;
-                        }
+                var tableMgr = new TableManager();
 
-                        for (int i = 0; i < resultLimit; i++)
-                        {
-                            movies.Add(tempMovies[i]);
-                        }
-                    }
-                }
-                else if (type.ToLower() == "current")
-                {
-                    // if type is current then get current movies
-                    var tempMovies = tableMgr.GetCurrentMovies();
+                var moviesByName = 
+                    (type == "all") ?
+                        tableMgr.GetSortedMoviesByName() :
+                        (type == "current") ?
+                            tableMgr.GetCurrentMovies() :
+                            Enumerable.Empty<MovieEntity>();
 
-                    if (tempMovies != null)
-                    {
-                        if (tempMovies.Count < resultLimit)
-                        {
-                            resultLimit = tempMovies.Count;
-                        }
-
-                        for (int i = 0; i < resultLimit; i++)
-                        {
-                            movies.Add(tempMovies[i]);
-                        }
-                    }
-                }
+                List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
 
                 // serialize movieList object and return.
                 return json.Serialize(movies);

@@ -1,25 +1,19 @@
-﻿using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using DotNetOpenAuth.AspNet.Clients;
-using Facebook;
-using DotNetOpenAuth.OpenId;
-using Microsoft.WindowsAzure;
-using MvcWebRole1.Models;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Web;
-using System.Web.Mvc;
-using System.Web.Script.Serialization;
-using System.Web.Caching;
-
+﻿
 namespace MvcWebRole1.Controllers
 {
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Diagnostics;
+    using System.Linq;
+    using System.Net.Sockets;
+    using System.Web.Mvc;
+    using System.Web.Script.Serialization;
+
     public class LoginController : Controller
     {
         //string userName, password;

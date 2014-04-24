@@ -1,19 +1,12 @@
-﻿using DataStoreLib.Constants;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Script.Serialization;
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Constants;
+    using DataStoreLib.Storage;
+    using System;
+    using System.Web;
+    using System.Web.Script.Serialization;
+
     /// <summary>
     /// Summary: This API returns all the trailers found for specified movie.
     /// throw  :  ArgumentException

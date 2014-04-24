@@ -1,15 +1,11 @@
-﻿using DataStoreLib.Utils;
-using Microsoft.WindowsAzure;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure;
+    using System.Diagnostics;
+    using System.Web.Http;
+
     public abstract class BaseController : ApiController
     {
         public string Get()

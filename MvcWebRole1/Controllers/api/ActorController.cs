@@ -1,19 +1,12 @@
-﻿using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using System.Web;
-using System.Web.Script.Serialization;
-using DataStoreLib.Constants;
-
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Constants;
+    using DataStoreLib.Storage;
+    using System;
+    using System.Web;
+    using System.Web.Script.Serialization;
+
     /// <summary>
     /// This API returns all the movies found based on actor name. e.g. Aamir Khan. This api will return list of movies which have aamir khan 
     /// (as actor, as singer, as director, as producer etc.)

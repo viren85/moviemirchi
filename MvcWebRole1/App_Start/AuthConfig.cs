@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Web.WebPages.OAuth;
-using MvcWebRole1.Models;
-
+﻿
 namespace MvcWebRole1
 {
     public static class AuthConfig

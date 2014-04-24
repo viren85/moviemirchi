@@ -1,17 +1,15 @@
-﻿using DataStoreLib.Constants;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web;
-using System.Web.Http;
-using System.Web.Script.Serialization;
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Constants;
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web;
+    using System.Web.Script.Serialization;
+
     public class GetCastByTypeController : BaseController
     {
         List<Cast> tempCast = new List<Cast>();
@@ -64,15 +62,15 @@ namespace MvcWebRole1.Controllers.api
                 {
                     var actor = (from u in tempCast
                                  where u.role.ToLower() == "actor" || u.role.ToLower() == "actress"
-                                 select u).Distinct().ToArray().ToList().Take(limit);
+                                 select u).Distinct().Take(limit);
 
                     var directors = (from u in tempCast
                                      where u.role.ToLower() == "director"
-                                     select u).Distinct().ToArray().ToList().Take(limit);
+                                     select u).Distinct().Take(limit);
 
                     var musicDirectors = (from u in tempCast
                                           where u.role.ToLower() == "music director"
-                                          select u).Distinct().ToArray().ToList().Take(limit);
+                                          select u).Distinct().Take(limit);
 
 
                     return json.Serialize(new { Status = "Ok", Actor = actor, Director = directors, MusicDirector = musicDirectors });
@@ -81,7 +79,7 @@ namespace MvcWebRole1.Controllers.api
                 {
                     var actor = (from u in tempCast
                                  where u.role.ToLower() == "actor" || u.role.ToLower() == "actress"
-                                 select u).Distinct().ToArray().ToList().Take(limit);
+                                 select u).Distinct().Take(limit);
 
                     return json.Serialize(new { Status = "Ok", Actor = actor });
                 }
@@ -89,7 +87,7 @@ namespace MvcWebRole1.Controllers.api
                 {
                     var directors = (from u in tempCast
                                      where u.role.ToLower() == "director"
-                                     select u).Distinct().ToArray().ToList().Take(limit);
+                                     select u).Distinct().Take(limit);
 
                     return json.Serialize(new { Status = "Ok", Director = directors });
                 }
@@ -97,8 +95,7 @@ namespace MvcWebRole1.Controllers.api
                 {
                     var musicDirectors = (from u in tempCast
                                           where u.role.ToLower() == "music director"
-                                          select u).Distinct().ToArray().ToList().Take(limit);
-
+                                          select u).Distinct().Take(limit);
 
                     return json.Serialize(new { Status = "Ok", MusicDirector = musicDirectors });
                 }

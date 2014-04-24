@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Script.Serialization;
-using DataStoreLib.Constants;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Constants;
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using System;
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.Script.Serialization;
+
     /// <summary>
     /// This API returns all the information about the reviewer. This includes all the reviews written by this reviewer.
     /// throws ArgumentException

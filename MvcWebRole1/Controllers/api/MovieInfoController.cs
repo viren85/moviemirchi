@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Script.Serialization;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Constants;
-
+﻿
 namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Constants;
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using System;
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.Script.Serialization;
+
     /// <summary>
     /// This API returns single movie object based on the movie name.
     /// If movie result found, return JSON string contains, all the movie information including reviews. Otherwise, return empty string.
