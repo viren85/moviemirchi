@@ -603,6 +603,10 @@ a {
             text-align: left;
         }
 
+        .critics-container ul li {
+            width: 15%;
+        }
+
             .movie-list ul li img, .critics-container ul li img {
                 float: left;
                 border: 0px;

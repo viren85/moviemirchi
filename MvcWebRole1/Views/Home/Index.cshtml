@@ -184,19 +184,19 @@
             { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama', },
             { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN-IBN', },
             { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'NDTV | India Today | Hindustan Times', },
-            //{ href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age', },
+            { href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age', },
         ].forEach(function (critic) {
             ul.append(
-                "<li class=\"reviewer\" style=\"min-height: 300px;\">" +
+                "<li class=\"reviewer\" style=\"min-height: 250px;\">" +
                     "<a href=\"Reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
                         "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
-                            "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 260px;\">" +
-                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 300px; width: 263px; \">" +
-                                "<div class=\"captionAndNavigate\" style=\"width: 263px; padding: 15px; height: auto;\">" +
-                                    "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
+                            "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 210px;\">" +
+                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 250px; width: 193px; \">" +
+                                "<div class=\"captionAndNavigate\" style=\"width: 193px; padding: 15px; padding-bottom: 5px; height: auto;\">" +
+                                    "<div id=\"captionCredit\" style=\"width: 328px;\" class=\"multimediaCaption\">" +
                                         "<div id=\"photoCaption\">" +
-                                            "<div class=\"img-movie-name\">" + critic.name + "</div>" +
-                                            "<div class=\"img-movie-genre\">" + critic.aff + "</div>" +
+                                            "<div class=\"img-movie-name\" style=\"font-size: 1.5em;\">" + critic.name + "</div>" +
+                                            "<div class=\"img-movie-genre\" style=\"font-size: 1em;\">" + critic.aff + "</div>" +
                                         "</div>" +
                                     "</div>" +
                                 "</div>" +
