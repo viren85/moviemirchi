@@ -45,7 +45,7 @@
                     "<div class='news-title'>" + getSpan("title") + "</div>" +
                     "<div class='news-content-container'>" +
                         "<div class='news-publish-date'>" +
-                            getSpan("publishedDate",  function (v) { return "Published on: " + new Date(v).toLocaleString(); }) +
+                            getSpan("publishedDate", function (v) { return "Published on: " + new Date(v).toLocaleString(); }) +
                         "</div>" +
                         "<div class='news-content'>" +
                             (isUrl ? "<div class='left'><img class=\"img\" src=\"" + url + "\" alt=\"Image\" /></div>" : "") +
@@ -59,6 +59,14 @@
 
                 $(selector).append(html);
             }
+
+            // Adding the pager
+            PreparePaginationControl($(".news-container"), {
+                "pagerContainer": "news-pager",
+                "tilesInPage": 3,
+                "totalTileCount": $(".news-container ul li.news-item").length,
+                "pagerContainerId": "news-pager",
+            });
         });
 
         entries = null;
@@ -110,9 +118,6 @@
                 self.deferred.resolve();
                 if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
                     accumulate(data.responseData.feed.entries);
-                    totalNewsItems = $(".news-container ul li.news-item").length;
-                    var pagerJson = { "pagerContainer": "news-pager", "tilesInPage": 3, "totalTileCount": totalNewsItems, "pagerContainerId": "news-pager" };
-                    PreparePaginationControl($(".news-container"), pagerJson);
                 }
             }
         });
