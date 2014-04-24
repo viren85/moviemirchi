@@ -1,13 +1,42 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Sample for Review controls</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
     <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var html =
+            "<div class=\"arrow_container\">" +
+                "<div class=\"left\">" +
+                    "<div class=\"info\">" +
+                        "<div class=\"reviewer\">" +
+                            "<img src=\"http://www.rajeevmasand.com/assets/images/rajabout.jpg\" style=\"height:100px;width:100px\" />" +
+                            "<div class=\"name\">Rajeev Masand</div>" +
+                            "<div class=\"affiliation\">Indy Times | Bolly Times</div>" +
+                            "<div class=\"other\">" +
+                                "<div class=\"topcritic\">Top Critic</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+                "<div class=\"right\">" +
+                    "<div class=\"mirchimeter\">3 out of 5</div>" +
+                    "<div class=\"review\">" +
+                        "<div class=\"arrow_box\">" +
+                            "<div class=\"content\"><blockquote class=\"quote\">DiCaprio has hinted before that comedy might be his natural calling -- think of Catch Me If You Can -- but his energy here is not just fun, it's discovery.The Wolf of Wall Street is a magnificent black comedy: fast, funny, and remarkably filthy.</blockquote></div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>" +
+                "<div class=\"clear\"></div>" +
+            "</div>";
+            $(".reviewList").append(html).append(html).append(html).append(html).append(html).append(html);
+        });
+    </script>
     <style type="text/css">
         .arrow_container {
-            margin: 30px;
+            margin: 30px 0px 30px 0px;
             padding: 30px;
             border-radius: 50px;
             -moz-border-radius: 50px;
@@ -15,8 +44,8 @@
             -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
             -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
             box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-            width: 450px;
-            height: 270px;
+            width: 550px;
+            height: 230px;
         }
 
         .left {
@@ -25,19 +54,23 @@
         }
 
             .left .info {
-                border: 2px solid red;
+                /*border: 2px solid red;*/
                 padding: 5px;
+            }
+
+            .left .reviewer {
+                float: right;
             }
 
         .right {
             float: right;
-            width: 300px;
+            width: 400px;
         }
 
             .right .review {
-                margin: 0px 20px 20px 20px;
-                padding: 0px 20px 20px 20px;
-                border: 2px solid red;
+                margin: 0px 10px 10px 10px;
+                padding: 0px 10px 10px 10px;
+                /*border: 2px solid red;*/
             }
 
         .clear {
@@ -79,27 +112,43 @@
             .arrow_box .content {
                 padding: 10px;
             }
+
+        blockquote.quote {
+            font: 14px/20px italic Times, serif;
+            padding-left: 55px;
+            margin: 1px;
+            background-image: url(images/openquote.gif);
+            background-repeat: no-repeat;
+            text-indent: 25px;
+        }
+
+        .name {
+        }
+
+        .content {
+        }
+
+        .affiliation {
+        }
+
+        .other {
+        }
+
+        .topcritic {
+            padding-left: 18px;
+            background-image: url(images/topcritic_star.png);
+            background-repeat: no-repeat;
+        }
+
+        .mirchimeter {
+            margin: 2px;
+            margin-left: 20px;
+            padding: 3px;
+            color: red;
+        }
     </style>
 </head>
 <body>
-    <div class="arrow_container">
-        <div class="left">
-            <div class="info">
-                <div class="reviewer">
-                    <div class="name">Rajeev Masand</div>
-                    <div class="affiliation">India Times | Bolly Times</div>
-                    <div class="other">lorem ipsum</div>
-                </div>
-            </div>
-        </div>
-        <div class="right">
-            <div class="review">
-                <div class="arrow_box">
-                    <div class="content">Here goes the content!</div>
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
+    <div class="reviewList"></div>
 </body>
 </html>
