@@ -57,18 +57,7 @@ function onSuccessLoadCurrentMovies(result) {
         // adding images        
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i]);
-            PopulatingMoviesTitle(result[i], list);
-
-            //$(list).append(movie);
-
-            //if (i == 3)
-              //  break;
         }
-
-        /*if (result.length > 4) {
-            //$("#nextMovies").show();
-            //$("#previousMovies").show();
-        }*/
 
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
@@ -78,29 +67,12 @@ function onSuccessLoadCurrentMovies(result) {
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("380px");
-            
+
             if (newWidth > 250)
                 $(this).width("250px");
-            /*$(this).parent().parent().find(".movie-title").each(function () {
-                $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
-            });*/
         });
 
-        /*$(".movie-poster").hover(function () {
-            $(this).css("-webkit-transform", "scale(1.5)");
-            $(this).css("-ms-transform", "scale(1.5)");
-            $(this).css("-moz-transform", "scale(1.5)");
-            $(this).css("-o-transform", "scale(1.5)");
-            $(this).css("box-shadow", "0px 0px 10px #AAA");
-        },
-        function () {
-            $(this).css("-webkit-transform", "scale(1)");
-            $(this).css("-ms-transform", "scale(1)");
-            $(this).css("-moz-transform", "scale(1)");
-            $(this).css("-o-transform", "scale(1)");
-            //$(".movie-title").css("-webkit-transform", "scale(1.5)").css("background-color", "#333").css("opacity", "0.7");
-            $(this).css("box-shadow", "none");
-        });*/
+        ScaleElement($(".movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".movie-list"));
@@ -109,7 +81,6 @@ function onSuccessLoadCurrentMovies(result) {
 }
 
 function NextMovies() {
-    //console.log(MovieIndexer + "," + MOVIES.length);
     if (MovieIndexer < MOVIES.length) {
         $("#previousMovies").show();
         $("#currentmovie").html("");
@@ -129,14 +100,12 @@ function NextMovies() {
         for (var i = MovieIndexer; i < MOVIES.length; i++) {
             MovieCounter++;
             PopulatingMovies(MOVIES[i]);
-            PopulatingMoviesTitle(MOVIES[i]);
+            //PopulatingMoviesTitle(MOVIES[i]);
 
             if (MovieCounter % 4 == 0) {
                 break;
             }
         }
-
-        var width = $(document).width();
 
         var width = $(document).width();
 
@@ -146,29 +115,9 @@ function NextMovies() {
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("400px");
 
-            
-
             if (newWidth > 270)
                 $(this).width("270px");
-            /*$(this).parent().parent().find(".movie-title").each(function () {
-                $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
-            });*/
         });
-
-        /*$(".movie-poster").hover(function () {
-            $(this).css("-webkit-transform", "scale(1.5)");
-            $(this).css("-ms-transform", "scale(1.5)");
-            $(this).css("-moz-transform", "scale(1.5)");
-            $(this).css("-o-transform", "scale(1.5)");
-            $(this).css("box-shadow", "0px 0px 10px #AAA");
-        },
-        function () {
-            $(this).css("-webkit-transform", "scale(1)");
-            $(this).css("-ms-transform", "scale(1)");
-            $(this).css("-moz-transform", "scale(1)");
-            $(this).css("-o-transform", "scale(1)");
-            $(this).css("box-shadow", "none");
-        });*/
     }
 }
 
@@ -191,19 +140,11 @@ function PreviousMovies() {
         for (var i = MovieIndexer; i < MOVIES.length; i++) {
             MovieCounter--;
             PopulatingMovies(MOVIES[i]);
-            PopulatingMoviesTitle(MOVIES[i]);
-
-            /*if (MovieCounter == 5) {
-                $("#previousMovies").hide();
-            }*/
 
             if (MovieCounter % 4 == 0) {
                 break;
             }
         }
-        //MovieIndexer--;
-        //Movie--;
-        //MovieIndexer--;
     }
 
     if (MovieIndexer < 0) {
@@ -220,84 +161,7 @@ function PreviousMovies() {
 
         if (newWidth > 270)
             $(this).width("270px");
-        /*$(this).parent().parent().find(".movie-title").each(function () {
-            $(this).css("width", newWidth + "px").css("height", "400px").css("background-color", "#333").css("position", "absolute").css("opacity", "0.5");
-        });*/
     });
-
-    /*$(".movie-poster").hover(function () {
-        $(this).css("-webkit-transform", "scale(1.5)");
-        $(this).css("-ms-transform", "scale(1.5)");
-        $(this).css("-moz-transform", "scale(1.5)");
-        $(this).css("-o-transform", "scale(1.5)");
-        $(this).css("box-shadow", "0px 0px 10px #AAA");
-    },
-        function () {
-            $(this).css("-webkit-transform", "scale(1)");
-            $(this).css("-ms-transform", "scale(1)");
-            $(this).css("-moz-transform", "scale(1)");
-            $(this).css("-o-transform", "scale(1)");//-webkit-transform 0.1s ease-in");
-            $(this).css("box-shadow", "none");
-        });*/
-}
-
-function PopulatingMovies(movie) {
-    var movieContainer = $(".movie-list ul");
-
-    var poster = [];
-    poster = JSON.parse(movie.Posters);
-    var src = (poster != null && poster.length > 0) ?
-        "/Posters/Images/" + poster[poster.length - 1] :
-        "/Posters/Images/default-movie.jpg";
-
-    var anchor = $("<a/>");
-    var list = $("<li/>");
-
-    list.attr("class", "movie")
-    //anchor.attr("href", "Movie?name=" + movie.UniqueName);
-    anchor.attr("href", "Movie/" + movie.UniqueName);
-    anchor.attr("title", movie.Name);
-    //anchor.append(img);
-
-    list.append(anchor);
-
-    movieContainer.append(list);
-    var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
-
-    var html =
-    "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
-        "<div id=\"imageContainer\" onmouseover=\"showCaption(this)\" onmouseout=\"hideCaption(this)\" class=\"viewer\" style=\"height: 315px;\">" +
-            "<img id=\"imageEl\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\">" +
-            "<div class=\"captionAndNavigate\" style=\"width:263px;padding: 15px\">" +
-                "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
-                    "<div id=\"photoCaption\">" +
-                        "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
-                        "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
-                        "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
-                        "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
-                    "</div>" +
-                "</div>" +
-            "</div>" +
-        "</div>" +
-    "</div>";
-
-    anchor.append(html);
-
-    return list;
-}
-
-function MovieImageLoaded(img) {
-    var width = $(document).width();
-    var imgWidth = parseInt($(img).css("width").replace("px"));
-    var imgHeight = parseInt($(img).css("height").replace("px"));
-
-    var ratio = imgWidth / imgHeight;
-    var newWidth = 400 * ratio;
-    if (newWidth > 263) {
-        newWidth = 263;
-    }
-
-    $(img).css("width", newWidth + "px").css("height", "400px");
 }
 
 function showCaption(element) {
@@ -329,11 +193,6 @@ function hideCaption(element) {
     $(element).find(".movie-synopsis").each(function () {
         $(this).hide();
     });
-
-    $(element).css("-webkit-transform", "scale(1)");
-    $(element).css("-ms-transform", "scale(1)");
-    $(element).css("-moz-transform", "scale(1)");
-    $(element).css("-o-transform", "scale(1)");
 }
 
 function PopulatingMoviesTitle(movieTitle, parentElment) {
@@ -670,7 +529,7 @@ function GetReviewerAndReviews(name, movie) {
 
 function onSuccessPopulateReviewsAndReviews(result) {
     result = JSON.parse(result);
-    console.log(result);
+
 
     if (result != undefined) {
         // adding image
@@ -1506,8 +1365,6 @@ function SaveUserFavorite() {
     var isValid = false;
 
     var FavoriteList = [];
-    console.log("befor favorite list");
-    console.log(FavoriteList);
 
     $("#fav_actor").find('input[type="checkbox"]').each(function () {
         if ($(this).attr("checked")) {
@@ -1543,9 +1400,6 @@ function SaveUserFavorite() {
             FavoriteList.push({ "Type": "Genre", "Name": genre });
         }
     });
-
-    console.log("after favorite list");
-    console.log(FavoriteList);
 
     if (actorName != "") {
         isValid = true;
@@ -2020,3 +1874,46 @@ function getCookie(cname) {
     return "";
 }
 /*--------------end cookies related functions----------------*/
+
+function ScaleElement(element) {
+    var currentElement = null;
+    $(element).find("li.movie").each(function () {
+        $(this).find(".movie-poster").hover(function () {
+            currentElement = this;
+            $(this).attr("isactive", "true");
+            $(this).attr("org-w", $(this).css("width")).css("width", "350px").css("top", "-35px").css("left", "-50px");
+            $(this).attr("org-h", $(this).css("height")).css("height", "500px");
+            $(this).css("z-index", "100").css("position", "absolute");
+            $(this).parent().css("height", "500px").css("z-index", "101");
+            $(this).parent().find(".captionAndNavigate").css("width", "350px").css("height", "500px").css("z-index", "102").css("top", "-35px").css("left", "-50px");
+
+        }, function () {
+            setTimeout(function () {
+                if (currentElement == null) {
+                    $(this).css("width", $(this).attr("org-w")).css("height", $(this).attr("org-h")).css("z-index", "1").css("position", "relative").css("top", "0px").css("left", "0px");
+                    $(this).parent().css("height", $(this).attr("org-h"));
+                    $(this).parent().find(".captionAndNavigate").css("width", $(this).attr("org-w")).css("top", "auto").css("left", "0px").css("z-index", "2");
+                }
+            }, 1000);
+        });
+    });
+
+    $(element).find("li.movie").each(function () {
+        $(this).find(".captionAndNavigate").hover(function () {
+            var element = $(this).parent("li.movie");
+            if (currentElement != element) {
+                currentElement = null;
+            }
+        },
+            function () {
+                var width = $(this).parent().find(".movie-poster").attr("org-w");
+                var height = $(this).parent().find(".movie-poster").attr("org-h");
+                $(this).css("top", "auto").css("left", "0px").css("z-index", "2").css("height", "auto").css("width", width);
+
+                $(this).parent().find(".movie-poster").each(function () {
+                    $(this).parent().css("height", "400px").css("z-index", "1");
+                    $(this).css("width", $(this).attr("org-w")).css("height", $(this).attr("org-h")).css("z-index", "1").css("position", "relative").css("top", "0px").css("left", "0px");
+                });
+            });
+    });
+}

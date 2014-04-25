@@ -30,15 +30,29 @@ a {
     a:hover {
         color: #000;
     }
-
-.movie-container {
-    position: relative;
-    -webkit-font-smoothing: subpixel-antialiased;
-    width: 100%;
-    height: 100%;
-    overflow-y: auto;
+/* Common Classes */
+.large-fonts {
+    font-size: 2em;
+    font-family: Segoe UI Light;
+    font-weight: bold;
 }
 
+.MediumFonts {
+}
+
+.SmallFonts {
+}
+.tube-container { float: left; width: 90%; margin-top: 1%; }
+.section-title {
+    float: left;
+    color: purple;
+    margin-bottom: 1%;
+    margin-top: 2%;
+    margin-left: 7%;
+}
+/* End - Common Classes */
+/* Header Section */
+/* VS - Apr 24 - Search bar style is changed to support it as main search bar on website */
 #top-nav {
     float: left;
     width: 100%;
@@ -49,6 +63,177 @@ a {
     box-shadow: 1px 2px #EEE;
 }
 
+.logo {
+    float: left;
+    width: 23%;
+    margin-left: 6%;
+}
+
+    .logo img {
+        width: 200px;
+        height: 40px;
+    }
+
+.home-search-bar {
+    float: left;
+    position: relative;
+}
+
+    .home-search-bar input {
+        width: 500px !important;
+        height: 35px;
+        outline: none;
+        border: 1px solid #368BC1 !important;
+        border-radius: 5px !important;
+    }
+
+.search-container {
+    float: left;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+    .search-container input, #search-bar {
+        float: left;
+    }
+
+.search-button {
+    float: left;
+    padding: 8px;
+    text-align: center;
+    width: 80px;
+    height: 35px;
+    background-color: skyblue;
+    font-weight: bold;
+    color: #FFF;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.clear-search-bar {
+    position: absolute;
+    right: 50px;
+    margin: 5px;
+    top: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+.clear-search-bar-button {
+    float: right;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+#search-bar .clear-search-bar {
+    right: 10px;
+}
+
+#search-bar .clear-search-bar-button {
+    width: 24px !important;
+    height: 24px !important;
+}
+
+.status { float: right; margin-right: 5%; }
+.status ul { float: left; list-style: none; margin-top: 10px; }
+.status ul li { float: left; margin-right: 20px; }
+.status ul li a { color: #2793e6; text-decoration: underline; margin-top: 10px; }
+/* VS - Apr 24 - Search bar of home page, now moved as main search bar */
+/*.home-search-bar {
+    position: absolute;
+    top: 200px;
+    left: 25%;
+}
+
+    .home-search-bar input {
+        width: 500px !important;
+        height: 50px;
+        outline: none;
+        border: 2px solid #368BC1 !important;
+        border-radius: 5px !important;
+    }
+    .header-title {
+    float: left;
+    width: 100%;
+    margin-bottom: 10px;
+    font: 32px "ralewayregular", Helvetica Neue, Helvetica, Arial, sans-serif;
+    color: white;
+    text-align: left;
+}
+
+.search-container {
+    background-color: #333;
+    border-radius: 5px;
+    padding: 5px;
+    height: 60px;
+    float: left;
+}
+
+.search-input {
+    float: left;
+}
+
+.search-button {
+    float: left;
+    color: white;
+    padding: 10px;
+    padding-top: 15px;
+    text-align: center;
+    width: 100px;
+    height: 50px;
+    background-color: skyblue;
+    font-weight: bold;
+    color: #333;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+    */
+/* End - Header Section */
+/*Pager Control*/
+.pager-left-arrow{
+    display: inline-block;
+    margin-right: 1%;
+    width: 20px;
+    height: 20px;
+}
+.pager-right-arrow{
+    display: inline-block;
+    margin-left: 1%;
+    width: 20px;
+    height: 20px;
+}
+.left-arrow-icon {
+    width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	border-right:10px solid #368BC1;
+    margin-top: 5px;
+    cursor: pointer;
+}
+.right-arrow-icon {
+    width: 0; 
+	height: 0; 
+	border-top: 10px solid transparent;
+	border-bottom: 10px solid transparent; 
+	border-left:10px solid #368BC1;
+    margin-top: 5px;
+    cursor: pointer;
+}
+/*End - Pager Control*/
+/* Movie Control */
+
+/* End - Movie Control */
+.movie-container {
+    position: relative;
+    -webkit-font-smoothing: subpixel-antialiased;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
 .bb-custom-wrapper,
 .bb-bookblock {
     width: 100%;
@@ -62,6 +247,8 @@ a {
     -webkit-transition: left 0.3s ease-in-out;
     -o-transition: left 0.3s ease-in-out;
     transition: left 0.3s ease-in-out;
+    background-color: #F0F0F0;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEEEEE), color-stop(0.8,#DDDDDD));
 }
 
 .slideRight {
@@ -365,7 +552,7 @@ a {
 
 .recent-movie-name {
     width: 90%;
-    margin: 2% 5% 5% 5%;
+    margin: 2% 0% 0% 6%;
 }
 
 .movie-synopsis {
@@ -546,20 +733,6 @@ a {
         height: 550px;
     }
 
-.home-search-bar {
-    position: absolute;
-    top: 200px;
-    left: 25%;
-}
-
-    .home-search-bar input {
-        width: 500px !important;
-        height: 50px;
-        outline: none;
-        border: 2px solid #368BC1 !important;
-        border-radius: 5px !important;
-    }
-
 .search {
     outline: none;
     border: 2px solid #368BC1 !important;
@@ -577,9 +750,8 @@ a {
 
 .movie-list, .news-container, .critics-container {
     float: left;
-    width: 90%;
-    margin-left: 5%;
-    margin-right: 0%;
+    width: 100%;
+    margin-left: 7%;
     margin-bottom: 1%;
 }
 
@@ -589,7 +761,6 @@ a {
         padding: 0px;
         margin: 0px;
         width: 100%;
-        height: 380px;
     }
 
         .movie-list ul li, .critics-container ul li {
@@ -730,29 +901,7 @@ a {
         background-color: #EEE;
     }
 
-.clear-search-bar {
-    position: absolute;
-    right: 50px;
-    margin: 5px;
-    top: 5px;
-    cursor: pointer;
-    display: none;
-}
 
-.clear-search-bar-button {
-    float: right;
-    width: 16px !important;
-    height: 16px !important;
-}
-
-#search-bar .clear-search-bar {
-    right: 10px;
-}
-
-#search-bar .clear-search-bar-button {
-    width: 24px !important;
-    height: 24px !important;
-}
 
 .critic-review {
     float: left;
@@ -794,42 +943,7 @@ a {
         float: right;
     }
 
-.header-title {
-    float: left;
-    width: 100%;
-    margin-bottom: 10px;
-    font: 32px "ralewayregular", Helvetica Neue, Helvetica, Arial, sans-serif;
-    color: white;
-    text-align: left;
-}
 
-.search-container {
-    background-color: #333;
-    border-radius: 5px;
-    padding: 5px;
-    height: 60px;
-    float: left;
-}
-
-.search-input {
-    float: left;
-}
-
-.search-button {
-    float: left;
-    color: white;
-    padding: 10px;
-    padding-top: 15px;
-    text-align: center;
-    width: 100px;
-    height: 50px;
-    background-color: skyblue;
-    font-weight: bold;
-    color: #333;
-    border-radius: 5px;
-    margin-left: 5px;
-    cursor: pointer;
-}
 
 .news-container ul {
     float: left;
@@ -843,7 +957,7 @@ a {
     background-color: #FFF;
     margin: 15px;
     padding: 0;
-    min-height: 155px;
+    min-height: 161px;
     position: relative;
     float: left;
     list-style: none;
@@ -905,6 +1019,7 @@ a {
         .news-container .news-item .news-content-container .news-content {
             height: 85px;
             margin-top: 10px;
+            font-size: 12px;
         }
 
         .news-container .news-item .news-content-container .left {
@@ -1049,8 +1164,8 @@ a {
 }
 
 .page-index {
-    width: 8px;
-    height: 8px;
+    width: 12px;
+    height: 12px;
     background-color: skyblue; /* #41A317;*/
     margin-right: 10px;
     margin-top: 10px;

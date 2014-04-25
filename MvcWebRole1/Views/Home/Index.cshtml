@@ -9,6 +9,15 @@
         margin-top: -10px;
     }
 
+    #now-pager {
+        float: left;
+        width: 100%;
+        position: absolute;
+        bottom: 0px;
+        text-align: center;
+        left: 0%;
+    }
+
     .viewingDiv {
         float: none;
         position: relative;
@@ -26,16 +35,12 @@
         text-align: center;
         vertical-align: middle;
         position: relative;
+        float: left;
     }
 
     img.shownImage {
-        position: absolute;
-        top: 0px;
-        bottom: 0px;
-        right: 0px;
-        left: 0px;
         border: solid 1px transparent;
-        box-shadow: 0px 0px 15px #999;
+        box-shadow: 0px 0px 15px #555;
     }
 
     div.navigate {
@@ -47,7 +52,7 @@
 
     div.captionAndNavigate {
         background-color: #000;
-        bottom: -42px;
+        bottom: 0px;
         color: #FFFFFF;
         left: 0;
         margin-bottom: 0;
@@ -58,10 +63,7 @@
         padding: 0px;
         position: absolute;
         text-align: left;
-    }
-
-    li.reviewer .captionAndNavigate {
-        bottom: -20px;
+        z-index: 2;
     }
 
     .overLaying {
@@ -73,7 +75,6 @@
         top: 20;
         left: 0;
     }
-
 
     .overLayImg {
         z-index: 20;
@@ -119,93 +120,113 @@
             }
 </style>
 <div class="content">
-    <div class="banner">
-        <img src="~/Images/banner-images/movies-collage.jpg" />
-        <div class="banner-layer"></div>
-        <div class="home-search-bar">
-            <div class="header-title">Find the movie to watch</div>
-            <div class="search-container">
-                <div class="input-group search-input">
-                    <div id="search-bar">
-                        <input type="text" class="form-control search" placeholder="What do you like?" id="home-search" name="query" value="" autocomplete="off" />
-                        <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
-                        <div id="search-results"></div>
+    @*<div class="banner">
+            <img src="~/Images/banner-images/movies-collage.jpg" />
+            <div class="banner-layer"></div>
+            <div class="home-search-bar">
+                <div class="header-title">Find the movie to watch</div>
+                <div class="search-container">
+                    <div class="input-group search-input">
+                        <div id="search-bar">
+                            <input type="text" class="form-control search" placeholder="What do you like?" id="home-search" name="query" value="" autocomplete="off" />
+                            <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
+                            <div id="search-results"></div>
+                        </div>
                     </div>
+                    <div class="search-button">Search</div>
                 </div>
-                <div class="search-button">Search</div>
             </div>
-        </div>
-    </div>
+        </div>*@
     <div class="movies">
-        <div class="review-navigation">
-            <div title="Previous" id="previousMovies" class="previous-movies" style="display:none" onclick="PreviousMovies();">
-                <img src="~/Images/pervious.png" alt="pervious" />
+        @*<div class="review-navigation">
+                <div title="Previous" id="previousMovies" class="previous-movies" style="display:none" onclick="PreviousMovies();">
+                    <img src="~/Images/pervious.png" alt="pervious" />
+                </div>
+                <div title="Next" id="nextMovies" class="next-movies" style="display:none" onclick="NextMovies();">
+                    <img src="~/Images/next.png" alt="next" />
+                </div>
+            </div>*@
+        @*<div class="tube-container">
+                <div class="section-title large-fonts">
+                                Now Playing
+                            </div>
+                            <div class="movie-list">
+                        <ul></ul>
+                        <div id="now-pager"></div>
+                    </div>
             </div>
-            <div title="Next" id="nextMovies" class="next-movies" style="display:none" onclick="NextMovies();">
-                <img src="~/Images/next.png" alt="next" />
+            <div class="tube-container">
+                <div class="section-title  large-fonts">
+                    Upcoming
+                </div>
+                <div class="upcoming-movie-list">
+                    <ul></ul>
+                    <div id="upcoming-pager"></div>
+                </div>
             </div>
-        </div>
-        <div class="recent-movie-name">
-            Recent Releases
-        </div>
-        <div class="movie-list">
-            <ul></ul>
-            <div id="pager"></div>
-        </div>
-        <div class="recent-movie-name" style="margin-bottom: 1%;">
-            News
-        </div>
-        <div class="news-container">
-            <ul></ul>
-            <div id="news-pager"></div>
-        </div>
-        <div class="recent-movie-name" style="margin-bottom: 3%;">
-            Top Critics
-        </div>
-        <div class="critics-container">
-            <ul></ul>
-            <div id="critics-pager"></div>
-        </div>
+            <div class="tube-container">
+                <div class="section-title  large-fonts" style="margin-bottom: 1%;">
+                    News
+                </div>
+                <div class="news-container">
+                    <ul></ul>
+                    <div id="news-pager"></div>
+                </div>
+            </div>
+            <div class="tube-container">
+                <div class="section-title  large-fonts" style="margin-bottom: 3%;">
+                    Top Critics
+                </div>
+                <div class="critics-container">
+                    <ul></ul>
+                    <div id="critics-pager"></div>
+                </div>
+            </div>*@
     </div>
-</div>
-<script>
-    var indexer = 0;
-    $(document).ready(function () {
-        LoadCurrentMovies();
+    <script>
+        var indexer = 0;
+        $(document).ready(function () {
+            $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
+            $(".movies").append(GetTubeControl("Upcoming", "upcoming-movie-list", "upcoming-pager"));
+            $(".movies").append(GetTubeControl("News", "news-container", "news-pager"));
+            $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager"));
 
-        /*totalReviewers = $(".critics-container ul li.reviewer").length;
-        var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 4, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager" };
-        PreparePaginationControl($(".critics-container"), pagerJson);*/
+            LoadCurrentMovies();
 
-        // TOP CRITIC
-        var ul = $(".critics-container").find("ul");
-        critics = [
-            { href: 'omar-qureshi', title: 'Omar Qureshi', name: 'Omar Qureshi', poster: 'omar-qureshi.jpg', aff: 'Zoom', },
-            { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama', },
-            { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN-IBN', },
-            { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'NDTV | India Today | Hindustan Times', },
-            { href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age', },
-        ].forEach(function (critic) {
-            ul.append(
-                "<li class=\"reviewer\" style=\"min-height: 250px;\">" +
-                    "<a href=\"Reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
-                        "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
-                            "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 210px;\">" +
-                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 250px; width: 193px; \">" +
-                                "<div class=\"captionAndNavigate\" style=\"width: 193px; padding: 15px; padding-bottom: 5px; height: auto;\">" +
-                                    "<div id=\"captionCredit\" style=\"width: 328px;\" class=\"multimediaCaption\">" +
-                                        "<div id=\"photoCaption\">" +
-                                            "<div class=\"img-movie-name\" style=\"font-size: 1.5em;\">" + critic.name + "</div>" +
-                                            "<div class=\"img-movie-genre\" style=\"font-size: 1em;\">" + critic.aff + "</div>" +
+            /*totalReviewers = $(".critics-container ul li.reviewer").length;
+            var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 4, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager" };
+            PreparePaginationControl($(".critics-container"), pagerJson);*/
+
+            // TOP CRITIC
+            var ul = $(".critics-container").find("ul");
+            critics = [
+                { href: 'omar-qureshi', title: 'Omar Qureshi', name: 'Omar Qureshi', poster: 'omar-qureshi.jpg', aff: 'Zoom', },
+                { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama', },
+                { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN-IBN', },
+                { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'NDTV | India Today | Hindustan Times', },
+                { href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age', },
+            ].forEach(function (critic) {
+                ul.append(
+                    "<li class=\"reviewer\">" +
+                        "<a href=\"Reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
+                            "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
+                                "<div id=\"imageContainer\" class=\"viewer\">" +
+                                    "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 250px; width: 193px; \">" +
+                                    "<div class=\"captionAndNavigate\" style=\"width: 193px; padding: 15px;\">" +
+                                        "<div id=\"captionCredit\" style=\"width: 328px;\" class=\"multimediaCaption\">" +
+                                            "<div id=\"photoCaption\">" +
+                                                "<div class=\"img-movie-name\" style=\"font-size: 1.5em;\">" + critic.name + "</div>" +
+                                                "<div class=\"img-movie-genre\" style=\"font-size: 1em;\">" + critic.aff + "</div>" +
+                                            "</div>" +
                                         "</div>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +
-                        "</div>" +
-                    "</a>" +
-                "</li>");
+                        "</a>" +
+                    "</li>");
+            });
         });
-    });
-</script>
-<script type="text/javascript" src="/Content/movie.news.js"></script>
-<script type="text/javascript" src="/Content/PagerControl.js"></script>
+    </script>
+    @*<script type="text/javascript" src="/Content/controls/mm.tube.js"></script>
+        <script type="text/javascript" src="/Content/controls/mm.news.js"></script>
+        <script type="text/javascript" src="/Content/controls/mm.pager.js"></script>*@

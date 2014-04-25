@@ -113,7 +113,7 @@
                             img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
                             //img.attr("data-src", "holder.js/200x200");
                             //img.attr("src", value.TitleImageURL);
-                            
+
                             var description = JSON.parse(value.Description);
 
                             var actors = "";
@@ -176,9 +176,7 @@
             $("#targetUL").remove();
             $("#targetUL").css("display", "none");
         }
-    </script>
-
-    <script type="text/javascript">
+     
         //Added code for load actorname
         $(document).ready(function () {
 
@@ -239,48 +237,56 @@
         //ended music director loading
     </script>
     <style>
-        .logo-image {
-            width: 200px;
-            height: 40px;
-        }
     </style>
 </head>
 <body>
     <div class="movie-container">
         <div id="top-nav">
             <div class="logo">
-                <a href="/Home" title="Movie Mirchi Home"><img src='/Images/logo.png' class="logo-image" /></a>
+                <a href="/Home" title="Movie Mirchi Home"><img src='/Images/logo.png' /></a>
                 @*@Html.ActionLink("", "Index", "Home", null, new { @title = "Find your movie", @rel = "home" })*@
             </div>
-            <div class="col-sm-6 col-md-6">
-                <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
-                    <div class="btn-group pull-left" id="btngroup">
-                        <select id="searchtype" class="form-control">
-                            <option>
-                                All
-                            </option>
-                            <option>
-                                Title
-                            </option>
-                            <option>
-                                Character
-                            </option>
-                            <option>
-                                Name
-                            </option>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <div id="targetDiv">
-                            <input type="text" class="form-control" placeholder="Search Movies, Celebrities, Artists, Reviewers..." id="target" name="query" value="" autocomplete="off" />
+            <div class="home-search-bar">
+                <div class="search-container">
+                    <div class="input-group search-input">
+                        <div id="search-bar">
+                            <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
                             <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
+                            <div id="search-results"></div>
                         </div>
-                        <div class="input-group-btn">
-                            <button type="submit" class="btn btn-success">Go</button>
-                        </div>
+                        <div class="search-button">Search</div>
                     </div>
-                </form>
+                </div>
             </div>
+            @*<div class="col-sm-6 col-md-6">
+                    <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
+                        <div class="btn-group pull-left" id="btngroup">
+                            <select id="searchtype" class="form-control">
+                                <option>
+                                    All
+                                </option>
+                                <option>
+                                    Title
+                                </option>
+                                <option>
+                                    Character
+                                </option>
+                                <option>
+                                    Name
+                                </option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <div id="targetDiv">
+                                <input type="text" class="form-control" placeholder="Search Movies, Celebrities, Artists, Reviewers..." id="target" name="query" value="" autocomplete="off" />
+                                <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
+                            </div>
+                            <div class="input-group-btn">
+                                <button type="submit" class="btn btn-success">Go</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>*@
             <div class="status">
                 <ul>
                     @if (Session["username"] != null)
@@ -938,3 +944,7 @@
 <script type="text/javascript" src="/Content/page.js"></script>
 <script type="text/javascript" src="/Content/movie.core.js"></script>
 <script type="text/javascript" src="/Content/movie.autocomplete.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.tube.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.pager.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.tile.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.news.js"></script>
