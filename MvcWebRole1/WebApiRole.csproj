@@ -221,6 +221,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
+    <Content Include="Content\controls\mm.rate.js" />
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
     <Content Include="Content\custom.css" />

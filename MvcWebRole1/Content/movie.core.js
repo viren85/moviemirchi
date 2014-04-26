@@ -51,7 +51,6 @@ function onSuccessLoadCurrentMovies(result) {
     result = JSON.parse(result);
 
     if (result.length > 0) {
-
         MOVIES = result;
 
         // adding images        
@@ -63,7 +62,6 @@ function onSuccessLoadCurrentMovies(result) {
         var width = $(document).width();
 
         $(".movie-list").find("img").each(function () {
-
             var ratio = this.width / this.height;
             var newWidth = 400 * ratio;
             $(this).width(newWidth + "px").height("380px");
