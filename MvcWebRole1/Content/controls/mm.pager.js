@@ -16,7 +16,7 @@ var defaultOptions = {
     pageSize: $(document).width(), // Page size. This size will be used to calculate the # of tiles which could be placed in single row.
     tilesInPage: 4, // # of tiles in single row without overflowing the content
     totalTileCount: 13, // # of tiles to be displayed. This count is specially useful for pagination.
-    useDefaultTileCount: false, 
+    useDefaultTileCount: false,
     pageCount: 4, // total # of pages with tiles. This value will be calculated dynamically based on # of List Items and per tile width
     activeTileStartIndex: 0, // This value is used to track the current page in pagination
     clickHandler: function () { } // For future use.
@@ -24,76 +24,78 @@ var defaultOptions = {
 
 // Initialise the control options. When any option is not provided, it will initiated with default values.
 function Init(options) {
-    if (options == null || options == "undefined") {
+    if (options === null || typeof options === "undefined" || options === {}) {
         options = defaultOptions;
-    }
-    else {
-        if (options.minPages == null || options.minPages == "undefined") {
+    } else {
+        if (!options.minPages) {
             options.minPages = defaultOptions.minPages;
         }
 
-        if (options.maxPages == null || options.maxPages == "undefined") {
+        if (!options.maxPages) {
             options.maxPages = defaultOptions.maxPages;
         }
 
-        if (options.minControlWidth == null || options.minControlWidth == "undefined") {
+        if (!options.minControlWidth) {
             options.minControlWidth = defaultOptions.minControlWidth;
         }
 
-        if (options.maxControlWidth == null || options.maxControlWidth == "undefined") {
+        if (!options.maxControlWidth) {
             options.maxControlWidth = defaultOptions.maxControlWidth;
         }
 
-        if (options.tileWidth == null || options.tileWidth == "undefined") {
+        if (!options.tileWidth) {
             options.tileWidth = defaultOptions.tileWidth;
         }
 
-        if (options.pagerType == null || options.pagerType == "undefined") {
+        if (!options.pagerType) {
             options.pagerType = defaultOptions.pagerType;
         }
 
-        if (options.pagerPosition == null || options.pagerPosition == "undefined") {
+        if (!options.pagerPosition) {
             options.pagerPosition = defaultOptions.pagerPosition;
         }
 
-        if (options.effect == null || options.effect == "undefined") {
+        if (!options.effect) {
             options.effect = defaultOptions.effect;
         }
-        if (options.direction == null || options.direction == "undefined") {
+
+        if (!options.direction) {
             options.direction = defaultOptions.direction;
         }
-        if (options.useDefaultTileCount == null || options.useDefaultTileCount == "undefined") {
+
+        if (!options.useDefaultTileCount) {
             options.useDefaultTileCount = defaultOptions.useDefaultTileCount;
         }
 
-        if (options.clickHandler == null || options.clickHandler == "undefined") {
+        if (!(options.clickHandler && $.isFunction(options.clickHandler))) {
             options.clickHandler = defaultOptions.clickHandler;
         }
-        if (options.pagerContainerId == null || options.pagerContainerId == "undefined") {
+
+        if (!options.pagerContainerId) {
             options.pagerContainerId = defaultOptions.pagerContainerId;
         }
 
-        if (options.pagerContainer == null || options.pagerContainer == "undefined") {
+        if (!options.pagerContainer) {
             options.pagerContainer = defaultOptions.pagerContainer;
         }
 
-        if (options.pageSize == null || options.pageSize == "undefined") {
+        if (!options.pageSize) {
             options.pageSize = defaultOptions.pageSize;
         }
 
-        if (options.tilesInPage == null || options.tilesInPage == "undefined") {
+        if (!options.tilesInPage) {
             options.tilesInPage = defaultOptions.tilesInPage;
         }
 
-        if (options.totalTileCount == null || options.totalTileCount == "undefined") {
+        if (!options.totalTileCount) {
             options.totalTileCount = defaultOptions.totalTileCount;
         }
 
-        if (options.pageCount == null || options.pageCount == "undefined") {
+        if (!options.pageCount) {
             options.pageCount = defaultOptions.pageCount;
         }
 
-        if (options.activeTileStartIndex == null || options.activeTileStartIndex == "undefined") {
+        if (!options.activeTileStartIndex) {
             options.activeTileStartIndex = defaultOptions.activeTileStartIndex;
         }
     }
@@ -102,18 +104,23 @@ function Init(options) {
 }
 
 function PreparePaginationControl(rotatorControl, pagerOptions) {
-    var tileIndex = 0;
-    var isTileDisplayed = false;
 
     var options = Init(pagerOptions);
-    
+
+    // If we have content which could be displayed in single page, we don't need any pagination control.
+    if (options.pageCount < 2) {
+        return;
+    }
+
+    var li = $(rotatorControl).find("li");
+
     // 1. Hide all the li element which are present in ul
-    $(rotatorControl).find("li").hide();
+    li.hide();
 
     // 2. calculate the page size, calculate the tile size, calculate the # of pages required to showcase the gallery
-
-    if (!options.useDefaultTileCount)
-        options.totalTileCount = $(rotatorControl).find("li").length;
+    if (!options.useDefaultTileCount) {
+        options.totalTileCount = li.length;
+    }
 
     // Calculate the margin - which will be left on right/left side of page
     var margin = Math.round(options.pageSize / 20);
@@ -129,141 +136,167 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
     // 3. Prepare pager control - assign link to each of the pagination link
     $("#" + options.pagerContainerId).append(GetPaginationControl(rotatorControl, options));
 
-    // Show correct tiles 
-    $(rotatorControl).find("li").each(function () {
-        if (tileIndex == options.activeTileStartIndex) {
+    // Show/hide tiles 
+    var showIndex = options.activeTileStartIndex + options.tilesInPage - 1;
+
+    li.each(function (tileIndex) {
+        if (tileIndex >= options.activeTileStartIndex && tileIndex <= showIndex) {
             $(this).show();
-            isTileDisplayed = true;
-        }
-        else if (isTileDisplayed && (tileIndex <= (options.activeTileStartIndex + options.tilesInPage - 1))) {
-            $(this).show();
-        }
-        else {
+        } else {
             $(this).hide();
         }
-
-        tileIndex++;
     });
 }
 
+//// TODO: Viren - fix this css so that the arrows looks grayed out and then back to life using appropriate css classes
+var ArrowManager = function (left, right, pagesCount) {
+    var _left = left;
+    var _right = right;
+    var _pagesCount = pagesCount;
+
+    ArrowManager.prototype.disable = function ($el) {
+        $el.css("background-color", "#FF0000");
+    };
+
+    ArrowManager.prototype.enable = function ($el) {
+        $el.css("background-color", "#00FF00");
+    };
+
+    ArrowManager.prototype.manage = function (activeIndex) {
+        this.manageLeft(activeIndex);
+        this.manageRight(activeIndex);
+    };
+
+    ArrowManager.prototype.manageLeft = function (activeIndex) {
+        // == instead of === : We want to compare "x" with x, without using parseInt
+        if (activeIndex == 1) {
+            this.disable(_left);
+        } else {
+            this.enable(_left);
+        }
+    };
+
+    ArrowManager.prototype.manageRight = function (activeIndex) {
+        // == instead of === : We want to compare "x" with x, without using parseInt
+        if (activeIndex == _pagesCount) {
+            this.disable(_right);
+        } else {
+            this.enable(_right);
+        }
+    };
+};
+
 function GetPaginationControl(rotatorControl, options) {
-    // If we have content which could be displayed in single page, we don't need any pagination control.
-    if (options.pageCount < 2) {
-        return;
-    }
 
     var pagerContainer = $("<div/>").attr("class", options.pagerContainer);
-    var leftArrow = $("<div/>").attr("class", "pager-left-arrow").html("<div class='left-arrow-icon'></div>").hide();
+    var leftArrow = $("<div/>").attr("class", "pager-left-arrow").html("<div class='left-arrow-icon'></div>");
     var rightArrow = $("<div/>").attr("class", "pager-right-arrow").html("<div class='right-arrow-icon'></div>");
 
-    $(leftArrow).click(function () {
-        var previousElement;
-        $(this).show();
-        if (options.activeTileStartIndex == 0) {
-            $(this).hide();
+    // Add pages
+    {
+        pagerContainer.append(leftArrow);
+
+        for (var i = 1; i <= options.pageCount; i++) {
+            var pager = $("<div/>").attr("class", "page-index").attr("page-index", i);
+            pagerContainer.append(pager);
         }
 
-        $(this).parent().find(".page-index").each(function () {
-            if ($(this).attr("page-index") == currentPage) {
-                $(previousElement).click();
-            }
-
-            previousElement = $(this);
-        });
-    });
-
-    $(rightArrow).click(function () {
-        var isElementReached = false;
-
-        $(this).show();
-        if (options.activeTileStartIndex == options.totalTileCount) {
-            $(this).hide();
-        }
-
-        $(this).parent().find(".page-index").each(function () {
-            if ($(this).attr("page-index") == currentPage && !isElementReached) {
-                $(this).next().click();
-                isElementReached = true;
-            }
-        });
-    });
-
-    pagerContainer.append(leftArrow);
-
-    var pageCounter = options.pageCount;
-
-    for (var i = 0; i < pageCounter; i++) {
-        var pager;
-
-        if (i == 0)
-            pager = $("<div/>").attr("class", "page-index active-page-index").attr("page-index", (i + 1));
-        else
-            pager = $("<div/>").attr("class", "page-index").attr("page-index", (i + 1));
-
-
-        $(pager).click(function () {
-            var tileIndex = 0;
-            var isTileDisplayed = false;
-
-            options.activeTileStartIndex = (($(this).attr("page-index") - 1) * options.tilesInPage);
-            currentPage = $(this).attr("page-index");
-            
-            $("." + options.pagerContainer).find("div").each(function () {
-                if (!$(this).hasClass("pager-left-arrow") && !$(this).hasClass("pager-right-arrow") && !$(this).hasClass("left-arrow-icon") && !$(this).hasClass("right-arrow-icon"))
-                    $(this).attr("class", "page-index");
-            });
-
-            $(this).attr("class", "page-index active-page-index");
-
-            $(rotatorControl).find("li").each(function () {
-                if (tileIndex == options.activeTileStartIndex) {
-                    $(this).show();
-                    isTileDisplayed = true;
-                }
-                else if (isTileDisplayed && (tileIndex <= (options.activeTileStartIndex + options.tilesInPage - 1))) {
-                    $(this).show();
-                }
-                else {
-                    $(this).hide();
-                }
-
-                // some times the poster images of second page (and onwards) does not get default width.
-                // Hence explicitly assigning the width to all the poster images in tube
-                if ($(this).find("img.movie-poster").width() == 0) {
-                    $(this).find("img.movie-poster").css("width", "263px"); // need to get rid of hardcoded width
-                }
-
-                tileIndex++;
-            });
-
-
-            if (options.activeTileStartIndex == 0)
-                $("." + options.pagerContainer + " .pager-left-arrow").hide();
-            else
-                $("." + options.pagerContainer + " .pager-left-arrow").show();
-
-            if (options.totalTileCount == (options.activeTileStartIndex + 1))
-                $("." + options.pagerContainer + " .pager-right-arrow").hide();
-            else
-                $("." + options.pagerContainer + " .pager-right-arrow").show();
-
-        });
-
-        pagerContainer.append(pager);
+        pagerContainer.append(rightArrow);
     }
 
-    pagerContainer.append(rightArrow);
+    var arrowManager = new ArrowManager(leftArrow, rightArrow, options.pageCount);
+    var pages = pagerContainer.find(".page-index");
+    var pagesParent = $(pages[0]).parent();
+    var activePageIndex = function () {
+        return pagesParent.find(".active-page-index").attr("page-index");
+    };
+
+    // Set first as active
+    $(pages[0]).attr("class", "page-index active-page-index");
+
+    // Manage arrows once
+    arrowManager.manage(activePageIndex());
+
+    // Click handlers
+    {
+        $(leftArrow).click(function () {
+
+            var curr = pages.filter(function () {
+                // == instead of === : We want to compare "x" with x, without using parseInt
+                return ($(this).attr("page-index") == currentPage);
+            })[0];
+            if (curr) {
+                var prev = $(curr).prev();
+                if (prev) {
+                    $(prev).click();
+                    arrowManager.manage(activePageIndex());
+                }
+            }
+        });
+
+        $(rightArrow).click(function () {
+
+            var curr = pages.filter(function () {
+                // == instead of === : We want to compare "x" with x, without using parseInt
+                return ($(this).attr("page-index") == currentPage);
+            })[0];
+            if (curr) {
+                var next = $(curr).next();
+                if (next) {
+                    $(next).click();
+                    arrowManager.manage(activePageIndex());
+                }
+            }
+        });
+
+        pages.each(function () {
+            $(this).click(function () {
+
+                options.activeTileStartIndex = (($(this).attr("page-index") - 1) * options.tilesInPage);
+                currentPage = $(this).attr("page-index");
+
+                // Set inactive/active
+                pagesParent.find(".active-page-index").attr("class", "page-index");
+                $(this).attr("class", "page-index active-page-index");
+
+                // Show/hide tiles 
+                var showIndex = options.activeTileStartIndex + options.tilesInPage - 1;
+
+                $(rotatorControl).find("li").each(function (tileIndex) {
+                    if (tileIndex >= options.activeTileStartIndex && tileIndex <= showIndex) {
+                        $(this).show();
+                    } else {
+                        $(this).hide();
+                    }
+
+                    // TODO: Cleanup this CODE SMELL
+                    // some times the poster images of second page (and onwards) does not get default width.
+                    // Hence explicitly assigning the width to all the poster images in tube
+                    if ($(this).find("img.movie-poster").width() == 0) {
+                        $(this).find("img.movie-poster").css("width", "263px"); // need to get rid of hardcoded width
+                    }
+                });
+
+                arrowManager.manage(activePageIndex());
+            })
+        });
+    }
+
     return pagerContainer;
 }
 
 function HighlightActivePage(pagerContainer, pageIndex) {
-    var index = 1;
-    $(pagerContainer).find(".page-index").each(function () {
-        if (index == pageIndex) {
-            $(this).attr("class", "active-page-index page-index");
-        }
-        else {
-            $(this).attr("class", "page-index");
-        }
-    });
+
+    var hiIndex = (pageIndex && pageIndex !== 0) ? pageIndex : 1;
+
+    $(pagerContainer)
+        .find(".page-index")
+        .each(function (index) {
+            if (index == hiIndex) {
+                $(this).attr("class", "active-page-index page-index");
+            }
+            else {
+                $(this).attr("class", "page-index");
+            }
+        });
 }
