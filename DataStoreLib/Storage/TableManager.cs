@@ -1,17 +1,11 @@
-﻿using DataStoreLib.Models;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure.Storage;
-using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Table;
-
+﻿
 namespace DataStoreLib.Storage
 {
+    using DataStoreLib.Models;
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     public class TableManager : IStore
     {
         #region Login
@@ -213,7 +207,7 @@ namespace DataStoreLib.Storage
             var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
             return reviewerTable.GetItemsById<ReviewEntity>(ids);
 
-        }        
+        }
         #endregion
 
         #region Reviewer
@@ -257,17 +251,17 @@ namespace DataStoreLib.Storage
             }
             return returnTranslateOp;
         }
-       /// <summary>
-       /// Return all reviewer
-       /// </summary>
-       /// <returns></returns>
+        /// <summary>
+        /// Return all reviewer
+        /// </summary>
+        /// <returns></returns>
         public IDictionary<string, ReviewerEntity> GetAllReviewer()
         {
 
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName) as ReviewerTable;
             return reviewTable.GetAllReviewers<ReviewerEntity>();
         }
-       
+
         #endregion
 
         #region Affiliation

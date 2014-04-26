@@ -1,14 +1,10 @@
 ﻿
 namespace DataStoreLib.Models
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-    using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
 
     public class ReviewerEntity : TableEntity
     {
@@ -28,7 +24,6 @@ namespace DataStoreLib.Models
 
 
         }
-
 
         public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
         {
@@ -61,6 +56,10 @@ namespace DataStoreLib.Models
             Affilation = entity.Affilation;
         }
 
+        public override string GetKey()
+        {
+            return this.ReviewerId;
+        }
 
         public static ReviewerEntity CreateAffilationEntity(string reviewerName, string reviewerImage, string affilation)
         {

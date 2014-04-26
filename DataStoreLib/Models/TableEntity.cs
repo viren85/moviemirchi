@@ -8,12 +8,11 @@ namespace DataStoreLib.Models
     using System.Collections.Generic;
     using System.Diagnostics;
 
-    public class TableEntity : TableServiceEntity, ITableEntity
+    public abstract class TableEntity : TableServiceEntity, ITableEntity, IDataStoreTableEntity
     {
         #region table elements
         // none here, implements the base classs
         #endregion
-
         protected TableEntity(string partitionKey, string rowKey)
             : base(partitionKey, rowKey)
         {
@@ -194,6 +193,15 @@ namespace DataStoreLib.Models
 
             return otherEntity.GetHashCode() == this.GetHashCode();
         }
+        #endregion
+
+        #region Implementation for IDataStoreTableEntity
+
+        public virtual string GetKey()
+        {
+            throw new NotImplementedException("For classes inheriting from TableEntity, GetKey needs to be overridden");
+        }
+
         #endregion
     }
 }

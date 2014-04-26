@@ -4,21 +4,21 @@ namespace DataStoreLib.Storage
     using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage.Table;
 
-    internal class AffilationTable : Table
+    internal class PopularOnMovieMirchiTable : Table
     {
-        protected AffilationTable(CloudTable table)
+        protected PopularOnMovieMirchiTable(CloudTable table)
             : base(table)
         {
         }
 
         internal static Table CreateTable(CloudTable table)
         {
-            return new AffilationTable(table);
+            return new PopularOnMovieMirchiTable(table);
         }
 
         protected override string GetParitionKey()
         {
-            return AffilationEntity.PARTITION_KEY;
+            return PopularOnMovieMirchiEntity.PARTITION_KEY;
         }
     }
 }

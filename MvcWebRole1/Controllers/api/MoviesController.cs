@@ -16,34 +16,36 @@ namespace MvcWebRole1.Controllers.api
     /// </summary>
     public class MoviesController : BaseController
     {
+        private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
+
         // get : api/Movies?type={current/all (default)}&resultlimit={default 100}          
         protected override string ProcessRequest()
         {
-            JavaScriptSerializer json = new JavaScriptSerializer();
+            string type = "all";
+            int resultLimit = 15;
 
-            try
+            // get query string parameters
+            string queryParameters = this.Request.RequestUri.Query;
+            if (queryParameters != null)
             {
-                string type = "all";
-                int resultLimit = 15;
-
-                // get query string parameters
-                var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
+                var qpParams = HttpUtility.ParseQueryString(queryParameters);
 
                 if (!string.IsNullOrEmpty(qpParams["type"]))
                 {
-                    //getting type
                     type = qpParams["type"].ToString().ToLower();
                 }
 
                 if (!string.IsNullOrEmpty(qpParams["resultlimit"]))
                 {
-                    //getting result limit
-                    resultLimit = Convert.ToInt32(qpParams["resultlimit"].ToString());
+                    int.TryParse(qpParams["resultlimit"].ToString(), out resultLimit);
                 }
+            }
 
+            try
+            {
                 var tableMgr = new TableManager();
 
-                var moviesByName = 
+                var moviesByName =
                     (type == "all") ?
                         tableMgr.GetSortedMoviesByName() :
                         (type == "current") ?
@@ -53,12 +55,12 @@ namespace MvcWebRole1.Controllers.api
                 List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
 
                 // serialize movieList object and return.
-                return json.Serialize(movies);
+                return jsonSerializer.Value.Serialize(movies);
             }
             catch (Exception ex)
             {
                 // if any error occured then return User friendly message with system error message
-                return json.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_GETTING_CURRENT_MOVIES, ActualError = ex.Message });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_GETTING_CURRENT_MOVIES, ActualError = ex.Message });
             }
         }
     }

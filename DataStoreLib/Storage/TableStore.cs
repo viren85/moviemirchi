@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Concurrent;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DataStoreLib.Utils;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Table;
-
+﻿
 namespace DataStoreLib.Storage
 {
+    using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+
     public class TableStore
     {
         #region singleton implementation
@@ -66,7 +64,12 @@ namespace DataStoreLib.Storage
         public Table GetTable(string tableName)
         {
             Table table = null;
-            if (!tableList.ContainsKey(tableName))
+            if (tableList.ContainsKey(tableName))
+            {
+                table = tableList[tableName];
+                Debug.Assert(table != null);
+            }
+            else
             {
                 table = CreateTableIfNotExist(tableName);
 
@@ -74,12 +77,11 @@ namespace DataStoreLib.Storage
                 {
                     throw new ArgumentException(string.Format("failed to create/get table {0}", tableName));
                 }
+
                 tableList.Add(tableName, table);
                 Trace.TraceInformation("Added {0} to the store", tableName);
             }
-            table = tableList[tableName];
 
-            Debug.Assert(table != null);
             return table;
         }
 

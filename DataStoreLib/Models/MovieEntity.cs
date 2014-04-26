@@ -8,6 +8,7 @@ namespace DataStoreLib.Models
 
     public class MovieEntity : TableEntity
     {
+
         #region table members
         public const string PARTITION_KEY = "CloudMovie";
 
@@ -26,7 +27,6 @@ namespace DataStoreLib.Models
         public string Month { get; set; }
         public string Year { get; set; }
         public string UniqueName { get; set; }
-
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
@@ -101,6 +101,11 @@ namespace DataStoreLib.Models
             Month = entity.Month;
             Year = entity.Year;
             UniqueName = entity.UniqueName;
+        }
+
+        public override string GetKey()
+        {
+            return this.MovieId;
         }
 
         public static MovieEntity CreateMovieEntity(string name,

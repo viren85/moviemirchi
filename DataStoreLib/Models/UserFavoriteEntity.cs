@@ -1,12 +1,10 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
+
     public class UserFavoriteEntity: TableEntity
     {
         #region table members
@@ -41,7 +39,7 @@ namespace DataStoreLib.Models
         #endregion
 
         public UserFavoriteEntity()
-            : base(PARTITION_KEY, "")
+            : base(PARTITION_KEY, string.Empty)
         {
 
         }
@@ -59,6 +57,11 @@ namespace DataStoreLib.Models
             UserId = userFavorite.UserId;
             Favorites = userFavorite.Favorites;
             DateCreated = userFavorite.DateCreated;            
+        }
+
+        public override string GetKey()
+        {
+            return this.UserFavoriteId;
         }
 
         public static UserFavoriteEntity CreateReviewEntity(string userId, string favorites, string dateCreated)

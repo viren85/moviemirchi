@@ -1,12 +1,10 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
+
     public class UserEntity : TableEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
@@ -79,13 +77,16 @@ namespace DataStoreLib.Models
 
             return dict;
         }
-        public UserEntity(): base(PARTITION_KEY, "")
+        public UserEntity()
+            : base(PARTITION_KEY, string.Empty)
         { }
 
-        public UserEntity(string rowKey): base(PARTITION_KEY, rowKey)
+        public UserEntity(string rowKey)
+            : base(PARTITION_KEY, rowKey)
         { }
 
-        public UserEntity(UserEntity entity): base(PARTITION_KEY, entity.RowKey)
+        public UserEntity(UserEntity entity)
+            : base(PARTITION_KEY, entity.RowKey)
         {
             UserId = entity.UserId;
             UserName = entity.UserName;
@@ -105,6 +106,11 @@ namespace DataStoreLib.Models
             Status = entity.Status;
             Created_At = entity.Created_At;
             Favorite = entity.Favorite;
+        }
+
+        public override string GetKey()
+        {
+            return this.UserId;
         }
 
         public static UserEntity CreateUserEntity(string userName, string password)

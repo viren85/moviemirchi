@@ -1,12 +1,10 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
+
     public class PopularOnMovieMirchiEntity : TableEntity
     {
         #region table members
@@ -44,7 +42,7 @@ namespace DataStoreLib.Models
         #endregion
 
         public PopularOnMovieMirchiEntity()
-            : base(PARTITION_KEY, "")
+            : base(PARTITION_KEY, string.Empty)
         {
 
         }
@@ -65,7 +63,12 @@ namespace DataStoreLib.Models
             DateUpdated = popularOnMovieMirchi.DateUpdated;
         }
 
-        public static PopularOnMovieMirchiEntity CreateReviewEntity(string name, string type, int counter,string dateUpdated)
+        public override string GetKey()
+        {
+            return this.PopularOnMovieMirchiId;
+        }
+
+        public static PopularOnMovieMirchiEntity CreateReviewEntity(string name, string type, int counter, string dateUpdated)
         {
             var popularOnMovieMirchiId = Guid.NewGuid().ToString();
             var popularOnMovieMirchiEntity = new PopularOnMovieMirchiEntity(popularOnMovieMirchiId);

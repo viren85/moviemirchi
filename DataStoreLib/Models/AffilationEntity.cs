@@ -69,6 +69,11 @@ namespace DataStoreLib.Models
             Country = entity.Country;
         }
 
+        public override string GetKey()
+        {
+            return this.AffilationId;
+        }
+
         public static AffilationEntity CreateAffilationEntity(string affilationName, string websiteName, string websiteLink, string logoLink, string country)
         {
             var affilationId = Guid.NewGuid().ToString();

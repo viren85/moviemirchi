@@ -1,12 +1,9 @@
-﻿using Microsoft.WindowsAzure.Storage.Table;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System.Collections.Generic;
+
     public class ToBeIndexedEntity : TableEntity
     {
         public static readonly string MoviePartitionKey = "Movie";
@@ -17,11 +14,10 @@ namespace DataStoreLib.Models
         public string EntityId { get; set; }
 
         public ToBeIndexedEntity()
-            : base(MoviePartitionKey, "")
+            : base(MoviePartitionKey, string.Empty)
         {
-            
-        }
 
+        }
 
         public ToBeIndexedEntity(string paritionKey, string entityId)
             : base(paritionKey, entityId)
@@ -30,9 +26,14 @@ namespace DataStoreLib.Models
         }
 
         ToBeIndexedEntity(ToBeIndexedEntity e)
-            :base(e.PartitionKey, e.RowKey)
+            : base(e.PartitionKey, e.RowKey)
         {
             EntityId = e.EntityId;
+        }
+
+        public override string GetKey()
+        {
+            return this.EntityId;
         }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties,
@@ -75,8 +76,8 @@ namespace DataStoreLib.Models
         {
             return new ToBeIndexedEntity(ReviewerPartitionkey, entityId);
         }
-      
 
-      
+
+
     }
 }

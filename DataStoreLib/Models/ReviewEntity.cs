@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Table;
-
+﻿
 namespace DataStoreLib.Models
 {
+    using Microsoft.WindowsAzure.Storage.Table;
+    using System;
+    using System.Collections.Generic;
+
     public class ReviewEntity : TableEntity
     {
         #region table emembers
@@ -62,7 +60,7 @@ namespace DataStoreLib.Models
         #endregion
 
         public ReviewEntity()
-            : base(PARTITION_KEY, "")
+            : base(PARTITION_KEY, string.Empty)
         {
 
         }
@@ -86,6 +84,11 @@ namespace DataStoreLib.Models
             OutLink = review.OutLink;
             Affiliation = review.Affiliation;
             Summary = review.Summary;
+        }
+
+        public override string GetKey()
+        {
+            return this.ReviewId;
         }
 
         public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, string reviewerId, bool hot, string outLink, string affiliation, string summary, int reviewerRating = 0, int systemRating = 0)
