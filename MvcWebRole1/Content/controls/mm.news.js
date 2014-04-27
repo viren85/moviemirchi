@@ -39,12 +39,25 @@
                 var url = getUrl();
                 var isUrl = isOK(url);
                 var author = getSpan("author");
+                var newsTitleElement = getSpan("title");
+                var newsTitle;
+                var publishDateClass = 'news-publish-date';
+                // When news title is greater than specific length, it shall span over multiple lines.
+                // The overlap results in to publish date beneath title bar.  
+                if ($(newsTitleElement).text().length > 48) {
+                    // Set the margin for
+                    publishDateClass = 'news-publish-date news-publish-date-2';
+                }
+                else if ($(newsTitleElement).text().length > 95) {
+                    newsTitle = $(newsTitleElement).text().substr(0, 95) + "...";
+                    $(newsTitleElement).html(newsTitle);
+                }
 
                 var html =
                 "<li class='news-item'>" +
                     "<div class='news-title'>" + getSpan("title") + "</div>" +
                     "<div class='news-content-container'>" +
-                        "<div class='news-publish-date'>" +
+                        "<div class='" + publishDateClass + "'>" +
                             getSpan("publishedDate", function (v) { return "Published on: " + new Date(v).toLocaleString(); }) +
                         "</div>" +
                         "<div class='news-content'>" +

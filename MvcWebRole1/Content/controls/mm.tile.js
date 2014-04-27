@@ -51,10 +51,19 @@ function MovieImageLoaded(img) {
     var imgHeight = parseInt($(img).css("height").replace("px"));
 
     var ratio = imgWidth / imgHeight;
-    var newWidth = 400 * ratio;
+    //var newWidth = 400 * ratio;
+
+    // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
+    // Hence keeping the height + width of fix size.
+    var newWidth = 263;
+
+    /*
     if (newWidth > 263) {
         newWidth = 263;
     }
+    else if (newWidth < 263) {
+        newWidth = 263;
+    }*/
 
     $(img).css("width", newWidth + "px").css("height", "400px");
 }
