@@ -39,23 +39,21 @@
                 var url = getUrl();
                 var isUrl = isOK(url);
                 var author = getSpan("author");
-                var newsTitleElement = getSpan("title");
-                var newsTitle;
+                var newsTitleSpan = getSpan("title");
+                var newsTitleText = $(newsTitleSpan).text();
                 var publishDateClass = 'news-publish-date';
                 // When news title is greater than specific length, it shall span over multiple lines.
                 // The overlap results in to publish date beneath title bar.  
-                if ($(newsTitleElement).text().length > 48) {
+                if (newsTitleText.length > 48) {
                     // Set the margin for
                     publishDateClass = 'news-publish-date news-publish-date-2';
-                }
-                else if ($(newsTitleElement).text().length > 95) {
-                    newsTitle = $(newsTitleElement).text().substr(0, 95) + "...";
-                    $(newsTitleElement).html(newsTitle);
+                } else if (newsTitleText.length > 95) {
+                    $(newsTitleSpan).html(newsTitleText.substr(0, 95) + "...");
                 }
 
                 var html =
                 "<li class='news-item'>" +
-                    "<div class='news-title'>" + getSpan("title") + "</div>" +
+                    "<div class='news-title'>" + newsTitleSpan + "</div>" +
                     "<div class='news-content-container'>" +
                         "<div class='" + publishDateClass + "'>" +
                             getSpan("publishedDate", function (v) { return "Published on: " + new Date(v).toLocaleString(); }) +
@@ -72,14 +70,15 @@
 
                 $(selector).append(html);
             }
+        });
 
-            // Adding the pager
-            PreparePaginationControl($(".news-container"), {
-                "pagerContainer": "news-pager",
-                "tilesInPage": 3,
-                "totalTileCount": $(".news-container ul li.news-item").length,
-                "pagerContainerId": "news-pager",
-            });
+        // Adding the pager
+        // TODO: here .parent() is hardcoded - that should be removed
+        PreparePaginationControl($(selector).parent(), {
+            "pagerContainer": "news-pager",
+            "tilesInPage": 3,
+            "totalTileCount": $(selector).find("li.news-item").length,
+            "pagerContainerId": "news-pager",
         });
 
         entries = null;
@@ -122,7 +121,6 @@
 
     DeferredAjax.prototype.invoke = function () {
         var self = this;
-        var totalNewsItems = 0;
         return $.ajax({
             type: "GET",
             url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(self.feedUrl),
