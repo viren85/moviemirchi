@@ -120,11 +120,25 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
             var _pagesCount = pagesCount;
 
             ArrowManager.prototype.disable = function ($el) {
-                $el.css("background-color", "#FF0000");
+                //$el.css("background-color", "#FF0000");
+                var _arrow = $el.find("div:first");
+                if ($(_arrow).hasClass("left-arrow-icon")) {
+                    $(_arrow).attr("class", "left-arrow-icon-disable");
+                }
+                else if ($(_arrow).hasClass("right-arrow-icon")) {
+                    $(_arrow).attr("class", "right-arrow-icon-disable");
+                }
             };
 
             ArrowManager.prototype.enable = function ($el) {
-                $el.css("background-color", "#00FF00");
+                //$el.css("background-color", "#00FF00");
+                var _arrow = $el.find("div:first");
+                if ($(_arrow).hasClass("left-arrow-icon-disable")) {
+                    $(_arrow).attr("class", "left-arrow-icon");
+                }
+                else if ($(_arrow).hasClass("right-arrow-icon-disable")) {
+                    $(_arrow).attr("class", "right-arrow-icon");
+                }
             };
 
             ArrowManager.prototype.manage = function (activeIndex) {

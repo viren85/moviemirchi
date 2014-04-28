@@ -1887,8 +1887,8 @@ function ScaleElement(element) {
             $(element).attr("org-w", $(element).css("width")).css("width", "350px").css("top", "-35px").css("left", "-50px");
             $(element).attr("org-h", $(element).css("height")).css("height", "500px");
             $(element).css("z-index", "100").css("position", "absolute");
-            $(element).parent().css("height", "500px").css("z-index", "101");
-            $(element).parent().find(".captionAndNavigate").css("width", "350px").css("height", "500px").css("z-index", "102").css("top", "-35px").css("left", "-50px");
+            $(element).parent().css("height", "500px").css("z-index", "100");
+            $(element).parent().find(".captionAndNavigate").css("width", "350px").css("height", "500px").css("z-index", "100").css("top", "-35px").css("left", "-50px");
 
             $(element).parent().find(".movie-synopsis").each(function () {
                 $(this).show();
@@ -1902,7 +1902,8 @@ function ScaleElement(element) {
 
             $(element).css("width", $(element).attr("org-w")).css("height", $(element).attr("org-h")).css("z-index", "1").css("position", "relative").css("top", "0px").css("left", "0px");
             $(element).parent().css("height", $(element).attr("org-h"));
-            $(element).parent().find(".captionAndNavigate").css("width", $(element).attr("org-w")).css("top", "auto").css("left", "0px").css("z-index", "2").css("height", "auto");
+            $(element).parent().css("z-index", "1");
+            $(element).parent().find(".captionAndNavigate").css("width", $(element).attr("org-w")).css("top", "auto").css("left", "0px").css("z-index", "1").css("height", "auto");
             $(element).parent().find(".movie-synopsis").hide();
 
         });
