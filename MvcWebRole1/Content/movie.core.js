@@ -202,6 +202,8 @@ function PopulatingMoviesTitle(movieTitle, parentElment) {
     ////parentElment.append(movieName);
 }
 
+// VS - Commenting the previous implementation of movie page using flipboard effect.
+/*
 function LoadSingleMovie(movieId) {
     var path = "../api/MovieInfo?q=" + movieId;
     var reviewPath = "../api/MovieReview?q=" + movieId;
@@ -245,7 +247,7 @@ function onSuccessLoadSingleMovie(result) {
 
         /*else if (poster.length < 2) {
             $("#imagearea").parent(".bb-item").remove();
-        }*/
+        }* /
 
         $("div.genre").html(result.Movie.Genre);
         $("p.story-plot").html(result.Movie.Synopsis);
@@ -372,7 +374,7 @@ function onSuccessLoadSingleMovie(result) {
         InitPage();
         Page.init();
     }
-}
+}*/
 
 function onSuccessLoadMovieReviews(result) {
 

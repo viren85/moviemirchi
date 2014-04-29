@@ -4,8 +4,8 @@
     var poster = [];
     poster = JSON.parse(movie.Posters);
     var src = (poster != null && poster.length > 0) ?
-        "/Posters/Images/" + poster[poster.length - 1] :
-        "/Posters/Images/default-movie.jpg";
+        "images/" + poster[poster.length - 1] :
+        "images/default-movie.jpg";
 
     var anchor = $("<a/>");
     var list = $("<li/>");
@@ -68,8 +68,11 @@ function MovieImageLoaded(img) {
     $(img).css("width", newWidth + "px").css("height", "400px");
 }
 
+var defaultLoaded = false;
+
 function LoadDefaultImage(element) {
-    $(element).attr("src", "/Posters/Images/default-movie.jpg");
+	if(!defaultLoaded){
+    $(element).attr("src", "images/default-movie.jpg");
     var width = $(document).width();
     var imgWidth = parseInt($(element).css("width").replace("px"));
     var imgHeight = parseInt($(element).css("height").replace("px"));
@@ -77,4 +80,6 @@ function LoadDefaultImage(element) {
     var ratio = imgWidth / imgHeight;
     var newWidth = 263;
     $(element).css("width", newWidth + "px").css("height", "400px");
+	defaultLoaded=true;
+	}
 }

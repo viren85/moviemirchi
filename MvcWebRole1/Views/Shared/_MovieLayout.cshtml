@@ -236,8 +236,6 @@
         });
         //ended music director loading
     </script>
-    <style>
-    </style>
 </head>
 <body>
     <div class="movie-container">
@@ -413,7 +411,7 @@
 
                         <div id="fb-root"></div>
                         <!--Fb Login Srcipt-->
-                        <script>
+                        @*<script>
                             window.userFields = {
                                 UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
                                 UserType: "@(Session["type"] != null ? Session["type"] : "")",
@@ -567,7 +565,7 @@
                                 }, 'json');
                             }
 
-                        </script>
+                        </script>*@
 
                         <!--
                         Below we include the Login Button social plugin. This button uses the JavaScript SDK to
@@ -653,8 +651,8 @@
                         </div>
                     *@
                     <div id="fb-root"></div>
-                    <!--Fb Login Srcipt-->
-                    <script>
+                    <!--Fb Login Script-->
+                    @*<script>
                         window.userFields = {
                             UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
                             UserType: "@(Session["type"] != null ? Session["type"] : "")",
@@ -803,16 +801,16 @@
                             }, 'json');
                         }
 
-                    </script>
+                    </script>*@
 
                     <!--
                     Below we include the Login Button social plugin. This button uses the JavaScript SDK to
                     present a graphical Login button that triggers the FB.login() function when clicked. -->
                     <div class="Record">
 
-                        <fb:login-button show-faces="false" size="large" max-rows="1" width="500">
+                        @*<fb:login-button show-faces="false" size="large" max-rows="1" width="500">
                             Sign Up with Facebook
-                        </fb:login-button>
+                        </fb:login-button>*@
                     </div>
 
 
@@ -937,10 +935,10 @@
 </body>
 </html>
 
-<script type="text/javascript" src="/Content/jquery.mousewheel.js"></script>
+@*<script type="text/javascript" src="/Content/jquery.mousewheel.js"></script>
 <script type="text/javascript" src="/Content/jquery.jscrollpane.min.js"></script>
-<script type="text/javascript" src="/Content/jquerypp.custom.js"></script>
-<script type="text/javascript" src="/Content/jquery.bookblock.js"></script>
+<script type="text/javascript" src="/Content/jquerypp.custom.js"></script>*@
+@*<script type="text/javascript" src="/Content/jquery.bookblock.js"></script>*@
 <script type="text/javascript" src="/Content/page.js"></script>
 <script type="text/javascript" src="/Content/movie.core.js"></script>
 <script type="text/javascript" src="/Content/movie.autocomplete.js"></script>
