@@ -119,19 +119,13 @@
             }
 
     .link-container {
-        float: left;
-        margin-left: 5%;
         cursor: pointer;
         display: none;
     }
 
-        .link-container .section-title {
-            color: #999 !important;
+        .link-container .section-title:hover {
+            color: purple !important;
         }
-
-            .link-container .section-title:hover {
-                color: purple !important;
-            }
 
     .movie-poster-details, .movie-review-details {
     }
@@ -142,20 +136,59 @@
 
     .movie-details {
         float: left;
-        width: 65%;
+        width: 86%;
+        margin-left: 7%;
+    }
+    .movie-description {
+        float: left;
+        width: 44%;
     }
 </style>
 <div class="content">
+    <div class="twitter">
+        <div class="section-title medium-fonts">235</div>
+        <div class="tweets">
+            <div class="tweet">
+                <div class="tweet-author">‏&#64;ImKKohli</div>
+                <div class="tweet-text">
+                    Shootout at Lokhandwala will never get old!!
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-author">&#64;darshans_89</div>
+                <div class="tweet-text">
+                    watching Shootout at Lokhandwala
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-author">&#64;aartichabria</div>
+                <div class="tweet-text">
+                    Found a very special picture of my #shootout at lokhandwala team. Thought i should share it here with ull. pic.twitter.com/62ispgxuCM
+                </div>
+            </div>
+            <div class="tweet">
+                <div class="tweet-author">&#64;IamSrivatsanV </div>
+                <div class="tweet-text">
+                    This scene from Shootout at Lokhandwala truly applies for this Ishrat Jehan's case http://www.youtube.com/watch?v=gOlO32-Pxg4
+                </div>
+            </div>
+            
+        </div>
+    </div>
     <div class="movies">
 
     </div>
-    <div class="link-container"><div class="section-title large-fonts">Posters</div><div class="section-title large-fonts">Reviews</div></div>
+    <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
     <div class="movie-details">
-        @*<div class="movie-basic-details"></div>*@
         <div class="movie-poster-details"></div>
+
+    </div>
+    <div class="link-container">
+        <div class="section-title large-fonts">Reviews</div>
+    </div>
+    <div class="movie-details">
         <div class="movie-review-details"></div>
     </div>
-
     <script type="text/javascript" src="/Content/controls/mm.movie.js"></script>
     <script type="text/javascript" src="/Content/controls/mm.review.js"></script>
     <script type="text/javascript" src="/Content/controls/mm.gallery.js"></script>
@@ -163,20 +196,6 @@
         $(document).ready(function () {
             var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
             LoadSingleMovie(name);
-            $(".movie-details .movie-poster-details").hide();
-            $(".movie-details .movie-review-details").hide();
-
-            $(".link-container .section-title").click(function () {
-                $(".movie-details .movie-poster-details").hide();
-                $(".movie-details .movie-review-details").hide();
-
-                if ($(this).html() == "Posters") {
-                    $(".movie-poster-details").show();
-                }
-                else if ($(this).html() == "Reviews") {
-                    $(".movie-review-details").show();
-                }
-            });
         });
     </script>
 

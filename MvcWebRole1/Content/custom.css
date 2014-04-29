@@ -18,6 +18,12 @@ body {
     color: #333;
     height: 100%;
     overflow: hidden;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 a {
@@ -37,10 +43,15 @@ a {
     font-weight: bold;
 }
 
-.MediumFonts {
+.medium-fonts {
+    font-size: 1.5em;
+    font-family: Segoe UI Light;
 }
 
-.SmallFonts {
+.small-fonts {
+    font-size: 0.5em;
+    font-family: Segoe UI Light;
+    font-weight: bold;
 }
 
 .tube-container {
@@ -58,6 +69,7 @@ a {
     width: 93%;
 }
 /* End - Common Classes */
+
 /* Header Section */
 /* VS - Apr 24 - Search bar style is changed to support it as main search bar on website */
 #top-nav {
@@ -238,7 +250,6 @@ a {
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-right: 10px solid #368BC1;
-    
     cursor: pointer;
 }
 
@@ -253,7 +264,6 @@ a {
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
     border-left: 10px solid #368BC1;
-    
     cursor: pointer;
 }
 
@@ -300,7 +310,8 @@ a {
     height: 25px;
     background-image: url('/Images/RedChilli.png');
     background-size: 15px 25px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
+    margin-bottom: 3px;
 }
 
 .green-mirchi {
@@ -312,9 +323,170 @@ a {
     margin-top: 10px;
 }
 /* End - Rating Control */
-/* Movie Control */
+/* VS - Internal - Twitter control */
+.twitter {
+    position: absolute;
+    top: 8%;
+    right: 5%;
+    padding: 10px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    text-align: right;
+    box-shadow: 0px 0px 15px #AAA;
+    width: 20%;
+    height: 450px;
+    max-height: 500px;
+    background-image: url(../images/twitter-icon.png);
+    background-size: 32px;
+    background-position: 5% 4%;
+    background-repeat: no-repeat;
+}
 
-/* End - Movie Control */
+    .twitter .tweets {
+        float: left;
+        position: relative;
+        text-align: left;
+    }
+
+.tweet-author {
+    text-decoration: underline;
+    color: royalblue;
+}
+
+.tweet {
+    float: left;
+    padding: 5px;
+    border-bottom: 1px solid #DDD;
+    width: 100%;
+}
+
+    .tweet:hover {
+        background-color: #DDD;
+        cursor: pointer;
+    }
+/* twitter control end */
+/* Movie Description */
+.movie-data-row {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.movie-data-row:hover{background-color: #DDD; cursor: default;}
+.movie-data-label {float: left; text-align: left; font-size: 1.1em; font-family: 'Segoe UI'; width: 20%;}
+.movie-data { float: left; text-align: left; width: 80%; }
+/*Movie description end */
+/* VS - Review Control */
+.review {
+    float: left;
+    width: 66%;
+}
+
+.more-link {
+    float: right;
+}
+
+.arrow_container {
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    width: 48%;
+    height: 255px;
+    margin-right: 2%;
+    margin-top: 2%;
+    float: left;
+}
+
+.reviewer-name, .affiliation, .other {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.affiliation {
+    font-size: 0.85em;
+}
+
+.left {
+    float: left;
+    width: 33%;
+}
+
+.clear {
+    clear: both;
+}
+
+.arrow_box {
+    position: relative;
+    background: #f5f5f5;
+    border: 2px solid #dedede;
+    height: 200px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEEEEE), color-stop(0.8,#DDDDDD));
+}
+
+    .arrow_box:after, .arrow_box:before {
+        right: 100%;
+        top: 20%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .arrow_box:after {
+        border-color: rgba(245, 245, 245, 0);
+        border-right-color: #f5f5f5;
+        border-width: 20px;
+        margin-top: -20px;
+    }
+
+    .arrow_box:before {
+        border-color: rgba(222, 222, 222, 0);
+        border-right-color: #dedede;
+        border-width: 23px;
+        margin-top: -23px;
+    }
+
+    .arrow_box .review-content {
+        padding: 10px;
+    }
+
+blockquote.quote {
+    font: 14px/20px italic Times, serif;
+    padding-left: 55px;
+    margin: 1px;
+    background-image: url(../images/quote.png);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    text-indent: 25px;
+    font-family: 'Segoe UI';
+    border: none;
+}
+
+.topcritic {
+    padding-left: 25px;
+    background-image: url(../images/star-rating.png);
+    background-size: 16px;
+    background-repeat: no-repeat;
+    font-size: 12px;
+}
+
+.mirchimeter {
+    float: right;
+    margin-right: 10px;
+}
+/* End - Review Control */
+/*Footer*/
+.footer{float: left; width: 80%; margin-left: 7%; margin-top: 2%; margin-bottom: 2%;}
+/*End footer*/
 .movie-container {
     position: relative;
     -webkit-font-smoothing: subpixel-antialiased;
@@ -360,18 +532,18 @@ a {
     text-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
 
-.js .menu-panel {
-    position: absolute;
-    left: -240px;
-}
+    .js .menu-panel {
+        position: absolute;
+        left: -240px;
+    }
 
-.menu-panel h3 {
-    font-size: 1.8em;
-    padding: 20px;
-    font-weight: 300;
-    color: #fff;
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
-}
+    .menu-panel h3 {
+        font-size: 1.8em;
+        padding: 20px;
+        font-weight: 300;
+        color: #fff;
+        box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
+    }
 
 .menu-toc {
     list-style: none;
@@ -462,10 +634,10 @@ a {
         box-shadow: 0 -4px #fff, 0 4px #fff;
     }
 
-.no-js .bb-custom-wrapper nav span,
-.no-js .menu-button {
-    display: none;
-}
+    .no-js .bb-custom-wrapper nav span,
+    .no-js .menu-button {
+        display: none;
+    }
 
 .js .content {
     position: relative;
@@ -571,28 +743,10 @@ a {
     margin-top: 2%;
 }
 
-
-.left {
-    float: left;
-    list-style: none;
-    margin-top: 1%;
-}
-
 .left-detail {
     float: left;
     list-style: none;
     margin-left: 5px;
-}
-
-.right {
-    margin-left: 5%;
-    display: block;
-    width: 50%;
-    clear: right;
-    /* display: block; */
-    float: right;
-    margin-right: 6%;
-    text-align: justify;
 }
 
 .home-movie-panel {
@@ -776,7 +930,6 @@ a {
 .gallery-image {
     float: left;
     padding: 5px;
-    background-color: White;
 }
 
 #director, #writer, #producer, #music, #stats {
@@ -1147,29 +1300,31 @@ a {
         color: #6F6F6F;
         font-size: smaller;
     }
-    .news-publish-date{
-        visibility: hidden;
-    }
-    .news-container .news-item .news-content-container .news-author {
-        text-align: left;
-        margin: 0;
-        margin-top: 2px;
-        font-size: smaller;
-        float: left;
+
+.news-publish-date {
+    visibility: hidden;
+}
+
+.news-container .news-item .news-content-container .news-author {
+    text-align: left;
+    margin: 0;
+    margin-top: 2px;
+    font-size: smaller;
+    float: left;
+}
+
+.news-container .news-item .news-content-container .news-link {
+    float: right;
+}
+
+    .news-container .news-item .news-content-container .news-link a {
+        color: #5882FA;
+        text-decoration: none;
     }
 
-    .news-container .news-item .news-content-container .news-link {
-        float: right;
-    }
-
-        .news-container .news-item .news-content-container .news-link a {
-            color: #5882FA;
-            text-decoration: none;
+        .news-container .news-item .news-content-container .news-link a:hover {
+            color: #01A9DB;
         }
-
-            .news-container .news-item .news-content-container .news-link a:hover {
-                color: #01A9DB;
-            }
 
 /*News Section on home page - Start 
 .news-container .news-item {

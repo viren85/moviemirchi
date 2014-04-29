@@ -46,7 +46,7 @@ namespace MvcWebRole1.Controllers.api
                     movieInfo.movieId = movie.MovieId;
                     movieInfo.Movie = movie;
 
-                    /*
+                    
                     // get reviews for movie by movie id
                     var reviewList = tableMgr.GetReviewsByMovieId(movie.MovieId);
 
@@ -66,7 +66,7 @@ namespace MvcWebRole1.Controllers.api
 
                     //add reviewlist to movieinfo reviews
                     movieInfo.MovieReviews = userReviews;
-                    */
+                    
                     // serialize movie object and return.
                     return json.Serialize(movieInfo);
                 }
