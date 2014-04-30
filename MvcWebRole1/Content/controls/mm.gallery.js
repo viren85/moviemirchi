@@ -43,3 +43,7 @@ var ScaleElement = function (element) {
         });
     });
 }
+
+var LoadDefaultCriticImage = function (img) {
+    $(img).attr("src", "/Images/user.png");
+}

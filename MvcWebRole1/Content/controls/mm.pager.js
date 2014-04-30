@@ -287,6 +287,8 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
         options.pageCount = Math.ceil(options.totalTileCount / options.tilesInPage);
         activeTileStartIndex = ((currentPage - 1) * options.tilesInPage) + 1;
 
+        console.log(options.pageSize + "," +options.tileWidth+","+ options.tilesInPage + "," + options.pageCount);
+
         // If we don't clear the pagination control, then it will keep appending the pagination indexes.
         $("#" + options.pagerContainerId).html("");
 

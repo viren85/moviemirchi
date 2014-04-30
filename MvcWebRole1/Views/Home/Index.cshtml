@@ -193,25 +193,31 @@
 
             LoadCurrentMovies();
 
-            /*totalReviewers = $(".critics-container ul li.reviewer").length;
-            var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 4, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager" };
-            PreparePaginationControl($(".critics-container"), pagerJson);*/
-
             // TOP CRITIC
-            var ul = $(".critics-container").find("ul");
+            var ul = $(".critics-container").find("ul").css("height", "280px");
             critics = [
-                { href: 'omar-qureshi', title: 'Omar Qureshi', name: 'Omar Qureshi', poster: 'omar-qureshi.jpg', aff: 'Zoom', },
-                { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama', },
-                { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN-IBN', },
-                { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'NDTV | India Today | Hindustan Times', },
-                { href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age', },
+                { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN IBN' },
+                { href: 'rohit-khilnani', title: 'Rohit Khilnani', name: 'Rohit Khilnani', poster: 'rohit-khilnani.jpg', aff: 'Headlines Today' },
+                { href: 'siddharth-hussain', title: 'Siddharth Hussain', name: 'Siddharth Hussain', poster: 'siddharth-hussain.jpg', aff: 'Aaj Tak' },
+                { href: 'omar-qureshi', title: 'Omar Qureshi', name: 'Omar Qureshi', poster: 'omar-qureshi.jpg', aff: 'Zoom TV' },
+                { href: 'janice-sequeira', title: 'Janice Sequeira', name: 'Janice Sequeira', poster: 'janice-sequeira.jpg', aff: 'Times Now' },
+                { href: 'aniruddha-guha', title: 'Aniruddha Guha', name: 'Aniruddha Guha', poster: 'aniruddha-guha.jpg', aff: 'Time Out Mumbai (Magazine)' },
+                { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'Hindustan Times' },
+                { href: 'tushar-joshi', title: 'Tushar Joshi', name: 'Tushar Joshi', poster: 'tushar-joshi.jpg', aff: 'DNA' },
+                { href: 'shubha-shetty', title: 'Shubha Shetty', name: 'Shubha Shetty', poster: 'shubha-shetty.jpg', aff: 'Mid-day' },
+                { href: 'shubra-gupta', title: 'Shubra Gupta', name: 'Shubra Gupta', poster: 'shubra-gupta.jpg', aff: 'Indian Express' },
+                { href: 'pratim-gupta', title: 'Pratim Gupta', name: 'Pratim Gupta', poster: 'pratim-gupta.jpg', aff: 'Telegraph, Kolkata' },
+                { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama, Trade Guide' },
+                { href: 'vajir-singh', title: 'Vajir Singh', name: 'Vajir Singh', poster: 'vajir-singh.jpg', aff: 'Box office India' },
+                { href: 'komal-nahta', title: 'Komal Nahta', name: 'Komal Nahta', poster: 'komal-nahta.jpg', aff: 'Film Information' },
+                { href: 'khalid-mohamed', title: 'Khalid Mohamed', name: 'Khalid Mohamed', poster: 'khalid-mohamed.jpg', aff: 'The Asian Age' }
             ].forEach(function (critic) {
                 ul.append(
                     "<li class=\"reviewer\">" +
                         "<a href=\"Reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
                             "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
                                 "<div id=\"imageContainer\" class=\"viewer\">" +
-                                    "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 250px; width: 193px; \">" +
+                                    "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/" + critic.poster + "\" style=\"margin: auto; height: 250px; width: 193px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
                                     "<div class=\"captionAndNavigate\" style=\"width: 193px; padding: 15px;\">" +
                                         "<div id=\"captionCredit\" style=\"width: 328px;\" class=\"multimediaCaption\">" +
                                             "<div id=\"photoCaption\">" +
@@ -225,8 +231,9 @@
                         "</a>" +
                     "</li>");
             });
+
+            var totalReviewers = $(".critics-container ul li.reviewer").length;
+            var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 5, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager", "tileWidth": "220" };
+            PreparePaginationControl($(".critics-container"), pagerJson);
         });
     </script>
-    @*<script type="text/javascript" src="/Content/controls/mm.tube.js"></script>
-        <script type="text/javascript" src="/Content/controls/mm.news.js"></script>
-        <script type="text/javascript" src="/Content/controls/mm.pager.js"></script>*@

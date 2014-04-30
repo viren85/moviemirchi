@@ -296,6 +296,11 @@ a {
     .page-index:hover {
         background-color: #368BC1;
     }
+    #critics-pager{
+        float: left;
+        width: 88%;
+        text-align: center;
+    }
 /*End - Pager Control*/
 /* Rating Control */
 .rate-container {
@@ -992,7 +997,7 @@ blockquote.quote {
 
 .movie-list, .news-container, .critics-container {
     float: left;
-    width: 100%;
+    width: 95%;
     margin-left: 7%;
     margin-bottom: 1%;
 }
@@ -1010,7 +1015,7 @@ blockquote.quote {
             float: left;
             list-style: none;
             width: 20%;
-            margin-right: 5%;
+            margin-right: 3%;
             min-height: 380px;
             margin-bottom: 1%;
             cursor: pointer;
@@ -1018,7 +1023,9 @@ blockquote.quote {
         }
 
         .critics-container ul li {
-            width: 15%;
+            width: 200px;
+            margin-right: 20px;
+            min-height: 280px;
         }
 
             .movie-list ul li img, .critics-container ul li img {
