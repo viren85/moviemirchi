@@ -120,7 +120,7 @@ namespace MvcWebRole2.Controllers
                 {
                     xdoc.Load(filePath);
 
-                    var movies = xdoc.SelectNodes("Movies/Month[@name='October']/Movie");
+                    var movies = xdoc.SelectNodes("Movies/Month[@name='November']/Movie");
 
                     if (movies == null)
                         continue;
@@ -172,6 +172,7 @@ namespace MvcWebRole2.Controllers
                                         //re.RowKey = re.ReviewId = new Guid().ToString();
                                         re.ReviewerId = reviewerId;
                                         re.MovieId = mov.MovieId;
+                                        re.OutLink = reviewLink;
                                         tblMgr.UpdateReviewById(re);
                                     }
                                 }
@@ -180,7 +181,7 @@ namespace MvcWebRole2.Controllers
                                 }
                                 #endregion
                                 #endregion
-                                /*
+                                
                                 #region Lucene Search Index
                                 List<Cast> casts = json.Deserialize(mov.Casts, typeof(List<Cast>)) as List<Cast>;
                                 List<String> posters = json.Deserialize(mov.Posters, typeof(List<String>)) as List<String>;
@@ -210,7 +211,7 @@ namespace MvcWebRole2.Controllers
                                 movieSearchIndex.Link = mov.UniqueName;
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                                 #endregion
-                                 * */
+                                 
                             }
                             catch (Exception)
                             {

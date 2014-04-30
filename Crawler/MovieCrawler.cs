@@ -63,7 +63,7 @@ namespace Crawler
                         crawlPosters = false;
                     }
 
-                    //PopulateMovieDetails(ref movie, url, crawlPosters);
+                    PopulateMovieDetails(ref movie, url, crawlPosters);
                     return movie;
                     ////tableMgr.UpdateMovieById(movie);
                 }
@@ -86,7 +86,7 @@ namespace Crawler
 
                 if (isCrawlPosters)
                 {
-                    //poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
+                    poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
                 }
 
                 movie.Casts = JsonConvert.SerializeObject(cast);

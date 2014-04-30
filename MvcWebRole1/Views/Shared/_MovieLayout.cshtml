@@ -46,9 +46,9 @@
 
                 //clear-search-bar
                 if (query.length > 0)
-                    $("#targetDiv .clear-search-bar").show();
+                    $("#search-results").show();
                 else
-                    $("#targetDiv .clear-search-bar").hide();
+                    $("#search-results").hide();
 
                 getItems(query);
             });
@@ -95,9 +95,9 @@
                 }
                 else {
                     //appending an UL element to show the values.
-                    $("#targetDiv").append($("<ul id='targetUL' style='display:block;'></ul>"));
+                    $("#search-results").append($("<ul id='targetUL' style='display:block;'></ul>"));
                     //Removing previously added li elements to the list.
-                    $("#targetUL").find("li").remove();
+                    $("#search-results").find("li").remove();
                     //We are iterating over the list returned by the json and for each element we are creating a li element and appending the li element to ul element.
                     var searchResultCounter = 0;
 
