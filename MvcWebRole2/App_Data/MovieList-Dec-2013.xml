@@ -1,25 +1,21 @@
 <?xml version="1.0"?>
 <Movies year="2013">
   <Month name="December">
-    <!--<Movie name="R... Rajkumar" link="http://www.imdb.com/title/tt2369154/">
+    <Movie name="R... Rajkumar" link="http://www.imdb.com/title/tt2369154/">
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-r-rajkumar/article1-1160003.aspx "/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566875"/>
-      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-r-rajkumar/article1-1160003.aspx"/>
     </Movie>
     <Movie name="Jackpot" link="http://www.imdb.com/title/tt3309662">
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-jackpot-is-painfully-boring/article1-1162490.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/598013"/>
     </Movie>
     <Movie name="What the Fish" link="http://www.imdb.com/title/tt3357416/">
-      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/anupama-chopra-s-review-what-the-fish/article1-1162407.aspx"/>
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-what-the-fish-turns-out-to-be-a-small-fry/article1-1162181.aspx"/>
     </Movie>
     <Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/‎">
-      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/542148"/>
-      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-by-anupama-chopra-dhoom-3-is-gorgeous-with-cheerful-lack-of-logic/article1-1164955.aspx"/>
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-dhoom3-4986.html" />
-    </Movie>-->
-    <Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/‎">
-      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/542148"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-by-anupama-chopra-dhoom-3-is-gorgeous-with-cheerful-lack-of-logic/article1-1164955.aspx"/>
-      <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-dhoom3-4986.html" />
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/542148"/>
     </Movie>
   </Month>
 </Movies>

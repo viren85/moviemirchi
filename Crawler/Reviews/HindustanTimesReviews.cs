@@ -43,8 +43,7 @@ namespace Crawler.Reviews
                     readStream.Close();
                     #endregion
 
-                    PopulateReviewDetails(reviewPageContent, affiliation);
-
+                    return PopulateReviewDetails(reviewPageContent, affiliation);
                 }
             }
             catch (Exception)
@@ -73,15 +72,15 @@ namespace Crawler.Reviews
                     var reviewerName = helper.GetElementWithAttribute(headerNode, "span", "class", "sty_agn");
 
                     HtmlNode node = reviewerName.Element("a");
-                    var reviewName = node.InnerText;
+                    var reviewName = node == null ? reviewerName.InnerHtml : node.InnerText;
 
                     var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", "sty_txt");
                     var review = reviewContent.InnerText;
 
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
-                    re.Affiliation = affiliation;
-                    re.Review = review;
-                    re.ReviewerName = reviewName;
+                    re.Affiliation = affiliation.Trim();
+                    re.Review = review.Trim();
+                    re.ReviewerName = reviewName.Trim();
                     re.ReviewerRating = string.Empty;
 
                     return re;

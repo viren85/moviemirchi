@@ -58,8 +58,6 @@ function CommentedCode() {
     function onSuccessLoadCurrentMovies(result) {
         result = JSON.parse(result);
     
-        console.log(result);
-    
         if (result.length > 0) {
     
             MOVIES = result;
@@ -152,8 +150,6 @@ function CommentedCode() {
         var poster = [];
         poster = JSON.parse(movie.Posters);
     
-        console.log(poster);
-    
         img.attr("src", poster[0].url);
     
         var anchor = $("<a/>");
@@ -185,8 +181,6 @@ function CommentedCode() {
     
     function onSuccessLoadSingleMovie(result) {
         result = JSON.parse(result);
-    
-        console.log(result);
     
         if (result.Movie != undefined) {
     
@@ -249,7 +243,6 @@ function CommentedCode() {
             var ratings = [];
             ratings = JSON.parse(result.Movie.Ratings);
     
-            console.log(ratings);
             var rating = 3;
             if (ratings.critic != undefined)
                 rating = ratings.critic;
@@ -332,7 +325,6 @@ function CommentedCode() {
     
     function onSuccessPopulateReviewsAndReviews(result) {
         result = JSON.parse(result);
-        console.log(result);
     
         if (result != undefined) {
             // adding image
@@ -1564,8 +1556,6 @@ function PopulateTrailers(trailer, counter) {
 
 function PopulateAffliliationDetails(result)
 {
-    console.log(result);
-
     if (result != undefined && result != null)
     {
         $("#affilationName_0").val(result.AffilationName);
@@ -1578,8 +1568,6 @@ function PopulateAffliliationDetails(result)
 
 /*----------------Populate Reviewer details----------------------*/
 function PopulateReviewerDetails(result) {
-    console.log(result);
-
     if (result != undefined && result != null) {
 
         var affliation = JSON.parse(result.Affilation)

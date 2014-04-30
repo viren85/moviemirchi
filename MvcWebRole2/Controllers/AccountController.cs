@@ -120,7 +120,7 @@ namespace MvcWebRole2.Controllers
                 {
                     xdoc.Load(filePath);
 
-                    var movies = xdoc.SelectNodes("Movies/Month[@name='July']/Movie");
+                    var movies = xdoc.SelectNodes("Movies/Month[@name='October']/Movie");
 
                     if (movies == null)
                         continue;
@@ -131,6 +131,7 @@ namespace MvcWebRole2.Controllers
                         {
                             try
                             {
+                                
                                 #region Crawl Movie
                                 MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                                 TableManager tblMgr = new TableManager();
@@ -138,7 +139,7 @@ namespace MvcWebRole2.Controllers
 
                                 tblMgr.UpdateMovieById(mov);
                                 #endregion
-
+                                
                                 #region Crawl Movie Reviews
                                 #region Bollywood Hungama Crawler
                                 try
@@ -179,7 +180,7 @@ namespace MvcWebRole2.Controllers
                                 }
                                 #endregion
                                 #endregion
-
+                                /*
                                 #region Lucene Search Index
                                 List<Cast> casts = json.Deserialize(mov.Casts, typeof(List<Cast>)) as List<Cast>;
                                 List<String> posters = json.Deserialize(mov.Posters, typeof(List<String>)) as List<String>;
@@ -209,6 +210,7 @@ namespace MvcWebRole2.Controllers
                                 movieSearchIndex.Link = mov.UniqueName;
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                                 #endregion
+                                 * */
                             }
                             catch (Exception)
                             {

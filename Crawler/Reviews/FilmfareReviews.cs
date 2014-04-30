@@ -123,9 +123,9 @@ namespace Crawler.Reviews
                     #endregion
 
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
-                    re.Affiliation = affiliation;
-                    re.Review = review;
-                    re.ReviewerName = reviewerName;
+                    re.Affiliation = affiliation.Trim();
+                    re.Review = review.Trim();
+                    re.ReviewerName = reviewerName.Trim();
                     re.ReviewerRating = rating.ToString();
 
                     return re;

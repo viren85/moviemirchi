@@ -27,7 +27,7 @@ namespace Crawler
                 for (int rid = 0; rid < reviewers.Keys.Count; rid++)
                 {
                     string key = reviewers.ElementAt(rid).Key;
-                    if (reviewers[key].ReviewerName == reviewerName)
+                    if (reviewers[key].ReviewerName.Trim() == reviewerName.Trim())
                     {
                         isReviewerAlreadyPresent = true;
                         reviewerKey = key;
@@ -38,8 +38,8 @@ namespace Crawler
                 if (!isReviewerAlreadyPresent)
                 {
                     reviewer.RowKey = reviewer.ReviewerId = Guid.NewGuid().ToString();
-                    reviewer.ReviewerName = reviewerName;
-                    reviewer.Affilation = affiliation;
+                    reviewer.ReviewerName = reviewerName.Trim();
+                    reviewer.Affilation = affiliation.Trim();
                     reviewer.ReviewerImage = string.Empty;
                     tblMgr.UpdateReviewerById(reviewer);
 

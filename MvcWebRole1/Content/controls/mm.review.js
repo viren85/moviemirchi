@@ -4,9 +4,9 @@
 
     if (review != undefined && review != null && review.length > 0) {
 
-        for (i = 0; i < review.length ; i++) {
-            
-            var reviewText = review[i].Review.length > 250 ? review[i].Review.substring(0, 250) + "..." : review[i].Review;
+        for (k = 0; k < review.length ; k++) {
+            console.log(k + "," + review[k].ReviewerName);
+            var reviewText = review[k].Review.length > 250 ? review[k].Review.substring(0, 250) + "..." : review[k].Review;
             
             // TODO - Need to get the correct picture of reviewer based on their name. Currently the pictures are hardcoded.
             var html =
@@ -14,9 +14,9 @@
                     "<div class=\"left\">" +
                         "<div class=\"info\">" +
                             "<div class=\"reviewer\">" +
-                                "<img src=\"" + GetReviewerPic(review[i].ReviewerName) + "\" style=\"height:100px;width:100px\" />" +
-                                "<div class=\"reviewer-name\"><a href=\"javascript:void()\">" + review[i].ReviewerName + "</a></div>" +
-                                "<div class=\"affiliation\"><a href=\"javascript:void()\">" + review[i].Affiliation + "</a></div>" +
+                                "<img src=\"" + GetReviewerPic(review[k].ReviewerName) + "\" style=\"height:100px;width:100px\" />" +
+                                "<div class=\"reviewer-name\"><a href=\"javascript:void()\">" + review[k].ReviewerName + "</a></div>" +
+                                "<div class=\"affiliation\"><a href=\"javascript:void()\">" + review[k].Affiliation + "</a></div>" +
                                 "<div class=\"other\">" +
                                     "<div class=\"topcritic\">Top Critic</div>" +
                                 "</div>" +
@@ -24,7 +24,7 @@
                         "</div>" +
                     "</div>" +
                     "<div class=\"right\">" +
-                        "<div class=\"mirchimeter\">" + GetRateControl(review[i].ReviewerRating) + "</div>" +
+                        "<div class=\"mirchimeter\">" + GetRateControl(review[k].ReviewerRating) + "</div>" +
                         "<div class=\"review\">" +
                             "<div class=\"arrow_box\">" +
                                 "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a href=\"javascript:void(0)\">More...</a></div></div>" +

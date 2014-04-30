@@ -103,8 +103,8 @@ namespace Crawler.Reviews
 
                     re.Affiliation = affiliation;
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
-                    re.Review = review;
-                    re.ReviewerName = reviewName;
+                    re.Review = review.Trim();
+                    re.ReviewerName = reviewName.Trim();
                     re.ReviewerRating = rating.ToString();
                     return re;
                 }
