@@ -492,6 +492,28 @@ blockquote.quote {
 /*Footer*/
 .footer{float: left; width: 80%; margin-left: 7%; margin-top: 2%; margin-bottom: 2%;}
 /*End footer*/
+
+/*Reviewer Reviews*/
+.review-list {
+    float: left;
+    width: 86%;
+    margin-left: 7%;
+}
+.review-list ul {
+    list-style: none;
+    margin: 0 auto;
+    padding: 0px;
+    float: left;
+}
+.review-list ul li{
+    float: left;
+    width: 50%;
+    margin-bottom: 1%;
+}
+.review-list ul li .arrow_container{
+    width: 97%;
+}
+/*Reviewer Reviews End*/
 .movie-container {
     position: relative;
     -webkit-font-smoothing: subpixel-antialiased;

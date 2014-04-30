@@ -3,44 +3,20 @@
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h3 class="panel-title" id="title"></h3>
-    </div>
-    <div class="panel-body">
-        <div id="reviewer">
-            <div id="reviewImage">
-            </div>
-            <div id="name">
-                <h2>Vasim Ahmed</h2>
-            </div>
-            <div id="affiliation">
-                <b class=" affiliation">Affiliation :</b>
-            </div>
-        </div>
-        <div id="movie">
-            <div id="moviename">
-                <h2>Awarapan</h2>
-            </div>
-            <div id="rating1">
-                <div class='titlePageSprite star-box-giga-star' id="rating">7</div>
-                <b class="rating">Rating :</b>
-            </div>
-        </div>
-        <div id="reivew">
-        </div>
-        <div id="navigation">
-            <div id="previous" class="btn btn-primary">Previous</div>
-            <div id="next" class="btn btn-primary">Next</div>
-        </div>
-    </div>
-</div>
+<div class="content">
+    <div class="movies">
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        var qs = GetQueryStringsForHtmPage();
-        var name = qs["name"];
-        var movie = qs["movie"];
-        GetReviewerAndReviews(name, movie);
-    });
-</script>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            /*var qs = GetQueryStringsForHtmPage();
+            var name = qs["name"];
+            var movie = qs["movie"];
+            GetReviewerAndReviews(name, movie);*/
+            var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+            LoadReviewsByReviewer(name);
+        });
+    </script>
+    <script type="text/javascript" src="/Content/controls/mm.review.js"></script>
+    <script type="text/javascript" src="/Content/controls/mm.reviewer.js"></script>

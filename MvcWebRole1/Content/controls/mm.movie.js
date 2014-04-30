@@ -103,7 +103,7 @@ var PopulatePosters = function (images, movieName) {
             img.error(function () {
                 $(this).hide();
             });
-            
+
             $(".movie-poster-details").append(img);
         }
 
@@ -125,7 +125,7 @@ var ShowMovieReviews = function (review) {
     //if (review != "undefined" && review != null && review.length > 0) {
     if (review != "undefined" && review != null) {
         $(".link-container").show();
-        GetReviewControl("movie-review-details", review);
+        (review.length > 0) ? GetReviewControl("movie-review-details", review) : GetDefaultReviewControl("movie-review-details", review);
     }
     else {
         $(".movie-review-details").hide();

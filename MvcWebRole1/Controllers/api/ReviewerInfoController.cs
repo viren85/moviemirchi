@@ -65,6 +65,7 @@ namespace MvcWebRole1.Controllers.api
                             reviewDetail.MovieId = movie.MovieId;
                             reviewDetail.MovieName = movie.Name;
                             reviewDetail.Review = review.Review;
+                            reviewDetail.MoviePoster = movie.Posters;
 
                             // add review object to review list
                             reviewDetailList.Add(reviewDetail);
@@ -103,5 +104,7 @@ namespace MvcWebRole1.Controllers.api
         public string CriticsRating { get; set; }
         public string Review { get; set; }
         public string ReviewDate { get; set; }
+
+        public string MoviePoster { get; set; }
     }
 }
