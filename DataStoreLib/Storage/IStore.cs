@@ -10,7 +10,7 @@ namespace DataStoreLib.Storage
 {
     public interface IStore
     {
-        #region Login 
+        #region Login
         IDictionary<string, UserEntity> GetAllUser();
         IDictionary<string, UserEntity> GetUsersById(List<string> userId);
         IDictionary<string, UserEntity> GetUsersByName(string userName);
@@ -25,7 +25,7 @@ namespace DataStoreLib.Storage
         #endregion
 
         #region Review
-        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);        
+        IDictionary<string, ReviewEntity> GetReviewsDetailById(string reviewerId, string movieId);
         IDictionary<string, ReviewEntity> GetReviewsByMovieId(string movieId);
         IDictionary<string, ReviewEntity> GetReviewsById(IEnumerable<string> id);
         IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName);
@@ -53,6 +53,11 @@ namespace DataStoreLib.Storage
         #region Popular on movie mirchi table
         IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(List<string> id);
         IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(List<PopularOnMovieMirchiEntity> popularOnMovieMirchi);
+        #endregion
+
+        #region Twitter table
+        IDictionary<string, TwitterEntity> GetTweetById(string id);
+        IDictionary<TwitterEntity, bool> UpdateTweetById(List<TwitterEntity> tweets);
         #endregion
     }
 
@@ -206,7 +211,7 @@ namespace DataStoreLib.Storage
 
             foreach (var currentMovie in retList.Values)
             {
-                
+
                 currentMovies.Add(currentMovie);
                 /*
                 string currentMonth = DateTime.Now.ToString("MMMM");
@@ -221,11 +226,11 @@ namespace DataStoreLib.Storage
 
             return currentMovies;
         }
-       /// <summary>
-       /// Return the movie name in sorted order
-       /// </summary>
-       /// <param name="store"></param>
-       /// <returns></returns>
+        /// <summary>
+        /// Return the movie name in sorted order
+        /// </summary>
+        /// <param name="store"></param>
+        /// <returns></returns>
         public static List<MovieEntity> GetSortedMoviesByName(this IStore store)
         {
             var retList = store.GetAllMovies();
@@ -241,7 +246,7 @@ namespace DataStoreLib.Storage
 
             return currentMovies;
         }
-      
+
 
         #region Search
         public static List<MovieEntity> SearchSongs(this IStore store, string searchText)
@@ -554,6 +559,34 @@ namespace DataStoreLib.Storage
             Debug.Assert(popularOnMovieMirchi != null);
             var list = new List<PopularOnMovieMirchiEntity> { popularOnMovieMirchi };
             var retList = store.UpdatePopularOnMovieMirchisById(list);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+        #endregion
+
+        #region Twitter
+        public static bool IsTweetExist(this IStore store, string tweetId)
+        {
+            var retList = store.GetTweetById(tweetId);
+
+            //Debug.Assert(retList.Count == 1);
+
+            List<TwitterEntity> tweets = new List<TwitterEntity>();
+
+            if (retList != null && retList.Values != null)
+            {
+                tweets = (List<TwitterEntity>)retList.Values.OrderBy(m => m.Timestamp).ToList();
+            }
+
+            return tweets.Count > 0 ? true : false;
+        }
+
+        public static bool UpdateTweetById(this IStore store, TwitterEntity tweet)
+        {
+            Debug.Assert(tweet != null);
+            var list = new List<TwitterEntity> { tweet };
+            var retList = store.UpdateTweetById(list);
 
             Debug.Assert(retList.Count == 1);
             return retList[retList.Keys.FirstOrDefault()];

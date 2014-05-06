@@ -190,6 +190,7 @@
     <Compile Include="Controllers\api\AllSongsController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\GetCastByTypeController.cs" />
+    <Compile Include="Controllers\api\TwitterController.cs" />
     <Compile Include="Controllers\api\MovieReviewController.cs" />
     <Compile Include="Controllers\api\MovieInfoController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
@@ -228,6 +229,7 @@
     <Content Include="Content\controls\mm.reviewer.js" />
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
+    <Content Include="Content\controls\mm.twitter.js" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\jquery.bookblock.js" />

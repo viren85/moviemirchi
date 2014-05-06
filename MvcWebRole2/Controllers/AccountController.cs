@@ -6,13 +6,18 @@ using DataStoreLib.Utils;
 using LuceneSearchLibrarby;
 using Microsoft.WindowsAzure;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
+using System.Runtime.Serialization.Json;
+using System.Text;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
 using System.Xml;
+using Twitterizer;
 
 
 namespace MvcWebRole2.Controllers
@@ -131,7 +136,7 @@ namespace MvcWebRole2.Controllers
                         {
                             try
                             {
-                                
+
                                 #region Crawl Movie
                                 MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                                 TableManager tblMgr = new TableManager();
@@ -139,7 +144,7 @@ namespace MvcWebRole2.Controllers
 
                                 tblMgr.UpdateMovieById(mov);
                                 #endregion
-                                
+
                                 #region Crawl Movie Reviews
                                 #region Bollywood Hungama Crawler
                                 try
@@ -181,7 +186,7 @@ namespace MvcWebRole2.Controllers
                                 }
                                 #endregion
                                 #endregion
-                                
+
                                 #region Lucene Search Index
                                 List<Cast> casts = json.Deserialize(mov.Casts, typeof(List<Cast>)) as List<Cast>;
                                 List<String> posters = json.Deserialize(mov.Posters, typeof(List<String>)) as List<String>;
@@ -211,7 +216,7 @@ namespace MvcWebRole2.Controllers
                                 movieSearchIndex.Link = mov.UniqueName;
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                                 #endregion
-                                 
+
                             }
                             catch (Exception)
                             {
@@ -228,6 +233,107 @@ namespace MvcWebRole2.Controllers
                 throw;
             }
 
+        }
+
+        [HttpGet]
+        public void GetTweets()
+        {
+            try
+            {
+                string consumerKey = ConfigurationManager.AppSettings["TwitterConsumerKey"];
+                string consumerSecret = ConfigurationManager.AppSettings["TwitterConsumerSecret"];
+                List<string> tweetIdList = new List<string>();
+                OAuthTokens oaccesstkn = new OAuthTokens();
+                oaccesstkn.AccessToken = ConfigurationManager.AppSettings["TwitterAccessToken"];
+                oaccesstkn.AccessTokenSecret = ConfigurationManager.AppSettings["TwitterAccessSecret"]; ;
+                oaccesstkn.ConsumerKey = consumerKey;
+                oaccesstkn.ConsumerSecret = consumerSecret;
+
+                XmlDocument xdoc = new XmlDocument();
+
+                string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+                string filePath = Path.Combine(basePath, "Twitter.xml");
+
+                xdoc.Load(filePath);
+                var items = xdoc.SelectNodes("Search/WhiteList/Item");
+
+                if (items != null)
+                {
+                    foreach (XmlNode item in items)
+                    {
+                        WebRequestBuilder webRequest = new WebRequestBuilder(new Uri(string.Format(ConfigurationManager.AppSettings["TwitterUrl"], item.InnerText, 500)), HTTPVerb.GET, oaccesstkn);
+
+                        string responseText;
+                        using (var response = webRequest.ExecuteRequest())
+                        {
+                            using (var reader = new StreamReader(response.GetResponseStream()))
+                            {
+                                responseText = reader.ReadToEnd();
+                            }
+                        }
+
+                        var brr = Encoding.UTF8.GetBytes(responseText);
+
+                        var streamReader = new StreamReader(new MemoryStream(brr));
+
+                        var serializer = new DataContractJsonSerializer(typeof(SearchResults));
+
+                        var tweetsResponse = (SearchResults)serializer.ReadObject(streamReader.BaseStream);
+
+                        streamReader.Close();
+
+                        #region Filter Blocked List of Twitter Handles
+                        /*string blackList = ConfigurationManager.AppSettings["BlockedTwitterHandles"];
+                        Hashtable twitterAccounts = new Hashtable();
+                        if (!string.IsNullOrEmpty(blackList))
+                        {
+                            string[] accounts = blackList.Split(',');
+                            foreach (string account in accounts)
+                            {
+                                twitterAccounts.Add(account.Trim().ToLower(), account.Trim().ToLower());
+                            }
+                        }*/
+                        #endregion
+                        TableManager tblMgr = new TableManager();
+                        foreach (var mmTweetData in tweetsResponse.Results)
+                        {
+                            var tweetId = mmTweetData.Id.ToString();
+                            tweetIdList = new List<string>();
+                            tweetIdList.Add(tweetId);
+
+                            if (!tblMgr.IsTweetExist(tweetIdList))
+                            {
+
+                                var myTweet = new TwitterEntity
+                                {
+                                    RowKey = Guid.NewGuid().ToString(),
+                                    TwitterId = tweetId,
+                                    TwitterIdString = mmTweetData.Id_Str,
+                                    TextMessage = mmTweetData.Text,
+                                    Source = mmTweetData.Source,
+                                    FromUser = mmTweetData.Source,
+                                    FromUserId = mmTweetData.ToUserName,
+                                    ProfileImageUrl = mmTweetData.User.ProfileImageUrl,
+                                    ProfileSecureImageUrl = mmTweetData.User.ProfileImageUrlHttps,
+                                    ReplyUserId = mmTweetData.User.FromUserId.ToString(),
+                                    ReplyScreenName = mmTweetData.User.FromUser,
+                                    ResultType = mmTweetData.SearchMetaData.ResultType,
+                                    LanguageCode = mmTweetData.SearchMetaData.IsoLanguageCode,
+                                    Created_At = ParseTwitterDateTime(mmTweetData.CreatedAt),
+                                    Status = "-1"
+                                };
+
+                                tblMgr.UpdateTweetById(myTweet);
+
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
         }
 
         [HttpPost]
@@ -337,6 +443,12 @@ namespace MvcWebRole2.Controllers
             {
                 Debug.WriteLine("Unable to create the poster directories. Message=" + ex.Message);
             }
+        }
+
+        private DateTime ParseTwitterDateTime(string date)
+        {
+            const string format = "ddd MMM dd HH:mm:ss zzzz yyyy";
+            return DateTime.ParseExact(date, format, CultureInfo.InvariantCulture);
         }
         #endregion
     }

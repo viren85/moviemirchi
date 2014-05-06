@@ -3,6 +3,7 @@ namespace DataStoreLib.Storage
 {
     using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage.Table;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -357,6 +358,58 @@ namespace DataStoreLib.Storage
                 returnTranslateOp.Add(b as PopularOnMovieMirchiEntity, returnOp[b]);
             }
             return returnTranslateOp;
+        }
+        #endregion
+
+        #region Twitter
+
+        public bool IsTweetExist(List<string> ids)
+        {
+            var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
+
+            var retList = twitterTable.GetItemsById<TwitterEntity>(ids);
+
+            foreach (var item in retList)
+            {
+                return (item.Value != null);
+            }
+
+            return false;
+        }
+
+        public IDictionary<string, TwitterEntity> GetTweetById(string id)
+        {
+            var tweetTable = TableStore.Instance.GetTable(TableStore.TwitterTableName) as TwitterTable;
+            return tweetTable.GetItemsByTwitterId<TwitterEntity>(id);
+        }
+        public IDictionary<TwitterEntity, bool> UpdateTweetById(List<TwitterEntity> tweets)
+        {
+            var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
+            Debug.Assert(twitterTable != null);
+
+            var tweetList = new List<DataStoreLib.Models.TableEntity>(tweets).ConvertAll(x => (ITableEntity)x);
+            var returnOp = twitterTable.UpdateItemsById(tweetList);
+
+            var returnTranslateOp = new Dictionary<TwitterEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as TwitterEntity, returnOp[b]);
+            }
+
+            return returnTranslateOp;
+        }
+
+        // Need method which returns the tweets based on keywords/movie name/actor name etc.
+        // Need method which returns the count of total tweets - The total count will be used in case we need pagination
+        public IDictionary<string, TwitterEntity> GetRecentTweets(int startIndex = 0, int pageSize = 20)
+        {
+            // Need to write code which sorts the result set based on Created_At order by datetime desc
+            var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
+            return twitterTable.GetAllItems<TwitterEntity>();
+
+            // Need to implement custom logic for - 
+            // a. Get all tweets - Sort it based on Created_At (DESC)
+            // b. Get top 20 tweets - Based on pagination
         }
         #endregion
     }

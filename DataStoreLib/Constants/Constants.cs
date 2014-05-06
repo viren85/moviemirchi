@@ -18,6 +18,7 @@ namespace DataStoreLib.Constants
         public const string UM_WHILE_SEARCHING_MOVIES_SONGS = "Error occured while getting movie's songs";
         public const string UM_WHILE_SEARCHING_MOVIES_POSTER = "Error occured while getting movie's posters/pictures";
         public const string UM_WHILE_SEARCHING_SONGS = "Error occured while searching songs";
+        public const string UM_WHILE_GETTING_TWEETS = "Error occured while getting Tweets";
         #endregion
     }
 }

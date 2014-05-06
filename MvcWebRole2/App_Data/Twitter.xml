@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Search>
+  <WhiteList>
+    <Item>bollywoodmantra‎</Item>
+    <Item>bollywoodnews36‎‎</Item>
+    <Item>Bollyhungama‎‎</Item>
+  </WhiteList>
+  <BlackList>
+    <Item>MovieMirchi,MovieMichi</Item>
+  </BlackList>
+</Search>

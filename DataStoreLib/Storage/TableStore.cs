@@ -2,6 +2,7 @@
 namespace DataStoreLib.Storage
 {
     using DataStoreLib.Utils;
+    using Microsoft.WindowsAzure;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Table;
     using System;
@@ -47,6 +48,7 @@ namespace DataStoreLib.Storage
         public static readonly string ToBeIndexedTableName = "TobeIndexedTable";
         public static readonly string UserFavoriteTableName = "UserFavorites";
         public static readonly string PopularOnMovieMirchiName = "PopularOnMovieMirchi";
+        public static readonly string TwitterTableName = "Twitter";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
             new Dictionary<string, Func<CloudTable, Table>>()
@@ -58,7 +60,8 @@ namespace DataStoreLib.Storage
                     {ReviewTableName, ReviewTable.CreateTable},
                     {ToBeIndexedTableName, ToBeIndexedTable.CreateTable},
                     {UserFavoriteTableName, UserFavoriteTable.CreateTable},
-                    {PopularOnMovieMirchiName, PopularOnMovieMirchiTable.CreateTable}
+                    {PopularOnMovieMirchiName, PopularOnMovieMirchiTable.CreateTable},
+                    {TwitterTableName,TwitterTable.CreateTable}
                 };
 
         public Table GetTable(string tableName)
@@ -87,8 +90,13 @@ namespace DataStoreLib.Storage
 
         internal Table CreateTableIfNotExist(string tableName)
         {
+            if (string.IsNullOrEmpty(ConnectionSettingsSingleton.Instance.StorageConnectionString))
+            {
+                ConnectionSettingsSingleton.Instance.StorageConnectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
+            }
+
             Debug.Assert(!string.IsNullOrWhiteSpace(ConnectionSettingsSingleton.Instance.StorageConnectionString));
-            var account = CloudStorageAccount.Parse(ConnectionSettingsSingleton.Instance.StorageConnectionString);
+            var account = Microsoft.WindowsAzure.Storage.CloudStorageAccount.Parse(ConnectionSettingsSingleton.Instance.StorageConnectionString);
 
             var cloudTableClient = account.CreateCloudTableClient();
             var table = cloudTableClient.GetTableReference(tableName);
