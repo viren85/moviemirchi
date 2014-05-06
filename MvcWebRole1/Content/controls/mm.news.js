@@ -62,7 +62,7 @@
                             (isUrl ? "<div class='left'><img class=\"img\" src=\"" + url + "\" alt=\"Image\" /></div>" : "") +
                             "<div class='" + (isUrl ? "news-right" : "both") + "'>" + getSpan("contentSnippet") + "</div>" +
                         "</div>" +
-                        "<div class='news-author news-link'><a href=\"" + link + "\">" +
+                        "<div class='news-author news-link'><a target=\"_new\" href=\"" + link + "\">" +
                             (isOK(author) ? author : "Link") +
                         "</a></div>" +
                     "</div>" +

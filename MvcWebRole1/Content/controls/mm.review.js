@@ -25,7 +25,7 @@
                             "<div class=\"mirchimeter\">" + GetRateControl(review[k].ReviewerRating) + "</div>" +
                             "<div class=\"review\">" +
                                 "<div class=\"arrow_box\">" +
-                                    "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a href=\"javascript:void(0)\">More...</a></div></div>" +
+                                    "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a target=\"_new\" href=\"" + review[k].OutLink + "\">More...</a></div></div>" +
 
                                 "</div>" +
                             "</div>" +
@@ -33,6 +33,7 @@
                         "<div class=\"clear\"></div>" +
                     "</div>";
 
+            console.log(review[k]);
             $("." + containerClass).append(html)
         }
     }
@@ -92,7 +93,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                     "<div class=\"mirchimeter\">" + GetRateControl(review[k].ReviewerRating) + "</div>" +
                     "<div class=\"review\">" +
                         "<div class=\"arrow_box\">" +
-                            "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a href=\"javascript:void(0)\">More...</a></div></div>" +
+                            "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a target=\"_new\" href=\"javascript:void(0)\">More...</a></div></div>" +
 
                         "</div>" +
                     "</div>" +
@@ -107,20 +108,23 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
 }
 
 function GetReviewerPic(reviewerName) {
-    switch (reviewerName) {
+    var basePath = "/posters/images/critic/";
+    reviewerName = basePath + reviewerName.replace(" ", "-") + ".jpg";
+    return reviewerName;
+    /*switch (reviewerName) {
         case "Anupama Chopra":
-            return "/posters/images/anupama-chopra.jpg";
+            return "anupama-chopra.jpg";
         case "Omar Qureshi":
-            return "/posters/images/omar-qureshi.jpg";
+            return "omar-qureshi.jpg";
         case "Khalid Mohamed":
-            return "/posters/images/khalid-mohamed.jpg";
+            return "khalid-mohamed.jpg";
         case "Taran Adarsh":
-            return "/posters/images/tarun-adarsh.jpg";
+            return "tarun-adarsh.jpg";
         case "Rajeev Masand":
             return "http://www.rajeevmasand.com/assets/images/rajabout.jpg";
         default:
             return "../images/user.png";
-    }
+    }*/
 }
 
 function GetMoviePoster(posters, movieName) {

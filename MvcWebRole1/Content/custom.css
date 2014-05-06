@@ -230,7 +230,7 @@ a {
 /*Pager Control*/
 .pager-left-arrow {
     display: inline-block;
-    margin-right: 5%;
+    margin-right: 3%;
     width: 20px;
     height: 20px;
     padding: 0px 10px 10px 10px;
@@ -238,7 +238,7 @@ a {
 
 .pager-right-arrow {
     display: inline-block;
-    margin-left: 2%;
+    margin-left: 1%;
     width: 20px;
     height: 20px;
     padding: 0px 10px 10px 10px;
@@ -281,12 +281,15 @@ a {
 .active-page-index {
     background-color: #368BC1 !important;
 }
-
+#news-pager{
+    float: left;
+    width: 95%;
+}
 .page-index {
     width: 16px;
     height: 16px;
     background-color: skyblue; /* #41A317;*/
-    margin-right: 30px;
+    margin-right: 20px;
     margin-top: 10px;
     display: inline-block;
     border-radius: 2px;
@@ -1344,6 +1347,9 @@ blockquote.quote {
 
 .news-container .news-item .news-content-container .news-link {
     float: right;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }
 
     .news-container .news-item .news-content-container .news-link a {
