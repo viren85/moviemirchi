@@ -11,6 +11,7 @@ var ShowMovie = function (data) {
 
     if (result.Movie != undefined) {
         $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+        
         //$(".tube-container").append($(".movie-details"));
         //$(".movie-list").append($(".link-container"));
         PopulatingMovies(result.Movie);
@@ -26,7 +27,12 @@ var ShowMovie = function (data) {
         PopulatePosters(poster, result.Movie.Name);
         ArrangeImages($(".movie-poster-details"));
         ShowMovieReviews(reviews);
+        
     }
+
+    $(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
+    var twtr = new TwitterControl(".tweets", tweetData.tweets);
+    twtr.startTimer(12000);
 }
 
 var ShowMovieDetails = function (movie) {
