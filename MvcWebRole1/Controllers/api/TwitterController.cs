@@ -24,7 +24,7 @@ namespace MvcWebRole1.Controllers.api
 
             // get query string parameters
             string queryParameters = this.Request.RequestUri.Query;
-            if (queryParameters != null)
+            if (!string.IsNullOrWhiteSpace(queryParameters))
             {
                 var qpParams = HttpUtility.ParseQueryString(queryParameters);
 
