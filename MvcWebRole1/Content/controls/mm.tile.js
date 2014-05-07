@@ -1,5 +1,5 @@
-﻿function PopulatingMovies(movie) {
-    var movieContainer = $(".movie-list ul");
+﻿function PopulatingMovies(movie,container) {
+    var movieContainer = $("." + container + " ul");
 
     var poster = [];
     poster = JSON.parse(movie.Posters);

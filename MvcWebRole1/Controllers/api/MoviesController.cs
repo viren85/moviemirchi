@@ -50,7 +50,9 @@ namespace MvcWebRole1.Controllers.api
                         tableMgr.GetSortedMoviesByName() :
                         (type == "current") ?
                             tableMgr.GetCurrentMovies() :
-                            Enumerable.Empty<MovieEntity>();
+                            (type == "upcoming") ?
+                                tableMgr.GetUpcomingMovies() :
+                                    Enumerable.Empty<MovieEntity>();
 
                 List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
 

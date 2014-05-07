@@ -226,6 +226,29 @@ namespace DataStoreLib.Storage
 
             return currentMovies;
         }
+
+        public static List<MovieEntity> GetUpcomingMovies(this IStore store)
+        {
+            var retList = store.GetAllMovies();
+
+            List<MovieEntity> upcomingMovies = new List<MovieEntity>();
+
+            foreach (var upcomingMovie in retList.Values)
+            {
+                // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
+                if (string.IsNullOrEmpty(upcomingMovie.Trailers) || upcomingMovie.Trailers.ToLower() == "upcoming")
+                    upcomingMovies.Add(upcomingMovie);
+                else
+                {
+                    // Temp = Assuming Month column will be blank for future releases or movies with future release date shall be returned by this block
+                    // however need to take a call - if we shall rely on date!
+
+                }
+            }
+
+            return upcomingMovies;
+        }
+
         /// <summary>
         /// Return the movie name in sorted order
         /// </summary>

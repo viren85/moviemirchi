@@ -47,6 +47,11 @@ function LoadCurrentMovies() {
     CallHandler(path, onSuccessLoadCurrentMovies);
 }
 
+function LoadUpcomingMovies() {
+    var path = "api/Movies?type=upcoming";
+    CallHandler(path, onSuccessLoadUpcomingMovies);
+}
+
 function onSuccessLoadCurrentMovies(result) {
     result = JSON.parse(result);
 
@@ -55,7 +60,7 @@ function onSuccessLoadCurrentMovies(result) {
 
         // adding images        
         for (var i = 0; i < result.length; i++) {
-            var list = PopulatingMovies(result[i]);
+            var list = PopulatingMovies(result[i], "movie-list");
         }
 
         /*The image width/height shall be calculated once the image is fully loaded*/
@@ -77,6 +82,38 @@ function onSuccessLoadCurrentMovies(result) {
         //PreparePaginationControl($(".news-container"));
     }
 }
+
+function onSuccessLoadUpcomingMovies(result) {
+    result = JSON.parse(result);
+
+    if (result.length > 0) {
+        //MOVIES = result;
+
+        // adding images        
+        for (var i = 0; i < result.length; i++) {
+            var list = PopulatingMovies(result[i], "upcoming-movie-list");
+        }
+
+        /*The image width/height shall be calculated once the image is fully loaded*/
+        var width = $(document).width();
+
+        $(".upcoming-movie-list").find("img").each(function () {
+            var ratio = this.width / this.height;
+            var newWidth = 400 * ratio;
+            $(this).width(newWidth + "px").height("380px");
+
+            if (newWidth > 250)
+                $(this).width("250px");
+        });
+
+        ScaleElement($(".upcoming-movie-list ul"));
+
+        // movie-list
+        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+        //PreparePaginationControl($(".news-container"));
+    }
+}
+
 
 function NextMovies() {
     if (MovieIndexer < MOVIES.length) {

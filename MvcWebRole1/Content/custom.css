@@ -567,6 +567,9 @@ blockquote.quote {
 
 .tweet-content {
     color: #444444;
+    overflow: hidden;
+    max-height: 180px;
+    max-width: 180px;
 }
 /*End Twitter Control*/
 /*Footer*/
@@ -1106,14 +1109,14 @@ blockquote.quote {
     top: 0px;
 }
 
-.movie-list, .news-container, .critics-container {
+.movie-list, .news-container, .critics-container,.upcoming-movie-list {
     float: left;
     width: 95%;
     margin-left: 7%;
     margin-bottom: 1%;
 }
 
-    .movie-list ul, .critics-container ul {
+    .movie-list ul, .critics-container ul,.upcoming-movie-list ul {
         float: left;
         list-style: none;
         padding: 0px;
@@ -1122,7 +1125,7 @@ blockquote.quote {
         height: 400px;
     }
 
-        .movie-list ul li, .critics-container ul li {
+        .movie-list ul li, .critics-container ul li, .upcoming-movie-list ul li {
             float: left;
             list-style: none;
             width: 20%;
@@ -1139,7 +1142,7 @@ blockquote.quote {
             min-height: 280px;
         }
 
-            .movie-list ul li img, .critics-container ul li img {
+            .movie-list ul li img, .critics-container ul li img, .upcoming-movie-list ul li img {
                 float: left;
                 border: 0px;
             }

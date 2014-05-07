@@ -72,6 +72,7 @@ var TwitterControl = function (selector, data) {
             var cell = $(_cells[index]);
             var children = cell.children();
             children.fadeOut(1000, function () {
+                var txt = tweet.text.length > 100 ? tweet.text.substring(0, 100) + "..." : tweet.text;
                 cell.find(".tweet-user").text(tweet.twitterid);
                 cell.find(".tweet-content").text(tweet.text);
                 children.fadeIn(2000);
