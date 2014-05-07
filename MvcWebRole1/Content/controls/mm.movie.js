@@ -31,8 +31,11 @@ var ShowMovie = function (data) {
     }
 
     $(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
-    var twtr = new TwitterControl(".tweets", tweetData.tweets);
-    twtr.startTimer(12000);
+
+    LoadTweets();
+    // TODO: Clean this code smell
+    ////var twtr = new TwitterControl(".tweets");
+    ////twtr.startTimer(12000);
 }
 
 var ShowMovieDetails = function (movie) {
