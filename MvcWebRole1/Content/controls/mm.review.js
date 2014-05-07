@@ -14,7 +14,9 @@
                         "<div class=\"left\">" +
                             "<div class=\"info\">" +
                                 "<div class=\"reviewer\">" +
-                                    "<img src=\"" + GetReviewerPic(review.ReviewerName) + "\" style=\"height:100px;width:100px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                                    "<a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" +
+                                        "<img src=\"" + GetReviewerPic(review.ReviewerName) + "\" style=\"height:100px;width:100px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                                    "</a>" +
                                     "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" + review.ReviewerName + "</a></div>" +
                                     "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
                                     "<div class=\"other\">" +
@@ -91,7 +93,9 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                             "<div class=\"left\">" +
                                 "<div class=\"info\">" +
                                     "<div class=\"reviewer\">" +
-                                        "<img src=\"" + GetMoviePoster(review.MoviePoster, review.MovieName) + "\" style=\"height:235px;width:150px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                                        "<a href=\"/movie/" + uniqueName + "\">" +
+                                            "<img src=\"" + GetMoviePoster(review.MoviePoster, review.MovieName) + "\" style=\"height:235px;width:150px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                                        "</a>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +
