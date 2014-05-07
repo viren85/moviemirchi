@@ -21,7 +21,7 @@
     ].forEach(function (critic) {
         ul.append(
             "<li class=\"reviewer\">" +
-                "<a href=\"Reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
+                "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + "\">" +
                     "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
                         "<div id=\"imageContainer\" class=\"viewer\">" +
                             "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "\" alt=\"" + critic.title + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 250px; width: 193px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
