@@ -29,7 +29,7 @@
                         "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
                         "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                         "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
-                        GetRateControl(movie.Ratings) +
+                        GetMovieRateControl(movie.Ratings) +
                         "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
                     "</div>" +
                 "</div>" +
@@ -38,7 +38,6 @@
     "</div>";
 
     anchor.append(html);
-    //anchor.append(GetRateControl(6));
     list.append(anchor);
     movieContainer.append(list);
 

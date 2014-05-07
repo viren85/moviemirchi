@@ -1,13 +1,18 @@
 ﻿function GetRateControl(rate) {
-    var rateContainer = $("<div/>").attr("class", "rate-container");
-    var r = Math.round(rate);
+    var mirchi = (rate > 5) ? GetRedMirchi() : GetGreenMirchi();
+    return mirchi;
+}
 
+function GetMovieRateControl(rate) {
+
+    var result = "";
+    var r = Math.round(rate);
+    var mirchi = (r > 5) ? GetRedMirchi() : GetGreenMirchi();
     for (i = 1; i <= r; i++) {
-        var mirchi = (r > 5) ? GetRedMirchi() : GetGreenMirchi();
-        $(rateContainer).append(mirchi);
+        result += mirchi;
     }
 
-    return $(rateContainer).html();
+    return result;
 }
 
 function GetRedMirchi() {
