@@ -507,8 +507,8 @@ blockquote.quote {
 }
 
 .mirchimeter {
-    float: right;
-    margin-right: 10px;
+    float: left;
+    margin-left: 10px;
 }
 /* End - Review Control */
 /*Twitter Control*/
