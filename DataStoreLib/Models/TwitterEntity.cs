@@ -104,7 +104,7 @@ namespace DataStoreLib.Models
 
         public override string GetKey()
         {
-            return this.TwitterId;
+            return this.RowKey;
         }
 
         public static TwitterEntity CreateTwitterEntity(string fromUserId, string textMessage)

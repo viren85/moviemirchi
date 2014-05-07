@@ -6,6 +6,7 @@ namespace DataStoreLib.Storage
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
 
     public class TableManager : IStore
     {
@@ -403,13 +404,18 @@ namespace DataStoreLib.Storage
         // Need method which returns the count of total tweets - The total count will be used in case we need pagination
         public IDictionary<string, TwitterEntity> GetRecentTweets(int startIndex = 0, int pageSize = 20)
         {
-            // Need to write code which sorts the result set based on Created_At order by datetime desc
             var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
-            return twitterTable.GetAllItems<TwitterEntity>();
+            var allTweets = twitterTable.GetAllItems<TwitterEntity>();
+            // TODO: Uncomment the Where once we have the system end-to-end hooked up
+            var activeTweets = allTweets; //.Where(t => t.Value.Status == "1"); // Pick only active tweets
+            var sortedTweets = activeTweets.OrderByDescending(t => t.Value.Created_At); // Sort by Created date
+            var paginatedTweets =
+                (startIndex > 0 && pageSize > 0) ?
+                    sortedTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
+                    : sortedTweets;
+            var result = paginatedTweets.ToDictionary(t => t.Key, t => t.Value);
 
-            // Need to implement custom logic for - 
-            // a. Get all tweets - Sort it based on Created_At (DESC)
-            // b. Get top 20 tweets - Based on pagination
+            return result;
         }
         #endregion
     }
