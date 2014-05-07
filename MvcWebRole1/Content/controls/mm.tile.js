@@ -12,7 +12,7 @@
 
     list.attr("class", "movie")
     //anchor.attr("href", "Movie?name=" + movie.UniqueName);
-    anchor.attr("href", "Movie/" + movie.UniqueName);
+    anchor.attr("href", "/Movie/" + movie.UniqueName);
     anchor.attr("title", movie.Name);
     //anchor.append(img);
 
