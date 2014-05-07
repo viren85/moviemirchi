@@ -1,20 +1,22 @@
-﻿function GetReviewControl(containerClass, movieReviews) {
-    var review = movieReviews;
+﻿var GetReviewControl = function (containerClass, movieReviews) {
+    if (movieReviews) {
 
-    if (review != undefined && review != null && review.length > 0) {
+        movieReviews.forEach(function (review) {
 
-        for (k = 0; k < review.length ; k++) {
-            var reviewText = review[k].Review.length > 250 ? review[k].Review.substring(0, 250) + "..." : review[k].Review;
+            // TODO: Get the right outlink
+            review.OutLink = "#";
+            if (review.OutLink) {
 
-            // TODO - Need to get the correct picture of reviewer based on their name. Currently the pictures are hardcoded.
-            var html =
+                var reviewText = review.Review.length > 250 ? review.Review.substring(0, 250) + "..." : review.Review;
+
+                var html =
                     "<div class=\"arrow_container\">" +
                         "<div class=\"left\">" +
                             "<div class=\"info\">" +
                                 "<div class=\"reviewer\">" +
-                                    "<img src=\"" + GetReviewerPic(review[k].ReviewerName) + "\" style=\"height:100px;width:100px\" />" +
-                                    "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + CleanName(review[k].ReviewerName) + "\">" + review[k].ReviewerName + "</a></div>" +
-                                    "<div class=\"affiliation\"><a href=\"javascript:void()\">" + review[k].Affiliation + "</a></div>" +
+                                    "<img src=\"" + GetReviewerPic(review.ReviewerName) + "\" style=\"height:100px;width:100px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                                    "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" + review.ReviewerName + "</a></div>" +
+                                    "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
                                     "<div class=\"other\">" +
                                         "<div class=\"topcritic\">Top Critic</div>" +
                                     "</div>" +
@@ -22,22 +24,24 @@
                             "</div>" +
                         "</div>" +
                         "<div class=\"right\">" +
-                            "<div class=\"mirchimeter\">" + GetRateControl(review[k].ReviewerRating) + "</div>" +
+                            "<div class=\"mirchimeter\">" + GetRateControl(review.ReviewerRating) + "</div>" +
                             "<div class=\"review\">" +
                                 "<div class=\"arrow_box\">" +
-                                    "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a target=\"_new\" href=\"" + review[k].OutLink + "\">More...</a></div></div>" +
-
+                                    "<div class=\"review-content\">" +
+                                        "<blockquote class=\"quote\">" + reviewText + "</blockquote>" +
+                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\">More...</a></div>" +
+                                    "</div>" +
                                 "</div>" +
                             "</div>" +
                         "</div>" +
                         "<div class=\"clear\"></div>" +
                     "</div>";
 
-            console.log(review[k]);
-            $("." + containerClass).append(html)
-        }
+                $("." + containerClass).append(html);
+            }
+        });
     }
-}
+};
 
 var GetDefaultReviewControl = function (containerClass, movieReviews, isReviewer) {
     var html =
@@ -70,81 +74,73 @@ var GetDefaultReviewControl = function (containerClass, movieReviews, isReviewer
 }
 
 var GetReviewerReviews = function (containerClass, movieReviews) {
-    var review = movieReviews;
+    if (movieReviews) {
 
-    if (review != undefined && review != null && review.length > 0) {
+        movieReviews.forEach(function (review) {
 
-        for (k = 0; k < review.length ; k++) {
-            var reviewText = review[k].Review.length > 250 ? review[k].Review.substring(0, 250) + "..." : review[k].Review;
-            var uniqueName = CleanName(review[k].MovieName);
-            // TODO - Need to get the correct picture of reviewer based on their name. Currently the pictures are hardcoded.
-            var html =
+            // TODO: Get the right outlink
+            review.OutLink = "#";
+            if (review.OutLink) {
+
+                var reviewText = review.Review.length > 250 ? review.Review.substring(0, 250) + "..." : review.Review;
+                var uniqueName = FormPathFromName(review.MovieName);
+
+                var html =
                     "<li>" +
-            "<div class=\"arrow_container\">" +
-                "<div class=\"left\">" +
-                    "<div class=\"info\">" +
-                        "<div class=\"reviewer\">" +
-                            "<img src=\"" + GetMoviePoster(review[k].MoviePoster, review[k].MovieName) + "\" style=\"height:235px;width:150px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                        "<div class=\"arrow_container\">" +
+                            "<div class=\"left\">" +
+                                "<div class=\"info\">" +
+                                    "<div class=\"reviewer\">" +
+                                        "<img src=\"" + GetMoviePoster(review.MoviePoster, review.MovieName) + "\" style=\"height:235px;width:150px\" onerror=\"this.src='/Posters/Images/default-movie.jpg'\" />" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div>" +
+                            "<div class=\"right\">" +
+                                "<div class=\"review-movie-name\"><a href=\"/movie/" + uniqueName + "\">" + review.MovieName + "</a></div>" +
+                                "<div class=\"mirchimeter\">" + GetRateControl(review.ReviewerRating) + "</div>" +
+                                "<div class=\"review\">" +
+                                    "<div class=\"arrow_box\">" +
+                                        "<div class=\"review-content\">" +
+                                            "<blockquote class=\"quote\">" + reviewText + "</blockquote>" +
+                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\">More...</a></div>" +
+                                        "</div>" +
+                                    "</div>" +
+                                "</div>" +
+                            "</div>" +
+                            "<div class=\"clear\"></div>" +
                         "</div>" +
-                    "</div>" +
-                "</div>" +
-                "<div class=\"right\">" +
-                    "<div class=\"review-movie-name\"><a href=\"/movie/" + uniqueName + "\">" + review[k].MovieName + "</a></div>" +
-                    "<div class=\"mirchimeter\">" + GetRateControl(review[k].ReviewerRating) + "</div>" +
-                    "<div class=\"review\">" +
-                        "<div class=\"arrow_box\">" +
-                            "<div class=\"review-content\"><blockquote class=\"quote\">" + reviewText + "</blockquote><div class=\"more-link\"><a target=\"_new\" href=\"javascript:void(0)\">More...</a></div></div>" +
+                    "</li>";
 
-                        "</div>" +
-                    "</div>" +
-                "</div>" +
-                "<div class=\"clear\"></div>" +
-            "</div>" +
-            "</li>";
-
-            $(".review-list ul").append(html)
-        }
+                $(".review-list ul").append(html);
+            }
+        });
     }
-}
+};
 
 function GetReviewerPic(reviewerName) {
-    var basePath = "/posters/images/critic/";
-    reviewerName = basePath + reviewerName.replace(" ", "-") + ".jpg";
-    return reviewerName;
-    /*switch (reviewerName) {
-        case "Anupama Chopra":
-            return "anupama-chopra.jpg";
-        case "Omar Qureshi":
-            return "omar-qureshi.jpg";
-        case "Khalid Mohamed":
-            return "khalid-mohamed.jpg";
-        case "Taran Adarsh":
-            return "tarun-adarsh.jpg";
-        case "Rajeev Masand":
-            return "http://www.rajeevmasand.com/assets/images/rajabout.jpg";
-        default:
-            return "../images/user.png";
-    }*/
+    return "/posters/images/critic/" + reviewerName.replace(" ", "-") + ".jpg";
 }
 
 function GetMoviePoster(posters, movieName) {
     // TODO - poster object is not getting populated hence it returns the null poster object. Hence we had to add if/else block
     var posterPath;
-    if (posters == null || posters == "undefined") {
+    if (!posters) {
         //posterPath = "/Posters/Images/default-movie.jpg";
         posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";
-    }
-    else {
+    } else {
+        // TODO - fix this, doesn't seem right
         var posters = JSON.parse(posters);
-        for (var j = posters.length - 1; j > -1; j--) {
+        if (posters && posters.length && posters.length > 1) {
             posterPath = "/Posters/Images/" + posters[j];
-            break;
+        } else {
+            //posterPath = "/Posters/Images/default-movie.jpg";
+            posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";
         }
     }
 
     return posterPath;
 }
 
-function CleanName(name) {
+function FormPathFromName(name) {
     return name.split(' ').join("-").split('.').join('');
 }
