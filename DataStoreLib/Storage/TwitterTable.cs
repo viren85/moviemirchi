@@ -48,30 +48,5 @@ namespace DataStoreLib.Storage
 
             return returnDict;
         }
-
-
-        public IDictionary<string, TEntity> GetReviewByMovieAndReviewId<TEntity>(string twitterId) where TEntity : DataStoreLib.Models.TableEntity
-        {
-            var operationList = new Dictionary<string, TableResult>();
-
-            TableQuery<TwitterEntity> query = new TableQuery<TwitterEntity>().Where(
-                                                                TableQuery.GenerateFilterCondition("TwitterId", QueryComparisons.Equal, twitterId)
-                                                                );
-            IEnumerable<TwitterEntity> updateReviewResult = _table.ExecuteQuery<TwitterEntity>(query);
-            var returnDict = new Dictionary<string, TEntity>();
-            int iter = 0;
-            foreach (var tableResult in updateReviewResult)
-            {
-
-                TEntity entity = null;
-
-                entity = tableResult as TEntity;
-
-                returnDict.Add(tableResult.TwitterId, entity);
-                iter++;
-            }
-
-            return returnDict;
-        }
     }
 }

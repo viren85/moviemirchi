@@ -12,6 +12,7 @@ using System.Configuration;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Net;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web.Mvc;
@@ -336,6 +337,53 @@ namespace MvcWebRole2.Controllers
             }
         }
 
+        [HttpGet]
+        public void GetNews()
+        {
+            try
+            {
+                XmlDocument xdoc = new XmlDocument();
+
+                string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+                string filePath = Path.Combine(basePath, "News.xml");
+                string newsXml = string.Empty;
+
+                xdoc.Load(filePath);
+                var items = xdoc.SelectSingleNode("News/Link");
+                if (items != null)
+                {
+                    foreach (XmlNode item in items)
+                    {
+                        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(item.InnerText);
+                        HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            #region Get Review Page Content
+                            Stream receiveStream = response.GetResponseStream();
+                            StreamReader readStream = null;
+                            if (response.CharacterSet == null)
+                                readStream = new StreamReader(receiveStream);
+                            else
+                                readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+
+                            newsXml = readStream.ReadToEnd();
+                            List<NewsEntity> news = ParseNewsItems(newsXml, item.ParentNode.Attributes["type"].Value);
+                            TableManager tblMgr = new TableManager();
+                            tblMgr.UpdateNewsById(news);
+                            response.Close();
+                            readStream.Close();
+                            #endregion
+                        }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
         [HttpPost]
         public ActionResult Register(string userJson)
         {
@@ -449,6 +497,99 @@ namespace MvcWebRole2.Controllers
         {
             const string format = "ddd MMM dd HH:mm:ss zzzz yyyy";
             return DateTime.ParseExact(date, format, CultureInfo.InvariantCulture);
+        }
+
+        private List<NewsEntity> ParseNewsItems(string xml, string type)
+        {
+            XmlDocument doc = new XmlDocument();
+            try
+            {
+                doc.LoadXml(xml);
+                List<NewsEntity> newsList = new List<NewsEntity>();
+
+                // Need mechanism to track the last news publish date. Currently it will add news instead of update each time. 
+                switch (type)
+                {
+                    case "BollywoodNewsWorld":
+                        #region BollywoodNewsWorld
+                        var nodes = doc.SelectNodes("rss/channel/item");
+                        foreach (XmlNode node in nodes)
+                        {
+                            NewsEntity news = new NewsEntity();
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.FutureJson = string.Empty;
+                            news.Image = string.Empty;
+                            news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
+                            news.Source = type;
+                            news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            newsList.Add(news);
+                        }
+                        #endregion
+                        break;
+                    case "GlamSham":
+                        #region GlamSham
+                        var items1 = doc.SelectNodes("rss/channel/item");
+                        foreach (XmlNode node in items1)
+                        {
+                            NewsEntity news = new NewsEntity();
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.FutureJson = string.Empty;
+                            news.Image = node.SelectSingleNode("img_scoop") == null ? string.Empty : node.SelectSingleNode("img_scoop").InnerText;
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
+                            news.Source = type;
+                            news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
+                            news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            newsList.Add(news);
+                        }
+                        #endregion
+                        break;
+                    case "BollywoodHungama":
+                        #region BollywoodHungama
+                        var items2 = doc.SelectNodes("rss/channel/item");
+                        foreach (XmlNode node in items2)
+                        {
+                            NewsEntity news = new NewsEntity();
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.FutureJson = string.Empty;
+                            news.Image = node.SelectSingleNode("image") == null ? string.Empty : node.SelectSingleNode("image").InnerText;
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
+                            news.Source = type;
+                            news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
+                            news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            newsList.Add(news);
+                        }
+                        #endregion
+                        break;
+                    case "HindustanTimes":
+                        #region BollywoodHungama
+                        var items3 = doc.SelectNodes("rss/channel/item");
+                        foreach (XmlNode node in items3)
+                        {
+                            NewsEntity news = new NewsEntity();
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.FutureJson = string.Empty;
+                            news.Image = node.SelectSingleNode("enclosure") == null ? string.Empty : node.SelectSingleNode("enclosure").Attributes["url"].Value;
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
+                            news.Source = type;
+                            news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
+                            news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            newsList.Add(news);
+                        }
+                        #endregion
+                        break;
+                }
+
+                return newsList;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
         #endregion
     }

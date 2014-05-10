@@ -383,6 +383,10 @@ namespace DataStoreLib.Storage
             var tweetTable = TableStore.Instance.GetTable(TableStore.TwitterTableName) as TwitterTable;
             return tweetTable.GetItemsByTwitterId<TwitterEntity>(id);
         }
+
+
+
+
         public IDictionary<TwitterEntity, bool> UpdateTweetById(List<TwitterEntity> tweets)
         {
             var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
@@ -416,6 +420,49 @@ namespace DataStoreLib.Storage
             var result = paginatedTweets.ToDictionary(t => t.Key, t => t.Value);
 
             return result;
+        }
+
+        #endregion
+
+        #region News
+        public IDictionary<string, NewsEntity> GetRecentNews(int startIndex = 0, int pageSize = 20)
+        {
+            var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
+            var allNews = newsTable.GetAllItems<NewsEntity>();
+
+            var activeNews = allNews; //.Where(t => t.Value.Status == "1"); // Pick only active news
+            var sortedNews = activeNews.OrderByDescending(t => t.Value.PublishDate); // Sort by PublishDate
+            var paginatedNews =
+                (startIndex > 0 && pageSize > 0) ?
+                    sortedNews.Skip(startIndex).Take(pageSize) // Skip first x news, and then take next y news
+                    : sortedNews;
+            var result = paginatedNews.ToDictionary(t => t.Key, t => t.Value);
+
+            return result;
+        }
+
+        public IDictionary<string, NewsEntity> GetNewsItems()
+        {
+            var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName) as NewsTable;
+            //return newsTable.GetItemsByTwitterId<NewsEntity>();
+            return null;
+        }
+
+        public IDictionary<NewsEntity, bool> UpdateNewsItemById(List<NewsEntity> news)
+        {
+            var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
+            Debug.Assert(newsTable != null);
+
+            var newsList = new List<DataStoreLib.Models.TableEntity>(news).ConvertAll(x => (ITableEntity)x);
+            var returnOp = newsTable.UpdateItemsById(newsList);
+
+            var returnTranslateOp = new Dictionary<NewsEntity, bool>();
+            foreach (var b in returnOp.Keys)
+            {
+                returnTranslateOp.Add(b as NewsEntity, returnOp[b]);
+            }
+
+            return returnTranslateOp;
         }
         #endregion
     }

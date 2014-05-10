@@ -218,6 +218,7 @@
     <Content Include="App_Data\MovieList-Nov-2013.xml" />
     <Content Include="App_Data\MovieList-Oct-2013.xml" />
     <Content Include="App_Data\MovieList-Sep-2013.xml" />
+    <Content Include="App_Data\News.xml" />
     <Content Include="App_Data\Twitter.xml" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.min.css" />

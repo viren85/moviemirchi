@@ -49,6 +49,7 @@ namespace DataStoreLib.Storage
         public static readonly string UserFavoriteTableName = "UserFavorites";
         public static readonly string PopularOnMovieMirchiName = "PopularOnMovieMirchi";
         public static readonly string TwitterTableName = "Twitter";
+        public static readonly string NewsTableName = "News";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
             new Dictionary<string, Func<CloudTable, Table>>()
@@ -61,7 +62,8 @@ namespace DataStoreLib.Storage
                     {ToBeIndexedTableName, ToBeIndexedTable.CreateTable},
                     {UserFavoriteTableName, UserFavoriteTable.CreateTable},
                     {PopularOnMovieMirchiName, PopularOnMovieMirchiTable.CreateTable},
-                    {TwitterTableName,TwitterTable.CreateTable}
+                    {TwitterTableName,TwitterTable.CreateTable},
+                    {NewsTableName,NewsTable.CreateTable}
                 };
 
         public Table GetTable(string tableName)

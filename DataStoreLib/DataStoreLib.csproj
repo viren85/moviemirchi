@@ -53,6 +53,7 @@
     <Compile Include="Models\MovieInfo.cs" />
     <Compile Include="Models\PopularOnMovieMirchiEntity.cs" />
     <Compile Include="Models\TwitterEntity.cs" />
+    <Compile Include="Models\NewsEntity.cs" />
     <Compile Include="Models\UserEntity.cs" />
     <Compile Include="Models\TableEntity.cs" />
     <Compile Include="Models\MovieEntity.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Storage\TableStore.cs" />
     <Compile Include="Storage\ToBeIndexedTable.cs" />
     <Compile Include="Storage\UserFavoriteTable.cs" />
+    <Compile Include="Storage\NewsTable.cs" />
     <Compile Include="Storage\UserTable.cs" />
     <Compile Include="Utils\ConnectionSettingsSingleton.cs" />
     <Compile Include="Utils\MailManager.cs" />

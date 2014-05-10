@@ -59,6 +59,11 @@ namespace DataStoreLib.Storage
         IDictionary<string, TwitterEntity> GetTweetById(string id);
         IDictionary<TwitterEntity, bool> UpdateTweetById(List<TwitterEntity> tweets);
         #endregion
+
+        #region News table
+        IDictionary<string, NewsEntity> GetNewsItems();
+        IDictionary<NewsEntity, bool> UpdateNewsItemById(List<NewsEntity> newsItems);
+        #endregion
     }
 
     public static class IStoreHelpers
@@ -615,6 +620,33 @@ namespace DataStoreLib.Storage
             return retList[retList.Keys.FirstOrDefault()];
         }
         #endregion
+
+        public static bool UpdateNewsById(this IStore store, List<NewsEntity> news)
+        {
+            Debug.Assert(news != null);
+            //var list = new List<NewsEntity> { news };
+            var retList = store.UpdateNewsItemById(news);
+
+            Debug.Assert(retList.Count == 1);
+            return retList[retList.Keys.FirstOrDefault()];
+        }
+
+        public static List<NewsEntity> GetNewsItems(this IStore store)
+        {
+            var retList = store.GetNewsItems();
+
+            //Debug.Assert(retList.Count == 1);
+
+            List<NewsEntity> news = new List<NewsEntity>();
+
+            if (retList != null && retList.Values != null)
+            {
+                news = (List<NewsEntity>)retList.Values.OrderBy(m => m.Timestamp).ToList();
+            }
+
+            return news; 
+        }
+        
     }
 
 }

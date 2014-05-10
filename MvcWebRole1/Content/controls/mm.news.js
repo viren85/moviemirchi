@@ -1,4 +1,104 @@
-﻿((function ShowNewsControl(feedUrls, selector) {
+﻿function LoadNews() {
+    var newsPath = "../api/News?start=0&page=20";
+    CallHandler(newsPath, ShowNews);
+}
+
+var ShowNews = function (data) {
+    var jdata = JSON.parse(data);
+
+    var news = [];
+    for (var v in jdata) {
+        var t = jdata[v];
+        news.push({
+            title: (t.Title || ""),
+            description: (t.Description || ""),
+        });
+    }
+    
+    var ne = new NewsControl(".news-container", news);
+    ne.startTimer(12000);
+}
+
+var newsData;
+
+var iterator = function (a, n) {
+    var current = 0,
+        l = a.length;
+    return function () {
+        end = current + n;
+        var part = a.slice(current, end);
+        if (end > l) {
+            end = end % l;
+            part = part.concat(a.slice(0, end));
+        }
+        current = end;
+        return part;
+    };
+};
+
+var NewsControl = function (selector, data) {
+
+    var _selector = selector;
+    var _data = data;
+    var _n = 4;
+    var _iterator = new iterator(_data, _n);
+    var _cells, _timer;
+
+    // Setup
+    (function () {
+        $(selector).html(
+            "<div class='tweet-container'>" +
+                "<div class='tweet-left'></div>" +
+                "<div class='tweet-right'></div>" +
+            "</div>");
+
+        var left = $(_selector + " .tweet-container .tweet-left");
+        var right = $(_selector + " .tweet-container .tweet-right");
+
+        var html =
+            "<div class=\"tweet-cell\">" +
+                "<div class=\"tweet-user\"></div>" +
+                "<div class=\"tweet-content\"></div>" +
+            "</div>";
+        left.append(html).append(html);
+        right.append(html).append(html);
+
+        _cells = $(_selector + " .tweet-container").find(".tweet-cell");
+    })();
+
+    NewsControl.prototype.render = function () {
+        var newsItems = _iterator();
+        $.each(newsItems, function (index, n) {
+            var cell = $(_cells[index]);
+            var children = cell.children();
+            children.fadeOut(1000, function () {
+                var txt = n.description.length > 100 ? n.description.substring(0, 100) + "..." : n.description;
+                cell.find(".tweet-user").text(n.title);
+                cell.find(".tweet-content").text(txt);
+                children.fadeIn(2000);
+            });
+        });
+    };
+
+    NewsControl.prototype.startTimer = function (timeout) {
+        timeout = (timeout) ? timeout : 6000;
+        var threadRender = this.render;
+        _timer = setInterval(function () {
+            threadRender();
+        }, timeout);
+    };
+
+    NewsControl.prototype.stopTimer = function () {
+        if (_timer) {
+            clearInterval(_timer);
+            _timer = null;
+        }
+    };
+
+    // First render
+    NewsControl.prototype.render();
+};
+/*((function ShowNewsControl(feedUrls, selector) {
 
     var render = function (entries) {
 
@@ -158,3 +258,4 @@
             "http://www.bollywoodhungama.com/rss/news.xml",
             "http://feeds.hindustantimes.com/HT-Bollywood"
 ], ".news-container ul"));
+*/
