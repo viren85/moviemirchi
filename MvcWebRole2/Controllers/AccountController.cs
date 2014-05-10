@@ -126,7 +126,7 @@ namespace MvcWebRole2.Controllers
                 {
                     xdoc.Load(filePath);
 
-                    var movies = xdoc.SelectNodes("Movies/Month[@name='November']/Movie");
+                    var movies = xdoc.SelectNodes("Movies/Month[@name='October']/Movie");
 
                     if (movies == null)
                         continue;

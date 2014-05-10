@@ -27,6 +27,11 @@ namespace DataStoreLib.Models
         public string Month { get; set; }
         public string Year { get; set; }
         public string UniqueName { get; set; }
+        public string State { get; set; }
+        public string MyScore { get; set; }
+
+        // For future use
+        public string JsonString { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
@@ -47,6 +52,9 @@ namespace DataStoreLib.Models
             Month = ReadString(properties, "Month");
             Year = ReadString(properties, "Year");
             UniqueName = ReadString(properties, "UniqueName");
+            State = ReadString(properties, "State");
+            MyScore = ReadString(properties, "MyScore");
+            JsonString = ReadString(properties, "JsonString");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
@@ -68,6 +76,9 @@ namespace DataStoreLib.Models
             WriteString(dict, "Year", Year);
             WriteString(dict, "Genre", Genre);
             WriteString(dict, "UniqueName", UniqueName);
+            WriteString(dict, "State", State);
+            WriteString(dict, "MyScore", MyScore);
+            WriteString(dict, "JsonString", JsonString);
 
             return dict;
         }
@@ -101,6 +112,9 @@ namespace DataStoreLib.Models
             Month = entity.Month;
             Year = entity.Year;
             UniqueName = entity.UniqueName;
+            State = entity.State;
+            MyScore = entity.MyScore;
+            JsonString = entity.JsonString;
         }
 
         public override string GetKey()
@@ -120,7 +134,10 @@ namespace DataStoreLib.Models
                                                     string genre,
                                                     string month,
                                                     string year,
-                                                    string uniqueName)
+                                                    string uniqueName,
+                                                    string state,
+                                                    string myScore,
+                                                    string jsonString)
         {
             var movieId = Guid.NewGuid().ToString();
             var entity = new MovieEntity(movieId);
@@ -138,6 +155,9 @@ namespace DataStoreLib.Models
             entity.Month = month;
             entity.Year = year;
             entity.UniqueName = uniqueName;
+            entity.State = state;
+            entity.MyScore = myScore;
+            entity.JsonString = jsonString;
 
             return entity;
         }

@@ -106,6 +106,8 @@ namespace Crawler.Reviews
                     re.Review = review.Trim();
                     re.ReviewerName = reviewName.Trim();
                     re.ReviewerRating = rating.ToString();
+                    re.MyScore = string.Empty;
+                    re.JsonString = string.Empty;
                     return re;
                 }
             }
