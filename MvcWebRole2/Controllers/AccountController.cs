@@ -321,7 +321,9 @@ namespace MvcWebRole2.Controllers
                                     ResultType = mmTweetData.SearchMetaData.ResultType,
                                     LanguageCode = mmTweetData.SearchMetaData.IsoLanguageCode,
                                     Created_At = ParseTwitterDateTime(mmTweetData.CreatedAt),
-                                    Status = "-1"
+                                    Status = "-1",
+                                    TweetType = item.Attributes["type"].Value,
+                                    MovieName = item.Attributes["movie-name"].Value
                                 };
 
                                 tblMgr.UpdateTweetById(myTweet);

@@ -1,11 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Search>
   <WhiteList>
-    <Item>bollywoodmantra‎</Item>
-    <Item>bollywoodnews36‎‎</Item>
-    <Item>Bollyhungama‎‎</Item>
+    <!--<Item type="general">bollywoodmantra‎</Item>
+    <Item type="general">bollywoodnews36‎‎</Item>
+    <Item type="general">Bollyhungama‎‎</Item>-->
+    <Item type="movie" movie-name="boss">TheAsliBoss</Item>
+    <Item type="movie" movie-name="mickey-virus">MickeyVirusFilm</Item>
   </WhiteList>
-  <BlackList>
+  <!--<BlackList>
     <Item>MovieMirchi,MovieMichi</Item>
-  </BlackList>
+  </BlackList>-->
 </Search>
