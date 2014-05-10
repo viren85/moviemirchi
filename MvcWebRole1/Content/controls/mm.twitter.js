@@ -70,9 +70,12 @@ var TwitterControl = function (selector, data) {
             var cell = $(_cells[index]);
             var children = cell.children();
             children.fadeOut(1000, function () {
-                var txt = tweet.text.length > 100 ? tweet.text.substring(0, 100) + "..." : tweet.text;
+                var txt = tweet.text;
+                txt = txt.length > 100 ?
+                    txt.substring(0, 100) + "..." :
+                    txt;
                 cell.find(".tweet-user").text(tweet.twitterid);
-                cell.find(".tweet-content").text(tweet.text);
+                cell.find(".tweet-content").text(txt);
                 children.fadeIn(2000);
             });
         });
