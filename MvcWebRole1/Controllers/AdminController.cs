@@ -39,8 +39,6 @@ namespace MvcWebRole1.Controllers
 
                 if (movie != null)
                 {
-                    SetConnectionString();
-
                     var tableMgr = new TableManager();
                     MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(movie.Name);
 
@@ -54,11 +52,7 @@ namespace MvcWebRole1.Controllers
                         tableMgr.UpdateMovieById(oldEntity);
                     }
 
-
                     MovieEntity entity = new MovieEntity();
-
-
-
                     entity.RowKey = entity.MovieId = Guid.NewGuid().ToString();
                     entity.Stats = movie.Stats;
                     entity.Songs = movie.Songs;
@@ -92,18 +86,13 @@ namespace MvcWebRole1.Controllers
             //return View();
         }
 
-
         [HttpGet]
         public ActionResult MovieReview()
         {
-            SetConnectionString();
-
             ViewBag.movie = GetMovie();
-
 
             return View();
         }
-
 
         /// <summary>
         /// Passing json object as param
@@ -125,7 +114,6 @@ namespace MvcWebRole1.Controllers
 
                 if (review != null)
                 {
-                    SetConnectionString();
                     ReviewEntity entity = new ReviewEntity();
                     var rand = new Random((int)DateTimeOffset.UtcNow.Ticks);
 
@@ -159,41 +147,17 @@ namespace MvcWebRole1.Controllers
             return View();
         }
 
-
-        //public IEnumerable<SelectListItem> GetMovie()
-        //{
-        //    var tableMgr = new TableManager();
-        //    var movies = tableMgr.GetSortedMoviesByName().Select(
-        //        x => new SelectListItem
-        //        {
-        //            Value = x.MovieId.ToString(),
-        //            Text = x.Name
-        //        }
-        //        );
-        //    return new SelectList(movies, "Value", "Text");  selectlist
-        //}
-
         public IEnumerable<SelectListItem> GetMovie()
         {
             var tableMgr = new TableManager();
-            var movies = tableMgr.GetSortedMoviesByName().Select(
-                x => new SelectListItem
-                {
-                    Value = x.MovieId.ToString(),
-                    Text = x.Name
-                }
-                );
+            var movies = tableMgr.GetSortedMoviesByName()
+                .Select(
+                    x => new SelectListItem
+                    {
+                        Value = x.MovieId.ToString(),
+                        Text = x.Name
+                    });
             return new SelectList(movies, "Value", "Text");
-        }
-
-
-
-
-        private void SetConnectionString()
-        {
-            var connectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
-            Trace.TraceInformation("Connection str read");
-            ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
         }
 
         [HttpGet]
@@ -216,7 +180,6 @@ namespace MvcWebRole1.Controllers
                 AffilationEntity affil = json.Deserialize(hfAffilations, typeof(AffilationEntity)) as AffilationEntity;
                 if (affil != null)
                 {
-                    SetConnectionString();
                     AffilationEntity entity = new AffilationEntity();
 
                     entity.RowKey = entity.AffilationId = Guid.NewGuid().ToString();
@@ -253,8 +216,6 @@ namespace MvcWebRole1.Controllers
         [HttpGet]
         public ActionResult Reviewer()
         {
-            SetConnectionString();
-
             ViewBag.affilation = GetAffilationName();
             return View();
         }
@@ -273,7 +234,6 @@ namespace MvcWebRole1.Controllers
                 ReviewerEntity reviewer = json.Deserialize(hfReviewer, typeof(ReviewerEntity)) as ReviewerEntity;
                 if (reviewer != null)
                 {
-                    SetConnectionString();
                     ReviewerEntity entity = new ReviewerEntity();
 
                     entity.RowKey = entity.ReviewerId = Guid.NewGuid().ToString();

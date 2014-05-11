@@ -3,7 +3,6 @@ namespace DataStoreLib.Storage
 {
     using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage.Table;
-    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -26,7 +25,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="userIds"></param>
         /// <returns></returns>
-        public IDictionary<string, UserEntity> GetUsersById(List<string> userIds)
+        public IDictionary<string, UserEntity> GetUsersById(IEnumerable<string> userIds)
         {
             var userTable = TableStore.Instance.GetTable(TableStore.UserTableName);
             return userTable.GetItemsById<UserEntity>(userIds);
@@ -45,20 +44,28 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="users"></param>
         /// <returns></returns>
-        public IDictionary<UserEntity, bool> UpdateUsersById(List<Models.UserEntity> users)
+        public IDictionary<UserEntity, bool> UpdateUsersById(IEnumerable<Models.UserEntity> users)
         {
             var userTable = TableStore.Instance.GetTable(TableStore.UserTableName);
             Debug.Assert(userTable != null);
 
-            var userList = new List<DataStoreLib.Models.TableEntity>(users).ConvertAll(x => (ITableEntity)x);
-            var returnOp = userTable.UpdateItemsById(userList);
+            var updateResult = userTable.UpdateItemsById(users.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as UserEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<UserEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as UserEntity, returnOp[b]);
-            }
-            return returnTranslateOp;
+            ////TODO: Clean comments
+            ////var userList = new List<DataStoreLib.Models.TableEntity>(users).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = userTable.UpdateItemsById(userList);
+
+            ////var returnTranslateOp = new Dictionary<UserEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as UserEntity, returnOp[b]);
+            ////}
+            ////return returnTranslateOp;
 
         }
         #endregion
@@ -78,7 +85,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IDictionary<string, MovieEntity> GetMoviesByid(List<string> ids)
+        public IDictionary<string, MovieEntity> GetMoviesById(IEnumerable<string> ids)
         {
             var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
             return movieTable.GetItemsById<MovieEntity>(ids);
@@ -98,20 +105,28 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="movies"></param>
         /// <returns></returns>
-        public IDictionary<MovieEntity, bool> UpdateMoviesById(List<Models.MovieEntity> movies)
+        public IDictionary<MovieEntity, bool> UpdateMoviesById(IEnumerable<MovieEntity> movies)
         {
             var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
             Debug.Assert(movieTable != null);
 
-            var movieList = new List<DataStoreLib.Models.TableEntity>(movies).ConvertAll(x => (ITableEntity)x);
-            var returnOp = movieTable.UpdateItemsById(movieList);
+            var updateResult = movieTable.UpdateItemsById(movies.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as MovieEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<MovieEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as MovieEntity, returnOp[b]);
-            }
-            return returnTranslateOp;
+            ////TODO: Clean comments
+            ////var movieList = new List<DataStoreLib.Models.TableEntity>(movies).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = movieTable.UpdateItemsById(movieList);
+
+            ////var returnTranslateOp = new Dictionary<MovieEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as MovieEntity, returnOp[b]);
+            ////}
+            ////return returnTranslateOp;
         }
         #endregion
 
@@ -142,20 +157,30 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="reviews"></param>
         /// <returns></returns>
-        public IDictionary<ReviewEntity, bool> UpdateReviewsById(IEnumerable<Models.ReviewEntity> reviews)
+        public IDictionary<ReviewEntity, bool> UpdateReviewsById(IEnumerable<ReviewEntity> reviews)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             Debug.Assert(reviewTable != null);
 
-            var reviewList = new List<DataStoreLib.Models.TableEntity>(reviews).ConvertAll(x => (ITableEntity)x);
-            var returnOp = reviewTable.UpdateItemsById(reviewList);
+            var updateResult = reviewTable.UpdateItemsById(reviews.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as ReviewEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<ReviewEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as ReviewEntity, returnOp[b]);
-            }
-            return returnTranslateOp;
+            ////TODO: how is this different from UpdateReviewesByReviewerId?
+
+            ////TODO: Clean comments
+            ////var reviewList = new List<DataStoreLib.Models.TableEntity>(reviews).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = reviewTable.UpdateItemsById(reviewList);
+
+            ////var returnTranslateOp = new Dictionary<ReviewEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as ReviewEntity, returnOp[b]);
+            ////}
+            ////return returnTranslateOp;
         }
         /// <summary>
         /// Return the reviews by movieid
@@ -182,20 +207,28 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="review"></param>
         /// <returns></returns>
-        public IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(IEnumerable<ReviewEntity> review)
+        public IDictionary<ReviewEntity, bool> UpdateReviewesByReviewerId(IEnumerable<ReviewEntity> reviews)
         {
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             Debug.Assert(reviewTable != null);
 
-            var reviewerList = new List<DataStoreLib.Models.TableEntity>(review).ConvertAll(x => (ITableEntity)x);
-            var returnOp = reviewTable.UpdateItemsById(reviewerList);
+            var updateResult = reviewTable.UpdateItemsById(reviews.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as ReviewEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<ReviewEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as ReviewEntity, returnOp[b]);
-            }
-            return returnTranslateOp;
+            ////TODO: Clean comments
+            ////var reviewerList = new List<DataStoreLib.Models.TableEntity>(review).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = reviewTable.UpdateItemsById(reviewerList);
+
+            ////var returnTranslateOp = new Dictionary<ReviewEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as ReviewEntity, returnOp[b]);
+            ////}
+            ////return returnTranslateOp;
         }
 
         /// <summary>
@@ -203,12 +236,11 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IDictionary<string, ReviewEntity> UpdateReviewesByReviewerId(List<string> ids)
+        public IDictionary<string, ReviewEntity> UpdateReviewesByReviewerId(IEnumerable<string> ids)
         {
             // var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
             var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
             return reviewerTable.GetItemsById<ReviewEntity>(ids);
-
         }
         #endregion
 
@@ -218,7 +250,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="reviewerIds"></param>
         /// <returns></returns>
-        public IDictionary<string, ReviewerEntity> GetReviewerById(List<string> reviewerIds)
+        public IDictionary<string, ReviewerEntity> GetReviewerById(IEnumerable<string> reviewerIds)
         {
             var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
             return reviewerTable.GetItemsById<ReviewerEntity>(reviewerIds);
@@ -228,7 +260,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IDictionary<string, Models.ReviewerEntity> GetReviewersById(List<string> ids)
+        public IDictionary<string, Models.ReviewerEntity> GetReviewersById(IEnumerable<string> ids)
         {
             var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
             return reviewerTable.GetItemsById<ReviewerEntity>(ids);
@@ -238,20 +270,28 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="reviewers"></param>
         /// <returns></returns>
-        public IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewers)
+        public IDictionary<ReviewerEntity, bool> UpdateReviewers(IEnumerable<ReviewerEntity> reviewers)
         {
             var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName);
             Debug.Assert(reviewerTable != null);
 
-            var reviewerList = new List<DataStoreLib.Models.TableEntity>(reviewers).ConvertAll(x => (ITableEntity)x);
-            var returnOp = reviewerTable.UpdateItemsById(reviewerList);
+            var updateResult = reviewerTable.UpdateItemsById(reviewers.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as ReviewerEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<ReviewerEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as ReviewerEntity, returnOp[b]);
-            }
-            return returnTranslateOp;
+            ////TODO: Clean comments
+            ////var reviewerList = new List<DataStoreLib.Models.TableEntity>(reviewers).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = reviewerTable.UpdateItemsById(reviewerList);
+
+            ////var returnTranslateOp = new Dictionary<ReviewerEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as ReviewerEntity, returnOp[b]);
+            ////}
+            ////return returnTranslateOp;
         }
         /// <summary>
         /// Return all reviewer
@@ -272,7 +312,7 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        public IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> ids)
+        public IDictionary<string, AffilationEntity> GetAffilationsByid(IEnumerable<string> ids)
         {
             var affilationTable = TableStore.Instance.GetTable(TableStore.AffilationTableName);
             return affilationTable.GetItemsById<AffilationEntity>(ids);
@@ -282,20 +322,28 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="affilations"></param>
         /// <returns></returns>
-        public IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilations)
+        public IDictionary<AffilationEntity, bool> UpdateAffilationsById(IEnumerable<AffilationEntity> affilations)
         {
             var affilationTable = TableStore.Instance.GetTable(TableStore.AffilationTableName);
             Debug.Assert(affilationTable != null);
 
-            var afillationList = new List<DataStoreLib.Models.TableEntity>(affilations).ConvertAll(x => (ITableEntity)x);
-            var returnOp = affilationTable.UpdateItemsById(afillationList);
+            var updateResult = affilationTable.UpdateItemsById(affilations.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as AffilationEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<AffilationEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as AffilationEntity, returnOp[b]);
-            }
-            return returnTranslateOp;
+            ////TODO: Clean comments
+            ////var afillationList = new List<DataStoreLib.Models.TableEntity>(affilations).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = affilationTable.UpdateItemsById(afillationList);
+
+            ////var returnTranslateOp = new Dictionary<AffilationEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as AffilationEntity, returnOp[b]);
+            ////}
+            ////return returnTranslateOp;
         }
         /// <summary>
         /// Return all affiliations
@@ -309,7 +357,7 @@ namespace DataStoreLib.Storage
         #endregion
 
         #region User favorites tables functions
-        public IDictionary<string, UserFavoriteEntity> GetUserFavoritesById(List<string> ids)
+        public IDictionary<string, UserFavoriteEntity> GetUserFavoritesById(IEnumerable<string> ids)
         {
             var userFavoritesTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName);
             return userFavoritesTable.GetItemsById<UserFavoriteEntity>(ids);
@@ -321,7 +369,7 @@ namespace DataStoreLib.Storage
             return userFavoriteTable.GetUserFavoritesByUserId(userId);
         }
 
-        public IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(List<Models.UserFavoriteEntity> userFavorites)
+        public IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(IEnumerable<Models.UserFavoriteEntity> userFavorites)
         {
             var userFavoriteTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName);
             Debug.Assert(userFavoriteTable != null);
@@ -339,13 +387,13 @@ namespace DataStoreLib.Storage
         #endregion
 
         #region Popular on movie mirchi table
-        public IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(List<string> ids)
+        public IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(IEnumerable<string> ids)
         {
             var popularOnMoiveMirchiTable = TableStore.Instance.GetTable(TableStore.PopularOnMovieMirchiName);
             return popularOnMoiveMirchiTable.GetItemsById<PopularOnMovieMirchiEntity>(ids);
         }
 
-        public IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(List<Models.PopularOnMovieMirchiEntity> popularOnMovieMirchis)
+        public IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(IEnumerable<Models.PopularOnMovieMirchiEntity> popularOnMovieMirchis)
         {
             var popularOnMoiveMirchiTable = TableStore.Instance.GetTable(TableStore.PopularOnMovieMirchiName);
             Debug.Assert(popularOnMoiveMirchiTable != null);
@@ -364,18 +412,29 @@ namespace DataStoreLib.Storage
 
         #region Twitter
 
-        public bool IsTweetExist(List<string> ids)
+        /// <summary>
+        /// TODO: Please add comments here
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        public bool IsTweetExist(IEnumerable<string> ids)
         {
             var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
-
             var retList = twitterTable.GetItemsById<TwitterEntity>(ids);
+            return
+                retList
+                    .Any(tweet => tweet.Value != null);
 
-            foreach (var item in retList)
-            {
-                return (item.Value != null);
-            }
+            //// TODO: Given that this method has no comments and poor code - it is ambigous as of now.
+            //// I have no idea what are the intentions here - so revisit my code when you clean this up
 
-            return false;
+            ////TODO: Clean comments
+            ////foreach (var item in retList)
+            ////{
+            ////    return (item.Value != null);
+            ////}
+
+            ////return false;
         }
 
         public IDictionary<string, TwitterEntity> GetTweetById(string id)
@@ -384,24 +443,29 @@ namespace DataStoreLib.Storage
             return tweetTable.GetItemsByTwitterId<TwitterEntity>(id);
         }
 
-
-
-
-        public IDictionary<TwitterEntity, bool> UpdateTweetById(List<TwitterEntity> tweets)
+        public IDictionary<TwitterEntity, bool> UpdateTweetById(IEnumerable<TwitterEntity> tweets)
         {
             var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
             Debug.Assert(twitterTable != null);
 
-            var tweetList = new List<DataStoreLib.Models.TableEntity>(tweets).ConvertAll(x => (ITableEntity)x);
-            var returnOp = twitterTable.UpdateItemsById(tweetList);
+            var updateResult = twitterTable.UpdateItemsById(tweets.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as TwitterEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<TwitterEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as TwitterEntity, returnOp[b]);
-            }
+            ////TODO: Clean comments
+            ////var tweetList = new List<DataStoreLib.Models.TableEntity>(tweets).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = twitterTable.UpdateItemsById(tweetList);
 
-            return returnTranslateOp;
+            ////var returnTranslateOp = new Dictionary<TwitterEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as TwitterEntity, returnOp[b]);
+            ////}
+
+            ////return returnTranslateOp;
         }
 
         // Need method which returns the tweets based on keywords/movie name/actor name etc.
@@ -429,7 +493,7 @@ namespace DataStoreLib.Storage
         {
             var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
             var allNews = newsTable.GetAllItems<NewsEntity>();
-
+            // TODO: Uncomment the Where once we have the system end-to-end hooked up
             var activeNews = allNews; //.Where(t => t.Value.Status == "1"); // Pick only active news
             var sortedNews = activeNews.OrderByDescending(t => t.Value.PublishDate); // Sort by PublishDate
             var paginatedNews =
@@ -445,24 +509,33 @@ namespace DataStoreLib.Storage
         {
             var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName) as NewsTable;
             //return newsTable.GetItemsByTwitterId<NewsEntity>();
+
+            ////TODO: Fix this
             return null;
         }
 
-        public IDictionary<NewsEntity, bool> UpdateNewsItemById(List<NewsEntity> news)
+        public IDictionary<NewsEntity, bool> UpdateNewsItemById(IEnumerable<NewsEntity> news)
         {
             var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
-            Debug.Assert(newsTable != null);
+            ////Debug.Assert(newsTable != null);
 
-            var newsList = new List<DataStoreLib.Models.TableEntity>(news).ConvertAll(x => (ITableEntity)x);
-            var returnOp = newsTable.UpdateItemsById(newsList);
+            var updateResult = newsTable.UpdateItemsById(news.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as NewsEntity,
+                        pair => pair.Value);
 
-            var returnTranslateOp = new Dictionary<NewsEntity, bool>();
-            foreach (var b in returnOp.Keys)
-            {
-                returnTranslateOp.Add(b as NewsEntity, returnOp[b]);
-            }
+            ////TODO: Clean comments
+            ////var newsList = new List<DataStoreLib.Models.TableEntity>(news).ConvertAll(x => (ITableEntity)x);
+            ////var returnOp = newsTable.UpdateItemsById(newsList);
+            ////var returnTranslateOp = new Dictionary<NewsEntity, bool>();
+            ////foreach (var b in returnOp.Keys)
+            ////{
+            ////    returnTranslateOp.Add(b as NewsEntity, returnOp[b]);
+            ////}
 
-            return returnTranslateOp;
+            ////return returnTranslateOp;
         }
         #endregion
     }

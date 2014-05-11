@@ -14,15 +14,6 @@ namespace MvcWebRole2.Controllers
 {
     public class ReviewController : Controller
     {
-        #region Set Connection string
-        private void SetConnectionString()
-        {
-            var connectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
-            Trace.TraceInformation("Connection str read");
-            ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
-        }
-        #endregion
-
         [HttpGet]
         public ActionResult AddMovieReview()
         {
@@ -41,28 +32,26 @@ namespace MvcWebRole2.Controllers
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
 
-
-                ReviewEntity affil = json.Deserialize(reviewJson, typeof(ReviewEntity)) as ReviewEntity;
-                if (affil != null)
+                ReviewEntity review = json.Deserialize(reviewJson, typeof(ReviewEntity)) as ReviewEntity;
+                if (review != null)
                 {
-                    SetConnectionString();
                     ReviewEntity entity = new ReviewEntity();
                     TableManager tblMgr = new TableManager();
                     //var review = tblMgr.GetReviewDetailById(entity.ReviewerId, entity.MovieId);
 
-                    if (affil.ReviewId != "")
+                    if (review.ReviewId != string.Empty)
                     {
                         return Json(new { Status = "Exist" }, JsonRequestBehavior.AllowGet);
                     }
                     else
                     {
                         entity.RowKey = entity.ReviewId = Guid.NewGuid().ToString();
-                        entity.MovieId = affil.MovieId;
-                        entity.ReviewerId = affil.ReviewerId;
-                        entity.ReviewerRating = affil.ReviewerRating;
-                        entity.Review = affil.Review;
-                        entity.OutLink = affil.OutLink;
-                        entity.Summary = affil.Summary;
+                        entity.MovieId = review.MovieId;
+                        entity.ReviewerId = review.ReviewerId;
+                        entity.ReviewerRating = review.ReviewerRating;
+                        entity.Review = review.Review;
+                        entity.OutLink = review.OutLink;
+                        entity.Summary = review.Summary;
                         tblMgr.UpdateReviewById(entity);
                     }
                 }
@@ -88,8 +77,6 @@ namespace MvcWebRole2.Controllers
         [HttpPost]
         public ActionResult UpdateMovieReview(string hfUpdateMovieReview)
         {
-            SetConnectionString();
-
             if (string.IsNullOrEmpty(hfUpdateMovieReview))
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
@@ -118,11 +105,8 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception)
             {
-
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
-
-
 
             return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
@@ -130,38 +114,41 @@ namespace MvcWebRole2.Controllers
         public ActionResult GetReviewDetailByReviewerId(string query)
         {
             string[] ids = query.Split(',');
-            TableManager tblMgr = new TableManager();
-            var review = tblMgr.GetReviewDetailById(ids[0], ids[1]);
-            return Json(review, JsonRequestBehavior.AllowGet);
+            if (ids.Length >= 2)
+            {
+                TableManager tblMgr = new TableManager();
+                var review = tblMgr.GetReviewDetailById(ids[0], ids[1]);
+                return Json(review, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("{}", JsonRequestBehavior.AllowGet);
+            }
         }
 
         public IEnumerable<SelectListItem> GetReviewer()
         {
             var tableMgr = new TableManager();
-            var reviewers = tableMgr.GetSortedReviewerByName().Select(
-                x => new SelectListItem
-                {
-                    Value = x.ReviewerId.ToString(),
-                    Text = x.ReviewerName
-                }
-                );
+            var reviewers = tableMgr.GetSortedReviewerByName()
+                .Select(x => new SelectListItem
+                    {
+                        Value = x.ReviewerId.ToString(),
+                        Text = x.ReviewerName
+                    });
             return new SelectList(reviewers, "Value", "Text");
         }
 
         public IEnumerable<SelectListItem> GetMovie()
         {
             var tableMgr = new TableManager();
-            var movies = tableMgr.GetSortedMoviesByName().Select(
-                x => new SelectListItem
-                {
-                    Value = x.MovieId.ToString(),
-                    Text = x.Name
-                }
-                );
+            var movies = tableMgr.GetSortedMoviesByName()
+                .Select(x => new SelectListItem
+                    {
+                        Value = x.MovieId.ToString(),
+                        Text = x.Name
+                    });
             return new SelectList(movies, "Value", "Text");
         }
-
-
 
     }
 }

@@ -12,16 +12,16 @@ namespace DataStoreLib.Storage
     {
         #region Login
         IDictionary<string, UserEntity> GetAllUser();
-        IDictionary<string, UserEntity> GetUsersById(List<string> userId);
+        IDictionary<string, UserEntity> GetUsersById(IEnumerable<string> userId);
         IDictionary<string, UserEntity> GetUsersByName(string userName);
-        IDictionary<UserEntity, bool> UpdateUsersById(List<UserEntity> user);
+        IDictionary<UserEntity, bool> UpdateUsersById(IEnumerable<UserEntity> user);
         #endregion
 
         #region Movie
         IDictionary<string, MovieEntity> GetAllMovies();
-        IDictionary<string, MovieEntity> GetMoviesByid(List<string> id);
+        IDictionary<string, MovieEntity> GetMoviesById(IEnumerable<string> id);
         IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name);
-        IDictionary<MovieEntity, bool> UpdateMoviesById(List<MovieEntity> movies);
+        IDictionary<MovieEntity, bool> UpdateMoviesById(IEnumerable<MovieEntity> movies);
         #endregion
 
         #region Review
@@ -35,34 +35,34 @@ namespace DataStoreLib.Storage
 
         #region Reviewer
         IDictionary<string, ReviewerEntity> GetAllReviewer();
-        IDictionary<string, ReviewerEntity> GetReviewersById(List<string> id);
-        IDictionary<ReviewerEntity, bool> UpdateReviewers(List<ReviewerEntity> reviewer);
+        IDictionary<string, ReviewerEntity> GetReviewersById(IEnumerable<string> id);
+        IDictionary<ReviewerEntity, bool> UpdateReviewers(IEnumerable<ReviewerEntity> reviewer);
         #endregion
 
         #region Affiliation
         IDictionary<string, AffilationEntity> GetAllAffilation();
-        IDictionary<string, AffilationEntity> GetAffilationsByid(List<string> id);
-        IDictionary<AffilationEntity, bool> UpdateAffilationsById(List<AffilationEntity> affilation);
+        IDictionary<string, AffilationEntity> GetAffilationsByid(IEnumerable<string> id);
+        IDictionary<AffilationEntity, bool> UpdateAffilationsById(IEnumerable<AffilationEntity> affilation);
         #endregion
 
         #region User favorites tables functions
-        IDictionary<string, UserFavoriteEntity> GetUserFavoritesById(List<string> ids);
-        IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(List<Models.UserFavoriteEntity> userFavorites);
+        IDictionary<string, UserFavoriteEntity> GetUserFavoritesById(IEnumerable<string> ids);
+        IDictionary<UserFavoriteEntity, bool> UpdateUserFavoritesById(IEnumerable<Models.UserFavoriteEntity> userFavorites);
         #endregion
 
         #region Popular on movie mirchi table
-        IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(List<string> id);
-        IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(List<PopularOnMovieMirchiEntity> popularOnMovieMirchi);
+        IDictionary<string, PopularOnMovieMirchiEntity> GetPopularOnMovieMirchisById(IEnumerable<string> id);
+        IDictionary<PopularOnMovieMirchiEntity, bool> UpdatePopularOnMovieMirchisById(IEnumerable<PopularOnMovieMirchiEntity> popularOnMovieMirchi);
         #endregion
 
         #region Twitter table
         IDictionary<string, TwitterEntity> GetTweetById(string id);
-        IDictionary<TwitterEntity, bool> UpdateTweetById(List<TwitterEntity> tweets);
+        IDictionary<TwitterEntity, bool> UpdateTweetById(IEnumerable<TwitterEntity> tweets);
         #endregion
 
         #region News table
         IDictionary<string, NewsEntity> GetNewsItems();
-        IDictionary<NewsEntity, bool> UpdateNewsItemById(List<NewsEntity> newsItems);
+        IDictionary<NewsEntity, bool> UpdateNewsItemById(IEnumerable<NewsEntity> newsItems);
         #endregion
     }
 
@@ -162,11 +162,12 @@ namespace DataStoreLib.Storage
         public static MovieEntity GetMovieById(this IStore store, string id)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
-            var list = new List<string> { id };
-            var retList = store.GetMoviesByid(list);
+            var list = new string[] { id };
+            var retList = store.GetMoviesById(list);
 
             Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : null;
         }
 
         /// <summary>
@@ -178,14 +179,11 @@ namespace DataStoreLib.Storage
         public static MovieEntity GetMovieByUniqueName(this IStore store, string name)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(name));
-
             var retList = store.GetMoviesByUniqueName(name);
 
             Debug.Assert(retList.Count == 1);
-            if (retList.Count > 0)
-                return retList[retList.Keys.FirstOrDefault()];
-            else
-                return null;
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : null;
         }
         /// <summary>
         /// Update the movie detail by its id 
@@ -200,58 +198,68 @@ namespace DataStoreLib.Storage
             var retList = store.UpdateMoviesById(list);
 
             Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : false;
         }
         /// <summary>
         /// Return the runing movie  
         /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
-        public static List<MovieEntity> GetCurrentMovies(this IStore store)
+        public static IEnumerable<MovieEntity> GetCurrentMovies(this IStore store)
         {
             var retList = store.GetAllMovies();
-            //Debug.Assert(retList.Count == 1);
+            ////TODO Do we need to add month logic? How do we filter to current?
+            return retList.Values;
 
-            List<MovieEntity> currentMovies = new List<MovieEntity>();
+            //// TODO: Clean the comments
+            //////Debug.Assert(retList.Count == 1);
 
-            foreach (var currentMovie in retList.Values)
-            {
+            ////List<MovieEntity> currentMovies = new List<MovieEntity>();
 
-                currentMovies.Add(currentMovie);
-                /*
-                string currentMonth = DateTime.Now.ToString("MMMM");
-                string year = DateTime.Now.Year.ToString();
-                
-                 
-                if (currentMovie.Month == currentMonth && currentMovie.Year == year)
-                {
-                    currentMovies.Add(currentMovie);
-                }*/
-            }
+            ////foreach (var currentMovie in retList.Values)
+            ////{
 
-            return currentMovies;
+            ////    currentMovies.Add(currentMovie);
+            ////    /*
+            ////    string currentMonth = DateTime.Now.ToString("MMMM");
+            ////    string year = DateTime.Now.Year.ToString();
+
+
+            ////    if (currentMovie.Month == currentMonth && currentMovie.Year == year)
+            ////    {
+            ////        currentMovies.Add(currentMovie);
+            ////    }*/
+            ////}
+
+            ////return currentMovies;
         }
 
-        public static List<MovieEntity> GetUpcomingMovies(this IStore store)
+        public static IEnumerable<MovieEntity> GetUpcomingMovies(this IStore store)
         {
             var retList = store.GetAllMovies();
-
-            List<MovieEntity> upcomingMovies = new List<MovieEntity>();
-
-            foreach (var upcomingMovie in retList.Values)
-            {
+            return
+                retList.Values
                 // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
-                if (string.IsNullOrEmpty(upcomingMovie.Trailers) || upcomingMovie.Trailers.ToLower() == "upcoming")
-                    upcomingMovies.Add(upcomingMovie);
-                else
-                {
-                    // Temp = Assuming Month column will be blank for future releases or movies with future release date shall be returned by this block
-                    // however need to take a call - if we shall rely on date!
+                    .Where(movie => string.IsNullOrEmpty(movie.Trailers) || movie.Trailers.ToLower() == "upcoming");
 
-                }
-            }
+            ////TODO: Clean the comments
+            ////List<MovieEntity> upcomingMovies = new List<MovieEntity>();
 
-            return upcomingMovies;
+            ////foreach (var upcomingMovie in retList.Values)
+            ////{
+            ////    // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
+            ////    if (string.IsNullOrEmpty(upcomingMovie.Trailers) || upcomingMovie.Trailers.ToLower() == "upcoming")
+            ////        upcomingMovies.Add(upcomingMovie);
+            ////    else
+            ////    {
+            ////        // Temp = Assuming Month column will be blank for future releases or movies with future release date shall be returned by this block
+            ////        // however need to take a call - if we shall rely on date!
+
+            ////    }
+            ////}
+
+            ////return upcomingMovies;
         }
 
         /// <summary>
@@ -259,128 +267,177 @@ namespace DataStoreLib.Storage
         /// </summary>
         /// <param name="store"></param>
         /// <returns></returns>
-        public static List<MovieEntity> GetSortedMoviesByName(this IStore store)
+        public static IEnumerable<MovieEntity> GetSortedMoviesByName(this IStore store)
         {
             var retList = store.GetAllMovies();
+            return
+                retList.Values
+                    .OrderBy(movie => movie.Name);
 
-            //Debug.Assert(retList.Count == 1);
+            ////TODO: Clean the comments
+            //////Debug.Assert(retList.Count == 1);
 
-            List<MovieEntity> currentMovies = new List<MovieEntity>();
+            ////List<MovieEntity> currentMovies = new List<MovieEntity>();
 
-            if (retList != null && retList.Values != null)
-            {
-                currentMovies = (List<MovieEntity>)retList.Values.OrderBy(m => m.Name).ToList();
-            }
+            ////if (retList != null && retList.Values != null)
+            ////{
+            ////    currentMovies = (List<MovieEntity>)retList.Values.OrderBy(m => m.Name).ToList();
+            ////}
 
-            return currentMovies;
+            ////return currentMovies;
         }
 
 
         #region Search
-        public static List<MovieEntity> SearchSongs(this IStore store, string searchText)
+        public static IEnumerable<MovieEntity> SearchSongs(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
             Debug.Assert(retList.Count == 1);
 
-            List<MovieEntity> currentSongs = new List<MovieEntity>();
+            searchText = searchText.ToLower();
+            return
+                retList.Values
+                    .Where(movie => movie.Songs.ToLower().Contains(searchText));
 
-            foreach (var currentSong in retList.Values)
-            {
-                if (currentSong.Songs.ToLower().Contains(searchText.ToLower()))
-                {
-                    currentSongs.Add(currentSong);
-                }
-            }
 
-            return currentSongs;
+            ////TODO: What are you returning song that matches the searchtext or movie which has atleast one song that matches the searchtext?
+            //// I guess it is the latter, so you might want to rename the method by GetMovieWithSong
+            //// What is movie.Songs? I would imagine this as a List<string> but it is not. So, I dont know what to expect here.
+
+            ////TODO: Clean comments
+            ////List<MovieEntity> currentSongs = new List<MovieEntity>();
+
+            ////foreach (var currentSong in retList.Values)
+            ////{
+            ////    if (currentSong.Songs.ToLower().Contains(searchText.ToLower()))
+            ////    {
+            ////        currentSongs.Add(currentSong);
+            ////    }
+            ////}
+
+            ////return currentSongs;
         }
-        public static List<MovieEntity> SearchMovies(this IStore store, string searchText)
-        {
-            var retList = store.GetAllMovies();
-
-            List<MovieEntity> currentMovies = new List<MovieEntity>();
-
-            foreach (var currentMovie in retList.Values)
-            {
-                if (currentMovie.Name.ToLower().Contains(searchText.ToLower()))
-                {
-                    currentMovies.Add(currentMovie);
-                }
-            }
-
-            return currentMovies;
-        }
-        public static List<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
-        {
-            var retList = store.GetAllMovies();
-            //Debug.Assert(retList.Count == 1);
-
-            List<MovieEntity> actors = new List<MovieEntity>();
-
-            foreach (var actor in retList.Values)
-            {
-                if (actor.Casts.ToString().ToLower().Contains(searchText.ToLower()))
-                {
-                    actors.Add(actor);
-                }
-            }
-
-            return actors;
-        }
-
-
-        public static List<MovieEntity> SearchTitle(this IStore store, string searchText)
+        public static IEnumerable<MovieEntity> SearchMovies(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
             Debug.Assert(retList.Count == 1);
 
-            List<MovieEntity> titles = new List<MovieEntity>();
+            searchText = searchText.ToLower();
+            return
+                retList.Values
+                    .Where(movie => movie.Name.ToLower().Contains(searchText));
 
-            foreach (var title in retList.Values)
-            {
-                if (title.Name.ToLower().Contains(searchText.ToLower()))
-                {
-                    titles.Add(title);
-                }
-            }
+            ////TODO: Clean comments
+            ////List<MovieEntity> currentMovies = new List<MovieEntity>();
 
-            return titles;
+            ////foreach (var currentMovie in retList.Values)
+            ////{
+            ////    if (currentMovie.Name.ToLower().Contains(searchText.ToLower()))
+            ////    {
+            ////        currentMovies.Add(currentMovie);
+            ////    }
+            ////}
+
+            ////return currentMovies;
         }
-
-        public static List<MovieEntity> SearchTrailer(this IStore store, string searchText)
+        public static IEnumerable<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
             Debug.Assert(retList.Count == 1);
 
-            List<MovieEntity> traileres = new List<MovieEntity>();
+            searchText = searchText.ToLower();
+            return
+                retList.Values
+                    .Where(movie => movie.Casts.ToString().ToLower().Contains(searchText));
 
-            foreach (var trailer in retList.Values)
-            {
-                if (trailer.Trailers.ToLower().Contains(searchText.ToLower()))
-                {
-                    traileres.Add(trailer);
-                }
-            }
+            ////TODO: Clean comments
+            ////List<MovieEntity> actors = new List<MovieEntity>();
 
-            return traileres;
+            ////foreach (var actor in retList.Values)
+            ////{
+            ////    if (actor.Casts.ToString().ToLower().Contains(searchText.ToLower()))
+            ////    {
+            ////        actors.Add(actor);
+            ////    }
+            ////}
+
+            ////return actors;
         }
 
-        public static List<MovieEntity> SearchCharacter(this IStore store, string searchText)
+
+        public static IEnumerable<MovieEntity> SearchTitle(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
             Debug.Assert(retList.Count == 1);
 
-            List<MovieEntity> characters = new List<MovieEntity>();
+            searchText = searchText.ToLower();
+            return
+                retList.Values
+                    .Where(movie => movie.Name.ToLower().Contains(searchText));
 
-            foreach (var character in retList.Values)
-            {
-                if (character.Casts.ToLower().Contains(searchText.ToLower()))
-                {
-                    characters.Add(character);
-                }
-            }
+            //// TODO: How is different from SearchMovies?
+            //// Do you want to add a TODO in SearchMovies to search on other features along with Title like cast, songs, etc?
 
-            return characters;
+            ////TODO: Clean comments
+            ////List<MovieEntity> titles = new List<MovieEntity>();
+
+            ////foreach (var title in retList.Values)
+            ////{
+            ////    if (title.Name.ToLower().Contains(searchText.ToLower()))
+            ////    {
+            ////        titles.Add(title);
+            ////    }
+            ////}
+
+            ////return titles;
+        }
+
+        public static IEnumerable<MovieEntity> SearchTrailer(this IStore store, string searchText)
+        {
+            var retList = store.GetAllMovies();
+            Debug.Assert(retList.Count == 1);
+
+            searchText = searchText.ToLower();
+            return
+                retList.Values
+                    .Where(movie => movie.Trailers.ToLower().Contains(searchText));
+
+            ////TODO: Clean comments
+            ////List<MovieEntity> traileres = new List<MovieEntity>();
+
+            ////foreach (var trailer in retList.Values)
+            ////{
+            ////    if (trailer.Trailers.ToLower().Contains(searchText.ToLower()))
+            ////    {
+            ////        traileres.Add(trailer);
+            ////    }
+            ////}
+
+            ////return traileres;
+        }
+
+        public static IEnumerable<MovieEntity> SearchCharacter(this IStore store, string searchText)
+        {
+            var retList = store.GetAllMovies();
+            Debug.Assert(retList.Count == 1);
+
+            searchText = searchText.ToLower();
+            return
+                retList.Values
+                    .Where(movie => movie.Casts.ToLower().Contains(searchText));
+
+            ////TODO: Clean comments
+            ////List<MovieEntity> characters = new List<MovieEntity>();
+
+            ////foreach (var character in retList.Values)
+            ////{
+            ////    if (character.Casts.ToLower().Contains(searchText.ToLower()))
+            ////    {
+            ////        characters.Add(character);
+            ////    }
+            ////}
+
+            ////return characters;
         }
 
         //public static List<MovieEntity> 
@@ -399,11 +456,12 @@ namespace DataStoreLib.Storage
         public static bool UpdateReviewById(this IStore store, ReviewEntity review)
         {
             Debug.Assert(review != null);
-            var list = new List<ReviewEntity> { review };
+            var list = new ReviewEntity[] { review };
             var retList = store.UpdateReviewsById(list);
 
             Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : false;
         }
         /// <summary>
         /// Return the Review by the Id
@@ -414,11 +472,12 @@ namespace DataStoreLib.Storage
         public static ReviewEntity GetReviewById(this IStore store, string id)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(id));
-            var list = new List<string> { id };
+            var list = new string[] { id };
             var retList = store.GetReviewsById(list);
 
             Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : null;
         }
         /// <summary>
         /// Return the review detail by its id
@@ -430,14 +489,10 @@ namespace DataStoreLib.Storage
         public static ReviewEntity GetReviewDetailById(this IStore store, string reviewerId, string movieId)
         {
             Debug.Assert(!string.IsNullOrWhiteSpace(reviewerId));
-
             var retList = store.GetReviewsDetailById(reviewerId, movieId);
-            if (retList.Count > 0)
-            {
-                return retList[retList.Keys.FirstOrDefault()];
-            }
-            return null;
-            // Debug.Assert(retList.Count = 1);
+
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : null;
         }
 
         #endregion
@@ -621,32 +676,40 @@ namespace DataStoreLib.Storage
         }
         #endregion
 
-        public static bool UpdateNewsById(this IStore store, List<NewsEntity> news)
+        #region News
+        public static bool UpdateNewsById(this IStore store, IEnumerable<NewsEntity> news)
         {
             Debug.Assert(news != null);
-            //var list = new List<NewsEntity> { news };
             var retList = store.UpdateNewsItemById(news);
 
             Debug.Assert(retList.Count == 1);
-            return retList[retList.Keys.FirstOrDefault()];
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : false;
         }
 
-        public static List<NewsEntity> GetNewsItems(this IStore store)
+        public static IEnumerable<NewsEntity> GetNewsItems(this IStore store)
         {
             var retList = store.GetNewsItems();
 
+            ////TODO: Uncomment
             //Debug.Assert(retList.Count == 1);
 
-            List<NewsEntity> news = new List<NewsEntity>();
+            return
+                retList.Values
+                    .OrderByDescending(m => m.Timestamp);
 
-            if (retList != null && retList.Values != null)
-            {
-                news = (List<NewsEntity>)retList.Values.OrderBy(m => m.Timestamp).ToList();
-            }
+            ////TODO: Clean comments
+            ////List<NewsEntity> news = new List<NewsEntity>();
 
-            return news; 
+            ////if (retList != null && retList.Values != null)
+            ////{
+            ////    news = (List<NewsEntity>)retList.Values.OrderBy(m => m.Timestamp).ToList();
+            ////}
+
+            ////return news;
         }
-        
+        #endregion
+
     }
 
 }

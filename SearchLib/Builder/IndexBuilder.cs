@@ -76,7 +76,7 @@ namespace SearchLib.Builder
 
                 var tableManager = new TableManager();
 
-                var movieList = tableManager.GetMoviesByid(GenerateListFromSet(movieIds));
+                var movieList = tableManager.GetMoviesById(GenerateListFromSet(movieIds));
 
                 foreach (var id in movieIds)
                 {
