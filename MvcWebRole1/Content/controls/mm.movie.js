@@ -14,7 +14,7 @@ var ShowMovie = function (data) {
         
         //$(".tube-container").append($(".movie-details"));
         //$(".movie-list").append($(".link-container"));
-        PopulatingMovies(result.Movie);
+        PopulatingMovies(result.Movie, "movie-list");
         ScaleElement($(".movie-list ul"));
 
         // Show all posters of current movie
