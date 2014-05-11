@@ -2,8 +2,10 @@
 namespace MvcWebRole1.Controllers.api
 {
     using DataStoreLib.Constants;
+    using DataStoreLib.Models;
     using DataStoreLib.Storage;
     using System;
+    using System.Collections.Generic;
     using System.Web;
     using System.Web.Script.Serialization;
 
@@ -21,6 +23,8 @@ namespace MvcWebRole1.Controllers.api
         {
             int startIndex = 0;
             int pageSize = 20;
+            string name = string.Empty;
+            string tweetType = string.Empty;
 
             // get query string parameters
             string queryParameters = this.Request.RequestUri.Query;
@@ -37,12 +41,29 @@ namespace MvcWebRole1.Controllers.api
                 {
                     int.TryParse(qpParams["page"].ToString(), out pageSize);
                 }
+                if (!string.IsNullOrEmpty(qpParams["type"]))
+                {
+                    tweetType = qpParams["type"].ToString();
+                }
+                if (!string.IsNullOrEmpty(qpParams["name"]))
+                {
+                    name = qpParams["name"].ToString();
+                }
             }
 
             try
             {
                 var tableMgr = new TableManager();
-                var tweets = tableMgr.GetRecentTweets(startIndex, pageSize);
+                IDictionary<string, TwitterEntity> tweets = null;
+                if (string.IsNullOrEmpty(tweetType))
+                {
+                    tweets = tableMgr.GetRecentTweets(startIndex, pageSize);
+                }
+                else
+                {
+                    tweets = tableMgr.GetRecentTweets(tweetType, name, startIndex, pageSize);
+                }
+
                 return jsonSerializer.Value.Serialize(tweets);
             }
             catch (Exception ex)

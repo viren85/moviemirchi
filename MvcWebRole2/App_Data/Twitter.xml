@@ -3,9 +3,11 @@
   <WhiteList>
     <!--<Item type="general">bollywoodmantra‎</Item>
     <Item type="general">bollywoodnews36‎‎</Item>
-    <Item type="general">Bollyhungama‎‎</Item>-->
+    <Item type="general">Bollyhungama‎‎</Item>
     <Item type="movie" movie-name="boss">TheAsliBoss</Item>
     <Item type="movie" movie-name="mickey-virus">MickeyVirusFilm</Item>
+    -->
+    <Item type="artist" artist-name="farhan-akhtar">FarOutAkhtar</Item>
   </WhiteList>
   <!--<BlackList>
     <Item>MovieMirchi,MovieMichi</Item>

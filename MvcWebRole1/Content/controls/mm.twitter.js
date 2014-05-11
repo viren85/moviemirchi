@@ -1,6 +1,12 @@
-﻿function LoadTweets() {
-    var tweetPath = "../api/Twitter?start=0&page=20";
-    CallHandler(tweetPath, ShowTweets);
+﻿function LoadTweets(type, name) {
+    if (type == null || type == "undefined" || name == null || name == "undefined") {
+        var tweetPath = "../api/Twitter?start=0&page=20";
+        CallHandler(tweetPath, ShowTweets);
+    }
+    else {
+        var tweetPath = "../api/Twitter?start=0&page=20&type=" + type + "&name=" + name;
+        CallHandler(tweetPath, ShowTweets);
+    }
 }
 
 var ShowTweets = function (data) {

@@ -323,7 +323,8 @@ namespace MvcWebRole2.Controllers
                                     Created_At = ParseTwitterDateTime(mmTweetData.CreatedAt),
                                     Status = "-1",
                                     TweetType = item.Attributes["type"].Value,
-                                    MovieName = item.Attributes["movie-name"].Value
+                                    MovieName = item.Attributes["movie-name"] != null ? item.Attributes["movie-name"].Value : string.Empty,
+                                    ArtistName = item.Attributes["artist-name"] != null ? item.Attributes["artist-name"].Value : string.Empty
                                 };
 
                                 tblMgr.UpdateTweetById(myTweet);

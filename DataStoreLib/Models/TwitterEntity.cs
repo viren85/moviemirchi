@@ -28,6 +28,7 @@ namespace DataStoreLib.Models
         public string TweetType { get; set; }
         public string MovieName { get; set; }
 
+        public string ArtistName { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
@@ -52,6 +53,7 @@ namespace DataStoreLib.Models
             Status = ReadString(properties, "Status");
             TweetType = ReadString(properties, "TweetType");
             MovieName = ReadString(properties, "MovieName");
+            ArtistName = ReadString(properties, "ArtistName");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -76,6 +78,7 @@ namespace DataStoreLib.Models
             WriteString(dict, "Status", Status);
             WriteString(dict, "TweetType", TweetType);
             WriteString(dict, "MovieName", MovieName);
+            WriteString(dict, "ArtistName", ArtistName);
 
             return dict;
         }
@@ -109,6 +112,8 @@ namespace DataStoreLib.Models
             Status = "-1";
             TweetType = entity.TweetType;
             MovieName = entity.MovieName;
+            ArtistName = entity.ArtistName;
+
         }
 
         public override string GetKey()

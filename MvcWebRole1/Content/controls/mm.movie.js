@@ -32,7 +32,7 @@ var ShowMovie = function (data) {
 
     $(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
 
-    LoadTweets();
+    //LoadTweets();
     // TODO: Clean this code smell
     ////var twtr = new TwitterControl(".tweets");
     ////twtr.startTimer(12000);
