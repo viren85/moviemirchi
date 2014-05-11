@@ -35,10 +35,9 @@ var ShowNews = function (data) {
             if (news && news.length > 0) {
                 sort();
                 renderControl(news);
-                ////render(news);
-            }/* else {
-            displayError("We are unable to show news at this time");
-        }*/
+            } else {
+                displayError("We are unable to show news at this time");
+            }
         };
 
         function DeferredAjax(opts) {
@@ -103,7 +102,7 @@ var iterator = function (a, n) {
 };
 
 var NewsControl = function (selector, data) {
-    debugger;
+
     var _selector = selector;
     var _data = data;
     var _n = 4;
@@ -180,7 +179,6 @@ var NewsControl = function (selector, data) {
                 }
 
                 var html =
-                //"<li class='news-item'>" +
                     "<div class='news-title'>" + newsTitleSpan + "</div>" +
                     "<div class='news-content-container'>" +
                         "<div class='" + publishDateClass + "'>" +
@@ -193,11 +191,9 @@ var NewsControl = function (selector, data) {
                         "<div class='news-author news-link'><a target=\"_new\" href=\"" + link + "\">" +
                             (isOK(author) ? author : "Link") +
                         "</a></div>" +
-                    "</div>";// +
-                //"</li>";
+                    "</div>";
 
                 var cell = $(_cells[index]);
-                //var children = cell.children();
                 cell.fadeOut(1000, function () {
                     cell.empty();
                     cell.append(html);

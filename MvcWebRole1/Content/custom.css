@@ -552,7 +552,8 @@ blockquote.quote {
 .tweet-user {
     padding-right: 8px;
     text-align: right;
-    text-transform: uppercase;
+    text-transform: lowercase;
+    letter-spacing: 2px;
     font-size: small;
     color: #FFFFFF;
     background-color: rgba(85, 119, 214, 0.75);
@@ -571,6 +572,10 @@ blockquote.quote {
     max-height: 180px;
     max-width: 180px;
 }
+
+    .tweet-content span {
+        color: #20b7d6;
+    }
 /*End Twitter Control*/
 /*Footer*/
 .footer {
@@ -1109,14 +1114,14 @@ blockquote.quote {
     top: 0px;
 }
 
-.movie-list, .news-container, .critics-container,.upcoming-movie-list {
+.movie-list, .news-container, .critics-container, .upcoming-movie-list {
     float: left;
     width: 95%;
     margin-left: 7%;
     margin-bottom: 1%;
 }
 
-    .movie-list ul, .critics-container ul,.upcoming-movie-list ul {
+    .movie-list ul, .critics-container ul, .upcoming-movie-list ul {
         float: left;
         list-style: none;
         padding: 0px;

@@ -34,6 +34,59 @@ var iterator = function (a, n) {
     };
 };
 
+var highlightText = function (txt) {
+    var tokens = [];
+    var splitter = ['!', ',', ':'];
+    var incount = 1;
+
+    // Split
+    var c = ' ';
+    $.each(txt.split(c), function (i, t) {
+        tokens.push(t);
+        tokens.push(c);
+    });
+    ++incount;
+
+    $.each(splitter, function (i, c) {
+        var ttokens = [];
+        $.each(tokens, function (i, to) {
+            if (i % incount === 0) {
+                if (c === ':' && to.indexOf("http") !== -1) {
+                    ttokens.push(to);
+                    ttokens.push(c);
+                } else {
+                    $.each(to.split(c), function (i, t) {
+                        ttokens.push(t);
+                        ttokens.push(c);
+                    });
+                }
+                ttokens.splice(ttokens.length - 1, 1);
+            } else {
+                ttokens.push(to);
+            }
+        });
+        ++incount;
+        tokens = ttokens;
+    });
+
+    // Add span
+    var res = [];
+    $.each(tokens, function (i, t) {
+        if (t.indexOf('@') !== -1) {
+            res.push("<span class=\"handle\">" + t + "</span>");
+        } else if (t.indexOf('#') !== -1) {
+            res.push("<span class=\"hashtag\">" + t + "</span>");
+        } else if (t.indexOf('http') !== -1) {
+            res.push("<span class=\"link\">" + t + "</span>");
+        } else {
+            res.push(t);
+        }
+    });
+
+    // Merge
+    return res.join('');
+};
+
 var TwitterControl = function (selector, data) {
 
     var _selector = selector;
@@ -74,8 +127,9 @@ var TwitterControl = function (selector, data) {
                 txt = txt.length > 100 ?
                     txt.substring(0, 100) + "..." :
                     txt;
+                var htxt = highlightText(txt);
                 cell.find(".tweet-user").text(tweet.twitterid);
-                cell.find(".tweet-content").text(txt);
+                cell.find(".tweet-content").html(htxt);
                 children.fadeIn(2000);
             });
         });
