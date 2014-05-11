@@ -60,6 +60,17 @@ a {
     margin-top: 1%;
 }
 
+.width60 {
+    width: 60%;
+    margin-left: 3%;
+    float: left;
+}
+
+.width30 {
+    width: 30%;
+    float: left;
+}
+
 .section-title {
     float: left;
     color: purple;
@@ -512,21 +523,33 @@ blockquote.quote {
 }
 /* End - Review Control */
 /*Twitter Control*/
-.tweet-container {
+.tweet-container, .news-content {
     width: 400px;
     float: left;
     margin-left: 6%;
+}
+
+.tweet-container {
+    margin-left: 0%;
+}
+
+.news-content {
+    width: 700px;
+}
+
+.news-left, .news-right {
+    width: 345px;
 }
 
 .tweet-left, .tweet-right {
     width: 200px;
 }
 
-.tweet-left {
+.tweet-left, .news-left {
     float: left;
 }
 
-.tweet-right {
+.tweet-right, .news-right {
     float: right;
 }
 
@@ -534,7 +557,7 @@ blockquote.quote {
     height: 200px;
     margin: 10px;
     padding: 10px;
-    color: rgba(85, 119, 214, 0.75);
+    /*color: rgba(85, 119, 214, 0.75);*/
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -542,6 +565,10 @@ blockquote.quote {
     -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
     background-color: white;
+}
+
+.tweet-container .tweet-cell {
+    margin-top: 20px;
 }
 
 .tweet-user, .tweet-content {
@@ -552,8 +579,9 @@ blockquote.quote {
 .tweet-user {
     padding-right: 8px;
     text-align: right;
+    font-style: italic;
     text-transform: lowercase;
-    letter-spacing: 2px;
+    /*letter-spacing: 2px;*/
     font-size: small;
     color: #FFFFFF;
     background-color: rgba(85, 119, 214, 0.75);
@@ -571,6 +599,7 @@ blockquote.quote {
     overflow: hidden;
     max-height: 180px;
     max-width: 180px;
+    font-size: 12px;
 }
 
     .tweet-content span {
@@ -1312,52 +1341,70 @@ blockquote.quote {
         float: right;
     }
 
-
-
-.news-container ul {
-    float: left;
-    width: 100%;
-    height: 190px;
-    overflow-y: hidden;
+.news-container {
+    margin-left: 0%;
 }
 
-.news-container .news-item {
-    width: 345px;
-    background-color: #FFF;
-    margin: 15px;
-    padding: 0;
-    min-height: 171px;
-    position: relative;
-    float: left;
-    list-style: none;
-}
-
-    .news-container .news-item .error {
-        color: #999;
-        padding: 10px;
+    .news-container ul {
+        float: left;
+        width: 100%;
+        height: 190px;
+        overflow-y: hidden;
     }
 
-    .news-container .news-item .news-title {
-        width: 365px;
-        color: #fff;
-        margin-left: 5px;
+    .news-container .news-item {
+        width: 345px;
+        background-color: #FFF;
+        margin: 15px;
+        padding: 0;
+        min-height: 171px;
+        position: relative;
         float: left;
-        font-size: 14px;
+        list-style: none;
+    }
+
+        .news-container .news-item .error {
+            color: #999;
+            padding: 10px;
+        }
+
+        .news-container .news-item .news-title {
+            width: 365px;
+            color: #fff;
+            margin-left: 5px;
+            float: left;
+            font-size: 14px;
+            font-family: Georgia, "Times New Roman", Times, serif;
+            font-weight: normal;
+            font-style: italic;
+            color: #fff;
+            background-color: rgba(85, 119, 214, 0.75);
+            position: absolute;
+            top: -12px;
+            left: -20px;
+            padding: 0 7px 5px 5px;
+            border-radius: 3px;
+            -moz-border-radius: 3px;
+            -webkit-border-radius: 3px;
+            -moz-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+            box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
+        }
+
+    .news-container .news-title {
+        width: 100%;
+        color: #fff;
+        float: left;
+        font-size: 13px;
         font-family: Georgia, "Times New Roman", Times, serif;
         font-weight: normal;
         font-style: italic;
         color: #fff;
         background-color: rgba(85, 119, 214, 0.75);
-        position: absolute;
-        top: -12px;
-        left: -20px;
-        padding: 0 7px 5px 5px;
+        padding: 5px 7px 5px 5px;
         border-radius: 3px;
         -moz-border-radius: 3px;
         -webkit-border-radius: 3px;
-        -moz-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
-        -webkit-box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
-        box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.15);
     }
 
 .news-publish-date-2 {
@@ -1394,20 +1441,48 @@ blockquote.quote {
         font-size: 12px;
     }
 
-    .news-container .news-item .news-content-container .left {
+.news-container .left {
+    float: left;
+    overflow: hidden;
+}
+
+    .news-container .left .img {
+        width: 100px;
+        height: 100px;
+    }
+
+.news-container .news-content-text {
+    float: left;
+    margin-top: 10px;
+}
+
+    .news-container .news-content-text .news-right {
+        width: 60%;
         float: left;
-        overflow: hidden;
+        margin-left: 10px;
+        text-align: justify;
+        font-size: 12px;
     }
 
-        .news-container .news-item .news-content-container .left .img {
-            width: 100px;
-            height: 100px;
-        }
-
-    .news-container .news-item .news-content-container .news-right {
-        margin-left: 33%;
+    .news-container .news-content-text .both {
+        width: 95%;
+        float: left;
+        margin-left: 10px;
+        text-align: justify;
+        font-size: 12px;
+        color: black;
     }
-    /*.news-container .news-item .news-content-container .right {
+
+.news-container .news-link {
+    float: right;
+    font-size: 12px;
+    text-decoration: underline;
+}
+
+.news-container .news-item .news-content-container .news-right {
+    margin-left: 33%;
+}
+/*.news-container .news-item .news-content-container .right {
             padding-top: 10px;
             padding-bottom: 10px;
             overflow: hidden;
@@ -1418,14 +1493,14 @@ blockquote.quote {
             float: right;
         }*/
 
-    .news-container .news-item .news-content-container .news-publish-date {
-        text-align: left;
-        margin: 0;
-        margin-top: 3px;
-        padding: 5px 0px 5px 0px;
-        color: #6F6F6F;
-        font-size: smaller;
-    }
+.news-container .news-item .news-content-container .news-publish-date {
+    text-align: left;
+    margin: 0;
+    margin-top: 3px;
+    padding: 5px 0px 5px 0px;
+    color: #6F6F6F;
+    font-size: smaller;
+}
 
 .news-publish-date {
     visibility: hidden;

@@ -112,18 +112,18 @@ var NewsControl = function (selector, data) {
     // Setup
     (function () {
         $(selector).html(
-            "<div class='tweet-container'>" +
-                "<div class='tweet-left'>" +
+            "<div class='news-content'>" +
+                "<div class='news-left'>" +
                     "<div class=\"tweet-cell\"></div>" +
                     "<div class=\"tweet-cell\"></div>" +
                 "</div>" +
-                "<div class='tweet-right'>" +
+                "<div class='news-right'>" +
                     "<div class=\"tweet-cell\"></div>" +
                     "<div class=\"tweet-cell\"></div>" +
                 "</div>" +
             "</div>");
 
-        _cells = $(_selector + " .tweet-container").find(".tweet-cell");
+        _cells = $(_selector + " .news-content").find(".tweet-cell");
     })();
 
     NewsControl.prototype.render = function () {
@@ -181,10 +181,10 @@ var NewsControl = function (selector, data) {
                 var html =
                     "<div class='news-title'>" + newsTitleSpan + "</div>" +
                     "<div class='news-content-container'>" +
-                        "<div class='" + publishDateClass + "'>" +
+                        /*"<div class='" + publishDateClass + "'>" +
                             getSpan("publishedDate", function (v) { return "Published on: " + new Date(v).toLocaleString(); }) +
-                        "</div>" +
-                        "<div class='news-content'>" +
+                        "</div>" +*/
+                        "<div class='news-content-text'>" +
                             (isUrl ? "<div class='left'><img class=\"img\" src=\"" + url + "\" alt=\"Image\" /></div>" : "") +
                             "<div class='" + (isUrl ? "news-right" : "both") + "'>" + getSpan("contentSnippet") + "</div>" +
                         "</div>" +
