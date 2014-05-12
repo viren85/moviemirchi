@@ -1,7 +1,4 @@
-﻿$(document).ready(function () {
-    var ul = $(".critics-container").find("ul");//.css("height", "280px");
-    var counter = 1;
-    critics = [
+﻿var critics = [
         { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN IBN' },
         { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama, Trade Guide' },
         { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'Hindustan Times' },
@@ -19,7 +16,12 @@
         { href: 'saibal-chatterjee', title: 'Saibal Chatterjee', name: 'Saibal Chatterjee', poster: 'saibal-chatterjee.jpg', aff: 'NDTV' },
         { href: 'rachit-gupta', title: 'Rachit Gupta', name: 'Rachit Gupta', poster: 'rachit-gupta.jpg', aff: 'Filmfare' }, ,
         { href: 'mihir-fadnavis', title: 'Mihir Fadnavis', name: 'Mihir Fadnavis', poster: 'mihir-fadnavis.jpg', aff: 'FirstPost' }
-    ].forEach(function (critic) {
+];
+
+$(document).ready(function () {
+    var ul = $(".critics-container").find("ul");//.css("height", "280px");
+    var counter = 1;
+    critics.forEach(function (critic) {
         if (counter < 6) {
             ul.append(
                 "<li class=\"reviewer\">" +

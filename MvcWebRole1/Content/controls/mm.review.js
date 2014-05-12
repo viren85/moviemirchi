@@ -135,7 +135,7 @@ function GetMoviePoster(posters, movieName) {
         // TODO - fix this, doesn't seem right
         var posters = JSON.parse(posters);
         if (posters && posters.length && posters.length > 1) {
-            posterPath = "/Posters/Images/" + posters[j];
+            posterPath = "/Posters/Images/" + posters[posters.length - 1];
         } else {
             //posterPath = "/Posters/Images/default-movie.jpg";
             posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";

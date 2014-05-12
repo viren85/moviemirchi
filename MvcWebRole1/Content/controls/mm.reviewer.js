@@ -6,11 +6,26 @@
 
 var ShowReviews = function (data) {
     var result = JSON.parse(data);
-if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
+    if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
         $(".movies").append(GetTubeControl("Reviews By " + result.Name, "review-list", "review-pager"));
 
-        var reviews = [];
+        var fileName = "/Images/user.png";
+        var name = result.Name;
+        var affiliation = "";
 
+        for (k = 0; k < critics.length; k++) {
+            if (critics[k] != null && critics[k] != undefined && critics[k].name == result.Name) {
+                fileName = "/Posters/Images/critic/" + critics[k].poster;
+                affiliation = critics[k].aff;
+                break;
+            }
+        }
+
+        $(".movies").find(".review-list").each(function () {
+            $(this).prepend(ShowPersonBio(fileName, name, "", affiliation));
+        });
+
+        var reviews = [];
         reviews = result.ReviewsDetails;
         ShowReviewsByReviewer(reviews);
     }

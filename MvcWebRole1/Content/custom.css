@@ -432,7 +432,7 @@ a {
     -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
     width: 48%;
-    height: 255px;
+    height: 280px;
     margin-right: 2%;
     margin-top: 2%;
     float: left;
@@ -494,12 +494,12 @@ a {
     }
 
     .arrow_box .review-content {
-        padding: 10px;
+        padding: 5px;
     }
 
 blockquote.quote {
     font: 14px/20px italic Times, serif;
-    padding-left: 55px;
+    padding-left: 35px;
     margin: 1px;
     background-image: url(../images/quote.png);
     background-size: 24px 24px;
@@ -1198,7 +1198,7 @@ blockquote.quote {
     height: 24px;
 }
 
-.img-movie-name,.img-movie-name-small {
+.img-movie-name, .img-movie-name-small {
     float: left;
     font-size: 14px;
     color: black;
@@ -1206,9 +1206,9 @@ blockquote.quote {
     text-align: center;
     margin-top: 10px;
 }
-.img-movie-name-small{
+
+.img-movie-name-small {
     font-size: 11px;
-    
 }
 
 .img-movie-genre {
@@ -1535,7 +1535,35 @@ blockquote.quote {
         .news-container .news-item .news-content-container .news-link a:hover {
             color: #01A9DB;
         }
+/* Critics - Bio section */
+.bio {
+    float: left;
+    width: 100%;
+}
 
+.bio-pic {
+    float: left;
+    width: 150px;
+    height: 150px;
+    margin-right: 20px;
+}
+
+.bio-pic-img {
+    float: left;
+    width: 120px;
+    height: 120px;
+    margin-right: 20px;
+}
+.intro {
+    float: left;
+    font-size: 20px;
+    width: 84%;
+}
+.intro-text{
+    float: left;
+    font-size: 12px;
+}
+/*Critics - Bio section End*/
 /*News Section on home page - Start 
 .news-container .news-item {
     float: left;
