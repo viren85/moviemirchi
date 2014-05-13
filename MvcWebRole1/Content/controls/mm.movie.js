@@ -27,10 +27,9 @@ var ShowMovie = function (data) {
         PopulatePosters(poster, result.Movie.Name);
         ArrangeImages($(".movie-poster-details"));
         ShowMovieReviews(reviews);
-        
     }
 
-    $(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
+    //$(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
 
     //LoadTweets();
     // TODO: Clean this code smell
@@ -94,7 +93,7 @@ var ShowMovieDetails = function (movie) {
     $(movieDetalis).append(GetMovieMusicDirector(CleanCastString(music)));
     $(movieDetalis).append(GetMovieWriter(CleanCastString(writers)));
     $(movieDetalis).append(GetMovieStats(movie.Stats));
-    $(".tube-container").append(movieDetalis);
+    $(".tube-container:first").append(movieDetalis);
 }
 
 // images is JSON object
