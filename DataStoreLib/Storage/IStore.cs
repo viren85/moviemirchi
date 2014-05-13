@@ -22,6 +22,10 @@ namespace DataStoreLib.Storage
         IDictionary<string, MovieEntity> GetMoviesById(IEnumerable<string> id);
         IDictionary<string, MovieEntity> GetMoviesByUniqueName(string name);
         IDictionary<MovieEntity, bool> UpdateMoviesById(IEnumerable<MovieEntity> movies);
+
+        IDictionary<string, MovieEntity> GetArtistMovies();
+
+        IDictionary<string, MovieEntity> GetGenrewiseMovies();
         #endregion
 
         #region Review
@@ -260,6 +264,18 @@ namespace DataStoreLib.Storage
             ////}
 
             ////return upcomingMovies;
+        }
+
+        public static IEnumerable<MovieEntity> GetArtistMovies(this IStore store, string artistName)
+        {
+            var retList = store.GetAllMovies();
+            return retList.Values.Where(movie => movie.Casts.Contains(artistName));
+        }
+
+        public static IEnumerable<MovieEntity> GetGenrewiseMovies(this IStore store, string genre)
+        {
+            var retList = store.GetAllMovies();
+            return retList.Values.Where(movie => movie.Genre.Contains(genre));
         }
 
         /// <summary>

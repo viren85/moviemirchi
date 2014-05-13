@@ -80,6 +80,19 @@ namespace DataStoreLib.Storage
             var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
             return movieTable.GetAllItems<MovieEntity>();
         }
+
+        public IDictionary<string, MovieEntity> GetArtistMovies()
+        {
+            var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
+            return movieTable.GetAllItems<MovieEntity>();
+        }
+
+        public IDictionary<string, MovieEntity> GetGenrewiseMovies()
+        {
+            var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
+            return movieTable.GetAllItems<MovieEntity>();
+        }
+
         /// <summary>
         /// Return the movies by its id
         /// </summary>

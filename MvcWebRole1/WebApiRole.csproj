@@ -186,6 +186,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
+    <Compile Include="Controllers\api\ArtistMoviesController.cs" />
     <Compile Include="Controllers\api\GetActorsController.cs" />
     <Compile Include="Controllers\api\AllSongsController.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />

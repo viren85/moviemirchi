@@ -12,6 +12,7 @@ namespace DataStoreLib.Constants
         #region User Messages
         public const string UM_WHILE_GETTING_MOVIE = "Error occured while getting movie informatin by movie name.";
         public const string UM_WHILE_GETTING_CURRENT_MOVIES = "Error occured while getting current movies.";
+        public const string UM_WHILE_GETTING_ARTIST_MOVIES = "Error occured while getting movies for Artists.";
         public const string UM_WHILE_GETTING_REVIEWER_INFO = "Error occured while getting reviewer infromation with their reivews";
         public const string UM_WHILE_SEARCHING_MOVIES = "Error occured while searching movies";
         public const string UM_WHILE_SEARCHING_MOVIES_TRAILER = "Error occured while getting movie's trailers";
