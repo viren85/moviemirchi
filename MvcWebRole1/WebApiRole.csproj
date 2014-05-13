@@ -361,7 +361,7 @@
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Account\ExternalLoginFailure.cshtml" />
     <Content Include="Views\Account\ExternalLoginConfirmation.cshtml" />
-    <Content Include="Views\Home1\About.cshtml" />
+    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home1\Contact.cshtml" />
     <Content Include="Views\Home1\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
