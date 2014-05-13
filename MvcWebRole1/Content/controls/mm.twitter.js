@@ -1,4 +1,5 @@
 ﻿function LoadTweets(type, name) {
+    $(".tweets").parent().hide();
     if (type == null || type == "undefined" || name == null || name == "undefined") {
         var tweetPath = "../api/Twitter?start=0&page=20";
         CallHandler(tweetPath, ShowTweets);
@@ -11,18 +12,24 @@
 
 var ShowTweets = function (data) {
     var jdata = JSON.parse(data);
-
-    var tweets = [];
-    for (var v in jdata) {
-        var t = jdata[v];
-        tweets.push({
-            twitterid: "@" + (t.ReplyScreenName || ""),
-            text: (t.TextMessage || ""),
-        });
+    
+    if (data.length < 10) {
+        $(".tweets").parent().hide();
     }
+    else {
+        $(".tweets").parent().show();
+        var tweets = [];
+        for (var v in jdata) {
+            var t = jdata[v];
+            tweets.push({
+                twitterid: "@" + (t.ReplyScreenName || ""),
+                text: (t.TextMessage || ""),
+            });
+        }
 
-    var twtr = new TwitterControl(".tweets", tweets);
-    twtr.startTimer(12000);
+        var twtr = new TwitterControl(".tweets", tweets);
+        twtr.startTimer(12000);
+    }
 }
 
 var iterator = function (a, n) {

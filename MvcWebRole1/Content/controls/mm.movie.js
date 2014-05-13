@@ -55,29 +55,29 @@ var ShowMovieDetails = function (movie) {
         for (var c = 0; c < casts.length; c++) {
             if (casts[c].role.toLowerCase() == "director" && casts[c].name != null && directors.indexOf(casts[c].name) == -1) {
                 if (casts[c].charactername == null) {
-                    directors += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
-                    directorsList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                    directors += "<a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    directorsList += "<li class='team-item'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></li>";
                 }
             }
             else if (casts[c].role.toLowerCase() == "writer" && casts[c].name != null && writers.indexOf(casts[c].name) == -1) {
-                writers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
-                writerList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                writers += "<a  href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
+                writerList += "<li class='team-item'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></li>";
             }
             else if (casts[c].role.toLowerCase() == "music" && casts[c].name != null && music.indexOf(casts[c].name) == -1) {
                 if (casts[c].charactername == null) {
-                    music += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
-                    musicList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                    music += "<a  href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    musicList += "<li class='team-item'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></li>";
                 }
             }
             else if (casts[c].role.toLowerCase() == "producer" && casts[c].name != null && producers.indexOf(casts[c].name) == -1) {
                 if (casts[c].charactername == "producer") {
-                    producers += "<a href='javascript:void(0);' title='click here to view profile'>" + casts[c].name + "</a>, ";
-                    producersList += "<li class='team-item'><a>" + casts[c].name + "</a></li>";
+                    producers += "<a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    producersList += "<li class='team-item'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></li>";
                 }
             }
             else if (casts[c].role.toLowerCase() == "actor" && cast.indexOf(casts[c].name) == -1) {
-                cast += "<a href='javascript:void(0);' title='click here to view profile'> " + casts[c].name + "</a>, ";
-                actorList += "<li class='cast-item'><span class='cast-details'><a>" + casts[c].name + "</a></span><span class='cast-details-right'>" + casts[c].charactername + "</span></li>";
+                cast += "<a  href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\" title='click here to view profile'> " + casts[c].name + "</a>, ";
+                actorList += "<li class='cast-item'><span class='cast-details'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></span><span class='cast-details-right'>" + casts[c].charactername + "</span></li>";
             }
         }
     }
