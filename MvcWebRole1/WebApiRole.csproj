@@ -206,6 +206,7 @@
     <Compile Include="Controllers\Home1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Controllers\ProfileController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -385,6 +386,7 @@
     <Content Include="Views\Login\Test.cshtml" />
     <Content Include="Views\Shared\_MovieMirchiLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Artists\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

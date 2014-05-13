@@ -43,11 +43,11 @@ namespace MvcWebRole1.Controllers.api
                 }
                 if (!string.IsNullOrEmpty(qpParams["type"]))
                 {
-                    tweetType = qpParams["type"].ToString();
+                    tweetType = qpParams["type"].ToString().ToLower();
                 }
                 if (!string.IsNullOrEmpty(qpParams["name"]))
                 {
-                    name = qpParams["name"].ToString();
+                    name = qpParams["name"].ToString().ToLower();
                 }
             }
 

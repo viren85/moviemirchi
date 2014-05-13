@@ -6,8 +6,10 @@
     <Item type="general">Bollyhungama‎‎</Item>
     <Item type="movie" movie-name="boss">TheAsliBoss</Item>
     <Item type="movie" movie-name="mickey-virus">MickeyVirusFilm</Item>
-    -->
     <Item type="artist" artist-name="farhan-akhtar">FarOutAkhtar</Item>
+    <Item type="artist" artist-name="ranveer-singh">RanveerOfficial</Item>
+    -->
+    <Item type="movie" movie-name="goliyon-ki-rasleela-ram-leela">Ramleela_Movie</Item>
   </WhiteList>
   <!--<BlackList>
     <Item>MovieMirchi,MovieMichi</Item>

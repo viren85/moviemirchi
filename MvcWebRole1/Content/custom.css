@@ -1200,10 +1200,10 @@ blockquote.quote {
 
 .img-movie-name, .img-movie-name-small {
     float: left;
-    font-size: 14px;
-    color: black;
+    font-size: 1.5em;
+    color: white;
     width: 100%;
-    text-align: center;
+    /*text-align: center;*/
     margin-top: 10px;
 }
 
