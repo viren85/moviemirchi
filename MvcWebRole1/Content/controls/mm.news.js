@@ -50,7 +50,7 @@ var NewsControl = function (selector, data) {
 
     var _selector = selector;
     var _data = data;
-    var _n = 4;
+    var _n = 8; //// TODO: this is workaround for news dupe issue - set _n back to 4
     var _iterator = new iterator(_data, _n);
     var _cells, _timer;
 
@@ -75,8 +75,8 @@ var NewsControl = function (selector, data) {
         var newsItems = _iterator();
 
         $.each(newsItems, function (index, entry) {
-
-            if (entry.Link) {
+            //// TODO: this is workaround for news dupe issue - get rid of the index condition
+            if (((index % 4) % 2) && entry.Link) {
 
                 var isImageUrl = entry.Image ? true : false;
                 var newsTitleText =
@@ -96,7 +96,8 @@ var NewsControl = function (selector, data) {
                         "</a></div>" +
                     "</div>";
 
-                var cell = $(_cells[index]);
+                //// TODO: this is workaround for news dupe issue - set the index back to index
+                var cell = $(_cells[Math.round(index / 2) - 1]);
                 cell.fadeOut(1000, function () {
                     cell.empty();
                     cell.append(html);
