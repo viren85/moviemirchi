@@ -685,18 +685,18 @@ blockquote.quote {
     text-shadow: 0 1px 1px rgba(0,0,0,0.1);
 }
 
-.js .menu-panel {
-    position: absolute;
-    left: -240px;
-}
+    .js .menu-panel {
+        position: absolute;
+        left: -240px;
+    }
 
-.menu-panel h3 {
-    font-size: 1.8em;
-    padding: 20px;
-    font-weight: 300;
-    color: #fff;
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
-}
+    .menu-panel h3 {
+        font-size: 1.8em;
+        padding: 20px;
+        font-weight: 300;
+        color: #fff;
+        box-shadow: inset 0 -1px 0 rgba(0,0,0,0.05);
+    }
 
 .menu-toc {
     list-style: none;
@@ -787,10 +787,10 @@ blockquote.quote {
         box-shadow: 0 -4px #fff, 0 4px #fff;
     }
 
-.no-js .bb-custom-wrapper nav span,
-.no-js .menu-button {
-    display: none;
-}
+    .no-js .bb-custom-wrapper nav span,
+    .no-js .menu-button {
+        display: none;
+    }
 
 .js .content {
     position: relative;
@@ -1150,6 +1150,10 @@ blockquote.quote {
     margin-bottom: 1%;
 }
 
+.critics-container {
+    width: 90%;
+}
+
     .movie-list ul, .critics-container ul, .upcoming-movie-list ul {
         float: left;
         list-style: none;
@@ -1172,8 +1176,8 @@ blockquote.quote {
 
         .critics-container ul li {
             width: 125px;
-            margin-right: 15px;
-            min-height: 50px;
+            margin-right: 20px;
+            min-height: 100px;
         }
 
             .movie-list ul li img, .critics-container ul li img, .upcoming-movie-list ul li img {
@@ -1203,8 +1207,36 @@ blockquote.quote {
     font-size: 1.5em;
     color: white;
     width: 100%;
-    /*text-align: center;*/
     margin-top: 10px;
+}
+
+.critics-name, .critics-name-small {
+    float: left;
+    font-size: 1em;
+    color: black;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    height: 50px;
+    padding-top: 10px;
+    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    border-radius: 0px 0px 5px 5px;
+    -moz-border-radius: 0px 0px 5px 5px;
+    -webkit-border-radius: 0px 0px 5px 5px;
+}
+
+    .critics-name:hover, .critics-name-small:hover {
+        background-color: rgba(85, 119, 214, 0.75);
+        color: white;
+    }
+
+.critics-name-small {
+    width: 90%;
+    font-size: 11px;
+    border-radius: 0px 0px 3px 3px;
+    -moz-border-radius: 0px 0px 3px 3px;
+    -webkit-border-radius: 0px 0px 3px 3px;
 }
 
 .img-movie-name-small {
@@ -1554,12 +1586,14 @@ blockquote.quote {
     height: 120px;
     margin-right: 20px;
 }
+
 .intro {
     float: left;
     font-size: 20px;
     width: 84%;
 }
-.intro-text{
+
+.intro-text {
     float: left;
     font-size: 12px;
 }

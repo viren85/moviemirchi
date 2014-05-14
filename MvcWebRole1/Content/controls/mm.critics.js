@@ -31,7 +31,7 @@ $(document).ready(function () {
                                 "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "(" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 125px; width: 125px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
                             "</div>" +
                         "</div>" +
-                        "<div class=\"img-movie-name\">" + critic.name + "</div>" +
+                        "<div class=\"critics-name\">" + critic.name + "</div>" +
                     "</a>" +
                 "</li>");
         }
@@ -44,7 +44,7 @@ $(document).ready(function () {
                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + " (" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 50px; width: 50px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
                            "</div>" +
                        "</div>" +
-                       "<div class=\"img-movie-name-small\">" + critic.name + "</div>" +
+                       "<div class=\"critics-name-small\">" + critic.name + "</div>" +
                    "</a>" +
                "</li>");
         }
