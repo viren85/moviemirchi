@@ -32,7 +32,23 @@ var ShowTweets = function (data) {
     }
 }
 
-var iterator = function (a, n) {
+var Timer = function (callback, delay) {
+    var timerId, start, remaining = delay;
+
+    this.pause = function () {
+        window.clearTimeout(timerId);
+        remaining -= new Date() - start;
+    };
+
+    this.resume = function () {
+        start = new Date();
+        timerId = window.setTimeout(callback, remaining);
+    };
+
+    this.resume();
+};
+
+var Iterator = function (a, n) {
     var current = 0,
         l = a.length;
     return function () {
@@ -105,7 +121,7 @@ var TwitterControl = function (selector, data) {
     var _selector = selector;
     var _data = data;
     var _n = 4;
-    var _iterator = new iterator(_data, _n);
+    var _iterator = new Iterator(_data, _n);
     var _cells, _timer;
 
     // Setup
@@ -128,6 +144,17 @@ var TwitterControl = function (selector, data) {
         right.append(html).append(html);
 
         _cells = $(_selector + " .tweet-container").find(".tweet-cell");
+
+        $(selector).mouseenter(function () {
+            if (_timer) {
+                _timer.pause();
+            }
+        });
+        $(selector).mouseleave(function () {
+            if (_timer) {
+                _timer.resume();
+            }
+        });
     })();
 
     TwitterControl.prototype.render = function () {
@@ -151,9 +178,10 @@ var TwitterControl = function (selector, data) {
     TwitterControl.prototype.startTimer = function (timeout) {
         timeout = (timeout) ? timeout : 6000;
         var threadRender = this.render;
-        _timer = setInterval(function () {
-            threadRender();
-        }, timeout);
+        if (_timer) {
+            _timer = null;
+        }
+        _timer = new Timer(threadRender, timeout);
     };
 
     TwitterControl.prototype.stopTimer = function () {
