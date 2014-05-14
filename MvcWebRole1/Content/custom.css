@@ -91,6 +91,8 @@ a {
     padding-top: 1%;
     border-bottom: 1px solid #CCC;
     box-shadow: 1px 2px #EEE;
+    position: fixed;
+    z-index: 100;
 }
 
 .logo {
@@ -919,6 +921,7 @@ blockquote.quote {
 .movie-panel {
     float: left;
     width: 100%;
+    margin-top: 40px !important;
 }
 
 .genre {
