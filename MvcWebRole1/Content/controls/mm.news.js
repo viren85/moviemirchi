@@ -5,83 +5,28 @@
 
 var ShowNews = function (data) {
 
-    var control = null;
-    var news = [];
+    var jdata = JSON.parse(data);
 
-    var renderControl = function (news) {
-        control = new NewsControl(".news-container", news);
-        control.startTimer(12000);
-    };
-
-    (function (feedUrls) {
-        var accumulate = function (data) {
-
-            if (data && data.responseData && data.responseData.feed && data.responseData.feed.entries) {
-                data.responseData.feed.entries.forEach(function (f) {
-                    news.push(f);
-                });
-            }
-
-            if (startingpoint.deferred.state() === "resolved") {
-                complete();
-            }
-        };
-        var sort = function () {
-            news.sort(function (a, b) {
-                return new Date(b.publishedDate) - new Date(a.publishedDate);
+    if (data.length < 10) {
+        // TODO fix this and few lines below
+        ////$(".tweets").parent().hide();
+    } else {
+        ////$(".tweets").parent().show();
+        var news = [];
+        for (var v in jdata) {
+            var t = jdata[v];
+            news.push({
+                Link: t.Link,
+                Title: t.Title,
+                Description: t.Description,
+                Source: t.Source,
+                Image: t.Image,
             });
-        };
-        var complete = function () {
-            if (news && news.length > 0) {
-                sort();
-                renderControl(news);
-            } else {
-                displayError("We are unable to show news at this time");
-            }
-        };
-
-        function DeferredAjax(opts) {
-            this.deferred = $.Deferred();
-            this.feedUrl = opts.feedUrl;
         }
 
-        DeferredAjax.prototype.invoke = function () {
-            var self = this;
-            return $.ajax({
-                type: "GET",
-                url: 'http://ajax.googleapis.com/ajax/services/feed/load?v=1.0&num=10&callback=?&q=' + encodeURIComponent(self.feedUrl),
-                dataType: "JSON",
-                success: function (data) {
-                    self.deferred.resolve();
-                    accumulate(data);
-                }
-            });
-        };
-
-        DeferredAjax.prototype.promise = function () {
-            return this.deferred.promise();
-        };
-
-        var startingpoint = $.Deferred();
-        startingpoint.resolve();
-
-        $.each(feedUrls, function (ix, feedUrl) {
-            var da = new DeferredAjax({
-                feedUrl: feedUrl
-            });
-            $.when(startingpoint)
-                .then(function () {
-                    da.invoke();
-                });
-            startingpoint = da;
-        });
-
-    })([
-            "http://www.bollywoodnewsworld.com/category/bollywood-news/feed",
-            "http://www.glamsham.com/rss/glamrss_scoops.xml",
-            "http://www.bollywoodhungama.com/rss/news.xml",
-            "http://feeds.hindustantimes.com/HT-Bollywood"
-    ]);
+        var control = new NewsControl(".news-container", news);
+        control.startTimer(18000);
+    }
 }
 
 var newsData;
@@ -131,65 +76,23 @@ var NewsControl = function (selector, data) {
 
         $.each(newsItems, function (index, entry) {
 
-            var getValue = function (k) {
-                var el = entry[k];
-                return el ? el : "";
-            };
+            if (entry.Link) {
 
-            var isOK = function (v) {
-                return (v && v !== "");
-            };
-
-            var link = getValue("link");
-            if (isOK(link)) {
-
-                var getSpan = function (k, f) {
-                    var v = getValue(k);
-                    var vv = isOK(v) ? f ? f(v) : v : null;
-                    return isOK(vv) ? "<span>" + vv + "</span>" : "";
-                };
-
-                var getUrl = function () {
-                    var m = entry["mediaGroups"];
-                    if (m && m.length > 0) {
-                        var cg = m[0]["contents"];
-                        if (cg && cg.length > 0) {
-                            var c = cg[0];
-                            var u = isOK(c["url"]) ? c["url"] : null;
-                            u = ((isOK(c["type"]) ? c["type"] : "").indexOf("image") != -1) ? u : null;
-                            return u;
-                        }
-                    }
-                    return null;
-                };
-
-                var url = getUrl();
-                var isUrl = isOK(url);
-                var author = getSpan("author");
-                var newsTitleSpan = getSpan("title");
-                var newsTitleText = $(newsTitleSpan).text();
-                var publishDateClass = 'news-publish-date';
-                // When news title is greater than specific length, it shall span over multiple lines.
-                // The overlap results in to publish date beneath title bar.  
-                if (newsTitleText.length > 48) {
-                    // Set the margin for
-                    publishDateClass = 'news-publish-date news-publish-date-2';
-                } else if (newsTitleText.length > 95) {
-                    $(newsTitleSpan).html(newsTitleText.substr(0, 95) + "...");
-                }
+                var isImageUrl = entry.Image ? true : false;
+                var newsTitleText =
+                    (entry.Title.length > 95) ?
+                        (entry.Title.substr(0, 95) + "...") :
+                        entry.Title;
 
                 var html =
-                    "<div class='news-title'>" + newsTitleSpan + "</div>" +
+                    "<div class='news-title'>" + newsTitleText + "</div>" +
                     "<div class='news-content-container'>" +
-                        /*"<div class='" + publishDateClass + "'>" +
-                            getSpan("publishedDate", function (v) { return "Published on: " + new Date(v).toLocaleString(); }) +
-                        "</div>" +*/
                         "<div class='news-content-text'>" +
-                            (isUrl ? "<div class='left'><img class=\"img\" src=\"" + url + "\" alt=\"Image\" /></div>" : "") +
-                            "<div class='" + (isUrl ? "news-right" : "both") + "'>" + getSpan("contentSnippet") + "</div>" +
+                            (isImageUrl ? "<div class='left'><img class=\"img\" src=\"" + entry.Image + "\" alt=\"Image\" /></div>" : "") +
+                            "<div class='" + (isImageUrl ? "news-right" : "both") + "'>" + entry.Description + "</div>" +
                         "</div>" +
-                        "<div class='news-author news-link'><a target=\"_new\" href=\"" + link + "\">" +
-                            (isOK(author) ? author : "Link") +
+                        "<div class='news-author news-link'><a target=\"_new\" href=\"" + entry.Link + "\">" +
+                            (entry.Source ? entry.Source : "Link") +
                         "</a></div>" +
                     "</div>";
 
