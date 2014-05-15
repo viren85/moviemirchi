@@ -138,7 +138,8 @@
 
             var fileName = "/Images/user.png";
 
-            $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", artist));
+            $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
+            $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
             $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
             $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
             $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
