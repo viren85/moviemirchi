@@ -352,7 +352,7 @@ namespace MvcWebRole2.Controllers
                 string newsXml = string.Empty;
 
                 xdoc.Load(filePath);
-                var items = xdoc.SelectSingleNode("News/Link");
+                var items = xdoc.SelectNodes("News/Link");
                 if (items != null)
                 {
                     foreach (XmlNode item in items)
@@ -362,7 +362,7 @@ namespace MvcWebRole2.Controllers
 
                         if (response.StatusCode == HttpStatusCode.OK)
                         {
-                            #region Get Review Page Content
+                            #region Get News Content
                             Stream receiveStream = response.GetResponseStream();
                             StreamReader readStream = null;
                             if (response.CharacterSet == null)
@@ -371,7 +371,7 @@ namespace MvcWebRole2.Controllers
                                 readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
 
                             newsXml = readStream.ReadToEnd();
-                            List<NewsEntity> news = ParseNewsItems(newsXml, item.ParentNode.Attributes["type"].Value);
+                            List<NewsEntity> news = ParseNewsItems(newsXml, item.Attributes["type"].Value);
                             TableManager tblMgr = new TableManager();
                             tblMgr.UpdateNewsById(news);
                             response.Close();
@@ -527,6 +527,8 @@ namespace MvcWebRole2.Controllers
                             news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Source = type;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            news.MovieName = string.Empty;
+                            news.ArtistName = string.Empty;
                             newsList.Add(news);
                         }
                         #endregion
@@ -545,6 +547,8 @@ namespace MvcWebRole2.Controllers
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            news.MovieName = string.Empty;
+                            news.ArtistName = string.Empty;
                             newsList.Add(news);
                         }
                         #endregion
@@ -563,6 +567,8 @@ namespace MvcWebRole2.Controllers
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            news.MovieName = string.Empty;
+                            news.ArtistName = string.Empty;
                             newsList.Add(news);
                         }
                         #endregion
@@ -581,6 +587,8 @@ namespace MvcWebRole2.Controllers
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
+                            news.MovieName = string.Empty;
+                            news.ArtistName = string.Empty;
                             newsList.Add(news);
                         }
                         #endregion

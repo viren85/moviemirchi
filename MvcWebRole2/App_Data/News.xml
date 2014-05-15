@@ -1,10 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <News>
-  <Link type="HindustanTimes">http://feeds.hindustantimes.com/HT-Bollywood</Link>
-  
-  <!--
   <Link type="BollywoodNewsWorld">http://www.bollywoodnewsworld.com/category/bollywood-news/feed</Link>
   <Link type="GlamSham">http://www.glamsham.com/rss/glamrss_scoops.xml</Link>
   <Link type="BollywoodHungama">http://www.bollywoodhungama.com/rss/news.xml</Link>
-  <Link type="HindustanTimes">http://feeds.hindustantimes.com/HT-Bollywood</Link>-->
+  <Link type="HindustanTimes">http://feeds.hindustantimes.com/HT-Bollywood</Link>
 </News>

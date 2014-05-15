@@ -15,6 +15,9 @@ namespace DataStoreLib.Models
         public string Link { get; set; }
         public string PublishDate { get; set; }
         public string Source { get; set; }
+        public string MovieName { get; set; }
+
+        public string ArtistName { get; set; }
         public string FutureJson { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -29,6 +32,9 @@ namespace DataStoreLib.Models
             Link = ReadString(properties, "Link");
             PublishDate = ReadString(properties, "PublishDate");
             Source = ReadString(properties, "Source");
+
+            MovieName = ReadString(properties, "MovieName");
+            ArtistName = ReadString(properties, "ArtistName");
             FutureJson = ReadString(properties, "FutureJson");
         }
 
@@ -44,8 +50,9 @@ namespace DataStoreLib.Models
             WriteString(dict, "Link", Link);
             WriteString(dict, "PublishDate", PublishDate);
             WriteString(dict, "Source", Source);
+            WriteString(dict, "MovieName", MovieName);
+            WriteString(dict, "ArtistName", ArtistName);
             WriteString(dict, "FutureJson", FutureJson);
-
             return dict;
         }
         public NewsEntity()
@@ -67,6 +74,8 @@ namespace DataStoreLib.Models
             Link = entity.Link;
             PublishDate = entity.PublishDate;
             Source = entity.Source;
+            MovieName = entity.MovieName;
+            ArtistName = entity.ArtistName;
             FutureJson = entity.FutureJson;
         }
 
@@ -75,7 +84,7 @@ namespace DataStoreLib.Models
             return this.NewsId;
         }
 
-        public static NewsEntity CreateNewsEntity(string title, string description, string image, string link, string publishDate, string source, string futureJson)
+        public static NewsEntity CreateNewsEntity(string title, string description, string image, string link, string publishDate, string source, string movieName, string artistName, string futureJson)
         {
             var newsId = Guid.NewGuid().ToString();
             var newsEntity = new NewsEntity(newsId);
@@ -85,7 +94,10 @@ namespace DataStoreLib.Models
             newsEntity.Link = link;
             newsEntity.PublishDate = publishDate;
             newsEntity.Source = source;
+            newsEntity.ArtistName = movieName;
+            newsEntity.MovieName = artistName;
             newsEntity.FutureJson = futureJson;
+
             return newsEntity;
         }
     }
