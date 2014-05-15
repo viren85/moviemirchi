@@ -567,6 +567,7 @@ blockquote.quote {
     -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
     background-color: white;
+    position: relative;
 }
 
 .tweet-container .tweet-cell {
@@ -1518,10 +1519,17 @@ blockquote.quote {
     float: right;
     font-size: 12px;
     text-decoration: underline;
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
 }
 
 .news-container .news-item .news-content-container .news-right {
     margin-left: 33%;
+}
+.news-content-container {
+    float: left;
+    position: relative;
 }
 /*.news-container .news-item .news-content-container .right {
             padding-top: 10px;

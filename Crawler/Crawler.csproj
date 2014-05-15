@@ -61,6 +61,7 @@
     <Compile Include="CrawlerHelper.cs" />
     <Compile Include="ImdbCrawler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataStoreLib\DataStoreLib.csproj">

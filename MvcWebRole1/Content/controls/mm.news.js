@@ -104,22 +104,19 @@ var NewsControl = function (selector, data) {
             if (((index % 4) % 2) && entry.Link) {
 
                 var isImageUrl = entry.Image ? true : false;
-                var newsTitleText =
-                    (entry.Title.length > 95) ?
-                        (entry.Title.substr(0, 95) + "...") :
-                        entry.Title;
+                var newsTitleText = new Util().GetEllipsisText(entry.Title, 95);
 
                 var html =
                     "<div class='news-title'>" + newsTitleText + "</div>" +
                     "<div class='news-content-container'>" +
                         "<div class='news-content-text'>" +
                             (isImageUrl ? "<div class='left'><img class=\"img\" src=\"" + entry.Image + "\" alt=\"Image\" /></div>" : "") +
-                            "<div class='" + (isImageUrl ? "news-right" : "both") + "'>" + entry.Description + "</div>" +
+                            "<div class='" + (isImageUrl ? "news-right" : "both") + "'>" + new Util().GetEllipsisText(entry.Description, 180) + "</div>" +
                         "</div>" +
-                        "<div class='news-author news-link'><a target=\"_new\" href=\"" + entry.Link + "\">" +
+                    "</div>" +
+                    "<div class='news-author news-link'><a target=\"_new\" href=\"" + entry.Link + "\">" +
                             (entry.Source ? entry.Source : "Link") +
-                        "</a></div>" +
-                    "</div>";
+                        "</a></div>";
 
                 //// TODO: this is workaround for news dupe issue - set the index back to index
                 var cell = $(_cells[Math.round(index / 2) - 1]);

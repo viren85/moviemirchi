@@ -6,7 +6,6 @@ using DataStoreLib.Utils;
 using LuceneSearchLibrarby;
 using Microsoft.WindowsAzure;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Diagnostics;
@@ -147,7 +146,7 @@ namespace MvcWebRole2.Controllers
                                 #endregion
 
                                 #region Crawl Movie Reviews
-                                #region Bollywood Hungama Crawler
+                                #region Crawler
                                 try
                                 {
                                     BollywoodHungamaReviews bh = new BollywoodHungamaReviews();
@@ -519,7 +518,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in nodes)
                         {
                             NewsEntity news = new NewsEntity();
-                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = string.Empty;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
@@ -539,7 +538,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items1)
                         {
                             NewsEntity news = new NewsEntity();
-                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("img_scoop") == null ? string.Empty : node.SelectSingleNode("img_scoop").InnerText;
                             news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
@@ -559,7 +558,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items2)
                         {
                             NewsEntity news = new NewsEntity();
-                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("image") == null ? string.Empty : node.SelectSingleNode("image").InnerText;
                             news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
@@ -579,7 +578,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items3)
                         {
                             NewsEntity news = new NewsEntity();
-                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : node.SelectSingleNode("description").InnerText;
+                            news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("enclosure") == null ? string.Empty : node.SelectSingleNode("enclosure").Attributes["url"].Value;
                             news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
@@ -602,6 +601,7 @@ namespace MvcWebRole2.Controllers
                 return null;
             }
         }
+
         #endregion
     }
 }
