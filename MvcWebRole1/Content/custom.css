@@ -73,12 +73,12 @@ a {
 
 .section-title {
     float: left;
-    color: purple;
+    color: #368BC1;
     margin-bottom: 1%;
     margin-top: 2%;
     margin-left: 7%;
     width: 93%;
-    border-left: 10px solid purple;
+    border-left: 10px solid #368BC1;
     padding-left: 20px;
 }
 /* End - Common Classes */
@@ -95,14 +95,14 @@ a {
 	linear,
 	left top,
 	left bottom,
-	color-stop(0.51, #5D297D),
-	color-stop(1, #B759D9)
+	color-stop(0, #368CC1),
+	color-stop(0.5, #1B6EA1)
 );
-background-image: -o-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
-background-image: -moz-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
-background-image: -webkit-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
-background-image: -ms-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
-background-image: linear-gradient(to bottom, #5D297D 51%, #B759D9 100%);
+background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+background-image: -moz-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+background-image: -webkit-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+background-image: -ms-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
 }
 
 .logo {
@@ -133,7 +133,7 @@ background-image: linear-gradient(to bottom, #5D297D 51%, #B759D9 100%);
         /*border: 1px solid #368BC1 !important;*/
         
         border-radius: 5px !important;
-        box-shadow: 0px 0px 15px purple !important;
+        box-shadow: 0px 0px 15px #368BC1 !important;
     }
 
 .search-container {
@@ -615,7 +615,7 @@ blockquote.quote {
     /*letter-spacing: 2px;*/
     font-size: small;
     color: #FFFFFF;
-    background-color: rgba(85, 119, 214, 0.75);
+    background-color: #368BC1;
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -1460,7 +1460,8 @@ blockquote.quote {
         font-weight: normal;
         font-style: italic;
         color: #fff;
-        background-color: rgba(85, 119, 214, 0.75);
+        /*background-color: rgba(85, 119, 214, 0.75);*/
+        background-color: #368BC1;
         padding: 5px 7px 5px 5px;
         border-radius: 3px;
         -moz-border-radius: 3px;
