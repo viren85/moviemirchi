@@ -134,7 +134,7 @@
 
         $(document).ready(function () {
             var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-            var artist = name.replace("-", " ");
+            var artist = name.split('-').join(' ');
 
             var fileName = "/Images/user.png";
 

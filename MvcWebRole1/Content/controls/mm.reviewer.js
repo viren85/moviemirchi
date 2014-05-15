@@ -1,5 +1,5 @@
 ﻿function LoadReviewsByReviewer(reviewer) {
-    reviewer = reviewer.replace("-", " ");
+    reviewer = reviewer.split('-').join(' ');
     var reviewPath = "../api/ReviewerInfo?name=" + reviewer;
     CallHandler(reviewPath, ShowReviews);
 }
