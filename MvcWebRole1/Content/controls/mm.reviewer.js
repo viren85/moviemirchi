@@ -12,7 +12,7 @@ var ShowReviews = function (data) {
         var fileName = "/Images/user.png";
         var name = result.Name;
         var affiliation = "";
-
+        
         for (k = 0; k < critics.length; k++) {
             if (critics[k] != null && critics[k] != undefined && critics[k].name == result.Name) {
                 fileName = "/Posters/Images/critic/" + critics[k].poster;
