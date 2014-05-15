@@ -1,7 +1,43 @@
 <?xml version="1.0"?>
 <Movies year="2013">
   <Month name="December">
-    <Movie name="R... Rajkumar" link="http://www.imdb.com/title/tt2369154/">
+    <Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/‎">
+      <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-dhoom3-4986.html" />
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-by-anupama-chopra-dhoom-3-is-gorgeous-with-cheerful-lack-of-logic/article1-1164955.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/542148"/>
+    </Movie>
+    <Movie name="Krrish 3" link="http://www.imdb.com/title/tt1029231/">
+      <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-krrish-3_-4553.html"/>
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-krrish-3-ultimately-belongs-to-hrithik/article1-1146252.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/525408"/>
+    </Movie>
+    <Movie name="Goliyon Ki Rasleela Ram-Leela" link="http://www.imdb.com/title/tt2215477">
+      <Review name="Filmfare" link="http://www.filmfare.com/reviews/goliyon-ki-raasleela-ramleela-4682.html"/>
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-bhansali-s-ram-leela-is-his-best-ever-say-critics/article1-1151490.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566872"/>
+    </Movie>
+    <Movie name="Gori Tere Pyaar Mein" link="http://www.imdb.com/title/tt2275794/">
+      <Review  name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-gori-tere-pyaar-mein-4739.html"/>
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-gori-tere-pyaar-mein/article1-1154675.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/584414"/>
+    </Movie>
+    <Movie name="Singh Saab The Great" link="http://www.imdb.com/title/tt2437954/">
+      <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-singh-saab-the-great-4747.html"/>
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-watch-singh-saab-the-great-for-sunny-deol/article1-1154460.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/549451"/>
+    </Movie>
+    <Movie name="Bullett Raja" link="http://www.imdb.com/title/tt2551378/">
+      <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-bullett-raja-4810.html"/>
+      <Review  name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-bullett-raja/article1-1157372.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566240"/>
+    </Movie>
+    <Movie name="Mickey Virus" link="http://www.imdb.com/title/tt2796318/">
+      <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-mickey-virus-4503.html"/>
+      <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-mickey-virus-by-anupama-chopra/article1-1140630.aspx"/>
+      <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/576564"/>
+    </Movie>
+    <Movie name="Yeh Jawaani Hai Deewani" link="http://www.imdb.com/title/tt2178470/"/>
+    <!--<Movie name="R... Rajkumar" link="http://www.imdb.com/title/tt2369154/">
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-r-rajkumar/article1-1160003.aspx "/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566875"/>
     </Movie>
@@ -16,6 +52,6 @@
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-dhoom3-4986.html" />
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-by-anupama-chopra-dhoom-3-is-gorgeous-with-cheerful-lack-of-logic/article1-1164955.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/542148"/>
-    </Movie>
+    </Movie>-->
   </Month>
 </Movies>

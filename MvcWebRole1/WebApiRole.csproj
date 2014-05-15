@@ -234,6 +234,7 @@
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
     <Content Include="Content\controls\mm.twitter.js" />
+    <Content Include="Content\controls\mm.util.js" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\jquery.bookblock.js" />
