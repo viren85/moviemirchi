@@ -823,12 +823,12 @@ blockquote.quote {
         display: none;
     }
 
-.js .content {
+/*.js .content {
     position: relative;
     width: 100%;
     -webkit-font-smoothing: subpixel-antialiased;
     height: 550px;
-}
+}*/
 
 .content p {
     font-size: 1em;
@@ -950,7 +950,7 @@ blockquote.quote {
 .movie-panel {
     float: left;
     width: 100%;
-    margin-top: 40px !important;
+    margin-top: 55px !important;
 }
 
 .genre {
@@ -1606,26 +1606,28 @@ blockquote.quote {
 
 .bio-pic {
     float: left;
-    width: 150px;
-    height: 150px;
     margin-right: 20px;
+    position: relative;
+    max-width: 350px;
 }
 
 .bio-pic-img {
     float: left;
-    width: 120px;
-    height: 120px;
+    width: 263px;
+    height: 300px;
     margin-right: 20px;
+    position: relative;
 }
 
 .intro {
     float: left;
     font-size: 20px;
-    width: 84%;
+    width: 44%;
+    position: absolute;
+    left: 30%;
 }
 
 .intro-text {
-    float: left;
     font-size: 12px;
 }
 /*Critics - Bio section End*/

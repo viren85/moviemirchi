@@ -7,7 +7,7 @@
 var ShowReviews = function (data) {
     var result = JSON.parse(data);
     if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
-        $(".movies").append(GetTubeControl("Reviews By " + result.Name, "review-list", "review-pager"));
+        $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager"));
 
         var fileName = "/Images/user.png";
         var name = result.Name;
@@ -23,9 +23,16 @@ var ShowReviews = function (data) {
 
         $(".movies").find(".review-list").each(function () {
             $(this).prepend(ShowPersonBio(fileName, name, "", affiliation));
+            InitBio();
         });
 
         var reviews = [];
+        var reviewTitle = GetTubeControl("Reviews", "reviews", "review-list-pager");
+
+        $(".review-list").find("ul:first").each(function () {
+            $("<div class=\"section-title large-fonts\" style=\"margin-left: 0%\">Reviews</div>").insertBefore(this);
+        });
+
         reviews = result.ReviewsDetails;
         ShowReviewsByReviewer(reviews);
     }
