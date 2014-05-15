@@ -491,7 +491,7 @@ namespace DataStoreLib.Storage
             var activeTweets = allTweets; //.Where(t => t.Value.Status == "1"); // Pick only active tweets
             var sortedTweets = activeTweets.OrderByDescending(t => t.Value.Created_At); // Sort by Created date
             var paginatedTweets =
-                (startIndex > 0 && pageSize > 0) ?
+                (startIndex >= 0 && pageSize > 0) ?
                     sortedTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
                     : sortedTweets;
             var result = paginatedTweets.ToDictionary(t => t.Key, t => t.Value);
