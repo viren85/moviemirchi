@@ -78,6 +78,8 @@ a {
     margin-top: 2%;
     margin-left: 7%;
     width: 93%;
+    border-left: 10px solid purple;
+    padding-left: 20px;
 }
 /* End - Common Classes */
 
@@ -1237,24 +1239,10 @@ blockquote.quote {
     text-align: center;
     height: 50px;
     padding-top: 10px;
-    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    border-radius: 0px 0px 5px 5px;
-    -moz-border-radius: 0px 0px 5px 5px;
-    -webkit-border-radius: 0px 0px 5px 5px;
 }
-
-    .critics-name:hover, .critics-name-small:hover {
-        background-color: rgba(85, 119, 214, 0.75);
-        color: white;
-    }
-
 .critics-name-small {
     width: 90%;
     font-size: 11px;
-    border-radius: 0px 0px 3px 3px;
-    -moz-border-radius: 0px 0px 3px 3px;
-    -webkit-border-radius: 0px 0px 3px 3px;
 }
 
 .img-movie-name-small {
