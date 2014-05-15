@@ -7,7 +7,7 @@
             review.OutLink = "#";
             if (review.OutLink) {
 
-                var reviewText = review.Review.length > 250 ? review.Review.substring(0, 250) + "..." : review.Review;
+                var reviewText = new Util().GetEllipsisText(review.Review, 250);
 
                 var html =
                     "<div class=\"arrow_container\">" +
@@ -84,7 +84,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
             review.OutLink = "#";
             if (review.OutLink) {
 
-                var reviewText = review.Review.length > 250 ? review.Review.substring(0, 250) + "..." : review.Review;
+                var reviewText = new Util().GetEllipsisText(review.Review, 250);
                 var uniqueName = FormPathFromName(review.MovieName);
 
                 var html =
@@ -138,7 +138,7 @@ function GetMoviePoster(posters, movieName) {
             posterPath = "/Posters/Images/" + posters[posters.length - 1];
         } else {
             //posterPath = "/Posters/Images/default-movie.jpg";
-            posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";
+            posterPath = "/Posters/Images/" + movieName.split(" ").join("-") + "-poster-1.jpg";
         }
     }
 
