@@ -86,21 +86,33 @@ a {
 /* Header Section */
 /* VS - Apr 24 - Search bar style is changed to support it as main search bar on website */
 #top-nav {
-    float: left;
+    height: 65px;
     width: 100%;
-    padding-bottom: 10px;
-    background-color: #FFF;
-    padding-top: 1%;
-    border-bottom: 1px solid #CCC;
-    box-shadow: 1px 2px #EEE;
     position: fixed;
     z-index: 100;
+    box-shadow: 0px 3px 10px #666;
+    background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0.51, #5D297D),
+	color-stop(1, #B759D9)
+);
+background-image: -o-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
+background-image: -moz-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
+background-image: -webkit-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
+background-image: -ms-linear-gradient(bottom, #5D297D 51%, #B759D9 100%);
+background-image: linear-gradient(to bottom, #5D297D 51%, #B759D9 100%);
 }
 
 .logo {
-    float: left;
-    width: 23%;
-    margin-left: 6%;
+    position: absolute;
+    left: 7%;
+    top: 10px;
+    /*background-color: white;
+    padding: 5px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 15px purple;*/
 }
 
     .logo img {
@@ -109,16 +121,19 @@ a {
     }
 
 .home-search-bar {
-    float: left;
-    position: relative;
+    position: absolute;
+    left: 33%;
+    top: 10px;
 }
 
     .home-search-bar input {
         width: 500px !important;
         height: 35px;
         outline: none;
-        border: 1px solid #368BC1 !important;
+        /*border: 1px solid #368BC1 !important;*/
+        
         border-radius: 5px !important;
+        box-shadow: 0px 0px 15px purple !important;
     }
 
 .search-container {
@@ -137,9 +152,9 @@ a {
     text-align: center;
     width: 80px;
     height: 35px;
-    background-color: skyblue;
+    background-color: lightcoral;
     font-weight: bold;
-    color: #FFF;
+    color: #333;
     border-radius: 5px;
     margin-left: 5px;
     cursor: pointer;
@@ -172,6 +187,7 @@ a {
 .status {
     float: right;
     margin-right: 5%;
+    display: none;
 }
 
     .status ul {
