@@ -1,6 +1,7 @@
 ﻿var critics = [
         { href: 'rajeev-masand', title: 'Rajeev Masand', name: 'Rajeev Masand', poster: 'rajeev-masand.jpg', aff: 'CNN IBN' },
         { href: 'tarun-adarsh', title: 'Tarun Adarsh', name: 'Tarun Adarsh', poster: 'tarun-adarsh.jpg', aff: 'Bollywood Hungama, Trade Guide' },
+        { href: 'taran-adarsh', title: 'Taran Adarsh', name: 'Taran Adarsh', poster: 'taran-adarsh.jpg', aff: 'Bollywood Hungama, Trade Guide' },
         { href: 'anupama-chopra', title: 'Anupama Chopra', name: 'Anupama Chopra', poster: 'anupama-chopra.jpg', aff: 'Hindustan Times' },
         { href: 'shubra-gupta', title: 'Shubra Gupta', name: 'Shubra Gupta', poster: 'shubra-gupta.jpg', aff: 'Indian Express' },
         { href: 'tushar-joshi', title: 'Tushar Joshi', name: 'Tushar Joshi', poster: 'tushar-joshi.jpg', aff: 'DNA' },
