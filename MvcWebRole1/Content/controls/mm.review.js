@@ -1,14 +1,11 @@
 ﻿var GetReviewControl = function (containerClass, movieReviews) {
     if (movieReviews) {
-
         movieReviews.forEach(function (review) {
-
-            // TODO: Get the right outlink
-            review.OutLink = "#";
+            
             if (review.OutLink) {
 
                 var reviewText = new Util().GetEllipsisText(review.Review, 250);
-
+                
                 var html =
                     "<div class=\"arrow_container\">" +
                         "<div class=\"left\">" +
@@ -79,9 +76,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
     if (movieReviews) {
 
         movieReviews.forEach(function (review) {
-
-            // TODO: Get the right outlink
-            review.OutLink = "#";
+            
             if (review.OutLink) {
 
                 var reviewText = new Util().GetEllipsisText(review.Review, 250);
