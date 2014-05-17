@@ -609,21 +609,21 @@ namespace MovieCrawler
                         if (nameNodes != null)
                         {
                             Cast cast = new Cast();
-                            cast.role = roleName;
+                            cast.role = roleName.Replace("&nbsp;", " ");
 
                             foreach (HtmlNode node in nameNodes)
                             {
                                 if (node.Attributes["class"] != null && node.Attributes["class"].Value == "name")
                                 {
                                     var link = node.Element("a");
-                                    cast.name = link.InnerText.Trim();
+                                    cast.name = link.InnerText.Replace("'", string.Empty).Replace("&", string.Empty).Trim();
 
                                     if (link.Attributes["href"] != null)
                                         cast.link = link.Attributes["href"].Value;
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "credit")
                                 {
-                                    cast.charactername = node.InnerText.Trim();
+                                    cast.charactername = node.InnerText.Replace("'", string.Empty).Replace("&", string.Empty).Trim();
                                 }
                             }
 
@@ -709,21 +709,21 @@ namespace MovieCrawler
                         if (nameNodes != null)
                         {
                             Cast cast = new Cast();
-                            cast.role = roleName;
+                            cast.role = roleName.Replace("&nbsp;", " ");
 
                             foreach (HtmlNode node in nameNodes)
                             {
                                 if (node.Attributes["itemprop"] != null && node.Attributes["itemprop"].Value == "actor")
                                 {
                                     var link = node.Element("a");
-                                    cast.name = link.InnerText.Replace("&", string.Empty).Trim();
-                                    
+                                    cast.name = link.InnerText.Replace("'", string.Empty).Replace("&", string.Empty).Trim();
+
                                     if (link.Attributes["href"] != null)
                                         cast.link = link.Attributes["href"].Value;
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "character")
                                 {
-                                    cast.charactername = node.InnerText.Replace("&", string.Empty).Trim(); ;
+                                    cast.charactername = node.InnerText.Replace("'", string.Empty).Replace("&", string.Empty).Trim();
                                 }
                             }
 

@@ -185,7 +185,8 @@ namespace DataStoreLib.Storage
             Debug.Assert(!string.IsNullOrWhiteSpace(name));
             var retList = store.GetMoviesByUniqueName(name);
 
-            Debug.Assert(retList.Count == 1);
+            // VS - Comenting out this condition as it throws error messages each time returned result set does not have any items
+            //Debug.Assert(retList.Count == 1);
             var key = retList.Keys.FirstOrDefault();
             return (key != null) ? retList[key] : null;
         }
