@@ -1,0 +1,136 @@
+﻿#top-nav {
+    height: 65px;
+    width: 100%;
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+    box-shadow: 0px 3px 10px #666;
+    background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
+    background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -moz-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -webkit-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -ms-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
+}
+
+.logo {
+    position: absolute;
+    left: 7%;
+    top: 10px;
+}
+
+    .logo img {
+        width: 200px;
+        height: 40px;
+    }
+
+.home-search-bar {
+    position: absolute;
+    left: 33%;
+    top: 10px;
+}
+
+    .home-search-bar input {
+        width: 500px !important;
+        height: 35px;
+        outline: none;
+        border-radius: 5px !important;
+        box-shadow: 0px 0px 15px #368BC1 !important;
+    }
+
+.search-container {
+    float: left;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+    .search-container input, #search-bar {
+        float: left;
+    }
+
+.search-button {
+    float: left;
+    padding: 8px;
+    text-align: center;
+    width: 80px;
+    height: 35px;
+    background-color: lightcoral;
+    font-weight: bold;
+    color: #333;
+    border-radius: 5px;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.clear-search-bar {
+    position: absolute;
+    right: 50px;
+    margin: 5px;
+    top: 0px;
+    cursor: pointer;
+    display: none;
+}
+
+.clear-search-bar-button {
+    float: right;
+    width: 16px !important;
+    height: 16px !important;
+}
+
+#search-bar .clear-search-bar {
+    right: 85px;
+}
+
+#search-bar .clear-search-bar-button {
+    width: 24px !important;
+    height: 24px !important;
+}
+/*Login/Signup links*/
+#targetUL {
+    width: 85%;
+    border: 1px solid silver;
+    margin-top: 35px;
+    list-style: none;
+    position: absolute;
+    background-color: white;
+    z-index: 101;
+    display: none;
+    padding-left: 10px;
+}
+
+    #targetUL li {
+        border-bottom: 1px solid silver;
+        height: 70px;
+        padding-left: 5px;
+        padding-top: 8px;
+        cursor: pointer;
+        width: 100%;
+    }
+
+        #targetUL li:hover {
+            cursor: pointer;
+            background-color: #fcecec;
+        }
+
+.status {
+    float: right;
+    margin-right: 5%;
+    display: none;
+}
+
+    .status ul {
+        float: left;
+        list-style: none;
+        margin-top: 10px;
+    }
+
+        .status ul li {
+            float: left;
+            margin-right: 20px;
+        }
+
+            .status ul li a {
+                color: #2793e6;
+                text-decoration: underline;
+                margin-top: 10px;
+            }

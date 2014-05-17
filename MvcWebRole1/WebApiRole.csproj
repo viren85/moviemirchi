@@ -250,6 +250,15 @@
     <Content Include="Content\page.js" />
     <Content Include="Content\controls\mm.pager.js" />
     <Content Include="Content\style.css" />
+    <Content Include="Content\styles\mm.common.css" />
+    <Content Include="Content\styles\mm.critics.css" />
+    <Content Include="Content\styles\mm.footer.css" />
+    <Content Include="Content\styles\mm.header.css" />
+    <Content Include="Content\styles\mm.news.css" />
+    <Content Include="Content\styles\mm.pager.css" />
+    <Content Include="Content\styles\mm.review.css" />
+    <Content Include="Content\styles\mm.reviewer.css" />
+    <Content Include="Content\styles\mm.twitter.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />

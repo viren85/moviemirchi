@@ -1,0 +1,44 @@
+﻿.large-fonts {
+    font-size: 2em;
+    font-family: Segoe UI Light;
+    font-weight: bold;
+}
+
+.medium-fonts {
+    font-size: 1.5em;
+    font-family: Segoe UI Light;
+}
+
+.small-fonts {
+    font-size: 0.5em;
+    font-family: Segoe UI Light;
+    font-weight: bold;
+}
+
+.tube-container {
+    float: left;
+    width: 100%;
+    margin-top: 1%;
+}
+
+.width60 {
+    width: 60%;
+    margin-left: 3%;
+    float: left;
+}
+
+.width30 {
+    width: 30%;
+    float: left;
+}
+
+.section-title {
+    float: left;
+    color: #368BC1;
+    margin-bottom: 1%;
+    margin-top: 2%;
+    margin-left: 7%;
+    width: 93%;
+    border-left: 10px solid #368BC1;
+    padding-left: 20px;
+}

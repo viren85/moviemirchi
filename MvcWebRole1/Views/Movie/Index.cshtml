@@ -11,9 +11,6 @@
     #now-pager, #upcoming-pager {
         float: left;
         width: 90%;
-        /*position: absolute;
-        bottom: 0px;
-        left: 0%;*/
         text-align: center;
         margin-top: 20px;
     }
@@ -22,7 +19,6 @@
         float: none;
         position: relative;
         display: table;
-        /*overflow:hidden;*/
     }
 
     div.multimediaCaption {
@@ -47,9 +43,7 @@
         font-family: arial,tahoma,sans-serf;
         font-size: 14px;
         font-weight: bold;
-        /*text-transform:uppercase;*/
     }
-
     div.captionAndNavigate {
         background-color: #000;
         bottom: 0px;
@@ -59,76 +53,14 @@
         margin-top: 0;
         opacity: 0.7;
         filter: alpha(opacity=70);
-        /*padding: 2px 0 2px 2px;*/
         padding: 0px;
         position: absolute;
         text-align: left;
         z-index: 2;
     }
 
-    .overLaying {
-        z-index: 20;
-        color: #000000;
-        opacity: 0.7;
-        filter: alpha(opacity=70);
-        position: absolute;
-        top: 20;
-        left: 0;
-    }
-
-    .overLayImg {
-        z-index: 20;
-        color: #000000;
-        opacity: 0.7;
-        filter: alpha(opacity=70);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 42px;
-        height: 42px;
-        vertical-align: middle;
-        overflow: hidden;
-        cursor: pointer;
-        /*Chrome*/
-        -webkit-border-radius: 5em;
-        /*Firefox*/
-        -moz-border-radius: 5em;
-        /*IE*/
-        border-radius: 5em;
-        /*behavior: url(PIE.htc);*/
-        background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 0 transparent;
-    }
-
-        .overLayImg:hover {
-            background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -42px transparent;
-        }
-
-        .overLayImg[title="Play Video"] {
-            background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -126px transparent;
-        }
-
-            .overLayImg[title="Play Video"]:hover {
-                background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -168px transparent;
-            }
-
-        .overLayImg[title="Watch Flash"] {
-            background: url("/news/images/icons/flash.png") no-repeat scroll 0 0px transparent;
-        }
-
-            .overLayImg[title="Watch Flash"]:hover {
-                background: url("/news/images/icons/flash.png") no-repeat scroll 0 -42px transparent;
-            }
-
     .link-container {
-        cursor: pointer;
         display: none;
-    }
-
-        .link-container .section-title:hover {
-            color: purple !important;
-        }
-
-    .movie-poster-details, .movie-review-details {
     }
 
     .movie-list, .movie-list ul {
@@ -147,38 +79,7 @@
     }
 </style>
 <div class="content">
-    @*<div class="twitter">
-            <div class="section-title medium-fonts">235</div>
-            <div class="tweets">
-                <div class="tweet">
-                    <div class="tweet-author">‏&#64;ImKKohli</div>
-                    <div class="tweet-text">
-                        Shootout at Lokhandwala will never get old!!
-                    </div>
-                </div>
-                <div class="tweet">
-                    <div class="tweet-author">&#64;darshans_89</div>
-                    <div class="tweet-text">
-                        watching Shootout at Lokhandwala
-                    </div>
-                </div>
-                <div class="tweet">
-                    <div class="tweet-author">&#64;aartichabria</div>
-                    <div class="tweet-text">
-                        Found a very special picture of my #shootout at lokhandwala team. Thought i should share it here with ull. pic.twitter.com/62ispgxuCM
-                    </div>
-                </div>
-                <div class="tweet">
-                    <div class="tweet-author">&#64;IamSrivatsanV </div>
-                    <div class="tweet-text">
-                        This scene from Shootout at Lokhandwala truly applies for this Ishrat Jehan's case http://www.youtube.com/watch?v=gOlO32-Pxg4
-                    </div>
-                </div>
-
-            </div>
-        </div>*@
     <div class="movies">
-
     </div>
     <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
     <div class="movie-details">
@@ -202,152 +103,5 @@
             $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
             $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
             LoadTweets("movie", name);
-            /*$(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
-            $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));*/
-
         });
     </script>
-
-    @* Commenting the flip board effect for movies page *@
-    @*<div class="bb-custom-wrapper">
-            <div id="bb-bookblock" class="bb-bookblock">
-                <div class="bb-item" id="item1">
-                    <div class="content">
-                        <div class="scroller">
-                            <div class="movie-name">
-                            </div>
-                            <span class="critic-label">Critic Rating: </span><span class="critic-rating"></span>
-                            <span class="star"></span>
-                            <div class="left-content">
-
-                                <img class="home-poster" />
-                                <div class="genre"></div>
-                            </div>
-                            <div class="plot">
-                                <div class="section-header">Movie Summary</div>
-                                <p class="story-plot">
-
-                                </p>
-                            </div>
-                            <div class="plot">
-                                <div class="section-header">Team</div>
-                                <div id="director">
-
-                                </div>
-                                <div id="writer">
-
-                                </div>
-                                <div id="producer">
-
-                                </div>
-                                <div id="music">
-
-                                </div>
-
-                            </div>
-                            <div class="plot">
-                                <div class="section-header">Statistics</div>
-                                <div id="stats">
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bb-item" id="item2">
-                    <div class="content">
-                        <div class="scroller">
-                            <div class="movie-name">
-                            </div>
-                            <span class="critic-label">Critic Rating: </span><span class="critic-rating"></span>
-                            <span class="star"></span>
-                            <div id="imagearea">
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bb-item" id="item3">
-                    <div class="content">
-                        <div class="scroller">
-                            <div class="movie-name">
-                            </div>
-                            <span class="critic-label">Critic Rating: </span><span class="critic-rating"></span>
-                            <span class="star"></span>
-                            <div class="left-content">
-                                <img class="home-poster" />
-                            </div>
-                            <div id="castdetails">
-                                <div class="person-details">
-                                    <div class="cast-container">
-                                        <div class="class-container-header">Cast</div>
-                                        <ul id="cast-list"></ul>
-                                    </div>
-                                </div>
-                                <div class="person-details">
-                                    <div class="cast-container">
-                                        <div class="class-container-header">Director</div>
-                                        <ul id="director-list"></ul>
-                                    </div>
-                                    <div class="cast-container">
-                                        <div class="class-container-header">Producer</div>
-                                        <ul id="producer-list"></ul>
-                                    </div>
-                                    <div class="cast-container">
-                                        <div class="class-container-header">Writer</div>
-                                        <ul id="writer-list"></ul>
-                                    </div>
-                                    <div class="cast-container">
-                                        <div class="class-container-header">Music</div>
-                                        <ul id="music-list"></ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="bb-item" id="item4">
-                    <div class="content">
-                        <div class="scroller">
-                            <div class="movie-name">
-                            </div>
-                            <span class="critic-label">Critic Rating: </span><span class="critic-rating"></span>
-                            <span class="star"></span>
-                            <div class="left-content">
-                                <img class="home-poster" />
-                            </div>
-                            <div id="music-details">
-                                <div class="cast-container">
-                                    <div class="class-container-header">Songs</div>
-                                    <ul id="song-list"></ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="bb-item" id="item5">
-                    <div class="content">
-                        <div class="scroller">
-                            <div class="movie-name">
-                            </div>
-                            <div class="left-content">
-                                <img class="home-poster" />
-                            </div>
-                            <div id="review-details">
-                                <div class="cast-container">
-                                    <ul id="reviewer-list">
-                                        <li><img class="loading" src="/Images/Loading.gif" alt="Loading..." /></li>
-                                    </ul>
-                                    <div id="detailed-review"><img class="loading" src="/Images/Loading.gif" alt="Loading..." /></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <nav>
-                    <span id="bb-nav-prev">&larr;</span>
-                    <span id="bb-nav-next">&rarr;</span>
-                </nav>
-            </div>
-        </div>*@
