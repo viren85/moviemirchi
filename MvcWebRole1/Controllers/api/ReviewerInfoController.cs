@@ -45,7 +45,7 @@ namespace MvcWebRole1.Controllers.api
                     int courter = 0;
 
                     foreach (ReviewEntity review in reviews.Values)
-                    {   
+                    {
                         if (courter == 0)
                         {
                             // getting reviewer Informations
@@ -53,6 +53,8 @@ namespace MvcWebRole1.Controllers.api
                             reviewerInfo.Name = review.ReviewerName;
                             reviewerInfo.OutLink = review.OutLink;
                         }
+                        else if (review.MovieId == null)
+                            continue;
 
                         // get movie information
                         MovieEntity movie = tableMgr.GetMovieById(review.MovieId);

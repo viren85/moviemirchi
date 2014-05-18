@@ -254,6 +254,7 @@
     <Content Include="Content\styles\mm.critics.css" />
     <Content Include="Content\styles\mm.footer.css" />
     <Content Include="Content\styles\mm.header.css" />
+    <Content Include="Content\styles\mm.moviedetails.css" />
     <Content Include="Content\styles\mm.news.css" />
     <Content Include="Content\styles\mm.pager.css" />
     <Content Include="Content\styles\mm.review.css" />
