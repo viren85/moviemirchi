@@ -54,3 +54,30 @@ div.captionAndNavigate {
     margin-left: 6%;
     margin-top: 20px;
 }
+
+/* Movie Description */
+.movie-data-row {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+
+    .movie-data-row:hover {
+        background-color: #DDD;
+        cursor: default;
+    }
+
+.movie-data-label {
+    float: left;
+    text-align: left;
+    font-size: 1.1em;
+    font-family: 'Segoe UI';
+    width: 20%;
+}
+
+.movie-data {
+    float: left;
+    text-align: left;
+    width: 80%;
+}
+/*Movie description end */

@@ -1,4 +1,109 @@
-﻿
+﻿.review {
+    float: left;
+    width: 66%;
+}
+
+.more-link {
+    float: right;
+}
+
+.arrow_container {
+    padding: 10px;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
+    width: 48%;
+    height: 280px;
+    margin-right: 2%;
+    margin-top: 2%;
+    float: left;
+}
+.reviewer-name, .affiliation, .other {
+    float: left;
+    margin-top: 5px;
+    width: 100%;
+}
+
+.affiliation {
+    font-size: 0.85em;
+}
+
+.left {
+    float: left;
+    width: 33%;
+}
+
+.clear {
+    clear: both;
+}
+
+.arrow_box {
+    position: relative;
+    background: #f5f5f5;
+    border: 2px solid #dedede;
+    height: 200px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEEEEE), color-stop(0.8,#DDDDDD));
+}
+
+    .arrow_box:after, .arrow_box:before {
+        right: 100%;
+        top: 20%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .arrow_box:after {
+        border-color: rgba(245, 245, 245, 0);
+        border-right-color: #f5f5f5;
+        border-width: 20px;
+        margin-top: -20px;
+    }
+
+    .arrow_box:before {
+        border-color: rgba(222, 222, 222, 0);
+        border-right-color: #dedede;
+        border-width: 23px;
+        margin-top: -23px;
+    }
+
+    .arrow_box .review-content {
+        padding: 5px;
+    }
+
+blockquote.quote {
+    font: 14px/20px italic Times, serif;
+    padding-left: 35px;
+    margin: 1px;
+    background-image: url(../images/quote.png);
+    background-size: 24px 24px;
+    background-repeat: no-repeat;
+    text-indent: 25px;
+    font-family: 'Segoe UI';
+    border: none;
+}
+
+.topcritic {
+    padding-left: 25px;
+    background-image: url(../images/star-rating.png);
+    background-size: 16px;
+    background-repeat: no-repeat;
+    font-size: 12px;
+}
+
+.mirchimeter {
+    float: left;
+    margin-left: 10px;
+}
 
 #detailed-review {
     float: left;

@@ -1,4 +1,37 @@
-﻿
+﻿.review-list {
+    float: left;
+    width: 86%;
+    margin-left: 7%;
+}
+
+    .review-list ul {
+        list-style: none;
+        margin: 0 auto;
+        padding: 0px;
+        float: left;
+    }
+
+        .review-list ul li {
+            float: left;
+            width: 50%;
+            margin-bottom: 1%;
+        }
+
+            .review-list ul li .arrow_container {
+                width: 97%;
+            }
+
+.critic-label {
+    float: left;
+    font-size: medium;
+    margin-right: 2%;
+    margin-top: 1%;
+}
+.critic-rating {
+    float: left;
+    font-size: xx-large;
+    font-family: Segoe UI;
+}
 #reviewer-list {
     float: left;
     width: 30%;

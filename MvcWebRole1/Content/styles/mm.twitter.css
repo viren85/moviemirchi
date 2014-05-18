@@ -85,3 +85,86 @@
     position: relative;
     margin-top: 20px;
 }
+.tweet-container, .news-content {
+    width: 400px;
+    float: left;
+    margin-left: 6%;
+}
+
+.tweet-container {
+    margin-left: 0%;
+}
+
+.news-content {
+    width: 94%;
+}
+
+.news-left, .news-right {
+    width: 50%;
+}
+
+.tweet-left, .tweet-right {
+    width: 200px;
+}
+
+.tweet-left, .news-left {
+    float: left;
+}
+
+.tweet-right, .news-right {
+    float: right;
+}
+
+.tweet-cell {
+    height: 200px;
+    margin: 10px;
+    padding: 10px;
+    /*color: rgba(85, 119, 214, 0.75);*/
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
+    background-color: white;
+    position: relative;
+    margin-top: 20px;
+}
+.tweet-container .tweet-cell {
+    margin-top: 20px;
+}
+
+.tweet-user, .tweet-content {
+    padding: 5px 0 5px 0;
+    margin: 5px 0 5px 0;
+}
+
+.tweet-user {
+    padding-right: 8px;
+    text-align: right;
+    font-style: italic;
+    text-transform: lowercase;
+    /*letter-spacing: 2px;*/
+    font-size: small;
+    color: #FFFFFF;
+    background-color: #368BC1;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
+    width: 100%;
+}
+
+.tweet-content {
+    color: #444444;
+    overflow: hidden;
+    max-height: 180px;
+    max-width: 180px;
+    font-size: 12px;
+}
+
+    .tweet-content span {
+        color: #20b7d6;
+    }

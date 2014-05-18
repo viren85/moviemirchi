@@ -1,16 +1,24 @@
-﻿.footer span {
-            float: left;
-            margin-right: 100px;
-        }
+﻿.footer {
+    float: left;
+    width: 80%;
+    margin-left: 7%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
 
-        .footer ul {
-            float: left;
-            margin-left: 20px;
-            list-style: none;
-        }
+    .footer span {
+        float: left;
+        margin-right: 100px;
+    }
 
-            .footer ul li {
-                float: left;
-                margin-right: 20px;
-                font-size: 12px;
-            }
+    .footer ul {
+        float: left;
+        margin-left: 20px;
+        list-style: none;
+    }
+
+        .footer ul li {
+            float: left;
+            margin-right: 20px;
+            font-size: 12px;
+        }

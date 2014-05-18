@@ -1,323 +1,5 @@
-/* Rating Control */
-.rate-container {
-    float: left;
-    width: 100%;
-    height: 20px;
-}
-
-.red-mirchi {
-    float: left;
-    width: 15px;
-    height: 25px;
-    background-image: url('/Images/RedChilli.png');
-    background-size: 15px 25px;
-    /*margin-top: 10px;*/
-    margin-bottom: 3px;
-}
-
-.green-mirchi {
-    float: left;
-    width: 15px;
-    height: 25px;
-    background-image: url('/Images/GreenChilli.png');
-    background-size: 15px 25px;
-    margin-top: 10px;
-}
-/* End - Rating Control */
-#container .content{
+#container .content {
     margin-top: 50px;
-}
-/* Movie Description */
-.movie-data-row {
-    float: left;
-    width: 100%;
-    margin-top: 10px;
-}
-
-    .movie-data-row:hover {
-        background-color: #DDD;
-        cursor: default;
-    }
-
-.movie-data-label {
-    float: left;
-    text-align: left;
-    font-size: 1.1em;
-    font-family: 'Segoe UI';
-    width: 20%;
-}
-
-.movie-data {
-    float: left;
-    text-align: left;
-    width: 80%;
-}
-/*Movie description end */
-/* VS - Review Control */
-.review {
-    float: left;
-    width: 66%;
-}
-
-.more-link {
-    float: right;
-}
-
-.arrow_container {
-    padding: 10px;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);
-    width: 48%;
-    height: 280px;
-    margin-right: 2%;
-    margin-top: 2%;
-    float: left;
-}
-.reviewer-name, .affiliation, .other {
-    float: left;
-    margin-top: 5px;
-    width: 100%;
-}
-
-.affiliation {
-    font-size: 0.85em;
-}
-
-.left {
-    float: left;
-    width: 33%;
-}
-
-.clear {
-    clear: both;
-}
-
-.arrow_box {
-    position: relative;
-    background: #f5f5f5;
-    border: 2px solid #dedede;
-    height: 200px;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FFFFFF), to(#EEEEEE), color-stop(0.8,#DDDDDD));
-}
-
-    .arrow_box:after, .arrow_box:before {
-        right: 100%;
-        top: 20%;
-        border: solid transparent;
-        content: " ";
-        height: 0;
-        width: 0;
-        position: absolute;
-        pointer-events: none;
-    }
-
-    .arrow_box:after {
-        border-color: rgba(245, 245, 245, 0);
-        border-right-color: #f5f5f5;
-        border-width: 20px;
-        margin-top: -20px;
-    }
-
-    .arrow_box:before {
-        border-color: rgba(222, 222, 222, 0);
-        border-right-color: #dedede;
-        border-width: 23px;
-        margin-top: -23px;
-    }
-
-    .arrow_box .review-content {
-        padding: 5px;
-    }
-
-blockquote.quote {
-    font: 14px/20px italic Times, serif;
-    padding-left: 35px;
-    margin: 1px;
-    background-image: url(../images/quote.png);
-    background-size: 24px 24px;
-    background-repeat: no-repeat;
-    text-indent: 25px;
-    font-family: 'Segoe UI';
-    border: none;
-}
-
-.topcritic {
-    padding-left: 25px;
-    background-image: url(../images/star-rating.png);
-    background-size: 16px;
-    background-repeat: no-repeat;
-    font-size: 12px;
-}
-
-.mirchimeter {
-    float: left;
-    margin-left: 10px;
-}
-/* End - Review Control */
-/*Twitter Control*/
-.tweet-container, .news-content {
-    width: 400px;
-    float: left;
-    margin-left: 6%;
-}
-
-.tweet-container {
-    margin-left: 0%;
-}
-
-.news-content {
-    width: 94%;
-}
-
-.news-left, .news-right {
-    width: 50%;
-}
-
-.tweet-left, .tweet-right {
-    width: 200px;
-}
-
-.tweet-left, .news-left {
-    float: left;
-}
-
-.tweet-right, .news-right {
-    float: right;
-}
-
-.tweet-cell {
-    height: 200px;
-    margin: 10px;
-    padding: 10px;
-    /*color: rgba(85, 119, 214, 0.75);*/
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
-    background-color: white;
-    position: relative;
-    margin-top: 20px;
-}
-
-.width60 .section-title {
-    margin-top: 0px;
-    margin-bottom: 12px;
-}
-
-.width30 .section-title {
-    margin-left: 3%;
-}
-
-.tweet-container .tweet-cell {
-    margin-top: 20px;
-}
-
-.tweet-user, .tweet-content {
-    padding: 5px 0 5px 0;
-    margin: 5px 0 5px 0;
-}
-
-.tweet-user {
-    padding-right: 8px;
-    text-align: right;
-    font-style: italic;
-    text-transform: lowercase;
-    /*letter-spacing: 2px;*/
-    font-size: small;
-    color: #FFFFFF;
-    background-color: #368BC1;
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
-    width: 100%;
-}
-
-.tweet-content {
-    color: #444444;
-    overflow: hidden;
-    max-height: 180px;
-    max-width: 180px;
-    font-size: 12px;
-}
-
-    .tweet-content span {
-        color: #20b7d6;
-    }
-/*End Twitter Control*/
-/*Footer*/
-.footer {
-    float: left;
-    width: 80%;
-    margin-left: 7%;
-    margin-top: 2%;
-    margin-bottom: 2%;
-}
-/*End footer*/
-
-/*Reviewer Reviews*/
-.review-list {
-    float: left;
-    width: 86%;
-    margin-left: 7%;
-}
-
-    .review-list ul {
-        list-style: none;
-        margin: 0 auto;
-        padding: 0px;
-        float: left;
-    }
-
-        .review-list ul li {
-            float: left;
-            width: 50%;
-            margin-bottom: 1%;
-        }
-
-            .review-list ul li .arrow_container {
-                width: 97%;
-            }
-
-.critic-label {
-    float: left;
-    font-size: medium;
-    margin-right: 2%;
-    margin-top: 1%;
-}
-.critic-rating {
-    float: left;
-    font-size: xx-large;
-    font-family: Segoe UI;
-}
-.section-header, .class-container-header {
-    float: left;
-    width: 60%;
-    font-size: large;
-    font-family: 'Segoe UI';
-    margin-top: 10px;
-}
-
-.class-container-header {
-    width: 100%;
-}
-
-.cast-container ul {
-    float: left;
-    list-style: none;
-    width: 90%;
-    margin-right: 10%;
 }
 
 .cast-item {
@@ -345,41 +27,10 @@ blockquote.quote {
 .cast-details-right {
     float: right;
 }
-
-.person-details {
-    float: left;
-    width: 50%;
-}
-
-#music-details, #review-details {
-    float: left;
-    width: 65%;
-}
-
-.song-item {
-    float: left;
-    width: 35%;
-    margin: 1%;
-    margin-left: 0%;
-    min-height: 100px;
-    padding: 1%;
-    border: 1px solid #999;
-}
-
-    .song-item:hover {
-        background-color: #EEE;
-    }
-
-.song-details {
-    float: left;
-    width: 100%;
-}
-
 .gallery-image {
     float: left;
     padding: 5px;
 }
-
 .team-item {
     float: left;
     margin-right: 10px;
@@ -389,59 +40,26 @@ blockquote.quote {
         cursor: pointer;
     }
 
-#imagearea {
-    margin: 0% 6% 0% 6%;
-}
-
-    #imagearea img:hover {
-        background-color: #2793e6;
-    }
-
 #search-results {
     text-align: left;
 }
-
-.banner {
-    float: left;
-    width: 100%;
-    text-align: center;
-}
-
-    .banner img {
-        width: 100%;
-        height: 550px;
-    }
-
 .search {
     outline: none;
     border: 2px solid #368BC1 !important;
     border-radius: 5px !important;
 }
-
-.banner-layer {
-    position: absolute;
-    width: 100%;
-    height: 550px;
-    background-color: #333;
-    opacity: 0.5;
-    top: 0px;
-}
-
 .movie-list, .news-container, .critics-container, .upcoming-movie-list {
     float: left;
     width: 93%;
     margin-left: 7%;
     margin-bottom: 1%;
 }
-
 .critics-container {
     width: 96%;
 }
-
 .news-container {
     width: 100%;
 }
-
 .movie-list ul, .critics-container ul, .upcoming-movie-list ul {
     float: left;
     list-style: none;
@@ -450,7 +68,6 @@ blockquote.quote {
     width: 100%;
     height: 400px;
 }
-
     .movie-list ul li, .critics-container ul li, .upcoming-movie-list ul li {
         float: left;
         list-style: none;
@@ -489,6 +106,7 @@ blockquote.quote {
     width: 24px;
     height: 24px;
 }
+
 .img-movie-genre {
     float: left;
     font-size: 1em;
