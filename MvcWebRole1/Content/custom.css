@@ -77,10 +77,10 @@
         min-height: 90px;
     }
 
-.critics-container ul li.reviewer-empty {
-    width: 100%;
-    min-height: 0px;
-}
+        .critics-container ul li.reviewer-empty {
+            width: 100%;
+            min-height: 0px;
+        }
 
 .img-movie-genre {
     float: left;
@@ -95,4 +95,30 @@
     font-size: 0.8em;
     color: #CCC;
     width: 100%;
+}
+
+@media screen and (min-width: 321px) and (max-width: 900px) {
+    .movie-list, .upcoming-movie-list {
+        margin-left: 7%;
+    }
+
+        .movie-list ul li, .upcoming-movie-list ul li {
+            width: 45%;
+        }
+}
+
+@media screen and (max-width: 320px) {
+    .movie-list, .upcoming-movie-list {
+        margin-left: 15%;
+    }
+
+        .movie-list ul li, .upcoming-movie-list ul li {
+            width: 50%;
+        }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1250px) {
+    .movie-list ul li, .upcoming-movie-list ul li {
+        width: 30%;
+    }
 }

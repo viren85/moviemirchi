@@ -80,6 +80,10 @@ function onSuccessLoadCurrentMovies(result) {
         // movie-list
         PreparePaginationControl($(".movie-list"));
         //PreparePaginationControl($(".news-container"));
+
+        $(window).resize(function () {
+            PreparePaginationControl($(".movie-list"));
+        });
     }
 }
 
@@ -110,6 +114,10 @@ function onSuccessLoadUpcomingMovies(result) {
 
         // movie-list
         PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+
+        $(window).resize(function () {
+            PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+        });
         //PreparePaginationControl($(".news-container"));
     }
 }

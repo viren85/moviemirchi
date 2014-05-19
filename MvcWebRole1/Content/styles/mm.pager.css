@@ -43,7 +43,7 @@
 }
 
 .pager-container, .news-pager {
-    height: 30px;
+    /*height: 30px;*/
     text-align: center;
     width: 100%;
 }
@@ -76,4 +76,20 @@
     float: left;
     width: 88%;
     text-align: center;
+}
+
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+    .page-index {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .page-index {
+        margin-right: 10px;
+    }
 }

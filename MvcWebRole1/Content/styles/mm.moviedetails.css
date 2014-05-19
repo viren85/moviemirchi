@@ -17,8 +17,6 @@ div.multimediaCaption {
     font-size: 12px;
     display: inline;
 }
-
-
 .viewer {
     text-align: center;
     vertical-align: middle;
@@ -89,3 +87,23 @@ div.captionAndNavigate {
     width: 80%;
 }
 /*Movie description end */
+
+@media screen and (min-width: 768px) {
+    
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+     #now-pager, #upcoming-pager {
+        width: 95%;
+        margin-bottom: 20px;
+        margin-left: -40px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    #now-pager, #upcoming-pager {
+        width: 95%;
+        margin-bottom: 20px;
+        margin-left: -40px;
+    }
+}
