@@ -100,6 +100,7 @@
                     var searchResultCounter = 0;
 
                     $.each(data, function (i, value) {
+                        $(".home-search-bar").find(".clear-search-bar").show();
                         //On click of li element we are calling a method.
                         if (searchResultCounter < 6) {
                             searchResultCounter++;
@@ -109,8 +110,6 @@
                             var img = $("<img/>")
                             img.attr("class", "img-thumbnail");
                             img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
-                            //img.attr("data-src", "holder.js/200x200");
-                            //img.attr("src", value.TitleImageURL);
 
                             var description = JSON.parse(value.Description);
 
@@ -237,159 +236,58 @@
 </head>
 <body>
     <div class="movie-container">
-        <div id="top-nav">
+        <div class="header">
             <div class="logo">
                 <a href="/Home" title="Movie Mirchi Home"><img src='/Images/logo.png' /></a>
-                @*@Html.ActionLink("", "Index", "Home", null, new { @title = "Find your movie", @rel = "home" })*@
             </div>
             <div class="home-search-bar">
-                <div class="search-container">
-                    <div class="input-group search-input">
-                        <div id="search-bar">
-                            <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
-                            <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
-                            <div id="search-results"></div>
-                        </div>
-                        <div class="search-button">Search</div>
-                    </div>
-                </div>
+                <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
+                <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
+                <div class="search-button">Search</div>
+                <div id="search-results"></div>
             </div>
-            @*<div class="col-sm-6 col-md-6">
-                    <form class="navbar-form" role="search" method="get" id="search-form" name="search-form">
-                        <div class="btn-group pull-left" id="btngroup">
-                            <select id="searchtype" class="form-control">
-                                <option>
-                                    All
-                                </option>
-                                <option>
-                                    Title
-                                </option>
-                                <option>
-                                    Character
-                                </option>
-                                <option>
-                                    Name
-                                </option>
-                            </select>
-                        </div>
-                        <div class="input-group">
-                            <div id="targetDiv">
-                                <input type="text" class="form-control" placeholder="Search Movies, Celebrities, Artists, Reviewers..." id="target" name="query" value="" autocomplete="off" />
-                                <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
-                            </div>
-                            <div class="input-group-btn">
-                                <button type="submit" class="btn btn-success">Go</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>*@
-            <div class="status">
-                <ul>
-                    @if (Session["username"] != null)
-                    {
-                        <li class="authenticate">
-                            Welcome, @Session["username"].ToString().ToUpper()
-                        </li>
-                        <li class="log">
-                            @Html.ActionLink("Logout", "Logout", "Login")
-
-                        </li>
-                    }
-                    else
-                    {
-                        <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">Sign Up</a></li>
-                        <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Sign In</a></li>
-
-                    }
-                </ul>
-            </div>
-        </div>
-
-        @*<div class="row">
-                <div class="navbar navbar-inverse" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-
-                    </div>
-                    <div class="collapse navbar-collapse navbar-ex1-collapse">
-                        <div class="col-sm-2 col-md-2" style="display:none">
-                            <form class="navbar-form navbar-right" role="search">
-                                <div class="input-group"><a href="#" class="btn btn-warning">Post Your Ads</a></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>*@
-        <div id="container" class="movie-panel">
-
-            @RenderBody()
 
         </div>
-        <div class="footer">
-            <span>&copy;&nbsp;2014 Movie Mirchi</span>
-            <ul>
-                <li><a href="/Home">Home</a></li>
-                <li><a href="/Home/About">About</a></li>
-                <li>Login</li>
-                <li>Privacy Policy</li>
-                <li>Terms & Condition</li>
-            </ul>
-        </div>
-
-        @*        @if ((Session["username"] != null && Session["favorite"] == null) || (Session["username"] != null && Session["favorite"] != null && string.IsNullOrEmpty(Session["favorite"].ToString())))
+    </div>
+    <div class="status">
+        <ul>
+            @if (Session["username"] != null)
             {
-                <input type="hidden" value="@Session["userid"]" id="hfUserId" />
-                <div>
-                    <div id="ql_SideBar">
-                        <div title="Click here for any help" id="ql_Display" style="background-color: #404040 !important; color: White; background-image: none;
-                    border-top-left-radius: 3px; border-top-right-radius: 3px;">
-                            <span>
-                                Choose your favorite
-                            </span>
-                        </div>
-                        <div id="ql_Tab" style="display:block">
-                            <div id="ql_List">
-                                <div id="favStatus" style="display:none" class="alert alert-danger"></div>
-                                <div id="autoCompleteActor">
-                                    <input type="text" name="txtActorName" id="txtActorName" placeholder="Actor Name" style="width:96%"><span style="color: Red">*</span>
+                <li class="authenticate">
+                    Welcome, @Session["username"].ToString().ToUpper()
+                </li>
+                <li class="log">
+                    @Html.ActionLink("Logout", "Logout", "Login")
 
-                                </div>
-                                <div id="autoCompleteDirector">
-                                    <input type="text" name="txtDirectorName" id="txtDirectorName" placeholder="Director Name" style="width:96%"><span style="color: Red">*</span>
-
-                                </div>
-                                <div id="autoCompleteMusicDirector">
-                                    <input type="text" name="txtMusicDirectorName" id="txtMusicDirectorName" placeholder="Music Director Name" style="width:96%"><span style="color: Red">*</span>
-
-                                </div>
-                                <select name="genre" id="genre" style="width:96%">
-                                    <option value="select">--Genre--</option>
-                                    <option value="Action">Action</option>
-                                    <option value="Comedy">Comedy</option>
-                                    <option value="Crime">Crime</option>
-                                    <option value="Horror">Horror</option>
-
-                                </select>
-                                <div id="buttons" style="padding: 5px 0px;">
-                                    <input type="button" id="btnSubmit" value="Save your favorites" class="btn btn-success" onclick="SaveUserFavorite();">
-                                    <input type="button" id="btnClose" value="Close" class="btn btn-convert" onclick='$("#ql_SideBar").hide(500);' style="text-align: left">
-                                </div>
-                                <div id="queryStatus" style="color: Green"></div>
-                                <div id="ql_EmptyText">
-                                </div>
-                            </div>
-                            <div id="ql_Foot" style="text-align: justify; height: 0%; text-align: left;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </li>
             }
-        *@
+            else
+            {
+                <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">Sign Up</a></li>
+                <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Sign In</a></li>
+
+            }
+        </ul>
+    </div>
+    </div>
+
+
+    <div id="container" class="movie-panel">
+
+        @RenderBody()
+
+    </div>
+    <div class="footer">
+        <span>&copy;&nbsp;2014 Movie Mirchi</span>
+        <ul>
+            <li><a href="/Home">Home</a></li>
+            <li><a href="/Home/About">About</a></li>
+            <li>Login</li>
+            <li>Privacy Policy</li>
+            <li>Terms & Condition</li>
+        </ul>
+    </div>
+
     </div>
 
     @*Added popup for Login*@

@@ -40,14 +40,6 @@
         cursor: pointer;
     }
 
-#search-results {
-    text-align: left;
-}
-.search {
-    outline: none;
-    border: 2px solid #368BC1 !important;
-    border-radius: 5px !important;
-}
 .movie-list, .news-container, .critics-container, .upcoming-movie-list {
     float: left;
     width: 93%;

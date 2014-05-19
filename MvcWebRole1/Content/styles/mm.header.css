@@ -1,5 +1,6 @@
-﻿#top-nav {
-    height: 65px;
+﻿.header {
+    max-height: 65px;
+    height: 10%;
     width: 100%;
     position: fixed;
     top: 0px;
@@ -20,40 +21,32 @@
 }
 
     .logo img {
-        width: 200px;
-        height: 40px;
+        width: 75%;
+        max-width: 200px;
+        height: 7%;
     }
 
 .home-search-bar {
     position: absolute;
     left: 33%;
     top: 10px;
+    width: 50%;
 }
 
     .home-search-bar input {
-        width: 500px !important;
-        height: 35px;
+        float: left;
+        width: 80%;
+        height: 7%;
         outline: none;
         border-radius: 5px !important;
         box-shadow: 0px 0px 15px #368BC1 !important;
-    }
-
-.search-container {
-    float: left;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-    .search-container input, #search-bar {
-        float: left;
     }
 
 .search-button {
     float: left;
     padding: 8px;
     text-align: center;
-    width: 80px;
-    height: 35px;
+    height: 7%;
     background-color: lightcoral;
     font-weight: bold;
     color: #333;
@@ -62,10 +55,16 @@
     cursor: pointer;
 }
 
+.search {
+    outline: none;
+    border: 2px solid #368BC1 !important;
+    border-radius: 5px !important;
+}
+
 .clear-search-bar {
     position: absolute;
-    right: 50px;
-    margin: 5px;
+    right: 20%;
+    margin: 10px;
     top: 0px;
     cursor: pointer;
     display: none;
@@ -87,7 +86,7 @@
 }
 /*Login/Signup links*/
 #targetUL {
-    width: 85%;
+    width: 80%;
     border: 1px solid silver;
     margin-top: 35px;
     list-style: none;
@@ -112,25 +111,48 @@
             background-color: #fcecec;
         }
 
-.status {
-    float: right;
-    margin-right: 5%;
-    display: none;
-}
-
-    .status ul {
-        float: left;
-        list-style: none;
-        margin-top: 10px;
+@media screen and (min-width: 768px) {
+    .home-search-bar {
+        width: 50%;
     }
 
-        .status ul li {
-            float: left;
-            margin-right: 20px;
+        .home-search-bar input {
+            width: 80%;
+        }
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+    .logo img {
+        width: 50%;
+        height: 35px;
+    }
+    .home-search-bar {
+        width: 60%;
+        left: 35%;
+        margin-left: 5%;
+    }
+
+        .home-search-bar input {
+            width: 80%;
+            height: 7%;
         }
 
-            .status ul li a {
-                color: #2793e6;
-                text-decoration: underline;
-                margin-top: 10px;
-            }
+    .search-button {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .logo img {
+        width: 35%;
+        height: 35px;
+    }
+    .home-search-bar{left: 40%;}
+    .home-search-bar input {
+        width: 100%;
+    }
+
+    .search-button {
+        display: none;
+    }
+}
