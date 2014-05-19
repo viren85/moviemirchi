@@ -80,6 +80,7 @@
     height: 50px;
     padding-top: 10px;
 }
+
 .critics-name-small {
     width: 90%;
     font-size: 11px;
@@ -95,4 +96,43 @@
 
 .img-movie-name-small {
     font-size: 11px;
+}
+
+.first-reviewer {
+    clear: left;
+}
+
+@media screen and (min-width: 768px) {
+    .critics-container {
+        width: 90%;
+    }
+
+        .critics-container ul {
+            width: 65%;
+            height: auto;
+        }
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+    .critics-container {
+        margin-left: 7%;
+        width: 90%;
+    }
+
+        .critics-container ul {
+            width: 100%;
+            height: auto;
+        }
+}
+
+@media screen and (max-width: 320px) {
+    .critics-container {
+        margin-left: 7%;
+        width: 90%;
+    }
+
+        .critics-container ul {
+            width: 100%;
+            height: auto;
+        }
 }

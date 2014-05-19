@@ -21,6 +21,7 @@
     margin-top: 2%;
     float: left;
 }
+
 .reviewer-name, .affiliation, .other {
     float: left;
     margin-top: 5px;
@@ -120,3 +121,10 @@ blockquote.quote {
     #detailed-review:hover {
         background-color: #EEE;
     }
+
+.reviewer-small {
+    width: 55px !important;
+    height: 75px;
+    margin-top: 0px;
+    margin-right: 10px;
+}

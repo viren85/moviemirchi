@@ -1,80 +1,19 @@
-﻿.twitter {
-    position: absolute;
-    top: 8%;
-    right: 5%;
-    padding: 10px;
-    border: 1px solid #DDD;
-    border-radius: 5px;
-    text-align: right;
-    box-shadow: 0px 0px 15px #AAA;
-    width: 20%;
-    height: 450px;
-    max-height: 500px;
-    background-image: url(../images/twitter-icon.png);
-    background-size: 32px;
-    background-position: 5% 4%;
-    background-repeat: no-repeat;
-}
-
-    .twitter .tweets {
-        float: left;
-        position: relative;
-        text-align: left;
-    }
-
-.tweet-author {
-    text-decoration: underline;
-    color: royalblue;
-}
-
-.tweet {
+﻿.tweet-container {
     float: left;
-    padding: 5px;
-    border-bottom: 1px solid #DDD;
     width: 100%;
-}
-
-    .tweet:hover {
-        background-color: #DDD;
-        cursor: pointer;
-    }
-
-.tweet-container, .news-content {
-    width: 400px;
-    float: left;
-    margin-left: 6%;
-}
-
-.tweet-container {
-    margin-left: 0%;
-}
-
-
-.news-content {
-    width: 94%;
-}
-
-.news-left, .news-right {
-    width: 50%;
+    max-width: 400px;
 }
 
 .tweet-left, .tweet-right {
-    width: 200px;
-}
-
-.tweet-left, .news-left {
+    width: 50%;
     float: left;
-}
-
-.tweet-right, .news-right {
-    float: right;
+    min-width: 200px;
 }
 
 .tweet-cell {
     height: 200px;
     margin: 10px;
     padding: 10px;
-    /*color: rgba(85, 119, 214, 0.75);*/
     border-radius: 5px;
     -moz-border-radius: 5px;
     -webkit-border-radius: 5px;
@@ -83,63 +22,20 @@
     box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
     background-color: white;
     position: relative;
-    margin-top: 20px;
-}
-.tweet-container, .news-content {
-    width: 400px;
-    float: left;
-    margin-left: 6%;
+    margin-top: 0px;
 }
 
-.tweet-container {
-    margin-left: 0%;
-}
-
-.news-content {
-    width: 94%;
-}
-
-.news-left, .news-right {
-    width: 50%;
-}
-
-.tweet-left, .tweet-right {
-    width: 200px;
-}
-
-.tweet-left, .news-left {
-    float: left;
-}
-
-.tweet-right, .news-right {
-    float: right;
-}
-
-.tweet-cell {
-    height: 200px;
-    margin: 10px;
-    padding: 10px;
-    /*color: rgba(85, 119, 214, 0.75);*/
-    border-radius: 5px;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
-    box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
-    background-color: white;
-    position: relative;
-    margin-top: 20px;
-}
 .tweet-container .tweet-cell {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 
 .tweet-user, .tweet-content {
     padding: 5px 0 5px 0;
-    margin: 5px 0 5px 0;
+    margin-bottom: 5px;
 }
 
 .tweet-user {
+    width: 100%;
     padding-right: 8px;
     text-align: right;
     font-style: italic;
@@ -154,7 +50,6 @@
     -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
     -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
     box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
-    width: 100%;
 }
 
 .tweet-content {
@@ -166,5 +61,11 @@
 }
 
     .tweet-content span {
-        color: #20b7d6;
+        color: #368BC1;
     }
+
+@media screen and (min-width: 321px) and (max-width: 1350px) {
+    .tweet-container {
+        margin-left: 6%;
+    }
+}

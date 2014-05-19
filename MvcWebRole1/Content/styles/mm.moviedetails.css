@@ -5,11 +5,19 @@
     margin-top: 20px;
 }
 
-div. {
+.viewingDiv {
+    float: none;
+    position: relative;
+    display: table;
+    /*overflow:hidden;*/
+}
+
+div.multimediaCaption {
     font-family: Arial;
     font-size: 12px;
     display: inline;
 }
+
 
 .viewer {
     text-align: center;

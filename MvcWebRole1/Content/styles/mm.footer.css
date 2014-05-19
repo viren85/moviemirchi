@@ -1,6 +1,6 @@
 ﻿.footer {
     float: left;
-    width: 80%;
+    width: 93%;
     margin-left: 7%;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -8,12 +8,10 @@
 
     .footer span {
         float: left;
-        margin-right: 100px;
+        margin-right: 20px;
     }
 
     .footer ul {
-        float: left;
-        margin-left: 20px;
         list-style: none;
     }
 
@@ -22,3 +20,13 @@
             margin-right: 20px;
             font-size: 12px;
         }
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+    
+}
+
+@media screen and (max-width: 320px) {
+}

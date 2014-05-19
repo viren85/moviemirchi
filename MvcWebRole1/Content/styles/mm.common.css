@@ -1,4 +1,8 @@
-﻿.large-fonts {
+﻿.movie-panel{
+    float: left;
+    margin-top: 30px;
+}
+.large-fonts {
     font-size: 2em;
     font-family: Segoe UI Light;
     font-weight: bold;
@@ -18,13 +22,10 @@
 .tube-container {
     float: left;
     width: 100%;
-    margin-top: 1%;
 }
 
 .width60 {
     width: 60%;
-    margin-left: 3%;
-    float: left;
 }
 
 .width30 {
@@ -36,15 +37,15 @@
     float: left;
     color: #368BC1;
     margin-bottom: 1%;
-    margin-top: 2%;
+    margin-top: 0%;
     margin-left: 7%;
     width: 93%;
     border-left: 10px solid #368BC1;
     padding-left: 20px;
 }
+
 .width60 .section-title {
-    margin-top: 0px;
-    margin-bottom: 12px;
+    margin-left: 12%;
 }
 
 .width30 .section-title {
@@ -76,3 +77,23 @@
     margin-top: 10px;
 }
 /* End - Rating Control */
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 321px) and (max-width: 1350px) {
+    .width60 {
+        width: 100%;
+    }
+
+    .width30 {
+        width: 100%;
+        float: left;
+    }
+
+        .width60 .section-title, .width30 .section-title {
+            margin-left: 7%;
+        }
+}
+
+@media screen and (max-width: 320px) {
+}

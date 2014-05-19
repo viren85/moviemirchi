@@ -253,29 +253,24 @@
         <ul>
             @if (Session["username"] != null)
             {
-                <li class="authenticate">
-                    Welcome, @Session["username"].ToString().ToUpper()
-                </li>
-                <li class="log">
-                    @Html.ActionLink("Logout", "Logout", "Login")
+            <li class="authenticate">
+                Welcome, @Session["username"].ToString().ToUpper()
+            </li>
+            <li class="log">
+                @Html.ActionLink("Logout", "Logout", "Login")
 
-                </li>
+            </li>
             }
             else
             {
-                <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">Sign Up</a></li>
-                <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Sign In</a></li>
+            <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">Sign Up</a></li>
+            <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Sign In</a></li>
 
             }
         </ul>
     </div>
-    </div>
-
-
     <div id="container" class="movie-panel">
-
         @RenderBody()
-
     </div>
     <div class="footer">
         <span>&copy;&nbsp;2014 Movie Mirchi</span>
