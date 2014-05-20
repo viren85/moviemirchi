@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+}
+
+<div class="movies">
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var genreType = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+
+        $(".movies").append(GetTubeControl("Movies By Genre - " + genreType, "movie-list", "now-pager"));
+
+        var apiPath = "../api/GenreMovies?type=" + genreType;
+        CallHandler(apiPath, PopulateMovies);
+        LoadNews();
+        LoadTweets();
+    });
+
+    function PopulateMovies(response) {
+        var data = JSON.parse(response);
+
+        if (data != null && data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                var list = PopulatingMovies(data[i], "movie-list");
+            }
+
+            /*The image width/height shall be calculated once the image is fully loaded*/
+            var width = $(document).width();
+
+            $(".movie-list").find("img").each(function () {
+                var ratio = this.width / this.height;
+                var newWidth = 400 * ratio;
+                $(this).width(newWidth + "px").height("380px");
+
+                if (newWidth > 250)
+                    $(this).width("250px");
+            });
+
+            ScaleElement($(".movie-list ul"));
+
+            // movie-list
+            PreparePaginationControl($(".movie-list"));
+        }
+    }
+</script>

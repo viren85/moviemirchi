@@ -186,6 +186,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
+    <Compile Include="Controllers\api\GenreMoviesController.cs" />
     <Compile Include="Controllers\api\ArtistMoviesController.cs" />
     <Compile Include="Controllers\api\GetActorsController.cs" />
     <Compile Include="Controllers\api\AllSongsController.cs" />
@@ -203,6 +204,7 @@
     <Compile Include="Controllers\api\SendMailController.cs" />
     <Compile Include="Controllers\api\SongController.cs" />
     <Compile Include="Controllers\api\TrailerController.cs" />
+    <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\Home1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -399,6 +401,7 @@
     <Content Include="Views\Shared\_MovieMirchiLayout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
+    <Content Include="Views\Genre\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

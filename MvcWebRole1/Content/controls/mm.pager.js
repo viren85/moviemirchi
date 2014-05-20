@@ -167,7 +167,6 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
 
         // Get Pagination control
         var GetPaginationControl = function (rotatorControl, options) {
-
             var pagerContainer = $("<div/>").attr("class", options.pagerContainer);
             var leftArrow = $("<div/>").attr("class", "pager-left-arrow").html("<div class='left-arrow-icon'></div>");
             var rightArrow = $("<div/>").attr("class", "pager-right-arrow").html("<div class='right-arrow-icon'></div>");

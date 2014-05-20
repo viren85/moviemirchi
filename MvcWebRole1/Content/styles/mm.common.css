@@ -1,5 +1,4 @@
 ﻿.movie-panel{
-    float: left;
     margin-top: 30px;
 }
 .large-fonts {
@@ -74,7 +73,7 @@
     height: 25px;
     background-image: url('/Images/GreenChilli.png');
     background-size: 15px 25px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 /* End - Rating Control */
 @media screen and (min-width: 768px) {
