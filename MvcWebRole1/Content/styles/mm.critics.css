@@ -74,17 +74,23 @@
     float: left;
     font-size: 1em;
     color: black;
-    width: 100%;
-    background-color: white;
+    width: 125px;
+    background-color: #FFF;
     text-align: center;
     height: 50px;
     padding-top: 10px;
+    box-shadow: 0px 0px 5px #999;
 }
 
 .critics-name-small {
     width: 90%;
     font-size: 11px;
 }
+
+    .critics-name:hover, .critics-name-small:hover {
+        background-color: #368BC1;
+        color: white;
+    }
 
 .img-movie-name, .img-movie-name-small {
     float: left;
