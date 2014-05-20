@@ -13,13 +13,9 @@
 
         .review-list ul li {
             float: left;
-            width: 50%;
+            width: 36%;
             margin-bottom: 1%;
         }
-
-            .review-list ul li .arrow_container {
-                width: 97%;
-            }
 
 .critic-label {
     float: left;

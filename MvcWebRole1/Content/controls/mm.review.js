@@ -4,7 +4,7 @@
             
             if (review.OutLink) {
 
-                var reviewText = new Util().GetEllipsisText(review.Review, 250);
+                var reviewText = new Util().GetEllipsisText(review.Review, 200);
                 
                 var html =
                     "<div class=\"arrow_container\">" +
