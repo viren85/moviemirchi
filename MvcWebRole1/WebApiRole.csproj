@@ -250,12 +250,18 @@
     <Content Include="Content\styles\mm.reviewer.css" />
     <Content Include="Content\styles\mm.twitter.css" />
     <Content Include="Global.asax" />
-    <Content Include="Images\awarapan-movie.jpg" />
-    <Content Include="Images\awarapan.jpg" />
     <Content Include="Images\bg_direction_nav.png" />
+    <Content Include="Images\clear-button.png" />
+    <Content Include="Images\GreenChilli.png" />
+    <Content Include="Images\Loading.GIF" />
+    <Content Include="Images\logo.png" />
     <Content Include="Images\next.png" />
     <Content Include="Images\pervious.png" />
+    <Content Include="Images\quote.png" />
+    <Content Include="Images\RedChilli.png" />
     <Content Include="Images\small_gold_star.png" />
+    <Content Include="Images\star-rating.png" />
+    <Content Include="Images\user.png" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -311,7 +317,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Images\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
