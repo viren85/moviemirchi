@@ -276,7 +276,7 @@ namespace DataStoreLib.Storage
         public static IEnumerable<MovieEntity> GetGenrewiseMovies(this IStore store, string genre)
         {
             var retList = store.GetAllMovies();
-            return retList.Values.Where(movie => movie.Genre.Contains(genre));
+            return retList.Values.Where(movie => movie.Genre.ToLower().Contains(genre));
         }
 
         /// <summary>

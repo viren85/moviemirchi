@@ -2,33 +2,19 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
-@Styles.Render("~/Content/styles/mm.moviedetails.css")
-
 
 <div class="movies">
-    <div class="artist-bio"></div>
 </div>
-<script type="text/javascript" src="/Content/controls/mm.bio.js"></script>
 <script type="text/javascript">
-
     $(document).ready(function () {
-        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-        var artist = name.split('-').join(' ');
+        var genreType = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
 
-        var fileName = "/Images/user.png";
+        $(".movies").append(GetTubeControl("Movies By Genre - " + genreType, "movie-list", "now-pager"));
 
-        $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
-        $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
-        $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
-        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
-        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
-
-        InitBio();
-
-        var apiPath = "../api/ArtistMovies?name=" + artist;
+        var apiPath = "../api/GenreMovies?type=" + genreType;
         CallHandler(apiPath, PopulateMovies);
         LoadNews();
-        LoadTweets("artist", name);
+        LoadTweets();
     });
 
     function PopulateMovies(response) {
@@ -55,10 +41,6 @@
 
             // movie-list
             PreparePaginationControl($(".movie-list"));
-
-            $(window).resize(function () {
-                PreparePaginationControl($(".movie-list"));
-            });
         }
     }
 </script>

@@ -13,13 +13,10 @@
 
         .review-list ul li {
             float: left;
-            width: 50%;
+            width: 36%;
             margin-bottom: 1%;
+            min-width: 420px;
         }
-
-            .review-list ul li .arrow_container {
-                width: 97%;
-            }
 
 .critic-label {
     float: left;
@@ -27,11 +24,13 @@
     margin-right: 2%;
     margin-top: 1%;
 }
+
 .critic-rating {
     float: left;
     font-size: xx-large;
     font-family: Segoe UI;
 }
+
 #reviewer-list {
     float: left;
     width: 30%;
@@ -94,3 +93,15 @@
                 width: 100%;
                 margin-bottom: 10px;
             }
+
+@media screen and (min-width: 768px) {
+    
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+     
+}
+
+@media screen and (max-width: 320px) {
+     
+}

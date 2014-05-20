@@ -4,7 +4,7 @@
             
             if (review.OutLink) {
 
-                var reviewText = new Util().GetEllipsisText(review.Review, 250);
+                var reviewText = new Util().GetEllipsisText(review.Review, 200);
                 
                 var html =
                     "<div class=\"arrow_container\">" +
@@ -16,9 +16,9 @@
                                     "</a>" +
                                     "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" + review.ReviewerName + "</a></div>" +
                                     "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
-                                    "<div class=\"other\">" +
+                                    /*"<div class=\"other\">" +
                                         "<div class=\"topcritic\">Top Critic</div>" +
-                                    "</div>" +
+                                    "</div>" +*/
                                 "</div>" +
                             "</div>" +
                         "</div>" +
@@ -51,9 +51,9 @@ var GetDefaultReviewControl = function (containerClass, movieReviews, isReviewer
                                 "<img src=\"" + GetReviewerPic("Rajeev Masand") + "\" style=\"height:100px;width:100px\" />" +
                                 "<div class=\"reviewer-name\"><a href=\"javascript:void()\">Rajeev Masand</a></div>" +
                                 "<div class=\"affiliation\"><a href=\"javascript:void()\">Indy Times</a> | <a href=\"javascript:void()\">Bolly Times</a></div>" +
-                                "<div class=\"other\">" +
+                                /*"<div class=\"other\">" +
                                     "<div class=\"topcritic\">Top Critic</div>" +
-                                "</div>" +
+                                "</div>" +*/
                             "</div>" +
                         "</div>" +
                     "</div>" +
@@ -79,13 +79,13 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
             
             if (review.OutLink) {
 
-                var reviewText = new Util().GetEllipsisText(review.Review, 250);
+                var reviewText = new Util().GetEllipsisText(review.Review, 150);
                 var uniqueName = FormPathFromName(review.MovieName);
 
                 var html =
                     "<li>" +
                         "<div class=\"arrow_container\">" +
-                            "<div class=\"left\">" +
+                            "<div class=\"critics-left\">" +
                                 "<div class=\"info\">" +
                                     "<div class=\"reviewer\">" +
                                         "<a href=\"/movie/" + uniqueName + "\">" +
@@ -97,11 +97,11 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                             "<div class=\"right\">" +
                                 "<div class=\"review-movie-name\"><a href=\"/movie/" + uniqueName + "\">" + review.MovieName + "</a></div>" +
                                 "<div class=\"mirchimeter\">" + GetRateControl(review.ReviewerRating) + "</div>" +
-                                "<div class=\"review\">" +
+                                "<div class=\"critics-review\">" +
                                     "<div class=\"arrow_box\">" +
                                         "<div class=\"review-content\">" +
                                             "<blockquote class=\"quote\">" + reviewText + "</blockquote>" +
-                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\">More...</a></div>" +
+                                            "<div class=\"critics-more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\">More...</a></div>" +
                                         "</div>" +
                                     "</div>" +
                                 "</div>" +

@@ -17,6 +17,7 @@ div.multimediaCaption {
     font-size: 12px;
     display: inline;
 }
+
 .viewer {
     text-align: center;
     vertical-align: middle;
@@ -25,7 +26,6 @@ div.multimediaCaption {
 }
 
 img.shownImage {
-    border: solid 1px transparent;
     box-shadow: 0px 0px 15px #555;
 }
 
@@ -79,24 +79,32 @@ div.captionAndNavigate {
     font-size: 1.1em;
     font-family: 'Segoe UI';
     width: 20%;
+    min-width: 75px;
 }
 
 .movie-data {
     float: left;
-    text-align: left;
-    width: 80%;
+    text-align: justify;
+    width: 75%;
 }
 /*Movie description end */
-
 @media screen and (min-width: 768px) {
-    
+    .movie-description {
+        width: 44%;float: left;
+    }
 }
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
-     #now-pager, #upcoming-pager {
+    #now-pager, #upcoming-pager {
         width: 95%;
         margin-bottom: 20px;
         margin-left: -40px;
+    }
+
+    .movie-description {
+        margin-left: 7%;
+        float: left;
+        width: 87%;
     }
 }
 
@@ -105,5 +113,11 @@ div.captionAndNavigate {
         width: 95%;
         margin-bottom: 20px;
         margin-left: -40px;
+    }
+
+    .movie-description {
+        margin-left: 7%;
+        float: left;
+        width: 87%;
     }
 }

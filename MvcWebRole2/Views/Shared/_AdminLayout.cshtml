@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Movie Mirchi :: Admin Portal</title>
     @Styles.Render("~/Content/bootstrap.min.css")
-    @Styles.Render("~/Content/bootstrap-responsive.css")
+    @*@Styles.Render("~/Content/bootstrap-responsive.css")*@
     @Scripts.Render("~/Content/jquery-1.9.1.js")
     @Scripts.Render("~/Content/bootstrap.min.js")
     @Scripts.Render("~/Content/movie.core.js")
@@ -76,13 +76,13 @@
                     <a href="@Url.Action("UpdateMovieReview", "Review")" id="updatereview" class="list-group-item"><span class=" glyphicon glyphicon-pencil"></span>  Update Movie Reivew</a>
 
                     @*@Html.ActionLink("  Add Movie", "AddMovie", "Movie", null, new { @class = "list-group-item glyphicon glyphicon-film", @id = "addmovie" })
-                    @Html.ActionLink("Update Movie", "UpdateMovie", "Movie", null, new { @class = "list-group-item", @id = "updatemovie" })
-                    @Html.ActionLink("Add Affiliation", "AddAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "addaffliation" })
-                    @Html.ActionLink("Update Affiliation", "UpdateAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "updateaffliation" })
-                    @Html.ActionLink("Add Reviewer", "AddReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "addreviewer" })
-                    @Html.ActionLink("Update Reviewer", "UpdateReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "updatereviewer" })
-                    @Html.ActionLink("Add Movie Review", "AddMovieReview", "Review", null, new { @class = "list-group-item", @id = "addreview" })
-                    @Html.ActionLink("Update Movie Reivew", "UpdateMovieReview", "Review", null, new { @class = "list-group-item", @id = "updatereview" })*@
+                        @Html.ActionLink("Update Movie", "UpdateMovie", "Movie", null, new { @class = "list-group-item", @id = "updatemovie" })
+                        @Html.ActionLink("Add Affiliation", "AddAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "addaffliation" })
+                        @Html.ActionLink("Update Affiliation", "UpdateAffiliation", "Reviewer", null, new { @class = "list-group-item", @id = "updateaffliation" })
+                        @Html.ActionLink("Add Reviewer", "AddReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "addreviewer" })
+                        @Html.ActionLink("Update Reviewer", "UpdateReviewer", "Reviewer", null, new { @class = "list-group-item", @id = "updatereviewer" })
+                        @Html.ActionLink("Add Movie Review", "AddMovieReview", "Review", null, new { @class = "list-group-item", @id = "addreview" })
+                        @Html.ActionLink("Update Movie Reivew", "UpdateMovieReview", "Review", null, new { @class = "list-group-item", @id = "updatereview" })*@
                 </div>
             </div>
 

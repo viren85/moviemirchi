@@ -3,21 +3,19 @@
     //Layout = "~/Views/Shared/_MovieMirchiLayout.cshtml";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
-@Styles.Render("~/Content/styles/mm.moviedetails.css")
-    <div class="movies">
+<div class="movies">
+</div>
+<script>
+    var indexer = 0;
+    $(document).ready(function () {
+        $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
+        $(".movies").append(GetTubeControl("Upcoming", "upcoming-movie-list", "upcoming-pager"));
+        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+        $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager"));
 
-    </div>
-    <script>
-        var indexer = 0;
-        $(document).ready(function () {
-            $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
-            $(".movies").append(GetTubeControl("Upcoming", "upcoming-movie-list", "upcoming-pager"));
-            $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
-            $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
-            $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager"));
-
-            LoadCurrentMovies();
-            LoadUpcomingMovies();
-            LoadTweets();
-        });
-    </script>
+        LoadCurrentMovies();
+        LoadUpcomingMovies();
+        LoadTweets();
+    });
+</script>

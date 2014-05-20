@@ -1,7 +1,11 @@
-﻿.movie-panel{
-    float: left;
-    margin-top: 30px;
+﻿body {
+    background-color: #EEE;
 }
+
+.movie-panel {
+    margin-top: 40px;
+}
+
 .large-fonts {
     font-size: 2em;
     font-family: Segoe UI Light;
@@ -22,6 +26,7 @@
 .tube-container {
     float: left;
     width: 100%;
+    margin-top: 20px;
 }
 
 .width60 {
@@ -36,7 +41,7 @@
 .section-title {
     float: left;
     color: #368BC1;
-    margin-bottom: 1%;
+    margin-bottom: 10px;
     margin-top: 0%;
     margin-left: 7%;
     width: 93%;
@@ -74,7 +79,7 @@
     height: 25px;
     background-image: url('/Images/GreenChilli.png');
     background-size: 15px 25px;
-    margin-top: 10px;
+    /*margin-top: 10px;*/
 }
 /* End - Rating Control */
 @media screen and (min-width: 768px) {

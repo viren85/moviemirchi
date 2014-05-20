@@ -122,7 +122,6 @@ function onSuccessLoadUpcomingMovies(result) {
     }
 }
 
-
 function NextMovies() {
     if (MovieIndexer < MOVIES.length) {
         $("#previousMovies").show();

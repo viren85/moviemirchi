@@ -1,13 +1,14 @@
 ﻿.bio {
     float: left;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .bio-pic {
-    float: left;
+    /*float: left;
     margin-right: 20px;
     position: relative;
-    max-width: 350px;
+    max-width: 350px;*/
 }
 
 .bio-pic-img {
@@ -16,20 +17,42 @@
     height: 300px;
     margin-right: 20px;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .intro {
     float: left;
-    font-size: 20px;
     width: 44%;
+    /*
+    
+    font-size: 20px;
     position: absolute;
-    left: 30%;
+    left: 30%;*/
 }
 
 .intro-text {
     font-size: 12px;
+    text-align: justify;
 }
-
+.critics-left{
+    float: left;
+    min-width: 170px;
+}
+.critics-review{
+    float: left;
+    max-width: 210px;
+}
+.critics-more-link{
+    position: absolute;
+    right: 10px;
+    bottom: -25px;
+}
+.arrow_box {
+    height: 175px !important;
+}
+.arrow_container{
+    height: 260px !important;
+}
 .critic-review {
     float: left;
     width: 100%;
@@ -74,17 +97,23 @@
     float: left;
     font-size: 1em;
     color: black;
-    width: 100%;
-    background-color: white;
+    width: 125px;
+    background-color: #FFF;
     text-align: center;
     height: 50px;
     padding-top: 10px;
+    box-shadow: 0px 0px 5px #999;
 }
 
 .critics-name-small {
     width: 90%;
     font-size: 11px;
 }
+
+    .critics-name:hover, .critics-name-small:hover {
+        background-color: #368BC1;
+        color: white;
+    }
 
 .img-movie-name, .img-movie-name-small {
     float: left;
@@ -123,6 +152,11 @@
             width: 100%;
             height: auto;
         }
+
+    .intro {
+        float: left;
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 320px) {
@@ -135,4 +169,9 @@
             width: 100%;
             height: auto;
         }
+
+    .intro {
+        float: left;
+        width: 100%;
+    }
 }
