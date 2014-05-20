@@ -32,8 +32,27 @@
 
 .intro-text {
     font-size: 12px;
+    text-align: justify;
 }
-
+.critics-left{
+    float: left;
+    min-width: 170px;
+}
+.critics-review{
+    float: left;
+    max-width: 210px;
+}
+.critics-more-link{
+    position: absolute;
+    right: 10px;
+    bottom: -25px;
+}
+.arrow_box {
+    height: 175px !important;
+}
+.arrow_container{
+    height: 260px !important;
+}
 .critic-review {
     float: left;
     width: 100%;
