@@ -1,0 +1,95 @@
+﻿.pager-left-arrow {
+    display: inline-block;
+    margin-right: 3%;
+    width: 20px;
+    height: 20px;
+    padding: 0px 10px 10px 10px;
+}
+
+.pager-right-arrow {
+    display: inline-block;
+    margin-left: 1%;
+    width: 20px;
+    height: 20px;
+    padding: 0px 10px 10px 10px;
+}
+
+.left-arrow-icon, .left-arrow-icon-disable {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid #368BC1;
+    cursor: pointer;
+}
+
+.left-arrow-icon-disable {
+    border-right: 10px solid #999;
+    cursor: default;
+}
+
+.right-arrow-icon, .right-arrow-icon-disable {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: 10px solid #368BC1;
+    cursor: pointer;
+}
+
+.right-arrow-icon-disable {
+    border-left: 10px solid #999;
+    cursor: default;
+}
+
+.pager-container, .news-pager {
+    /*height: 30px;*/
+    text-align: center;
+    width: 100%;
+}
+
+.active-page-index {
+    background-color: #368BC1 !important;
+}
+
+#news-pager {
+    float: left;
+    width: 95%;
+}
+
+.page-index {
+    width: 16px;
+    height: 16px;
+    background-color: skyblue; /* #41A317;*/
+    margin-right: 20px;
+    margin-top: 10px;
+    display: inline-block;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+    .page-index:hover {
+        background-color: #368BC1;
+    }
+
+#critics-pager {
+    float: left;
+    width: 88%;
+    text-align: center;
+}
+
+
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+    .page-index {
+        margin-right: 10px;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .page-index {
+        margin-right: 10px;
+    }
+}

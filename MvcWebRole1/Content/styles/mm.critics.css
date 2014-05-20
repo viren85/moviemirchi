@@ -1,0 +1,138 @@
+﻿.bio {
+    float: left;
+    width: 100%;
+}
+
+.bio-pic {
+    float: left;
+    margin-right: 20px;
+    position: relative;
+    max-width: 350px;
+}
+
+.bio-pic-img {
+    float: left;
+    width: 263px;
+    height: 300px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.intro {
+    float: left;
+    font-size: 20px;
+    width: 44%;
+    position: absolute;
+    left: 30%;
+}
+
+.intro-text {
+    font-size: 12px;
+}
+
+.critic-review {
+    float: left;
+    width: 100%;
+}
+
+.critic-review-image {
+    float: left;
+    width: 128px;
+    height: 128px;
+}
+
+.critic-name {
+    float: left;
+    margin-left: 20px;
+    font-size: 2em;
+}
+
+.critic-affiliation {
+    float: left;
+    width: 60%;
+    margin-left: 20px;
+    font-size: 1.3em;
+}
+
+.critic-rate {
+    float: right;
+    font-size: 1.4em;
+}
+
+.critic-rate-container {
+    float: right;
+    font-size: 1em;
+    margin-top: -50px;
+    width: 30%;
+}
+
+    .critic-rate-container .star-image {
+        float: right;
+    }
+
+.critics-name, .critics-name-small {
+    float: left;
+    font-size: 1em;
+    color: black;
+    width: 100%;
+    background-color: white;
+    text-align: center;
+    height: 50px;
+    padding-top: 10px;
+}
+
+.critics-name-small {
+    width: 90%;
+    font-size: 11px;
+}
+
+.img-movie-name, .img-movie-name-small {
+    float: left;
+    font-size: 1.4em;
+    color: white;
+    width: 100%;
+    margin-top: 10px;
+}
+
+.img-movie-name-small {
+    font-size: 11px;
+}
+
+.first-reviewer {
+    clear: left;
+}
+
+@media screen and (min-width: 768px) {
+    .critics-container {
+        width: 90%;
+    }
+
+        .critics-container ul {
+            width: 65%;
+            height: auto;
+        }
+}
+
+@media screen and (min-width: 321px) and (max-width: 767px) {
+    .critics-container {
+        margin-left: 7%;
+        width: 90%;
+    }
+
+        .critics-container ul {
+            width: 100%;
+            height: auto;
+        }
+}
+
+@media screen and (max-width: 320px) {
+    .critics-container {
+        margin-left: 7%;
+        width: 90%;
+    }
+
+        .critics-container ul {
+            width: 100%;
+            height: auto;
+        }
+}

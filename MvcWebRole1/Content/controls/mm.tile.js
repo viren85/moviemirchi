@@ -23,8 +23,8 @@
     "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
         "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 400px;\">" +
             "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\">" +
-            "<div class=\"captionAndNavigate\" style=\"width:263px;padding: 15px\">" +
-                "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
+            "<div class=\"captionAndNavigate\">" +
+                "<div id=\"captionCredit\" class=\"multimediaCaption\">" +
                     "<div id=\"photoCaption\">" +
                         "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
                         "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +

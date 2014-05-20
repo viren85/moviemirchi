@@ -1,0 +1,83 @@
+﻿.news-container {
+    margin-left: 0%;
+}
+
+    .news-container .news-title {
+        width: 100%;
+        color: #fff;
+        float: left;
+        font-style: italic;
+        max-height: 50px;
+        color: #fff;
+        background-color: #368BC1;
+        padding: 5px 7px 5px 5px;
+        border-radius: 3px;
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+    }
+
+    .news-container .left .img {
+        width: 100px;
+        height: 100px;
+    }
+
+    .news-container .news-content-text {
+        float: left;
+        margin-top: 10px;
+    }
+
+        .news-container .news-content-text .news-right-content {
+            width: 60%;
+            float: left;
+            margin-left: 10px;
+            text-align: justify;
+            font-size: 12px;
+        }
+
+        .news-container .news-content-text .both {
+            width: 95%;
+            float: left;
+            margin-left: 10px;
+            text-align: justify;
+            font-size: 12px;
+            color: black;
+        }
+
+    .news-container .news-link {
+        float: right;
+        font-size: 12px;
+        text-decoration: underline;
+        position: absolute;
+        right: 10px;
+        bottom: 5px;
+    }
+
+    .news-container .news-item .news-content-container .news-right {
+        margin-left: 33%;
+    }
+
+    .news-container .news-item .news-content-container .news-link {
+        float: right;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+    }
+
+
+.news-content {
+    margin-left: 10%;
+}
+
+.news-left, .news-right {
+    width: 48%;
+    float: left;
+    min-width: 360px;
+    max-width: 360px;
+}
+
+@media screen and (min-width: 321px) and (max-width: 1350px) {
+    .news-content {
+        margin-left: 6%;
+    }
+}
+

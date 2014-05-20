@@ -26,4 +26,12 @@
 
         $(imgElement).attr("src", path).css("height", "250px");
     }
+
+    // This function returns the total number of elements possible to be displayed in possible width area
+    // The input argument is container width in %
+    Util.prototype.GetElementCount = function (containerWidth, singleElementWidth) {
+        var width = $(document).width();
+        var singleWidth = Math.round(width * (containerWidth / 100));
+        return Math.floor(singleWidth / singleElementWidth) - 1;
+    }
 }

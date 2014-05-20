@@ -16,7 +16,7 @@ var InitBio = function () {
         var newHeight = 263 * ratio;
         $(this).width("263px").height(newHeight + "px");
         
-        $(this).hover(
+        /*$(this).hover(
             function () {
                 if ($(this).attr("src").indexOf("user.png") < 0) {
                     $(this).attr("org-w", $(this).css("width")).css("width", "350px").css("top", "-50px").css("left", "-50px");
@@ -31,6 +31,6 @@ var InitBio = function () {
                     $(this).parent().css("height", $(this).attr("org-h")).css("z-index", "1");
                 }
             }
-       );
+       );*/
     });
 }

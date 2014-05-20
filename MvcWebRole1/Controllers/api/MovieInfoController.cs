@@ -59,7 +59,7 @@ namespace MvcWebRole1.Controllers.api
                             ReviewEntity objReview = review.Value as ReviewEntity;
 
                             objReview.ReviewerName = reviewer.ReviewerName;
-                            objReview.OutLink = reviewer.ReviewerImage;
+                            //objReview.OutLink = reviewer.ReviewerImage;
                             userReviews.Add(objReview);
                         }
                     }

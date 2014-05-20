@@ -1,0 +1,96 @@
+﻿.review-list {
+    float: left;
+    width: 86%;
+    margin-left: 7%;
+}
+
+    .review-list ul {
+        list-style: none;
+        margin: 0 auto;
+        padding: 0px;
+        float: left;
+    }
+
+        .review-list ul li {
+            float: left;
+            width: 50%;
+            margin-bottom: 1%;
+        }
+
+            .review-list ul li .arrow_container {
+                width: 97%;
+            }
+
+.critic-label {
+    float: left;
+    font-size: medium;
+    margin-right: 2%;
+    margin-top: 1%;
+}
+.critic-rating {
+    float: left;
+    font-size: xx-large;
+    font-family: Segoe UI;
+}
+#reviewer-list {
+    float: left;
+    width: 30%;
+    height: 100%;
+    min-height: 450px;
+    overflow-y: auto;
+    border: 1px solid #DDD;
+    box-shadow: 5px 5px 5px #EEE;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+}
+
+    #reviewer-list li {
+        float: left;
+        width: 100%;
+        height: 80px;
+        padding: 10px;
+        border-bottom: 1px solid #DDD;
+        border-top: 1px solid #DDD;
+        background-color: white;
+    }
+
+        #reviewer-list li:hover {
+            background-color: #EEE;
+            border-bottom: 1px solid #DDD;
+            border-top: 1px solid #DDD;
+        }
+
+        #reviewer-list li img {
+            float: left;
+            width: 32px;
+            height: 32px;
+            margin-bottom: 25px;
+            margin-right: 10px;
+        }
+
+        #reviewer-list li div.reviewer {
+            float: left;
+            width: 100%;
+            height: 100%;
+        }
+
+            #reviewer-list li div.reviewer .reviewer-name {
+                float: left;
+                font-size: 0.9em;
+                width: 80%;
+                margin-bottom: 5px;
+            }
+
+            #reviewer-list li div.reviewer .reviewer-affiliation {
+                float: left;
+                font-size: 0.8em;
+                width: 80%;
+                margin-bottom: 5px;
+            }
+
+            #reviewer-list li div.reviewer .reviewer-rating {
+                float: left;
+                width: 100%;
+                margin-bottom: 10px;
+            }

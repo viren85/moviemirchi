@@ -110,7 +110,7 @@ var NewsControl = function (selector, data) {
                     "<div class='news-content-container'>" +
                         "<div class='news-content-text'>" +
                             (isImageUrl ? "<div class='left'><img class=\"img\" src=\"" + entry.Image + "\" alt=\"Image\" /></div>" : "") +
-                            "<div class='" + (isImageUrl ? "news-right" : "both") + "'>" + new Util().GetEllipsisText(entry.Description, 180) + "</div>" +
+                            "<div class='" + (isImageUrl ? "news-right-content" : "both") + "'>" + new Util().GetEllipsisText(entry.Description, 180) + "</div>" +
                         "</div>" +
                     "</div>" +
                     "<div class='news-author news-link'><a target=\"_new\" href=\"" + entry.Link + "\">" +

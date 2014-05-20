@@ -2,180 +2,59 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
-<style>
-    .artist-bio {
-        float: left;
-        width: 85%;
-        margin-left: 6%;
-        margin-top: 20px;
-    }
- 
-    .movie-panel {
-        margin-top: -10px;
-    }
+@Styles.Render("~/Content/styles/mm.moviedetails.css")
 
-    #now-pager, #upcoming-pager {
-        float: left;
-        width: 90%;
-        /*position: absolute;
-        bottom: 0px;
-        left: 0%;*/
-        text-align: center;
-        margin-top: 20px;
-    }
 
-    .viewingDiv {
-        float: none;
-        position: relative;
-        display: table;
-        /*overflow:hidden;*/
-    }
+<div class="movies">
+    <div class="artist-bio"></div>
+</div>
+<script type="text/javascript" src="/Content/controls/mm.bio.js"></script>
+<script type="text/javascript">
 
-    div.multimediaCaption {
-        font-family: Arial;
-        font-size: 12px;
-        display: inline;
-    }
+    $(document).ready(function () {
+        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        var artist = name.split('-').join(' ');
 
-    .viewer {
-        text-align: center;
-        vertical-align: middle;
-        position: relative;
-        float: left;
-    }
+        var fileName = "/Images/user.png";
 
-    img.shownImage {
-        border: solid 1px transparent;
-        box-shadow: 0px 0px 15px #555;
-    }
+        $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
+        $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
+        $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
+        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
 
-    div.navigate {
-        font-family: arial,tahoma,sans-serf;
-        font-size: 14px;
-        font-weight: bold;
-        /*text-transform:uppercase;*/
-    }
+        InitBio();
 
-    div.captionAndNavigate {
-        background-color: #000;
-        bottom: 0px;
-        color: #FFFFFF;
-        left: 0;
-        margin-bottom: 0;
-        margin-top: 0;
-        opacity: 0.7;
-        filter: alpha(opacity=70);
-        /*padding: 2px 0 2px 2px;*/
-        padding: 0px;
-        position: absolute;
-        text-align: left;
-        z-index: 2;
-    }
+        var apiPath = "../api/ArtistMovies?name=" + artist;
+        CallHandler(apiPath, PopulateMovies);
+        LoadNews();
+        LoadTweets("artist", name);
+    });
 
-    .overLaying {
-        z-index: 20;
-        color: #000000;
-        opacity: 0.7;
-        filter: alpha(opacity=70);
-        position: absolute;
-        top: 20;
-        left: 0;
-    }
+    function PopulateMovies(response) {
+        var data = JSON.parse(response);
 
-    .overLayImg {
-        z-index: 20;
-        color: #000000;
-        opacity: 0.7;
-        filter: alpha(opacity=70);
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 42px;
-        height: 42px;
-        vertical-align: middle;
-        overflow: hidden;
-        cursor: pointer;
-        /*Chrome*/
-        -webkit-border-radius: 5em;
-        /*Firefox*/
-        -moz-border-radius: 5em;
-        /*IE*/
-        border-radius: 5em;
-        /*behavior: url(PIE.htc);*/
-        background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 0 transparent;
-    }
-
-        .overLayImg:hover {
-            background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -42px transparent;
-        }
-
-        .overLayImg[title="Play Video"] {
-            background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -126px transparent;
-        }
-
-            .overLayImg[title="Play Video"]:hover {
-                background: url("/news/images/icons/icon_av_main.gif") no-repeat scroll 0 -168px transparent;
+        if (data != null && data.length > 0) {
+            for (var i = 0; i < data.length; i++) {
+                var list = PopulatingMovies(data[i], "movie-list");
             }
 
-        .overLayImg[title="Watch Flash"] {
-            background: url("/news/images/icons/flash.png") no-repeat scroll 0 0px transparent;
+            /*The image width/height shall be calculated once the image is fully loaded*/
+            var width = $(document).width();
+
+            $(".movie-list").find("img").each(function () {
+                var ratio = this.width / this.height;
+                var newWidth = 400 * ratio;
+                $(this).width(newWidth + "px").height("380px");
+
+                if (newWidth > 250)
+                    $(this).width("250px");
+            });
+
+            ScaleElement($(".movie-list ul"));
+
+            // movie-list
+            PreparePaginationControl($(".movie-list"));
         }
-
-            .overLayImg[title="Watch Flash"]:hover {
-                background: url("/news/images/icons/flash.png") no-repeat scroll 0 -42px transparent;
-            }
-</style>
-<div class="content">
-    <div class="movies">
-        <div class="artist-bio"></div>
-    </div>
-    <script type="text/javascript" src="/Content/controls/mm.bio.js"></script>
-    <script type="text/javascript">
-
-        $(document).ready(function () {
-            var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-            var artist = name.split('-').join(' ');
-
-            var fileName = "/Images/user.png";
-
-            $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
-            $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
-            $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
-            $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
-            $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
-
-            InitBio();
-
-            var apiPath = "../api/ArtistMovies?name=" + artist;
-            CallHandler(apiPath, PopulateMovies);
-            LoadNews();
-            LoadTweets("artist", name);
-        });
-
-        function PopulateMovies(response) {
-            var data = JSON.parse(response);
-
-            if (data != null && data.length > 0) {
-                for (var i = 0; i < data.length; i++) {
-                    var list = PopulatingMovies(data[i], "movie-list");
-                }
-
-                /*The image width/height shall be calculated once the image is fully loaded*/
-                var width = $(document).width();
-
-                $(".movie-list").find("img").each(function () {
-                    var ratio = this.width / this.height;
-                    var newWidth = 400 * ratio;
-                    $(this).width(newWidth + "px").height("380px");
-
-                    if (newWidth > 250)
-                        $(this).width("250px");
-                });
-
-                ScaleElement($(".movie-list ul"));
-
-                // movie-list
-                PreparePaginationControl($(".movie-list"));
-            }
-        }
-    </script>
+    }
+</script>

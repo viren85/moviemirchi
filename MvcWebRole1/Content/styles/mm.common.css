@@ -1,0 +1,99 @@
+﻿.movie-panel{
+    float: left;
+    margin-top: 30px;
+}
+.large-fonts {
+    font-size: 2em;
+    font-family: Segoe UI Light;
+    font-weight: bold;
+}
+
+.medium-fonts {
+    font-size: 1.5em;
+    font-family: Segoe UI Light;
+}
+
+.small-fonts {
+    font-size: 0.5em;
+    font-family: Segoe UI Light;
+    font-weight: bold;
+}
+
+.tube-container {
+    float: left;
+    width: 100%;
+}
+
+.width60 {
+    width: 60%;
+}
+
+.width30 {
+    width: 30%;
+    float: left;
+}
+
+.section-title {
+    float: left;
+    color: #368BC1;
+    margin-bottom: 1%;
+    margin-top: 0%;
+    margin-left: 7%;
+    width: 93%;
+    border-left: 10px solid #368BC1;
+    padding-left: 20px;
+}
+
+.width60 .section-title {
+    margin-left: 12%;
+}
+
+.width30 .section-title {
+    margin-left: 3%;
+}
+/* Rating Control */
+.rate-container {
+    float: left;
+    width: 100%;
+    height: 20px;
+}
+
+.red-mirchi {
+    float: left;
+    width: 15px;
+    height: 25px;
+    background-image: url('/Images/RedChilli.png');
+    background-size: 15px 25px;
+    /*margin-top: 10px;*/
+    margin-bottom: 3px;
+}
+
+.green-mirchi {
+    float: left;
+    width: 15px;
+    height: 25px;
+    background-image: url('/Images/GreenChilli.png');
+    background-size: 15px 25px;
+    margin-top: 10px;
+}
+/* End - Rating Control */
+@media screen and (min-width: 768px) {
+}
+
+@media screen and (min-width: 321px) and (max-width: 1350px) {
+    .width60 {
+        width: 100%;
+    }
+
+    .width30 {
+        width: 100%;
+        float: left;
+    }
+
+        .width60 .section-title, .width30 .section-title {
+            margin-left: 7%;
+        }
+}
+
+@media screen and (max-width: 320px) {
+}

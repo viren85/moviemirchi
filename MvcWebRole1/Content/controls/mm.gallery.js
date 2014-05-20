@@ -12,7 +12,7 @@ var ScaleElement = function (element) {
     $(element).find("li.movie").each(function () {
         $(this).find(".movie-poster,.captionAndNavigate").hover(function () {
             var element = this;
-
+            
             if ($(this).attr("class") == "captionAndNavigate")
                 element = $(this).prev();
 

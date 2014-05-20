@@ -2,23 +2,21 @@
     ViewBag.Title = "Reviewer";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
+<div class="movies">
 
-<div class="content">
-    <div class="movies">
+</div>
 
-    </div>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            /*var qs = GetQueryStringsForHtmPage();
-            var name = qs["name"];
-            var movie = qs["movie"];
-            GetReviewerAndReviews(name, movie);*/
-            var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-            LoadReviewsByReviewer(name);
-        });
-    </script>
-    <script type="text/javascript" src="/Content/controls/mm.review.js"></script>
-    <script type="text/javascript" src="/Content/controls/mm.reviewer.js"></script>
-    <script type="text/javascript" src="/Content/controls/mm.critics.js"></script>
-    <script type="text/javascript" src="/Content/controls/mm.bio.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        /*var qs = GetQueryStringsForHtmPage();
+        var name = qs["name"];
+        var movie = qs["movie"];
+        GetReviewerAndReviews(name, movie);*/
+        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        LoadReviewsByReviewer(name);
+    });
+</script>
+<script type="text/javascript" src="/Content/controls/mm.review.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.reviewer.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.critics.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.bio.js"></script>
