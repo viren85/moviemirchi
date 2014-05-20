@@ -89,17 +89,17 @@ namespace DataStoreLib.Models
         }
 
 
-        public void SetReviewerName(List<string> list)
+        public void SetReviewerName(IEnumerable<string> list)
         {
             ReviewerName = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetReviewerImage(List<string> list)
+        public void SetReviewerImage(IEnumerable<string> list)
         {
             ReviewerImage = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
-        public void SetAffilation(List<string> list)
+        public void SetAffilation(IEnumerable<string> list)
         {
             Affilation = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }

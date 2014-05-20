@@ -1,7 +1,10 @@
 ﻿
+
 namespace DataStoreLib.Models
 {
-    interface IDataStoreTableEntity
+    using Microsoft.WindowsAzure.Storage.Table;
+
+    interface IDataStoreTableEntity : ITableEntity
     {
         string GetKey();
     }

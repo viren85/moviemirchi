@@ -9,14 +9,14 @@ namespace DataStoreLib.Models
     public class MovieInfo
     {
         public MovieEntity Movie { get; set; }
-        public List<ReviewEntity> MovieReviews { get; set; }
-        public List<MovieEntity> MoviesList { get; set; }
+        public IEnumerable<ReviewEntity> MovieReviews { get; set; }
+        public IEnumerable<MovieEntity> MoviesList { get; set; }
         public string movieId { get; set; }
         public string name { get; set; }
         public PosterInfo poster { get; set; }
         public Rating rating { get; set; }
         public Info info { get; set; }
-        public List<Review> reviews { get; set; }
+        public IEnumerable<Review> reviews { get; set; }
     }
 
     public class PosterInfo
@@ -60,9 +60,9 @@ namespace DataStoreLib.Models
 
     public class Multimedia
     {
-        public List<Songs> songs { get; set; }
-        public List<Songs> trailers { get; set; }
-        public List<Picture> pics { get; set; }
+        public IEnumerable<Songs> songs { get; set; }
+        public IEnumerable<Songs> trailers { get; set; }
+        public IEnumerable<Picture> pics { get; set; }
     }
 
     public class Songs

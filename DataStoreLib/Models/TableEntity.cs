@@ -7,8 +7,10 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
     using System.Diagnostics;
+    using System.Linq;
+    using IEntityPropertyDictionary = System.Collections.Generic.IDictionary<string, Microsoft.WindowsAzure.Storage.Table.EntityProperty>;
 
-    public abstract class TableEntity : TableServiceEntity, ITableEntity, IDataStoreTableEntity
+    public abstract class TableEntity : TableServiceEntity, IDataStoreTableEntity
     {
         #region table elements
         // none here, implements the base classs
@@ -21,13 +23,13 @@ namespace DataStoreLib.Models
         public string ETag { get; set; }
         public new DateTimeOffset Timestamp { get; set; }
 
-        public virtual void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
+        public virtual void ReadEntity(IEntityPropertyDictionary properties, OperationContext operationContext)
         {
             ETag = ReadString(properties, "ETag");
             Timestamp = ReadTimestamp(properties, "Timestamp");
         }
 
-        public virtual IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
+        public virtual IEntityPropertyDictionary WriteEntity(OperationContext operationContext)
         {
             var dict = MergeDicts(null);
 
@@ -39,7 +41,7 @@ namespace DataStoreLib.Models
 
         #region typecasts
 
-        internal static string ReadString(IDictionary<string, EntityProperty> properties, string key)
+        internal static string ReadString(IEntityPropertyDictionary properties, string key)
         {
             if (properties.ContainsKey(key))
             {
@@ -51,7 +53,7 @@ namespace DataStoreLib.Models
             }
         }
 
-        internal static Guid ReadGuid(IDictionary<string, EntityProperty> properties, string key)
+        internal static Guid ReadGuid(IEntityPropertyDictionary properties, string key)
         {
             if (properties.ContainsKey(key))
             {
@@ -71,7 +73,7 @@ namespace DataStoreLib.Models
             }
         }
 
-        internal static bool ReadBool(IDictionary<string, EntityProperty> properties, string key)
+        internal static bool ReadBool(IEntityPropertyDictionary properties, string key)
         {
             if (properties.ContainsKey(key))
             {
@@ -91,7 +93,7 @@ namespace DataStoreLib.Models
             }
         }
 
-        internal static int ReadInt(IDictionary<string, EntityProperty> properties, string key)
+        internal static int ReadInt(IEntityPropertyDictionary properties, string key)
         {
             if (properties.ContainsKey(key))
             {
@@ -111,7 +113,7 @@ namespace DataStoreLib.Models
             }
         }
 
-        internal static DateTimeOffset ReadTimestamp(IDictionary<string, EntityProperty> properties, string key)
+        internal static DateTimeOffset ReadTimestamp(IEntityPropertyDictionary properties, string key)
         {
             if (properties.ContainsKey(key))
             {
@@ -132,49 +134,44 @@ namespace DataStoreLib.Models
             }
         }
 
-        internal static void WriteString(IDictionary<string, EntityProperty> prop, string key, string val)
+        internal static void WriteString(IEntityPropertyDictionary prop, string key, string val)
         {
             Debug.Assert(!prop.ContainsKey(key));
             prop[key] = new EntityProperty(val);
         }
 
-        internal static void WriteGuid(IDictionary<string, EntityProperty> prop, string key, Guid val)
+        internal static void WriteGuid(IEntityPropertyDictionary prop, string key, Guid val)
         {
             Debug.Assert(!prop.ContainsKey(key));
             prop[key] = new EntityProperty(val);
         }
 
-        internal static void WriteBool(IDictionary<string, EntityProperty> prop, string key, bool val)
+        internal static void WriteBool(IEntityPropertyDictionary prop, string key, bool val)
         {
             Debug.Assert(!prop.ContainsKey(key));
             prop[key] = new EntityProperty(val);
         }
 
-        internal static void WriteInt(IDictionary<string, EntityProperty> prop, string key, int val)
+        internal static void WriteInt(IEntityPropertyDictionary prop, string key, int val)
         {
             Debug.Assert(!prop.ContainsKey(key));
             prop[key] = new EntityProperty(val);
         }
 
-        internal static void WriteTimestamp(IDictionary<string, EntityProperty> prop, string key, DateTimeOffset val)
+        internal static void WriteTimestamp(IEntityPropertyDictionary prop, string key, DateTimeOffset val)
         {
             Debug.Assert(!prop.ContainsKey(key));
             prop[key] = new EntityProperty(val);
         }
 
-        internal static IDictionary<string, EntityProperty> MergeDicts(IDictionary<string, EntityProperty> dict1)
+        internal static IEntityPropertyDictionary MergeDicts(IEntityPropertyDictionary dictionary)
         {
-            var dict = new Dictionary<string, EntityProperty>();
-
-            if (dict1 != null)
-            {
-                foreach (var key in dict1.Keys)
-                {
-                    dict.Add(key, dict1[key]);
-                }
-            }
-
-            return dict;
+            return dictionary == null ?
+                new Dictionary<string, EntityProperty>() :
+                dictionary
+                    .ToDictionary(
+                        entry => entry.Key,
+                        entry => entry.Value);
         }
 
         #endregion
