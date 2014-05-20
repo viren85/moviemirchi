@@ -5,8 +5,11 @@
 }
 
 .more-link {
-    float: right;
-    margin-top: 10px;
+    position: absolute;
+    right: 0px;
+    bottom: -30px;
+    /*float: right;
+    margin-top: 10px;*/
 }
 
 .arrow_container {
