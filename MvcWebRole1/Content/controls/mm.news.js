@@ -25,21 +25,20 @@ var ShowNews = function (data) {
         }
 
         var control = new NewsControl(".news-container", news);
-        control.startTimer(18000);
+        control.startTimer(10000);
     }
 }
 
 var Timer = function (callback, delay) {
-    var timerId, start, remaining = delay;
+    var timerId;
 
     this.pause = function () {
-        window.clearTimeout(timerId);
-        remaining -= new Date() - start;
+        window.clearInterval(timerId);
     };
 
     this.resume = function () {
-        start = new Date();
-        timerId = window.setTimeout(callback, remaining);
+        callback();
+        timerId = window.setInterval(callback, delay);
     };
 
     this.resume();

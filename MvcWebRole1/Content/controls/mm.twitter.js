@@ -28,21 +28,19 @@ var ShowTweets = function (data) {
         }
 
         var twtr = new TwitterControl(".tweets", tweets);
-        twtr.startTimer(12000);
+        twtr.startTimer(8000);
     }
 }
 
 var Timer = function (callback, delay) {
-    var timerId, start, remaining = delay;
+    var timerId;
 
     this.pause = function () {
-        window.clearTimeout(timerId);
-        remaining -= new Date() - start;
+        window.clearInterval(timerId);
     };
 
     this.resume = function () {
-        start = new Date();
-        timerId = window.setTimeout(callback, remaining);
+        timerId = window.setInterval(callback, delay);
     };
 
     this.resume();
