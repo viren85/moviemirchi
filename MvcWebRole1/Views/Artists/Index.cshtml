@@ -55,6 +55,10 @@
 
             // movie-list
             PreparePaginationControl($(".movie-list"));
+
+            $(window).resize(function () {
+                PreparePaginationControl($(".movie-list"));
+            });
         }
     }
 </script>

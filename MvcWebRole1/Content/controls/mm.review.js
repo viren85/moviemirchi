@@ -16,9 +16,9 @@
                                     "</a>" +
                                     "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" + review.ReviewerName + "</a></div>" +
                                     "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
-                                    "<div class=\"other\">" +
+                                    /*"<div class=\"other\">" +
                                         "<div class=\"topcritic\">Top Critic</div>" +
-                                    "</div>" +
+                                    "</div>" +*/
                                 "</div>" +
                             "</div>" +
                         "</div>" +
@@ -51,9 +51,9 @@ var GetDefaultReviewControl = function (containerClass, movieReviews, isReviewer
                                 "<img src=\"" + GetReviewerPic("Rajeev Masand") + "\" style=\"height:100px;width:100px\" />" +
                                 "<div class=\"reviewer-name\"><a href=\"javascript:void()\">Rajeev Masand</a></div>" +
                                 "<div class=\"affiliation\"><a href=\"javascript:void()\">Indy Times</a> | <a href=\"javascript:void()\">Bolly Times</a></div>" +
-                                "<div class=\"other\">" +
+                                /*"<div class=\"other\">" +
                                     "<div class=\"topcritic\">Top Critic</div>" +
-                                "</div>" +
+                                "</div>" +*/
                             "</div>" +
                         "</div>" +
                     "</div>" +

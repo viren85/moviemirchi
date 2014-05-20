@@ -1,9 +1,11 @@
-﻿body{
+﻿body {
     background-color: #EEE;
 }
-.movie-panel{
-    margin-top: 30px;
+
+.movie-panel {
+    margin-top: 40px;
 }
+
 .large-fonts {
     font-size: 2em;
     font-family: Segoe UI Light;
@@ -24,6 +26,7 @@
 .tube-container {
     float: left;
     width: 100%;
+    margin-top: 20px;
 }
 
 .width60 {
@@ -38,7 +41,7 @@
 .section-title {
     float: left;
     color: #368BC1;
-    margin-bottom: 1%;
+    margin-bottom: 10px;
     margin-top: 0%;
     margin-left: 7%;
     width: 93%;

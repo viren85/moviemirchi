@@ -1,13 +1,14 @@
 ﻿.bio {
     float: left;
     width: 100%;
+    margin-bottom: 20px;
 }
 
 .bio-pic {
-    float: left;
+    /*float: left;
     margin-right: 20px;
     position: relative;
-    max-width: 350px;
+    max-width: 350px;*/
 }
 
 .bio-pic-img {
@@ -16,14 +17,17 @@
     height: 300px;
     margin-right: 20px;
     position: relative;
+    margin-bottom: 20px;
 }
 
 .intro {
     float: left;
-    font-size: 20px;
     width: 44%;
+    /*
+    
+    font-size: 20px;
     position: absolute;
-    left: 30%;
+    left: 30%;*/
 }
 
 .intro-text {
@@ -129,6 +133,11 @@
             width: 100%;
             height: auto;
         }
+
+    .intro {
+        float: left;
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 320px) {
@@ -141,4 +150,9 @@
             width: 100%;
             height: auto;
         }
+
+    .intro {
+        float: left;
+        width: 100%;
+    }
 }
