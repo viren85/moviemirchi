@@ -28,7 +28,7 @@
     @Styles.Render("~/Content/styles/mm.twitter.css")
     @Styles.Render("~/Content/styles/mm.moviedetails.css")
     @Scripts.Render("~/Content/jquery-1.9.1.js")
-    
+
 </head>
 <body>
     <div class="movie-container">
@@ -42,28 +42,28 @@
                 <div class="search-button">Search</div>
                 <div id="search-results"></div>
             </div>
+            <div class="user-status">
+                <ul>
+                    @if (Session["username"] != null)
+                    {
+                        <li class="authenticate">
+                            Welcome, @Session["username"].ToString().ToUpper()
+                        </li>
+                        <li class="log">
+                            @Html.ActionLink("Logout", "Logout", "Login")
 
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a data-toggle="modal" href="#SignUp" role="presentation">Sign Up</a></li>
+                        <li><a data-toggle="modal" href="#Login" role="presentation">Sign In</a></li>
+                    }
+                </ul>
+            </div>
         </div>
     </div>
-    <div class="status">
-        <ul>
-            @if (Session["username"] != null)
-            {
-                <li class="authenticate">
-                    Welcome, @Session["username"].ToString().ToUpper()
-                </li>
-                <li class="log">
-                    @Html.ActionLink("Logout", "Logout", "Login")
 
-                </li>
-            }
-            else
-            {
-                <li><a data-toggle="modal" href="#SignUp" role="presentation" tabindex="-3">Sign Up</a></li>
-                <li><a data-toggle="modal" href="#Login" role="presentation" tabindex="-3">Sign In</a></li>
-            }
-        </ul>
-    </div>
     <div id="container" class="movie-panel">
         @RenderBody()
     </div>
@@ -624,12 +624,6 @@
     </div>
 </body>
 </html>
-
-@*<script type="text/javascript" src="/Content/jquery.mousewheel.js"></script>
-    <script type="text/javascript" src="/Content/jquery.jscrollpane.min.js"></script>
-    <script type="text/javascript" src="/Content/jquerypp.custom.js"></script>*@
-@*<script type="text/javascript" src="/Content/jquery.bookblock.js"></script>*@
-@*<script type="text/javascript" src="/Content/page.js"></script>*@
 <script type="text/javascript" src="/Content/movie.core.js"></script>
 <script type="text/javascript" src="/Content/movie.autocomplete.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.tube.js"></script>

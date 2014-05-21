@@ -17,7 +17,7 @@
 .logo {
     position: absolute;
     left: 7%;
-    top: 10px;
+    top: 15px;
 }
 
     .logo img {
@@ -29,7 +29,7 @@
 .home-search-bar {
     position: absolute;
     left: 30%;
-    top: 10px;
+    top: 15px;
     width: 50%;
 }
 
@@ -111,6 +111,30 @@
             background-color: #fcecec;
         }
 
+.user-status {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    display: none;
+}
+
+    .user-status ul {
+        float: left;
+        margin: 0px;
+        list-style: none;
+    }
+
+        .user-status ul li {
+            float: left;
+            list-style: none;
+            width: 60px;
+        }
+
+            .user-status ul li a {
+                color: white;
+                text-decoration: underline;
+            }
+
 @media screen and (min-width: 768px) {
     .home-search-bar {
         width: 50%;
@@ -126,6 +150,7 @@
         width: 50%;
         height: 35px;
     }
+
     .home-search-bar {
         width: 60%;
         left: 35%;
@@ -140,6 +165,10 @@
     .search-button {
         display: none;
     }
+
+    .user-status {
+        display: none;
+    }
 }
 
 @media screen and (max-width: 320px) {
@@ -147,12 +176,20 @@
         width: 35%;
         height: 35px;
     }
-    .home-search-bar{left: 40%;}
-    .home-search-bar input {
-        width: 100%;
+
+    .home-search-bar {
+        left: 40%;
     }
 
+        .home-search-bar input {
+            width: 100%;
+        }
+
     .search-button {
+        display: none;
+    }
+
+    .user-status {
         display: none;
     }
 }
