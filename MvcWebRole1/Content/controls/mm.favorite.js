@@ -215,7 +215,7 @@ function SaveUserFavorite() {
         //setCookie("favoriteId", "userid", 365);
     }
 
-    var cFavoriteId = getCookie("favoriteId");
+    var cFavoriteId = new Util().GetCookie("favoriteId");
 
     if (isValid) {
         CallHandler("api/SaveUserFavorite?u=" + userId + "&c=" + cFavoriteId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
@@ -232,7 +232,7 @@ function OnSuccessSaveUserFavorite(result) {
     if (result.Status == "Ok") {
 
         if (result.Message == "Set Cookie") {
-            setCookie("favoriteId", result.FavoriteId, 365);
+            new Util().SetCookie("favoriteId", result.FavoriteId, 365);
         }
 
         ClearUserFavoriteControls();

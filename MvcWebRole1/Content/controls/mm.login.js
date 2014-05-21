@@ -121,7 +121,7 @@ function RegisterUser() {
             return;
         }
 
-        if (!IsEmailValid(email)) {
+        if (!new Util().IsEmailValid(email)) {
             $("#registerError").html("Please provide valid email address.");
             $("#registerError").show();
             $("#Email1").focus();
