@@ -239,6 +239,7 @@
     <Content Include="Content\controls\mm.util.js" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery-1.9.1.js" />
+    <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\controls\mm.news.js" />
     <Content Include="Content\controls\mm.pager.js" />

@@ -27,6 +27,7 @@ var ShowMovie = function (data) {
         PopulatePosters(poster, result.Movie.Name);
         ArrangeImages($(".movie-poster-details"));
         ShowMovieReviews(reviews);
+        PrepareGenreLinks();
     }
 
     //$(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));

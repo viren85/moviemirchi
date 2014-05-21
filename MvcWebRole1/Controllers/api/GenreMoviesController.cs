@@ -33,7 +33,7 @@ namespace MvcWebRole1.Controllers.api
 
                 if (!string.IsNullOrEmpty(qpParams["type"]))
                 {
-                    genre = qpParams["type"];
+                    genre = qpParams["type"].ToLower();
                 }
             }
 
