@@ -1,7 +1,4 @@
-﻿
-var BASE_URL = "http://127.0.0.1:81/";
-
-function autoCompleteTextBox1(searchText, url, targetDiv, targetUL, targetText, hiddenFeild) {
+﻿function autoCompleteTextBox1(searchText, url, targetDiv, targetUL, targetText, hiddenFeild) {
     //Here we are using ajax get method to fetch data from the list based on the user entered value in the textbox.
     //We are sending query i.e textbox as data.
     var fullUrl = BASE_URL + url;

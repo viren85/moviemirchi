@@ -1,5 +1,4 @@
-﻿
-var BASE_URL = "http://127.255.0.1:81/";
+﻿var BASE_URL = "http://127.0.0.1:81/";
 
 var MovieCounter = 4;
 var MovieIndexer = 0;
