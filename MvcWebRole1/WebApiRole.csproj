@@ -230,6 +230,7 @@
     <Content Include="Content\controls\mm.rate.js" />
     <Content Include="Content\controls\mm.review.js" />
     <Content Include="Content\controls\mm.reviewer.js" />
+    <Content Include="Content\controls\mm.search.js" />
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
     <Content Include="Content\controls\mm.twitter.js" />
