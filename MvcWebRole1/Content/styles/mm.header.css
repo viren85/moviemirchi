@@ -94,13 +94,13 @@
     background-color: white;
     z-index: 101;
     display: none;
-    padding-left: 10px;
+    padding-left: 0px;
 }
 
     #targetUL li {
         border-bottom: 1px solid silver;
         height: 70px;
-        padding-left: 5px;
+        padding-left: 15px;
         padding-top: 8px;
         cursor: pointer;
         width: 100%;

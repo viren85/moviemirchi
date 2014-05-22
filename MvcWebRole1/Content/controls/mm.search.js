@@ -1,24 +1,8 @@
 ﻿$(document).ready(function () {
     $(".clear-search-bar").click(function () {
-        $("#target").val("");
         $("#targetUL").hide();
         $("#home-search").val("");
         $(this).hide();
-    });
-
-    //We have used keyup event to track the user enter value in the textbox.
-    $("#target").keyup(function () {
-        $("#home-search").val("");
-        //Fetching the textbox value.
-        var query = $(this).val().replace(".", "");
-
-        //clear-search-bar
-        if (query.length > 0)
-            $("#search-results").show();
-        else
-            $("#search-results").hide();
-
-        getItems(query);
     });
 
     $("#home-search").keyup(function (e) {
@@ -31,6 +15,11 @@
             $("#search-bar .clear-search-bar").hide();
 
         getItems(query);
+    });
+
+    $(".search-button").click(function () {
+        $("#targetUL").remove();
+        $("#home-search").keyup();
     });
 });
 
@@ -48,8 +37,9 @@ function PopulateSearchResult(response) {
         //assigning json response data to local variable. It is basically list of values.
         data = response;
 
+        
         if (data.length < 1 || data.length == undefined) {
-            $("#targetDiv").append($("<ul id='targetUL' style='display:none;'></ul>"));
+            $("#search-results").append($("<ul id='targetUL' style='display: block'><li style='height: 35px'>No results found for " + $("#home-search").val() + "</li></ul>"));
         }
         else {
             //appending an UL element to show the values.
@@ -66,10 +56,10 @@ function PopulateSearchResult(response) {
                     searchResultCounter++;
                     var li = $("<li>");
                     var divImage = $("<div>");
-                    $(divImage).attr("style", "min-width: 15%; min-height: 50px; float: left;");
+                    $(divImage).attr("style", "min-width: 12%; min-height: 50px; float: left;");
                     var img = $("<img/>")
                     img.attr("class", "img-thumbnail");
-                    img.attr("style", "width: 50px; height: 50px;margin-right: 1%");
+                    img.attr("style", "width: 50px; height: 50px;margin-right: 10px");
 
                     var description = JSON.parse(value.Description);
 
@@ -107,8 +97,6 @@ function PopulateSearchResult(response) {
                     $(li).append(anchor);
 
                     $("#targetUL").append(li);
-
-                    //$("#targetUL").append($("<li class='targetLI' onclick='javascript:appendTextToTextBox(this)'>" + value.Title + "</li>"));
                 }
             });
         }
