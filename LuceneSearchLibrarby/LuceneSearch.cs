@@ -68,6 +68,7 @@ namespace LuceneSearchLibrarby
             doc.Add(new Field("Type", movieSearchData.Type, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Link", movieSearchData.Link, Field.Store.YES, Field.Index.ANALYZED));
             doc.Add(new Field("Description", movieSearchData.Description, Field.Store.YES, Field.Index.ANALYZED));
+            doc.Add(new Field("Critics", movieSearchData.Critics, Field.Store.YES, Field.Index.ANALYZED));
 
             // add entry to index
             writer.AddDocument(doc);
@@ -173,7 +174,8 @@ namespace LuceneSearchLibrarby
                 TitleImageURL = doc.Get("TitleImageURL"),
                 Type = doc.Get("Type"),
                 Link = doc.Get("Link"),
-                Description = doc.Get("Description")
+                Description = doc.Get("Description"),
+                Critics = doc.Get("Critics")
             };
         }
 
@@ -227,7 +229,7 @@ namespace LuceneSearchLibrarby
                     else
                     {
                         //var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "TitleImageURL", "Type", "Link", "Description" }, analyzer);
-                        var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description" }, analyzer);
+                        var parser = new MultiFieldQueryParser(Version.LUCENE_30, new[] { "Id", "Title", "UniqueName", "Type", "Description", "Critics" }, analyzer);
                         var query = parseQuery(searchQuery, parser);
                         var hits = searcher.Search(query, null, hits_limit, Sort.RELEVANCE).ScoreDocs;
                         var results = _mapLuceneToDataList(hits, searcher);

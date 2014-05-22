@@ -115,6 +115,7 @@ namespace MvcWebRole2.Controllers
             try
             {
                 XmlDocument xdoc = new XmlDocument();
+                
 
                 string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
 
@@ -134,9 +135,11 @@ namespace MvcWebRole2.Controllers
                     {
                         if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
                         {
+                            
+
                             try
                             {
-
+                                List<string> critics = new List<string>();
                                 #region Crawl Movie
                                 MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                                 TableManager tblMgr = new TableManager();
@@ -172,6 +175,8 @@ namespace MvcWebRole2.Controllers
                                                 break;
                                         }
 
+                                        critics.Add(re.ReviewerName);
+
                                         // update the IDs - Movie Id, Reviewer Id etc.
                                         string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
                                         //re.RowKey = re.ReviewId = new Guid().ToString();
@@ -196,7 +201,43 @@ namespace MvcWebRole2.Controllers
                                 {
                                     foreach (var actor in casts)
                                     {
-                                        actors.Add(actor.name);
+                                        // actor, director, music, producer
+                                        string role = actor.role.ToLower();
+                                        string characterName = string.IsNullOrEmpty(actor.charactername) ? string.Empty : actor.charactername;
+
+                                        // Check if artist is already present in the list for some other role.
+                                        // If yes, skip it. Also if the actor name is missing then skip the artist
+                                        if (actors.Contains(actor.name) || string.IsNullOrEmpty(actor.name) || actor.name == "null")
+                                            continue;
+
+                                        // If we want to showcase main artists and not all, keep the following switch... case.
+                                        switch (role)
+                                        {
+                                            case "actor":
+                                                actors.Add(actor.name);
+                                                break;
+                                            case "producer":
+                                                // some times producer are listed as line producer etc. 
+                                                // We are not interested in those artists as of now?! Hence skipping it
+                                                if (characterName == role)
+                                                {
+                                                    actors.Add(actor.name);
+                                                }
+                                                break;
+                                            case "music":
+                                            case "director":
+                                                // Main music director and movie director does not have associated character name.
+                                                // Where as other side directors have associated character name as associate director, assitant director.
+                                                // Skipping such cases.
+                                                if (string.IsNullOrEmpty(characterName))
+                                                {
+                                                    actors.Add(actor.name);
+                                                }
+                                                break;
+                                        }
+
+                                        // If we want to showcase all the technicians 
+                                        //actors.Add(actor.name);
                                     }
                                 }
 
@@ -213,6 +254,7 @@ namespace MvcWebRole2.Controllers
                                 movieSearchIndex.TitleImageURL = posterUrl;
                                 movieSearchIndex.UniqueName = mov.UniqueName;
                                 movieSearchIndex.Description = json.Serialize(actors);
+                                movieSearchIndex.Critics = json.Serialize(critics);
                                 movieSearchIndex.Link = mov.UniqueName;
                                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                                 #endregion

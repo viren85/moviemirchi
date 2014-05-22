@@ -125,15 +125,19 @@ function PrepareGenreLinks() {
     $("span.movie-data-label").each(function () {
         if ($(this).html() == "Genre:") {
             var html = $(this).next().text();
-            console.log(html);
-            var genre = html.split("|");
-            var links = "";
-            for (i = 0; i < genre.length; i++) {
-                links += "<a href='/Genre/" + genre[i].trim() + "'>" + genre[i].trim() + "</a> | "
-            }
-
-            links = links.substring(0, links.lastIndexOf("|"));
+            var links = GetLinks(html, "Genre");
             $(this).next().html(links);
         }
     });
+}
+
+function GetLinks(html, type) {
+    var genre = html.split("|");
+    var links = "";
+    for (i = 0; i < genre.length; i++) {
+        links += "<a href='/" + type + "/" + genre[i].trim().split(' ').join('-') + "'>" + genre[i].trim() + "</a> | "
+    }
+
+    links = links.substring(0, links.lastIndexOf("|"));
+    return links;
 }
