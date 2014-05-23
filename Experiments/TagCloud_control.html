@@ -16,7 +16,6 @@
         .tagsContainer {
             width: 300px;
             min-height: 50px;
-            max-height: 300px;
             background-color: #fff;
             border-radius: 5px;
             -moz-border-radius: 5px;
@@ -26,27 +25,27 @@
             box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
         }
 
-        #tags ul {
-            margin: 1em 0;
-            padding: .5em 10px;
+        .tags ul {
+            margin: 0px;
+            padding: 8px;
             text-align: center;
         }
 
-        #tags li {
-            margin: 0;
-            padding: 0;
+        .tags li {
+            margin: 0px;
+            padding: 0px;
             list-style: none;
             display: inline;
         }
 
-            #tags li a {
+            .tags li a {
                 text-decoration: none;
                 color: #368BC1;
-                padding: 0 2px;
+                padding: 0px 5px;
             }
 
-                #tags li a:hover {
-                    color: #3F9FFF;
+                .tags li a:hover {
+                    color: #0094ff;
                 }
 
         .tag1 {
@@ -68,65 +67,36 @@
         .tag5 {
             font-size: 180%;
         }
-
-        /* alternative layout */
-
-        /*#tags .alt {
-            text-align: left;
-            padding: 0;
-            background: none;
-        }
-
-            #tags .alt li {
-                padding: 2px 10px;
-                background: #efefef;
-                display: block;
-            }
-
-            #tags .alt .tag1,
-            #tags .alt .tag2,
-            #tags .alt .tag3,
-            #tags .alt .tag4,
-            #tags .alt .tag5 {
-                font-size: 100%;
-            }
-
-            #tags .alt .tag1 {
-                background: #7cc0f4;
-            }
-
-            #tags .alt .tag2 {
-                background: #67abe0;
-            }
-
-            #tags .alt .tag3 {
-                background: #4d92c7;
-            }
-
-            #tags .alt .tag4 {
-                background: #3277ad;
-            }
-
-            #tags .alt .tag5 {
-                background: #266ca2;
-            }*/
     </style>
 </head>
 <body>
     <div class="tagsContainer">
-        <div id="tags">
+        <div class="tags">
+            <ul>
+                <li class="tag3"><a href="http://127.255.0.1:81/movie/reviewer/taran-adarsh">Taran Adarsh</a></li>
+                <li class="tag4"><a href="http://127.255.0.1:81/movie/reviewer/anupama-chopra">Anupama Chopra</a></li>
+                <li class="tag2"><a href="http://127.255.0.1:81/movie/reviewer/Rachit-Gupta">Rachit Gupta</a></li>
+            </ul>
+        </div>
+        <div class="tags">
             <ul>
                 <li class="tag1"><a href="http://127.255.0.1:81/Movie/mickey-virus">Mickey Virus</a></li>
-                <li class="tag2"><a href="http://127.255.0.1:81/movie/reviewer/anupama-chopra">Anupama Chopra</a></li>
-                <li class="tag3"><a href="http://127.255.0.1:81/Genre/Romance">Romance</a></li>
+                <li class="tag4"><a href="http://127.255.0.1:81/Movie/krrish-3">krrish 3</a></li>
+            </ul>
+        </div>
+        <div class="tags">
+            <ul>
                 <li class="tag5"><a href="http://127.255.0.1:81/Artists/Deepika-Padukone">Deepika Padukone</a></li>
                 <li class="tag4"><a href="http://127.255.0.1:81/Artists/Ranveer-Singh">Ranveer Singh</a></li>
-                <li class="tag1"><a href="http://127.255.0.1:81/Genre/Drama">Drama</a></li>
                 <li class="tag1"><a href="http://127.255.0.1:81/Artists/Aditya-Roy-Kapoor">Aditya Roy Kapoor</a></li>
                 <li class="tag2"><a href="http://127.255.0.1:81/Artists/Sanjay-Leela-Bhansali">Sanjay Leela Bhansali</a></li>
-                <li class="tag2"><a href="http://127.255.0.1:81/movie/reviewer/taran-adarsh">Taran Adarsh</a></li>
+            </ul>
+        </div>
+        <div class="tags">
+            <ul>
+                <li class="tag5"><a href="http://127.255.0.1:81/Genre/Romance">Romance</a></li>
                 <li class="tag3"><a href="http://127.255.0.1:81/Genre/Action">Action</a></li>
-                <li class="tag3"><a href="http://127.255.0.1:81/Movie/krrish-3">krrish 3</a></li>
+                <li class="tag1"><a href="http://127.255.0.1:81/Genre/Drama">Drama</a></li>
             </ul>
         </div>
     </div>
