@@ -71,16 +71,25 @@
         position: relative;
     }
 
-    .critics-container ul li {
-        width: 120px;
-        margin-right: 20px;
-        min-height: 90px;
+.critics-container {
+    width: 88%;
+    margin-left: 12%;
+}
+
+    .critics-container ul {
+        height: auto;
     }
 
-        .critics-container ul li.reviewer-empty {
-            width: 100%;
-            min-height: 0px;
+        .critics-container ul li {
+            width: 120px;
+            margin-right: 20px;
+            min-height: 90px;
         }
+
+            .critics-container ul li.reviewer-empty {
+                width: 100%;
+                min-height: 0px;
+            }
 
 .img-movie-genre {
     float: left;

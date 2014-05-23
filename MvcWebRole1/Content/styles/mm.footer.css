@@ -2,7 +2,6 @@
     float: left;
     width: 100%;
     padding-top: 1%;
-    box-shadow: 0px 3px 10px #666;
     background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
     background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
     background-image: -moz-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
@@ -12,6 +11,7 @@
     color: white;
     margin-top: 20px;
     display: none;
+    box-shadow: 0px 0px 0px #666, 0px -3px 10px #666;
 }
 
     .footer div {

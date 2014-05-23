@@ -34,7 +34,7 @@ namespace MvcWebRole1.Controllers.api
 
                 if (!string.IsNullOrEmpty(qpParams["name"]))
                 {
-                    artistName = qpParams["name"];
+                    artistName = qpParams["name"].ToLower();
                 }
             }
 

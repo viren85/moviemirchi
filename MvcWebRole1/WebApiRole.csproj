@@ -233,6 +233,7 @@
     <Content Include="Content\controls\mm.review.js" />
     <Content Include="Content\controls\mm.reviewer.js" />
     <Content Include="Content\controls\mm.search.js" />
+    <Content Include="Content\controls\mm.tags.js" />
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
     <Content Include="Content\controls\mm.twitter.js" />
@@ -252,6 +253,7 @@
     <Content Include="Content\styles\mm.pager.css" />
     <Content Include="Content\styles\mm.review.css" />
     <Content Include="Content\styles\mm.reviewer.css" />
+    <Content Include="Content\styles\mm.tags.css" />
     <Content Include="Content\styles\mm.twitter.css" />
     <Content Include="Global.asax" />
     <Content Include="Images\bg_direction_nav.png" />

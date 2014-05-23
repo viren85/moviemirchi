@@ -34,25 +34,31 @@
     font-size: 12px;
     text-align: justify;
 }
-.critics-left{
+
+.critics-left {
     float: left;
     min-width: 170px;
 }
-.critics-review{
+
+.critics-review {
     float: left;
     max-width: 210px;
 }
-.critics-more-link{
+
+.critics-more-link {
     position: absolute;
     right: 10px;
     bottom: -25px;
 }
+
 .arrow_box {
     height: 175px !important;
 }
-.arrow_container{
+
+.arrow_container {
     height: 260px !important;
 }
+
 .critic-review {
     float: left;
     width: 100%;
@@ -131,27 +137,18 @@
     clear: left;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 321px) and (max-width: 1350px) {
     .critics-container {
-        width: 90%;
+        margin-left: 7%;
+        height: auto;
     }
-
-        .critics-container ul {
-            width: 65%;
-            height: auto;
-        }
 }
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
-    .critics-container {
-        margin-left: 7%;
-        width: 90%;
+    .critics-container ul {
+        width: 100%;
+        height: auto;
     }
-
-        .critics-container ul {
-            width: 100%;
-            height: auto;
-        }
 
     .intro {
         float: left;
