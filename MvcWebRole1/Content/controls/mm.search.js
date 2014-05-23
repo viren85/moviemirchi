@@ -56,10 +56,9 @@ function PopulateSearchResult(response) {
                     searchResultCounter++;
                     var li = $("<li>");
                     var divImage = $("<div>");
-                    $(divImage).attr("style", "min-width: 12%; min-height: 50px; float: left;");
+                    $(divImage).attr("class", "search-image");
                     var img = $("<img/>")
                     img.attr("class", "img-thumbnail");
-                    img.attr("style", "width: 50px; height: 70px;margin-right: 10px");
 
                     var description = JSON.parse(value.Description);
                     var reviewer = JSON.parse(value.Critics);
@@ -113,9 +112,9 @@ function PopulateSearchResult(response) {
                     divImage.append(img);
 
                     var divTitleDesc = $("<div>");
-                    $(divTitleDesc).attr("style", "width: 80%;float: left;");
+                    $(divTitleDesc).attr("class", "search-result-desc");
 
-                    $(divTitleDesc).html("<span style='width:100%; font-weight: bold;float: left;font-size: 16px;'>" + value.Title + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'><b>Genre</b>: " + GetLinks(value.Type, "Genre") + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'><b>Artists</b>: " + GetLinks(actors, "Artists") + "</span><span style='width:100%;float: left;color: #666666;font-size: 11px;margin-top: 2px;'><b>Critics</b>: " + GetLinks(critics, "Movie/Reviewer") + "</span>");
+                    $(divTitleDesc).html("<span class='search-result-title'>" + value.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(value.Type, "Genre") + "</span><span class='search-result-text'><b>Artists</b>: " + GetLinks(actors, "Artists") + "</span><span class='search-result-text'><b>Critics</b>: " + GetLinks(critics, "Movie/Reviewer") + "</span>");
 
                     var anchor = $("<a>");
                     $(anchor).attr("href", "/Movie/" + value.Link);
