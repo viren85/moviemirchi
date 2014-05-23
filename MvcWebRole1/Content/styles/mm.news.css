@@ -81,3 +81,14 @@
     }
 }
 
+@media screen and (min-width: 321px) and (max-width: 784px) {
+    .news-right {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    .news-right {
+        display: none;
+    }
+}

@@ -69,3 +69,8 @@
         margin-left: 6%;
     }
 }
+@media screen and (max-width: 320px){
+    .tweet-right {
+        display: none;
+    }
+}

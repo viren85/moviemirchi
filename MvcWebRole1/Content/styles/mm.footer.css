@@ -11,6 +11,7 @@
     background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
     color: white;
     margin-top: 20px;
+    display: none;
 }
 
     .footer span {
