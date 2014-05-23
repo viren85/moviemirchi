@@ -1,7 +1,7 @@
 ﻿.footer {
     float: left;
     width: 100%;
-    padding-left: 7%;
+    padding-top: 1%;
     box-shadow: 0px 3px 10px #666;
     background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
     background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
@@ -14,27 +14,29 @@
     display: none;
 }
 
-    .footer span {
-        float: left;
-        margin-right: 20px;
+    .footer div {
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        
     }
 
     .footer ul {
-        list-style: none;
-        float: left;
-        margin: 0px;
-        padding: 10px 10px 10px 0px;
-        width: 100%;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        text-align: center;
     }
 
         .footer ul li {
-            float: left;
+            display: inline;
             margin-right: 10px;
             font-size: 12px;
         }
 
             .footer ul li a {
-                color: white;
+                color: #ddd;
+                text-decoration: underline;
             }
 
 @media screen and (min-width: 768px) {
