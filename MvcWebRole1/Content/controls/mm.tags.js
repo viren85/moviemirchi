@@ -1,12 +1,19 @@
 ﻿function LoadTags() {
     // call API to populate the tags - instead of using hardcoded values
-    new Tags().InitTagCloud();
+    // new Tags().InitTagCloud();
+
+    var popularPath = "../api/Popular?type=all";
+    CallHandler(popularPath, ShowTags);
+}
+
+var ShowTags = function (data) {
+    new Tags(data).InitTagCloud();
 }
 
 var Tags = function (tagJsonString) {
     var tags = null;
 
-    if (tagJsonString != null && tagJsonString != "undefined")
+    if (tagJsonString != null && tagJsonString != "undefined" && tagJsonString != "")
         tags = JSON.parse(tagJsonString);
 
     if (tags == null)

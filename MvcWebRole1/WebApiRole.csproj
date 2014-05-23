@@ -194,6 +194,7 @@
     <Compile Include="Controllers\api\GetCastByTypeController.cs" />
     <Compile Include="Controllers\api\MovieInfo.cs" />
     <Compile Include="Controllers\api\NewsController.cs" />
+    <Compile Include="Controllers\api\PopularController.cs" />
     <Compile Include="Controllers\api\TwitterController.cs" />
     <Compile Include="Controllers\api\MovieReviewController.cs" />
     <Compile Include="Controllers\api\MovieInfoController.cs" />
