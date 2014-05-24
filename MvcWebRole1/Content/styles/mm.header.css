@@ -127,6 +127,10 @@
     height: 70px;
     margin-right: 10px;
 }
+.person-poster{
+    height: 50px;
+    margin-right: 20px;
+}
 
 .img-thumbnail {
     width: 50px;

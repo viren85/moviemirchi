@@ -156,14 +156,13 @@ function appendTextToTextBox(e) {
 var SearchResults = function (obj) {
     // var resultData = JSON.parse(obj);
     var resultData = obj;
+    var entityList = [];
+    var searchResultCounter = 0;
 
     SearchResults.prototype.Init = function () {
         for (var i = 0; i < resultData.length && i < 6; i++) {
             this.GetItems(resultData[i]);
         }
-
-        //var clone = resultData.clone();
-        //var addEntities = this.GetEntities(clone);
     }
 
     SearchResults.prototype.GetEntities = function (singleEntity) {
@@ -180,30 +179,36 @@ var SearchResults = function (obj) {
         if (singleEntity) {
             var key = $("#home-search").val().toLowerCase().split(".").join("");
 
-            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1) {
+            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < 6) {
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
+                entityList.push(singleEntity.Title);
+                searchResultCounter++;
             }
-
-            if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
+            else if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
                 // This is artist entity hence show the artist item
                 this.GetArtistItem(singleEntity);
-                this.GetMovieItem(singleEntity);
-            }
 
-            if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1) {
+                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < 6) {
+                    this.GetMovieItem(singleEntity, true, "artists");
+                    entityList.push(singleEntity.Title);
+                    searchResultCounter++;
+                }
+            }
+            else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < 6) {
                 // This is critics entity hence show the critics item
-                this.GetCriticsItem(singleEntity);
+                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < 6) {
+                    this.GetCriticsItem(singleEntity);
+                }
             }
-
-            if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
+            else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
                 // This is genre entity hence show the genre item
                 this.GetGenreItem(singleEntity);
             }
         }
     }
 
-    SearchResults.prototype.GetMovieItem = function (singleEntity) {
+    SearchResults.prototype.GetMovieItem = function (singleEntity, isSecondary, type) {
         var li = $("<li>");
         var divTitleDesc = $("<div>");
         var anchor = $("<a>");
@@ -211,8 +216,21 @@ var SearchResults = function (obj) {
         $(divTitleDesc).attr("class", "search-result-desc");
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span>");
 
+        if (isSecondary) {
+            switch (type) {
+                case "artists":
+                    var artist = this.GetProcessedArtists(this.GetMatchArtistName(singleEntity));
+                    if (artist != "")
+                        $(divTitleDesc).html($(divTitleDesc).html() + "<span class='search-result-text'><b>Artist</b>: " + GetLinks(artist, "Artists") + "</span>");
+                    break;
+                case "genre":
+                    $(divTitleDesc).html("<span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "Genre") + "</span>");
+                    break;
+            }
+        }
+
         $(anchor).attr("href", "/Movie/" + singleEntity.Link);
-        $(anchor).append(GetImageElement(singleEntity));
+        $(anchor).append(GetImageElement(singleEntity, "movie"));
         $(anchor).append(divTitleDesc);
 
         $(li).append(anchor);
@@ -221,73 +239,153 @@ var SearchResults = function (obj) {
     }
 
     SearchResults.prototype.GetArtistItem = function (singleEntity) {
-        var li = $("<li>");
-        var divTitleDesc = $("<div>");
-        var anchor = $("<a>");
+        if (searchResultCounter >= 6) {
+            return;
+        }
 
-        var alink = GetArtistsLinks(singleEntity);
-        $(alink).innerText= "";
+        var artistName = this.GetMatchArtistName(singleEntity);
 
-        $(divTitleDesc).attr("class", "search-result-desc");
-        $(divTitleDesc).html("<span class='search-result-title'>" + alink + "</span>");
+        for (var i = 0; i < artistName.length; i++) {
 
-        //$(anchor).attr("href", "/Artists/" + singleEntity.Link);
-        //$(anchor).append(GetImageElement(singleEntity));
-        //$(anchor).append(divTitleDesc);
+            if (!this.IsEntityAdded(artistName[i])) {
+                var li = $("<li>");
+                var divTitleDesc = $("<div>");
+                var anchor = $("<a>");
+                entityList.push(artistName[i]);
+                $(divTitleDesc).attr("class", "search-result-desc");
+                $(divTitleDesc).html("<span class='search-result-title'>" + artistName[i] + "</span>");
 
-        $(li).append(alink);
-        $(li).find("a").append(GetImageElement(singleEntity));
-        $(li).find("a").append(divTitleDesc);
+                $(anchor).attr("href", "/Artists/" + artistName[i].split(" ").join("-"));
+                $(anchor).append(GetImageElement(singleEntity, "artist"));
+                $(anchor).append(divTitleDesc);
 
-        $("#targetUL").append(li);
-
-        return 
+                $(li).append(anchor);
+                $("#targetUL").append(li);
+                searchResultCounter++;
+            }
+        }
     }
 
     SearchResults.prototype.GetCriticsItem = function (singleEntity) {
         var li = $("<li>");
         var divTitleDesc = $("<div>");
         var anchor = $("<a>");
+        if (searchResultCounter >= 6) {
+            return;
+        }
 
-        $(divTitleDesc).attr("class", "search-result-desc");
-        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Critics + "</span>");
+        var criticsName = this.GetMatchCriticsName(singleEntity);
+        for (var i = 0; i < criticsName.length; i++) {
 
-        $(anchor).attr("href", "/Movie/Reviewer/" + singleEntity.Link);
-        $(anchor).append(GetImageElement(singleEntity));
-        $(anchor).append(divTitleDesc);
+            if (!this.IsEntityAdded(criticsName[i])) {
 
-        $(li).append(anchor);
+                $(divTitleDesc).attr("class", "search-result-desc");
+                $(divTitleDesc).html("<span class='search-result-title'>" + criticsName[i] + "</span>");
 
-        $("#targetUL").append(li);
+                $(anchor).attr("href", "/Movie/Reviewer/" + singleEntity.Link);
+                $(anchor).append(GetImageElement(singleEntity, "critics"));
+                $(anchor).append(divTitleDesc);
+
+                $(li).append(anchor);
+
+                $("#targetUL").append(li);
+                entityList.push(criticsName[i]);
+                searchResultCounter++;
+            }
+        }
     }
 
     SearchResults.prototype.GetGenreItem = function (singleEntity) {
         var li = $("<li>");
         var divTitleDesc = $("<div>");
         var anchor = $("<a>");
+        if (searchResultCounter >= 6) {
+            return;
+        }
 
         $(divTitleDesc).attr("class", "search-result-desc");
-        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Type + "</span>");
+        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
 
         $(anchor).attr("href", "/Genre/" + singleEntity.Link);
-        $(anchor).append(GetImageElement(singleEntity));
+        $(anchor).append(GetImageElement(singleEntity, "movie"));
         $(anchor).append(divTitleDesc);
 
         $(li).append(anchor);
 
         $("#targetUL").append(li);
+        searchResultCounter++;
+    }
+
+    SearchResults.prototype.IsEntityAdded = function (title) {
+        return $.inArray(title, entityList) > -1;
+    }
+
+    SearchResults.prototype.GetMatchArtistName = function (singleEntity) {
+        var query = $("#home-search").val().toLowerCase().split(".").join("");
+
+        var artists = JSON.parse(singleEntity.Description);
+        var match = artists.filter(function (ar) {
+            if (ar) {
+                return ar.toLowerCase().indexOf(query) === 0;
+            }
+        });
+
+        return match;
+    }
+
+    SearchResults.prototype.GetMatchCriticsName = function (singleEntity) {
+        var query = $("#home-search").val().toLowerCase().split(".").join("");
+
+        var critics = JSON.parse(singleEntity.Critics);
+        var match = critics.filter(function (cr) {
+            if (cr) {
+                return cr.toLowerCase().indexOf(query) === 0;
+            }
+        });
+
+        return match;
+    }
+
+    SearchResults.prototype.GetProcessedArtists = function (array) {
+        var counter = 0;
+        var actors = "";
+        var query = $("#home-search").val().toLowerCase().split(".").join("");
+
+        for (var i = 0; i < array.length && counter < 3; i++) {
+            if (array[i] != null && array[i].toLowerCase().indexOf(query) > -1 && actors.indexOf(array[i]) < 0) {
+                actors += array[i] + "| ";
+                counter++;
+            }
+        }
+
+        if (actors == "") {
+            for (var i = 0; i < array.length && counter < 3; i++) {
+                actors += array[i] + "| ";
+                counter++;
+            }
+        }
+
+        if (actors.length > 0) {
+            actors = actors.substring(0, actors.lastIndexOf("|"));
+        }
+
+        return actors;
     }
 }
 
-function GetImageElement(singleEntity) {
+function GetImageElement(singleEntity, type) {
     var img = $("<img/>");
     var divImage = $("<div>");
     $(divImage).attr("class", "search-image");
 
     img.attr("class", "img-thumbnail");
     img.attr("class", "movie-poster");
-    if (singleEntity.TitleImageURL != "") {
+    if (type == "movie" && singleEntity.TitleImageURL != "") {
         img.attr("src", "/Posters/Images/" + singleEntity.TitleImageURL);
+    }
+    else if (type == "artist" || type == "critics") {
+        img.attr("src", "/Images/user.png");
+        img.attr("class", "person-poster");
     }
     else {
         img.attr("src", "/Posters/Images/default-movie.jpg");

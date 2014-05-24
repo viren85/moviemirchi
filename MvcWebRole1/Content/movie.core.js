@@ -132,6 +132,10 @@ function PrepareGenreLinks() {
 }
 
 function GetLinks(html, type) {
+    if (html == null || html == "undefined") {
+        return;
+    }
+
     var genre = html.split("|");
     var links = "";
     for (i = 0; i < genre.length; i++) {
