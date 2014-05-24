@@ -9,10 +9,11 @@
         $("#target").val("");
         var query = $(this).val().replace(".", "");
 
-        if (query.length > 0)
+        if (query.length > 0) {
             $("#search-bar .clear-search-bar").show();
-        else
+        } else {
             $("#search-bar .clear-search-bar").hide();
+        }
 
         getItems(query);
     });
@@ -163,23 +164,22 @@ var SearchResults = function (obj) {
     }
 
     SearchResults.prototype.GetItems = function (singleEntity) {
-        var key = $("#home-search").val().toLowerCase().split(".").join("");
+        if (singleEntity) {
+            var key = $("#home-search").val().toLowerCase().split(".").join("");
 
-        if (singleEntity.Title.toLowerCase().indexOf(key) > -1) {
-            // This is movie entity hence show the movie item
-            this.GetMovieItem(singleEntity);
-        }
-        else if (singleEntity.Description.toLowerCase().indexOf(key) > -1) {
-            // This is artist entity hence show the artist item
-            this.GetArtistItem(singleEntity);
-        }
-        else if (singleEntity.Critics.toLowerCase().indexOf(key) > -1) {
-            // This is critics entity hence show the critics item
-            this.GetCriticsItem(singleEntity);
-        }
-        else if (singleEntity.Type.toLowerCase().indexOf(key) > -1) {
-            // This is genre entity hence show the genre item
-            this.GetGenreItem(singleEntity);
+            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1) {
+                // This is movie entity hence show the movie item
+                this.GetMovieItem(singleEntity);
+            } else if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
+                // This is artist entity hence show the artist item
+                this.GetArtistItem(singleEntity);
+            } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1) {
+                // This is critics entity hence show the critics item
+                this.GetCriticsItem(singleEntity);
+            } else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
+                // This is genre entity hence show the genre item
+                this.GetGenreItem(singleEntity);
+            }
         }
     }
 
@@ -281,7 +281,7 @@ function GetArtistsLinks(singleEntity) {
     var query = $("#home-search").val().toLowerCase().split(".").join("");
 
     for (var i = 0; i < description.length && counter < 3; i++) {
-        if (description[i] != null && description[i].toLowerCase().indexOf(query) > -1 && actors.indexOf(description[i]) < 0) {
+        if (description[i] && description[i].toLowerCase().indexOf(query) > -1 && actors.indexOf(description[i]) < 0) {
             actors += description[i] + "| ";
             counter++;
         }
