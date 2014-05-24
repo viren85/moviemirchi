@@ -161,7 +161,20 @@ var SearchResults = function (obj) {
         for (var i = 0; i < resultData.length && i < 6; i++) {
             this.GetItems(resultData[i]);
         }
+
+        //var clone = resultData.clone();
+        //var addEntities = this.GetEntities(clone);
     }
+
+    SearchResults.prototype.GetEntities = function (singleEntity) {
+        if (singleEntity) {
+            var key = $("#home-search").val().toLowerCase().split(".").join("");
+
+            if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
+                this.GetArtistItem(singleEntity);
+            }
+        }
+    };
 
     SearchResults.prototype.GetItems = function (singleEntity) {
         if (singleEntity) {
@@ -170,13 +183,20 @@ var SearchResults = function (obj) {
             if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1) {
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
-            } else if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
+            }
+
+            if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
                 // This is artist entity hence show the artist item
                 this.GetArtistItem(singleEntity);
-            } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1) {
+                this.GetMovieItem(singleEntity);
+            }
+
+            if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1) {
                 // This is critics entity hence show the critics item
                 this.GetCriticsItem(singleEntity);
-            } else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
+            }
+
+            if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
                 // This is genre entity hence show the genre item
                 this.GetGenreItem(singleEntity);
             }
@@ -205,16 +225,23 @@ var SearchResults = function (obj) {
         var divTitleDesc = $("<div>");
         var anchor = $("<a>");
 
+        var alink = GetArtistsLinks(singleEntity);
+        $(alink).innerText= "";
+
         $(divTitleDesc).attr("class", "search-result-desc");
-        $(divTitleDesc).html("<span class='search-result-title'>" + GetArtistsLinks(singleEntity) + "</span>");
+        $(divTitleDesc).html("<span class='search-result-title'>" + alink + "</span>");
 
-        $(anchor).attr("href", "/Artists/" + singleEntity.Link);
-        $(anchor).append(GetImageElement(singleEntity));
-        $(anchor).append(divTitleDesc);
+        //$(anchor).attr("href", "/Artists/" + singleEntity.Link);
+        //$(anchor).append(GetImageElement(singleEntity));
+        //$(anchor).append(divTitleDesc);
 
-        $(li).append(anchor);
+        $(li).append(alink);
+        $(li).find("a").append(GetImageElement(singleEntity));
+        $(li).find("a").append(divTitleDesc);
 
         $("#targetUL").append(li);
+
+        return 
     }
 
     SearchResults.prototype.GetCriticsItem = function (singleEntity) {
@@ -275,28 +302,14 @@ function GetCriticsLinks(singleEntity) {
 }
 
 function GetArtistsLinks(singleEntity) {
-    var actors = "";
-    var counter = 0;
-    var description = singleEntity.Description;
     var query = $("#home-search").val().toLowerCase().split(".").join("");
 
-    for (var i = 0; i < description.length && counter < 3; i++) {
-        if (description[i] && description[i].toLowerCase().indexOf(query) > -1 && actors.indexOf(description[i]) < 0) {
-            actors += description[i] + "| ";
-            counter++;
+    var artists = JSON.parse(singleEntity.Description);
+    var match = artists.filter(function (ar) {
+        if (ar) {
+            return ar.toLowerCase().indexOf(query) === 0;
         }
-    }
+    });
 
-    if (actors == "") {
-        for (var i = 0; i < description.length && counter < 3; i++) {
-            actors += description[i] + "| ";
-            counter++;
-        }
-    }
-
-    if (actors.length > 0) {
-        actors = actors.substring(0, actors.lastIndexOf("|"));
-    }
-
-    return GetLinks(actors, "Artists");
+    return GetLinks(match.join("|"), "Artists");
 }
