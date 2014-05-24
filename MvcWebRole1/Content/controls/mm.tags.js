@@ -13,10 +13,11 @@ var ShowTags = function (data) {
 var Tags = function (tagJsonString) {
     var tags = null;
 
-    if (tagJsonString != null && tagJsonString != "undefined" && tagJsonString != "")
+    if (tagJsonString && tagJsonString != "") {
         tags = JSON.parse(tagJsonString);
+    }
 
-    if (tags == null)
+    if (tags == null) {
         tags = [
                 [
                     { "UniqueName": "taran-adarsh", "Name": "Taran Adarsh", "Role": "Reviewer", "Weight": "3" },
@@ -39,49 +40,46 @@ var Tags = function (tagJsonString) {
                     { "UniqueName": "Drama", "Name": "Drama", "Role": "Genre", "Weight": "1" }
                 ]
         ];
-
-    Tags.prototype.GetReviewerLink = function (text, link) {
-        return "<a href='/movie/reviewer/" + link + "'>" + text + "</a>"
-    }
-
-    Tags.prototype.GetMovieLink = function (text, link) {
-        return "<a href='/movie/" + link + "'>" + text + "</a>"
-    }
-
-    Tags.prototype.GetArtistsLink = function (text, link) {
-        return "<a href='/Artists/" + link + "'>" + text + "</a>"
-    }
-
-    Tags.prototype.GetGenreLink = function (text, link) {
-        return "<a href='/Genre/" + link + "'>" + text + "</a>"
-    }
-
-    Tags.prototype.PrepareTagGroup = function (jsonList) {
-        var div = "<div class=\"tags\"><ul>";
-        for (var i = 0; i < jsonList.length; i++) {
-            switch (jsonList[i].Role) {
-                case "Reviewer":
-                    div += "<li class=\"tag" + jsonList[i].Weight + "\">" + this.GetReviewerLink(jsonList[i].Name, jsonList[i].UniqueName) + "</li>";
-                    break;
-                case "Movie":
-                    div += "<li class=\"tag" + jsonList[i].Weight + "\">" + this.GetMovieLink(jsonList[i].Name, jsonList[i].UniqueName) + "</li>";
-                    break;
-                case "Artists":
-                    div += "<li class=\"tag" + jsonList[i].Weight + "\">" + this.GetArtistsLink(jsonList[i].Name, jsonList[i].UniqueName) + "</li>";
-                    break;
-                case "Genre":
-                    div += "<li class=\"tag" + jsonList[i].Weight + "\">" + this.GetGenreLink(jsonList[i].Name, jsonList[i].UniqueName) + "</li>";
-                    break;
-            }
-        }
-
-        div += "</ul></div>";
-        $(".tags-container").append(div);
     }
 
     Tags.prototype.InitTagCloud = function () {
-        for (var roleList = 0; roleList < tags.length; roleList++) {
-            this.PrepareTagGroup(tags[roleList]);
-        }
+
+        var getReviewerLink = function (text, link) {
+            return "<a href='/movie/reviewer/" + link + "'>" + text + "</a>"
+        };
+
+        var getMovieLink = function (text, link) {
+            return "<a href='/movie/" + link + "'>" + text + "</a>"
+        };
+
+        var getArtistLink = function (text, link) {
+            return "<a href='/Artists/" + link + "'>" + text + "</a>"
+        };
+
+        var getGenreLink = function (text, link) {
+            return "<a href='/Genre/" + link + "'>" + text + "</a>"
+        };
+
+        var getLink = function (list) {
+            switch (list.Role) {
+                case "Reviewer":
+                    return getReviewerLink(list.Name, list.UniqueName);
+                case "Movie":
+                    return getMovieLink(list.Name, list.UniqueName);
+                case "Artists":
+                    return getArtistLink(list.Name, list.UniqueName);
+                case "Genre":
+                    return getGenreLink(list.Name, list.UniqueName);
+            }
+        };
+
+        tags.forEach(function (jsonList) {
+            var lis = $.map(jsonList, function (list) {
+                return "<li class=\"tag" + list.Weight + "\">" + getLink(list) + "</li>";
+            });
+
+            var html = "<div class=\"tags\"><ul>" + lis.join() + "</ul></div>";
+            $(".tags-container").append(html);
+        });
     }
 }

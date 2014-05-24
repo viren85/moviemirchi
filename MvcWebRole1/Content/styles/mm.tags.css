@@ -15,9 +15,10 @@
 }
 
 .tags ul {
-    margin: 0px;
+    margin: 0px 5px 0px 5px;
     padding: 8px;
     text-align: center;
+    border-bottom: 1px solid rgba(204, 204, 204, 0.4);
 }
 
 .tags li {
