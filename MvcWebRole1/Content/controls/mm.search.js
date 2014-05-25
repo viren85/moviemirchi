@@ -9,7 +9,7 @@
         $("#target").val("");
         var query = $(this).val().replace(".", "");
 
-        if (query.length > 0) {
+        if (query.length > 3) {
             $("#search-bar .clear-search-bar").show();
             $("#search-results").show();
         } else {
@@ -17,7 +17,9 @@
             $("#search-results").hide();
         }
 
-        getItems(query);
+        if (query.length > 3) {
+            getItems(query);
+        }
     });
 
     $(".search-button").click(function () {
