@@ -29,59 +29,49 @@
 });
 
 function getItems(query) {
-    var searchPath = "AutoComplete/AutoCompleteMovies?query=" + query;
-    CallHandler(searchPath, PopulateSearchResult);
-}
 
-function PopulateSearchResult(response) {
-    if (response) {
-        if ($("#targetUL")) {
-            //If the UL element is not null or undefined we are clearing it, so that the result is appended in new UL every next time.
+    var searchPath = "AutoComplete/AutoCompleteMovies?query=" + query;
+    CallHandler(searchPath, function (response) {
+
+        if (response) {
+            if ($("#targetUL")) {
+                //If the UL element is not null or undefined we are clearing it, so that the result is appended in new UL every next time.
+                $("#targetUL").remove();
+            }
+
+            //assigning json response data to local variable. It is basically list of values.
+            var data = response;
+
+            if (!data || !data.length || data.length < 1) {
+                $("#search-results").append($("<ul id='targetUL' style='display: block'><li style='height: 35px'>No results found for '" + $("#home-search").val() + "'.</li></ul>"));
+            } else {
+                //appending an UL element to show the values.
+                $("#search-results").append($("<ul id='targetUL' style='display:block;'></ul>"));
+                //Removing previously added li elements to the list.
+                $("#search-results").find("li").remove();
+                //We are iterating over the list returned by the json and for each element we are creating a li element and appending the li element to ul element.
+                var searchResultCounter = 0;
+                var query = $("#home-search").val().toLowerCase();
+                new SearchResults(data).Init();
+            }
+        } else {
+            //If data is null the we are removing the li and ul elements.
+            $("#targetUL").find("li").remove();
             $("#targetUL").remove();
         }
 
-        //assigning json response data to local variable. It is basically list of values.
-        data = response;
-
-        if (!data || !data.length || data.length < 1) {
-            $("#search-results").append($("<ul id='targetUL' style='display: block'><li style='height: 35px'>No results found for '" + $("#home-search").val() + "'.</li></ul>"));
-        } else {
-            //appending an UL element to show the values.
-            $("#search-results").append($("<ul id='targetUL' style='display:block;'></ul>"));
-            //Removing previously added li elements to the list.
-            $("#search-results").find("li").remove();
-            //We are iterating over the list returned by the json and for each element we are creating a li element and appending the li element to ul element.
-            var searchResultCounter = 0;
-            var query = $("#home-search").val().toLowerCase();
-            new SearchResults(data).Init();
+        if ($("#target").val() === "") {
+            $("#search-results").append($("#targetUL"));
         }
-    } else {
-        //If data is null the we are removing the li and ul elements.
-        $("#targetUL").find("li").remove();
-        $("#targetUL").remove();
-    }
-
-    if ($("#target").val() === "") {
-        $("#search-results").append($("#targetUL"));
-    }
+    });
 }
 
-//This method appends the text oc clicked li element to textbox.
-function appendTextToTextBox(e) {
-    //Getting the text of selected li element.
-    var textToappend = e.innerText;
-    //setting the value attribute of textbox with selected li element.
-    $("#target").val(textToappend);
-    //Removing the ul element once selected element is set to textbox.
-    $("#targetUL").remove();
-    $("#targetUL").css("display", "none");
-}
+var SearchResults = function (searchResults) {
 
-var SearchResults = function (obj) {
-    // var resultData = JSON.parse(obj);
-    var resultData = obj;
+    var resultData = searchResults;
     var entityList = [];
     var searchResultCounter = 0;
+    var MaxEntries = 6;
 
     SearchResults.prototype.GetSearchQuery = function () {
         return $("#home-search").val().toLowerCase().split(".").join("");
@@ -91,7 +81,7 @@ var SearchResults = function (obj) {
 
         var that = this;
         resultData.forEach(function (result, index) {
-            if (index < 6) {
+            if (index < MaxEntries) {
                 that.GetItems(result);
             }
         });
@@ -111,7 +101,7 @@ var SearchResults = function (obj) {
         if (singleEntity) {
             var key = this.GetSearchQuery();
 
-            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < 6) {
+            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
 
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
@@ -122,15 +112,15 @@ var SearchResults = function (obj) {
                 // This is artist entity hence show the artist item
                 this.GetArtistItem(singleEntity);
 
-                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < 6) {
+                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetMovieItem(singleEntity, true, "artists");
                     entityList.push(singleEntity.Title);
                     searchResultCounter++;
                 }
-            } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < 6) {
+            } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < MaxEntries) {
 
                 // This is critics entity hence show the critics item
-                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < 6) {
+                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetCriticsItem(singleEntity);
                 }
             }
@@ -165,7 +155,7 @@ var SearchResults = function (obj) {
         }
 
         $(anchor).attr("href", "/Movie/" + singleEntity.Link);
-        $(anchor).append(GetImageElement(singleEntity, "movie"));
+        $(anchor).append(this.GetImageElement(singleEntity, "movie"));
         $(anchor).append(divTitleDesc);
 
         $(li).append(anchor);
@@ -174,7 +164,7 @@ var SearchResults = function (obj) {
 
     SearchResults.prototype.GetArtistItem = function (singleEntity) {
 
-        if (searchResultCounter >= 6) {
+        if (searchResultCounter >= MaxEntries) {
             return;
         }
 
@@ -193,7 +183,7 @@ var SearchResults = function (obj) {
             $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
 
             $(anchor).attr("href", "/Artists/" + artist.split(" ").join("-"));
-            $(anchor).append(GetImageElement(singleEntity, "artist"));
+            $(anchor).append(that.GetImageElement(singleEntity, "artist"));
             $(anchor).append(divTitleDesc);
 
             $(li).append(anchor);
@@ -206,7 +196,7 @@ var SearchResults = function (obj) {
 
     SearchResults.prototype.GetCriticsItem = function (singleEntity) {
 
-        if (searchResultCounter >= 6) {
+        if (searchResultCounter >= MaxEntries) {
             return;
         }
 
@@ -225,7 +215,7 @@ var SearchResults = function (obj) {
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
             $(anchor).attr("href", "/Movie/Reviewer/" + singleEntity.Link);
-            $(anchor).append(GetImageElement(singleEntity, "critics"));
+            $(anchor).append(that.GetImageElement(singleEntity, "critics"));
             $(anchor).append(divTitleDesc);
 
             $(li).append(anchor);
@@ -237,7 +227,7 @@ var SearchResults = function (obj) {
     }
 
     SearchResults.prototype.GetGenreItem = function (singleEntity) {
-        if (searchResultCounter >= 6) {
+        if (searchResultCounter >= MaxEntries) {
             return;
         }
 
@@ -249,7 +239,7 @@ var SearchResults = function (obj) {
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
 
         $(anchor).attr("href", "/Genre/" + singleEntity.Link);
-        $(anchor).append(GetImageElement(singleEntity, "movie"));
+        $(anchor).append(this.GetImageElement(singleEntity, "movie"));
         $(anchor).append(divTitleDesc);
 
         $(li).append(anchor);
@@ -297,42 +287,42 @@ var SearchResults = function (obj) {
 
         return $.unique(filtArtists.length > 0 ? filtArtists : artists).join("| ");
     }
-}
 
-function GetImageElement(singleEntity, type) {
-    var img = $("<img/>");
-    var divImage = $("<div>");
+    SearchResults.prototype.GetImageElement = function (singleEntity, type) {
+        var img = $("<img/>");
+        var divImage = $("<div>");
 
-    $(divImage).attr("class", "search-image");
-    img.attr("class", "img-thumbnail");
-    img.attr("class", "movie-poster");
+        $(divImage).attr("class", "search-image");
+        img.attr("class", "img-thumbnail");
+        img.attr("class", "movie-poster");
 
-    if (type === "movie" && singleEntity.TitleImageURL !== "") {
-        img.attr("src", "/Posters/Images/" + singleEntity.TitleImageURL);
-    } else if (type === "artist" || type === "critics") {
-        img.attr("src", "/Images/user.png");
-        img.attr("class", "person-poster");
-    } else {
-        img.attr("src", "/Posters/Images/default-movie.jpg");
+        if (type === "movie" && singleEntity.TitleImageURL !== "") {
+            img.attr("src", "/Posters/Images/" + singleEntity.TitleImageURL);
+        } else if (type === "artist" || type === "critics") {
+            img.attr("src", "/Images/user.png");
+            img.attr("class", "person-poster");
+        } else {
+            img.attr("src", "/Posters/Images/default-movie.jpg");
+        }
+
+        divImage.append(img);
+        return divImage;
     }
 
-    divImage.append(img);
-    return divImage;
-}
+    ////SearchResults.prototype.GetCriticsLinks = function (singleEntity) {
+    ////    // TODO: Fix this
+    ////}
 
-function GetCriticsLinks(singleEntity) {
+    ////SearchResults.prototype.GetArtistsLinks = function (singleEntity) {
+    ////    var query = this.GetSearchQuery();
 
-}
+    ////    var artists = JSON.parse(singleEntity.Description);
+    ////    var match = artists.filter(function (ar) {
+    ////        if (ar) {
+    ////            return ar.toLowerCase().indexOf(query) === 0;
+    ////        }
+    ////    });
 
-function GetArtistsLinks(singleEntity) {
-    var query = this.GetSearchQuery();
-
-    var artists = JSON.parse(singleEntity.Description);
-    var match = artists.filter(function (ar) {
-        if (ar) {
-            return ar.toLowerCase().indexOf(query) === 0;
-        }
-    });
-
-    return GetLinks(match.join("|"), "Artists");
+    ////    return GetLinks(match.join("|"), "Artists");
+    ////}
 }
