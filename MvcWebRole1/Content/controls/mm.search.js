@@ -11,8 +11,10 @@
 
         if (query.length > 0) {
             $("#search-bar .clear-search-bar").show();
+            $("#search-results").show();
         } else {
             $("#search-bar .clear-search-bar").hide();
+            $("#search-results").hide();
         }
 
         getItems(query);
