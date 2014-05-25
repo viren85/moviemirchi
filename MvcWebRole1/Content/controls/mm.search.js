@@ -258,7 +258,7 @@ var SearchResults = function (searchResults) {
         var artists = JSON.parse(singleEntity.Description);
         var match = artists.filter(function (ar) {
             if (ar) {
-                return ar.toLowerCase().indexOf(query) === 0;
+                return ar.toLowerCase().indexOf(query) !== -1;
             }
         });
 
