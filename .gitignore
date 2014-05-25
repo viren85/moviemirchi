@@ -155,8 +155,8 @@ $RECYCLE.BIN/
 # =========================
 # Ignore Poster files
 # =========================
-**\Posters\Images\
-**\Posters\Thumbnails\
+**/Posters/Images/
+**/Posters/Thumbnails/
 
 # =========================
 # Ignore Lucene files
@@ -164,3 +164,4 @@ $RECYCLE.BIN/
 *.cfs
 segments_*
 segments.gen
+**/lucene_index/
