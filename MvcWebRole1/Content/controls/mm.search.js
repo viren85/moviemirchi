@@ -16,7 +16,10 @@
             $("#search-results").hide();
         }
 
-        if (query.length > 3) {
+        // We want to force search when the click button is pressed
+        // On keyup originalEvent is set to an Event
+        // When keyup is called from click, originalEvent is not set
+        if (query.length > 3 || !e.originalEvent) {
             getItems(query);
             $("#search-results").show();
         }
