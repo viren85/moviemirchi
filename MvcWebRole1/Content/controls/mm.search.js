@@ -11,7 +11,6 @@
 
         if (query.length > 3) {
             $("#search-bar .clear-search-bar").show();
-            $("#search-results").show();
         } else {
             $("#search-bar .clear-search-bar").hide();
             $("#search-results").hide();
@@ -19,6 +18,7 @@
 
         if (query.length > 3) {
             getItems(query);
+            $("#search-results").show();
         }
     });
 
