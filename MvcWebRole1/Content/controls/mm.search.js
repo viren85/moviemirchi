@@ -5,20 +5,26 @@
         $(this).hide();
     });
 
+    $(document).click(function () {
+        $(".home-search-bar .clear-search-bar").hide();
+        $("#search-results").hide();
+        $("#home-search").val("");
+    });
+
     $("#home-search").keyup(function (e) {
         $("#target").val("");
         var query = $(this).val().replace(".", "");
 
         if (query.length > 3) {
-            $("#search-bar .clear-search-bar").show();
+            $(".home-search-bar .clear-search-bar").show();
         } else {
-            $("#search-bar .clear-search-bar").hide();
+            $(".home-search-bar .clear-search-bar").hide();
             $("#search-results").hide();
         }
 
         // kyeCode is 27 for 'ESC' keypress. On Esc we want to dismiss search
         if (e.keyCode === 27) {
-            $("#search-bar .clear-search-bar").hide();
+            $(".home-search-bar.clear-search-bar").hide();
             $("#search-results").hide();
             $("#home-search").val("");
         }
@@ -33,9 +39,12 @@
         }
     });
 
-    $(".search-button").click(function () {
+    $(".search-button").click(function (e) {
         $("#targetUL").remove();
         $("#home-search").keyup();
+        $(".home-search-bar .clear-search-bar").show();
+        e.stopPropagation();
+        return false;
     });
 });
 
