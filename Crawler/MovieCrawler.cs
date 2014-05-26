@@ -143,7 +143,7 @@ namespace Crawler
             return casts;
         }
 
-        private List<string> CrawlPosters(string url, string movieName, ref string thumbnailPath)
+        public List<string> CrawlPosters(string url, string movieName, ref string thumbnailPath)
         {
             List<string> posters = new List<string>();
 

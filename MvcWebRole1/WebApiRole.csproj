@@ -252,6 +252,7 @@
     <Content Include="Content\styles\mm.moviedetails.css" />
     <Content Include="Content\styles\mm.news.css" />
     <Content Include="Content\styles\mm.pager.css" />
+    <Content Include="Content\styles\mm.rate.css" />
     <Content Include="Content\styles\mm.review.css" />
     <Content Include="Content\styles\mm.reviewer.css" />
     <Content Include="Content\styles\mm.tags.css" />

@@ -576,5 +576,28 @@ namespace DataStoreLib.Storage
             ////return returnTranslateOp;
         }
         #endregion
+
+        #region Artists
+        public IDictionary<ArtistEntity, bool> UpdateArtistItemById(IEnumerable<ArtistEntity> artist)
+        {
+            var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName);
+
+            var updateResult = artistTable.UpdateItemsById(artist.Cast<ITableEntity>());
+            return
+                updateResult
+                    .ToDictionary(
+                        pair => pair.Key as ArtistEntity,
+                        pair => pair.Value);
+        }
+
+        public IDictionary<string, ArtistEntity> GetArtistItems()
+        {
+            var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
+
+            ////TODO: Fix this
+            return null;
+        }
+
+        #endregion
     }
 }
