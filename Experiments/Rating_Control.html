@@ -1,0 +1,152 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample for Rating control</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script src="..\MvcWebRole1\Content\controls\mm.rate.js" type="text/javascript"></script>
+    <!--<link rel="stylesheet" type="text/css" href="..\MvcWebRole1\Content\styles\mm.common.css" />-->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Add a way to fetch the ratings via API, input: movie unique name
+            var ratings = [
+                {
+                    percent: 70.8,
+                    theeka: 24,
+                    feeka: 8,
+                }, {
+                    percent: 40.2,
+                    theeka: 10,
+                    feeka: 26,
+                }
+            ];
+
+            // r1 and r2 is for the sake of testing
+            // Remove this forEach and use ".ratingsContainer" as selector
+            ['r1', 'r2'].forEach(function (a, index) {
+                var rating = ratings[index];
+                var html =
+                    "<div class=\"section-title liner\">Theeka hai ki feeka hai ?</div>" +
+                    "<div class=\"content\">" +
+                        "<div class=\"mirchi mirchimeter\">" +
+                            GetMovieRateControl(rating.percent / 10) +
+                        "</div>" +
+                        "<div class=\"right\">" +
+                            "<div>" +
+                                "<span class=\"text\">Critic reviews rating:  </span>" +
+                                "<span class=\"percent " + (rating.percent <= 50 ? 'feeka' : 'theeka') + "\">" + rating.percent + "</span></div>" +
+                            "<div>" +
+                                "<span class=\"text\">Theeka critic reviews:  </span>" +
+                                "<span class=\"theeka\">" + rating.theeka + "</span></div>" +
+                            "<div>" +
+                                "<span class=\"text\">Feeka critic reviews:  </span>" +
+                                "<span class=\"feeka\">" + rating.feeka + "</span></div>" +
+                        "</div>" +
+                    "</div>";
+                $("#" + a).append(html);
+            });
+        });
+    </script>
+    <style type="text/css">
+        /* Rating control */
+
+        .ratingsContainer {
+            width: 400px;
+            min-height: 50px;
+            background-color: #fff;
+            border-radius: 5px;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+            -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+            box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
+            float: left;
+            margin: 5px;
+            padding: 5px;
+        }
+
+            .ratingsContainer .content {
+                width: 93%;
+                padding-left: 20px;
+            }
+
+            .ratingsContainer .right {
+                float: right;
+                padding: 0px 5px 0px 5px;
+            }
+
+            .ratingsContainer .liner {
+                font-size: 130%;
+                font-family: 'Viner Hand ITC';
+                color: #368BC1;
+                letter-spacing: 3px;
+            }
+
+            .ratingsContainer .percent {
+                font-size: 200%;
+                font-weight: bolder;
+            }
+
+            .ratingsContainer .theeka {
+                color: red;
+            }
+
+            .ratingsContainer .feeka {
+                color: green;
+            }
+
+            .ratingsContainer .mirchi {
+                margin: 10px;
+                padding: 10px;
+            }
+
+            .ratingsContainer .text {
+                color: #666;
+            }
+
+        /*Ignore copied over*/
+        .green-mirchi {
+            float: left;
+            width: 15px;
+            height: 25px;
+            background-image: url('Images/GreenChilli.png');
+            background-size: 15px 25px;
+        }
+
+        .red-mirchi {
+            float: left;
+            width: 15px;
+            height: 25px;
+            background-image: url('Images/RedChilli.png');
+            background-size: 15px 25px;
+            margin-bottom: 3px;
+        }
+
+        .mirchimeter {
+            float: left;
+            margin-left: 10px;
+        }
+
+        .section-title {
+            float: left;
+            color: #368BC1;
+            margin-bottom: 10px;
+            margin-top: 10px;
+            margin-left: 7%;
+            width: 93%;
+            border-left: 10px solid #368BC1;
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Get rid of the id, while integrating. And we need only one div -->
+    <div class="ratingsContainer" id="r1">
+
+    </div>
+    <div class="ratingsContainer" id="r2">
+
+    </div>
+</body>
+</html>
