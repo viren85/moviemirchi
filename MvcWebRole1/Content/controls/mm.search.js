@@ -116,30 +116,26 @@ var SearchResults = function (searchResults) {
 
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
-                entityList.push(singleEntity.Title);
-                searchResultCounter++;
-            } else if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
-
-                // This is artist entity hence show the artist item
-                this.GetArtistItem(singleEntity);
-
-                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
-                    this.GetMovieItem(singleEntity, true, "artists");
-                    entityList.push(singleEntity.Title);
-                    searchResultCounter++;
-                }
             } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < MaxEntries) {
 
                 // This is critics entity hence show the critics item
                 if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetCriticsItem(singleEntity);
                 }
-            }
-
-            else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
+            } else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
 
                 // This is genre entity hence show the genre item
                 this.GetGenreItem(singleEntity);
+            }
+
+            if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
+
+                // This is artist entity hence show the artist item
+                this.GetArtistItem(singleEntity);
+
+                if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
+                    this.GetMovieItem(singleEntity, true, "artists");
+                }
             }
         }
     };
@@ -172,6 +168,9 @@ var SearchResults = function (searchResults) {
 
         $(li).append(anchor);
         $("#targetUL").append(li);
+
+        entityList.push(singleEntity.Title);
+        searchResultCounter++;
     };
 
     SearchResults.prototype.GetArtistItem = function (singleEntity) {
@@ -294,7 +293,7 @@ var SearchResults = function (searchResults) {
         var query = this.GetSearchQuery();
         var artists = JSON.parse(singleEntity.Description);
         var match = artists.filter(SearchResults.prototype.FilterLambda(query));
-        return match;
+        return $.unique(match);
     };
 
     SearchResults.prototype.GetMatchCriticsName = function (singleEntity) {
@@ -302,7 +301,7 @@ var SearchResults = function (searchResults) {
         var query = this.GetSearchQuery();
         var critics = JSON.parse(singleEntity.Critics);
         var match = critics.filter(SearchResults.prototype.FilterLambda(query));
-        return match;
+        return $.unique(match);
     };
 
     SearchResults.prototype.GetProcessedArtists = function (artists) {
