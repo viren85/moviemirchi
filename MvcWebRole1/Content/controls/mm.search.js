@@ -15,16 +15,19 @@
         $("#target").val("");
         var query = $(this).val().replace(".", "");
 
-        if (query.length > 3) {
+        if (query.length > 0) {
             $(".home-search-bar .clear-search-bar").show();
-        } else {
+        } else if (query.length === 0) {
             $(".home-search-bar .clear-search-bar").hide();
+        }
+
+        if (query.length <= 3) {
             $("#search-results").hide();
         }
 
         // kyeCode is 27 for 'ESC' keypress. On Esc we want to dismiss search
         if (e.keyCode === 27) {
-            $(".home-search-bar.clear-search-bar").hide();
+            $(".home-search-bar .clear-search-bar").hide();
             $("#search-results").hide();
             $("#home-search").val("");
         }
