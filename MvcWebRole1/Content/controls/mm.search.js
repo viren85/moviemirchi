@@ -250,6 +250,30 @@ var SearchResults = function (searchResults) {
         if (searchResultCounter >= MaxEntries) {
             return;
         }
+        else {
+            var gen = this.GetGenre(singleEntity);
+
+            if (!this.IsEntityAdded(gen)) {
+                entityList.push(gen);
+
+                // add list item in search result
+                var li = $("<li>");
+                var divTitleDesc = $("<div>");
+                var anchor = $("<a>");
+
+                $(divTitleDesc).attr("class", "search-result-desc");
+                $(divTitleDesc).html("<span class='search-result-title'>" + gen + "</span>");
+
+                $(anchor).attr("href", "/Genre/" + gen);
+                $(anchor).append(this.GetImageElement(singleEntity, "genre"));
+                $(anchor).append(divTitleDesc);
+
+                $(li).append(anchor);
+
+                $("#targetUL").append(li);
+                searchResultCounter++;
+            }
+        }
 
         var li = $("<li>");
         var divTitleDesc = $("<div>");
@@ -318,6 +342,19 @@ var SearchResults = function (searchResults) {
         var query = this.GetSearchQuery();
         var filtArtists = artists.filter(SearchResults.prototype.FilterLambda(query));
         return $.unique(filtArtists.length > 0 ? filtArtists : artists).join("| ");
+    };
+
+    SearchResults.prototype.GetGenre = function (singleEntity) {
+        var query = this.GetSearchQuery();
+        var genreList = singleEntity.Type.split("|");
+        var matchedItem = "";
+        genreList.forEach(function (item) {
+            if (matchedItem == "" && item.trim().toLowerCase().indexOf(query) > -1) {
+                matchedItem = item.trim();
+            }
+        });
+
+        return matchedItem;
     };
 
     SearchResults.prototype.GetImageElement = function (singleEntity, type) {
