@@ -134,7 +134,7 @@ var SearchResults = function (searchResults) {
                 this.GetGenreItem(singleEntity);
             }
         }
-    }
+    };
 
     SearchResults.prototype.GetMovieItem = function (singleEntity, isSecondary, type) {
         var li = $("<li>");
@@ -148,8 +148,9 @@ var SearchResults = function (searchResults) {
             switch (type) {
                 case "artists":
                     var artist = this.GetProcessedArtists(this.GetMatchArtistName(singleEntity));
-                    if (artist !== "")
+                    if (artist !== "") {
                         $(divTitleDesc).html($(divTitleDesc).html() + "<span class='search-result-text'><b>Artist</b>: " + GetLinks(artist, "Artists") + "</span>");
+                    }
                     break;
                 case "genre":
                     $(divTitleDesc).html("<span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "Genre") + "</span>");
@@ -163,7 +164,7 @@ var SearchResults = function (searchResults) {
 
         $(li).append(anchor);
         $("#targetUL").append(li);
-    }
+    };
 
     SearchResults.prototype.GetArtistItem = function (singleEntity) {
 
@@ -227,7 +228,7 @@ var SearchResults = function (searchResults) {
             entityList.push(critics);
             searchResultCounter++;
         });
-    }
+    };
 
     SearchResults.prototype.GetGenreItem = function (singleEntity) {
         if (searchResultCounter >= MaxEntries) {
@@ -253,43 +254,45 @@ var SearchResults = function (searchResults) {
 
     SearchResults.prototype.IsEntityAdded = function (title) {
         return $.inArray(title, entityList) > -1;
-    }
+    };
+
+    SearchResults.prototype.FilterLambda = function (query) {
+        return function (a) {
+            if (a) {
+                a = a.toLowerCase();
+                if (a.indexOf(query) !== -1) {
+                    return (a.split(' ').filter(function (s) {
+                        return s.indexOf(query) === 0;
+                    }).length > 0);
+                }
+            }
+
+            return false;
+        }
+    };
 
     SearchResults.prototype.GetMatchArtistName = function (singleEntity) {
+
         var query = this.GetSearchQuery();
-
         var artists = JSON.parse(singleEntity.Description);
-        var match = artists.filter(function (ar) {
-            if (ar) {
-                return ar.toLowerCase().indexOf(query) !== -1;
-            }
-        });
-
+        var match = artists.filter(SearchResults.prototype.FilterLambda(query));
         return match;
-    }
+    };
 
     SearchResults.prototype.GetMatchCriticsName = function (singleEntity) {
+
         var query = this.GetSearchQuery();
-
         var critics = JSON.parse(singleEntity.Critics);
-        var match = critics.filter(function (cr) {
-            if (cr) {
-                return cr.toLowerCase().indexOf(query) === 0;
-            }
-        });
-
+        var match = critics.filter(SearchResults.prototype.FilterLambda(query));
         return match;
-    }
+    };
 
     SearchResults.prototype.GetProcessedArtists = function (artists) {
+
         var query = this.GetSearchQuery();
-
-        var filtArtists = artists.filter(function (a) {
-            return !a && a.toLowerCase().indexOf(query) > -1;
-        });
-
+        var filtArtists = artists.filter(SearchResults.prototype.FilterLambda(query));
         return $.unique(filtArtists.length > 0 ? filtArtists : artists).join("| ");
-    }
+    };
 
     SearchResults.prototype.GetImageElement = function (singleEntity, type) {
         var img = $("<img/>");
@@ -310,22 +313,5 @@ var SearchResults = function (searchResults) {
 
         divImage.append(img);
         return divImage;
-    }
-
-    ////SearchResults.prototype.GetCriticsLinks = function (singleEntity) {
-    ////    // TODO: Fix this
-    ////}
-
-    ////SearchResults.prototype.GetArtistsLinks = function (singleEntity) {
-    ////    var query = this.GetSearchQuery();
-
-    ////    var artists = JSON.parse(singleEntity.Description);
-    ////    var match = artists.filter(function (ar) {
-    ////        if (ar) {
-    ////            return ar.toLowerCase().indexOf(query) === 0;
-    ////        }
-    ////    });
-
-    ////    return GetLinks(match.join("|"), "Artists");
-    ////}
-}
+    };
+};
