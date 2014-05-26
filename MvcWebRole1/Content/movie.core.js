@@ -121,7 +121,6 @@ function onSuccessLoadUpcomingMovies(result) {
 }
 
 function PrepareGenreLinks() {
-
     $("span.movie-data-label").each(function () {
         if ($(this).html() == "Genre:") {
             var html = $(this).next().text();

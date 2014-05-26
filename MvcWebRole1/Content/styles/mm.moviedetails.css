@@ -68,10 +68,10 @@ div.captionAndNavigate {
     margin-top: 10px;
 }
 
-    .movie-data-row:hover {
+    /*.movie-data-row:hover {
         background-color: #DDD;
         cursor: default;
-    }
+    }*/
 
 .movie-data-label {
     float: left;

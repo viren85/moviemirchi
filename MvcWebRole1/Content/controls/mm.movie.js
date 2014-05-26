@@ -1,7 +1,7 @@
 ﻿function LoadSingleMovie(movieId) {
     var path = "../api/MovieInfo?q=" + movieId;
     var reviewPath = "../api/MovieReview?q=" + movieId;
-    
+
     CallHandler(path, ShowMovie);
     //CallHandler(reviewPath, ShowMovieReviews);
 }
@@ -11,7 +11,7 @@ var ShowMovie = function (data) {
 
     if (result.Movie != undefined) {
         $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
-        
+
         //$(".tube-container").append($(".movie-details"));
         //$(".movie-list").append($(".link-container"));
         PopulatingMovies(result.Movie, "movie-list");
@@ -86,6 +86,7 @@ var ShowMovieDetails = function (movie) {
         //$("#item3").remove();
     }
 
+    $(movieDetalis).append(new RatingControl().GetRatingControl(movie.MyScore));
     $(movieDetalis).append(GetMovieSynopsis(movie.Synopsis));
     $(movieDetalis).append(GetMovieGenre(movie.Genre));
     $(movieDetalis).append(GetMovieCast(CleanCastString(cast)));

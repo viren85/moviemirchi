@@ -87,6 +87,21 @@
     background-size: 15px 25px;
     /*margin-top: 10px;*/
 }
+.red-gray-mirchi{
+    float: left;
+    width: 15px;
+    height: 25px;
+    background-image: url('/Images/RedGrayChilli.png');
+    background-size: 15px 25px;
+    margin-bottom: 3px;
+}
+.green-gray-mirchi{
+    float: left;
+    width: 15px;
+    height: 25px;
+    background-image: url('/Images/GreenGrayChilli.png');
+    background-size: 15px 25px;
+}
 /* End - Rating Control */
 @media screen and (min-width: 768px) {
 }

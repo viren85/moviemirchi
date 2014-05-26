@@ -1,0 +1,67 @@
+﻿/* Rating control */
+
+.rating-container {
+    float: left;
+    width: 400px;
+    background-color: #fff;
+    margin-bottom: 10px;
+    padding: 5px;
+    padding-bottom: 10px;
+    border-radius: 5px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    -webkit-box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 0px 25px rgba(0, 0, 255, 0.15);
+    border-left: 3px solid #368BC1;
+}
+
+    .rating-container .liner {
+        color: #368BC1;
+        font-family: 'Bookman Old Style';
+        font-size: 2em;
+        font-style: italic;
+        margin-left: 2%;
+        text-transform:lowercase;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .rating-container .percent {
+        font-size: 1.5em;
+    }
+
+    .rating-container .theeka {
+        color: red;
+        font-weight: bold;
+        float: left;
+    }
+
+    .rating-container .feeka {
+        color: green;
+        font-weight: bold;
+        float: left;
+    }
+
+    .rating-container .mirchi {
+        margin: 10px;
+        padding-top: 15px;
+        width: 150px;
+        height: 100px;
+    }
+
+    .rating-container .text {
+        color: #666;
+        float: left;
+        width: 150px;
+    }
+
+.rate-data-row {
+    margin-top: 0px !important;
+}
+
+.rate-row {
+    float: left;
+    width: 200px;
+    margin-bottom: 15px;
+}
