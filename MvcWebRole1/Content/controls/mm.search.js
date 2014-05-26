@@ -39,6 +39,11 @@
         }
     });
 
+    $("#home-search").click(function (e) {
+        e.stopPropagation();
+        return false;
+    });
+
     $(".search-button").click(function (e) {
         $("#targetUL").remove();
         $("#home-search").keyup();
@@ -234,7 +239,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
-            $(anchor).attr("href", "/Movie/Reviewer/" + singleEntity.Link);
+            $(anchor).attr("href", "/Movie/Reviewer/" + critics.split(" ").join("-"));
             $(anchor).append(that.GetImageElement(singleEntity, "critics"));
             $(anchor).append(divTitleDesc);
 
