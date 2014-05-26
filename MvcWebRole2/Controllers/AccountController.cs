@@ -5,6 +5,8 @@ using DataStoreLib.Storage;
 using DataStoreLib.Utils;
 using LuceneSearchLibrarby;
 using Microsoft.WindowsAzure;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -115,7 +117,7 @@ namespace MvcWebRole2.Controllers
             try
             {
                 XmlDocument xdoc = new XmlDocument();
-                
+
 
                 string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
 
@@ -135,7 +137,7 @@ namespace MvcWebRole2.Controllers
                     {
                         if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
                         {
-                            
+
 
                             try
                             {
@@ -419,6 +421,39 @@ namespace MvcWebRole2.Controllers
                             readStream.Close();
                             #endregion
                         }
+                    }
+                }
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+
+        [HttpGet]
+        public void GetArtists()
+        {
+            try
+            {
+                TableManager tblMgr = new TableManager();
+                var movies = tblMgr.GetAllMovies();
+
+                foreach (MovieEntity movie in movies.Values)
+                {
+                    try
+                    {
+                        var items = JsonConvert.DeserializeObject(movie.Casts);
+                        JArray array = JArray.Parse(movie.Casts);
+                        for (int i = 0; i < array.Count; i++)
+                        {
+                            // Parse the Cast object and pass it to CrawlArtists()
+                            Crawler.ArtistCrawler artistCrawler = new Crawler.ArtistCrawler();
+                            //artistCrawler.CrawlArtists();    
+                        }
+                    }
+                    catch (Exception)
+                    {
+
                     }
                 }
             }

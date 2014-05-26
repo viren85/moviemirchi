@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArtistCrawler.cs" />
     <Compile Include="ReviewCrawler.cs" />
     <Compile Include="Reviews\FilmfareReviews.cs" />
     <Compile Include="Reviews\HindustanTimesReviews.cs" />
