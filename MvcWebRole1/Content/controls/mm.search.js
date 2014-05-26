@@ -261,6 +261,16 @@ var SearchResults = function (searchResults) {
             if (a) {
                 a = a.toLowerCase();
                 if (a.indexOf(query) !== -1) {
+
+                    // 'ali ' should match ' sajid ali khan'
+                    // 'deep ' should match 'deep banarjee' and not match 'deepika padukone'
+                    // As a side-effect 'a b' will now match 'xxa bxx' -> which is low-pri thus ok
+                    if (query.indexOf(' ') !== -1) {
+                        return true;
+                    }
+
+                    // 'padukone' should match 'deepika padukone'
+                    // 'deep' should not match 'sandeep'
                     return (a.split(' ').filter(function (s) {
                         return s.indexOf(query) === 0;
                     }).length > 0);
