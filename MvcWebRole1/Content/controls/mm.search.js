@@ -16,10 +16,18 @@
             $("#search-results").hide();
         }
 
-        // We want to force search when the click button is pressed
-        // On keyup originalEvent is set to an Event
-        // When keyup is called from click, originalEvent is not set
-        if (query.length > 3 || !e.originalEvent) {
+        // kyeCode is 27 for 'ESC' keypress. On Esc we want to dismiss search
+        if (e.keyCode === 27) {
+            $("#search-bar .clear-search-bar").hide();
+            $("#search-results").hide();
+            $("#home-search").val("");
+        }
+            // We want to force search when the click button is pressed
+            // On keyup originalEvent is set to an Event
+            // When keyup is called from click, originalEvent is not set
+
+            // keyCode is 13 for 'Enter' keypress. On Enter we want to treat it as click on Search button
+        else if (query.length > 3 || !e.originalEvent || e.keyCode === 13) {
             getItems(query);
             $("#search-results").show();
         }
