@@ -85,7 +85,7 @@
                     artist.Bio = GetArtistBio(bodyNode);
                     artist.Born = GetArtistBirthDetails(bodyNode);
                     artist.MovieList = GetMovieList(bodyNode);
-                    artist.Posters = string.Empty; //GetArtistPosters(url + "mediaindex", artist.UniqueName, bodyNode);
+                    artist.Posters = GetArtistPosters(url + "mediaindex", artist.UniqueName, bodyNode);
                     artist.Popularity = "1";
                     artist.MyScore = "0";
                     artist.JsonString = string.Empty;
@@ -99,20 +99,20 @@
         {
             var headerNode = helper.GetElementWithAttribute(body, "h1", "class", "header");
             var movieName = helper.GetElementWithAttribute(headerNode, "span", "class", "itemprop");
-            return movieName.InnerText;
+            return (movieName == null) ? string.Empty : movieName.InnerText;
         }
 
         private string GetArtistBio(HtmlNode body)
         {
             var bioNode = helper.GetElementWithAttribute(body, "div", "id", "name-bio-text");
             var artistBio = helper.GetElementWithAttribute(bioNode, "div", "itemprop", "description");
-            return artistBio.InnerText;
+            return (artistBio == null) ? string.Empty : artistBio.InnerText;
         }
 
         private string GetArtistBirthDetails(HtmlNode body)
         {
             var birthNode = helper.GetElementWithAttribute(body, "div", "id", "name-born-info");
-            return birthNode.InnerText;
+            return (birthNode == null) ? string.Empty : birthNode.InnerText;
         }
 
         private string GetMovieList(HtmlNode body)

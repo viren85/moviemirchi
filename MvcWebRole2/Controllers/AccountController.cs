@@ -436,6 +436,8 @@ namespace MvcWebRole2.Controllers
             try
             {
                 TableManager tblMgr = new TableManager();
+                Crawler.ArtistCrawler artistCrawler = new Crawler.ArtistCrawler();
+
                 var movies = tblMgr.GetAllMovies();
 
                 foreach (MovieEntity movie in movies.Values)
@@ -444,12 +446,37 @@ namespace MvcWebRole2.Controllers
                     {
                         var items = JsonConvert.DeserializeObject(movie.Casts);
                         JArray array = JArray.Parse(movie.Casts);
-                        for (int i = 0; i < array.Count; i++)
+                        List<Cast> castList = new List<Cast>();
+
+                        foreach (JObject o in array.Children<JObject>())
                         {
-                            // Parse the Cast object and pass it to CrawlArtists()
-                            Crawler.ArtistCrawler artistCrawler = new Crawler.ArtistCrawler();
-                            //artistCrawler.CrawlArtists();    
+                            Cast cast = new Cast();
+
+                            foreach (JProperty p in o.Properties())
+                            {
+                                switch (p.Name)
+                                {
+                                    case "charactername":
+                                        cast.charactername = p.Value.ToString();
+                                        break;
+                                    case "link":
+                                        int index = p.Value.ToString().IndexOf("?");
+                                        string linkPath = (index < 0) ? p.Value.ToString() : p.Value.ToString().Remove(index);
+                                        cast.link = "http://www.imdb.com" + linkPath;
+                                        break;
+                                    case "name":
+                                        cast.name = p.Value.ToString();
+                                        break;
+                                    case "role":
+                                        cast.role = p.Value.ToString();
+                                        break;
+                                }
+                            }
+
+                            castList.Add(cast);
                         }
+
+                        artistCrawler.CrawlArtists(castList);
                     }
                     catch (Exception)
                     {
