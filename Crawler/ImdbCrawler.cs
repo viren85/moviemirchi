@@ -41,7 +41,7 @@ namespace MovieCrawler
             movie.Trailers = string.Empty;
             movie.Pictures = string.Empty;
             movie.State = string.Empty;
-            movie.MyScore = string.Empty;
+            movie.MyScore = Util.DEFAULT_SCORE;
             movie.JsonString = "[]";
 
             movie.Name = movie.Name.Replace(":", string.Empty);

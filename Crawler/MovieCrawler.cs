@@ -60,6 +60,7 @@ namespace Crawler
                     {
                         movie.RowKey = me.RowKey;
                         movie.MovieId = me.MovieId;
+                        movie.Popularity = Util.DEFAULT_POPULARITY;
                         crawlPosters = false;
                     }
 

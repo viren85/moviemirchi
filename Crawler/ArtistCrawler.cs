@@ -86,8 +86,8 @@
                     artist.Born = GetArtistBirthDetails(bodyNode);
                     artist.MovieList = GetMovieList(bodyNode);
                     artist.Posters = GetArtistPosters(url + "mediaindex", artist.UniqueName, bodyNode);
-                    artist.Popularity = "1";
-                    artist.MyScore = "0";
+                    artist.Popularity = Util.DEFAULT_POPULARITY;
+                    artist.MyScore = Util.DEFAULT_SCORE;
                     artist.JsonString = string.Empty;
                 }
             }

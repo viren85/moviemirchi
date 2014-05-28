@@ -8,6 +8,8 @@ namespace Crawler
 {
     public static class Util
     {
+        public static string DEFAULT_POPULARITY = "1";
+        public static string DEFAULT_SCORE = "0";
         public static string StripHTMLTags(string html)
         {
             string stripedHtml = string.Empty;

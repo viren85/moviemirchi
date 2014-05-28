@@ -33,6 +33,8 @@ namespace DataStoreLib.Models
         // For future use
         public string JsonString { get; set; }
 
+        public string Popularity { get; set; }
+
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
@@ -55,6 +57,7 @@ namespace DataStoreLib.Models
             State = ReadString(properties, "State");
             MyScore = ReadString(properties, "MyScore");
             JsonString = ReadString(properties, "JsonString");
+            Popularity = ReadString(properties, "Popularity");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
@@ -79,6 +82,7 @@ namespace DataStoreLib.Models
             WriteString(dict, "State", State);
             WriteString(dict, "MyScore", MyScore);
             WriteString(dict, "JsonString", JsonString);
+            WriteString(dict, "Popularity", Popularity);
 
             return dict;
         }
@@ -115,6 +119,7 @@ namespace DataStoreLib.Models
             State = entity.State;
             MyScore = entity.MyScore;
             JsonString = entity.JsonString;
+            Popularity = entity.Popularity;
         }
 
         public override string GetKey()
@@ -137,7 +142,9 @@ namespace DataStoreLib.Models
                                                     string uniqueName,
                                                     string state,
                                                     string myScore,
-                                                    string jsonString)
+                                                    string jsonString,
+                                                    string popularity    
+                                                    )
         {
             var movieId = Guid.NewGuid().ToString();
             var entity = new MovieEntity(movieId);
@@ -158,6 +165,7 @@ namespace DataStoreLib.Models
             entity.State = state;
             entity.MyScore = myScore;
             entity.JsonString = jsonString;
+            entity.Popularity = popularity;
 
             return entity;
         }
