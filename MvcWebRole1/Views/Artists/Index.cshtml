@@ -4,10 +4,16 @@
 }
 @Styles.Render("~/Content/styles/mm.moviedetails.css")
 
-
+<style>
+    .movie-poster-details{
+        margin-left: 7%;
+        margin-right: 3%;
+    }
+</style>
 <div class="movies">
     <div class="artist-bio"></div>
 </div>
+<script type="text/javascript" src="/Content/controls/mm.movie.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.bio.js"></script>
 <script type="text/javascript">
 
@@ -15,18 +21,20 @@
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
         var artist = name.split('-').join(' ');
 
-        var fileName = "/Images/user.png";
+        var fileName = "/Images/Loading.GIF";
 
         $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
         $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
         $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
+        $(".movies").append(GetTubeControl("Posters", "movie-poster-details", "poster-pager"));
         $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
 
-        InitBio();
-
-        var apiPath = "../api/ArtistMovies?name=" + artist;
+        //InitBio();
+        var apiPath = "../api/ArtistMovies?type=movie&name=" + artist;
+        var artistBioPath = "../api/ArtistMovies?type=bio&name=" + artist;
         CallHandler(apiPath, PopulateMovies);
+        CallHandler(artistBioPath, PopulateArtistsBio);
         LoadNews();
         LoadTweets("artist", name);
     });
@@ -59,6 +67,32 @@
             $(window).resize(function () {
                 PreparePaginationControl($(".movie-list"));
             });
+        }
+    }
+
+    function PopulateArtistsBio(response) {
+        var data = JSON.parse(response);
+
+        if (data != null) {
+            $(".intro-text").html(data.Bio);
+            var posters = JSON.parse(data.Posters);
+
+            if (posters != null && posters.length > 0) {
+                $(".bio-pic img").attr("src", "/Posters/Images/" + posters[posters.length - 1]).css("margin-left", "5%").css("margin-top", "0%");
+                //$(".poster-list").parent().hide();
+                InitBio();
+                
+                PopulatePosters(data.Posters, data.ArtistName);
+                ArrangeImages($(".movie-poster-details"));
+                
+            }
+            else {
+                $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "263px").css("float", "left");;
+                $(".movie-poster-details").parent().hide();
+            }
+        }
+        else {
+            $(".intro-text").html("Currently this artist does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
         }
     }
 </script>

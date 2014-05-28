@@ -3,6 +3,7 @@ namespace DataStoreLib.Storage
 {
     using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage.Table;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -590,12 +591,18 @@ namespace DataStoreLib.Storage
                         pair => pair.Value);
         }
 
-        public IDictionary<string, ArtistEntity> GetArtistItems()
+        public ArtistEntity GetArtist(string artistName)
         {
-            var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
-
-            ////TODO: Fix this
-            return null;
+            try
+            {
+                var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
+                var allArtists = artistTable.GetAllItems<ArtistEntity>();
+                return allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
 
         #endregion

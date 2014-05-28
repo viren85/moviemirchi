@@ -102,6 +102,7 @@ var ShowMovieDetails = function (movie) {
 var PopulatePosters = function (images, movieName) {
     var poster = [];
     poster = JSON.parse(images);
+    
     if (poster != "undefined" && poster != null && poster.length > 1) {
         //$("img.home-poster").attr("src", "/Posters/Images/" + poster[poster.length - 1]);
 

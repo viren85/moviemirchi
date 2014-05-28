@@ -20,6 +20,7 @@ namespace MvcWebRole1.Controllers.api
         {
             int resultLimit = 30;
             string artistName = string.Empty;
+            string dataType = string.Empty;
 
             // get query string parameters
             string queryParameters = this.Request.RequestUri.Query;
@@ -34,16 +35,30 @@ namespace MvcWebRole1.Controllers.api
 
                 if (!string.IsNullOrEmpty(qpParams["name"]))
                 {
-                    artistName = qpParams["name"].ToLower();
+                    artistName = qpParams["name"].ToLower().Trim();
+                }
+
+                if (!string.IsNullOrEmpty(qpParams["type"]))
+                {
+                    dataType = qpParams["type"].ToLower();
                 }
             }
 
             try
             {
                 var tableMgr = new TableManager();
-                var moviesByName = tableMgr.GetArtistMovies(artistName);
-                List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
-                return jsonSerializer.Value.Serialize(movies);
+
+                if (dataType == "movie")
+                {
+                    var moviesByName = tableMgr.GetArtistMovies(artistName);
+                    List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
+                    return jsonSerializer.Value.Serialize(movies);
+                }
+                else // Bio
+                {
+                    var moviesByName = tableMgr.GetArtist(artistName);
+                    return jsonSerializer.Value.Serialize(moviesByName);
+                }
             }
             catch (Exception ex)
             {
