@@ -56,7 +56,14 @@ namespace MvcWebRole1.Controllers.api
                 }
                 else // Bio
                 {
+                    int popularity = 0;
                     var moviesByName = tableMgr.GetArtist(artistName);
+
+                    int.TryParse(moviesByName.Popularity, out popularity);
+                    moviesByName.Popularity = (popularity + 1).ToString();
+
+                    tableMgr.UpdateArtistItemById(new List<ArtistEntity>() { moviesByName });
+
                     return jsonSerializer.Value.Serialize(moviesByName);
                 }
             }
