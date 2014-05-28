@@ -10,14 +10,21 @@
     height: 250px;
 }
 
-.bio-pic-img {
-    float: left;
-    width: 263px;
-    height: 300px;
-    margin-right: 20px;
-    position: relative;
-    margin-bottom: 20px;
-}
+    .bio-pic img {
+        float: left;
+        width: 263px;
+        height: 300px;
+        margin-right: 20px;
+        position: relative;
+        margin-bottom: 20px;
+    }
+
+        .bio-pic img:hover, .movie-poster-details img:hover {
+            -webkit-transform: scale(1.4);
+            box-shadow: 0px 0px 5px #666;
+            background-color: #fff;
+            padding: 5px;
+        }
 
 .intro {
     float: left;
