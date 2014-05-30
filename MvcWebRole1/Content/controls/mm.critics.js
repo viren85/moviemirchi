@@ -26,7 +26,8 @@ $(document).ready(function () {
     var impCriticsCount = new Util().GetElementCount(60, 125);
 
     critics.forEach(function (critic) {
-        if (counter <= impCriticsCount && counter < 6) {
+        if (counter <= impCriticsCount) {
+            //if (counter <= impCriticsCount && counter < 6) {
             ul.append(
                 "<li class=\"reviewer\">" +
                     "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + " (" + critic.aff + ")" + "\">" +
@@ -39,50 +40,52 @@ $(document).ready(function () {
                     "</a>" +
                 "</li>");
         }
-            /*else if (impCriticsCount == (counter + 1)) {
-                ul.append(
-                    "<li class=\"reviewer\" style=\"clear: left\"" + ">" +
-                        "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + " (" + critic.aff + ")" + "\">" +
-                            "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
-                                "<div id=\"imageContainer\" class=\"viewer\">" +
-                                    "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "(" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 125px; width: 125px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
-                                "</div>" +
-                            "</div>" +
-                            "<div class=\"critics-name\">" + critic.name + "</div>" +
-                        "</a>" +
-                    "</li>");
-    
-            }*/
-
-        else {
-            var className = "reviewer reviewer-small";
-            if (counter == (impCriticsCount + 1)) {
-                className = "reviewer reviewer-small first-reviewer";
-            }
-
+        /*else if (impCriticsCount == (counter + 1)) {
             ul.append(
-               "<li class=\"" + className + "\">" +
-                   "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + " (" + critic.aff + ")" + "\">" +
-                       "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
-                           "<div id=\"imageContainer\" class=\"viewer\">" +
-                               "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + " (" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 50px; width: 50px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
-                           "</div>" +
-                       "</div>" +
-                       "<div class=\"critics-name-small\">" + critic.name + "</div>" +
-                   "</a>" +
-               "</li>");
+                "<li class=\"reviewer\" style=\"clear: left\"" + ">" +
+                    "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + " (" + critic.aff + ")" + "\">" +
+                        "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
+                            "<div id=\"imageContainer\" class=\"viewer\">" +
+                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "(" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 125px; width: 125px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
+                            "</div>" +
+                        "</div>" +
+                        "<div class=\"critics-name\">" + critic.name + "</div>" +
+                    "</a>" +
+                "</li>");
+
         }
 
-        counter++;
+    else {
+        var className = "reviewer reviewer-small";
+        if (counter == (impCriticsCount + 1)) {
+            className = "reviewer reviewer-small first-reviewer";
+        }
+
+        ul.append(
+           "<li class=\"" + className + "\">" +
+               "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + " (" + critic.aff + ")" + "\">" +
+                   "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
+                       "<div id=\"imageContainer\" class=\"viewer\">" +
+                           "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + " (" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"/Posters/Images/critic/" + critic.poster + "\" style=\"margin: auto; height: 50px; width: 50px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
+                       "</div>" +
+                   "</div>" +
+                   "<div class=\"critics-name-small\">" + critic.name + "</div>" +
+               "</a>" +
+           "</li>");
+    }
+
+    counter++;*/
     });
 
+    var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "225" };
+    PreparePaginationControl($(".critics-container"), pagerJson);
     /*var totalReviewers = $(".critics-container ul li.reviewer").length;
     var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 5, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager", "tileWidth": "220" };
     PreparePaginationControl($(".critics-container"), pagerJson);*/
 });
 
 $(window).resize(function () {
-    $(".critics-container").find("ul li").each(function () {
+    /*$(".critics-container").find("ul li").each(function () {
         $(this).attr("class", "reviewer-small");
         $(this).find("img").each(function () {
             $(this).css("width", "50px").css("height", "50px");
@@ -91,7 +94,7 @@ $(window).resize(function () {
         $(this).find(".critics-name").each(function () {
             $(this).attr("class", "critics-name-small");
         });
-    });
+    });*/
 
     //1. Calculate the 60% of critics-container
     //2. Calculate the # of elements possible to fit in in 60%
