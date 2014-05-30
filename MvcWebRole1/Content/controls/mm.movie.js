@@ -46,6 +46,7 @@ var ShowMovieDetails = function (movie) {
     var producers = "", producersList = "";
     var music = "", musicList = "";
     var cast = "", actorList = "";
+    var artistCounter = 0;
     var songsList = "";
 
     var casts = [];
@@ -75,9 +76,10 @@ var ShowMovieDetails = function (movie) {
                     producersList += "<li class='team-item'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></li>";
                 }
             }
-            else if (casts[c].role.toLowerCase() == "actor" && cast.indexOf(casts[c].name) == -1) {
+            else if (casts[c].role.toLowerCase() == "actor" && cast.indexOf(casts[c].name) == -1 && artistCounter < 8) {
                 cast += "<a  href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\" title='click here to view profile'> " + casts[c].name + "</a>, ";
                 actorList += "<li class='cast-item'><span class='cast-details'><a href=\"/Artists/" + casts[c].name.split(' ').join('-') + "\">" + casts[c].name + "</a></span><span class='cast-details-right'>" + casts[c].charactername + "</span></li>";
+                artistCounter++;
             }
         }
     }
@@ -102,7 +104,7 @@ var ShowMovieDetails = function (movie) {
 var PopulatePosters = function (images, movieName) {
     var poster = [];
     poster = JSON.parse(images);
-    
+
     if (poster != "undefined" && poster != null && poster.length > 1) {
         //$("img.home-poster").attr("src", "/Posters/Images/" + poster[poster.length - 1]);
 
