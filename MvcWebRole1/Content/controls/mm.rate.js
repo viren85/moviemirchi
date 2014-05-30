@@ -38,11 +38,11 @@ var RatingControl = function () {
 
         // TODO - Remove this if condition, once ewverything is implemented end-end
         if (rate == "" || rate == null || rate == "undefined") {
-            rate = { "percent": "60", "theeka": "7.5", "feeka": "2.5" };
+            rate = { "percent": "60", "teekha": "7.5", "feeka": "2.5" };
         }
 
         var html =
-                    "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Theeka hai ki feeka hai ?</div>" +
+                    "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Teekha hai ki feeka hai ?</div>" +
                     "<div class=\"content\">" +
                         "<div class=\"mirchi mirchimeter\">" +
                             GetMovieRateControl(rate.percent / 10) +
@@ -50,10 +50,10 @@ var RatingControl = function () {
                         "<div>" +
                             "<div class=\"rate-row\">" +
                                 "<span class=\"text\">Critic reviews rating:</span>" +
-                                "<span class=\"percent " + (rate.percent <= 50 ? 'feeka' : 'theeka') + "\">" + rate.percent + "</span></div>" +
+                                "<span class=\"percent " + (rate.percent <= 50 ? 'feeka' : 'teekha') + "\">" + rate.percent + "</span></div>" +
                             "<div class=\"rate-row\">" +
-                                "<span class=\"text\">Theeka critic reviews:</span>" +
-                                "<span class=\"theeka\">" + rate.theeka + "</span></div>" +
+                                "<span class=\"text\">Teekha critic reviews:</span>" +
+                                "<span class=\"teekha\">" + rate.teekha + "</span></div>" +
                             "<div class=\"rate-row\">" +
                                 "<span class=\"text\">Feeka critic reviews:</span>" +
                                 "<span class=\"feeka\">" + rate.feeka + "</span></div>" +
