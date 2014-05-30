@@ -215,7 +215,8 @@ namespace DataStoreLib.Storage
         {
             var retList = store.GetAllMovies();
             ////TODO Do we need to add month logic? How do we filter to current?
-            return retList.Values;
+            return retList.Values.Where(movie => movie.Trailers.Trim() == string.Empty);
+
 
             //// TODO: Clean the comments
             //////Debug.Assert(retList.Count == 1);
@@ -246,7 +247,7 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                 // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
-                    .Where(movie => string.IsNullOrEmpty(movie.Trailers) || movie.Trailers.ToLower() == "upcoming");
+                    .Where(movie => movie.Trailers.ToLower() == "upcoming");
 
             ////TODO: Clean the comments
             ////List<MovieEntity> upcomingMovies = new List<MovieEntity>();
