@@ -1,13 +1,13 @@
 ﻿.bio {
     float: left;
     width: 100%;
-    margin-bottom: 20px;
+    /*margin-bottom: 20px;*/
 }
 
 .bio-pic {
     float: left;
     width: 300px;
-    height: 250px;
+    /*height: 250px;*/
 }
 
     .bio-pic img {

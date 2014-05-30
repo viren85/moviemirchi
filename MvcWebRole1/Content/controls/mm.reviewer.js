@@ -12,7 +12,7 @@ var ShowReviews = function (data) {
         var fileName = "/Images/user.png";
         var name = result.Name;
         var affiliation = "";
-        
+
         for (k = 0; k < critics.length; k++) {
             if (critics[k] != null && critics[k] != undefined && critics[k].name == result.Name) {
                 fileName = "/Posters/Images/critic/" + critics[k].poster;
@@ -23,7 +23,12 @@ var ShowReviews = function (data) {
 
         $(".movies").find(".review-list").each(function () {
             $(this).prepend(ShowPersonBio(fileName, name, "", affiliation));
+            $(this).find("img").removeAttr("style").css("width", "263px").css("float", "left");
             InitBio();
+
+            // Need to populate this text from DB
+            $(".intro-text").html("Currently this critic does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
+
         });
 
         var reviews = [];
