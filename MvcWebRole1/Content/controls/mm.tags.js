@@ -17,22 +17,12 @@ var Tags = function (tagJsonString) {
         tags = JSON.parse(tagJsonString);
     }
 
-    if (tags == null) {
+    if (!tags || tags === []) {
         tags = [
                 [
                     { "UniqueName": "taran-adarsh", "Name": "Taran Adarsh", "Role": "Reviewer", "Weight": "3" },
                     { "UniqueName": "anupama-chopra", "Name": "Anupama Chopra", "Role": "Reviewer", "Weight": "4" },
-                    { "UniqueName": "rachit-gupta", "Name": "Rachit Gupta", "Role": "Reviewer", "Weight": "2" }
-                ],
-                [
-                    { "UniqueName": "mickey-virus", "Name": "Mickey Virus", "Role": "Movie", "Weight": "1" },
-                    { "UniqueName": "krrish-3", "Name": "Krrish 3", "Role": "Movie", "Weight": "4" }
-                ],
-                [
-                    { "UniqueName": "Deepika-Padukone", "Name": "Deepika Padukone", "Role": "Artists", "Weight": "5" },
-                    { "UniqueName": "ranveer-singh", "Name": "Ranveer Singh", "Role": "Artists", "Weight": "4" },
-                    { "UniqueName": "aditya-roy-kapoor", "Name": "Aditya Roy Kapoor", "Role": "Artists", "Weight": "1" },
-                    { "UniqueName": "sanjay-leela-bhansali", "Name": "Sanjay Leela Bhansali", "Role": "Artists", "Weight": "2" }
+                    { "UniqueName": "rajeev-masand", "Name": "Rajeev Masand", "Role": "Reviewer", "Weight": "2" }
                 ],
                 [
                     { "UniqueName": "Romance", "Name": "Romance", "Role": "Genre", "Weight": "5" },
@@ -78,7 +68,7 @@ var Tags = function (tagJsonString) {
                 return "<li class=\"tag" + list.Weight + "\">" + getLink(list) + "</li>";
             });
 
-            var html = "<div class=\"tags\"><ul>" + lis.join() + "</ul></div>";
+            var html = "<div class=\"tags\"><ul>" + lis.join(', ') + "</ul></div>";
             $(".tags-container").append(html);
         });
     }
