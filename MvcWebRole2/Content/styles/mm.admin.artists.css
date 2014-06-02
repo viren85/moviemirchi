@@ -1,0 +1,7 @@
+﻿.artist-grid{ float:left;width: 350px;margin-left:35px;}
+.artist-grid-header{float:left;width:100%;padding:5px;background-color: #368BC1;color:white;}
+.artist-grid-column{float:left;width:33%;text-align:center;}
+.artist-grid-row{float:left;width:100%;background-color:white;height:30px;padding:5px;}
+.artist-grid-row:hover{background-color:#eee;}
+.artist-grid-row-data1{float:left;width:45%;}
+.artist-grid-row-data2,.artist-grid-row-data3{float:left;width:25%;}

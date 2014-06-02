@@ -1,0 +1,73 @@
+﻿.search-section {
+    float: left;
+    width: 20%;
+    min-width: 340px;
+    border-right: 1px solid #368BC1;
+}
+
+.search-container {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.search-text {
+    float: left;
+    width: 250px;
+    border-radius: 5px;
+    padding: 7px;
+    border: 1px solid #DDD;
+    margin: 0px !important;
+    margin-right: 2px !important;
+}
+
+    .search-text:focus {
+        border: 1px solid #368BC1;
+        outline: none;
+    }
+
+.search-result-container {
+    float: left;
+    height: 80%;
+    min-height: 100%;
+}
+
+.search-result-list {
+    float: left;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 100%;
+}
+
+.search-result-list-item {
+    float: left;
+    padding: 2%;
+    width: 100%;
+    height: 100px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .search-result-list-item:hover {
+        background-color: #eee;
+    }
+
+.search-item-img {
+    float: left;
+    margin: 10px;
+    width: 50px;
+    height: 70px;
+}
+
+.search-movie-name {
+    float: left;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.search-movie-year {
+    float: left;
+    width: 200px;
+    font-size: 12px;
+    margin-top: 10px;
+}

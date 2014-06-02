@@ -223,9 +223,20 @@
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
+    <Content Include="Content\controls\mm.admin.artists.js" />
+    <Content Include="Content\controls\mm.admin.core.js" />
+    <Content Include="Content\controls\mm.admin.movie.basics.js" />
+    <Content Include="Content\controls\mm.admin.posters.js" />
+    <Content Include="Content\controls\mm.admin.rating.js" />
+    <Content Include="Content\controls\mm.admin.shortcuts.js" />
+    <Content Include="Content\controls\mm.admin.search.js" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\movie.style.css" />
+    <Content Include="Content\styles\mm.admin.artists.css" />
+    <Content Include="Content\styles\mm.admin.posters.css" />
+    <Content Include="Content\styles\mm.admin.search.css" />
+    <Content Include="Content\styles\mm.common.css" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -350,6 +361,7 @@
     <Content Include="Views\Review\UpdateMovieReview.cshtml" />
     <Content Include="Views\Reviewer\UpdateAffiliation.cshtml" />
     <Content Include="Views\Reviewer\UpdateReviewer.cshtml" />
+    <Content Include="Views\Shared\_AdminMasterLayout.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

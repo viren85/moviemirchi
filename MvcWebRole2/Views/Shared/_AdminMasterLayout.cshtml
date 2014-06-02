@@ -1,0 +1,69 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Mirchi :: Admin Panel</title>
+    @Styles.Render("~/Content/bootstrap.min.css")
+    @*@Styles.Render("~/Content/bootstrap-responsive.css")*@
+    @Scripts.Render("~/Content/jquery-1.9.1.js")
+    @Scripts.Render("~/Content/bootstrap.min.js")
+    @Scripts.Render("~/Content/controls/mm.admin.core.js")
+    @Scripts.Render("~/Content/controls/mm.admin.search.js")
+    @Scripts.Render("~/Content/controls/mm.admin.shortcuts.js")
+    @Scripts.Render("~/Content/controls/mm.admin.movie.basics.js")
+    @Scripts.Render("~/Content/controls/mm.admin.rating.js")
+    @Scripts.Render("~/Content/controls/mm.admin.artists.js")
+    @Scripts.Render("~/Content/controls/mm.admin.posters.js")
+
+    @Styles.Render("~/Content/styles/mm.common.css")
+    @Styles.Render("~/Content/styles/mm.admin.search.css")
+    @Styles.Render("~/Content/styles/mm.admin.artists.css")
+    @Styles.Render("~/Content/styles/mm.admin.posters.css")
+    @*@Scripts.Render("~/Content/movie.core.js")
+        @Styles.Render("~/Content/movie.style.css")
+        @Scripts.Render("~/Content/movie.autocomplete.js")*@
+    <meta name="robots" content="NOODP" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+    <div class="top-nav">
+        <div class="logo">
+            <a href="/" title="Movie Mirchi :: Admin Panel"><img src='/Images/logo.png' /></a>
+        </div>
+        <div class="user-details">
+            <ul>
+                <li class="authenticate">
+                    Welcome, Administrator
+                </li>
+                <li class="log">
+                    @Html.ActionLink("Logout", "Logout", "Account")
+                </li>
+
+            </ul>
+        </div>
+    </div>
+    <div class="left-nav">
+        <ul>
+            <li class="active">Movies</li>
+            <li>Artists</li>
+            <li>Critics</li>
+            <li>Crawler</li>
+            <li>News</li>
+            <li>Twitter</li>
+        </ul>
+    </div>
+
+    <div>
+        @RenderBody()
+    </div>
+
+</body>
+</html>

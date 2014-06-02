@@ -1,6 +1,35 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="movie-container">
+
+    <div class="search-section">
+
+    </div>
+    <div class="content-container">
+        <div class="shortcut-container"></div>
+        <div class="basic-form-container"></div>
+        <div id="movie-rating" class="form-container"></div>
+        <div class="artists-container"></div>
+        <div class="posters-container"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    var search = new Search("Search movies ...");
+    var shortcuts = new Shortcuts();
+    var movieinfo = new MovieInformation();
+
+    $(".search-section").append(search.GetSearchBar());
+    $(".search-section").append(search.GetSearchResultContainer());
+    search.PopulateSearchResults("[]");
+    shortcuts.PrepareShortcuts("shortcut-container");
+
+    $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Basic Information"));
+    $(".basic-form-container").append(movieinfo.BuildForm());
+    $("#movie-rating").append(new Rating().GetRatingForm());
+    $(".artists-container").append(new Artists().GetArtistGrid(null));
+    $(".posters-container").append(new Posters().GetPosterContainer());
+</script>
