@@ -1,4 +1,6 @@
-﻿var PUBLIC_BASE_URL = "http://127.0.0.1:81/";
+﻿var PUBLIC_BASE_URL = "http://127.0.0.1:81";
+var BASE_URL = "http://127.0.0.1:8080/";
+
 var FormBuilder = function () {
     FormBuilder.prototype.GetTextField = function (id, placeholder, label) {
         var fieldContainer = $("<div/>");
@@ -43,3 +45,18 @@ var FormBuilder = function () {
         return fieldContainer;
     }
 }
+
+function CallHandler(queryString, OnComp) {
+    $.ajax({
+        url: BASE_URL + queryString,
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        responseType: "json",
+        cache: false,
+        success: OnComp,
+        error: OnFail
+    });
+    return false;
+}
+
+function OnFail() { }

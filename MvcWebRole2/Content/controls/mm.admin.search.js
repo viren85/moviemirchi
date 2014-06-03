@@ -72,8 +72,13 @@ var Search = function (placeholder, searchtype) {
         // Call the search API from here
         resultContainer = searchResultContainer;
         var searchQuery = $(".search-text").val();
-        //CallHandler(searchQuery, "../api/Search", PopulateSearchResults);
-        this.PopulateSearchResults("[]");
+        var queryString = "";
+        if (searchQuery != "") {
+            queryString = "?q=" + searchQuery;
+        }
+
+        CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
+        //this.PopulateSearchResults("[]");
     }
 
     Search.prototype.PopulateSearchResults = function (data) {
@@ -81,20 +86,29 @@ var Search = function (placeholder, searchtype) {
         var json = JSON.parse(data);
         $(resultContainer).children("ul").remove();
         //Comment following line once API is functional
-        json = testData;
+        //json = testData;
         if (json != null) {
             var searchResultList = $("<ul/>").attr("class", "search-result-list");
 
             for (i = 0; i < json.length; i++) {
                 //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
-                    var item = $("<li/>").attr("class", "search-result-list-item");
-                    var img = $("<img/>").attr("src", PUBLIC_BASE_URL + "Posters/Images/" + json[i].Posters[0]).attr("class", "search-item-img");
-                    var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
-                    var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
-                    $(item).append(img);
-                    $(item).append(movieTitle);
-                    $(item).append(year);
-                    $(searchResultList).append(item);
+                var item = $("<li/>").attr("class", "search-result-list-item");
+                var img;
+                var posters = JSON.parse(json[i].Posters);
+
+                if (posters.length > 0) {
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[posters.length - 1]).attr("class", "search-item-img");
+                }
+                else {
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+                }
+
+                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
+                var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                $(item).append(img);
+                $(item).append(movieTitle);
+                $(item).append(year);
+                $(searchResultList).append(item);
                 //}
             }
 

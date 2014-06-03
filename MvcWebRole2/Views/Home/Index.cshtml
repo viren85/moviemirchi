@@ -21,10 +21,12 @@
     var search = new Search("Search movies ...");
     var shortcuts = new Shortcuts();
     var movieinfo = new MovieInformation();
+    var searchContainer = search.GetSearchResultContainer();
 
     $(".search-section").append(search.GetSearchBar());
-    $(".search-section").append(search.GetSearchResultContainer());
-    search.PopulateSearchResults("[]");
+    $(".search-section").append(searchContainer);
+    
+    search.GetSearchResults(searchContainer);
     shortcuts.PrepareShortcuts("shortcut-container");
 
     $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Basic Information"));
