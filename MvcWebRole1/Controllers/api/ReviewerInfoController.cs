@@ -59,7 +59,7 @@ namespace MvcWebRole1.Controllers.api
                         // get movie information
                         MovieEntity movie = tableMgr.GetMovieById(review.MovieId);
 
-                        if (movie != null && (movie.Trailers == "upcoming" || movie.Trailers == "now-playing"))
+                        if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing"))
                         {
                             // if movie not null, then add movieid and moviename to review details
                             ReviewDetails reviewDetail = new ReviewDetails();
@@ -69,7 +69,7 @@ namespace MvcWebRole1.Controllers.api
                             reviewDetail.Review = review.Review;
                             reviewDetail.MoviePoster = movie.Posters;
                             reviewDetail.OutLink = review.OutLink;
-                            reviewDetail.MovieStatus = movie.Trailers;
+                            reviewDetail.MovieStatus = movie.State;
 
                             // add review object to review list
                             reviewDetailList.Add(reviewDetail);
