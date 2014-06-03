@@ -5,6 +5,7 @@ var Search = function (placeholder, searchtype) {
     var type = searchtype;
     var resultContainer;
     var that = this;
+    var MOVIES;
     var testData =
         [
             {
@@ -84,6 +85,7 @@ var Search = function (placeholder, searchtype) {
     Search.prototype.PopulateSearchResults = function (data) {
         // Prepare search result UI from this function
         var json = JSON.parse(data);
+        MOVIES = json;
         $(resultContainer).children("ul").remove();
         //Comment following line once API is functional
         //json = testData;
@@ -92,7 +94,10 @@ var Search = function (placeholder, searchtype) {
 
             for (i = 0; i < json.length; i++) {
                 //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
-                var item = $("<li/>").attr("class", "search-result-list-item");
+                var item = $("<li/>").attr("class", "search-result-list-item").click(function () {
+                    $(".content-container").show();
+                });
+
                 var img;
                 var posters = JSON.parse(json[i].Posters);
 
