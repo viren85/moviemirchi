@@ -1,5 +1,6 @@
 ﻿var BASE_URL = "http://127.0.0.1:8080/";
 
+
 function CallHandler(searchText, url, OnComplete) {
     var fullUrl = BASE_URL + url;
     $.ajax({
