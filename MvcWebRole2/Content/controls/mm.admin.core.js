@@ -22,8 +22,10 @@ var FormBuilder = function () {
 
     FormBuilder.prototype.GetRadioButton = function (id, label, groupName, isChecked) {
         var fieldContainer = $("<div/>");
-        var txt = $("<input/>").attr("type", "radio").attr("id", id).attr("text", label).attr("name", groupName).attr("checked", isChecked);
+        var txt = $("<input/>").attr("type", "radio").attr("id", id).attr("value", label).attr("name", groupName).attr("checked", isChecked);
+        var rbLabel = $("<label/>").attr("for", id).attr("style", "font-weight:normal").html(label);
         $(fieldContainer).append(txt);
+        $(fieldContainer).append(rbLabel);
         return fieldContainer;
     }
 

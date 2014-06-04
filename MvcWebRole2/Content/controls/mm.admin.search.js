@@ -136,6 +136,18 @@ var Search = function (placeholder, searchtype) {
                 $("#txtBudget").val(MOVIES[i].Stats.replace("&nbsp;", " "));
                 $("#txtState").val(MOVIES[i].State);
 
+                $(".form-container").find("radio").each(function () { $(this).prop('checked', false); });
+
+                if (MOVIES[i].State == "upcoming") {
+                    $("#rbUpcoming").prop('checked', true);
+                }
+                else if (MOVIES[i].State == "now-playing") {
+                    $("#rbNowPlaying").prop('checked', true);
+                }
+                else {
+                    $("#rbReleased").prop('checked', true);
+                }
+
                 if (MOVIES[i].MyScore != "" && MOVIES[i].MyScore != undefined) {
                     var myScore = JSON.parse(MOVIES[i].MyScore);
                     $("#txtTeekhaRate").val(myScore.teekharating);

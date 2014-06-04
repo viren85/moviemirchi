@@ -18,7 +18,9 @@
         var processedSynopsis = new FormBuilder().GetTextArea("txtProcessedSynopsis", "Processed Synopsis", "Processed Synopsis");
         var budget = new FormBuilder().GetTextArea("txtBudget", "Movie Budget/Stats", "Budget");
         // va
-        var state = new FormBuilder().GetTextField("txtState", "Movie Current State", "State");
+        var stateUpcoming = new FormBuilder().GetRadioButton("rbUpcoming", "Up-Coming", "State", false);
+        var stateNowPlaying = new FormBuilder().GetRadioButton("rbNowPlaying", "Now-Playing", "State", false);
+        var stateReleased = new FormBuilder().GetRadioButton("rbReleased", "Released", "State", false);
 
 
         $(formContainer).append(uniqueName);
@@ -26,7 +28,11 @@
         $(formContainer).append(synopsis);
         $(formContainer).append(processedSynopsis);
         $(formContainer).append(budget);
-        $(formContainer).append(state);
+
+        $(formContainer).append(stateUpcoming);
+        $(formContainer).append(stateNowPlaying);
+        $(formContainer).append(stateReleased);
+
         $(formContainer).append(isEnabled);
 
         return formContainer;
