@@ -94,8 +94,9 @@ var Search = function (placeholder, searchtype) {
 
             for (i = 0; i < json.length; i++) {
                 //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
-                var item = $("<li/>").attr("class", "search-result-list-item").click(function () {
+                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
                     $(".content-container").show();
+                    that.PopulateMovieDetails($(this).attr("un"));
                 });
 
                 var img;
@@ -122,6 +123,47 @@ var Search = function (placeholder, searchtype) {
             }
 
             $(resultContainer).append(searchResultList);
+        }
+    }
+
+    Search.prototype.PopulateMovieDetails = function (uname) {
+        for (var i = 0; i < MOVIES.length; i++) {
+            if (MOVIES[i].UniqueName == uname) {
+                //alert("movie details for " + uname + " is here");
+                $("#txtUnique").val(MOVIES[i].UniqueName);
+                $("#txtFriendly").val(MOVIES[i].Name);
+                $("#txtSynopsis").val(MOVIES[i].Synopsis);
+                $("#txtBudget").val(MOVIES[i].Stats.replace("&nbsp;", " "));
+                $("#txtState").val(MOVIES[i].State);
+
+                if (MOVIES[i].MyScore != "" && MOVIES[i].MyScore != undefined) {
+                    var myScore = JSON.parse(MOVIES[i].MyScore);
+                    $("#txtTeekhaRate").val(myScore.teekharating);
+                    $("#txtFeekaRate").val(myScore.feekharating);
+                    $("#txtMyScore").val(myScore.criticrating);
+                }
+                else {
+                    $("#txtTeekhaRate").val("");
+                    $("#txtFeekaRate").val("");
+                    $("#txtMyScore").val("");
+                }
+
+                $(".artists-container").html("");
+                if (MOVIES[i].Casts != "" && MOVIES[i].Casts != undefined) {
+                    var artist = JSON.parse(MOVIES[i].Casts);
+                    $(".artists-container").append(new Artists().GetArtistGrid(artist));
+                }
+
+                $(".posters-container").html("");
+
+                if (MOVIES[i].Posters != "" && MOVIES[i].Posters != undefined) {
+                    var posters = JSON.parse(MOVIES[i].Posters);
+
+                    //$(".posters-container").append(new Posters().GetAllPoster(posters));
+                    $(".posters-container").append(new Posters().GetPosterContainer(posters));
+                }
+                break;
+            }
         }
     }
 }

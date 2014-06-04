@@ -17,6 +17,8 @@
         var synopsis = new FormBuilder().GetTextArea("txtSynopsis", "Movie Synopsis", "Synopsis");
         var processedSynopsis = new FormBuilder().GetTextArea("txtProcessedSynopsis", "Processed Synopsis", "Processed Synopsis");
         var budget = new FormBuilder().GetTextArea("txtBudget", "Movie Budget/Stats", "Budget");
+        // va
+        var state = new FormBuilder().GetTextField("txtState", "Movie Current State", "State");
 
 
         $(formContainer).append(uniqueName);
@@ -24,6 +26,7 @@
         $(formContainer).append(synopsis);
         $(formContainer).append(processedSynopsis);
         $(formContainer).append(budget);
+        $(formContainer).append(state);
         $(formContainer).append(isEnabled);
 
         return formContainer;

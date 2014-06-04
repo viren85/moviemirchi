@@ -52,9 +52,9 @@
         $(grid).append(gridHead);
         for (i = 0; i < artistList.length; i++) {
             var gridRow = $("<div/>").attr("class", "artist-grid-row");
-            var gridRowData1 = $("<div/>").attr("class", "artist-grid-row-data1").html(artistList[i].ArtistName);
-            var gridRowData2 = $("<div/>").attr("class", "artist-grid-row-data2").html(artistList[i].Role);
-            var gridRowData3 = $("<div/>").attr("class", "artist-grid-row-data3").html(artistList[i].CharacterName);
+            var gridRowData1 = $("<div/>").attr("class", "artist-grid-row-data1").html(artistList[i].name);
+            var gridRowData2 = $("<div/>").attr("class", "artist-grid-row-data2").html(artistList[i].role);
+            var gridRowData3 = $("<div/>").attr("class", "artist-grid-row-data3").html(artistList[i].charactername);
             $(gridRow).append(gridRowData1);
             $(gridRow).append(gridRowData2);
             $(gridRow).append(gridRowData3);

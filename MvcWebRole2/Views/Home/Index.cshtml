@@ -13,7 +13,7 @@
         <div class="basic-form-container"></div>
         <div id="movie-rating" class="form-container"></div>
         <div class="artists-container"></div>
-        <div class="posters-container"></div>
+        <div class="posters-container"></div>        
     </div>
 
 </div>
@@ -32,6 +32,6 @@
     $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Basic Information"));
     $(".basic-form-container").append(movieinfo.BuildForm());
     $("#movie-rating").append(new Rating().GetRatingForm());
-    $(".artists-container").append(new Artists().GetArtistGrid(null));
-    $(".posters-container").append(new Posters().GetPosterContainer());
+    //$(".artists-container").append(new Artists().GetArtistGrid(null));
+    //$(".posters-container").append(new Posters().GetPosterContainer());
 </script>
