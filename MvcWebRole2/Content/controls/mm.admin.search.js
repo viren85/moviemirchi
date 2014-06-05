@@ -6,6 +6,7 @@ var Search = function (placeholder, searchtype) {
     var resultContainer;
     var that = this;
     var MOVIES;
+    var CURRENT_MOVIE;
     var testData =
         [
             {
@@ -129,6 +130,7 @@ var Search = function (placeholder, searchtype) {
     Search.prototype.PopulateMovieDetails = function (uname) {
         for (var i = 0; i < MOVIES.length; i++) {
             if (MOVIES[i].UniqueName == uname) {
+                CURRENT_MOVIE = MOVIES[i];
                 //alert("movie details for " + uname + " is here");
                 $("#txtUnique").val(MOVIES[i].UniqueName);
                 $("#txtFriendly").val(MOVIES[i].Name);
@@ -164,18 +166,69 @@ var Search = function (placeholder, searchtype) {
                 if (MOVIES[i].Casts != "" && MOVIES[i].Casts != undefined) {
                     var artist = JSON.parse(MOVIES[i].Casts);
                     $(".artists-container").append(new Artists().GetArtistGrid(artist));
+
+                    /*$("#sortable").sortable({
+                        axis: "y",
+                        revert: true,
+                        scroll: false,
+                        placeholder: "sortable-placeholder",
+                        cursor: "move"
+                    });*/
+
+                    $(function () {
+                        $("#sortable").sortable({ cursor: "move" });
+                        $("#sortable").disableSelection();
+                    });
                 }
 
                 $(".posters-container").html("");
 
                 if (MOVIES[i].Posters != "" && MOVIES[i].Posters != undefined) {
                     var posters = JSON.parse(MOVIES[i].Posters);
-
-                    //$(".posters-container").append(new Posters().GetAllPoster(posters));
                     $(".posters-container").append(new Posters().GetPosterContainer(posters));
                 }
+                // upload files
+                //$("#poster-upload").attr("onchange", "UploadSelectedFile(this)");
+                //$("#poster-upload").attr("onchange", function () { alert("file uplaed") });
+                //$("#poster-upload").attr("onchange", "search.UploadSelectedFile(this);");
+
+               /* $('#poster-upload').fileupload({
+                    dataType: 'json',
+                    url: '/Home/UploadFile',
+                    autoUpload: true,
+                    done: function (e, data) {
+                        $('.file_name').html(data.result.name);
+                        $('.file_type').html(data.result.type);
+                        $('.file_size').html(data.result.size);
+                    }
+                }).on('fileuploadprogressall', function (e, data) {
+                    var progress = parseInt(data.loaded / data.total * 100, 10);
+                    $('.progress .progress-bar').css('width', progress + '%');
+                });
+                */
                 break;
             }
         }
+
+        console.log(CURRENT_MOVIE);
     }
+
+
+    /*Search.prototype.UploadSelectedFile = function (element) {
+
+        $('#poster-upload').fileupload({
+            dataType: 'json',
+            url: '/Home/UploadFile',
+            autoUpload: true,
+            done: function (e, data) {
+                $('.file_name').html(data.result.name);
+                $('.file_type').html(data.result.type);
+                $('.file_size').html(data.result.size);
+            }
+        }).on('fileuploadprogressall', function (e, data) {
+            var progress = parseInt(data.loaded / data.total * 100, 10);
+            $('.progress .progress-bar').css('width', progress + '%');
+        });
+    }*/
 }
+

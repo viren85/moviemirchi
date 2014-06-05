@@ -233,6 +233,8 @@
     <Content Include="Content\controls\mm.admin.shortcuts.js" />
     <Content Include="Content\controls\mm.admin.search.js" />
     <Content Include="Content\jquery-1.9.1.js" />
+    <Content Include="Content\jquery-ui.js" />
+    <Content Include="Content\jquery.fileupload.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\movie.style.css" />
     <Content Include="Content\styles\mm.admin.artists.css" />
