@@ -130,8 +130,7 @@ var Search = function (placeholder, searchtype) {
     Search.prototype.PopulateMovieDetails = function (uname) {
         for (var i = 0; i < MOVIES.length; i++) {
             if (MOVIES[i].UniqueName == uname) {
-                CURRENT_MOVIE = MOVIES[i];
-                //alert("movie details for " + uname + " is here");
+                CURRENT_MOVIE = MOVIES[i]; // assign selected movie to current movie variable                
                 $("#txtUnique").val(MOVIES[i].UniqueName);
                 $("#txtFriendly").val(MOVIES[i].Name);
                 $("#txtSynopsis").val(MOVIES[i].Synopsis);
@@ -187,25 +186,27 @@ var Search = function (placeholder, searchtype) {
                     var posters = JSON.parse(MOVIES[i].Posters);
                     $(".posters-container").append(new Posters().GetPosterContainer(posters));
                 }
+                $(".shortcut-text").html("");
+                $(".shortcut-text").append($("<a/>").html("Save changes").attr("onclick", "search.UpdateMovie();").attr("style", "cursor:pointer; font-weight: bold;color:#5cb85c").attr("title", "click here to save all the changes."));
                 // upload files
                 //$("#poster-upload").attr("onchange", "UploadSelectedFile(this)");
                 //$("#poster-upload").attr("onchange", function () { alert("file uplaed") });
                 //$("#poster-upload").attr("onchange", "search.UploadSelectedFile(this);");
 
-               /* $('#poster-upload').fileupload({
-                    dataType: 'json',
-                    url: '/Home/UploadFile',
-                    autoUpload: true,
-                    done: function (e, data) {
-                        $('.file_name').html(data.result.name);
-                        $('.file_type').html(data.result.type);
-                        $('.file_size').html(data.result.size);
-                    }
-                }).on('fileuploadprogressall', function (e, data) {
-                    var progress = parseInt(data.loaded / data.total * 100, 10);
-                    $('.progress .progress-bar').css('width', progress + '%');
-                });
-                */
+                /* $('#poster-upload').fileupload({
+                     dataType: 'json',
+                     url: '/Home/UploadFile',
+                     autoUpload: true,
+                     done: function (e, data) {
+                         $('.file_name').html(data.result.name);
+                         $('.file_type').html(data.result.type);
+                         $('.file_size').html(data.result.size);
+                     }
+                 }).on('fileuploadprogressall', function (e, data) {
+                     var progress = parseInt(data.loaded / data.total * 100, 10);
+                     $('.progress .progress-bar').css('width', progress + '%');
+                 });
+                 */
                 break;
             }
         }
@@ -213,22 +214,102 @@ var Search = function (placeholder, searchtype) {
         console.log(CURRENT_MOVIE);
     }
 
+    Search.prototype.UpdateMovie = function () {
+        console.log(CURRENT_MOVIE);
 
-    /*Search.prototype.UploadSelectedFile = function (element) {
+        var uniqueName = $("#txtUnique").val();
+        var friendlyName = $("#txtFriendly").val();
+        var synopsis = $("#txtSynopsis").val();
+        var stats = $("#txtBudget").val();
 
-        $('#poster-upload').fileupload({
-            dataType: 'json',
-            url: '/Home/UploadFile',
-            autoUpload: true,
-            done: function (e, data) {
-                $('.file_name').html(data.result.name);
-                $('.file_type').html(data.result.type);
-                $('.file_size').html(data.result.size);
+        if (uniqueName != undefined && uniqueName != "") {
+            CURRENT_MOVIE.UniqueName = uniqueName
+        }
+
+        if (friendlyName != undefined && friendlyName != "") {
+            CURRENT_MOVIE.Name = friendlyName
+        }
+
+        if (synopsis != undefined && synopsis != "") {
+            CURRENT_MOVIE.Synopsis = synopsis
+        }
+
+        if (stats != undefined && stats != "") {
+            CURRENT_MOVIE.Stats = stats
+        }
+
+        // get state
+        $(".form-container").find("input[type='radio']").each(function () {
+            if ($(this).prop('checked') == true) {
+                CURRENT_MOVIE.State = $(this).attr('value').toLowerCase();
             }
-        }).on('fileuploadprogressall', function (e, data) {
-            var progress = parseInt(data.loaded / data.total * 100, 10);
-            $('.progress .progress-bar').css('width', progress + '%');
         });
-    }*/
+
+        //get ratings
+        var myScore = { "teekharating": $("#txtTeekhaRate").val(), "feekharating": $("#txtFeekaRate").val(), "criticrating": $("#txtMyScore").val() };
+        CURRENT_MOVIE.MyScore = JSON.stringify(myScore);
+
+        console.log(CURRENT_MOVIE.MyScore);
+
+        //get artings list
+        var artists = [];
+        $(".artist-grid").find(".artist-grid-row").each(function () {
+            var name = $(this).find(".artist-grid-row-data1").html();
+            var role = $(this).find(".artist-grid-row-data2").find("input").val();
+            var charName = $(this).find(".artist-grid-row-data3").find("input").val();
+
+            artists.push({ "name": name, "role": role, "charactername": charName });
+        });
+
+        if (artists.length > 0)
+            CURRENT_MOVIE.Casts = JSON.stringify(artists);
+
+        //geting posters
+        var posters = [];
+        var selectPoster = null;
+        $(".poster-container").find(".single-poster").each(function () {
+            if ($(this).find("input[type='radio']").prop("checked") == true) {
+                selectPoster = $(this).find("input[type='radio']").attr("id");
+            }
+            else {
+                var poster = $(this).find("input[type='radio']").attr("id");
+                posters.push(poster);
+            }
+        });
+        if (selectPoster != null)
+            posters.push(selectPoster);
+
+        if (posters.length > 0)
+            CURRENT_MOVIE.Posters = JSON.stringify(posters);
+
+        console.log(CURRENT_MOVIE);
+
+        var movie = {
+            "MovieId": CURRENT_MOVIE.MovieId,
+            "Name": CURRENT_MOVIE.Name,
+            "AltNames": CURRENT_MOVIE.AltNames,
+            "Posters": CURRENT_MOVIE.Posters,
+            "Ratings": CURRENT_MOVIE.Ratings,
+            "Synopsis": CURRENT_MOVIE.Synopsis,
+            "Casts": CURRENT_MOVIE.Casts,
+            "Stats": CURRENT_MOVIE.Stats,
+            "Songs": CURRENT_MOVIE.Songs,
+            "Trailers": CURRENT_MOVIE.Trailers,
+            "Pictures": CURRENT_MOVIE.Pictures,
+            "Genre": CURRENT_MOVIE.Genre,
+            "Month": CURRENT_MOVIE.Month,
+            "Year": CURRENT_MOVIE.Year,
+            "UniqueName": CURRENT_MOVIE.UniqueName,
+            "State": CURRENT_MOVIE.State,
+            "MyScore": CURRENT_MOVIE.MyScore,
+            "JsonString": CURRENT_MOVIE.JsonString,
+            "Popularity": CURRENT_MOVIE.Popularity
+        };
+
+        // save movie
+        var movie1 = JSON.stringify(movie);
+        console.log(movie1);
+        CallController("Movie/AddMovie", "hfMovie", movie1, function () { alert("Movie details saved successfully!") });
+    }
 }
 

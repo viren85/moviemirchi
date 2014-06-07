@@ -29,10 +29,8 @@ namespace DataStoreLib.Models
         public string UniqueName { get; set; }
         public string State { get; set; }
         public string MyScore { get; set; }
-
         // For future use
         public string JsonString { get; set; }
-
         public string Popularity { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)

@@ -62,3 +62,16 @@ function CallHandler(queryString, OnComp) {
 }
 
 function OnFail() { }
+
+function CallController(queryString, paramName, data, OnComplete) {    
+    $.ajax({
+        url: BASE_URL + queryString,
+        data: { "hfMovie": data },
+        type: 'POST',
+        dataType: 'json',
+        success: OnComplete,
+        error: OnFail
+    });
+
+    return false;
+}

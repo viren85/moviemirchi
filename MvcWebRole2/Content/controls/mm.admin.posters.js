@@ -23,11 +23,13 @@
     }
 
     Posters.prototype.GetAllPoster = function (posters) {
+        console.log(posters);
         var container = $("<div/>").attr("class", "poster-container");
         if (posters != null && posters != undefined) {
             for (i = 0; i < posters.length; i++) {
                 var singlePoster = $("<div/>").attr("class", "single-poster");
-                var rad = new FormBuilder().GetRadioButton("poster-" + (i + 1), "", "posters", false);
+                //var rad = new FormBuilder().GetRadioButton("poster-" + (i + 1), "", "posters", false);
+                var rad = new FormBuilder().GetRadioButton(posters[i], "", "posters", false);
                 var img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[i]);
                 $(container).append($(singlePoster).append(rad).append(img));
             }

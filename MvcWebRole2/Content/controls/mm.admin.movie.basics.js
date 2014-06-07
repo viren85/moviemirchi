@@ -18,8 +18,8 @@
         var processedSynopsis = new FormBuilder().GetTextArea("txtProcessedSynopsis", "Processed Synopsis", "Processed Synopsis");
         var budget = new FormBuilder().GetTextArea("txtBudget", "Movie Budget/Stats", "Budget");
         // va
-        var stateUpcoming = new FormBuilder().GetRadioButton("rbUpcoming", "Up-Coming", "State", false);
-        var stateNowPlaying = new FormBuilder().GetRadioButton("rbNowPlaying", "Now-Playing", "State", false);
+        var stateUpcoming = new FormBuilder().GetRadioButton("rbUpcoming", "Upcoming", "State", false);
+        var stateNowPlaying = new FormBuilder().GetRadioButton("rbNowPlaying", "Now Playing", "State", false);
         var stateReleased = new FormBuilder().GetRadioButton("rbReleased", "Released", "State", false);
 
 
