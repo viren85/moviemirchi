@@ -189,6 +189,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
+    <Compile Include="Controllers\api\ArtistsController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\Home1Controller.cs" />
@@ -366,6 +367,7 @@
     <Content Include="Views\Reviewer\UpdateAffiliation.cshtml" />
     <Content Include="Views\Reviewer\UpdateReviewer.cshtml" />
     <Content Include="Views\Shared\_AdminMasterLayout.cshtml" />
+    <Content Include="Views\Home\Artists.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

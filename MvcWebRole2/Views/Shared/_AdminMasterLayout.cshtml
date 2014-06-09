@@ -13,7 +13,7 @@
     @Scripts.Render("~/Content/jquery-1.9.1.js")
     @Scripts.Render("~/Content/bootstrap.min.js")
     @Scripts.Render("~/Content/jquery-ui.js") @*added  by vasim for sortable grid*@
-    @Scripts.Render("~/Content/jquery.fileupload.js")    
+    @Scripts.Render("~/Content/jquery.fileupload.js")
     @Scripts.Render("~/Content/controls/mm.admin.core.js")
     @Scripts.Render("~/Content/controls/mm.admin.search.js")
     @Scripts.Render("~/Content/controls/mm.admin.shortcuts.js")
@@ -32,7 +32,18 @@
     <meta name="robots" content="NOODP" />
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <script>
+        function SetActiveTab(tabName) {
+            $(".left-nav").find("li").each(function () {
+                if ($(this).text() == tabName) {
+                    $(this).attr("class", "active");
+                }
+                else {
+                    $(this).removeClass("active");
+                }
+            });
+        }
+    </script>
 </head>
 <body>
 
@@ -54,8 +65,8 @@
     </div>
     <div class="left-nav">
         <ul>
-            <li class="active">Movies</li>
-            <li>Artists</li>
+            <li><a href="/Home">Movies</a></li>
+            <li><a href="/Home/Artists">Artists</a></li>
             <li>Critics</li>
             <li>Crawler</li>
             <li>News</li>
@@ -69,3 +80,4 @@
 
 </body>
 </html>
+

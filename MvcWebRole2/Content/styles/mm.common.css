@@ -33,6 +33,8 @@
 .left-nav ul {float: left; margin: 0px; padding: 0px;list-style:none; width: 100%; }
 .left-nav ul li {height: 100px;border-bottom: 1px solid #368BC1; padding-top: 30px; text-align:center; cursor: pointer;}
 .left-nav ul li:hover, .left-nav ul li.active{color:white; background-color: #368BC1;}
+.left-nav ul li.active a {color: white;}
+.left-nav ul li:hover a {color: white;}
 .section-title{float: left;font-size: 2em;color: #368BC1;margin-bottom: 10px;margin-top: 10px;margin-left: 7%;width: 93%;border-left: 10px solid #368BC1;padding-left: 20px;}
 /*Content area*/
 .movie-container{margin-top: 65px;margin-left:80px;}
