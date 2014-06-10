@@ -37,7 +37,7 @@ namespace MvcWebRole2.Handler
 
                     int posterCount = new MovieCrawler.ImdbCrawler().GetMaxImageCounter(movieName);
 
-                    string newPosterName = movieName + "-poster-" + posterCount + "." + xfileExtention;
+                    string newPosterName = movieName.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
 
                     string folderPath = Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images");
 

@@ -4,4 +4,15 @@
 }
 .single-poster {float:left;width: 130px; height: 130px;margin-bottom: 10px;}
 .single-poster img { float: left; width: 100px; height: 130px;}
-.edit-poster {width: 35%;position: absolute;display: none;background-color: antiquewhite;border-radius: 4px;min-height: 70px;padding: 15px 10px 10px 5px;}
+.edit-poster {width: 22%;
+position: absolute;
+display: none;
+background-color: #000;
+/* border-radius: 4px; */
+min-height: 132px;
+padding: 5px 20px 5px 5px;
+transform: initial;
+z-index: 1;
+opacity: 0.7;
+margin-left: 27px;}
+.single-poster span {color:white;width:30px;}

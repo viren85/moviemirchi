@@ -7,10 +7,9 @@ var Search = function (placeholder, searchtype) {
     var that = this;
     var MOVIES;
     var CURRENT_MOVIE;
-
     var Counter = 0;
-
     var ARTISTS;
+    var CURRENT_ARTIST;
 
     var testData =
         [
@@ -109,9 +108,10 @@ var Search = function (placeholder, searchtype) {
 
             for (i = 0; i < json.length; i++) {
                 //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
-                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
+                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].ArtistId).click(function () {
                     $(".content-container").show();
                     //that.PopulateMovieDetails($(this).attr("un"));
+                    that.PopulateArtistDetail($(this).attr("un"));
                 });
 
                 var img;
@@ -224,14 +224,6 @@ var Search = function (placeholder, searchtype) {
                     var artist = JSON.parse(MOVIES[i].Casts);
                     $(".artists-container").append(new Artists().GetArtistGrid(artist));
 
-                    /*$("#sortable").sortable({
-                        axis: "y",
-                        revert: true,
-                        scroll: false,
-                        placeholder: "sortable-placeholder",
-                        cursor: "move"
-                    });*/
-
                     $(function () {
                         $("#sortable").sortable({ cursor: "move" });
                         $("#sortable").disableSelection();
@@ -244,8 +236,10 @@ var Search = function (placeholder, searchtype) {
                     var posters = JSON.parse(MOVIES[i].Posters);
                     $(".posters-container").append(new Posters().GetPosterContainer(posters));
                 }
-                //$(".shortcut-text").html(""); shortcut - container
-                $(".shortcut-container").append($("<a/>").html("Save changes").attr("onclick", "updateMovie()").attr("class", "btn btn-success").attr("style", "position: absolute;right: 0%;").attr("title", "click here to save all the changes."));
+
+                $(".shortcut-container").html("");
+                $(".shortcut-container").append($("<a/>").html("Save changes").attr("onclick", "updateMovie()").attr("class", "btn btn-success").attr("title", "click here to save all the changes."));
+                $(".shortcut-container").append($("<div>").attr("id", "status"));
                 // upload files
                 $("#poster-upload").attr("onchange", "UploadSelectedFile(this)");
                 break;
@@ -350,8 +344,23 @@ var Search = function (placeholder, searchtype) {
         // save movie
         var movie1 = JSON.stringify(movie);
         //console.log(movie1);
-        CallController("Movie/AddMovie", "hfMovie", movie1, function () { alert("Movie details saved successfully!") });
+        CallController("Movie/AddMovie", "hfMovie", movie1, function () { $("#status").html("Movie details saved successfully!") });
+    }
+
+    // for artist
+    Search.prototype.PopulateArtistDetail = function (uname) {
+        for (var i = 0; i < ARTISTS.length; i++) {
+            if (ARTISTS[i].ArtistId == uname) {
+                new Artists().PopulateArtistDetails(ARTISTS[i]);
+                CURRENT_ARTIST = ARTISTS[i];
+            }
+        }
+    }
+
+    Search.prototype.UpdateArtist = function () {
+        new Artists().UpdateArtistDetails(CURRENT_ARTIST);
     }
 }
 
 function updateMovie() { search.UpdateMovie(); }
+function updateArtist() { search.UpdateArtist(); }

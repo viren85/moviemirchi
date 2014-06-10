@@ -22,6 +22,7 @@
     var search = new Search("Search artists ...");
     var shortcuts = new Shortcuts();
     var movieinfo = new MovieInformation();
+
     var searchContainer = search.GetSearchResultContainer();
 
     $(".search-section").append(search.GetSearchBar("artists"));
@@ -31,9 +32,10 @@
     shortcuts.PrepareShortcuts("shortcut-container");
 
     $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Basic Information"));
-    $(".basic-form-container").append(movieinfo.BuildForm());
-    $("#movie-rating").append(new Rating().GetRatingForm());
+    
+    $(".basic-form-container").append(new Artists().BuildForm());
 
+    $("#movie-rating").append(new Rating().GetRatingForm());
     $("#txtUnique").attr("readonly", "readonly");
 
     //$(".artists-container").append(new Artists().GetArtistGrid(null));

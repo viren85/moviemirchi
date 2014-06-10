@@ -68,6 +68,10 @@ namespace DataStoreLib.Storage
         IDictionary<string, NewsEntity> GetNewsItems();
         IDictionary<NewsEntity, bool> UpdateNewsItemById(IEnumerable<NewsEntity> newsItems);
         #endregion
+
+        #region Artist
+        IDictionary<ArtistEntity, bool> UpdateArtistItemById(IEnumerable<ArtistEntity> movies);
+        #endregion
     }
 
     public static class IStoreHelpers
@@ -725,6 +729,19 @@ namespace DataStoreLib.Storage
             ////}
 
             ////return news;
+        }
+        #endregion
+
+        #region Artists
+        public static bool UpdateArtistById(this IStore store, ArtistEntity artist)
+        {
+            Debug.Assert(artist != null);
+            var list = new List<ArtistEntity> { artist };
+            var retList = store.UpdateArtistItemById(list);
+
+            Debug.Assert(retList.Count == 1);
+            var key = retList.Keys.FirstOrDefault();
+            return (key != null) ? retList[key] : false;
         }
         #endregion
 

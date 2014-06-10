@@ -29,11 +29,11 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddMovie(string hfMovie)
+        public ActionResult AddMovie(string data)
         {
             SetConnectionString();
 
-            if (string.IsNullOrEmpty(hfMovie))
+            if (string.IsNullOrEmpty(data))
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
@@ -46,7 +46,7 @@ namespace MvcWebRole2.Controllers
                 //hfMovie = hfMovie.Replace(newLine, " ").Replace(slash, "").Replace("/", "");
 
                 JavaScriptSerializer json = new JavaScriptSerializer();
-                MovieEntity movie = json.Deserialize(hfMovie, typeof(MovieEntity)) as MovieEntity;
+                MovieEntity movie = json.Deserialize(data, typeof(MovieEntity)) as MovieEntity;
                 
                 if (movie != null)
                 {
@@ -90,18 +90,6 @@ namespace MvcWebRole2.Controllers
                     entity.Popularity = movie.Popularity;
 
                     tableMgr.UpdateMovieById(entity);
-
-                    /*List<Cast> casts = json.Deserialize(entity.Casts, typeof(List<Cast>)) as List<Cast>;
-                    List<String> actors = new List<string>();
-
-                    if (casts != null)
-                    {
-                        //List<string> act = new List<string>();
-                        foreach (var actor in casts)
-                        {
-                            actors.Add(actor.name);
-                        }
-                    }*/
                 }
             }
             catch (Exception ex)

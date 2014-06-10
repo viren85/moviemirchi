@@ -66,7 +66,7 @@ function OnFail() { }
 function CallController(queryString, paramName, data, OnComplete) {
     $.ajax({
         url: BASE_URL + queryString,
-        data: { "hfMovie": data },
+        data: { "data": data },
         type: 'POST',
         dataType: 'json',
         success: OnComplete,

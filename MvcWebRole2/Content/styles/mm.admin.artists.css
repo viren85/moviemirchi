@@ -6,3 +6,8 @@
 .artist-grid-row-data1{float:left;width:41%;}
 .artist-grid-row-data2{float:left;width:25%;}
 .artist-grid-row-data3{float:left;width:33%;}
+#status {width: 30%;
+float: left;
+position: absolute;
+margin-left: 10%;
+margin-top: -2%;}

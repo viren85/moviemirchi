@@ -1,9 +1,15 @@
-﻿using System;
+﻿using DataStoreLib.Models;
+using DataStoreLib.Storage;
+using DataStoreLib.Utils;
+using Microsoft.WindowsAzure;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 
 namespace MvcWebRole2.Controllers
 {
@@ -11,6 +17,15 @@ namespace MvcWebRole2.Controllers
     {
         //
         // GET: /Home/
+
+        #region Set connection string
+        private void SetConnectionString()
+        {
+            var connectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
+            Trace.TraceInformation("Connection str read");
+            ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
+        }
+        #endregion
 
         public ActionResult Index()
         {
@@ -23,49 +38,48 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpPost]
-        public JsonResult UploadFile()
+        public ActionResult UpdateArtists(string data)
         {
-            HttpPostedFileBase myFile = Request.Files["MyFile"];
-            bool isUploaded = false;
-            string message = "File upload failed";
+            SetConnectionString();
 
-            if (myFile != null && myFile.ContentLength != 0)
+            if (string.IsNullOrEmpty(data))
             {
-                string pathForSaving = Server.MapPath("~/Uploads");
-                if (this.CreateFolderIfNeeded(pathForSaving))
-                {
-                    try
-                    {
-                        myFile.SaveAs(Path.Combine(pathForSaving, myFile.FileName));
-                        isUploaded = true;
-                        message = "File uploaded successfully!";
-                    }
-                    catch (Exception ex)
-                    {
-                        message = string.Format("File upload failed: {0}", ex.Message);
-                    }
-                }
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
-        }
-
-        private bool CreateFolderIfNeeded(string path)
-        {
-            bool result = true;
-            if (!Directory.Exists(path))
+            try
             {
-                try
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                ArtistEntity movie = json.Deserialize(data, typeof(ArtistEntity)) as ArtistEntity;
+
+                if (movie != null)
                 {
-                    Directory.CreateDirectory(path);
-                }
-                catch (Exception)
-                {
-                    /*TODO: You must process this exception.*/
-                    result = false;
+                    string uniqueName = movie.ArtistName.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
+
+                    var tableMgr = new TableManager();
+
+                    ArtistEntity entity = new ArtistEntity();
+
+                    entity.RowKey = entity.ArtistId = movie.ArtistId;
+                    entity.ArtistName = movie.ArtistName;
+                    entity.Bio = movie.Bio;
+                    entity.Posters = movie.Posters;
+                    entity.Born = movie.Born;
+                    entity.MovieList = movie.MovieList;                    
+                    entity.UniqueName = movie.UniqueName;                    
+                    entity.MyScore = movie.MyScore;
+                    entity.JsonString = movie.JsonString;
+                    entity.Popularity = movie.Popularity;
+
+                    tableMgr.UpdateArtistById(entity);
                 }
             }
-            return result;
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok", actors = "Actors" }, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -37,8 +37,8 @@
                 var img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[i]);
 
                 // edit poster div
-                var editPoster = $("<div/>").attr("id", i).append(new FormBuilder().GetCheckBox("isActive", "", true));
-                $(editPoster).append($("<div/>").attr("class", "btn btn-danger").attr("style", "float:right").attr("onclick", "RemoveDiv(" + i + ");").html("Delete"));
+                var editPoster = $("<div/>").attr("id", i).append(new FormBuilder().GetCheckBox("isActive", "Active", true));
+                $(editPoster).append($("<div/>").attr("class", "btn btn-danger").attr("style", "float:right;margin-top: 57%;").attr("onclick", "RemoveDiv(" + i + ");").html("Delete"));
                 $(editPoster).attr("class", "edit-poster");
                 $(singlePoster).append(editPoster);
 
