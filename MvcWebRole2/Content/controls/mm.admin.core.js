@@ -63,7 +63,7 @@ function CallHandler(queryString, OnComp) {
 
 function OnFail() { }
 
-function CallController(queryString, paramName, data, OnComplete) {    
+function CallController(queryString, paramName, data, OnComplete) {
     $.ajax({
         url: BASE_URL + queryString,
         data: { "hfMovie": data },
@@ -74,4 +74,64 @@ function CallController(queryString, paramName, data, OnComplete) {
     });
 
     return false;
+}
+
+function UploadSelectedFile(element) {
+
+    var _URL = window.URL || window.webkitURL;
+    var file = element.files[0];
+
+    var sFileExtension = file.name.split('.')[file.name.split('.').length - 1];
+    sFileExtension = sFileExtension.toLowerCase();
+    if (sFileExtension == "jpg" || sFileExtension == "tif" || sFileExtension == "gif" || sFileExtension == "png" || sFileExtension == "jfif" || sFileExtension == "bmp") {
+        var vid = element.id;
+        vid = vid.replace("ctl00_ContentPlaceHolder1_fu_", "");
+
+        if (file.size > 10000000) {
+            alert('File too large!');
+            return false;
+        }
+
+        var xhr = new XMLHttpRequest();
+        var imageFetcher = new XMLHttpRequest();
+        var maxId = 0;
+        var type = "dynamic";
+        var img;
+        if ((file = element.files[0])) {
+            img = new Image();
+            img.onload = function () {
+                xhr.onreadystatechange = function (event) {
+                    var target = event.target ? event.target : event.srcElement;
+                    if (target.readyState == 4) {
+                        if (target.status == 200 || target.status == 304) {
+                            //alert(target.responseText);
+
+                            var ResJSON = [];
+                            ResJSON = JSON.parse(target.responseText);
+                            $("#imgProp").attr("orignal", ResJSON.FileUrl);
+                            new Posters().AddSinglePoster(ResJSON.FileUrl);
+                        }
+                    }
+                };
+
+                xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?movie=' + $("#txtUnique").val(), true);
+                xhr.setRequestHeader('X-FILE-NAME', file.name);
+                xhr.send(file);
+            };
+
+            //alert(_URL.createObjectURL(file));
+            img.id = "UploadedImage";
+            img.src = _URL.createObjectURL(file);
+
+            /*$("#imgLocal").attr("src", _URL.createObjectURL(file));
+            $("#localImg").show();
+
+            $("#status").html("");
+            $("#status").hide();*/
+        }
+    }
+    else {
+        $("#status").html("Please upload valid image file");
+        $("#status").show();
+    }
 }

@@ -23,6 +23,8 @@
         var stateReleased = new FormBuilder().GetRadioButton("rbReleased", "Released", "State", false);
 
 
+        $(formContainer).append(isEnabled);
+
         $(formContainer).append(uniqueName);
         $(formContainer).append(friendlyName);
         $(formContainer).append(synopsis);
@@ -33,7 +35,7 @@
         $(formContainer).append(stateNowPlaying);
         $(formContainer).append(stateReleased);
 
-        $(formContainer).append(isEnabled);
+        //$(formContainer).append(isEnabled);
 
         return formContainer;
     }

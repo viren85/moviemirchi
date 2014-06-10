@@ -742,7 +742,8 @@ namespace MovieCrawler
             return ".jpg";
         }
 
-        private int GetMaxImageCounter(string movieName)
+        //private int GetMaxImageCounter(string movieName)
+        public int GetMaxImageCounter(string movieName)
         {
             string tempImageName = movieName.Replace(" ", "-").ToLower();
             tempImageName += "-poster-*";
@@ -752,7 +753,7 @@ namespace MovieCrawler
             {
                 string regexSearch = new string(Path.GetInvalidFileNameChars()) + new string(Path.GetInvalidPathChars());
                 Regex reg = new Regex(string.Format("[{0}]", Regex.Escape(regexSearch)));
-                tempImageName = reg.Replace(tempImageName, string.Empty);
+                //tempImageName = reg.Replace(tempImageName, string.Empty);
 
                 DirectoryInfo dir = new DirectoryInfo(PosterImagePath);
                 FileInfo[] files = dir.GetFiles(tempImageName);

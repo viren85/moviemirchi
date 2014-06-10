@@ -37,7 +37,7 @@
 /*Content area*/
 .movie-container{margin-top: 65px;margin-left:80px;}
 .content-container{float: left;display:none;}
-.shortcut-container{float:left;width: 100%; height: 30px;padding:10px;margin-left:25px;}
+.shortcut-container{float:left;width: 100%; height: 30px;padding:10px;margin-left:25px;margin-bottom: 16px;}
 .shortcut-container span{ float: left; margin-right: 20px;}
 .shortcut-container ul { list-style: none; margin: 0; padding: 0; float: left; }
 .shortcut-container ul li {float:left; margin-right: 20px;}
@@ -49,4 +49,4 @@ input,textarea{float:left; padding: 5px;outline:none;border-radius:5px;border:1p
 input:focus,textarea:focus{border:1px solid #368BC1;}
 #isEnabled{float: left;min-width: 30px;margin-top: 8px;}
 /*Posters Container*/
-.posters-container{position: absolute; top:95px;right:0%;}
+.posters-container{position: absolute; top:110px;right:0%;}

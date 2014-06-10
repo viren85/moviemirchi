@@ -1,6 +1,7 @@
-﻿input[type="radio"]{
+﻿input[type="radio"], input[type="checkbox"]{
     min-width: 30px;
     float: left;
 }
 .single-poster {float:left;width: 130px; height: 130px;margin-bottom: 10px;}
 .single-poster img { float: left; width: 100px; height: 130px;}
+.edit-poster {width: 35%;position: absolute;display: none;background-color: antiquewhite;border-radius: 4px;min-height: 70px;padding: 15px 10px 10px 5px;}
