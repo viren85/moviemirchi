@@ -7,7 +7,11 @@ var Search = function (placeholder, searchtype) {
     var that = this;
     var MOVIES;
     var CURRENT_MOVIE;
+
     var Counter = 0;
+
+    var ARTISTS;
+
     var testData =
         [
             {
@@ -52,14 +56,14 @@ var Search = function (placeholder, searchtype) {
             }
         ];
 
-    Search.prototype.GetSearchBar = function () {
+    Search.prototype.GetSearchBar = function (type) {
         var searchContainer = $("<div/>").attr("class", "search-container");
         var txtSearch = $("<input/>").attr("class", "search-text").attr("placeholder", placeholder);
         var btnSearch = $("<div/>").attr("class", "btn btn-success").html("Go");
 
         $(txtSearch).keypress(function () {
             if ($(this).val().length > 2) {
-                that.GetSearchResults($(".search-result-container"));
+                that.GetSearchResults($(".search-result-container"), type);
             }
         });
 
@@ -71,7 +75,7 @@ var Search = function (placeholder, searchtype) {
         return $(searchContainer);
     }
 
-    Search.prototype.GetSearchResults = function (searchResultContainer) {
+    Search.prototype.GetSearchResults = function (searchResultContainer, type) {
         // Call the search API from here
         resultContainer = searchResultContainer;
         var searchQuery = $(".search-text").val();
@@ -80,8 +84,61 @@ var Search = function (placeholder, searchtype) {
             queryString = "?q=" + searchQuery;
         }
 
-        CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
+        switch (type) {
+            case "movies":
+                CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
+                break;
+            case "artists":
+                CallHandler("api/Artists" + queryString, this.PopulateArtistsResults);
+                break;
+            default:
+                CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
+                break;
+        }
+
         //this.PopulateSearchResults("[]");
+    }
+
+    Search.prototype.PopulateArtistsResults = function (data) {
+        var json = JSON.parse(data);
+        ARTISTS = json;
+        $(resultContainer).children("ul").remove();
+
+        if (json != null) {
+            var searchResultList = $("<ul/>").attr("class", "search-result-list");
+
+            for (i = 0; i < json.length; i++) {
+                //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
+                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
+                    $(".content-container").show();
+                    //that.PopulateMovieDetails($(this).attr("un"));
+                });
+
+                var img;
+                var posters = JSON.parse(json[i].Posters);
+
+                if (posters.length > 0) {
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[posters.length - 1]).attr("class", "search-item-img");
+                }
+                else {
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+                }
+
+                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ArtistName);
+                //var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                $(item).append(img);
+                $(item).append(movieTitle);
+                //$(item).append(year);
+                $(searchResultList).append(item);
+                //}
+            }
+
+            if (resultContainer == null || resultContainer == "undefined") {
+                resultContainer = $(".search-result-container");
+            }
+
+            $(resultContainer).append(searchResultList);
+        }
     }
 
     Search.prototype.PopulateSearchResults = function (data) {

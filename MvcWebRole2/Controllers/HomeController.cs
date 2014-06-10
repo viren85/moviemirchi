@@ -17,6 +17,11 @@ namespace MvcWebRole2.Controllers
             return View();
         }
 
+        public ActionResult Artists()
+        {
+            return View();
+        }
+
         [HttpPost]
         public JsonResult UploadFile()
         {

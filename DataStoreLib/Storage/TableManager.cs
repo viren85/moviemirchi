@@ -605,6 +605,26 @@ namespace DataStoreLib.Storage
             }
         }
 
+        public IEnumerable<ArtistEntity> GetAllArtist(string artistName)
+        {
+            try
+            {
+                var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
+                var allArtists = artistTable.GetAllItems<ArtistEntity>();
+
+                //Return only those artists who have associated posters.
+                //Associated poster means those artists are popular. Hence they have associated posters
+                if (string.IsNullOrEmpty(artistName))
+                    return allArtists.Values.Where(a => a.Posters.Length > 2);
+                else
+                    return allArtists.Values.Where(a => a.ArtistName.ToLower().Trim() == artistName && a.Posters.Length > 2);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+
         #endregion
     }
 }
