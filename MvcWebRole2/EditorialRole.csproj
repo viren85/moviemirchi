@@ -191,6 +191,7 @@
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\ArtistsController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
+    <Compile Include="Controllers\api\ReviewerController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\Home1Controller.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -231,6 +232,7 @@
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\controls\mm.admin.artists.js" />
     <Content Include="Content\controls\mm.admin.core.js" />
+    <Content Include="Content\controls\mm.admin.crawler.js" />
     <Content Include="Content\controls\mm.admin.movie.basics.js" />
     <Content Include="Content\controls\mm.admin.posters.js" />
     <Content Include="Content\controls\mm.admin.rating.js" />
@@ -372,6 +374,8 @@
     <Content Include="Views\Reviewer\UpdateReviewer.cshtml" />
     <Content Include="Views\Shared\_AdminMasterLayout.cshtml" />
     <Content Include="Views\Home\Artists.cshtml" />
+    <Content Include="Views\Home\Critics.cshtml" />
+    <Content Include="Views\Home\Crawler.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

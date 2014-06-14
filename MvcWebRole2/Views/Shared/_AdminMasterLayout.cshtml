@@ -7,8 +7,9 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Mirchi :: Admin Panel</title>
-    @Styles.Render("~/Content/bootstrap.min.css")
+    <title>Movie Mirchi :: Admin Panel</title>    
+    @Styles.Render("~/Content/bootstrap.min.css")    
+    @Styles.Render("~/Content/jquery-ui.css")
     @*@Styles.Render("~/Content/bootstrap-responsive.css")*@
     @Scripts.Render("~/Content/jquery-1.9.1.js")
     @Scripts.Render("~/Content/bootstrap.min.js")
@@ -21,11 +22,14 @@
     @Scripts.Render("~/Content/controls/mm.admin.rating.js")
     @Scripts.Render("~/Content/controls/mm.admin.artists.js")
     @Scripts.Render("~/Content/controls/mm.admin.posters.js")
+    @Scripts.Render("~/Content/controls/mm.admin.reviewer.js")
+    @Scripts.Render("~/Content/controls/mm.admin.crawler.js")
 
     @Styles.Render("~/Content/styles/mm.common.css")
     @Styles.Render("~/Content/styles/mm.admin.search.css")
     @Styles.Render("~/Content/styles/mm.admin.artists.css")
     @Styles.Render("~/Content/styles/mm.admin.posters.css")
+    
     @*@Scripts.Render("~/Content/movie.core.js")
         @Styles.Render("~/Content/movie.style.css")
         @Scripts.Render("~/Content/movie.autocomplete.js")*@
@@ -67,8 +71,8 @@
         <ul>
             <li><a href="/Home">Movies</a></li>
             <li><a href="/Home/Artists">Artists</a></li>
-            <li>Critics</li>
-            <li>Crawler</li>
+            <li><a href="/Home/Critics">Critics</a></li>
+            <li><a href="/Home/Crawler">Crawler</a></li>
             <li>News</li>
             <li>Twitter</li>
         </ul>

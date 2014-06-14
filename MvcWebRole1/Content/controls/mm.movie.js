@@ -88,7 +88,7 @@ var ShowMovieDetails = function (movie) {
         //$("#item3").remove();
     }
 
-    $(movieDetalis).append(new RatingControl().GetRatingControl(movie.MyScore));
+    $(movieDetalis).append(new RatingControl().GetRatingControl(JSON.parse(movie.MyScore)));
     $(movieDetalis).append(GetMovieSynopsis(movie.Synopsis));
     $(movieDetalis).append(GetMovieGenre(movie.Genre));
     $(movieDetalis).append(GetMovieCast(CleanCastString(cast)));

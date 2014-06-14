@@ -11,6 +11,9 @@ var Search = function (placeholder, searchtype) {
     var ARTISTS;
     var CURRENT_ARTIST;
 
+    var CRITICS;
+    var CURRENT_CRITIC;
+
     var testData =
         [
             {
@@ -89,6 +92,12 @@ var Search = function (placeholder, searchtype) {
                 break;
             case "artists":
                 CallHandler("api/Artists" + queryString, this.PopulateArtistsResults);
+                break;
+            case "critics": 
+                CallHandler("api/Reviewer" + queryString, this.PopulateCriticsResult);
+                break;
+            case "crawler":
+                CallHandler("api/Movies" + queryString, this.PopulateCrawlerResults);
                 break;
             default:
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
@@ -360,7 +369,111 @@ var Search = function (placeholder, searchtype) {
     Search.prototype.UpdateArtist = function () {
         new Artists().UpdateArtistDetails(CURRENT_ARTIST);
     }
+    //end
+
+    Search.prototype.PopulateCriticsResult = function (data) {
+        var json = JSON.parse(data);
+        CRITICS = json;
+        $(resultContainer).children("ul").remove();
+
+        if (json != null) {
+            var searchResultList = $("<ul/>").attr("class", "search-result-list");
+
+            for (i = 0; i < json.length; i++) {
+                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].ReviewerId).click(function () {
+                    $(".content-container").show();
+                    that.PopulateCriticsDetail($(this).attr("un"));                    
+                });
+
+                var img;
+                //var posters = JSON.parse(json[i].Posters);
+
+                if (json[i].ReviewerImage == "no")
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+                else
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/critic/" + json[i].ReviewerImage).attr("class", "search-item-img");
+
+                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ReviewerName);
+                //var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                $(item).append(img);
+                $(item).append(movieTitle);
+                //$(item).append(year);
+                $(searchResultList).append(item);
+                //}
+            }
+
+            if (resultContainer == null || resultContainer == "undefined") {
+                resultContainer = $(".search-result-container");
+            }
+
+            $(resultContainer).append(searchResultList);
+        }
+    }
+
+    Search.prototype.PopulateCriticsDetail = function (criticsId) {
+        for (var i = 0; i < CRITICS.length; i++) {
+            if (CRITICS[i].ReviewerId == criticsId) {
+                new Reviewer().PopulateReviewerDetails(CRITICS[i]);
+                CURRENT_CRITIC = CRITICS[i];
+            }
+        }
+    }
+
+    Search.prototype.UpdateCritics = function () {
+        new Reviewer().UpdateReviewer(CURRENT_CRITIC);
+    }
+
+    // crawler
+    Search.prototype.PopulateCrawlerResults = function (data) {
+        // Prepare search result UI from this function
+        var json = JSON.parse(data);
+        MOVIES = json;
+        $(resultContainer).children("ul").remove();
+        //Comment following line once API is functional
+        //json = testData;
+        if (json != null) {
+            var searchResultList = $("<ul/>").attr("class", "search-result-list");
+
+            for (i = 0; i < json.length; i++) {
+                //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
+                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
+                    $(".content-container").show();
+                    //that.PopulateMovieDetails($(this).attr("un"));
+                });
+
+                var img;
+                var posters = JSON.parse(json[i].Posters);
+
+                if (posters.length > 0) {
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[posters.length - 1]).attr("class", "search-item-img");
+                }
+                else {
+                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+                }
+
+                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
+                var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                $(item).append(img);
+                $(item).append(movieTitle);
+                $(item).append(year);
+                $(searchResultList).append(item);
+                //}
+            }
+
+            if (resultContainer == null || resultContainer == "undefined") {
+                resultContainer = $(".search-result-container");
+            }
+
+            $(resultContainer).append(searchResultList);
+        }
+    }
+
+    Search.prototype.SaveXMLFile = function () {
+        new Crawler().SaveXmlFileCrawl();
+    }
 }
 
 function updateMovie() { search.UpdateMovie(); }
 function updateArtist() { search.UpdateArtist(); }
+function updateCritics() { search.UpdateCritics(); }
+function saveXmlFile() { search.SaveXMLFile(); }

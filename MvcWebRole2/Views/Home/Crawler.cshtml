@@ -1,0 +1,73 @@
+﻿@{
+    ViewBag.Title = "Crawler";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div class="movie-container">
+
+    <div class="search-section">
+
+    </div>
+    <div class="content-container">
+        <div class="shortcut-container"></div>
+        <div class="basic-form-container"></div>
+        <div id="movie-rating" class="form-container"></div>
+        <div class="artists-container"></div>
+        <div class="posters-container"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    SetActiveTab("Crawler");
+    var search = new Search("Search crawler ...");
+    var shortcuts = new Shortcuts();
+    var movieinfo = new MovieInformation();
+
+    var searchContainer = search.GetSearchResultContainer();
+
+    $(".search-section").append(search.GetSearchBar("crawler"));
+    $(".search-section").append(searchContainer);
+
+    search.GetSearchResults(searchContainer, "crawler");
+    shortcuts.PrepareShortcuts("shortcut-container");
+
+    $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Basic Information"));
+
+    $(".basic-form-container").append(new Crawler().BuildForm());
+    $("#txtMonth").attr("readonly", "readonly");
+
+    $("#txtMovieLink").change(function () {
+        if ($("#txtMovieLink").val() != "") {
+            if (!IsValidURL($("#txtMovieLink").val())) {
+                $("#txtMovieLink").focus();
+                $("#txtMovieLink").val("");
+                $("#txtMovieLink").attr("style", "border-color:red;");
+            }
+            else {
+                $("#txtMovieLink").attr("style", "border-color:#368BC1;");
+            }
+
+            if (!IsURLExists($("#txtMovieLink").val())) {
+                $("#txtMovieLink").focus();
+                $("#txtMovieLink").val("");
+                $("#txtMovieLink").attr("style", "border-color:red;");
+            }
+            else {
+                $("#txtMovieLink").attr("style", "border-color:#368BC1;");
+            }
+        }
+    });
+
+    $(".shortcut-container").html("");
+    $(".shortcut-container").append($("<div>").attr("id", "status"));
+
+    //$("#movie-rating").append(new Rating().GetRatingForm());
+    //$("#txtUnique").attr("readonly", "readonly");
+
+    //$(".artists-container").append(new Artists().GetArtistGrid(null));
+    //$(".posters-container").append(new Posters().GetPosterContainer());
+
+    //file uploader
+    //$("#poster-upload").attr("onchange", search.UploadSelectedFile(this));
+
+</script>

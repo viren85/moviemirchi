@@ -87,7 +87,8 @@
     background-size: 15px 25px;
     /*margin-top: 10px;*/
 }
-.red-gray-mirchi{
+
+.red-gray-mirchi {
     float: left;
     width: 15px;
     height: 25px;
@@ -95,13 +96,68 @@
     background-size: 15px 25px;
     margin-bottom: 3px;
 }
-.green-gray-mirchi{
+
+.green-gray-mirchi {
     float: left;
     width: 15px;
     height: 25px;
     background-image: url('/Images/GreenGrayChilli.png');
     background-size: 15px 25px;
 }
+
+/*added by vasim*/
+.rate {
+    float: left;
+    width: 80px;
+    height: 50px;
+    background-image: url('/Images/mirchi-sprite.png');
+    /*background-size: 15px 25px;*/
+    /*margin-top: 10px;*/
+    margin-bottom: 3px;
+}
+
+.rate-1 {
+    background-position: -87px 0px;
+}
+
+.rate-2 {
+    background-position: -170px 0px;
+}
+
+.rate-3 {
+    background-position: -254px 0px;
+}
+
+.rate-4 {
+    background-position: -337px 0px;
+}
+
+.rate-5 {
+    background-position: -422px 0px;
+}
+
+.rate-6 {
+    background-position: -506px 0px;
+    /*width: 215px;*/
+}
+
+.rate-7 {
+    background-position: -587px 0px;
+}
+
+.rate-8 {
+    background-position: -668px 0px;
+}
+
+.rate-9 {
+    background-position: -749px 0px;
+}
+
+.rate-10 {
+    background-position: -830px 0px;
+}
+/*end*/
+
 /* End - Rating Control */
 @media screen and (min-width: 768px) {
 }

@@ -5,7 +5,9 @@ namespace DataStoreLib.Storage
     using Microsoft.WindowsAzure.Storage.Table;
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Diagnostics;
+    using System.IO;
     using System.Linq;
 
     public class TableManager : IStore
@@ -316,6 +318,41 @@ namespace DataStoreLib.Storage
 
             var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName) as ReviewerTable;
             return reviewTable.GetAllReviewers<ReviewerEntity>();
+        }
+
+        public IEnumerable<ReviewerEntity> GetAllReviewer(string reviewerName)
+        {
+            try
+            {
+                var reviewerTable = TableStore.Instance.GetTable(TableStore.ReviewerTableName) as ReviewerTable;
+                var allReviewer = reviewerTable.GetAllItems<ReviewerEntity>();
+
+                foreach (ReviewerEntity re in allReviewer.Values)
+                {
+                    var path = Path.Combine(ConfigurationManager.AppSettings["ImagePath"],@"Posters\Images\critic");                    
+                    DirectoryInfo dirInfo = new DirectoryInfo(path);
+
+                    var filePattern = re.ReviewerName.Replace(" ", "-").ToLower() + "*";
+
+                    FileInfo[] files = dirInfo.GetFiles(filePattern);
+
+                    if (files.Length > 0)
+                        re.ReviewerImage = files[0].Name;
+                    else
+                        re.ReviewerImage = "no";
+                }
+
+                //Return only those artists who have associated posters.
+                //Associated poster means those artists are popular. Hence they have associated posters
+                if (string.IsNullOrEmpty(reviewerName))
+                    return allReviewer.Values.OrderBy(a => a.ReviewerName);
+                else
+                    return allReviewer.Values.Where(a => a.ReviewerName.ToLower().Trim().Contains(reviewerName));
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         #endregion

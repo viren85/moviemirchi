@@ -39,6 +39,7 @@ namespace DataStoreLib.Storage
 
         #region Reviewer
         IDictionary<string, ReviewerEntity> GetAllReviewer();
+        IEnumerable<ReviewerEntity> GetAllReviewer(string reviewerName);
         IDictionary<string, ReviewerEntity> GetReviewersById(IEnumerable<string> id);
         IDictionary<ReviewerEntity, bool> UpdateReviewers(IEnumerable<ReviewerEntity> reviewer);
         #endregion

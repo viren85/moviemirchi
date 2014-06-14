@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtistCrawler.cs" />
+    <Compile Include="GenerateXMLFile.cs" />
     <Compile Include="ReviewCrawler.cs" />
     <Compile Include="Reviews\FilmfareReviews.cs" />
     <Compile Include="Reviews\HindustanTimesReviews.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="ImdbCrawler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Util.cs" />
+    <Compile Include="XMLMovieFileProperties.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DataStoreLib\DataStoreLib.csproj">

@@ -134,9 +134,9 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddReviewer(string reviewerJson)
+        public ActionResult AddReviewer(string data)
         {
-            if (string.IsNullOrEmpty(reviewerJson))
+            if (string.IsNullOrEmpty(data))
             {
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
@@ -144,22 +144,18 @@ namespace MvcWebRole2.Controllers
             try
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
-                ReviewerEntity reviewer = json.Deserialize(reviewerJson, typeof(ReviewerEntity)) as ReviewerEntity;
+                ReviewerEntity reviewer = json.Deserialize(data, typeof(ReviewerEntity)) as ReviewerEntity;
 
                 if (reviewer != null)
                 {
                     SetConnectionString();
-                    ReviewerEntity entity = new ReviewerEntity();
-
-                    entity.RowKey = entity.ReviewerId = Guid.NewGuid().ToString();
-                    entity.ReviewerName = reviewer.ReviewerName;
-                    entity.ReviewerImage = reviewer.ReviewerImage;
-
                     TableManager tblMgr = new TableManager();
 
-                    var affiliation = tblMgr.GetAffilationById(reviewer.Affilation); // use as a id
-                    
-                    entity.Affilation = json.Serialize(affiliation);
+                    ReviewerEntity entity = new ReviewerEntity();
+                    entity.RowKey = entity.ReviewerId = reviewer.ReviewerId;
+                    entity.ReviewerName = reviewer.ReviewerName;
+                    entity.ReviewerImage = reviewer.ReviewerImage;
+                    entity.Affilation = reviewer.Affilation;
 
                     tblMgr.UpdateReviewerById(entity);                    
                 }
