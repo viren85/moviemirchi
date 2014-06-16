@@ -104,11 +104,14 @@ namespace MvcWebRole2.Controllers
         }
         #endregion
 
+        #region Critics
         public ActionResult Critics()
         {
             return View();
         }
+        #endregion
 
+        #region Crawler
         [HttpGet]
         public ActionResult Crawler()
         {
@@ -152,5 +155,22 @@ namespace MvcWebRole2.Controllers
 
             return Json(new { Status = "Ok", actors = "Actors" }, JsonRequestBehavior.AllowGet);
         }
+        #endregion
+
+        #region New section
+        [HttpGet]
+        public ActionResult News()
+        {
+            return View();
+        }
+        #endregion
+
+        #region Tweeter section
+        [HttpGet]
+        public ActionResult Twitter()
+        {
+            return View();
+        }
+        #endregion
     }
 }

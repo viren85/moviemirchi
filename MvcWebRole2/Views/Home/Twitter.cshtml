@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Twitter";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+<div class="movie-container">
+    <div class="search-section">
+    </div>
+
+    <div class="content-container">
+        <div class="shortcut-container"></div>
+        <div class="twitter-container"></div>
+        <div class="twitter-buttons"></div>
+    </div>
+
+</div>
+<script type="text/javascript">
+    SetActiveTab("Twitter");
+    var search = new Search("Search twitter ...");
+    var shortcuts = new Shortcuts();
+    var movieinfo = new MovieInformation();
+
+    var searchContainer = search.GetSearchResultContainer();
+
+    $(".search-section").append(search.GetSearchBar("twitter"));
+    $(".search-section").append(searchContainer);
+
+    search.GetSearchResults(searchContainer, "twitter");
+    shortcuts.PrepareShortcuts("shortcut-container");
+
+    $(".shortcut-container").html("");
+    $(".shortcut-container").append($("<div/>").attr("class", "btn btn-success").html("Crawl Twitter"));
+    $(".shortcut-container").append($("<div>").attr("id", "status"));
+
+    $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right:10px;").html("Save"));
+    $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-danger").html("Delete"));
+</script>

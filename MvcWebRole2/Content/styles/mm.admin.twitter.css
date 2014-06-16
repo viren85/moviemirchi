@@ -1,0 +1,92 @@
+﻿.twitter-container {
+}
+
+.twitter-grid {
+    float: left;
+    width: 860px;
+    margin-left: 35px;
+}
+
+.twitter-grid-header {
+    float: left;
+    width: 100%;
+    padding: 5px;
+    background-color: #368BC1;
+    color: white;
+}
+
+.twitter-grid-column1 {
+    float: left;
+    width: 8%;
+    text-align: center;
+}
+
+.twitter-grid-column2 {
+    float: left;
+    width: 50%;
+    text-align: center;
+}
+
+.twitter-grid-column3 {
+    float: left;
+    width: 20%;
+    text-align: left;
+}
+
+.twitter-grid-column4 {
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+
+.twitter-grid-row {
+    float: left;
+    width: 100%;
+    background-color: white;
+    height: auto;
+    padding: 5px;
+}
+
+    .twitter-grid-row:hover {
+        background-color: #eee;
+        cursor: pointer;
+    }
+
+.twitter-grid-row-data1 {
+    float: left;
+    width: 8%;
+}
+
+.twitter-grid-row-data2 {
+    float: left;
+    width: 50%;
+}
+
+.twitter-grid-row-data3 {
+    float: left;
+    width: 20%;
+}
+
+.twitter-grid-row-data4 {
+    float: left;
+    width: 20%;
+}
+
+.twitter-section-title {
+    float: left;
+    font-size: 2em;
+    color: #368BC1;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-left: 4%;
+    width: 93%;
+    border-left: 10px solid #368BC1;
+    padding-left: 20px;
+}
+
+.twitter-buttons {
+    float: left;
+    margin-left: 25px;
+    padding: 10px;
+    margin-bottom: 20px;
+}

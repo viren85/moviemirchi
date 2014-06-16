@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "News";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+<div class="movie-container">
+    <div class="search-section">
+    </div>
+
+    @*<div class="content-container">
+        <div class="shortcut-container"></div>
+        <div class="basic-form-container"></div>
+        <div id="movie-rating" class="form-container"></div>
+        <div class="artists-container"></div>
+        <div class="posters-container"></div>
+    </div>*@
+    <div class="content-container">
+        <div class="shortcut-container"></div>        
+        <div class="news-container"></div>    
+        <div class="news-buttons"></div>        
+    </div>
+
+</div>
+<script type="text/javascript">
+    SetActiveTab("News");
+    var search = new Search("Search news ...");
+    var shortcuts = new Shortcuts();
+    var movieinfo = new MovieInformation();
+
+    var searchContainer = search.GetSearchResultContainer();
+
+    $(".search-section").append(search.GetSearchBar("news"));
+    $(".search-section").append(searchContainer);
+
+    search.GetSearchResults(searchContainer, "news");
+    shortcuts.PrepareShortcuts("shortcut-container");
+
+    $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Manage news"));
+    //$(".basic-form-container").append(new Crawler().BuildForm());
+
+    $(".shortcut-container").html("");
+    $(".shortcut-container").append($("<div/>").attr("class", "btn btn-success").html("Crawl News"));
+    $(".shortcut-container").append($("<div>").attr("id", "status"));
+
+    $(".news-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style","margin-right:10px;").html("Save"));
+    $(".news-buttons").append($("<div/>").attr("class", "btn btn-danger").html("Delete"));
+</script>

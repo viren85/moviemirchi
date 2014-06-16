@@ -93,11 +93,17 @@ var Search = function (placeholder, searchtype) {
             case "artists":
                 CallHandler("api/Artists" + queryString, this.PopulateArtistsResults);
                 break;
-            case "critics": 
+            case "critics":
                 CallHandler("api/Reviewer" + queryString, this.PopulateCriticsResult);
                 break;
             case "crawler":
                 CallHandler("api/Movies" + queryString, this.PopulateCrawlerResults);
+                break;
+            case "news":
+                CallHandler("api/News?start=0&page=20", this.PopulateNewsResults);
+                break;
+            case "twitter":
+                CallHandler("api/Twitter?start=0&page=20", this.PopulateTwitterResults);
                 break;
             default:
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
@@ -382,7 +388,7 @@ var Search = function (placeholder, searchtype) {
             for (i = 0; i < json.length; i++) {
                 var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].ReviewerId).click(function () {
                     $(".content-container").show();
-                    that.PopulateCriticsDetail($(this).attr("un"));                    
+                    that.PopulateCriticsDetail($(this).attr("un"));
                 });
 
                 var img;
@@ -470,6 +476,16 @@ var Search = function (placeholder, searchtype) {
 
     Search.prototype.SaveXMLFile = function () {
         new Crawler().SaveXmlFileCrawl();
+    }
+
+    Search.prototype.PopulateNewsResults = function (data) {
+        $(".content-container").show();
+        $(".news-container").append(new News().GetNewsGrid(data));
+    }
+
+    Search.prototype.PopulateTwitterResults = function (data) {
+        $(".content-container").show();
+        $(".twitter-container").append(new Twitter().GetTwitterGrid(data));
     }
 }
 

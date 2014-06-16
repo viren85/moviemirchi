@@ -31,7 +31,7 @@
     search.GetSearchResults(searchContainer, "crawler");
     shortcuts.PrepareShortcuts("shortcut-container");
 
-    $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Basic Information"));
+    $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Add new movie to crawl"));
 
     $(".basic-form-container").append(new Crawler().BuildForm());
     $("#txtMonth").attr("readonly", "readonly");
