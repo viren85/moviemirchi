@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStoreLib.BlobStorage;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
@@ -37,6 +38,8 @@ namespace MvcWebRole2.Handler
 
                     int posterCount = new MovieCrawler.ImdbCrawler().GetMaxImageCounter(movieName);
 
+                    posterCount = new BlobStorageService().GetFileCounter("poster", movieName.Replace(" ", "-").ToLower() + "-poster-");
+
                     string newPosterName = movieName.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
 
                     string folderPath = Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images");
@@ -52,6 +55,10 @@ namespace MvcWebRole2.Handler
                     FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
                     inputStream.CopyTo(fileStream);
                     fileStream.Close();
+
+                    // upload file on blob
+                    string uploadedFile = new BlobStorageService().UploadFileOnBlob(newPosterName, context.Request.InputStream, "poster");
+                    //new BlobStorageService().UploadFileOnBlob(xFileName, context.Request.InputStream, "poster");
 
                     context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = newPosterName }));
                 }

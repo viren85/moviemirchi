@@ -55,7 +55,7 @@ namespace Crawler
 
                     month.AppendChild(AddMovieNode(documnet, objMovie));
                     root.AppendChild(month);
-                    documnet.AppendChild(root);                   
+                    documnet.AppendChild(root);
                 }
 
                 documnet.Save(filePath);
@@ -123,11 +123,65 @@ namespace Crawler
                 }
             }
             catch (Exception ex)
-            {                
-                
+            {
+
             }
 
             return null;
+        }
+
+        public List<XMLMovieProperties> GetMoviesFromXml(string[] files)
+        {
+            try
+            {
+                List<XMLMovieProperties> movieList = new List<XMLMovieProperties>();
+
+                foreach (string file in files)
+                {
+                    XmlDocument documnet = new XmlDocument();
+
+                    documnet.Load(file);
+
+                    var root = documnet.SelectSingleNode("Movies");
+                    var monthNode = root.SelectSingleNode("Month");
+                    var movieNodes = monthNode.SelectNodes("Movie");
+
+                    foreach (XmlNode movieNode in movieNodes)
+                    {
+                        XMLMovieProperties singleMovie = new XMLMovieProperties();
+                        singleMovie.MovieId = Guid.NewGuid().ToString();
+                        singleMovie.Month = monthNode.Attributes["name"].Value;
+                        singleMovie.Year = Convert.ToInt32(root.Attributes["year"].Value);
+
+                        singleMovie.MovieName = movieNode.Attributes["name"].Value;
+                        singleMovie.MovieLink = movieNode.Attributes["link"].Value;
+
+                        var reviewNodes = movieNode.SelectNodes("Review");
+
+                        List<XMLReivewProperties> reviewList = new List<XMLReivewProperties>();
+
+                        foreach (XmlNode reviewNode in reviewNodes)
+                        {
+                            XMLReivewProperties review = new XMLReivewProperties();
+
+                            review.Name = reviewNode.Attributes["name"].Value;
+                            review.Link = reviewNode.Attributes["link"].Value;
+
+                            reviewList.Add(review);
+                        }
+
+                        singleMovie.Reviews = reviewList;
+
+                        movieList.Add(singleMovie);
+                    }
+                }
+
+                return movieList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

@@ -16,9 +16,9 @@ namespace DataStoreLib.Models
         public string PublishDate { get; set; }
         public string Source { get; set; }
         public string MovieName { get; set; }
-
         public string ArtistName { get; set; }
         public string FutureJson { get; set; }
+        public bool  IsActive { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
@@ -27,15 +27,14 @@ namespace DataStoreLib.Models
             NewsId = ReadString(properties, "NewsId");
             Title = ReadString(properties, "Title");
             Description = ReadString(properties, "Description");
-
             Image = ReadString(properties, "Image");
             Link = ReadString(properties, "Link");
             PublishDate = ReadString(properties, "PublishDate");
             Source = ReadString(properties, "Source");
-
             MovieName = ReadString(properties, "MovieName");
             ArtistName = ReadString(properties, "ArtistName");
             FutureJson = ReadString(properties, "FutureJson");
+            IsActive = ReadBool(properties, "IsActive");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -45,7 +44,6 @@ namespace DataStoreLib.Models
             WriteString(dict, "NewsId", NewsId);
             WriteString(dict, "Title", Title);
             WriteString(dict, "Description", Description);
-
             WriteString(dict, "Image", Image);
             WriteString(dict, "Link", Link);
             WriteString(dict, "PublishDate", PublishDate);
@@ -53,6 +51,8 @@ namespace DataStoreLib.Models
             WriteString(dict, "MovieName", MovieName);
             WriteString(dict, "ArtistName", ArtistName);
             WriteString(dict, "FutureJson", FutureJson);
+            WriteBool(dict, "IsActive", IsActive);
+
             return dict;
         }
         public NewsEntity()
@@ -69,7 +69,6 @@ namespace DataStoreLib.Models
             NewsId = entity.NewsId;
             Title = entity.Title;
             Description = entity.Description;
-
             Image = entity.Image;
             Link = entity.Link;
             PublishDate = entity.PublishDate;
@@ -77,6 +76,7 @@ namespace DataStoreLib.Models
             MovieName = entity.MovieName;
             ArtistName = entity.ArtistName;
             FutureJson = entity.FutureJson;
+            IsActive = entity.IsActive;
         }
 
         public override string GetKey()
@@ -84,7 +84,7 @@ namespace DataStoreLib.Models
             return this.NewsId;
         }
 
-        public static NewsEntity CreateNewsEntity(string title, string description, string image, string link, string publishDate, string source, string movieName, string artistName, string futureJson)
+        public static NewsEntity CreateNewsEntity(string title, string description, string image, string link, string publishDate, string source, string movieName, string artistName, string futureJson, bool isActive)
         {
             var newsId = Guid.NewGuid().ToString();
             var newsEntity = new NewsEntity(newsId);
@@ -97,7 +97,7 @@ namespace DataStoreLib.Models
             newsEntity.ArtistName = movieName;
             newsEntity.MovieName = artistName;
             newsEntity.FutureJson = futureJson;
-
+            newsEntity.IsActive = isActive;
             return newsEntity;
         }
     }

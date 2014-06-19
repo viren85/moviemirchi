@@ -140,7 +140,7 @@ namespace MvcWebRole2.Controllers
                     entity.MovieName = movieProps.MovieName;
                     entity.MovieLink = movieProps.MovieLink;
                     entity.Year = Convert.ToInt32(movieProps.Month.Split(new char[] { ' ' })[1]);
-                    entity.Month = movieProps.Month;
+                    entity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
                     entity.Reviews = movieProps.Reviews;
 
                     string xmlFilePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
@@ -163,6 +163,80 @@ namespace MvcWebRole2.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult DeleteNews(string data)
+        {
+            SetConnectionString();
+
+            if (string.IsNullOrEmpty(data))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                List<string> newsIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
+
+                if (newsIds != null)
+                {
+                    TableManager tabmgr = new TableManager();
+                    tabmgr.DeleteNewsItemById(newsIds);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok", Message = "Selected news deleted successfully." }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SetActiveNews(string data)
+        {
+            SetConnectionString();
+
+            if (string.IsNullOrEmpty(data))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                List<string> newsIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
+
+                if (newsIds != null)
+                {
+                    TableManager tabmgr = new TableManager();
+                    var newsEntity = tabmgr.GetNewsById(newsIds);
+
+                    if (newsEntity != null)
+                    {
+                        List<NewsEntity> updatedList = new List<NewsEntity>();
+
+                        foreach (NewsEntity news in newsEntity.Values)
+                        {
+                            news.IsActive = true;
+                            updatedList.Add(news);
+                        }
+
+                        tabmgr.UpdateNewsById(updatedList);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok", Message = "Selected news updated successfully." }, JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region Tweeter section
@@ -170,6 +244,83 @@ namespace MvcWebRole2.Controllers
         public ActionResult Twitter()
         {
             return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult DeleteTwitt(string data)
+        {
+            SetConnectionString();
+
+            if (string.IsNullOrEmpty(data))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                List<string> newsIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
+
+                if (newsIds != null)
+                {
+                    TableManager tabmgr = new TableManager();
+                    tabmgr.DeleteTwitterItemById(newsIds);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok", Message = "Selected news deleted successfully." }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult SetActiveTwitt(string data)
+        {
+            SetConnectionString();
+
+            if (string.IsNullOrEmpty(data) || data == null)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                List<string> twittIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
+
+                if (twittIds != null)
+                {
+                    TableManager tabmgr = new TableManager();
+
+                    List<TwitterEntity> updatedList = new List<TwitterEntity>();
+                    foreach (string twittId in twittIds)
+                    {
+                        var newsEntity = tabmgr.GetTweetById(twittId);
+
+                        if (newsEntity != null)
+                        {
+                            foreach (TwitterEntity news in newsEntity.Values)
+                            {
+                                news.IsActive = true;
+                                updatedList.Add(news);
+                            }                            
+                        }
+                    }
+
+                    tabmgr.UpdateTweetById(updatedList);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok", Message = "Selected news updated successfully." }, JsonRequestBehavior.AllowGet);
         }
         #endregion
     }

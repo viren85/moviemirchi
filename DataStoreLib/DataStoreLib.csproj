@@ -47,6 +47,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BlobStorage\BlobStorageService.cs" />
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Models\AffilationEntity.cs" />
     <Compile Include="Models\IDataStoreTableEntity.cs" />

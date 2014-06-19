@@ -3,6 +3,7 @@ namespace DataStoreLib.Storage
 {
     using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage.Table;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
 
@@ -47,6 +48,36 @@ namespace DataStoreLib.Storage
             }
 
             return returnDict;
+        }
+
+        public bool DeleteTwitterById(List<string> twitterIds)
+        {
+            try
+            {
+                var twitterEntities = GetItemsById<TwitterEntity>(twitterIds, TwitterEntity.PARTITION_KEY);
+
+                foreach (var twitterEntity in twitterEntities)
+                {
+                    if (twitterEntity.Value != null)
+                    {
+                        try
+                        {
+                            var tableOperation = TableOperation.Delete(twitterEntity.Value);
+                            _table.Execute(tableOperation);
+                        }
+                        catch (Exception)
+                        {
+                            Trace.TraceError("Couldn't delete entity id {0}", twitterEntity.Value.TwitterId);
+                        }
+                    }
+                }
+
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

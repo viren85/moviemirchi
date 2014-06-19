@@ -41,6 +41,10 @@
     $(".shortcut-container").append($("<div/>").attr("class", "btn btn-success").html("Crawl News"));
     $(".shortcut-container").append($("<div>").attr("id", "status"));
 
-    $(".news-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style","margin-right:10px;").html("Save"));
-    $(".news-buttons").append($("<div/>").attr("class", "btn btn-danger").html("Delete"));
+    $(".news-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right:10px;").html("Active").click(function () {
+        new News().SetNewsActive();
+    }));
+    $(".news-buttons").append($("<div/>").attr("class", "btn btn-danger").html("Delete").click(function () {
+        new News().DeleteNews();
+    }));
 </script>

@@ -31,6 +31,11 @@
     $(".shortcut-container").append($("<div/>").attr("class", "btn btn-success").html("Crawl Twitter"));
     $(".shortcut-container").append($("<div>").attr("id", "status"));
 
-    $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right:10px;").html("Save"));
-    $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-danger").html("Delete"));
+    $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right:10px;").html("Active").click(function () {
+        new Twitter().SetTwittActive();
+    }));
+
+    $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-danger").html("Delete").click(function () {
+        new Twitter().DeleteTwitt();
+    }));
 </script>

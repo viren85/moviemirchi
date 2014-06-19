@@ -65,6 +65,8 @@
                     tweets = tableMgr.GetRecentTweets(tweetType, name, startIndex, pageSize);
                 }
 
+                jsonSerializer.Value.MaxJsonLength = Int32.MaxValue;
+
                 return jsonSerializer.Value.Serialize(tweets.Values);
             }
             catch (Exception ex)

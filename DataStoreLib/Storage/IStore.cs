@@ -63,11 +63,15 @@ namespace DataStoreLib.Storage
         #region Twitter table
         IDictionary<string, TwitterEntity> GetTweetById(string id);
         IDictionary<TwitterEntity, bool> UpdateTweetById(IEnumerable<TwitterEntity> tweets);
+
+        bool DeleteTwitterItemById(List<string> twitterId);
         #endregion
 
         #region News table
         IDictionary<string, NewsEntity> GetNewsItems();
         IDictionary<NewsEntity, bool> UpdateNewsItemById(IEnumerable<NewsEntity> newsItems);
+        bool DeleteNewsItemById(List<string> newsIds);
+        IDictionary<string, NewsEntity> GetNewsById(IEnumerable<string> ids);
         #endregion
 
         #region Artist

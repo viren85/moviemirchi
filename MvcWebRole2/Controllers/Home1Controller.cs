@@ -1,4 +1,5 @@
-﻿using MvcWebRole2.Models;
+﻿using DataStoreLib.Storage;
+using MvcWebRole2.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,7 +33,6 @@ namespace MvcWebRole2.Controllers
                 return View(model);
             }
 
-            
             return AddMovie(model);
         }
 

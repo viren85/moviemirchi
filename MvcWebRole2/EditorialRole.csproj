@@ -190,6 +190,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\api\BaseController.cs" />
     <Compile Include="Controllers\api\ArtistsController.cs" />
+    <Compile Include="Controllers\api\CrawlerFilesController.cs" />
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\api\NewsController.cs" />
     <Compile Include="Controllers\api\ReviewerController.cs" />

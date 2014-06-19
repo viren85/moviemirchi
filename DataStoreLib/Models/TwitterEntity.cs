@@ -8,7 +8,7 @@ namespace DataStoreLib.Models
     public class TwitterEntity : TableEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
-
+        
         public string TwitterId { get; set; }
         public string TwitterIdString { get; set; }
         public string TextMessage { get; set; }
@@ -22,13 +22,11 @@ namespace DataStoreLib.Models
         public string ResultType { get; set; }
         public string LanguageCode { get; set; }
         public DateTimeOffset Created_At { get; set; }
-
         public string Status { get; set; }
-
         public string TweetType { get; set; }
         public string MovieName { get; set; }
-
         public string ArtistName { get; set; }
+        public bool IsActive { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
@@ -37,7 +35,6 @@ namespace DataStoreLib.Models
             TwitterId = ReadString(properties, "TwitterId");
             TwitterIdString = ReadString(properties, "TwitterIdString");
             TextMessage = ReadString(properties, "TextMessage");
-
             Source = ReadString(properties, "Source");
             FromUser = ReadString(properties, "FromUser");
             FromUserId = ReadString(properties, "FromUserId");
@@ -45,15 +42,14 @@ namespace DataStoreLib.Models
             ReplyScreenName = ReadString(properties, "ReplyScreenName");
             ResultType = ReadString(properties, "ResultType");
             LanguageCode = ReadString(properties, "LanguageCode");
-
             ProfileImageUrl = ReadString(properties, "ProfileImageUrl");
             ProfileSecureImageUrl = ReadString(properties, "ProfileSecureImageUrl");
-
             Created_At = ReadTimestamp(properties, "Created_At");
             Status = ReadString(properties, "Status");
             TweetType = ReadString(properties, "TweetType");
             MovieName = ReadString(properties, "MovieName");
             ArtistName = ReadString(properties, "ArtistName");
+            IsActive = ReadBool(properties, "IsActive");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -79,6 +75,8 @@ namespace DataStoreLib.Models
             WriteString(dict, "TweetType", TweetType);
             WriteString(dict, "MovieName", MovieName);
             WriteString(dict, "ArtistName", ArtistName);
+
+            WriteBool(dict, "IsActive", IsActive);
 
             return dict;
         }
@@ -113,7 +111,7 @@ namespace DataStoreLib.Models
             TweetType = entity.TweetType;
             MovieName = entity.MovieName;
             ArtistName = entity.ArtistName;
-
+            IsActive = entity.IsActive;
         }
 
         public override string GetKey()

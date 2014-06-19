@@ -20,7 +20,7 @@
         var grid = $("<div/>").attr("class", "news-grid").attr("id", "sortable");
         var gridHead = $("<div/>").attr("class", "news-grid-header");
 
-        var gridCol1 = $("<div/>").attr("class", "news-grid-column1").append($("<input/>").attr("type", "checkbox").attr("id", "chkHeader").click(function () {            
+        var gridCol1 = $("<div/>").attr("class", "news-grid-column1").append($("<input/>").attr("type", "checkbox").attr("id", "chkHeader").click(function () {
             if ($("#chkHeader").prop("checked")) {
                 $(".news-grid").find(".news-grid-row").each(function () {
                     $(this).find(".news-grid-row-data1").find("input[type=\"checkbox\"]").prop("checked", true);
@@ -43,7 +43,11 @@
 
         for (i = 0; i < newsList.length; i++) {
 
-            var checkbox = $("<input/>").attr("type", "checkbox");
+            var isChecked = false;
+
+            if (newsList[i].IsActive) isChecked = true;
+
+            var checkbox = $("<input/>").attr("type", "checkbox").attr("id", newsList[i].NewsId).attr("checked", isChecked);
             var gridRow = $("<div/>").attr("class", "news-grid-row");
 
             var gridRowData1 = $("<div/>").attr("class", "news-grid-row-data1").append(checkbox);
@@ -63,5 +67,60 @@
 
         return $(container).append(sectionTitle).append(grid);
         //return $(container).append(grid);
+    }
+
+    News.prototype.DeleteNews = function () {
+
+        var cnfm = confirm("Are you sure to delete seleted news?");
+
+        if (cnfm) {
+            var SeletedIds = [];
+
+            $(".news-grid").find(".news-grid-row").each(function () {
+                if ($(this).find(".news-grid-row-data1").find("input[type=\"checkbox\"]").prop("checked")) {
+                    SeletedIds.push($(this).find(".news-grid-row-data1").find("input[type=\"checkbox\"]").attr("id"));
+                }
+            });
+
+            if (SeletedIds.length > 0) {
+                var xmlData = JSON.stringify(SeletedIds);
+
+                CallController("Home/DeleteNews", "data", xmlData, function () {
+
+                    $(".news-container").html("");
+
+                    CallHandler("api/News?start=0&page=20", function (data) {
+                        $(".news-container").append(new News().GetNewsGrid(data));
+                    });
+
+                    $("#status").html("Selected news deleted successfully!");
+                });
+            }
+        }
+    }
+
+    News.prototype.SetNewsActive = function () {
+        var SeletedIds = [];
+
+        $(".news-grid").find(".news-grid-row").each(function () {
+            if ($(this).find(".news-grid-row-data1").find("input[type=\"checkbox\"]").prop("checked")) {
+                SeletedIds.push($(this).find(".news-grid-row-data1").find("input[type=\"checkbox\"]").attr("id"));
+            }
+        });
+
+        if (SeletedIds.length > 0) {
+            var xmlData = JSON.stringify(SeletedIds);
+
+            CallController("Home/SetActiveNews", "data", xmlData, function () {
+
+                $(".news-container").html("");
+
+                CallHandler("api/News?start=0&page=20", function (data) {
+                    $(".news-container").append(new News().GetNewsGrid(data));
+                });
+
+                $("#status").html("Selected news activate successfully!");
+            });
+        }
     }
 }

@@ -14,6 +14,13 @@ var Search = function (placeholder, searchtype) {
     var CRITICS;
     var CURRENT_CRITIC;
 
+    var CRAWLFILES;
+    var CURRENT_CRAWLFILE;
+    //pager
+    var PageSize = 25;
+    var PageCounter = 1;
+    var TwitterList = [];
+
     var testData =
         [
             {
@@ -97,13 +104,13 @@ var Search = function (placeholder, searchtype) {
                 CallHandler("api/Reviewer" + queryString, this.PopulateCriticsResult);
                 break;
             case "crawler":
-                CallHandler("api/Movies" + queryString, this.PopulateCrawlerResults);
+                CallHandler("api/CrawlerFiles" + queryString, this.PopulateCrawlerResults);
                 break;
             case "news":
                 CallHandler("api/News?start=0&page=20", this.PopulateNewsResults);
                 break;
             case "twitter":
-                CallHandler("api/Twitter?start=0&page=20", this.PopulateTwitterResults);
+                CallHandler("api/Twitter?start=0&page=0", this.PopulateTwitterResults);
                 break;
             default:
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
@@ -432,9 +439,11 @@ var Search = function (placeholder, searchtype) {
     // crawler
     Search.prototype.PopulateCrawlerResults = function (data) {
         // Prepare search result UI from this function
+        console.log(data);
         var json = JSON.parse(data);
-        MOVIES = json;
+        CRAWLFILES = json;
         $(resultContainer).children("ul").remove();
+
         //Comment following line once API is functional
         //json = testData;
         if (json != null) {
@@ -442,32 +451,31 @@ var Search = function (placeholder, searchtype) {
 
             for (i = 0; i < json.length; i++) {
                 //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
-                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
-                    $(".content-container").show();
-                    //that.PopulateMovieDetails($(this).attr("un"));
+                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].MovieId).click(function () {
+                    that.PopulateCrawlerFileDetail($(this).attr("un"));
                 });
 
                 var img;
-                var posters = JSON.parse(json[i].Posters);
+                
+                img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
 
-                if (posters.length > 0) {
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[posters.length - 1]).attr("class", "search-item-img");
-                }
-                else {
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
-                }
-
-                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
-                var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].MovieName);
+                var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Month + " " + json[i].Year);
                 $(item).append(img);
                 $(item).append(movieTitle);
                 $(item).append(year);
-                $(searchResultList).append(item);
-                //}
+                $(searchResultList).append(item);                
             }
 
             if (resultContainer == null || resultContainer == "undefined") {
                 resultContainer = $(".search-result-container");
+            }
+
+            if (json.length == 0) {
+                var item1 = $("<li/>").attr("class", "search-result-list-item");
+                var empty = $("<div/>").attr("class", "search-movie-name").html("No movie found for your search\"" + $(".search-text").val() + "\".");
+                $(item1).append(empty);
+                $(searchResultList).append(item1);
             }
 
             $(resultContainer).append(searchResultList);
@@ -486,6 +494,15 @@ var Search = function (placeholder, searchtype) {
     Search.prototype.PopulateTwitterResults = function (data) {
         $(".content-container").show();
         $(".twitter-container").append(new Twitter().GetTwitterGrid(data));
+    }
+
+    Search.prototype.PopulateCrawlerFileDetail = function (movieId) {
+        for (var i = 0; i < CRAWLFILES.length; i++) {
+            if (CRAWLFILES[i].MovieId == movieId) {
+                new Crawler().PopulateCrawlerFileDetails(CRAWLFILES[i]);
+                CURRENT_CRAWLFILES = CRAWLFILES[i];
+            }
+        }
     }
 }
 

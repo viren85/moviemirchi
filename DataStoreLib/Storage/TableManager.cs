@@ -329,7 +329,7 @@ namespace DataStoreLib.Storage
 
                 foreach (ReviewerEntity re in allReviewer.Values)
                 {
-                    var path = Path.Combine(ConfigurationManager.AppSettings["ImagePath"],@"Posters\Images\critic");                    
+                    var path = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], @"Posters\Images\critic");
                     DirectoryInfo dirInfo = new DirectoryInfo(path);
 
                     var filePattern = re.ReviewerName.Replace(" ", "-").ToLower() + "*";
@@ -562,6 +562,20 @@ namespace DataStoreLib.Storage
             return result;
         }
 
+        public bool DeleteTwitterItemById(List<string> twitterIds)
+        {
+            try
+            {
+                var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName) as TwitterTable;
+                twitterTable.DeleteTwitterById(twitterIds);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
         #endregion
 
         #region News
@@ -612,6 +626,27 @@ namespace DataStoreLib.Storage
             ////}
 
             ////return returnTranslateOp;
+        }
+
+        public bool DeleteNewsItemById(List<string> newsIds)
+        {
+            try
+            {
+                var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName) as NewsTable;
+                newsTable.DeleteNewsById(newsIds);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+
+        public IDictionary<string, NewsEntity> GetNewsById(IEnumerable<string> ids)
+        {
+            var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
+            return newsTable.GetItemsById<NewsEntity>(ids);
         }
         #endregion
 
