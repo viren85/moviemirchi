@@ -56,13 +56,26 @@
     <Compile Include="ArtistCrawler.cs" />
     <Compile Include="GenerateXMLFile.cs" />
     <Compile Include="ReviewCrawler.cs" />
+    <Compile Include="Reviews\BoxOfficeIndia.cs" />
+    <Compile Include="Reviews\CnnIbn.cs" />
+    <Compile Include="Reviews\Dna.cs" />
     <Compile Include="Reviews\FilmfareReviews.cs" />
+    <Compile Include="Reviews\FirstPost.cs" />
     <Compile Include="Reviews\HindustanTimesReviews.cs" />
     <Compile Include="Reviews\BollywoodHungamaReviews.cs" />
     <Compile Include="MovieCrawler.cs" />
     <Compile Include="CrawlerHelper.cs" />
     <Compile Include="ImdbCrawler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reviews\IndianExpress.cs" />
+    <Compile Include="Reviews\KomalNahta.cs" />
+    <Compile Include="Reviews\MidDay.cs" />
+    <Compile Include="Reviews\Ndtv.cs" />
+    <Compile Include="Reviews\RajaSen.cs" />
+    <Compile Include="Reviews\Rediff.cs" />
+    <Compile Include="Reviews\Telegraph.cs" />
+    <Compile Include="Reviews\TheHindu.cs" />
+    <Compile Include="Reviews\TimesOfIndia.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="XMLMovieFileProperties.cs" />
   </ItemGroup>

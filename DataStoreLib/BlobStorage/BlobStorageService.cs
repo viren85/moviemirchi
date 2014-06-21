@@ -12,6 +12,10 @@ namespace DataStoreLib.BlobStorage
 {
     public class BlobStorageService
     {
+        public const string Blob_ImageContainer = "posters";
+        public const string Blob_XMLFileContainer = "crawlfiles";
+
+        #region Private Methods
         private CloudBlobContainer GetCloudBlobContainer(string containerName)
         {
             CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageTableConnectionString"));
@@ -26,7 +30,28 @@ namespace DataStoreLib.BlobStorage
             return blobCantainer;
         }
 
-        public string UploadFileOnBlob(string fileName, Stream stream, string containerName)
+        public List<string> GetUploadedFileFromBlob(string containerName)
+        {
+            try
+            {
+                CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
+                List<string> blobs = new List<string>();
+
+                foreach (var blobItem in blobContainer.ListBlobs())
+                {
+                    blobs.Add(blobItem.Uri.ToString());
+                }
+
+                return blobs;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        #endregion
+
+        public string UploadImageFileOnBlob(string containerName, string fileName, Stream stream)
         {
             try
             {
@@ -48,27 +73,7 @@ namespace DataStoreLib.BlobStorage
             return "";
         }
 
-        private List<string> GetUploadedFileFromBlob(string containerName)
-        {
-            try
-            {
-                CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
-                List<string> blobs = new List<string>();
-
-                foreach (var blobItem in blobContainer.ListBlobs())
-                {
-                    blobs.Add(blobItem.Uri.ToString());
-                }
-
-                return blobs;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public int GetFileCounter(string containerName, string pattern)
+        public int GetImageFileCount(string containerName, string pattern)
         {
             try
             {
@@ -79,7 +84,7 @@ namespace DataStoreLib.BlobStorage
                 return filtersFiles.Count + 1;
             }
             catch (Exception ex)
-            {                
+            {
                 throw ex;
             }
             return 0;
@@ -98,7 +103,64 @@ namespace DataStoreLib.BlobStorage
             catch (Exception ex)
             {
                 throw ex;
-            }            
+            }
+        }
+
+        public string UploadXMLFileOnBlob(string containerName, string fileName, string fileText)
+        {
+            try
+            {
+                if (fileText.Length > 0)
+                {
+                    //fileText.Position = 0;
+                    CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
+                    CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
+                    blob.UploadText(fileText);
+
+                    return GetSinglFile(containerName, fileName);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+
+            return "";
+        }
+
+        public string GetUploadeXMLFileContent(string containerName, string fileName)
+        {
+            try
+            {
+                CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
+                var blob = blobContainer.GetBlockBlobReference(fileName);
+
+                var xmlData = blob.DownloadText();
+
+                return xmlData;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
+        }
+
+        public bool DeleteFileFromBlob(string containerName, string fileName)
+        {
+            try
+            {
+                CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
+                var blob = blobContainer.GetBlockBlobReference(fileName);
+
+                if (blob != null)
+                    blob.Delete();
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

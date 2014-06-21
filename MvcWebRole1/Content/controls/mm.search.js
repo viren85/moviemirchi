@@ -374,12 +374,14 @@ var SearchResults = function (searchResults) {
         img.attr("class", "movie-poster");
 
         if (type === "movie" && singleEntity.TitleImageURL !== "") {
-            img.attr("src", "/Posters/Images/" + singleEntity.TitleImageURL);
+            //img.attr("src", "/Posters/Images/" + singleEntity.TitleImageURL); 
+            img.attr("src", PUBLIC_BLOB_URL + singleEntity.TitleImageURL);
         } else if (type === "artist" || type === "critics") {
             img.attr("src", "/Images/user.png");
             img.attr("class", "person-poster");
         } else {
-            img.attr("src", "/Posters/Images/default-movie.jpg");
+            //img.attr("src", "/Posters/Images/default-movie.jpg"); 
+            img.attr("src", PUBLIC_BLOB_URL + "default-movie.jpg");
         }
 
         divImage.append(img);

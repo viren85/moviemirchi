@@ -5,10 +5,10 @@ var Reviewer = function () {
         var isEnabled = new FormBuilder().GetCheckBox("isEnabled", "Enabled", false);
         var reviewerName = new FormBuilder().GetTextField("txtReviewerName", "Reviewer Name", "Reviewer Name");
         var affilation = new FormBuilder().GetTextField("txtAffilation", "Affilation", "Affilation");
-        
+
         $(formContainer).append(isEnabled);
         $(formContainer).append(reviewerName);
-        $(formContainer).append(affilation);        
+        $(formContainer).append(affilation);
 
         return formContainer;
     }
@@ -20,6 +20,15 @@ var Reviewer = function () {
         $(".shortcut-container").html("");
         $(".shortcut-container").append($("<a/>").html("Save changes").attr("onclick", "updateCritics()").attr("class", "btn btn-success").attr("title", "click here to save all the changes."));
         $(".shortcut-container").append($("<div>").attr("id", "status"));
+
+        var posters = [];
+
+        $(".posters-container").html("");
+        $(".posters-container").append(new Posters().GetPosterContainer(posters));
+
+        $("#poster-upload").attr("onchange", "UploadSelectedFile(this, '#txtReviewerName','reviewerPhotot');");
+
+        new Posters().AddSinglePoster(reviewer.ReviewerImage);
     }
 
     Reviewer.prototype.UpdateReviewer = function (reviewer) {

@@ -1,4 +1,6 @@
-﻿var pagerControlCounter = 1;
+﻿var PUBLIC_BLOB_URL = "http://127.0.0.1:10000/devstoreaccount1/posters/";
+
+var pagerControlCounter = 1;
 function GetTubeControl(sectionTitle, tileContainer, pagerContainerId, classId) {
     var pagerId;
     if (pagerContainerId == null || pagerContainerId == "undefined") {

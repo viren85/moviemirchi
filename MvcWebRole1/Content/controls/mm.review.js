@@ -117,7 +117,8 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
 };
 
 function GetReviewerPic(reviewerName) {
-    return "/posters/images/critic/" + reviewerName.replace(" ", "-") + ".jpg";
+    //return "/posters/images/critic/" + reviewerName.replace(" ", "-") + ".jpg";
+    return PUBLIC_BLOB_URL + reviewerName.replace(" ", "-").toLowerCase() + ".jpg";
 }
 
 function GetMoviePoster(posters, movieName) {
@@ -125,15 +126,17 @@ function GetMoviePoster(posters, movieName) {
     var posterPath;
     if (!posters) {
         //posterPath = "/Posters/Images/default-movie.jpg";
-        posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";
+        //posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";
+        posterPath = PUBLIC_BLOB_URL + movieName.replace(" ", "-") + "-poster-1.jpg";
     } else {
         // TODO - fix this, doesn't seem right
         var posters = JSON.parse(posters);
         if (posters && posters.length && posters.length > 1) {
-            posterPath = "/Posters/Images/" + posters[posters.length - 1];
+            //posterPath = "/Posters/Images/" + posters[posters.length - 1];
+            posterPath = PUBLIC_BLOB_URL + posters[posters.length - 1];
         } else {
             //posterPath = "/Posters/Images/default-movie.jpg";
-            posterPath = "/Posters/Images/" + movieName.split(" ").join("-") + "-poster-1.jpg";
+            posterPath = PUBLIC_BLOB_URL + movieName.split(" ").join("-") + "-poster-1.jpg";
         }
     }
 

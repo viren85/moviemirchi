@@ -15,7 +15,8 @@ var ShowReviews = function (data) {
 
         for (k = 0; k < critics.length; k++) {
             if (critics[k] != null && critics[k] != undefined && critics[k].name == result.Name) {
-                fileName = "/Posters/Images/critic/" + critics[k].poster;
+                //fileName = "/Posters/Images/critic/" + critics[k].poster;
+                fileName = PUBLIC_BLOB_URL + critics[k].poster;
                 affiliation = critics[k].aff;
                 break;
             }

@@ -140,10 +140,10 @@ var Search = function (placeholder, searchtype) {
                 var posters = JSON.parse(json[i].Posters);
 
                 if (posters.length > 0) {
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[posters.length - 1]).attr("class", "search-item-img");
+                    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).attr("class", "search-item-img");
                 }
                 else {
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+                    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
                 }
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ArtistName);
@@ -184,10 +184,10 @@ var Search = function (placeholder, searchtype) {
                 var posters = JSON.parse(json[i].Posters);
 
                 if (posters.length > 0) {
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[posters.length - 1]).attr("class", "search-item-img");
+                    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).attr("class", "search-item-img");
                 }
                 else {
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+                    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
                 }
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
@@ -263,7 +263,7 @@ var Search = function (placeholder, searchtype) {
                 $(".shortcut-container").append($("<a/>").html("Save changes").attr("onclick", "updateMovie()").attr("class", "btn btn-success").attr("title", "click here to save all the changes."));
                 $(".shortcut-container").append($("<div>").attr("id", "status"));
                 // upload files
-                $("#poster-upload").attr("onchange", "UploadSelectedFile(this)");
+                $("#poster-upload").attr("onchange", "UploadSelectedFile(this, '#txtUnique','poster')");
                 break;
             }
         }
@@ -401,10 +401,10 @@ var Search = function (placeholder, searchtype) {
                 var img;
                 //var posters = JSON.parse(json[i].Posters);
 
-                if (json[i].ReviewerImage == "no")
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
-                else
-                    img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/critic/" + json[i].ReviewerImage).attr("class", "search-item-img");
+                //if (json[i].ReviewerImage == "no")
+                //    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
+                //else
+                img = $("<img/>").attr("src", PUBLIC_BLOB_URL + json[i].ReviewerImage).attr("class", "search-item-img");
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ReviewerName);
                 //var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
@@ -456,15 +456,15 @@ var Search = function (placeholder, searchtype) {
                 });
 
                 var img;
-                
-                img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/default-movie.jpg").attr("class", "search-item-img");
+
+                img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].MovieName);
                 var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Month + " " + json[i].Year);
                 $(item).append(img);
                 $(item).append(movieTitle);
                 $(item).append(year);
-                $(searchResultList).append(item);                
+                $(searchResultList).append(item);
             }
 
             if (resultContainer == null || resultContainer == "undefined") {

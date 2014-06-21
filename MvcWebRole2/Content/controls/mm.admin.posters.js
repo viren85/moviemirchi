@@ -23,7 +23,7 @@
         return new FormBuilder().GetFileUploadControl("poster-upload", "Upload Poster", "Upload Poster");
     }
 
-    Posters.prototype.GetAllPoster = function (posters) {
+    Posters.prototype.GetAllPoster = function (posters, type) {
         //console.log(posters);
         var container = $("<div/>").attr("class", "poster-container");
         if (posters != null && posters != undefined) {
@@ -34,7 +34,7 @@
 
                 var rad = new FormBuilder().GetRadioButton(posters[i], "", "posters", isChecked);
 
-                var img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + posters[i]);
+                var img = $("<img/>").attr("src", PUBLIC_BLOB_URL + posters[i]);
 
                 // edit poster div
                 var editPoster = $("<div/>").attr("id", i).append(new FormBuilder().GetCheckBox("isActive", "Active", true));
@@ -46,26 +46,36 @@
                 Counter = i;
             }
 
-            console.log(Counter);
+            //console.log(Counter);
         }
         return container;
     }
 
-    Posters.prototype.AddSinglePoster = function (poster) {
+    Posters.prototype.AddSinglePoster = function (poster, type) {
         var container = $(".poster-container");
         if (poster != null && poster != undefined) {
-            Counter = Counter + 1;
-            var singlePoster = $("<div/>").attr("class", "single-poster").attr("id", "singleposter_" + Counter).attr("onmouseover", "show(" + Counter + ");").attr("onmouseout", "hide(" + Counter + ");");
-            var rad = new FormBuilder().GetRadioButton(poster, "", "posters", false);
-            var img = $("<img/>").attr("src", PUBLIC_BASE_URL + "/Posters/Images/" + poster);
+            if (type == "poster") {
+                Counter = Counter + 1;
+                var singlePoster = $("<div/>").attr("class", "single-poster").attr("id", "singleposter_" + Counter).attr("onmouseover", "show(" + Counter + ");").attr("onmouseout", "hide(" + Counter + ");");
+                var rad = new FormBuilder().GetRadioButton(poster, "", "posters", false);
+                var img = $("<img/>").attr("src", PUBLIC_BLOB_URL + poster);
+                //var img = $("<img/>").attr("src", poster);
 
-            // edit poster div
-            var editPoster = $("<div/>").attr("id", Counter).append(new FormBuilder().GetCheckBox("isActive", "", true));
-            $(editPoster).append($("<div/>").attr("class", "btn btn-danger").attr("style", "float:right").attr("onclick", "RemoveDiv(" + Counter + ");").html("Delete"));
-            $(editPoster).attr("class", "edit-poster");
-            $(singlePoster).append(editPoster);
+                // edit poster div
+                var editPoster = $("<div/>").attr("id", Counter).append(new FormBuilder().GetCheckBox("isActive", "", true));
+                $(editPoster).append($("<div/>").attr("class", "btn btn-danger").attr("style", "float:right").attr("onclick", "RemoveDiv(" + Counter + ");").html("Delete"));
+                $(editPoster).attr("class", "edit-poster");
+                $(singlePoster).append(editPoster);
 
-            $(container).append($(singlePoster).append(rad).append(img));
+                $(container).append($(singlePoster).append(rad).append(img));
+            }
+            else {
+                var singlePoster = $("<div/>").attr("class", "single-poster");
+                var rad = new FormBuilder().GetRadioButton(poster, "", "posters", false);
+                var img = $("<img/>").attr("src", PUBLIC_BLOB_URL + poster);
+
+                $(container).append($(singlePoster).append(rad).append(img));
+            }
         }
     }
 }
@@ -80,6 +90,6 @@ function hide(id) {
 }
 
 function RemoveDiv(counter) {
-    var id = "#singleposter_" + counter;    
+    var id = "#singleposter_" + counter;
     $("#singleposter_" + counter).remove();
 }

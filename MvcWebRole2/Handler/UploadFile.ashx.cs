@@ -23,8 +23,8 @@ namespace MvcWebRole2.Handler
 
         public void ProcessRequest(HttpContext context)
         {
-            string movieName = context.Request.QueryString["movie"];
-            string banner = context.Request.QueryString["banner"];
+            string name = context.Request.QueryString["name"];
+            string type = context.Request.QueryString["type"];
 
             context.Response.AppendHeader("Access-Control-Allow-Origin", "*");
 
@@ -32,35 +32,31 @@ namespace MvcWebRole2.Handler
             {
                 try
                 {
-                    string path = string.Empty;
+                    BlobStorageService _blobStorageService = new BlobStorageService();
+
                     string xFileName = context.Request.Headers["X-File-Name"];
                     string xfileExtention = xFileName.Substring(xFileName.LastIndexOf(".") + 1);
 
-                    int posterCount = new MovieCrawler.ImdbCrawler().GetMaxImageCounter(movieName);
-
-                    posterCount = new BlobStorageService().GetFileCounter("poster", movieName.Replace(" ", "-").ToLower() + "-poster-");
-
-                    string newPosterName = movieName.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
-
-                    string folderPath = Path.Combine(Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters"), "Images");
-
-                    if (!Directory.Exists(folderPath))
+                    if (type == "poster")
                     {
-                        Directory.CreateDirectory(folderPath);
+                        int posterCount = _blobStorageService.GetImageFileCount(BlobStorageService.Blob_ImageContainer, name.Replace(" ", "-").ToLower() + "-poster-");
+
+                        string newPosterName = name.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
+                        // upload file on blob
+                        string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, newPosterName, context.Request.InputStream);
+
+                        context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = newPosterName }));
                     }
+                    else
+                    {
+                        string fileName = name.Replace(" ", "-").ToLower() + "." + xfileExtention;
 
-                    path = Path.Combine(folderPath, newPosterName);
+                        _blobStorageService.DeleteFileFromBlob(BlobStorageService.Blob_ImageContainer, fileName);
 
-                    Stream inputStream = context.Request.InputStream;
-                    FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate);
-                    inputStream.CopyTo(fileStream);
-                    fileStream.Close();
+                        string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, context.Request.InputStream);
 
-                    // upload file on blob
-                    string uploadedFile = new BlobStorageService().UploadFileOnBlob(newPosterName, context.Request.InputStream, "poster");
-                    //new BlobStorageService().UploadFileOnBlob(xFileName, context.Request.InputStream, "poster");
-
-                    context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = newPosterName }));
+                        context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = fileName }));
+                    }
                 }
                 catch (Exception ex)
                 {

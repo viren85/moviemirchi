@@ -1,6 +1,7 @@
 ﻿
 namespace DataStoreLib.Storage
 {
+    using DataStoreLib.BlobStorage;
     using DataStoreLib.Models;
     using Microsoft.WindowsAzure.Storage.Table;
     using System;
@@ -329,17 +330,14 @@ namespace DataStoreLib.Storage
 
                 foreach (ReviewerEntity re in allReviewer.Values)
                 {
-                    var path = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], @"Posters\Images\critic");
-                    DirectoryInfo dirInfo = new DirectoryInfo(path);
+                    var filePattern = re.ReviewerName.Replace(" ", "-").ToLower();
 
-                    var filePattern = re.ReviewerName.Replace(" ", "-").ToLower() + "*";
+                    var file = new BlobStorageService().GetSinglFile(BlobStorageService.Blob_ImageContainer, filePattern);
 
-                    FileInfo[] files = dirInfo.GetFiles(filePattern);
-
-                    if (files.Length > 0)
-                        re.ReviewerImage = files[0].Name;
+                    if (!string.IsNullOrEmpty(file))
+                        re.ReviewerImage = file.Substring(file.LastIndexOf("/") + 1);
                     else
-                        re.ReviewerImage = "no";
+                        re.ReviewerImage = "default-movie.jpg";
                 }
 
                 //Return only those artists who have associated posters.

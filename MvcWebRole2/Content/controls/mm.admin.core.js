@@ -1,5 +1,6 @@
 ﻿var PUBLIC_BASE_URL = "http://127.0.0.1:81";
 var BASE_URL = "http://127.0.0.1:8080/";
+var PUBLIC_BLOB_URL = "http://127.0.0.1:10000/devstoreaccount1/posters/";
 
 var FormBuilder = function () {
     FormBuilder.prototype.GetTextField = function (id, placeholder, label) {
@@ -76,7 +77,7 @@ function CallController(queryString, paramName, data, OnComplete) {
     return false;
 }
 
-function UploadSelectedFile(element) {
+function UploadSelectedFile(element, txtName, imgType) {
 
     var _URL = window.URL || window.webkitURL;
     var file = element.files[0];
@@ -109,12 +110,20 @@ function UploadSelectedFile(element) {
                             var ResJSON = [];
                             ResJSON = JSON.parse(target.responseText);
                             $("#imgProp").attr("orignal", ResJSON.FileUrl);
-                            new Posters().AddSinglePoster(ResJSON.FileUrl);
+
+                            if (imgType == "reviewerPhotot") {
+                                $(".single-poster").remove();
+                                $(".search-result-container").children("ul").remove();
+
+                                CallHandler("api/Reviewer", new Search().PopulateCriticsResult);
+                            }
+
+                            new Posters().AddSinglePoster(ResJSON.FileUrl, imgType);
                         }
                     }
                 };
 
-                xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?movie=' + $("#txtUnique").val(), true);
+                xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
                 xhr.setRequestHeader('X-FILE-NAME', file.name);
                 xhr.send(file);
             };

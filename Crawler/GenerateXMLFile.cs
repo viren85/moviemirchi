@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStoreLib.BlobStorage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,21 +11,21 @@ namespace Crawler
 {
     public class GenerateXMLFile
     {
-        public string CreatingFile(string filePath, XMLMovieProperties objMovie)
+        public string CreatingFile(XMLMovieProperties objMovie)
         {
             try
             {
                 if (objMovie == null) return null;
 
+                BlobStorageService _blobStorageService = new BlobStorageService();
                 XmlDocument documnet = new XmlDocument();
 
                 string fileName = "MovieList-" + objMovie.Month.Substring(0, 3) + "-" + objMovie.Year.ToString() + ".xml";
+                string existFileContent = _blobStorageService.GetUploadeXMLFileContent(BlobStorageService.Blob_XMLFileContainer, fileName);
 
-                filePath = Path.Combine(filePath, fileName);
-
-                if (File.Exists(filePath))
+                if (!string.IsNullOrEmpty(existFileContent))
                 {
-                    documnet.Load(filePath);
+                    documnet.LoadXml(existFileContent);
 
                     var oldMonth = documnet.SelectSingleNode("Movies/Month[@name='" + objMovie.Month + "']");
 
@@ -34,7 +35,6 @@ namespace Crawler
                         oldMonth.AppendChild(AddMovieNode(documnet, objMovie));
                     else
                     {
-                        //UpdateMovieNode(documnet, oldMovie, objMovie);
                         oldMonth.RemoveChild(oldMovie);
                         oldMonth.AppendChild(AddMovieNode(documnet, objMovie));
                     }
@@ -58,9 +58,9 @@ namespace Crawler
                     documnet.AppendChild(root);
                 }
 
-                documnet.Save(filePath);
+                _blobStorageService.UploadXMLFileOnBlob(BlobStorageService.Blob_XMLFileContainer, fileName, documnet.OuterXml);
 
-                return filePath;
+                return fileName;
             }
             catch (Exception ex)
             {
@@ -134,13 +134,27 @@ namespace Crawler
         {
             try
             {
+                BlobStorageService _blobStorageService = new BlobStorageService();
+
                 List<XMLMovieProperties> movieList = new List<XMLMovieProperties>();
 
                 foreach (string file in files)
                 {
+                    // get xml file data from blob
+                    string xmlData = _blobStorageService.GetUploadeXMLFileContent(BlobStorageService.Blob_XMLFileContainer, file);
+
+                    if (string.IsNullOrEmpty(xmlData)) continue;
+
                     XmlDocument documnet = new XmlDocument();
 
-                    documnet.Load(file);
+                    try
+                    {
+                        documnet.LoadXml(xmlData);
+                    }
+                    catch (Exception)
+                    {
+                        continue;
+                    }
 
                     var root = documnet.SelectSingleNode("Movies");
                     var monthNode = root.SelectSingleNode("Month");

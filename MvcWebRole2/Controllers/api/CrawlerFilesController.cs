@@ -2,7 +2,7 @@
 namespace MvcWebRole1.Controllers.api
 {
     using System;
-    using DataStoreLib.Storage;    
+    using DataStoreLib.Storage;
     using System.Collections.Generic;
     using System.Linq;
     using System.Web;
@@ -33,18 +33,10 @@ namespace MvcWebRole1.Controllers.api
                     var qpParams = HttpUtility.ParseQueryString(queryParameters);
 
                     string movieInitials = string.Empty;
-                    string type = string.Empty;
-
+                    
                     if (!string.IsNullOrEmpty(qpParams["q"]))
                     {
                         movieInitials = qpParams["q"].ToString().ToLower();
-                    }
-
-                    string filePath = System.Web.HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-
-                    if (!string.IsNullOrEmpty(qpParams["t"]))
-                    {
-                        type = qpParams["t"].ToString().ToLower();
                     }
 
                     var movieList = new List<XMLMovieProperties>();
@@ -52,13 +44,13 @@ namespace MvcWebRole1.Controllers.api
                     if (string.IsNullOrEmpty(movieInitials))
                     {
                         // movie initials in empty then show all the movie from latest file
-                        movieList = new XMLMovieProperties().GetMovieListFromXMLFiles(filePath, true);
+                        movieList = new XMLMovieProperties().GetMovieListFromXMLFiles(true);
                         return jsonSerializer.Value.Serialize(movieList);
                     }
                     else
                     {
                         // movie initials in not empty then show matched movie from all files
-                        movieList = new XMLMovieProperties().GetMovieListFromXMLFiles(filePath, false);
+                        movieList = new XMLMovieProperties().GetMovieListFromXMLFiles(false);
 
                         var selectedMovies = movieList.FindAll(m => m.MovieName.ToLower().Contains(movieInitials.ToLower()));
                         return jsonSerializer.Value.Serialize(selectedMovies);
@@ -68,7 +60,7 @@ namespace MvcWebRole1.Controllers.api
             }
             catch (System.Exception ex)
             {
-                throw;
+                throw ex;
             }
 
             return string.Empty;

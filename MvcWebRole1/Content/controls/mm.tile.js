@@ -1,11 +1,10 @@
-﻿function PopulatingMovies(movie,container) {
+﻿function PopulatingMovies(movie, container) {
     var movieContainer = $("." + container + " ul");
 
     var poster = [];
     poster = JSON.parse(movie.Posters);
-    var src = (poster != null && poster.length > 0) ?
-        "/Posters/Images/" + poster[poster.length - 1] :
-        "/Posters/Images/default-movie.jpg";
+    //var src = (poster != null && poster.length > 0) ? "/Posters/Images/" + poster[poster.length - 1] : "/Posters/Images/default-movie.jpg"; 
+    var src = (poster != null && poster.length > 0) ? PUBLIC_BLOB_URL + poster[poster.length - 1] : PUBLIC_BLOB_URL + "default-movie.jpg";
 
     var anchor = $("<a/>");
     var list = $("<li/>");
@@ -68,7 +67,8 @@ function MovieImageLoaded(img) {
 }
 
 function LoadDefaultImage(element) {
-    $(element).attr("src", "/Posters/Images/default-movie.jpg");
+    //$(element).attr("src", "/Posters/Images/default-movie.jpg"); 
+    $(element).attr("src", PUBLIC_BLOB_URL + "default-movie.jpg");
     var width = $(document).width();
     var imgWidth = parseInt($(element).css("width").replace("px"));
     var imgHeight = parseInt($(element).css("height").replace("px"));

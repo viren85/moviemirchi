@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStoreLib.BlobStorage;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace Crawler
         public string Month { get; set; }
         public List<XMLReivewProperties> Reviews { get; set; }
 
-        public List<XMLMovieProperties> GetMovieListFromXMLFiles(string filePath, bool isFromLatest)
+        public List<XMLMovieProperties> GetMovieListFromXMLFiles(bool isFromLatest)
         {
             try
             {
@@ -26,16 +27,12 @@ namespace Crawler
                 {
                     string fileName = "MovieList-" + DateTime.Now.ToString("MMM-yyyy") + ".xml";
 
-                    filePath = Path.Combine(filePath, fileName);
-
-                    if (File.Exists(filePath))
-                    {
-                        return objGenerateXml.GetMoviesFromXml(new string[] { filePath });
-                    }
+                    return objGenerateXml.GetMoviesFromXml(new string[] { fileName });
                 }
                 else
                 {
-                    string[] files = Directory.GetFiles(filePath, "MovieList-*");
+                    string[] files = new BlobStorageService().GetUploadedFileFromBlob("crawlfiles").ToArray();
+                    
                     return objGenerateXml.GetMoviesFromXml(files);
                 }
             }

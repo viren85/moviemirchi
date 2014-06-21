@@ -1,4 +1,5 @@
 ﻿using Crawler;
+using DataStoreLib.BlobStorage;
 using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using DataStoreLib.Utils;
@@ -31,23 +32,23 @@ namespace MvcWebRole2.Controllers
 
         public ActionResult Index()
         {
-           /* XMLMovieProperties testMovie = new XMLMovieProperties();
-            testMovie.MovieName = "Lagaan 3";
-            testMovie.MovieLink = "http://www.c-sharpcorner.com/UploadFile/";
-            testMovie.Year = 2001;
-            testMovie.Month = "April";
+            /* XMLMovieProperties testMovie = new XMLMovieProperties();
+             testMovie.MovieName = "Lagaan 3";
+             testMovie.MovieLink = "http://www.c-sharpcorner.com/UploadFile/";
+             testMovie.Year = 2001;
+             testMovie.Month = "April";
 
-            List<XMLReivewProperties> testReivew = new List<XMLReivewProperties> { 
-                new XMLReivewProperties() { Name = "Hidustan Times", Link = "http://www.c-sharpcorner.com/UploadFile/" } ,
-                new XMLReivewProperties() { Name = "Film fare", Link = "http://www.c-sharpcorner.com/UploadFile/" },
-                new XMLReivewProperties() { Name = "Bollywood Hungama", Link = "http://www.c-sharpcorner.com/UploadFile/" }
-            };
+             List<XMLReivewProperties> testReivew = new List<XMLReivewProperties> { 
+                 new XMLReivewProperties() { Name = "Hidustan Times", Link = "http://www.c-sharpcorner.com/UploadFile/" } ,
+                 new XMLReivewProperties() { Name = "Film fare", Link = "http://www.c-sharpcorner.com/UploadFile/" },
+                 new XMLReivewProperties() { Name = "Bollywood Hungama", Link = "http://www.c-sharpcorner.com/UploadFile/" }
+             };
 
-            testMovie.Reviews = testReivew;
+             testMovie.Reviews = testReivew;
 
-            var filePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\Filters";
+             var filePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\Filters";
 
-            new GenerateXMLFile().CreatingFile(filePath, testMovie);*/
+             new GenerateXMLFile().CreatingFile(filePath, testMovie);*/
 
             return View();
         }
@@ -86,8 +87,8 @@ namespace MvcWebRole2.Controllers
                     entity.Bio = movie.Bio;
                     entity.Posters = movie.Posters;
                     entity.Born = movie.Born;
-                    entity.MovieList = movie.MovieList;                    
-                    entity.UniqueName = movie.UniqueName;                    
+                    entity.MovieList = movie.MovieList;
+                    entity.UniqueName = movie.UniqueName;
                     entity.MyScore = movie.MyScore;
                     entity.JsonString = movie.JsonString;
                     entity.Popularity = movie.Popularity;
@@ -135,25 +136,23 @@ namespace MvcWebRole2.Controllers
 
                 if (movieProps != null)
                 {
-                    XMLMovieProperties entity = new XMLMovieProperties();
+                    XMLMovieProperties crawlMovieEntity = new XMLMovieProperties();
 
-                    entity.MovieName = movieProps.MovieName;
-                    entity.MovieLink = movieProps.MovieLink;
-                    entity.Year = Convert.ToInt32(movieProps.Month.Split(new char[] { ' ' })[1]);
-                    entity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
-                    entity.Reviews = movieProps.Reviews;
+                    crawlMovieEntity.MovieName = movieProps.MovieName;
+                    crawlMovieEntity.MovieLink = movieProps.MovieLink;
+                    crawlMovieEntity.Year = Convert.ToInt32(movieProps.Month.Split(new char[] { ' ' })[1]);
+                    crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
+                    crawlMovieEntity.Reviews = movieProps.Reviews;
 
-                    string xmlFilePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-
-                    string fullSavedFileName = new GenerateXMLFile().CreatingFile(xmlFilePath, entity);
+                    string savedFileName = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
                 }
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", ActualError = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
-            return Json(new { Status = "Ok", actors = "Actors" }, JsonRequestBehavior.AllowGet);
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
 
@@ -307,7 +306,7 @@ namespace MvcWebRole2.Controllers
                             {
                                 news.IsActive = true;
                                 updatedList.Add(news);
-                            }                            
+                            }
                         }
                     }
 

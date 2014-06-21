@@ -2,6 +2,7 @@
 namespace MovieCrawler
 {
     using Crawler;
+    using DataStoreLib.BlobStorage;
     using DataStoreLib.Models;
     using HtmlAgilityPack;
     using System;
@@ -543,7 +544,9 @@ namespace MovieCrawler
                 var thumbnails = thumbListNode.Elements("a");
                 if (thumbnails != null)
                 {
-                    int imageCounter = GetMaxImageCounter(movieName);
+                    //int imageCounter = GetMaxImageCounter(movieName);
+                    int imageCounter = new BlobStorageService().GetImageFileCount(BlobStorageService.Blob_ImageContainer, movieName.Replace(" ", "-").ToLower() + "-poster-");
+
                     foreach (HtmlNode thumbnail in thumbnails)
                     {
                         if (thumbnail.Attributes["itemprop"] != null && thumbnail.Attributes["itemprop"].Value == "thumbnailUrl")
@@ -638,12 +641,18 @@ namespace MovieCrawler
         {
             try
             {
+                string fileName = filePath.Substring(filePath.LastIndexOf(@"\") + 1);
+
                 using (WebClient client = new WebClient())
                 {
-                    client.DownloadFile(url, filePath);
+                    byte[] data = client.DownloadData(url);
+
+                    Stream stream = new MemoryStream(data);
+
+                    new BlobStorageService().UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, stream);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return false;
             }

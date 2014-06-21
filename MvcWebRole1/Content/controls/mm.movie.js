@@ -113,7 +113,8 @@ var PopulatePosters = function (images, movieName) {
             var img = $("<img/>")
             img.attr("class", "gallery-image");
             img.attr("alt", movieName);
-            img.attr("src", "/Posters/Images/" + poster[p]);
+            //img.attr("src", "/Posters/Images/" + poster[p]);
+            img.attr("src", PUBLIC_BLOB_URL + poster[p]);
             img.error(function () {
                 $(this).hide();
             });

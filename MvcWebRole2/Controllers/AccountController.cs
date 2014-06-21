@@ -157,6 +157,19 @@ namespace MvcWebRole2.Controllers
                                     BollywoodHungamaReviews bh = new BollywoodHungamaReviews();
                                     HindustanTimesReviews ht = new HindustanTimesReviews();
                                     FilmfareReviews ff = new FilmfareReviews();
+                                    CnnIbn cibn = new CnnIbn();
+                                    BoxOfficeIndia boi = new BoxOfficeIndia();
+                                    Dna dna = new Dna();
+                                    FirstPost fp = new FirstPost();
+                                    IndianExpress ie = new IndianExpress();
+                                    KomalNahta kn = new KomalNahta();
+                                    MidDay md = new MidDay();
+                                    Ndtv ndtv = new Ndtv();
+                                    Rajasen rs = new Rajasen();
+                                    Rediff rdf = new Rediff();
+                                    Telegraph tg = new Telegraph();
+                                    TheHindu th = new TheHindu();
+                                    TimesOfIndia toi = new TimesOfIndia();
 
                                     var reviews = movie.SelectNodes("Review");
                                     foreach (XmlNode review in reviews)
@@ -164,7 +177,7 @@ namespace MvcWebRole2.Controllers
                                         ReviewEntity re = new ReviewEntity();
                                         string reviewLink = review.Attributes["link"].Value;
 
-                                        switch (review.Attributes["name"].Value)
+                                        switch (review.Attributes["name"].Value.Trim())
                                         {
                                             case "Bollywood Hungama":
                                                 re = bh.Crawl(reviewLink, review.Attributes["name"].Value);
@@ -174,6 +187,45 @@ namespace MvcWebRole2.Controllers
                                                 break;
                                             case "Filmfare":
                                                 re = ff.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "CNNIBN":
+                                                re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Box Office India":
+                                                re = boi.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "DNA":
+                                                re = dna.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "FirstPost":
+                                                re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Indian Express":
+                                                re = ie.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Komal Nahta's Blog":
+                                                re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "MidDay":
+                                                re = md.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "NDTV":
+                                                re = ndtv.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "rajasen.com":
+                                                re = rs.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Rediff":
+                                                re = rdf.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Telegraph":
+                                                re = tg.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "The Hindu":
+                                                re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                break;
+                                            case "Times of India":
+                                                re = toi.Crawl(reviewLink, review.Attributes["name"].Value);
                                                 break;
                                         }
 
