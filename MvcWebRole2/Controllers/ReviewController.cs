@@ -14,6 +14,7 @@ namespace MvcWebRole2.Controllers
 {
     public class ReviewController : Controller
     {
+        #region Reviews
         [HttpGet]
         public ActionResult AddMovieReview()
         {
@@ -149,6 +150,6 @@ namespace MvcWebRole2.Controllers
                     });
             return new SelectList(movies, "Value", "Text");
         }
-
+        #endregion        
     }
 }

@@ -1,5 +1,5 @@
 ﻿
-var PageSize = 5;
+var PageSize = 25;
 var PageCounter = 0;
 var TwitterList = [];
 

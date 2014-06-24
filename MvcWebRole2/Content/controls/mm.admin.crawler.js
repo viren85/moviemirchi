@@ -17,7 +17,8 @@
                         "Rediff",
                         "NDTV",
                         "Filmfare",
-                        "FirstPost"
+                        "FirstPost",
+                        "Mumbai Mirror"
     ]; // after this data come from xml file
 
     Crawler.prototype.BuildForm = function () {
@@ -41,9 +42,11 @@
         $(formContainer).append($("<div/>").attr("id", "reviewlinks").attr("style", "width: 120%;").append(this.AddReviewControl(true)));
 
         var buttonContainer = $("<div/>").attr("style", "width: 100%;").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right: 10px;").html("Save").click(function () {
-            saveXmlFile();
+            saveXmlFile(false);
         }));
-        $(buttonContainer).append($("<div/>").attr("class", "btn btn-primary").attr("style", "margin-right: 10px;").html("Save & Crawl"));
+        $(buttonContainer).append($("<div/>").attr("class", "btn btn-primary").attr("style", "margin-right: 10px;").html("Save & Crawl").click(function () {
+            saveXmlFile(true);
+        }));
 
         $(buttonContainer).append($("<div/>").attr("class", "btn btn-danger").attr("style", "margin-right: 10px;").html("Cancel"));
 
@@ -105,7 +108,7 @@
         return reviewControl;
     }
 
-    Crawler.prototype.SaveXmlFileCrawl = function () {
+    Crawler.prototype.SaveXmlFileCrawl = function (isCrawl) {
         var movieName = $("#txtMovieName").val();
         var monthYear = $("#txtMonth").val();
         var movieLink = $("#txtMovieLink").val();
@@ -149,8 +152,15 @@
 
             var xmlData = JSON.stringify(objXmlData);
 
-            CallController("Home/CreateXMLFile", "data", xmlData, function () {
-                $("#status").html("XML file generated successfully!");
+            var outPutMsg = "XML file generated successfully!";
+            var path = "Home/CreateXMLFile";
+            if (isCrawl){
+                path = "Home/CreateXMLFileAndCrawl";
+                outPutMsg = "XML file generated successfully and Crawl movie. It will take few minuts or more.";
+            }
+
+            CallController(path, "data", xmlData, function () {
+                $("#status").html(outPutMsg);
                 $(".search-result-container").children("ul").remove();
                 CallHandler("api/CrawlerFiles", function (data) {
                     new Search().PopulateCrawlerResults(data);

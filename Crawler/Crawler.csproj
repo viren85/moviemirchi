@@ -56,6 +56,7 @@
     <Compile Include="ArtistCrawler.cs" />
     <Compile Include="GenerateXMLFile.cs" />
     <Compile Include="ReviewCrawler.cs" />
+    <Compile Include="Reviews\AnupamaChopra.cs" />
     <Compile Include="Reviews\BoxOfficeIndia.cs" />
     <Compile Include="Reviews\CnnIbn.cs" />
     <Compile Include="Reviews\Dna.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Reviews\IndianExpress.cs" />
     <Compile Include="Reviews\KomalNahta.cs" />
     <Compile Include="Reviews\MidDay.cs" />
+    <Compile Include="Reviews\MumbaiMirror.cs" />
     <Compile Include="Reviews\Ndtv.cs" />
     <Compile Include="Reviews\RajaSen.cs" />
     <Compile Include="Reviews\Rediff.cs" />

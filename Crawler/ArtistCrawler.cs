@@ -58,7 +58,7 @@
 
                 tblMgr.UpdateArtistItemById(aeList);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
             }

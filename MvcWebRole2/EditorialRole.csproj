@@ -385,6 +385,7 @@
     <Content Include="Views\Home\Crawler.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\Twitter.cshtml" />
+    <Content Include="Views\Review\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

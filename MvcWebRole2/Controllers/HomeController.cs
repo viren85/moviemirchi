@@ -144,7 +144,51 @@ namespace MvcWebRole2.Controllers
                     crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
                     crawlMovieEntity.Reviews = movieProps.Reviews;
 
-                    string savedFileName = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
+                    string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
+
+                    //new AccountController().CrawlfromXML(xmlFileContent);
+                }
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error", ActualError = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CreateXMLFileAndCrawl(string data)
+        {
+            SetConnectionString();
+
+            if (string.IsNullOrEmpty(data))
+            {
+                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                JavaScriptSerializer json = new JavaScriptSerializer();
+                XMLMovieProperties movieProps = json.Deserialize(data, typeof(XMLMovieProperties)) as XMLMovieProperties;
+
+                if (movieProps != null)
+                {
+                    XMLMovieProperties crawlMovieEntity = new XMLMovieProperties();
+
+                    crawlMovieEntity.MovieName = movieProps.MovieName;
+                    crawlMovieEntity.MovieLink = movieProps.MovieLink;
+                    crawlMovieEntity.Year = Convert.ToInt32(movieProps.Month.Split(new char[] { ' ' })[1]);
+                    crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
+                    crawlMovieEntity.Reviews = movieProps.Reviews;
+
+                    string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
+
+                    // crawl movies
+                    new AccountController().CrawlfromXML(xmlFileContent);
+
+                    // cral artits 
+                    new AccountController().GetArtists();
                 }
             }
             catch (Exception ex)
@@ -259,12 +303,12 @@ namespace MvcWebRole2.Controllers
             try
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
-                List<string> newsIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
+                List<string> twittIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
 
-                if (newsIds != null)
+                if (twittIds != null)
                 {
                     TableManager tabmgr = new TableManager();
-                    tabmgr.DeleteTwitterItemById(newsIds);
+                    tabmgr.DeleteTwitterItemById(twittIds);
                 }
 
             }

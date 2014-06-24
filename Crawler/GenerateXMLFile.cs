@@ -60,7 +60,8 @@ namespace Crawler
 
                 _blobStorageService.UploadXMLFileOnBlob(BlobStorageService.Blob_XMLFileContainer, fileName, documnet.OuterXml);
 
-                return fileName;
+                return documnet.OuterXml;
+                //return fileName;
             }
             catch (Exception ex)
             {

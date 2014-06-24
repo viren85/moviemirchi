@@ -16,11 +16,7 @@ var Search = function (placeholder, searchtype) {
 
     var CRAWLFILES;
     var CURRENT_CRAWLFILE;
-    //pager
-    var PageSize = 25;
-    var PageCounter = 1;
-    var TwitterList = [];
-
+    
     var testData =
         [
             {
@@ -210,7 +206,8 @@ var Search = function (placeholder, searchtype) {
     Search.prototype.PopulateMovieDetails = function (uname) {
         for (var i = 0; i < MOVIES.length; i++) {
             if (MOVIES[i].UniqueName == uname) {
-                CURRENT_MOVIE = MOVIES[i]; // assign selected movie to current movie variable                
+                CURRENT_MOVIE = MOVIES[i]; // assign selected movie to current movie variable      
+                console.log(CURRENT_MOVIE);
                 $("#txtUnique").val(MOVIES[i].UniqueName);
                 $("#txtFriendly").val(MOVIES[i].Name);
                 $("#txtSynopsis").val(MOVIES[i].Synopsis);
@@ -482,8 +479,8 @@ var Search = function (placeholder, searchtype) {
         }
     }
 
-    Search.prototype.SaveXMLFile = function () {
-        new Crawler().SaveXmlFileCrawl();
+    Search.prototype.SaveXMLFile = function (isCrawl) {
+        new Crawler().SaveXmlFileCrawl(isCrawl);
     }
 
     Search.prototype.PopulateNewsResults = function (data) {
@@ -509,4 +506,4 @@ var Search = function (placeholder, searchtype) {
 function updateMovie() { search.UpdateMovie(); }
 function updateArtist() { search.UpdateArtist(); }
 function updateCritics() { search.UpdateCritics(); }
-function saveXmlFile() { search.SaveXMLFile(); }
+function saveXmlFile(isCrawl) { search.SaveXMLFile(isCrawl); }

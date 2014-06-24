@@ -36,8 +36,9 @@ namespace MovieCrawler
             movie.Month = GetMovieMonth(body);
             movie.Year = GetMovieYear(body);
             movie.Stats = GetMovieStats(body);
-            //movie.Casts = GetMovieCast(body);
-            //movie.Posters = GetMoviePoster(body);
+            //uncommeted by vasim for testing movies
+            movie.Casts = GetMovieCast(body);
+            movie.Posters = GetMoviePoster(body);
             //movie.Songs = GetMovieSongs(body);
             movie.Trailers = string.Empty;
             movie.Pictures = string.Empty;
@@ -218,10 +219,10 @@ namespace MovieCrawler
         //get the poster link
         public string GetMoviePoster(HtmlNode body)
         {
-            return string.Empty;
-            /*var posterNode = helper.GetElementWithAttribute(body, "table", "id", "title-overview-widget-layout");
+            //return string.Empty;
+            var posterNode = helper.GetElementWithAttribute(body, "table", "id", "title-overview-widget-layout");
             var posterLink = helper.GetElementWithAttribute(posterNode, "img", "itemprop", "image");
-            return posterLink.Attributes["src"].Value;*/
+            return posterLink.Attributes["src"].Value;
         }
 
         public List<Songs> GetSongDetails(HtmlNode body)
