@@ -16,7 +16,7 @@ var Search = function (placeholder, searchtype) {
 
     var CRAWLFILES;
     var CURRENT_CRAWLFILE;
-    
+
     var testData =
         [
             {
@@ -69,7 +69,13 @@ var Search = function (placeholder, searchtype) {
         $(txtSearch).keypress(function () {
             if ($(this).val().length > 2) {
                 that.GetSearchResults($(".search-result-container"), type);
-            }
+            }            
+        });
+
+        $(txtSearch).keyup(function () {
+            if ($(this).val().length == 0) {
+                that.GetSearchResults($(".search-result-container"), type);
+            }            
         });
 
         return $(searchContainer).append(txtSearch).append(btnSearch);

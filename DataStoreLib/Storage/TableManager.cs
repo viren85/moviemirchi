@@ -687,7 +687,8 @@ namespace DataStoreLib.Storage
                 if (string.IsNullOrEmpty(artistName))
                     return allArtists.Values.Where(a => a.Posters.Length > 2);
                 else
-                    return allArtists.Values.Where(a => a.ArtistName.ToLower().Trim() == artistName && a.Posters.Length > 2);
+                    //return allArtists.Values.Where(a => a.ArtistName.ToLower().Trim() == artistName && a.Posters.Length > 2);
+                    return allArtists.Values.Where(a => a.ArtistName.ToLower().Trim().Contains(artistName.ToLower()) && a.Posters.Length > 2);
             }
             catch (Exception)
             {

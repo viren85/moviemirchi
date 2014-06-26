@@ -56,7 +56,12 @@
                     aeList.Add(artist);
                 }
 
-                tblMgr.UpdateArtistItemById(aeList);
+                //tblMgr.UpdateArtistItemById(aeList);
+
+                foreach (ArtistEntity obj in aeList)
+                {
+                    tblMgr.UpdateArtistById(obj);
+                }
             }
             catch (Exception ex)
             {
