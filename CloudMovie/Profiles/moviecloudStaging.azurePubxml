@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <AzureCredentials>Windows Azure MSDN - Visual Studio Ultimate</AzureCredentials>
+    <AzureCredentials>{"ServiceManagementEndpoint":"https:\/\/management.core.windows.net\/","SubscriptionId":"d3e43134-ec48-4b5d-bea4-b113471d4e80"}</AzureCredentials>
     <AzureDeleteDeploymentOnFailure>False</AzureDeleteDeploymentOnFailure>
     <AzureDeploymentLabel>CloudMovie</AzureDeploymentLabel>
     <AzureDeploymentReplacementMethod>AutomaticUpgrade</AzureDeploymentReplacementMethod>
@@ -9,14 +9,16 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>moviecloud</AzureHostedServiceLabel>
-    <AzureHostedServiceName>moviecloud</AzureHostedServiceName>
+    <AzureHostedServiceLabel>moviemirchi</AzureHostedServiceLabel>
+    <AzureHostedServiceName>moviemirchi</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
-    <AzureEnableProfiling>False</AzureEnableProfiling>
+    <AzureEnableProfiling>True</AzureEnableProfiling>
     <AzureServiceConfiguration>CloudStaging</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
-    <AzureStorageAccountLabel>moviemirchi</AzureStorageAccountLabel>
-    <AzureStorageAccountName>moviemirchi</AzureStorageAccountName>
+    <AzureStorageAccountLabel>moviemirchistorage</AzureStorageAccountLabel>
+    <AzureStorageAccountName>moviemirchistorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
+    <EnableRemoteDebugger>True</EnableRemoteDebugger>
+    <RemoteDebuggerConnectorCertificateThumbprint>D66BB8AB8559659C211EB244CA5D9389A989B91D</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>
