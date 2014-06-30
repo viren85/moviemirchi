@@ -61,7 +61,7 @@ namespace MvcWebRole2.Handler
                 catch (Exception ex)
                 {
                     context.Response.StatusCode = 500;
-                    context.Response.Write(jss.Serialize(new { Status = "Error", Message = "Sorry! An error occured while uploading image on mooc server" }));
+                    context.Response.Write(jss.Serialize(new { Status = "Error", Error = ex.Message, Message = "Sorry! An error occured while uploading image on mooc server" }));
                 }
             }
         }

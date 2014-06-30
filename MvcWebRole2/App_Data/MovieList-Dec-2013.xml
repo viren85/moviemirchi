@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Movies year="2013">
   <Month name="December">
-    <!--<Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/‎">
+    <Movie name="Dhoom 3" link="http://www.imdb.com/title/tt1833673/‎">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-dhoom3-4986.html" />
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-by-anupama-chopra-dhoom-3-is-gorgeous-with-cheerful-lack-of-logic/article1-1164955.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/542148"/>
-    </Movie>-->
+    </Movie>
     <Movie name="Krrish 3" link="http://www.imdb.com/title/tt1029231/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-krrish-3_-4553.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-krrish-3-ultimately-belongs-to-hrithik/article1-1146252.aspx"/>
@@ -17,7 +17,7 @@
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566872"/>
     </Movie>
     <Movie name="Yeh Jawaani Hai Deewani" link="http://www.imdb.com/title/tt2178470/"/>    
-    <!--<Movie name="Gori Tere Pyaar Mein" link="http://www.imdb.com/title/tt2275794/">
+    <Movie name="Gori Tere Pyaar Mein" link="http://www.imdb.com/title/tt2275794/">
       <Review  name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-gori-tere-pyaar-mein-4739.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-gori-tere-pyaar-mein/article1-1154675.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/584414"/>
@@ -48,6 +48,6 @@
     </Movie>
     <Movie name="What the Fish" link="http://www.imdb.com/title/tt3357416/">
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-what-the-fish-turns-out-to-be-a-small-fry/article1-1162181.aspx"/>
-    </Movie>-->
+    </Movie>
   </Month>
 </Movies>

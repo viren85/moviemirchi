@@ -39,9 +39,7 @@ namespace Crawler
             catch (Exception ex)
             {
                 throw ex;
-            }
-
-            return null;
+            }            
         }
     }
 

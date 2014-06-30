@@ -65,6 +65,7 @@ namespace Crawler
             }
             catch (Exception ex)
             {
+                Console.Write(ex.Message);
                 return "";
             }
         }
@@ -125,7 +126,7 @@ namespace Crawler
             }
             catch (Exception ex)
             {
-
+                Console.Write(ex.Message);
             }
 
             return null;

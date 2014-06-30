@@ -119,8 +119,8 @@ namespace MvcWebRole2.Controllers
                 XmlDocument xdoc = new XmlDocument();
 
 
-                string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-
+                //string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+                string basePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\";
                 string[] moviesFilePath = Directory.GetFiles(basePath, "*.xml");
 
                 #region Movie Crawler
@@ -128,7 +128,8 @@ namespace MvcWebRole2.Controllers
                 {
                     xdoc.Load(filePath);
 
-                    var movies = xdoc.SelectNodes("Movies/Month[@name='December']/Movie");
+                    //var movies = xdoc.SelectNodes("Movies/Month[@name='December']/Movie");
+                    var movies = xdoc.SelectNodes("Movies/Month/Movie");
 
                     if (movies == null)
                         continue;
@@ -340,7 +341,7 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpGet]
-        public void GetTweets()
+        public void GetTweets(string blobXmlFilePath = "")
         {
             try
             {
@@ -355,10 +356,18 @@ namespace MvcWebRole2.Controllers
 
                 XmlDocument xdoc = new XmlDocument();
 
-                string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-                string filePath = Path.Combine(basePath, "Twitter.xml");
+                if (blobXmlFilePath == "")
+                {
+                    string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+                    string filePath = Path.Combine(basePath, "Twitter.xml");
 
-                xdoc.Load(filePath);
+                    xdoc.Load(filePath);
+                }
+                else
+                {
+                    xdoc.Load(blobXmlFilePath);
+                }
+
                 var items = xdoc.SelectNodes("Search/WhiteList/Item");
 
                 if (items != null)
@@ -444,17 +453,24 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpGet]
-        public void GetNews()
+        public void GetNews(string blobXmlFilePath = "")
         {
             try
             {
                 XmlDocument xdoc = new XmlDocument();
-
-                string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-                string filePath = Path.Combine(basePath, "News.xml");
                 string newsXml = string.Empty;
 
-                xdoc.Load(filePath);
+                if (blobXmlFilePath == "")
+                {
+                    string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+                    string filePath = Path.Combine(basePath, "News.xml");                    
+                    xdoc.Load(filePath);
+                }
+                else
+                {
+                    xdoc.Load(blobXmlFilePath);
+                }
+
                 var items = xdoc.SelectNodes("News/Link");
                 if (items != null)
                 {
@@ -484,9 +500,9 @@ namespace MvcWebRole2.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                Console.Write(ex.Message);
             }
         }
 
@@ -533,7 +549,8 @@ namespace MvcWebRole2.Controllers
                                 }
                             }
 
-                            castList.Add(cast);
+                            if (new TableManager().GetArtist(cast.name.ToLower()) == null)
+                                castList.Add(cast);
                         }
 
                         artistCrawler.CrawlArtists(castList);
@@ -702,11 +719,18 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items1)
                         {
                             NewsEntity news = new NewsEntity();
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("img_scoop") == null ? string.Empty : node.SelectSingleNode("img_scoop").InnerText;
-                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
-                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
+
+                            //download image in our blob storage
+                            if (!string.IsNullOrEmpty(news.Image))
+                            {
+                                news.Image = Util.DownloadImage(news.Image, news.NewsId);
+                            }
+
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;                            
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
@@ -725,6 +749,13 @@ namespace MvcWebRole2.Controllers
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("image") == null ? string.Empty : node.SelectSingleNode("image").InnerText;
+
+                            //download image in our blob storage
+                            if (!string.IsNullOrEmpty(news.Image))
+                            {
+                                news.Image = Util.DownloadImage(news.Image, news.NewsId);
+                            }
+
                             news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
                             news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Source = type;
@@ -745,6 +776,13 @@ namespace MvcWebRole2.Controllers
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("enclosure") == null ? string.Empty : node.SelectSingleNode("enclosure").Attributes["url"].Value;
+
+                            //download image in our blob storage
+                            if (!string.IsNullOrEmpty(news.Image))
+                            {
+                                news.Image = Util.DownloadImage(news.Image, news.NewsId);
+                            }
+
                             news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
                             news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Source = type;

@@ -349,6 +349,7 @@ namespace DataStoreLib.Storage
             }
             catch (Exception ex)
             {
+                Console.Write(ex.Message);
                 return null;
             }
         }
@@ -571,6 +572,7 @@ namespace DataStoreLib.Storage
             }
             catch (Exception ex)
             {
+                Console.Write(ex.Message);
                 throw;
             }
         }
@@ -636,8 +638,8 @@ namespace DataStoreLib.Storage
                 return true;
             }
             catch (Exception ex)
-            {
-                throw;
+            {                
+                throw ex;
             }
         }
 

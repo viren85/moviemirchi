@@ -14,6 +14,7 @@ namespace DataStoreLib.BlobStorage
     {
         public const string Blob_ImageContainer = "posters";
         public const string Blob_XMLFileContainer = "crawlfiles";
+        public const string Blob_NewsImages = "newsimages";
 
         #region Private Methods
         private CloudBlobContainer GetCloudBlobContainer(string containerName)
@@ -85,9 +86,9 @@ namespace DataStoreLib.BlobStorage
             }
             catch (Exception ex)
             {
-                throw ex;
-            }
-            return 0;
+                Console.Write(ex.Message);
+                return 0;
+            }            
         }
 
         public string GetSinglFile(string containerName, string fileName)
@@ -141,6 +142,7 @@ namespace DataStoreLib.BlobStorage
             }
             catch (Exception ex)
             {
+                Console.Write(ex.Message);
                 return "";
             }
         }
@@ -159,6 +161,7 @@ namespace DataStoreLib.BlobStorage
             }
             catch (Exception ex)
             {
+                Console.Write(ex.Message);
                 return false;
             }
         }

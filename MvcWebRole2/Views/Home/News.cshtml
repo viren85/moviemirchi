@@ -38,7 +38,9 @@
     //$(".basic-form-container").append(new Crawler().BuildForm());
 
     $(".shortcut-container").html("");
-    $(".shortcut-container").append($("<a/>").attr("href", "/Account/GetNews").attr("class", "btn btn-success").html("Crawl News"));
+    $(".shortcut-container").append($("<a/>").attr("class", "btn btn-success").html("Crawl News").click(function () {
+        new News().CrawlNews();
+    }));
     $(".shortcut-container").append($("<div>").attr("id", "status"));
 
     $(".news-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right:10px;").html("Active").click(function () {

@@ -28,7 +28,10 @@
     shortcuts.PrepareShortcuts("shortcut-container");
 
     $(".shortcut-container").html("");
-    $(".shortcut-container").append($("<a/>").attr("href", "/Account/GetTweets").attr("class", "btn btn-success").html("Crawl Twitter"));
+    $(".shortcut-container").append($("<a/>").attr("class", "btn btn-success").html("Crawl Twitter").click(function () {
+        new Twitter().CrawlTwitts();
+    }));
+
     $(".shortcut-container").append($("<div>").attr("id", "status"));
 
     $(".twitter-buttons").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right:10px;").html("Active").click(function () {

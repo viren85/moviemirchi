@@ -98,7 +98,7 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", Error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Status = "Ok", actors = "Actors" }, JsonRequestBehavior.AllowGet);
@@ -182,13 +182,12 @@ namespace MvcWebRole2.Controllers
                     crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
                     crawlMovieEntity.Reviews = movieProps.Reviews;
 
-                    string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
-
-                    // crawl movies
-                    new AccountController().CrawlfromXML(xmlFileContent);
+                    /*string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);                   
+                    new AccountController().CrawlfromXML(xmlFileContent);*/
+                    new AccountController().Crawl();
 
                     // cral artits 
-                    new AccountController().GetArtists();
+                    //new AccountController().GetArtists();
                 }
             }
             catch (Exception ex)
@@ -231,7 +230,7 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", Error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Status = "Ok", Message = "Selected news deleted successfully." }, JsonRequestBehavior.AllowGet);
@@ -274,12 +273,30 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", Error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Status = "Ok", Message = "Selected news updated successfully." }, JsonRequestBehavior.AllowGet);
         }
 
+        [HttpPost]
+        public ActionResult CrawlNews(string data)
+        {
+            try
+            {
+                BlobStorageService _blobStorageService = new BlobStorageService();
+
+                string newsXmlFileBlobPath = _blobStorageService.GetSinglFile(BlobStorageService.Blob_XMLFileContainer, "News.xml");
+
+                new AccountController().GetNews(newsXmlFileBlobPath);
+
+                return Json(new { Status = "Ok", Message = "successfully crawl news." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error", Message = "Error occured.", ActualMessage = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
+        }
         #endregion
 
         #region Tweeter section
@@ -288,7 +305,6 @@ namespace MvcWebRole2.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         public ActionResult DeleteTwitt(string data)
@@ -314,7 +330,7 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", Error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Status = "Ok", Message = "Selected news deleted successfully." }, JsonRequestBehavior.AllowGet);
@@ -360,10 +376,29 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", Error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Status = "Ok", Message = "Selected news updated successfully." }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public ActionResult CrawlTwitts(string data)
+        {
+            try
+            {
+                BlobStorageService _blobStorageService = new BlobStorageService();
+
+                string twitXmlBlobFilePath = _blobStorageService.GetSinglFile(BlobStorageService.Blob_XMLFileContainer, "Twitter.xml");
+
+                new AccountController().GetTweets(twitXmlBlobFilePath);
+
+                return Json(new { Status = "Ok", Message = "Successfully crawl twitts." }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Status = "Error", Message = "Error occured.", ActualMessage = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
         #endregion
     }

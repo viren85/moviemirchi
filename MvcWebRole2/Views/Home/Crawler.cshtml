@@ -34,7 +34,7 @@
     $(".basic-form-container").append(movieinfo.GetMovieInfoContainer("movie-basic-info", "Add new movie to crawl"));
 
     $(".basic-form-container").append(new Crawler().BuildForm());
-    $("#txtMonth").attr("readonly", "readonly");
+    //$("#txtMonth").attr("readonly", "readonly");
 
     $("#txtMovieLink").change(function () {
         if ($("#txtMovieLink").val() != "") {

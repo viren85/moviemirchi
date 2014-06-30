@@ -51,10 +51,8 @@ namespace DataStoreLib.Storage
             }
             catch (System.Exception ex)
             {
-                throw;
+                throw ex;
             }
-
-            return false;
         }
     }
 }

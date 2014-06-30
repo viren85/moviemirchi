@@ -236,4 +236,10 @@ var Twitter = function () {
 
         return $(container).append(sectionTitle).append(grid);
     }
+
+    Twitter.prototype.CrawlTwitts = function () {
+        CallController("Home/CrawlTwitts", "data", "", function () {
+            $("#status").html("Successfully crawl news!");
+        });
+    }
 }

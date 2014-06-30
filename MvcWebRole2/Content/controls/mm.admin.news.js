@@ -123,4 +123,10 @@
             });
         }
     }
+
+    News.prototype.CrawlNews = function () {
+        CallController("Home/CrawlNews", "data", "", function () {
+            $("#status").html("Successfully crawl news!");
+        });
+    }
 }

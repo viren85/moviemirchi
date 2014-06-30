@@ -40,14 +40,9 @@ namespace MvcWebRole2.Controllers
 
             try
             {
-                var newLine = @"\n";
-                var slash = @"\";
-
-                //hfMovie = hfMovie.Replace(newLine, " ").Replace(slash, "").Replace("/", "");
-
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 MovieEntity movie = json.Deserialize(data, typeof(MovieEntity)) as MovieEntity;
-                
+
                 if (movie != null)
                 {
                     string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
@@ -77,12 +72,12 @@ namespace MvcWebRole2.Controllers
                     entity.Synopsis = movie.Synopsis;
                     entity.Casts = movie.Casts;
                     entity.Stats = movie.Stats;
-                    entity.Songs = movie.Songs;                    
-                    entity.Trailers = movie.Trailers;                    
+                    entity.Songs = movie.Songs;
+                    entity.Trailers = movie.Trailers;
                     entity.Pictures = movie.Pictures;
                     entity.Genre = movie.Genre;
                     entity.Month = movie.Month;
-                    entity.Year = movie.Year;                    
+                    entity.Year = movie.Year;
                     entity.UniqueName = movie.UniqueName;
                     entity.State = movie.State;
                     entity.MyScore = movie.MyScore;
@@ -94,7 +89,7 @@ namespace MvcWebRole2.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return Json(new { Status = "Error", Error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
 
             return Json(new { Status = "Ok", actors = "Actors" }, JsonRequestBehavior.AllowGet);

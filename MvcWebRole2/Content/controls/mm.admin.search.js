@@ -149,16 +149,27 @@ var Search = function (placeholder, searchtype) {
                 }
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ArtistName);
-                //var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                var year = $("<div/>").attr("class", "search-movie-year").html("");
                 $(item).append(img);
                 $(item).append(movieTitle);
-                //$(item).append(year);
+                $(item).append(year);
                 $(searchResultList).append(item);
                 //}
             }
 
             if (resultContainer == null || resultContainer == "undefined") {
                 resultContainer = $(".search-result-container");
+            }
+
+            if (json.length == 0) {
+                var item1 = $("<li/>").attr("class", "search-result-list-item");
+
+                var text = $(".search-text").val() == "" ? "Currently you haven't added any artist" : "Currently you haven't added \"" + $(".search-text").val() + "\" artist";
+
+                var empty = $("<div/>").attr("class", "search-movie-name").attr("style", "width: 90%;margin-left: 5%;").html(text);
+                $(item1).append(empty);
+                $(item1).append($("<div/>").attr("class", "search-movie-year").html(""));
+                $(searchResultList).append(item1);
             }
 
             $(resultContainer).append(searchResultList);
@@ -170,8 +181,7 @@ var Search = function (placeholder, searchtype) {
         var json = JSON.parse(data);
         MOVIES = json;
         $(resultContainer).children("ul").remove();
-        //Comment following line once API is functional
-        //json = testData;
+        //Comment following line once API is functional        
         if (json != null) {
             var searchResultList = $("<ul/>").attr("class", "search-result-list");
 
@@ -203,6 +213,17 @@ var Search = function (placeholder, searchtype) {
 
             if (resultContainer == null || resultContainer == "undefined") {
                 resultContainer = $(".search-result-container");
+            }
+
+            if (json.length == 0) {
+                var item1 = $("<li/>").attr("class", "search-result-list-item");
+
+                var text = $(".search-text").val() == "" ? "Currently you haven't added any movie" : "Currently you haven't added \"" + $(".search-text").val() + "\" movie";
+
+                var empty = $("<div/>").attr("class", "search-movie-name").attr("style", "width: 90%;margin-left: 5%;").html(text);
+                $(item1).append(empty);
+                $(item1).append($("<div/>").attr("class", "search-movie-year").html(""));
+                $(searchResultList).append(item1);
             }
 
             $(resultContainer).append(searchResultList);
@@ -402,24 +423,30 @@ var Search = function (placeholder, searchtype) {
                 });
 
                 var img;
-                //var posters = JSON.parse(json[i].Posters);
-
-                //if (json[i].ReviewerImage == "no")
-                //    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
-                //else
+                
                 img = $("<img/>").attr("src", PUBLIC_BLOB_URL + json[i].ReviewerImage).attr("class", "search-item-img");
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ReviewerName);
-                //var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                var year = $("<div/>").attr("class", "search-movie-year").html("");
                 $(item).append(img);
                 $(item).append(movieTitle);
-                //$(item).append(year);
-                $(searchResultList).append(item);
-                //}
+                $(item).append(year);
+                $(searchResultList).append(item);                
             }
 
             if (resultContainer == null || resultContainer == "undefined") {
                 resultContainer = $(".search-result-container");
+            }
+
+            if (json.length == 0) {
+                var item1 = $("<li/>").attr("class", "search-result-list-item");
+
+                var text = $(".search-text").val() == "" ? "Currently you haven't added any critic" : "Currently you haven't added \"" + $(".search-text").val() + "\" critic";
+
+                var empty = $("<div/>").attr("class", "search-movie-name").attr("style", "width: 90%;margin-left: 5%;").html(text);
+                $(item1).append(empty);
+                $(item1).append($("<div/>").attr("class", "search-movie-year").html(""));
+                $(searchResultList).append(item1);
             }
 
             $(resultContainer).append(searchResultList);
@@ -476,8 +503,12 @@ var Search = function (placeholder, searchtype) {
 
             if (json.length == 0) {
                 var item1 = $("<li/>").attr("class", "search-result-list-item");
-                var empty = $("<div/>").attr("class", "search-movie-name").html("No movie found for your search\"" + $(".search-text").val() + "\".");
+
+                var text = $(".search-text").val() == "" ? "Currently you haven't added any movie for this month" : "Currently you haven't added \"" + $(".search-text").val() + "\" movie";
+
+                var empty = $("<div/>").attr("class", "search-movie-name").attr("style", "width: 90%;margin-left: 5%;").html(text);
                 $(item1).append(empty);
+                $(item1).append($("<div/>").attr("class", "search-movie-year").html(""));
                 $(searchResultList).append(item1);
             }
 

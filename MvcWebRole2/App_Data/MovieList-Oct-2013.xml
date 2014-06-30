@@ -1,34 +1,24 @@
 <?xml version="1.0"?>
 <Movies year="2013">
   <Month name="October">
-    <!--<Movie name="Besharam" link="http://www.imdb.com/title/tt2576450/">
+    <Movie name="Besharam" link="http://www.imdb.com/title/tt2576450/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-besharam-4287.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/sarit-ray-s-review-besharam-a-senseless-saga-of-shamelessness/article1-1130327.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/568653"/>
-    </Movie>-->
+    </Movie>
     <Movie name="War Chhod Na Yaar" link="http://www.imdb.com/title/tt3129282/">
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/anupama-chopra-s-review-war-chhod-na-yaar/article1-1133903.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/589394"/>
     </Movie>
     <Movie name="Baat Ban Gayi" link="http://www.imdb.com/title/tt2222716/">
-    </Movie>
-    <Movie name="Ek Thee Sanam" link="">
-    </Movie>
-    <Movie name="Paapi - Ek Satya Katha" link="">
-    </Movie>
+    </Movie>    
     <Movie name="Boss" link="http://www.imdb.com/title/tt2571140/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-boss-4431.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-boss-is-a-cartoon-designed-to-deify-akshay-kumar-by-anupama-chopra/article1-1136225.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566663"/>
     </Movie>
     <Movie name="Shahid" link="http://www.imdb.com/title/tt2181831/">
-    </Movie>
-    <Movie name="Wake Up India" link="">
-    </Movie>
-    <Movie name="Amdavad Junction" link="">
-    </Movie>
-    <Movie name="Dilli Gang" link="">
-    </Movie>
+    </Movie>    
     <Movie name="Mickey Virus" link="http://www.imdb.com/title/tt2796318/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-mickey-virus-4503.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-mickey-virus-by-anupama-chopra/article1-1140630.aspx"/>

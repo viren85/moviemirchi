@@ -27,7 +27,7 @@
         var isEnabled = new FormBuilder().GetCheckBox("isEnabled", "Enabled", false);
 
         var movieName = new FormBuilder().GetTextField("txtMovieName", "Movie Name", "Movie Name");
-        var month_Year = new FormBuilder().GetTextField("txtMonth", "Month/Year", "Month/Year");
+        var month_Year = new FormBuilder().GetTextField("txtMonth", "Month Year", "Month/Year");
         var movieLink = new FormBuilder().GetTextField("txtMovieLink", "Movie Link", "Movie Link");
 
         //$(formContainer).append(isEnabled);

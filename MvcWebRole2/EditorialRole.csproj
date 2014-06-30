@@ -240,14 +240,25 @@
     <Content Include="Content\controls\mm.admin.news.js" />
     <Content Include="Content\controls\mm.admin.posters.js" />
     <Content Include="Content\controls\mm.admin.rating.js" />
-    <Content Include="Content\controls\mm.admin.shortcuts.js" />
+    <Content Include="Content\controls\mm.admin.reviewer.js" />
     <Content Include="Content\controls\mm.admin.search.js" />
+    <Content Include="Content\controls\mm.admin.shortcuts.js" />
     <Content Include="Content\controls\mm.admin.twitter.js" />
+    <Content Include="Content\images\ui-bg_flat_75_ffffff_40x100.png" />
+    <Content Include="Content\images\ui-bg_glass_55_fbf9ee_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_dadada_1x400.png" />
+    <Content Include="Content\images\ui-bg_glass_75_e6e6e6_1x400.png" />
+    <Content Include="Content\images\ui-bg_highlight-soft_75_cccccc_1x100.png" />
+    <Content Include="Content\images\ui-icons_222222_256x240.png" />
+    <Content Include="Content\images\ui-icons_454545_256x240.png" />
     <Content Include="Content\jquery-1.9.1.js" />
+    <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery-ui.js" />
     <Content Include="Content\jquery.fileupload.js" />
+    <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\movie.style.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="Content\styles\mm.admin.artists.css" />
     <Content Include="Content\styles\mm.admin.news.css" />
     <Content Include="Content\styles\mm.admin.posters.css" />
@@ -311,7 +322,6 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Content\movie.autocomplete.js" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -338,7 +348,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Content\Site.css" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Images\accent.png" />
     <Content Include="Images\bullet.png" />

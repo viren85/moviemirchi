@@ -655,6 +655,7 @@ namespace MovieCrawler
             }
             catch (Exception ex)
             {
+                Console.Write(ex.Message);
                 return false;
             }
 
