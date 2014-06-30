@@ -746,6 +746,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items2)
                         {
                             NewsEntity news = new NewsEntity();
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("image") == null ? string.Empty : node.SelectSingleNode("image").InnerText;
@@ -756,8 +757,7 @@ namespace MvcWebRole2.Controllers
                                 news.Image = Util.DownloadImage(news.Image, news.NewsId);
                             }
 
-                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
-                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;                            
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
@@ -773,6 +773,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items3)
                         {
                             NewsEntity news = new NewsEntity();
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("enclosure") == null ? string.Empty : node.SelectSingleNode("enclosure").Attributes["url"].Value;
