@@ -2,7 +2,7 @@
 var BASE_URL = "http://127.0.0.1:8080/";
 //var PUBLIC_BLOB_URL = "http://127.0.0.1:10000/devstoreaccount1/posters/";
 //var PUBLIC_BLOB_URL = "https://moviemirchistorage1.blob.core.windows.net/posters/";
-var PUBLIC_BLOB_URL = "https://moviemirchistorage.blob.core.windows.net/posters/";
+var PUBLIC_BLOB_URL = "https://moviemirchistorage1.blob.core.windows.net/posters/";
 
 var FormBuilder = function () {
     FormBuilder.prototype.GetTextField = function (id, placeholder, label) {

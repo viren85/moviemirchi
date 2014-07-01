@@ -19,6 +19,6 @@
     <AzureStorageAccountName>moviemirchistorage1</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <EnableRemoteDebugger>True</EnableRemoteDebugger>
-    <RemoteDebuggerConnectorCertificateThumbprint>66A16C2E7AD2B0D044F2DEEB4DA14003E97E6702</RemoteDebuggerConnectorCertificateThumbprint>
+    <RemoteDebuggerConnectorCertificateThumbprint>55625358F9EF5699AC46493708906090871AF48C</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>

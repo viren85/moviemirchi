@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_MovieMirchiLayout.cshtml";
+    Layout = "~/Views/Shared/_MovieLayout.cshtml";
+}
+<div class="movies">
+</div>
+@Html.Hidden("CurrentMovies", null, new { @id = "CurrentMovies" }) 
+@Html.Hidden("UpcomingMovies", null, new { @id = "UpcomingMovies" }) 
+@Html.Hidden("Popular", null, new { @id = "Popular" }) 
+@Html.Hidden("News", null, new { @id = "News" }) 
+@Html.Hidden("Tweets", null, new { @id = "Tweets" }) 
+@*<input type="hidden" name="CurrentMovies" id="CurrentMovies" />
+    <input type="hidden" name="UpcomingMovies" id="UpcomingMovies" />
+    <input type="hidden" name="Popular" id="Popular" />
+    <input type="hidden" name="News" id="News" />
+    <input type="hidden" name="Tweets" id="Tweets" />*@
+<script>
+    var indexer = 0;
+    $(document).ready(function () {
+        $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
+        $(".movies").append(GetTubeControl("Upcoming", "upcoming-movie-list", "upcoming-pager"));
+        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+        $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
+        $(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30"));
+        //LoadCurrentMovies();
+        //LoadUpcomingMovies();
+        //LoadTweets();
+        //LoadTags();
+        onSuccessLoadCurrentMovies($("#CurrentMovies").val());
+        onSuccessLoadUpcomingMovies($("#UpcomingMovies").val());
+        ShowNews($("#News").val());
+        ShowTweets($("#Tweets").val());
+    });
+</script>
