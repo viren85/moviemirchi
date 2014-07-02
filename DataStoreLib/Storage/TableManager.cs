@@ -669,7 +669,8 @@ namespace DataStoreLib.Storage
             {
                 var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
                 var allArtists = artistTable.GetAllItems<ArtistEntity>();
-                return allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName);
+
+                return allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName);                
             }
             catch (Exception)
             {

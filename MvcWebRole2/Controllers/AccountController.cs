@@ -121,7 +121,7 @@ namespace MvcWebRole2.Controllers
 
                 //string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
                 string basePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\";
-                string[] moviesFilePath = Directory.GetFiles(basePath, "*.xml");
+                string[] moviesFilePath = Directory.GetFiles(basePath, "MovieList-Dec-2013-Viren.xml");
 
                 #region Movie Crawler
                 foreach (string filePath in moviesFilePath)
@@ -549,7 +549,7 @@ namespace MvcWebRole2.Controllers
                                 }
                             }
 
-                            if (new TableManager().GetArtist(cast.name.ToLower()) == null)
+                            if (new TableManager().GetArtist(cast.name.ToLower()) == null && castList.Find(c => c.name == cast.name) == null)
                                 castList.Add(cast);
                         }
 

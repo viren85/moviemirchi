@@ -3,8 +3,8 @@
   <Role name="WebApiRole">
     <Instances count="1" />
     <ConfigurationSettings>
-      <Setting name="StorageTableConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage;AccountKey=3hEzPoKeMp8F579Du/Z3Z4q/s0cUE6esTe/PJeX72M9l5/rhDa36IuSPn2mOomUsh91GjaVlgaYbuDqtWu1+nQ==" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage;AccountKey=3hEzPoKeMp8F579Du/Z3Z4q/s0cUE6esTe/PJeX72M9l5/rhDa36IuSPn2mOomUsh91GjaVlgaYbuDqtWu1+nQ==" />
+      <Setting name="StorageTableConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage1;AccountKey=aDZW/u8seaqszRp2nE5dQ3cqdv1dgokR4iNkakfr2FYu2WnjMfDx1TXSleKDTiXnijhdJwT5+yriyqEamCiDog==" />
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage1;AccountKey=aDZW/u8seaqszRp2nE5dQ3cqdv1dgokR4iNkakfr2FYu2WnjMfDx1TXSleKDTiXnijhdJwT5+yriyqEamCiDog==" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="moviemirchi" />
       <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEHYXklHM5iqJQQ2duVK2hAUwDQYJKoZIhvcNAQEBBQAEggEAE9xpSB+I24VftqkRdWda8lzIGEBLDg5cRHAXLbxS8/hfPy6byPskhE3Dto/OahSWagjXoRaRcAkojz5fQ3HbQL9fmwSjNrS4LdIkZpkdKNG+SqWjjbzUSH/Mk6qYLUhlc/Y3BXvbziTMeFxx/sUUzmMpvLixMbUkw9A3rttIrrRLIoM7jMqGpq6OXAhPPI06c0ioIby7tMydD/ZH7J054jbancmOpZhcn/mpddyjeMXGX71Gbb4gYTC6gxCwKDdYZq2VAltydVAfXgaH+R8pbmP6adEgTMijI9mEt5dzImuZwULeca3JG9d0fmOhq/uEhNT2Vla+zCo1ECXdVWn9kjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECDSTSJv+Y7VhgBAvTD0jeCTv30Rt37btn77O" />

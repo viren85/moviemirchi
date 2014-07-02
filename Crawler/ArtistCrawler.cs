@@ -32,6 +32,8 @@
 
                 foreach (Cast cast in castItems)
                 {
+                    if (string.IsNullOrEmpty(cast.link)) continue;
+
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(cast.link);
                     HttpWebResponse response = (HttpWebResponse)request.GetResponse();
 

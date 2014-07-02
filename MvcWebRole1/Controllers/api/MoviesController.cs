@@ -45,7 +45,7 @@ namespace MvcWebRole1.Controllers.api
 
             try
             {
-                lock (_object)
+                //lock (_object) // as per viren's call
                 {
                     var tableMgr = new TableManager();
 
