@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceConfiguration serviceName="CloudMovie" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2014-01.2.3">
+  <Role name="EditorialRole">
+    <Instances count="1" />
+    <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchidiagstore;AccountKey=ytcxazqJ+dyh1gPjD3gwfQvy0Xxrhh1yjiyjRltyt/fXmIa+2mrSAd9WOpBYB+M2Ui4ZKZJ0/eReRUgmv9CA4w==" />
+      <Setting name="StorageTableConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage;AccountKey=3hEzPoKeMp8F579Du/Z3Z4q/s0cUE6esTe/PJeX72M9l5/rhDa36IuSPn2mOomUsh91GjaVlgaYbuDqtWu1+nQ==" />
+    </ConfigurationSettings>
+  </Role>
   <Role name="WebApiRole">
     <Instances count="1" />
     <ConfigurationSettings>
+      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchidiagstore;AccountKey=ytcxazqJ+dyh1gPjD3gwfQvy0Xxrhh1yjiyjRltyt/fXmIa+2mrSAd9WOpBYB+M2Ui4ZKZJ0/eReRUgmv9CA4w==" />
       <Setting name="StorageTableConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage;AccountKey=3hEzPoKeMp8F579Du/Z3Z4q/s0cUE6esTe/PJeX72M9l5/rhDa36IuSPn2mOomUsh91GjaVlgaYbuDqtWu1+nQ==" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage;AccountKey=3hEzPoKeMp8F579Du/Z3Z4q/s0cUE6esTe/PJeX72M9l5/rhDa36IuSPn2mOomUsh91GjaVlgaYbuDqtWu1+nQ==" />
-      <!--<Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.Enabled" value="true" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountUsername" value="moviemirchi" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountEncryptedPassword" value="MIIBnQYJKoZIhvcNAQcDoIIBjjCCAYoCAQAxggFOMIIBSgIBADAyMB4xHDAaBgNVBAMME1dpbmRvd3MgQXp1cmUgVG9vbHMCEHYXklHM5iqJQQ2duVK2hAUwDQYJKoZIhvcNAQEBBQAEggEAE9xpSB+I24VftqkRdWda8lzIGEBLDg5cRHAXLbxS8/hfPy6byPskhE3Dto/OahSWagjXoRaRcAkojz5fQ3HbQL9fmwSjNrS4LdIkZpkdKNG+SqWjjbzUSH/Mk6qYLUhlc/Y3BXvbziTMeFxx/sUUzmMpvLixMbUkw9A3rttIrrRLIoM7jMqGpq6OXAhPPI06c0ioIby7tMydD/ZH7J054jbancmOpZhcn/mpddyjeMXGX71Gbb4gYTC6gxCwKDdYZq2VAltydVAfXgaH+R8pbmP6adEgTMijI9mEt5dzImuZwULeca3JG9d0fmOhq/uEhNT2Vla+zCo1ECXdVWn9kjAzBgkqhkiG9w0BBwEwFAYIKoZIhvcNAwcECDSTSJv+Y7VhgBAvTD0jeCTv30Rt37btn77O" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteAccess.AccountExpiration" value="2015-06-26T23:59:59.0000000+05:30" />
-      <Setting name="Microsoft.WindowsAzure.Plugins.RemoteForwarder.Enabled" value="true" />-->
     </ConfigurationSettings>
-    <!--<Certificates>
-      <Certificate name="Microsoft.WindowsAzure.Plugins.RemoteAccess.PasswordEncryption" thumbprint="EFD2B745A097B598D7702A3B5C182A527099921C" thumbprintAlgorithm="sha1" />
-    </Certificates>-->
   </Role>
 </ServiceConfiguration>
