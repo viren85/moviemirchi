@@ -2,7 +2,7 @@
 
     var AFFILIATION = [
                         "CNN IBN",
-                        "Bollywood Hungama",
+                        "BollywoodHungama",
                         "anupamachopra.com",
                         "Indian Express",
                         "DNA",
