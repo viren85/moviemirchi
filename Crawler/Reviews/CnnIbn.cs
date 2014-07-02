@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HtmlAgilityPack;
 using System.Net;
 using System.IO;
+using System.Diagnostics;
 
 namespace Crawler.Reviews
 {
@@ -44,12 +45,10 @@ namespace Crawler.Reviews
                     return PopulateReviewDetail(reviewPageContent, affiliation);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
-                throw;
+                Debug.WriteLine(string.Format("Exception occored while getting reviews (CNN IBN), message= {0}", ex.Message));
             }
-
 
             return null;
         }

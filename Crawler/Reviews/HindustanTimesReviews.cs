@@ -2,6 +2,7 @@
 using HtmlAgilityPack;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -46,8 +47,9 @@ namespace Crawler.Reviews
                     return PopulateReviewDetails(reviewPageContent, affiliation);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                Debug.WriteLine(string.Format("Exception occored while getting reviews (Hindustan Times), message= {0}", ex.Message));
             }
 
             return null;

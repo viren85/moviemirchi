@@ -227,7 +227,7 @@ namespace MvcWebRole2.Controllers
                                                     re = tg.Crawl(reviewLink, review.Attributes["name"].Value);
                                                     break;
                                                 case "The Hindu":
-                                                    re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    re = th.Crawl(reviewLink, review.Attributes["name"].Value);
                                                     break;
                                                 case "Times of India":
                                                     re = toi.Crawl(reviewLink, review.Attributes["name"].Value);
