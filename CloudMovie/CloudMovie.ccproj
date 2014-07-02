@@ -47,14 +47,6 @@
       <RoleName>WebApiRole</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\MvcWebRole2\EditorialRole.csproj">
-      <Name>EditorialRole</Name>
-      <Project>{43457783-9306-4ebe-9100-c90890c48236}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>EditorialRole</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="IndexerRoleContent\" />
