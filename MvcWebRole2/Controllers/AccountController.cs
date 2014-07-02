@@ -121,7 +121,7 @@ namespace MvcWebRole2.Controllers
 
                 //string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
                 string basePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\";
-                string[] moviesFilePath = Directory.GetFiles(basePath, "*.xml");
+                string[] moviesFilePath = Directory.GetFiles(basePath, "MovieList-Dec-2013-Viren.xml");
 
                 #region Movie Crawler
                 foreach (string filePath in moviesFilePath)
@@ -177,76 +177,82 @@ namespace MvcWebRole2.Controllers
                                     var reviews = movie.SelectNodes("Review");
                                     foreach (XmlNode review in reviews)
                                     {
-                                        ReviewEntity re = new ReviewEntity();
+                                        ReviewEntity re = null;
                                         string reviewLink = review.Attributes["link"].Value;
 
-                                        switch (review.Attributes["name"].Value.Trim())
+                                        if (!string.IsNullOrEmpty(reviewLink))
                                         {
-                                            case "Bollywood Hungama":
-                                                re = bh.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Hindustan Times":
-                                                re = ht.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Filmfare":
-                                                re = ff.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "CNNIBN":
-                                                re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Box Office India":
-                                                re = boi.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "DNA":
-                                                re = dna.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "FirstPost":
-                                                re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Indian Express":
-                                                re = ie.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Komal Nahta's Blog":
-                                                re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "MidDay":
-                                                re = md.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "NDTV":
-                                                re = ndtv.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "rajasen.com":
-                                                re = rs.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Rediff":
-                                                re = rdf.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Telegraph":
-                                                re = tg.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "The Hindu":
-                                                re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Times of India":
-                                                re = toi.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "anupamachopra.com":
-                                                re = ac.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
-                                            case "Mumbai Mirror":
-                                                re = mm.Crawl(reviewLink, review.Attributes["name"].Value);
-                                                break;
+                                            switch (review.Attributes["name"].Value.Trim())
+                                            {
+                                                case "BollywoodHungama":
+                                                    re = bh.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Hindustan Times":
+                                                    re = ht.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Filmfare":
+                                                    re = ff.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "CNNIBN":
+                                                    re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Box Office India":
+                                                    re = boi.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "DNA":
+                                                    re = dna.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "FirstPost":
+                                                    re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Indian Express":
+                                                    re = ie.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Komal Nahta's Blog":
+                                                    re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "MidDay":
+                                                    re = md.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "NDTV":
+                                                    re = ndtv.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "rajasen.com":
+                                                    re = rs.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Rediff":
+                                                    re = rdf.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Telegraph":
+                                                    re = tg.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "The Hindu":
+                                                    re = th.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Times of India":
+                                                    re = toi.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "anupamachopra.com":
+                                                    re = ac.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                                case "Mumbai Mirror":
+                                                    re = mm.Crawl(reviewLink, review.Attributes["name"].Value);
+                                                    break;
+                                            }
                                         }
 
-                                        critics.Add(re.ReviewerName);
-
-                                        // update the IDs - Movie Id, Reviewer Id etc.
-                                        string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
-                                        //re.RowKey = re.ReviewId = new Guid().ToString();
-                                        re.ReviewerId = reviewerId;
-                                        re.MovieId = mov.MovieId;
-                                        re.OutLink = reviewLink;
-                                        tblMgr.UpdateReviewById(re);
+                                        if (re != null)
+                                        {
+                                            critics.Add(re.ReviewerName);
+                                            // update the IDs - Movie Id, Reviewer Id etc.
+                                            string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
+                                            //re.RowKey = re.ReviewId = new Guid().ToString();
+                                            re.ReviewerId = reviewerId;
+                                            re.MovieId = mov.MovieId;
+                                            re.OutLink = reviewLink;
+                                            if (!string.IsNullOrEmpty(reviewerId))
+                                                tblMgr.UpdateReviewById(re);
+                                        }
                                     }
                                 }
                                 catch (Exception)
@@ -463,7 +469,7 @@ namespace MvcWebRole2.Controllers
                 if (blobXmlFilePath == "")
                 {
                     string basePath = Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-                    string filePath = Path.Combine(basePath, "News.xml");                    
+                    string filePath = Path.Combine(basePath, "News.xml");
                     xdoc.Load(filePath);
                 }
                 else
@@ -549,7 +555,7 @@ namespace MvcWebRole2.Controllers
                                 }
                             }
 
-                            if (new TableManager().GetArtist(cast.name.ToLower()) == null)
+                            if (new TableManager().GetArtist(cast.name.ToLower()) == null && castList.Find(c => c.name == cast.name) == null)
                                 castList.Add(cast);
                         }
 
@@ -730,7 +736,7 @@ namespace MvcWebRole2.Controllers
                                 news.Image = Util.DownloadImage(news.Image, news.NewsId);
                             }
 
-                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;                            
+                            news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
@@ -746,6 +752,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items2)
                         {
                             NewsEntity news = new NewsEntity();
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("image") == null ? string.Empty : node.SelectSingleNode("image").InnerText;
@@ -757,7 +764,6 @@ namespace MvcWebRole2.Controllers
                             }
 
                             news.PublishDate = node.SelectSingleNode("pubDate") == null ? string.Empty : node.SelectSingleNode("pubDate").InnerText;
-                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Source = type;
                             news.Link = node.SelectSingleNode("link") == null ? string.Empty : node.SelectSingleNode("link").InnerText;
                             news.Title = node.SelectSingleNode("title") == null ? string.Empty : node.SelectSingleNode("title").InnerText;
@@ -773,6 +779,7 @@ namespace MvcWebRole2.Controllers
                         foreach (XmlNode node in items3)
                         {
                             NewsEntity news = new NewsEntity();
+                            news.RowKey = news.NewsId = Guid.NewGuid().ToString();
                             news.Description = node.SelectSingleNode("description") == null ? string.Empty : Util.StripHTMLTags(node.SelectSingleNode("description").InnerText);
                             news.FutureJson = string.Empty;
                             news.Image = node.SelectSingleNode("enclosure") == null ? string.Empty : node.SelectSingleNode("enclosure").Attributes["url"].Value;

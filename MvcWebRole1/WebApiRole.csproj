@@ -244,7 +244,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
-    <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Images\Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -355,6 +355,7 @@
     <Content Include="Images\bg_direction_nav.png" />
     <Content Include="Images\clear-button.png" />
     <Content Include="Images\GreenChilli.png" />
+    <Content Include="Images\GreenGrayChilli.png" />
     <Content Include="Images\Loading.GIF" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\mirchi-sprite.png" />
@@ -362,6 +363,7 @@
     <Content Include="Images\pervious.png" />
     <Content Include="Images\quote.png" />
     <Content Include="Images\RedChilli.png" />
+    <Content Include="Images\RedGrayChilli.png" />
     <Content Include="Images\small_gold_star.png" />
     <Content Include="Images\star-rating.png" />
     <Content Include="Images\user.png" />
