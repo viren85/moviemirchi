@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <AzureCredentials>{"ServiceManagementEndpoint":"https:\/\/management.core.windows.net\/","SubscriptionId":"e22064ed-1ef0-4424-961a-3a2973279cb5"}</AzureCredentials>
+    <AzureCredentials>{"ServiceManagementEndpoint":"https:\/\/management.core.windows.net\/","SubscriptionId":"d3e43134-ec48-4b5d-bea4-b113471d4e80"}</AzureCredentials>
     <AzureDeleteDeploymentOnFailure>False</AzureDeleteDeploymentOnFailure>
     <AzureDeploymentLabel>CloudMovie</AzureDeploymentLabel>
     <AzureDeploymentReplacementMethod>AutomaticUpgrade</AzureDeploymentReplacementMethod>
@@ -9,16 +9,16 @@
     <AzureEnableRemoteDesktop>True</AzureEnableRemoteDesktop>
     <AzureEnableWebDeploy>False</AzureEnableWebDeploy>
     <AzureFallbackToDeleteAndRecreateIfUpgradeFails>False</AzureFallbackToDeleteAndRecreateIfUpgradeFails>
-    <AzureHostedServiceLabel>movie-mirchi</AzureHostedServiceLabel>
-    <AzureHostedServiceName>movie-mirchi</AzureHostedServiceName>
+    <AzureHostedServiceLabel>moviemirchi</AzureHostedServiceLabel>
+    <AzureHostedServiceName>moviemirchi</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
     <AzureEnableProfiling>True</AzureEnableProfiling>
     <AzureServiceConfiguration>CloudStaging</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
-    <AzureStorageAccountLabel>moviemirchistorage1</AzureStorageAccountLabel>
-    <AzureStorageAccountName>moviemirchistorage1</AzureStorageAccountName>
+    <AzureStorageAccountLabel>moviemirchistorage</AzureStorageAccountLabel>
+    <AzureStorageAccountName>moviemirchistorage</AzureStorageAccountName>
     <AzureAppendTimestampToDeploymentLabel>True</AzureAppendTimestampToDeploymentLabel>
     <EnableRemoteDebugger>True</EnableRemoteDebugger>
-    <RemoteDebuggerConnectorCertificateThumbprint>66A16C2E7AD2B0D044F2DEEB4DA14003E97E6702</RemoteDebuggerConnectorCertificateThumbprint>
+    <RemoteDebuggerConnectorCertificateThumbprint>F3619A5FD40AB02B2A8BA54C1A9444854B06142C</RemoteDebuggerConnectorCertificateThumbprint>
   </PropertyGroup>
 </Project>

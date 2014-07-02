@@ -1,15 +1,12 @@
-﻿using DataStoreLib.BlobStorage;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.IO;
-using System.Linq;
-using System.Web;
-using System.Web.Script.Serialization;
-using System.Web.SessionState;
-
+﻿
 namespace MvcWebRole2.Handler
 {
+    using DataStoreLib.BlobStorage;
+    using System;
+    using System.Web;
+    using System.Web.Script.Serialization;
+    using System.Web.SessionState;
+
     /// <summary>
     /// Summary description for UploadFile
     /// </summary>
