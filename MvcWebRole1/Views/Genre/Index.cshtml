@@ -9,6 +9,8 @@
     $(document).ready(function () {
         var genreType = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
 
+        genreType = toPascalCase(genreType);
+
         $(".movies").append(GetTubeControl("Movies By Genre - " + genreType, "movie-list", "now-pager"));
 
         var apiPath = "../api/GenreMovies?type=" + genreType;

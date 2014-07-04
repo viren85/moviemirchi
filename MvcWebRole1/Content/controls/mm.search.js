@@ -58,7 +58,7 @@
 
 function getItems(query) {
 
-    var searchPath = "AutoComplete/AutoCompleteMovies?query=" + query;
+    var searchPath = "../../AutoComplete/AutoCompleteMovies?query=" + query;
     CallHandler(searchPath, function (response) {
 
         if (response) {

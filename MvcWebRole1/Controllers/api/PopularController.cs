@@ -5,6 +5,7 @@ namespace MvcWebRole1.Controllers.api
     using DataStoreLib.Storage;
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Linq;
     using System.Web;
     using System.Web.Mvc;
@@ -64,7 +65,11 @@ namespace MvcWebRole1.Controllers.api
                         tableMgr.GetUpcomingMovies()
                         .Concat(tableMgr.GetCurrentMovies())
                         .ToList();
-                    int count = movieEntities.Count;
+
+                    //int count = movieEntities.Count;
+                    int count = 6; //set default 6 if we do not specify a value in web.config file
+
+                    int.TryParse(ConfigurationManager.AppSettings["PopulerMovieCount"], out count);
 
                     var roleReviewer = new string[] { "Taran Adarsh", "Anupama Chopra", "Rajeev Masand" }
                         .Select(r => new
@@ -84,7 +89,7 @@ namespace MvcWebRole1.Controllers.api
                             Role = "Movie",
                             Weight = "3",
                         })
-                        .Take(count / 3);
+                        .Take(count); //count/3
 
                     // TODO Fix Actors
                     ////var actor = movieEntities

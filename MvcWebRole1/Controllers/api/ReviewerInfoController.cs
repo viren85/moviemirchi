@@ -26,7 +26,7 @@ namespace MvcWebRole1.Controllers.api
 
                 Reviewer reviewerInfo = new Reviewer();
                 List<ReviewDetails> reviewDetailList = new List<ReviewDetails>();
-                
+
                 // get query string parameters
                 var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
 
@@ -36,7 +36,7 @@ namespace MvcWebRole1.Controllers.api
                 }
 
                 string name = qpParams["name"].ToString();
-                
+
                 // getting reviewer details
                 var reviews = tableMgr.GetReviewsByReviewer(name);
 
@@ -59,7 +59,7 @@ namespace MvcWebRole1.Controllers.api
                         // get movie information
                         MovieEntity movie = tableMgr.GetMovieById(review.MovieId);
 
-                        if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing"))
+                        if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing" || movie.State == ""))
                         {
                             // if movie not null, then add movieid and moviename to review details
                             ReviewDetails reviewDetail = new ReviewDetails();

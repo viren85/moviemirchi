@@ -349,6 +349,23 @@
   <ItemGroup>
     <Content Include="Views\Home\Home.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="lucene_index\segments.gen" />
+    <Content Include="lucene_index\segments_p" />
+    <Content Include="lucene_index\_k.fdt" />
+    <Content Include="lucene_index\_k.fdx" />
+    <Content Include="lucene_index\_k.fnm" />
+    <Content Include="lucene_index\_k.frq" />
+    <Content Include="lucene_index\_k.nrm" />
+    <Content Include="lucene_index\_k.prx" />
+    <Content Include="lucene_index\_k.tii" />
+    <Content Include="lucene_index\_k.tis" />
+    <Content Include="lucene_index\_l.cfs" />
+    <Content Include="lucene_index\_m.cfs" />
+    <Content Include="lucene_index\_n.cfs" />
+    <Content Include="lucene_index\_o.cfs" />
+    <Content Include="lucene_index\_p.cfs" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

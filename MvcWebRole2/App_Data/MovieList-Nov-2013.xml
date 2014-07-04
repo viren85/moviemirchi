@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <Movies year="2013">
   <Month name="November">
-    <Movie name="Krrish 3" link="http://www.imdb.com/title/tt1029231/">
+    <!--<Movie name="Krrish 3" link="http://www.imdb.com/title/tt1029231/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-krrish-3_-4553.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-krrish-3-ultimately-belongs-to-hrithik/article1-1146252.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/525408"/>
-    </Movie>
+    </Movie>-->
     <Movie name="Satya 2" link="http://www.imdb.com/title/tt3059106/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-satya-2_-4622.html"/>
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-ram-gopal-varma-s-satya-2-is-a-disaster/article1-1148747.aspx"/>
@@ -30,10 +30,10 @@
       <Review name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/bollywood/movie-review-watch-singh-saab-the-great-for-sunny-deol/article1-1154460.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/549451"/>
     </Movie>
-    <Movie name="Bullett Raja" link="http://www.imdb.com/title/tt2551378/">
+    <!--<Movie name="Bullett Raja" link="http://www.imdb.com/title/tt2551378/">
       <Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-bullett-raja-4810.html"/>
       <Review  name="Hindustan Times" link="http://www.hindustantimes.com/entertainment/reviews/movie-review-by-anupama-chopra-bullett-raja/article1-1157372.aspx"/>
       <Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/566240"/>
-    </Movie>
+    </Movie>-->
   </Month>
 </Movies>

@@ -2,7 +2,7 @@
 <ServiceConfiguration serviceName="CloudMovie" xmlns="http://schemas.microsoft.com/ServiceHosting/2008/10/ServiceConfiguration" osFamily="3" osVersion="*" schemaVersion="2014-01.2.3">
   <Role name="EditorialRole">
     <Instances count="1" />
-    <ConfigurationSettings>      
+    <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchidiagstore;AccountKey=ytcxazqJ+dyh1gPjD3gwfQvy0Xxrhh1yjiyjRltyt/fXmIa+2mrSAd9WOpBYB+M2Ui4ZKZJ0/eReRUgmv9CA4w==" />
       <Setting name="StorageTableConnectionString" value="DefaultEndpointsProtocol=https;AccountName=moviemirchistorage;AccountKey=3hEzPoKeMp8F579Du/Z3Z4q/s0cUE6esTe/PJeX72M9l5/rhDa36IuSPn2mOomUsh91GjaVlgaYbuDqtWu1+nQ==" />
     </ConfigurationSettings>

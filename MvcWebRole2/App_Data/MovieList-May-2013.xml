@@ -4,7 +4,7 @@
     <Movie name="Shootout at Wadala" link="http://www.imdb.com/title/tt2301155/"/>
     <Movie name="Bombay Talkies" link="http://www.imdb.com/title/tt2797242/"/>
     <Movie name="Chhota Bheem And The Throne of Bali" link="http://www.imdb.com/title/tt3324810/"/>
-    <Movie name="Go Goa Gone" link="http://www.imdb.com/title/tt2436516/"/>
+    <!--<Movie name="Go Goa Gone" link="http://www.imdb.com/title/tt2436516/"/>-->
     <Movie name="Gippi" link="http://www.imdb.com/title/tt2814372/"/>
     <Movie name="Aurangzeb" link="http://www.imdb.com/title/tt2804026/"/>
     <Movie name="I Don't Luv U" link="http://www.imdb.com/news/ni53532983/"/>
@@ -12,6 +12,6 @@
     <Movie name="Ishkq in Paris" link="http://www.imdb.com/title/tt1986040/"/>
     <Movie name="Hum Hai Raahi CAR Ke" link="http://www.imdb.com/title/tt2100543/"/>
     <Movie name="Zindagi 50-50" link="http://www.imdb.com/title/tt2929840/"/>
-    <Movie name="Yeh Jawaani Hai Deewani" link="http://www.imdb.com/title/tt2178470/"/>
+    <!--<Movie name="Yeh Jawaani Hai Deewani" link="http://www.imdb.com/title/tt2178470/"/>-->
   </Month>
 </Movies>

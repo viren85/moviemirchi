@@ -11,7 +11,7 @@
     <Movie name="The Unsound" link=""/>
     <Movie name="Jayantabhai Ki Luv Story" link="http://www.imdb.com/title/tt2622130/"/>
     <Movie name="Murder 3" link="http://www.imdb.com/title/tt2429640/"/>
-    <Movie name="Kai Po Che" link="http://www.imdb.com/title/tt2213054/"/>
+    <!--<Movie name="Kai Po Che" link="http://www.imdb.com/title/tt2213054/"/>-->
     <Movie name="Zilla Ghaziabad" link="http://www.imdb.com/title/tt2171454/"/>
   </Month>
 </Movies>
