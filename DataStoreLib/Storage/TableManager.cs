@@ -82,19 +82,24 @@ namespace DataStoreLib.Storage
         public IDictionary<string, MovieEntity> GetAllMovies()
         {
             var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
-            return movieTable.GetAllItems<MovieEntity>();
+            var movies = movieTable.GetAllItems<MovieEntity>();
+            return 
+                movies
+                .OrderByDescending(m => m.Value.PublishDate)
+                .ToDictionary(
+                    g => g.Key,
+                    g => g.Value
+                );
         }
 
         public IDictionary<string, MovieEntity> GetArtistMovies()
         {
-            var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
-            return movieTable.GetAllItems<MovieEntity>();
+            return this.GetAllMovies();
         }
 
         public IDictionary<string, MovieEntity> GetGenrewiseMovies()
         {
-            var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
-            return movieTable.GetAllItems<MovieEntity>();
+            return this.GetAllMovies();
         }
 
         /// <summary>
