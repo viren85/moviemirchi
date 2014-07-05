@@ -12,7 +12,7 @@
     <AzureHostedServiceLabel>moviemirchi</AzureHostedServiceLabel>
     <AzureHostedServiceName>moviemirchi</AzureHostedServiceName>
     <AzureEnableIntelliTrace>False</AzureEnableIntelliTrace>
-    <AzureEnableProfiling>True</AzureEnableProfiling>
+    <AzureEnableProfiling>False</AzureEnableProfiling>
     <AzureServiceConfiguration>CloudStaging</AzureServiceConfiguration>
     <AzureSolutionConfiguration>Release</AzureSolutionConfiguration>
     <AzureStorageAccountLabel>moviemirchistorage</AzureStorageAccountLabel>

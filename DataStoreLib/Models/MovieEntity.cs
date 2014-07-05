@@ -33,6 +33,24 @@ namespace DataStoreLib.Models
         public string JsonString { get; set; }
         public string Popularity { get; set; }
 
+        public DateTime PublishDate
+        {
+            get
+            {
+                var strDate = this.Month;
+                if (!string.IsNullOrWhiteSpace(strDate))
+                {
+                    strDate = strDate.Split('(')[0];
+                    DateTime date;
+                    if (DateTime.TryParse(strDate, out date))
+                    {
+                        return date.Date;
+                    }
+                }
+                return new DateTime(0, 0, 0);
+            }
+        }
+
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
@@ -141,7 +159,7 @@ namespace DataStoreLib.Models
                                                     string state,
                                                     string myScore,
                                                     string jsonString,
-                                                    string popularity    
+                                                    string popularity
                                                     )
         {
             var movieId = Guid.NewGuid().ToString();
