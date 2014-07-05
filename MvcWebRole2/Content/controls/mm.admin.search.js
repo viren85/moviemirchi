@@ -69,13 +69,13 @@ var Search = function (placeholder, searchtype) {
         $(txtSearch).keypress(function () {
             if ($(this).val().length > 2) {
                 that.GetSearchResults($(".search-result-container"), type);
-            }            
+            }
         });
 
         $(txtSearch).keyup(function () {
             if ($(this).val().length == 0) {
                 that.GetSearchResults($(".search-result-container"), type);
-            }            
+            }
         });
 
         return $(searchContainer).append(txtSearch).append(btnSearch);
@@ -100,19 +100,19 @@ var Search = function (placeholder, searchtype) {
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
                 break;
             case "artists":
-                CallHandler("api/Artists" + queryString, this.PopulateArtistsResults);
+                CallHandler("../api/Artists" + queryString, this.PopulateArtistsResults);
                 break;
             case "critics":
-                CallHandler("api/Reviewer" + queryString, this.PopulateCriticsResult);
+                CallHandler("../api/Reviewer" + queryString, this.PopulateCriticsResult);
                 break;
             case "crawler":
-                CallHandler("api/CrawlerFiles" + queryString, this.PopulateCrawlerResults);
+                CallHandler("../api/CrawlerFiles" + queryString, this.PopulateCrawlerResults);
                 break;
             case "news":
-                CallHandler("api/News?start=0&page=20", this.PopulateNewsResults);
+                CallHandler("../api/News?start=0&page=20", this.PopulateNewsResults);
                 break;
             case "twitter":
-                CallHandler("api/Twitter?start=0&page=0", this.PopulateTwitterResults);
+                CallHandler("../api/Twitter?start=0&page=0", this.PopulateTwitterResults);
                 break;
             default:
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
@@ -246,7 +246,7 @@ var Search = function (placeholder, searchtype) {
                 if (MOVIES[i].State == "upcoming") {
                     $("#rbUpcoming").prop('checked', true);
                 }
-                else if (MOVIES[i].State == "now-playing") {
+                else if (MOVIES[i].State == "now-playing" || MOVIES[i].State == "now playing") {
                     $("#rbNowPlaying").prop('checked', true);
                 }
                 else {
@@ -320,8 +320,8 @@ var Search = function (placeholder, searchtype) {
         }
 
         // get state
-        $(".form-container").find("input[type='radio']").each(function () {
-            if ($(this).prop('checked') == true) {
+        $(".basic-form-container").find(".form-container").find("input[type='radio']").each(function () {            
+            if ($(this).prop('checked') == true) {                
                 CURRENT_MOVIE.State = $(this).attr('value').toLowerCase();
             }
         });
@@ -423,7 +423,7 @@ var Search = function (placeholder, searchtype) {
                 });
 
                 var img;
-                
+
                 img = $("<img/>").attr("src", PUBLIC_BLOB_URL + json[i].ReviewerImage).attr("class", "search-item-img");
 
                 var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].ReviewerName);
@@ -431,7 +431,7 @@ var Search = function (placeholder, searchtype) {
                 $(item).append(img);
                 $(item).append(movieTitle);
                 $(item).append(year);
-                $(searchResultList).append(item);                
+                $(searchResultList).append(item);
             }
 
             if (resultContainer == null || resultContainer == "undefined") {

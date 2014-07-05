@@ -140,7 +140,10 @@ var ShowMovieReviews = function (review) {
     //if (review != "undefined" && review != null && review.length > 0) {
     if (review != "undefined" && review != null) {
         $(".link-container").show();
-        (review.length > 0) ? GetReviewControl("movie-review-details", review) : GetDefaultReviewControl("movie-review-details", review);
+        //(review.length > 0) ? GetReviewControl("movie-review-details", review) : GetDefaultReviewControl("movie-review-details", review);                        
+        GetReviewControl("movie-review-details", review);
+        if (review.length <= 0)
+            $(".movie-review-details").html("<b>Currently movie does not has any review.</b>");
     }
     else {
         $(".movie-review-details").hide();

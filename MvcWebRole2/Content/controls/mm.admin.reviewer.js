@@ -54,6 +54,6 @@ var Reviewer = function () {
         // save movie
         var reviewerData = JSON.stringify(objReviewer);
 
-        CallController("Reviewer/AddReviewer", "data", reviewerData, function () { $("#status").html("Critics details saved successfully!"); });
+        CallController("../Reviewer/AddReviewer", "data", reviewerData, function () { $("#status").html("Critics details saved successfully!"); });
     }
 }

@@ -196,6 +196,6 @@
         // save movie
         var artistData = JSON.stringify(objArtist);
         
-        CallController("Home/UpdateArtists", "data", artistData, function () { $("#status").html("Artist details saved successfully!"); });
+        CallController("../Home/UpdateArtists", "data", artistData, function () { $("#status").html("Artist details saved successfully!"); });
     }
 }

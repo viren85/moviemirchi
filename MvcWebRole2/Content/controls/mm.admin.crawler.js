@@ -153,10 +153,12 @@
             var xmlData = JSON.stringify(objXmlData);
 
             var outPutMsg = "XML file generated successfully!";
-            var path = "Home/CreateXMLFile";
+            var path = "../Home/CreateXMLFile";
+
             if (isCrawl){
-                path = "Home/CreateXMLFileAndCrawl";
-                outPutMsg = "XML file generated successfully and Crawl movie. It will take few minuts or more.";
+                path = "../Home/CreateXMLFileAndCrawl";
+                outPutMsg = "XML file generated successfully and Crawl movie.";
+                $("#status").html("<b>Note</b>:- Your are about to crawl movie, it will take few minuts or more.");
             }
 
             CallController(path, "data", xmlData, function () {

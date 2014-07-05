@@ -146,6 +146,8 @@ namespace MvcWebRole2.Controllers
                                 TableManager tblMgr = new TableManager();
                                 string posterUrl = string.Empty;
 
+                                if (string.IsNullOrEmpty(mov.RowKey) || string.IsNullOrEmpty(mov.MovieId)) continue;
+
                                 tblMgr.UpdateMovieById(mov);
                                 #endregion
 
@@ -843,6 +845,8 @@ namespace MvcWebRole2.Controllers
                             MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                             TableManager tblMgr = new TableManager();
                             string posterUrl = string.Empty;
+
+                            if (string.IsNullOrEmpty(mov.RowKey) || string.IsNullOrEmpty(mov.MovieId)) continue;
 
                             tblMgr.UpdateMovieById(mov);
                             #endregion
