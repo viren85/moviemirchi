@@ -1,0 +1,195 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Sample for Twitter controls</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+    <style>
+        ul {
+            float: left;
+            list-style: none;
+            margin-left: 0px;
+            padding-left: 0px;
+        }
+
+            ul li {
+                float: left;
+                width: 90%;
+                padding: 5px;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+
+                ul li:hover {
+                    width: 92%;
+                    background-color: #EEE;
+                }
+
+                ul li .btn-container {
+                    float: left;
+                    margin-top: 10px;
+                }
+
+        .btn {
+            float: left;
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #333;
+            margin-right: 10px;
+        }
+
+            .btn:hover {
+                background-color: #333;
+                color: white;
+            }
+
+        #search-container {
+            height: 400px;
+            width: 400px;
+            border: 1px solid #DDD;
+            box-shadow: 3px 3px 5px #ddd;
+            overflow-y: auto;
+        }
+
+        .SearchResultImage {
+            float: left;
+            margin-right: 10px;
+        }
+
+        #VideoFrameContainer {
+            float: left;
+            width: 700px;
+            height: 400px;
+            position: absolute;
+            top: 30px;
+            left: 35%;
+        }
+
+        #VideoFrame {
+            float: left;
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: none;
+        }
+    </style>
+    <script>
+        function GetSearchResults() {
+            var url = "https://content.googleapis.com/youtube/v3/search?maxResults=25&part=snippet&q=" + $("#query").val() + "&key=AIzaSyDkup9FVBJaoovqnffvnEIIewu2ql0yqyU";
+
+            $.ajax({
+                url: url,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                responseType: "json",
+                cache: false,
+                success: OnComp
+
+            });
+        }
+
+        function OnComp(data) {
+            console.log(data);
+            FillYoutubeSearchResults(data);
+        }
+
+        function FillYoutubeSearchResults(data) {
+
+            var ul = $('<ul/>');
+            var width = parseInt("400");
+            var height = parseInt("500");
+
+            $("#search-container").empty();
+
+            for (var i = 0; i < data.items.length; i++) {
+                var vid = data.items[i];
+                if (vid != null && typeof (vid) != undefined && vid != undefined) {
+                    var img = {
+                        unescapedUrl: vid.id.videoId,
+                        title: vid.snippet.title,
+                        tbUrl: vid.snippet.thumbnails.default.url,
+                        video: true
+                    };
+
+                    FillImage(img, ul);
+                }
+            }
+
+            $("#search-container").append($(ul));
+        }
+
+        function FillImage(img, ul) {
+            var image = $('<img/>');
+            var li = $('<li/>');
+
+            //$(image).click(function () { Attach($(image)); });
+
+            var title = $('<div/>');
+            var description = $('<div/>');
+            var buttons = $("<div/>").attr("class", "btn-container");;
+
+            var attach = $("<div/>").html("Attach").attr("class", "btn");
+            var view = $("<div/>").html("View").attr("class", "btn");
+
+            $(view).click(function () {
+                var url = "";
+                $(this).parent().parent().parent().find("li").each(function () {
+                    $(this).css("background-color", "#fff");
+                });
+                $(this).parent().parent().css("background-color", "#aaa");
+                $(this).parent().parent().find(".SearchResultImage").each(function () {
+                    url = $(this).attr("originalurl");
+                });
+
+                $("#VideoFrame").attr("src", url).show();
+            });
+
+            $(buttons).append(attach);
+            $(buttons).append(view);
+
+            $(image).attr("class", "SearchResultImage");
+
+            if (img == null)
+                return;
+
+            $(image).attr("src", img.tbUrl);
+
+            $(image).attr("originalUrl", "http://www.youtube.com/embed/" + img.unescapedUrl + "?autoplay=1");
+            $(image).attr("width", 150);
+            $(image).attr("height", 120);
+            if (img.video != undefined && img.video == true) {
+                $(image).attr("video", "true");
+                $(image).attr("title", img.title);
+                title.html("Title: " + img.title);
+            }
+            else {
+                $(image).attr("title", img.title);
+                title.html(img.titleNoFormatting);
+            }
+
+            $(image).css({ "cursor": "pointer" });
+
+            title.addClass('SearchResultTitle');
+            description.addClass('SearchResultDescription');
+            description.html(img.content);
+            $(li).append(image);
+            $(li).append(title);
+            $(li).append(description);
+            $(li).append(buttons);
+            $(ul).append(li);
+        }
+    </script>
+</head>
+<body>
+    <div id="buttons">
+        <label> <input id="query" type="text" /><button id="search-button" onclick="GetSearchResults()">Search</button></label>
+    </div>
+    <div id="search-container">
+    </div>
+    <div id="VideoFrameContainer">
+
+        <iframe id="VideoFrame"></iframe>
+    </div>
+</body>
+</html>
