@@ -4,7 +4,7 @@
 <head>
     <title>Sample for Review controls</title>
     <meta http-equiv="content-type" content="text/html;charset=utf-8" />
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
+    <script src="scripts/jquery-2.1.1.min.js" type="text/javascript"></script>
     <script src="scripts/mm.tube.js" type="text/javascript"></script>
     <script src="scripts/mm.tile.js" type="text/javascript"></script>
     <script src="scripts/mm.rate.js" type="text/javascript"></script>
@@ -33,10 +33,10 @@
                     var element = this;
                     $(element).find(".captionAndNavigate").each(function () {
                         $(this).css("position", "absolute").css("top", "60px").css("height", "230px");
-                        $(this).find(".img-movie-name").each(function () { $(this).show(); });
+                        /*$(this).find(".img-movie-name").each(function () { $(this).show(); });
                         $(this).find(".img-movie-genre").each(function () { $(this).show(); });
                         $(this).find(".img-movie-date").each(function () { $(this).show(); });
-                        $(this).find(".movie-songs ul").each(function () { $(this).show(); });
+                        $(this).find(".movie-songs ul").each(function () { $(this).show(); });*/
                     });
 
 
@@ -44,10 +44,10 @@
                     var element = this;
                     $(element).find(".captionAndNavigate").each(function () {
                         //setTimeout(function(){},200);
-                        $(this).find(".img-movie-name").each(function () { $(this).hide(); });
+                        /*$(this).find(".img-movie-name").each(function () { $(this).hide(); });
                         $(this).find(".img-movie-genre").each(function () { $(this).hide(); });
                         $(this).find(".img-movie-date").each(function () { $(this).hide(); });
-                        $(this).find(".movie-songs ul").each(function () { $(this).hide(); });
+                        $(this).find(".movie-songs ul").each(function () { $(this).hide(); });*/
                         $(this).css("position", "relative").css("top", "auto").css("height", "auto");
                     });
 
@@ -77,9 +77,9 @@
             font-weight: bold;
         }
 
-        .img-movie-name, .img-movie-genre, .img-movie-date {
+        /*.img-movie-name, .img-movie-genre, .img-movie-date {
             display: none;
-        }
+        }*/
             .img-movie-name{font-weight: bold;margin-bottom: 5px;} .movie-list {
                 float: left;
                 width: 100%;
@@ -306,7 +306,7 @@
 
         .rate {
             float: left;
-            width: 80px;
+            width: 78px;
             height: 52px;
             background-image: url('images/mirchi-sprite.png');
             /*background-size: 15px 25px;*/
@@ -315,44 +315,44 @@
         }
 
         .rate-1 {
-            background-position: -87px 0px;
+            background-position: 2px 0px;
         }
 
         .rate-2 {
-            background-position: -170px 0px;
+            background-position: -75px 0px;
         }
 
         .rate-3 {
-            background-position: -254px 0px;
+            background-position: -151px 0px;
         }
 
         .rate-4 {
-            background-position: -337px 0px;
+            background-position: -228px 0px;
         }
 
         .rate-5 {
-            background-position: -422px 0px;
+            background-position: -305px 0px;
         }
 
         .rate-6 {
-            background-position: -506px 0px;
+            background-position: -381px 0px;
             /*width: 215px;*/
         }
 
         .rate-7 {
-            background-position: -587px 0px;
+            background-position: -457px 0px;
         }
 
         .rate-8 {
-            background-position: -668px 0px;
+            background-position: -533px 0px;
         }
 
         .rate-9 {
-            background-position: -749px 0px;
+            background-position: -610px 0px;
         }
 
         .rate-10 {
-            background-position: -830px 0px;
+            background-position: -687px 0px;
         }
 
         .myscore {
@@ -369,6 +369,6 @@
 </body>
 </html>
 <script>
-    var movie = { "Movie": { "MovieId": "cb0379a2-6d80-4bd2-9a58-1a42c2fe877f", "Name": "Dhoom 3", "AltNames": "Dhoom 3", "Posters": "[\"dhoom-3-poster-1.jpg\",\"dhoom-3-poster-2.jpg\",\"dhoom-3-poster-3.jpg\",\"dhoom-3-poster-4.jpg\",\"dhoom-3-poster-5.jpg\",\"dhoom-3-poster-6.jpg\",\"dhoom-3-poster-7.jpg\",\"dhoom-3-poster-8.jpg\",\"dhoom-3-poster-9.jpg\",\"dhoom-3-poster-10.jpg\",\"dhoom-3-poster-11.jpg\",\"dhoom-3-poster-12.jpg\",\"dhoom-3-poster-13.jpg\",\"dhoom-3-poster-14.jpg\",\"dhoom-3-poster-15.jpg\",\"dhoom-3-poster-16.jpg\",\"dhoom-3-poster-17.jpg\",\"dhoom-3-poster-18.jpg\",\"dhoom-3-poster-19.jpg\",\"dhoom-3-poster-20.jpg\",\"dhoom-3-poster-21.jpg\",\"dhoom-3-poster-22.jpg\",\"dhoom-3-poster-23.jpg\",\"dhoom-3-poster-24.jpg\",\"dhoom-3-poster-25.jpg\",\"dhoom-3-poster-26.jpg\",\"dhoom-3-poster-27.jpg\",\"dhoom-3-poster-28.jpg\",\"dhoom-3-poster-29.jpg\",\"dhoom-3-poster-30.jpg\"]", "Ratings": " 6.0 ", "Synopsis": "\nAfter his father committed suicide because he was not able to pay the loan to the Western Bank of Chicago, Sahir Khan, a circus owner, must take revenge by robbing the same branch several times. To take him down, Jai Dixit and Ali Akbar are sent from India.                            ", "Casts": "[]", "Stats": "Opening Weekend:         $3,422,590        \n\n      (USA)\n      (20 December 2013) | Gross:        $8,031,955        \n\n      (USA)\n      (10 January 2014)", "Songs": "[{\"SongTitle\":\"Malang\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Kamli\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Tu Hi Junoon\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom Machale Dhoom\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Bande Hain Hum Uske\",\"Lyrics\":\"\",\"Composed\":\"Julius Packiam (Joshilay)\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom Tap\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom3 Overture\",\"Lyrics\":\"\",\"Composed\":\"Julius Packiam (Joshilay)\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom Machale Dhoom (Arabic Version)\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"}]", "Trailers": "", "Pictures": "", "Genre": "Action | Crime | Thriller", "Month": " 20 December 2013\n(India)\n", "Year": "2013", "UniqueName": "dhoom-3", "ETag": "W/\"datetime\u00272014-04-20T08%3A51%3A31.587Z\u0027\"", "Timestamp": "\/Date(1398752554725)\/", "Timestamp": "\/Date(-62135596800000)\/", "PartitionKey": "CloudMovie", "RowKey": "cb0379a2-6d80-4bd2-9a58-1a42c2fe877f" }, "MovieReviews": null, "MoviesList": null, "movieId": "cb0379a2-6d80-4bd2-9a58-1a42c2fe877f", "name": null, "poster": null, "rating": null, "info": null, "reviews": null }
+    var movie = { "Movie": { "MovieId": "cb0379a2-6d80-4bd2-9a58-1a42c2fe877f", "Name": "Dhoom 3", "AltNames": "Dhoom 3", "Posters": "[\"dhoom-3-poster-1.jpg\",\"dhoom-3-poster-2.jpg\",\"dhoom-3-poster-3.jpg\",\"dhoom-3-poster-4.jpg\",\"dhoom-3-poster-5.jpg\",\"dhoom-3-poster-6.jpg\",\"dhoom-3-poster-7.jpg\",\"dhoom-3-poster-8.jpg\",\"dhoom-3-poster-9.jpg\",\"dhoom-3-poster-10.jpg\",\"dhoom-3-poster-11.jpg\",\"dhoom-3-poster-12.jpg\",\"dhoom-3-poster-13.jpg\",\"dhoom-3-poster-14.jpg\",\"dhoom-3-poster-15.jpg\",\"dhoom-3-poster-16.jpg\",\"dhoom-3-poster-17.jpg\",\"dhoom-3-poster-18.jpg\",\"dhoom-3-poster-19.jpg\",\"dhoom-3-poster-20.jpg\",\"dhoom-3-poster-21.jpg\",\"dhoom-3-poster-22.jpg\",\"dhoom-3-poster-23.jpg\",\"dhoom-3-poster-24.jpg\",\"dhoom-3-poster-25.jpg\",\"dhoom-3-poster-26.jpg\",\"dhoom-3-poster-27.jpg\",\"dhoom-3-poster-28.jpg\",\"dhoom-3-poster-29.jpg\",\"dhoom-3-poster-30.jpg\"]", "Ratings": " 1.0 ", "Synopsis": "\nAfter his father committed suicide because he was not able to pay the loan to the Western Bank of Chicago, Sahir Khan, a circus owner, must take revenge by robbing the same branch several times. To take him down, Jai Dixit and Ali Akbar are sent from India.                            ", "Casts": "[]", "Stats": "Opening Weekend:         $3,422,590        \n\n      (USA)\n      (20 December 2013) | Gross:        $8,031,955        \n\n      (USA)\n      (10 January 2014)", "Songs": "[{\"SongTitle\":\"Malang\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Kamli\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Tu Hi Junoon\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom Machale Dhoom\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Bande Hain Hum Uske\",\"Lyrics\":\"\",\"Composed\":\"Julius Packiam (Joshilay)\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom Tap\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom3 Overture\",\"Lyrics\":\"\",\"Composed\":\"Julius Packiam (Joshilay)\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"},{\"SongTitle\":\"Dhoom Machale Dhoom (Arabic Version)\",\"Lyrics\":\"\",\"Composed\":\"\",\"Performer\":\"\",\"Recite\":\"\",\"Courtsey\":\"\"}]", "Trailers": "", "Pictures": "", "Genre": "Action | Crime | Thriller", "Month": " 20 December 2013\n(India)\n", "Year": "2013", "UniqueName": "dhoom-3", "ETag": "W/\"datetime\u00272014-04-20T08%3A51%3A31.587Z\u0027\"", "Timestamp": "\/Date(1398752554725)\/", "Timestamp": "\/Date(-62135596800000)\/", "PartitionKey": "CloudMovie", "RowKey": "cb0379a2-6d80-4bd2-9a58-1a42c2fe877f" }, "MovieReviews": null, "MoviesList": null, "movieId": "cb0379a2-6d80-4bd2-9a58-1a42c2fe877f", "name": null, "poster": null, "rating": null, "info": null, "reviews": null }
 
 </script>
