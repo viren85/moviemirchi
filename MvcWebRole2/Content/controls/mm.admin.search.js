@@ -390,6 +390,7 @@ var Search = function (placeholder, searchtype) {
         // save movie
         var movie1 = JSON.stringify(movie);
         //console.log(movie1);
+        $("#status").html("<b>Saving...<b/>");
         CallController("Movie/AddMovie", "hfMovie", movie1, function () { $("#status").html("Movie details saved successfully!") });
     }
 
