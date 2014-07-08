@@ -108,7 +108,7 @@
 /*added by vasim*/
 .rate {
     float: left;
-    width: 80px;
+    width: 75px;
     height: 52px;
     background-image: url('/Images/mirchi-sprite.png');
     /*background-size: 15px 25px;*/
@@ -117,44 +117,44 @@
 }
 
 .rate-1 {
-    background-position: -87px 0px;
+    background-position: 0px 0px;
 }
 
 .rate-2 {
-    background-position: -170px 0px;
+    background-position: -76px 0px;
 }
 
 .rate-3 {
-    background-position: -254px 0px;
+    background-position: -153px 0px;
 }
 
 .rate-4 {
-    background-position: -337px 0px;
+    background-position: -229px 0px;
 }
 
 .rate-5 {
-    background-position: -422px 0px;
+    background-position: -305px 0px;
 }
 
 .rate-6 {
-    background-position: -506px 0px;
+    background-position: -382px 0px;
     /*width: 215px;*/
 }
 
 .rate-7 {
-    background-position: -587px 0px;
+    background-position: -458px 0px;
 }
 
 .rate-8 {
-    background-position: -668px 0px;
+    background-position: -535px 0px;
 }
 
 .rate-9 {
-    background-position: -749px 0px;
+    background-position: -612px 0px;
 }
 
 .rate-10 {
-    background-position: -830px 0px;
+    background-position: -689px 0px;
 }
 /*end*/
 

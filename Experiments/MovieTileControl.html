@@ -19,8 +19,10 @@
 
             if (result.Movie != undefined) {
                 $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+				
                 $(".tube-container").append($(".movie-details"));
                 $(".movie-list").append($(".link-container"));
+				
                 PopulatingMovies(result.Movie);
                 ScaleElement($(".movie-list ul"));
             }
