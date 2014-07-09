@@ -15,7 +15,7 @@ var ShowMovie = function (data) {
         //$(".tube-container").append($(".movie-details"));
         //$(".movie-list").append($(".link-container"));
         PopulatingMovies(result.Movie, "movie-list");
-        ScaleElement($(".movie-list ul"));
+        ScaleElement1($(".movie-list ul"));
 
         // Show all posters of current movie
         var poster = [], reviews = [];
@@ -28,6 +28,17 @@ var ShowMovie = function (data) {
         ArrangeImages($(".movie-poster-details"));
         ShowMovieReviews(reviews);
         PrepareGenreLinks();
+
+        $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
+            animation_speed: 'normal',
+            theme: 'dark_square',
+            slideshow: false,
+            autoplay_slideshow: false,
+            show_title: true,
+            keyboard_shortcuts: true,
+            social_tools: false,
+            allow_resize: true,
+        });
     }
 
     //$(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
@@ -105,22 +116,29 @@ var PopulatePosters = function (images, movieName) {
     var poster = [];
     poster = JSON.parse(images);
 
-    if (poster != "undefined" && poster != null && poster.length > 1) {
-        //$("img.home-poster").attr("src", "/Posters/Images/" + poster[poster.length - 1]);
+    if (poster != "undefined" && poster != null && poster.length > 1) {        
+        
+        var ul = $("<ul/>").attr("class", "gallery clearfix");
 
-        //showing movies posters
         for (var p = 0; p < poster.length; p++) {
             var img = $("<img/>")
             img.attr("class", "gallery-image");
-            img.attr("alt", movieName);
-            //img.attr("src", "/Posters/Images/" + poster[p]);
+            img.attr("alt", movieName);            
             img.attr("src", PUBLIC_BLOB_URL + poster[p]);
             img.error(function () {
                 $(this).hide();
             });
 
-            $(".movie-poster-details").append(img);
+            var li = $("<li/>");
+            var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p] + "?lol=lol").attr("rel", "prettyPhoto[gallery]");
+
+            $(a).append(img);
+            $(li).append(a);
+            $(ul).append(li);
+            //$(".movie-poster-details").append(img);
         }
+
+        $(".movie-poster-details").append(ul);
 
         $(".link-container").show();
     }
