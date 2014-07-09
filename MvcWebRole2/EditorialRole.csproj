@@ -276,6 +276,7 @@
     <Content Include="Content\styles\mm.admin.news.css" />
     <Content Include="Content\styles\mm.admin.posters.css" />
     <Content Include="Content\styles\mm.admin.search.css" />
+    <Content Include="Content\styles\mm.admin.songs.css" />
     <Content Include="Content\styles\mm.admin.twitter.css" />
     <Content Include="Content\styles\mm.common.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
@@ -347,6 +348,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Handler\UploadFile.ashx" />
+    <Content Include="Content\controls\mm.admin.songs.js" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />

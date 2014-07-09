@@ -62,7 +62,7 @@
                     $(this).width("250px");
             });
 
-            ScaleElement($(".movie-list ul"));
+            ScaleElement1($(".movie-list ul"));
 
             // movie-list
             PreparePaginationControl($(".movie-list"));
@@ -89,6 +89,16 @@
                 PopulatePosters(data.Posters, data.ArtistName);
                 ArrangeImages($(".movie-poster-details"));
                 
+                $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
+                    animation_speed: 'normal',
+                    theme: 'dark_square',
+                    slideshow: false,
+                    autoplay_slideshow: false,
+                    show_title: true,
+                    keyboard_shortcuts: true,
+                    social_tools: false,
+                    allow_resize: true,
+                });
             }
             else {
                 $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "263px").css("float", "left");;

@@ -94,7 +94,7 @@ function onSuccessLoadUpcomingMovies(result) {
     console.log(6);
     if (result.length > 0) {
         //MOVIES = result;
-        
+
         // adding images        
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "upcoming-movie-list");
@@ -152,20 +152,20 @@ function GetLinks(html, type) {
 function ScaleElement1(element) {
     var currentElement = null;
     $(element).find("li.movie").each(function () {
-        $(this).find("#picAndCaption,.captionAndNavigate").hover(function () {
+
+        $(this).find("#picAndCaption, #hover").hover(function () {
             var element = this;
-            $(element).find(".captionAndNavigate").each(function () {
-                $(this).css("position", "absolute").css("top", "60px").css("height", "230px");
+            $(element).find("#hover").each(function () {
+                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");
                 /*$(this).find(".img-movie-name").each(function () { $(this).show(); });
                 $(this).find(".img-movie-genre").each(function () { $(this).show(); });
                 $(this).find(".img-movie-date").each(function () { $(this).show(); });
                 $(this).find(".movie-songs ul").each(function () { $(this).show(); });*/
             });
-
-
-        }, function () {
+        },       
+        function () {
             var element = this;
-            $(element).find(".captionAndNavigate").each(function () {
+            $(element).find("#hover").each(function () {
                 //setTimeout(function(){},200);
                 /*$(this).find(".img-movie-name").each(function () { $(this).hide(); });
                 $(this).find(".img-movie-genre").each(function () { $(this).hide(); });

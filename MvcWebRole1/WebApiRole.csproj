@@ -275,8 +275,10 @@
     <Content Include="Content\controls\mm.util.js" />
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery-1.9.1.js" />
+    <Content Include="Content\jquery.prettyPhoto.js" />
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
+    <Content Include="Content\prettyPhoto.css" />
     <Content Include="Content\styles\mm.common.css" />
     <Content Include="Content\styles\mm.critics.css" />
     <Content Include="Content\styles\mm.footer.css" />
@@ -361,6 +363,12 @@
     <Content Include="Images\mirchi-sprite.png" />
     <Content Include="Images\next.png" />
     <Content Include="Images\pervious.png" />
+    <Content Include="Images\prettyPhoto\dark_square\btnNext.png" />
+    <Content Include="Images\prettyPhoto\dark_square\btnPrevious.png" />
+    <Content Include="Images\prettyPhoto\dark_square\contentPattern.png" />
+    <Content Include="Images\prettyPhoto\dark_square\default_thumbnail.gif" />
+    <Content Include="Images\prettyPhoto\dark_square\loader.gif" />
+    <Content Include="Images\prettyPhoto\dark_square\sprite.png" />
     <Content Include="Images\quote.png" />
     <Content Include="Images\RedChilli.png" />
     <Content Include="Images\RedGrayChilli.png" />
