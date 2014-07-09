@@ -143,7 +143,7 @@ var ShowMovieReviews = function (review) {
         //(review.length > 0) ? GetReviewControl("movie-review-details", review) : GetDefaultReviewControl("movie-review-details", review);                        
         GetReviewControl("movie-review-details", review);
         if (review.length <= 0)
-            $(".movie-review-details").html("<b>Currently movie does not has any review.</b>");
+            $(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
     }
     else {
         $(".movie-review-details").hide();
