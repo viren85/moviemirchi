@@ -40,7 +40,7 @@
         "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 300px;\">" +
             "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
         "</div>" +
-        "<div id=\"hover\" style=\"width: 84%; padding: 4%; background-color: white; float: left; height: 175px;border: 1px solid #ddd; box-shadow: -3px 3px 5px #ccc;\">" +
+        "<div id=\"hover\" style=\"width: 200px; padding: 4%; background-color: white; float: left; height: 175px;border: 1px solid #ddd; box-shadow: -3px 3px 5px #ccc;\">" +
                     "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
                     "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                     "<div class=\"img-movie-date\">" + movie.Month + "</div>" +

@@ -265,6 +265,7 @@ var Search = function (placeholder, searchtype) {
                     $("#txtMyScore").val("");
                 }
 
+                // populate cast
                 $(".artists-container").html("");
                 if (MOVIES[i].Casts != "" && MOVIES[i].Casts != undefined) {
                     var artist = JSON.parse(MOVIES[i].Casts);
@@ -275,6 +276,19 @@ var Search = function (placeholder, searchtype) {
                         $("#sortable").disableSelection();
                     });
                 }
+
+                //populate songs
+                $(".songs-container").html("");
+                if (MOVIES[i].Songs != "" && MOVIES[i].Songs != undefined) {
+                    var songs = JSON.parse(MOVIES[i].Songs);
+                    $(".songs-container").append(new Songs().GetSongsGrid(songs));
+
+                    $(function () {
+                        $("#songs-sortable").sortable({ cursor: "move" });
+                        $("#songs-sortable").disableSelection();
+                    });
+                }
+
 
                 $(".posters-container").html("");
 
@@ -320,8 +334,8 @@ var Search = function (placeholder, searchtype) {
         }
 
         // get state
-        $(".basic-form-container").find(".form-container").find("input[type='radio']").each(function () {            
-            if ($(this).prop('checked') == true) {                
+        $(".basic-form-container").find(".form-container").find("input[type='radio']").each(function () {
+            if ($(this).prop('checked') == true) {
                 CURRENT_MOVIE.State = $(this).attr('value').toLowerCase();
             }
         });
