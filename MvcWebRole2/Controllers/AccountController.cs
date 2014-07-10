@@ -575,6 +575,33 @@ namespace MvcWebRole2.Controllers
             }
         }
 
+        [HttpGet]
+        public void GetSongs()
+        {
+            JavaScriptSerializer json = new JavaScriptSerializer();
+            SetConnectionString();
+
+            try
+            {
+                /*XmlDocument xdoc = new XmlDocument();
+
+                string basePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\";
+                string[] moviesFilePath = Directory.GetFiles(basePath, "Songs.xml");
+                */
+
+                #region Crawl Movie
+                List<Songs> songs = new SongCrawler().Crawl("http://www.saavn.com/s/album/hindi/Nautanki-Saala!-2013/NqU2JuTcjT4_");
+                // Write a code to update the DB
+                #endregion
+
+                //
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
         [HttpPost]
         public ActionResult Register(string userJson)
         {
