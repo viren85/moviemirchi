@@ -1,0 +1,155 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Song control</title>
+    <meta http-equiv="content-type" content="text/html;charset=utf-8" />
+    <script src="scripts/jquery-2.1.1.min.js" type="text/javascript"></script>
+    <style>
+        body{
+            background-color: #eee;
+            padding: 10px;
+        }
+        .songs ul {
+            float: none;
+            list-style: none;
+            width: 260px;
+        }
+        .songs ul li {
+            background-color: #FFF;
+            width: 250px;
+            padding-bottom: 10px;
+            float: left;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            box-shadow: -3px 3px 5px #ddd;
+            cursor: pointer;
+            color: #333;
+        }
+        .songs ul li:hover {
+            background-color: #368bc1;
+            color: #fff;
+        }
+        
+        .songs ul li span{
+            
+            font-size: 18px;
+            padding: 5px;
+            float: left;
+            text-align: left;
+        }
+        .song-thumb{
+            width: 100%;
+            float: left;
+        }
+        .song-play{
+            float: right;
+            width: 32px;
+            height: 32px;
+            z-index: 2;
+            margin-right: 10px;
+            margin-top: 10px;
+        }
+
+        /* Modal Popup*/
+        .ShowModal
+        {
+            top: 100px;
+            left: 33%;
+            z-index: 1000;
+            position: absolute;
+            display: block;
+        }
+        .HideModal
+        {
+            display: none;
+        }
+        .OverlayEffect
+        {
+            background-color: black;
+            filter: alpha(opacity=70);
+            opacity: 0.7;
+            width: 100%;
+            height: 100%;
+            z-index: 400;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        #modalMsg{color: white;cursor: pointer;}
+    </style>
+</head>
+<body>
+    <div class="songs">
+    </div>
+    <div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
+        <div onclick="return RemoveModal();">Close</div>
+        <iframe style="border: 0px; width: 100%; height: 100%;"></iframe>
+        
+    </div>
+    <div id="overlay"></div>
+</body>
+</html>
+<script>
+    /**/
+    var songs = [
+                    { "SongTitle": "Awaara", "Lyrics": "Gulzar", "Composed": "Vishal Bhardwaj", "Performer": "'Master Saleem'", "Recite": "", "Courtsey": "Courtesy of Sony Music India", "YoutubeURL": "http://www.youtube.com/embed/e6VPB3pWx80?autoplay=1", "Thumb": "https://i.ytimg.com/vi/e6VPB3pWx80/default.jpg" },
+                    { "SongTitle": "Bekaraan", "Lyrics": "Gulzar", "Composed": "Vishal Bhardwaj", "Performer": "Vishal Bhardwaj", "Recite": "", "Courtsey": "Courtesy of Sony Music India", "YoutubeURL": "http://www.youtube.com/embed/undefined?autoplay=1", "Thumb": "https://i.ytimg.com/vi/6J1-eYBbspA/default.jpg" },
+                    { "SongTitle": "Darling", "Lyrics": "Gulzar", "Composed": "Vishal Bhardwaj", "Performer": "Usha Uthup Rekha Bhardwaj", "Recite": "", "Courtsey": "Courtesy of Sony Music India", "YoutubeURL": "http://www.youtube.com/embed/1QJ52iXBTXQ?autoplay=1", "Thumb": "https://i.ytimg.com/vi/1QJ52iXBTXQ/default.jpg" },
+                    { "SongTitle": "Dil Dil Hai", "Lyrics": "Gulzar", "Composed": "Vishal Bhardwaj", "Performer": "Suraj Jagan", "Recite": "", "Courtsey": "Courtesy of Sony Music India", "YoutubeURL": "http://www.youtube.com/embed/e9cozOfPsKI?autoplay=1", "Thumb": "https://i.ytimg.com/vi/e9cozOfPsKI/default.jpg" }
+    ];
+
+    // Type = Song/Video
+    var songList = function (videos, type) {
+        var ul = $("<ul/>");
+
+        for (i = 0; i < videos.length; i++) {
+            var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
+
+            var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL).attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
+                $(document).scrollTop(0);
+                DisplayModal($(this).attr("video-link"));
+            });
+            
+            var playImg = $("<img/>").attr("class", "song-play").attr("video-link", videos[i].YoutubeURL).attr("src", "images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
+                $(document).scrollTop(0);
+                DisplayModal();
+            });
+
+            var title = $("<span/>").html(videos[i].SongTitle);
+
+            $(li).append(img);
+            $(li).append(playImg);
+            
+            $(li).append(title);
+            $(ul).append(li);
+        }
+
+        $(".songs").append(ul);
+    }
+
+    $("#overlay").click(function () {
+        RemoveModal();
+    });
+
+    $("#modalMsg").click(function () {
+        return;
+    });
+
+    function DisplayModal(url) {
+        $("#overlay").attr("class", "OverlayEffect");
+        $("#modalMsg").attr("class", "ShowModal");
+        $("#modalMsg").find("iframe").each(function () {
+            $(this).attr("src", url + "?autoplay=true");
+        });
+
+    }
+
+    function RemoveModal() {
+        $("#modalMsg").attr("class", "HideModal");
+        $("#overlay").attr("class", "");
+        return false;
+    }
+
+    songList(songs,"Song");
+</script>
