@@ -583,22 +583,42 @@ namespace MvcWebRole2.Controllers
 
             try
             {
-                /*XmlDocument xdoc = new XmlDocument();
-
-                string basePath = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\";
-                string[] moviesFilePath = Directory.GetFiles(basePath, "Songs.xml");
-                */
-
+                string file = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\Movie-Songs-2014.xml";
                 #region Crawl Movie
-                List<Songs> songs = new SongCrawler().Crawl("http://www.saavn.com/s/album/hindi/Nautanki-Saala!-2013/NqU2JuTcjT4_");
-                // Write a code to update the DB
-                #endregion
+                List<MovieSongsProps> movieSongs = new GenerateXMLFile().GetMoviesSongsProps(file);
 
-                //
+                TableManager tbleMgr = new TableManager();
+                
+                if (movieSongs != null)
+                {
+                    foreach (MovieSongsProps movieSong in movieSongs)
+                    {
+                        if (!string.IsNullOrEmpty(movieSong.MovieName) && !string.IsNullOrEmpty(movieSong.MovieSongLink))
+                        {
+                            List<Songs> songs = new SongCrawler().Crawl(movieSong.MovieSongLink);
+
+                            if (songs == null) continue;
+
+                            movieSong.MovieName = movieSong.MovieName.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
+
+                            MovieEntity movie = tbleMgr.GetMovieByUniqueName(movieSong.MovieName);
+
+                            if (movie != null)
+                            {
+                                string strSongs = json.Serialize(songs);
+                                movie.Songs = strSongs;
+
+                                tbleMgr.UpdateMovieById(movie);
+                            }
+                        }
+                    }
+                }
+
+                #endregion
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(string.Format("Error occured while crawing songs, error: {0}", ex.Message));
             }
         }
 

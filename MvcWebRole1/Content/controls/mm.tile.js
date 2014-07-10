@@ -45,7 +45,9 @@
                     "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                     "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
                     GetRateControl(movie.Ratings) +
-        "</div>"
+        "</div>" +
+    "</div>";
+
     /*"<div class=\"captionAndNavigate\" style=\"width:170px;padding: 15px;padding-top: 5px;padding-bottom:5px;\">" +
             "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
                 "<div id=\"photoCaption\">" +
@@ -64,7 +66,6 @@
                 "</div>" +
             "</div>" +
         "</div>" +*/
-    "</div>";
 
     anchor.append(html);
     list.append(anchor);

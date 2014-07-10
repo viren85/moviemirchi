@@ -378,9 +378,9 @@ var Search = function (placeholder, searchtype) {
             if (index > 0) youtubeEmbedURL = youtubeEmbedURL.substring(0, index);
 
             alert(youtubeEmbedURL);
-            var youtubeThamb = $(this).find(".songs-grid-row-data3").attr("thamb");
+            var youtubeThamb = $(this).find(".songs-grid-row-data3").attr("thumb");
 
-            songs.push({ "SongTitle": title, "Lyrics": lyrics, "Composed": composed, "Performer": performer, "Recite": recite, "Courtsey": courtsey, "YoutubeURL": youtubeEmbedURL, "Thamb": youtubeThamb, "Artist": artist });
+            songs.push({ "SongTitle": title, "Lyrics": lyrics, "Composed": composed, "Performer": performer, "Recite": recite, "Courtsey": courtsey, "YoutubeURL": youtubeEmbedURL, "Thumb": youtubeThamb, "Artist": artist });
         });
 
         if (songs.length > 0)

@@ -1,6 +1,7 @@
 ﻿using DataStoreLib.BlobStorage;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -199,5 +200,49 @@ namespace Crawler
                 throw ex;
             }
         }
+
+        public List<MovieSongsProps> GetMoviesSongsProps(string file)
+        {
+            try
+            {
+                List<MovieSongsProps> movieSongsList = new List<MovieSongsProps>();
+
+                XmlDocument documnet = new XmlDocument();
+
+                try
+                {
+                    documnet.Load(file);
+                }
+                catch (Exception ex)
+                {                    
+                    return null;
+                }
+
+                var root = documnet.SelectSingleNode("MoviesSongs");
+                var movieNodes = root.SelectNodes("Movie");
+
+                foreach (XmlNode movieNode in movieNodes)
+                {
+                    MovieSongsProps singleMovie = new MovieSongsProps();
+                    
+                    singleMovie.MovieName = movieNode.Attributes["name"].Value;
+                    singleMovie.MovieSongLink = movieNode.Attributes["link"].Value;
+
+                    movieSongsList.Add(singleMovie);
+                }
+
+                return movieSongsList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+    }
+
+    public class MovieSongsProps
+    {
+        public string MovieName { get; set; }
+        public string MovieSongLink { get; set; }
     }
 }
