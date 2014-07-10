@@ -372,12 +372,14 @@ var Search = function (placeholder, searchtype) {
             var courtsey = $(this).find(".songs-grid-row-data2").attr("crtsy");
 
             var youtubeEmbedURL = $(this).find(".songs-grid-row-data3").html();
-            alert(youtubeEmbedURL);
+            
             var index = youtubeEmbedURL.indexOf("<a");
-            alert(index);
-            if (index > 0) youtubeEmbedURL = youtubeEmbedURL.substring(0, index);
+            
+            if (index > 0)
+                youtubeEmbedURL = youtubeEmbedURL.substring(0, index);
+            else
+                youtubeEmbedURL = "";
 
-            alert(youtubeEmbedURL);
             var youtubeThamb = $(this).find(".songs-grid-row-data3").attr("thumb");
 
             songs.push({ "SongTitle": title, "Lyrics": lyrics, "Composed": composed, "Performer": performer, "Recite": recite, "Courtsey": courtsey, "YoutubeURL": youtubeEmbedURL, "Thumb": youtubeThamb, "Artist": artist });
@@ -385,6 +387,8 @@ var Search = function (placeholder, searchtype) {
 
         if (songs.length > 0)
             CURRENT_MOVIE.Songs = JSON.stringify(songs);
+
+        console.log(CURRENT_MOVIE.Songs);
 
         alert(CURRENT_MOVIE.Songs);
         //geting posters
