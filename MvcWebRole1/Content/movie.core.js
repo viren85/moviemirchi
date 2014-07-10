@@ -153,24 +153,15 @@ function ScaleElement1(element) {
     var currentElement = null;
     $(element).find("li.movie").each(function () {
 
-        $(this).find("#picAndCaption, #hover").hover(function () {
+        $(this).find("#picAndCaption").hover(function () {
             var element = this;
             $(element).find("#hover").each(function () {
-                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");
-                /*$(this).find(".img-movie-name").each(function () { $(this).show(); });
-                $(this).find(".img-movie-genre").each(function () { $(this).show(); });
-                $(this).find(".img-movie-date").each(function () { $(this).show(); });
-                $(this).find(".movie-songs ul").each(function () { $(this).show(); });*/
+                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");                
             });
         },       
         function () {
             var element = this;
-            $(element).find("#hover").each(function () {
-                //setTimeout(function(){},200);
-                /*$(this).find(".img-movie-name").each(function () { $(this).hide(); });
-                $(this).find(".img-movie-genre").each(function () { $(this).hide(); });
-                $(this).find(".img-movie-date").each(function () { $(this).hide(); });
-                $(this).find(".movie-songs ul").each(function () { $(this).hide(); });*/
+            $(element).find("#hover").each(function () {                
                 $(this).css("position", "relative").css("top", "auto").css("height", "auto");
             });
 
