@@ -45,6 +45,11 @@
                     "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                     "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
                     GetRateControl(movie.Ratings) +
+                    "<div class=\"movie-songs\">" +
+                    "<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
+                    "<div><span>Malang</span><span class='play'></span></div>" +
+                    "<div><span>Kamli</span><span class='play'></span></div>"
+                    + "</div>" +
         "</div>" +
     "</div>";
 

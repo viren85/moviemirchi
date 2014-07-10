@@ -156,13 +156,15 @@ function ScaleElement1(element) {
         $(this).find("#picAndCaption").hover(function () {
             var element = this;
             $(element).find("#hover").each(function () {
-                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");                
+                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");
+                $(this).find(".movie-songs").show();
             });
         },       
         function () {
             var element = this;
             $(element).find("#hover").each(function () {                
                 $(this).css("position", "relative").css("top", "auto").css("height", "auto");
+                $(this).find(".movie-songs").hide();
             });
 
         });
