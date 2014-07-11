@@ -10,6 +10,8 @@ var Index = 0;
 
 var MOVIES = [];
 
+var MOUSE_ON;
+
 function CallHandler(queryString, OnComp) {
     $.ajax({
         url: BASE_URL + queryString,
@@ -151,22 +153,34 @@ function GetLinks(html, type) {
 
 function ScaleElement1(element) {
     var currentElement = null;
-    $(element).find("li.movie").each(function () {
-
-        $(this).find("#picAndCaption").hover(function () {
-            var element = this;
-            $(element).find("#hover").each(function () {
-                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");
-                $(this).find(".movie-songs").show();
-            });
-        },       
+    $(element).find("li.movie #picAndCaption").each(function () {
+        $(this).hover(function () {
+            MOUSE_ON = $(this).attr("id");
+            var that = $(this);
+            setTimeout(function () {
+                
+                if (MOUSE_ON == $(that).attr("id")) {
+                    $(that).find("#hover").css("position", "absolute").css("top", "70px").css("height", "250px");
+                    $(that).find("#hover .movie-songs").show();
+                    MOUSE_ON = "";
+                }
+            }, 100);
+        },
         function () {
-            var element = this;
-            $(element).find("#hover").each(function () {                
+            var that = $(this);
+            $(that).find("#hover").css("position", "relative").css("top", "auto").css("height", "auto");
+            $(that).find("#hover").find(".movie-songs").hide();
+        });
+
+        $(element).find("li.movie #picAndCaption #hover").each(function () {
+            $(this).hover(function (event) {
+                event.stopPropagation();
+            },
+            function () {
                 $(this).css("position", "relative").css("top", "auto").css("height", "auto");
                 $(this).find(".movie-songs").hide();
+                
             });
-
         });
     });
 }
