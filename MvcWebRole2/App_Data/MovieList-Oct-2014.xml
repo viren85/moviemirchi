@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<Movies year="2014">
+	<Month name="October">
+		<Movie name="Bang Bang" link="http://www.imdb.com/title/tt2905838/"/>
+		<Movie name="Haider" link="http://www.imdb.com/title/tt3390572/"/>
+		<Movie name="Hawaizaada" link=""/>
+		<Movie name="Happy New Year" link="http://www.imdb.com/title/tt2461132/"/>
+	</Month>
+</Movies>

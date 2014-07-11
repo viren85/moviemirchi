@@ -77,7 +77,12 @@
     width: 88%;
     text-align: center;
 }
-
+#review-pager{
+    float: left;
+    width: 88%;
+    margin-top: 20px;
+    text-align: center;
+}
 
 @media screen and (min-width: 768px) {
 }

@@ -172,8 +172,7 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
             var rightArrow = $("<div/>").attr("class", "pager-right-arrow").html("<div class='right-arrow-icon'></div>");
 
             // Add pages
-            if(options.pageCount >= 2)
-            {
+            if (options.pageCount >= 2) {
                 pagerContainer.append(leftArrow);
 
                 for (var i = 1; i <= options.pageCount; i++) {
@@ -284,9 +283,6 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
         options.pageSize = options.pageSize - (margin * 2);
 
         options.tilesInPage = Math.floor(options.pageSize / options.tileWidth);
-
-        
-
 
         options.pageCount = Math.ceil(options.totalTileCount / options.tilesInPage);
 

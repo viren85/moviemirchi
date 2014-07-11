@@ -1,5 +1,6 @@
 ﻿var GetReviewControl = function (containerClass, movieReviews) {
     if (movieReviews) {
+        var reviewList = $("." + containerClass + " ul");
         movieReviews.forEach(function (review) {
             
             if (review.OutLink) {
@@ -7,7 +8,7 @@
                 var reviewText = new Util().GetEllipsisText(review.Review, 200);
                 
                 var html =
-                    "<div class=\"arrow_container\">" +
+                    "<li class=\"arrow_container\">" +
                         "<div class=\"left\">" +
                             "<div class=\"info\">" +
                                 "<div class=\"reviewer\">" +
@@ -34,9 +35,10 @@
                             "</div>" +
                         "</div>" +
                         "<div class=\"clear\"></div>" +
-                    "</div>";
+                    "</li>";
 
-                $("." + containerClass).append(html);
+                $(reviewList).append(html);
+                $("." + containerClass).append(reviewList);
             }
         });
     }

@@ -8,7 +8,7 @@
 
 var ShowMovie = function (data) {
     var result = JSON.parse(data);
-    console.log(result);
+
     if (result.Movie != undefined) {
         $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
@@ -142,6 +142,11 @@ var PopulatePosters = function (images, movieName) {
 
         $(".movie-poster-details").append(ul);
 
+        /*Pagination for posters */
+        PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+        $(".movie-poster-details").append($("#posters-pager"));
+
+
         $(".link-container").show();
     }
     else {
@@ -164,6 +169,14 @@ var ShowMovieReviews = function (review) {
         GetReviewControl("movie-review-details", review);
         if (review.length <= 0)
             $(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
+        else {
+            PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+            $(".movie-review-details").append($("#review-pager"));
+
+            $(window).resize(function () {
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+            });
+        }
     }
     else {
         $(".movie-review-details").hide();
@@ -260,6 +273,13 @@ var songList = function (videos, type) {
     }
 
     $(".songs").append(ul);
+
+    PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+    $(".songs").append($("#songs-pager"));
+
+    $(window).resize(function () {
+        PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+    });
 }
 
 $("#overlay").click(function () {

@@ -35,6 +35,16 @@
         "</div>" +
     "</div>";
 
+    var strSongs = "", songs = [];
+    songs = JSON.parse(movie.Songs);
+    if (songs != undefined && songs.length > 0) {
+        for (var sIndex = 0; sIndex < songs.length; sIndex++) {
+            strSongs += "<div><span>" + songs[sIndex].SongTitle + "</span><span class='play'></span></div>";
+
+            if (sIndex == 2) break;
+        }
+    }
+
     var html =
     "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
         "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 300px;\">" +
@@ -45,10 +55,10 @@
                     "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                     "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
                     GetRateControl(movie.Ratings) +
-                    "<div class=\"movie-songs\">" +
-                    "<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
+                    "<div class=\"movie-songs\" style=\"display: none;\">" + strSongs
+                    /*"<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
                     "<div><span>Malang</span><span class='play'></span></div>" +
-                    "<div><span>Kamli</span><span class='play'></span></div>"
+                    "<div><span>Kamli</span><span class='play'></span></div>"*/
                     + "</div>" +
         "</div>" +
     "</div>";

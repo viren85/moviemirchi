@@ -4,6 +4,10 @@
 }
 @Styles.Render("~/Content/styles/mm.moviedetails.css")
 <style>
+    body {
+        background-color: #eee;
+    }
+
     .link-container {
         display: none;
     }
@@ -17,44 +21,70 @@
         width: 86%;
         margin-left: 7%;
     }
-</style>
-<style>
-    body {
-        background-color: #eee;
-        padding: 10px;
+
+    .review-details {
+        float: left;
+        width: 850px;
     }
 
-    .songs ul {
-        float: none;
-        list-style: none;
-        width: 600px;
-        margin-left:6%;
-    }
-
-        .songs ul li {
-            background-color: #FFF;
-            width: 250px;
-            padding-bottom: 10px;
-            float: left;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            box-shadow: -3px 3px 5px #ddd;
-            cursor: pointer;
-            color: #333;
-            margin-left:20px;
+        .review-details .section-title {
+            width: 88%;
+            margin-left: 11%;
         }
 
-            .songs ul li:hover {
-                background-color: #368bc1;
-                color: #fff;
+    .movie-review-details {
+        width: 100%;
+        margin-left: 11%;
+    }
+
+        .movie-review-details ul {
+            float: left;
+            margin: 0px;
+            padding: 0px;
+            list-style: none;
+        }
+    .movie-poster-details ul {
+        padding: 0px;
+    }
+    .songs {
+        float: left;
+        margin-left: 0%;
+        width: 60%;
+        margin-bottom: 20px;
+    }
+    .songs .section-title{
+        margin-left: 12%;
+        width: 88%;
+    }
+        .songs ul {
+            float: none;
+            list-style: none;
+            width: 80%;
+            margin-left: 5%;
+        }
+            .songs ul li {
+                background-color: #FFF;
+                width: 250px;
+                padding-bottom: 10px;
+                float: left;
+                border: 1px solid #ddd;
+                box-shadow: -3px 3px 5px #ddd;
+                cursor: pointer;
+                color: #333;
+                margin-left: 20px;
             }
 
-            .songs ul li span {
-                font-size: 18px;
-                padding: 5px;
-                float: left;
-                text-align: left;
-            }
+                .songs ul li:hover {
+                    background-color: #368bc1;
+                    color: #fff;
+                }
+
+                .songs ul li span {
+                    font-size: 18px;
+                    padding: 5px;
+                    float: left;
+                    text-align: left;
+                }
 
     .song-thumb {
         width: 100%;
@@ -94,7 +124,12 @@
         top: 0;
         left: 0;
     }
-
+    #songs-pager{
+        float: left;
+        width: 80%;
+        margin-top:20px;
+    }
+    
     #modalMsg {
         color: white;
         cursor: pointer;
@@ -104,24 +139,22 @@
 <div class="movies">
 </div>
 <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
+
 <div class="movie-details">
-    <div class="movie-poster-details"></div>    
+    <div class="movie-poster-details"><div id="posters-pager"></div></div>
 </div>
-<div class="movie-songs"></div>
+<div class="songs">
+    <div class="section-title large-fonts">Songs</div>
+</div>
+<div class="review-details"></div>
+<div class="movie-songs"><div id="songs-pager"></div></div>
 
 <div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
     <div onclick="return RemoveModal();">Close</div>
     <iframe style="border: 0px; width: 100%; height: 100%;"></iframe>
-
 </div>
 <div id="overlay"></div>
 
-<div class="link-container">
-    <div class="section-title large-fonts">Reviews</div>
-</div>
-<div class="movie-details">
-    <div class="movie-review-details"></div>
-</div>
 <div class="tweet-details"></div>
 <script type="text/javascript" src="/Content/controls/mm.movie.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.review.js"></script>
@@ -130,9 +163,10 @@
     $(document).ready(function () {
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
         LoadSingleMovie(name);
-        $(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
+        //$(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
         $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+        $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
         LoadTweets("movie", name);
     });
 </script>
