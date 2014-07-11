@@ -54,5 +54,6 @@
         $("#search-container").empty();
         $("#VideoFrame").hide();
         $("#query").val($(col1).html() + " " + $("#txtFriendly").val());
+        $("#hfType").val("song");
     }
 }

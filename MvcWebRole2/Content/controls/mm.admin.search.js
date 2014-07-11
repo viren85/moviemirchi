@@ -405,7 +405,31 @@ var Search = function (placeholder, searchtype) {
 
         console.log(CURRENT_MOVIE.Songs);
 
-        alert(CURRENT_MOVIE.Songs);
+
+
+        //get songs list
+        var trailer = [];
+        $(".trailer-grid").find(".trailer-grid-row").each(function () {
+            var title = $(this).find(".trailer-grid-row-data1").html();
+            var youtubeEmbedURL = $(this).find(".trailer-grid-row-data3").html();
+
+            var index = youtubeEmbedURL.indexOf("<a");
+
+            if (index > 0)
+                youtubeEmbedURL = youtubeEmbedURL.substring(0, index);
+            else
+                youtubeEmbedURL = "";
+
+            var youtubeThamb = $(this).find(".trailer-grid-row-data3").attr("thumb");
+
+            trailer.push({ "Title": title, "YoutubeURL": youtubeEmbedURL, "Thumb": youtubeThamb, "Active": true });
+        });
+
+        if (trailer.length > 0)
+            CURRENT_MOVIE.Trailers = JSON.stringify(trailer);
+
+        console.log(CURRENT_MOVIE.Trailers);
+        
         //geting posters
         var posters = [];
         var selectPoster = null;
