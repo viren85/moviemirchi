@@ -30,6 +30,10 @@
 
             var gridRowData3 = $("<div/>").attr("id", "grid-row-data3_" + i).attr("class", "songs-grid-row-data3").attr("style", "cursor:pointer").html(linkText);
 
+            if (songsList[i].Thumb != null && songsList[i].Thumb != undefined && songsList[i].Thumb != "")
+                $(gridRowData3).attr("thumb", songsList[i].Thumb);
+                //thumb
+
             $(gridRow).append(gridRowData1);
             $(gridRow).append(gridRowData2);
             $(gridRow).append(gridRowData3);

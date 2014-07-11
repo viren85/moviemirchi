@@ -159,6 +159,7 @@
 
             //alert(url);
             //alert($("#hf-col3-id").val());
+            $($("#hf-col3-id").val()).removeAttr("thumb");
             $($("#hf-col3-id").val()).attr("thumb", thamb).html(url + " <a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + i + ");\">change<a/>");
 
         });

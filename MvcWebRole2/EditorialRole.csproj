@@ -229,20 +229,11 @@
     <Compile Include="WebRole.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\MovieList-Apr-2013.xml" />
-    <Content Include="App_Data\MovieList-Aug-2013.xml" />
-    <Content Include="App_Data\MovieList-Dec-2013.xml" />
-    <Content Include="App_Data\MovieList-Feb-2013.xml" />
-    <Content Include="App_Data\MovieList-Jan-2013.xml" />
-    <Content Include="App_Data\MovieList-Jul-2013.xml" />
-    <Content Include="App_Data\MovieList-Jun-2013.xml" />
-    <Content Include="App_Data\MovieList-Mar-2013.xml" />
-    <Content Include="App_Data\MovieList-May-2013.xml" />
-    <Content Include="App_Data\MovieList-Nov-2013.xml" />
-    <Content Include="App_Data\MovieList-Oct-2013.xml" />
-    <Content Include="App_Data\MovieList-Sep-2013.xml" />
-    <Content Include="App_Data\News.xml" />
-    <Content Include="App_Data\Twitter.xml" />
+    <Content Include="App_Data\MovieList-Aug-2014.xml" />
+    <Content Include="App_Data\MovieList-Dec-2014.xml" />
+    <Content Include="App_Data\MovieList-Nov-2014.xml" />
+    <Content Include="App_Data\MovieList-Oct-2014.xml" />
+    <Content Include="App_Data\MovieList-Sep-2014.xml" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
