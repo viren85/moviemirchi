@@ -59,12 +59,12 @@ function onSuccessLoadCurrentMovies(result) {
 
     if (result.length > 0) {
         MOVIES = result;
-        console.log(1);
+        
         // adding images        
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "movie-list");
         }
-        console.log(2);
+        
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
@@ -76,24 +76,24 @@ function onSuccessLoadCurrentMovies(result) {
             if (newWidth > 200)
                 $(this).width("200px");
         });
-        console.log(3);
+        
         ScaleElement1($(".movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".movie-list"));
-        console.log(4);
+        
         //PreparePaginationControl($(".news-container"));
 
         $(window).resize(function () {
             PreparePaginationControl($(".movie-list"));
         });
-        console.log(5);
+        
     }
 }
 
 function onSuccessLoadUpcomingMovies(result) {
     result = JSON.parse(result);
-    console.log(6);
+    
     if (result.length > 0) {
         //MOVIES = result;
 
@@ -101,7 +101,7 @@ function onSuccessLoadUpcomingMovies(result) {
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "upcoming-movie-list");
         }
-        console.log(7);
+        
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
@@ -113,16 +113,15 @@ function onSuccessLoadUpcomingMovies(result) {
             if (newWidth > 200)
                 $(this).width("200px");
         });
-        console.log(8);
+        
         ScaleElement1($(".upcoming-movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-        console.log(9);
+        
         $(window).resize(function () {
             PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
         });
-        console.log(10);
     }
 }
 
