@@ -45,7 +45,14 @@
                     "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                     "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
                     GetRateControl(movie.Ratings) +
-        "</div>"
+                    "<div class=\"movie-songs\">" +
+                    "<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
+                    "<div><span>Malang</span><span class='play'></span></div>" +
+                    "<div><span>Kamli</span><span class='play'></span></div>"
+                    + "</div>" +
+        "</div>" +
+    "</div>";
+
     /*"<div class=\"captionAndNavigate\" style=\"width:170px;padding: 15px;padding-top: 5px;padding-bottom:5px;\">" +
             "<div id=\"captionCredit\" style=\"width: 398px;\" class=\"multimediaCaption\">" +
                 "<div id=\"photoCaption\">" +
@@ -64,7 +71,6 @@
                 "</div>" +
             "</div>" +
         "</div>" +*/
-    "</div>";
 
     anchor.append(html);
     list.append(anchor);

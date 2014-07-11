@@ -8,7 +8,7 @@
 
 var ShowMovie = function (data) {
     var result = JSON.parse(data);
-
+    console.log(result);
     if (result.Movie != undefined) {
         $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
@@ -18,13 +18,15 @@ var ShowMovie = function (data) {
         ScaleElement1($(".movie-list ul"));
 
         // Show all posters of current movie
-        var poster = [], reviews = [];
+        var poster = [], reviews = [], songs = [];
 
         poster = result.Movie.Posters;
         reviews = result.MovieReviews;
+        songs = result.Movie.Songs;
 
         ShowMovieDetails(result.Movie);
         PopulatePosters(poster, result.Movie.Name);
+        PopulateSongs(songs);
         ArrangeImages($(".movie-poster-details"));
         ShowMovieReviews(reviews);
         PrepareGenreLinks();
@@ -116,14 +118,14 @@ var PopulatePosters = function (images, movieName) {
     var poster = [];
     poster = JSON.parse(images);
 
-    if (poster != "undefined" && poster != null && poster.length > 1) {        
-        
+    if (poster != "undefined" && poster != null && poster.length > 1) {
+
         var ul = $("<ul/>").attr("class", "gallery clearfix");
 
         for (var p = 0; p < poster.length; p++) {
             var img = $("<img/>")
             img.attr("class", "gallery-image");
-            img.attr("alt", movieName);            
+            img.attr("alt", movieName);
             img.attr("src", PUBLIC_BLOB_URL + poster[p]);
             img.error(function () {
                 $(this).hide();
@@ -223,4 +225,62 @@ var CleanCastString = function (str) {
     }
 
     return str;
+}
+
+var PopulateSongs = function (song) {
+    var songs = [];
+    songs = JSON.parse(song);
+
+    songList(songs, "Song");
+}
+
+var songList = function (videos, type) {
+    var ul = $("<ul/>");
+
+    for (i = 0; i < videos.length; i++) {
+        var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
+
+        var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL).attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
+            $(document).scrollTop(0);
+            DisplayModal($(this).attr("video-link"));
+        });
+
+        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", videos[i].YoutubeURL).attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
+            $(document).scrollTop(0);
+            DisplayModal();
+        });
+
+        var title = $("<span/>").html(videos[i].SongTitle);
+
+        $(li).append(img);
+        $(li).append(playImg);
+
+        $(li).append(title);
+        $(ul).append(li);
+    }
+
+    $(".songs").append(ul);
+}
+
+$("#overlay").click(function () {
+    RemoveModal();
+});
+
+$("#modalMsg").click(function () {
+    return;
+});
+
+function DisplayModal(url) {
+    $("#overlay").attr("class", "OverlayEffect");
+    $("#modalMsg").attr("class", "ShowModal");
+    $("#modalMsg").find("iframe").each(function () {
+        $(this).attr("src", url + "?autoplay=true");
+    });
+
+}
+
+function RemoveModal() {
+    $("#modalMsg").attr("class", "HideModal");
+    $("#overlay").attr("class", "");
+    return false;
 }

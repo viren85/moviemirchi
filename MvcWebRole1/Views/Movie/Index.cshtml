@@ -18,12 +18,104 @@
         margin-left: 7%;
     }
 </style>
+<style>
+    body {
+        background-color: #eee;
+        padding: 10px;
+    }
+
+    .songs ul {
+        float: none;
+        list-style: none;
+        width: 600px;
+        margin-left:6%;
+    }
+
+        .songs ul li {
+            background-color: #FFF;
+            width: 250px;
+            padding-bottom: 10px;
+            float: left;
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            box-shadow: -3px 3px 5px #ddd;
+            cursor: pointer;
+            color: #333;
+            margin-left:20px;
+        }
+
+            .songs ul li:hover {
+                background-color: #368bc1;
+                color: #fff;
+            }
+
+            .songs ul li span {
+                font-size: 18px;
+                padding: 5px;
+                float: left;
+                text-align: left;
+            }
+
+    .song-thumb {
+        width: 100%;
+        float: left;
+    }
+
+    .song-play {
+        float: right;
+        width: 32px;
+        height: 32px;
+        z-index: 2;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+
+    /* Modal Popup*/
+    .ShowModal {
+        top: 100px;
+        left: 33%;
+        z-index: 1000;
+        position: absolute;
+        display: block;
+    }
+
+    .HideModal {
+        display: none;
+    }
+
+    .OverlayEffect {
+        background-color: black;
+        filter: alpha(opacity=70);
+        opacity: 0.7;
+        width: 100%;
+        height: 100%;
+        z-index: 400;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    #modalMsg {
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
 <div class="movies">
 </div>
 <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
 <div class="movie-details">
-    <div class="movie-poster-details"></div>
+    <div class="movie-poster-details"></div>    
 </div>
+<div class="movie-songs"></div>
+
+<div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
+    <div onclick="return RemoveModal();">Close</div>
+    <iframe style="border: 0px; width: 100%; height: 100%;"></iframe>
+
+</div>
+<div id="overlay"></div>
+
 <div class="link-container">
     <div class="section-title large-fonts">Reviews</div>
 </div>
@@ -37,7 +129,8 @@
 <script type="text/javascript">
     $(document).ready(function () {
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-        LoadSingleMovie(name);        
+        LoadSingleMovie(name);
+        $(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
         $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         LoadTweets("movie", name);

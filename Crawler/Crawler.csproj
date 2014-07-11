@@ -103,6 +103,7 @@
     <Compile Include="Reviews\Telegraph.cs" />
     <Compile Include="Reviews\TheHindu.cs" />
     <Compile Include="Reviews\TimesOfIndia.cs" />
+    <Compile Include="SongCrawler.cs" />
     <Compile Include="Util.cs" />
     <Compile Include="XMLMovieFileProperties.cs" />
   </ItemGroup>

@@ -575,6 +575,53 @@ namespace MvcWebRole2.Controllers
             }
         }
 
+        [HttpGet]
+        public void GetSongs()
+        {
+            JavaScriptSerializer json = new JavaScriptSerializer();
+            SetConnectionString();
+
+            try
+            {
+                string file = @"D:\GitHub-SVN\moviemirchi\MvcWebRole2\App_Data\Movie-Songs-2014.xml";
+                #region Crawl Movie
+                List<MovieSongsProps> movieSongs = new GenerateXMLFile().GetMoviesSongsProps(file);
+
+                TableManager tbleMgr = new TableManager();
+                
+                if (movieSongs != null)
+                {
+                    foreach (MovieSongsProps movieSong in movieSongs)
+                    {
+                        if (!string.IsNullOrEmpty(movieSong.MovieName) && !string.IsNullOrEmpty(movieSong.MovieSongLink))
+                        {
+                            List<Songs> songs = new SongCrawler().Crawl(movieSong.MovieSongLink);
+
+                            if (songs == null) continue;
+
+                            movieSong.MovieName = movieSong.MovieName.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
+
+                            MovieEntity movie = tbleMgr.GetMovieByUniqueName(movieSong.MovieName);
+
+                            if (movie != null)
+                            {
+                                string strSongs = json.Serialize(songs);
+                                movie.Songs = strSongs;
+
+                                tbleMgr.UpdateMovieById(movie);
+                            }
+                        }
+                    }
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(string.Format("Error occured while crawing songs, error: {0}", ex.Message));
+            }
+        }
+
         [HttpPost]
         public ActionResult Register(string userJson)
         {

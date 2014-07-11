@@ -359,6 +359,38 @@ var Search = function (placeholder, searchtype) {
         if (artists.length > 0)
             CURRENT_MOVIE.Casts = JSON.stringify(artists);
 
+        //get songs list
+        var songs = [];
+        $(".songs-grid").find(".songs-grid-row").each(function () {
+            var title = $(this).find(".songs-grid-row-data1").html();
+            var composed = $(this).find(".songs-grid-row-data1").attr("cmpsd");
+            var performer = $(this).find(".songs-grid-row-data1").attr("prfmr");
+            var artist = $(this).find(".songs-grid-row-data1").attr("artist");
+
+            var lyrics = $(this).find(".songs-grid-row-data2").html();
+            var recite = $(this).find(".songs-grid-row-data2").attr("recte");
+            var courtsey = $(this).find(".songs-grid-row-data2").attr("crtsy");
+
+            var youtubeEmbedURL = $(this).find(".songs-grid-row-data3").html();
+            
+            var index = youtubeEmbedURL.indexOf("<a");
+            
+            if (index > 0)
+                youtubeEmbedURL = youtubeEmbedURL.substring(0, index);
+            else
+                youtubeEmbedURL = "";
+
+            var youtubeThamb = $(this).find(".songs-grid-row-data3").attr("thumb");
+
+            songs.push({ "SongTitle": title, "Lyrics": lyrics, "Composed": composed, "Performer": performer, "Recite": recite, "Courtsey": courtsey, "YoutubeURL": youtubeEmbedURL, "Thumb": youtubeThamb, "Artist": artist });
+        });
+
+        if (songs.length > 0)
+            CURRENT_MOVIE.Songs = JSON.stringify(songs);
+
+        console.log(CURRENT_MOVIE.Songs);
+
+        alert(CURRENT_MOVIE.Songs);
         //geting posters
         var posters = [];
         var selectPoster = null;
