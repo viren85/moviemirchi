@@ -8,7 +8,7 @@
 
 var ShowMovie = function (data) {
     var result = JSON.parse(data);
-    console.log(result);
+
     if (result.Movie != undefined) {
         $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
@@ -164,6 +164,14 @@ var ShowMovieReviews = function (review) {
         GetReviewControl("movie-review-details", review);
         if (review.length <= 0)
             $(".movie-review-details").html("<b>Currently movie does not has any review.</b>");
+        else {
+            PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+            $(".movie-review-details").append($("#review-pager"));
+
+            $(window).resize(function () {
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+            });
+        }
     }
     else {
         $(".movie-review-details").hide();

@@ -290,6 +290,21 @@ var Search = function (placeholder, searchtype) {
                 }
 
 
+                //populate trailers
+                $(".trailer-container").html("");
+                if (MOVIES[i].Trailers != "" && MOVIES[i].Trailers != undefined) {
+                    var trailer = JSON.parse(MOVIES[i].Trailers);
+                    $(".trailer-container").append(new Trailer().GetTrailerGrid(trailer));
+
+                    $(function () {
+                        $("#trailer-sortable").sortable({ cursor: "move" });
+                        $("#trailer-sortable").disableSelection();
+                    });
+                } else {
+                    $(".trailer-container").append(new Trailer().GetTrailerGrid([]));
+                }
+
+
                 $(".posters-container").html("");
 
                 if (MOVIES[i].Posters != "" && MOVIES[i].Posters != undefined) {
@@ -372,9 +387,9 @@ var Search = function (placeholder, searchtype) {
             var courtsey = $(this).find(".songs-grid-row-data2").attr("crtsy");
 
             var youtubeEmbedURL = $(this).find(".songs-grid-row-data3").html();
-            
+
             var index = youtubeEmbedURL.indexOf("<a");
-            
+
             if (index > 0)
                 youtubeEmbedURL = youtubeEmbedURL.substring(0, index);
             else

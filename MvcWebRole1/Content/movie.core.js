@@ -10,6 +10,8 @@ var Index = 0;
 
 var MOVIES = [];
 
+var MOUSE_ON;
+
 function CallHandler(queryString, OnComp) {
     $.ajax({
         url: BASE_URL + queryString,
@@ -57,12 +59,12 @@ function onSuccessLoadCurrentMovies(result) {
 
     if (result.length > 0) {
         MOVIES = result;
-        console.log(1);
+        
         // adding images        
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "movie-list");
         }
-        console.log(2);
+        
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
@@ -74,24 +76,24 @@ function onSuccessLoadCurrentMovies(result) {
             if (newWidth > 200)
                 $(this).width("200px");
         });
-        console.log(3);
+        
         ScaleElement1($(".movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".movie-list"));
-        console.log(4);
+        
         //PreparePaginationControl($(".news-container"));
 
         $(window).resize(function () {
             PreparePaginationControl($(".movie-list"));
         });
-        console.log(5);
+        
     }
 }
 
 function onSuccessLoadUpcomingMovies(result) {
     result = JSON.parse(result);
-    console.log(6);
+    
     if (result.length > 0) {
         //MOVIES = result;
 
@@ -99,7 +101,7 @@ function onSuccessLoadUpcomingMovies(result) {
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "upcoming-movie-list");
         }
-        console.log(7);
+        
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
@@ -111,16 +113,15 @@ function onSuccessLoadUpcomingMovies(result) {
             if (newWidth > 200)
                 $(this).width("200px");
         });
-        console.log(8);
+        
         ScaleElement1($(".upcoming-movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-        console.log(9);
+        
         $(window).resize(function () {
             PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
         });
-        console.log(10);
     }
 }
 
@@ -151,22 +152,34 @@ function GetLinks(html, type) {
 
 function ScaleElement1(element) {
     var currentElement = null;
-    $(element).find("li.movie").each(function () {
-
-        $(this).find("#picAndCaption").hover(function () {
-            var element = this;
-            $(element).find("#hover").each(function () {
-                $(this).css("position", "absolute").css("top", "70px").css("height", "230px");
-                $(this).find(".movie-songs").show();
-            });
-        },       
+    $(element).find("li.movie #picAndCaption").each(function () {
+        $(this).hover(function () {
+            MOUSE_ON = $(this).attr("id");
+            var that = $(this);
+            setTimeout(function () {
+                
+                if (MOUSE_ON == $(that).attr("id")) {
+                    $(that).find("#hover").css("position", "absolute").css("top", "70px").css("height", "250px");
+                    $(that).find("#hover .movie-songs").show();
+                    MOUSE_ON = "";
+                }
+            }, 100);
+        },
         function () {
-            var element = this;
-            $(element).find("#hover").each(function () {                
+            var that = $(this);
+            $(that).find("#hover").css("position", "relative").css("top", "auto").css("height", "auto");
+            $(that).find("#hover").find(".movie-songs").hide();
+        });
+
+        $(element).find("li.movie #picAndCaption #hover").each(function () {
+            $(this).hover(function (event) {
+                event.stopPropagation();
+            },
+            function () {
                 $(this).css("position", "relative").css("top", "auto").css("height", "auto");
                 $(this).find(".movie-songs").hide();
+                
             });
-
         });
     });
 }

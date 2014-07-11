@@ -11,10 +11,13 @@
     <div class="content-container">
         <div class="shortcut-container"></div>
         <div class="basic-form-container"></div>
-        <div id="movie-rating" class="form-container" style="position: absolute; float: right; right: 0px; top: 108px;"></div>
+        <div id="movie-rating" class="form-container" style="position: absolute; float: right; right: 2px; top: 108px;"></div>
         <div class="review-container"></div>
         <div class="artists-container"></div>
-        <div class="songs-container" style="float: right; position: absolute; top: 468px; right: 0;"></div>
+        <div class="trailer-container" style="float: right;position: absolute;top: 290px;right: 17px;">
+            <div class="section-title large-fonts">Trailers</div>
+        </div>
+        <div class="songs-container" style="float: right; position: absolute; top: 500px; right: 17px;"></div>
         <div class="posters-container" style="position: relative;right: -95%;float: right;top: -910px;"></div>
     </div>
 
@@ -151,7 +154,7 @@
         $(attach).click(function () {
             var url = "";
             var thamb = "";
-            
+
             $(this).parent().parent().find(".SearchResultImage").each(function () {
                 url = $(this).attr("originalurl");
                 thamb = $(this).attr("src");
