@@ -49,23 +49,24 @@
     .songs {
         float: left;
         margin-left: 0%;
-        width: 93%;
+        width: 60%;
         margin-bottom: 20px;
     }
-
+    .songs .section-title{
+        margin-left: 12%;
+        width: 88%;
+    }
         .songs ul {
             float: none;
             list-style: none;
-            width: 600px;
-            margin-left: 2%;
+            width: 80%;
+            margin-left: 5%;
         }
-
             .songs ul li {
                 background-color: #FFF;
                 width: 250px;
                 padding-bottom: 10px;
                 float: left;
-                margin-top: 20px;
                 border: 1px solid #ddd;
                 box-shadow: -3px 3px 5px #ddd;
                 cursor: pointer;
@@ -123,7 +124,12 @@
         top: 0;
         left: 0;
     }
-
+    #songs-pager{
+        float: left;
+        width: 80%;
+        margin-top:20px;
+    }
+    
     #modalMsg {
         color: white;
         cursor: pointer;
@@ -141,7 +147,7 @@
     <div class="section-title large-fonts">Songs</div>
 </div>
 <div class="review-details"></div>
-<div class="movie-songs"></div>
+<div class="movie-songs"><div id="songs-pager"></div></div>
 
 <div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
     <div onclick="return RemoveModal();">Close</div>

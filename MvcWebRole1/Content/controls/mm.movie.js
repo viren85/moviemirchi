@@ -273,6 +273,13 @@ var songList = function (videos, type) {
     }
 
     $(".songs").append(ul);
+
+    PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+    $(".songs").append($("#songs-pager"));
+
+    $(window).resize(function () {
+        PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+    });
 }
 
 $("#overlay").click(function () {
