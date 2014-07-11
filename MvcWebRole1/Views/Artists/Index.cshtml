@@ -9,6 +9,7 @@
         margin-left: 7%;
         margin-right: 3%;
     }
+    .movie-poster-details ul{padding:0px;}
     .movies {
         margin-top: 80px;
     }
@@ -29,7 +30,7 @@
         $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
         $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
         $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
-        $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "poster-pager"));
+        $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
         $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
 

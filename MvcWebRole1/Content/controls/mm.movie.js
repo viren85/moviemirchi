@@ -142,6 +142,11 @@ var PopulatePosters = function (images, movieName) {
 
         $(".movie-poster-details").append(ul);
 
+        /*Pagination for posters */
+        PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+        $(".movie-poster-details").append($("#posters-pager"));
+
+
         $(".link-container").show();
     }
     else {

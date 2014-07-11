@@ -3,7 +3,7 @@
     $(container).find("img").each(function () {
         var ratio = this.width / this.height;
         var newWidth = 200 * ratio;
-        $(this).width(newWidth + "px").height("200px");
+        $(this).width(newWidth + "px").height("200px").css("max-width", "400px");
     });
 }
 
