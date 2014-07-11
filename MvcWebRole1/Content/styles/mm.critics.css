@@ -54,11 +54,11 @@
 .critics-more-link {
     position: absolute;
     right: 10px;
-    bottom: -25px;
+    bottom: 0px;
 }
 
-.arrow_box {
-    height: 175px !important;
+.critics-review .arrow_box {
+    height: 165px;
 }
 
 .arrow_container {
