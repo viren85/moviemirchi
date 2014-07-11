@@ -87,7 +87,8 @@ div.captionAndNavigate {
     text-align: justify;
     width: 75%;
 }
-.movie-songs { float: left; width: 100%;display:none;}
+/*.movie-songs { float: left; width: 100%;display:none;}*/
+.movie-songs { float: left; width: 100%;display:block;}
 .movie-songs div { float: left; width: 100%;}
 .movie-songs span.play{float: right; background-image:url('/images/play.png');background-size: 16px 16px; width: 16px; height: 16px;}
 

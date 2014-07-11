@@ -24,37 +24,44 @@
         padding: 10px;
     }
 
-    .songs ul {
-        float: none;
-        list-style: none;
-        width: 600px;
-        margin-left:6%;
+    .songs {
+        float: left;
+        margin-left: 0%;
+        width: 93%;
+        margin-bottom: 20px;
     }
 
-        .songs ul li {
-            background-color: #FFF;
-            width: 250px;
-            padding-bottom: 10px;
-            float: left;
-            margin-top: 20px;
-            border: 1px solid #ddd;
-            box-shadow: -3px 3px 5px #ddd;
-            cursor: pointer;
-            color: #333;
-            margin-left:20px;
+        .songs ul {
+            float: none;
+            list-style: none;
+            width: 600px;
+            margin-left: 2%;
         }
 
-            .songs ul li:hover {
-                background-color: #368bc1;
-                color: #fff;
+            .songs ul li {
+                background-color: #FFF;
+                width: 250px;
+                padding-bottom: 10px;
+                float: left;
+                margin-top: 20px;
+                border: 1px solid #ddd;
+                box-shadow: -3px 3px 5px #ddd;
+                cursor: pointer;
+                color: #333;
+                margin-left: 20px;
             }
 
-            .songs ul li span {
-                font-size: 18px;
-                padding: 5px;
-                float: left;
-                text-align: left;
-            }
+                .songs ul li:hover {
+                    background-color: #368bc1;
+                    color: #fff;
+                }
+
+                .songs ul li span {
+                    font-size: 18px;
+                    padding: 5px;
+                    float: left;
+                    text-align: left;
+                }
 
     .song-thumb {
         width: 100%;
@@ -105,9 +112,12 @@
 </div>
 <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
 <div class="movie-details">
-    <div class="movie-poster-details"></div>    
+    <div class="movie-poster-details"></div>
 </div>
-<div class="movie-songs"></div>
+
+<div class="songs">
+    <div class="section-title large-fonts">Songs</div>
+</div>
 
 <div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
     <div onclick="return RemoveModal();">Close</div>
@@ -130,7 +140,7 @@
     $(document).ready(function () {
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
         LoadSingleMovie(name);
-        $(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
+        //$(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
         $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         LoadTweets("movie", name);
