@@ -34,6 +34,7 @@
     .movie-poster-details ul {
         padding: 0px;
     }
+    /*Songs list*/
     .songs {
         float: left;
         margin-left: 0%;
@@ -88,6 +89,62 @@
         margin-right: 10px;
         margin-top: 10px;
     }
+    /*End*/
+    /*Trailer list*/
+    .trailers {
+        float: left;
+        margin-left: 0%;
+        width: 50%;        
+        margin-bottom: 20px;
+    }
+    
+    .trailers .section-title{
+        width: 86%;
+    }
+        .trailers ul {
+            float: none;
+            list-style: none;
+            margin: 0px;
+            padding: 0px;
+        }
+            .trailers ul li {
+                background-color: #FFF;
+                width: 250px;
+                padding-bottom: 10px;
+                float: left;
+                border: 1px solid #ddd;
+                box-shadow: -3px 3px 5px #ddd;
+                cursor: pointer;
+                color: #333;
+                margin-right: 20px;
+            }
+
+                .trailers ul li:hover {
+                    background-color: #368bc1;
+                    color: #fff;
+                }
+
+                .trailers ul li span {
+                    font-size: 18px;
+                    padding: 5px;
+                    float: left;
+                    text-align: left;
+                    padding-top: 15px;
+                }
+
+    .trailers-thumb {
+        width: 100%;
+        float: left;
+    }
+
+    .trailer-play {
+        float: right;
+        width: 32px;
+        height: 32px;
+        z-index: 2;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
 
     /* Modal Popup*/
     .ShowModal {
@@ -133,14 +190,12 @@
     </div>
     <div class="link-container songs"><div class="section-title large-fonts">Songs</div></div>
     <div class="movie-songs"><div id="songs-pager"></div></div>
-    <div class="trailer" style="float: left;">
+    <div class="trailers" style="float: left;">
         <div class="section-title large-fonts">Trailers</div>
     </div>
     <div class="review-details"></div>
     <div class="tweet-details"></div>
 </div>
-
-
 
 <div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
     <div onclick="return RemoveModal();">Close</div>

@@ -22,15 +22,21 @@ var ShowMovie = function (data) {
             ScaleNewTileElement($(".movie-list ul"));
 
         // Show all posters of current movie
-        var poster = [], reviews = [], songs = [];
+        var poster = [], reviews = [], songs = [], trailers=[];
 
         poster = result.Movie.Posters;
         reviews = result.MovieReviews;
         songs = result.Movie.Songs;
-
+        trailers = result.Movie.Trailers;
+        //show movies details
         ShowMovieDetails(result.Movie);
+        //populate movie's posters
         PopulatePosters(poster, result.Movie.Name);
+        //populate movie's songs
         PopulateSongs(songs);
+        //populate movie's trailers
+        PopulateTrailers(trailers);
+
         ArrangeImages($(".movie-poster-details"));
         ShowMovieReviews(reviews);
         PrepareGenreLinks();
@@ -247,10 +253,10 @@ var CleanCastString = function (str) {
 var PopulateSongs = function (song) {
     var songs = [];
     songs = JSON.parse(song);
-    songList(songs, "Song");
+    SongList(songs, "Song");
 }
 
-var songList = function (videos, type) {
+var SongList = function (videos, type) {
     var ul = $("<ul/>");
     var songHasLink = false;
     for (i = 0; i < videos.length; i++) {
@@ -287,6 +293,81 @@ var songList = function (videos, type) {
         $(window).resize(function () {
             PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
         });
+    }
+}
+
+var PopulateTrailers = function (trailer) {
+    var trailers = [];
+    trailers = JSON.parse(trailer);
+    TrailerList(trailers, "Trailer");
+}
+
+var TrailerList = function (videos, type) {
+    var ul = $("<ul/>");
+    var songHasLink = false;
+    var j = 0;
+    for (i = 0; i < videos.length; i++) {
+        var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
+
+        var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL).attr("title", "Play YouTube " + type + " - " + videos[i].Title).click(function () {
+            $(document).scrollTop(0);
+            DisplayModal($(this).attr("video-link"));
+        });
+
+        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", videos[i].YoutubeURL).attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
+            $(document).scrollTop(0);
+            DisplayModal();
+        });
+
+        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].Title, 20)).attr("title", videos[i].Title);
+
+        $(li).append(img);
+        $(li).append(playImg);
+
+        $(li).append(title);
+        if (videos[i].YoutubeURL != undefined && videos[i].YoutubeURL != "" && videos[i].YoutubeURL != null && videos[i].Thumb != undefined && videos[i].Thumb != "" && videos[i].Thumb != null) {
+            $(ul).append(li);
+            songHasLink = true;
+            j++;
+        }
+
+        if (j == 2) break;
+    }
+
+    /*for (i = 0; i < videos.length; i++) {
+        var img = $("<img/>").attr("class", "trailer-thumb").attr("src", videos[i].Thumb);
+
+        var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL).attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
+            $(document).scrollTop(0);
+            DisplayModal($(this).attr("video-link"));
+        });
+
+        var playImg = $("<img/>").attr("class", "trailer-play").attr("video-link", videos[i].YoutubeURL).attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
+            $(document).scrollTop(0);
+            DisplayModal();
+        });
+
+        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].SongTitle, 20)).attr("title", videos[i].SongTitle);
+
+        $(li).append(img);
+        $(li).append(playImg);
+
+        $(li).append(title);
+        if (videos[i].YoutubeURL != undefined && videos[i].YoutubeURL != "" && videos[i].YoutubeURL != null) {
+            $(ul).append(li);
+            songHasLink = true;
+        }
+    }*/
+
+    if (songHasLink) {
+        $(".trailers").append(ul);
+
+        /*PreparePaginationControl($(".trailer"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+        $(".trailer").append($("#songs-pager"));
+
+        $(window).resize(function () {
+            PreparePaginationControl($(".trailer"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+        });*/
     }
 }
 
