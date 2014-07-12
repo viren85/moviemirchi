@@ -40,6 +40,7 @@
         margin-left: 0%;
         width: 50%;
         margin-bottom: 20px;
+        display:none !important;
     }
     .trailer{ width: 35%;}
     .songs .section-title{
@@ -96,6 +97,7 @@
         margin-left: 0%;
         width: 50%;        
         margin-bottom: 20px;
+        display:none !important;
     }
     
     .trailers .section-title{
@@ -216,5 +218,6 @@
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
         LoadTweets("movie", name);
+        console.log("3:" + $(".link-container .songs").css("display"));
     });
 </script>
