@@ -247,7 +247,6 @@ var CleanCastString = function (str) {
 var PopulateSongs = function (song) {
     var songs = [];
     songs = JSON.parse(song);
-
     songList(songs, "Song");
 }
 
@@ -267,7 +266,7 @@ var songList = function (videos, type) {
             DisplayModal();
         });
 
-        var title = $("<span/>").html(videos[i].SongTitle);
+        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].SongTitle, 20)).attr("title", videos[i].SongTitle);
 
         $(li).append(img);
         $(li).append(playImg);
