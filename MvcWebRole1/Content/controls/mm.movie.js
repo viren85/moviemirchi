@@ -249,7 +249,7 @@ var PopulateSongs = function (song) {
 
 var songList = function (videos, type) {
     var ul = $("<ul/>");
-
+    var songHasLink = false;
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
 
@@ -269,17 +269,22 @@ var songList = function (videos, type) {
         $(li).append(playImg);
 
         $(li).append(title);
-        $(ul).append(li);
+        if (videos[i].YoutubeURL != undefined && videos[i].YoutubeURL != "" && videos[i].YoutubeURL != null) {
+            $(ul).append(li);
+            songHasLink = true;
+        }
     }
 
-    $(".songs").append(ul);
+    if (songHasLink) {
+        $(".songs").append(ul);
 
-    PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
-    $(".songs").append($("#songs-pager"));
-
-    $(window).resize(function () {
         PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
-    });
+        $(".songs").append($("#songs-pager"));
+
+        $(window).resize(function () {
+            PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+        });
+    }
 }
 
 $("#overlay").click(function () {
