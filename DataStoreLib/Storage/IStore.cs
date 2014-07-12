@@ -224,7 +224,7 @@ namespace DataStoreLib.Storage
         {
             var retList = store.GetAllMovies();
             ////TODO Do we need to add month logic? How do we filter to current?
-            return retList.Values.Where(movie => movie.State.Trim().ToLower() != "upcoming");
+            return retList.Values.Where(movie => movie.State.Trim().ToLower() != "upcoming").OrderByDescending(m => m.PublishDate);
 
 
             //// TODO: Clean the comments
@@ -256,7 +256,7 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                 // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
-                    .Where(movie => movie.State.ToLower() == "upcoming");
+                    .Where(movie => movie.State.Trim().ToLower() == "upcoming").OrderBy(m => m.PublishDate);
 
             ////TODO: Clean the comments
             ////List<MovieEntity> upcomingMovies = new List<MovieEntity>();
