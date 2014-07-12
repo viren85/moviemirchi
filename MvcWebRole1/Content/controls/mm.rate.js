@@ -20,6 +20,8 @@ function GetMovieRateControl(rate) {
 
 function GetMovieRate(rating)
 {
+    if (rating == undefined || rating <= 0) return "";
+
     return "<span class='rate rate-" + rating + "'></span>";
 }
 
