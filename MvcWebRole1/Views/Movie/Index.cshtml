@@ -11,30 +11,17 @@
     .link-container {
         display: none;
     }
-
+    .movie-songs { display: none; }
     .movie-list, .movie-list ul {
         width: 300px;
     }
 
-    .movie-details {
+    .movie-details, .review-details {
         float: left;
-        width: 86%;
-        margin-left: 7%;
+        width: 100%;
     }
-
-    .review-details {
-        float: left;
-        width: 850px;
-    }
-
-        .review-details .section-title {
-            width: 88%;
-            margin-left: 11%;
-        }
-
     .movie-review-details {
         width: 100%;
-        margin-left: 11%;
         float: left;
     }
 
@@ -50,18 +37,18 @@
     .songs {
         float: left;
         margin-left: 0%;
-        width: 60%;
+        width: 50%;
         margin-bottom: 20px;
     }
+    .trailer{ width: 35%;}
     .songs .section-title{
-        margin-left: 12%;
-        width: 88%;
+        width: 86%;
     }
         .songs ul {
             float: none;
             list-style: none;
-            width: 80%;
-            margin-left: 5%;
+            margin: 0px;
+            padding: 0px;
         }
             .songs ul li {
                 background-color: #FFF;
@@ -72,7 +59,7 @@
                 box-shadow: -3px 3px 5px #ddd;
                 cursor: pointer;
                 color: #333;
-                margin-left: 20px;
+                margin-right: 20px;
             }
 
                 .songs ul li:hover {
@@ -139,20 +126,21 @@
 </style>
 
 <div class="movies">
+    <div class="movie-content"></div>
+    <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
+    <div class="movie-details">
+        <div class="movie-poster-details"><div id="posters-pager"></div></div>
+    </div>
+    <div class="link-container songs"><div class="section-title large-fonts">Songs</div></div>
+    <div class="movie-songs"><div id="songs-pager"></div></div>
+    <div class="trailer" style="float: left;">
+        <div class="section-title large-fonts">Trailers</div>
+    </div>
+    <div class="review-details"></div>
+    <div class="tweet-details"></div>
 </div>
-<div class="link-container"><div class="section-title large-fonts">Posters</div></div>
 
-<div class="movie-details">
-    <div class="movie-poster-details"><div id="posters-pager"></div></div>
-</div>
-<div class="songs">
-    <div class="section-title large-fonts">Songs</div>
-</div>
-<div class="trailer" style="float:left; width:40%">
-    <div class="section-title large-fonts">Trailers</div>
-</div>
-<div class="review-details"></div>
-<div class="movie-songs"><div id="songs-pager"></div></div>
+
 
 <div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
     <div onclick="return RemoveModal();">Close</div>
@@ -160,7 +148,7 @@
 </div>
 <div id="overlay"></div>
 
-<div class="tweet-details"></div>
+
 <script type="text/javascript" src="/Content/controls/mm.movie.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.review.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.gallery.js"></script>

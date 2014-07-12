@@ -10,7 +10,7 @@ var ShowMovie = function (data) {
     var result = JSON.parse(data);
 
     if (result.Movie != undefined) {
-        $(".movies").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+        $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
         //$(".tube-container").append($(".movie-details"));
         //$(".movie-list").append($(".link-container"));

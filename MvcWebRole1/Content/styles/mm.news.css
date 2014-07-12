@@ -64,9 +64,9 @@
     }
 
 
-.news-content {
+/*.news-content {
     margin-left: 10%;
-}
+}*/
 
 .news-left, .news-right {
     width: 48%;
@@ -77,7 +77,7 @@
 
 @media screen and (min-width: 321px) and (max-width: 1350px) {
     .news-content {
-        margin-left: 6%;
+        /*margin-left: 6%;*/
     }
 }
 
