@@ -15,7 +15,11 @@ var ShowMovie = function (data) {
         //$(".tube-container").append($(".movie-details"));
         //$(".movie-list").append($(".link-container"));
         PopulatingMovies(result.Movie, "movie-list");
-        ScaleElement1($(".movie-list ul"));
+
+        if (TILE_MODE == 0)
+            ScaleElement($(".movie-list ul"));
+        else
+            ScaleNewTileElement($(".movie-list ul"));
 
         // Show all posters of current movie
         var poster = [], reviews = [], songs = [];

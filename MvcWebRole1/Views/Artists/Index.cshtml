@@ -63,7 +63,10 @@
                     $(this).width("250px");
             });
 
-            ScaleElement1($(".movie-list ul"));
+            if (TILE_MODE == 0)
+                ScaleElement($(".movie-list ul"));
+            else
+                ScaleNewTileElement($(".movie-list ul"));
 
             // movie-list
             PreparePaginationControl($(".movie-list"));

@@ -9,8 +9,14 @@
 
 var ScaleElement = function (element) {
     var currentElement = null;
+
+    // If bit is set to new tile mode then return.
+    if (TILE_MODE == 1) {
+        return;
+    }
+
     $(element).find("li.movie").each(function () {
-        /*$(this).find(".movie-poster,.captionAndNavigate").hover(function () {
+        $(this).find(".movie-poster,.captionAndNavigate").hover(function () {
             var element = this;
             
             if ($(this).attr("class") == "captionAndNavigate")
@@ -18,11 +24,11 @@ var ScaleElement = function (element) {
 
             currentElement = element;
             $(element).attr("isactive", "true");
-            $(element).attr("org-w", $(element).css("width")).css("width", "230px").css("top", "-35px").css("left", "-50px");
-            $(element).attr("org-h", $(element).css("height")).css("height", "340px");
+            $(element).attr("org-w", $(element).css("width")).css("width", "350px").css("top", "-35px").css("left", "-50px");
+            $(element).attr("org-h", $(element).css("height")).css("height", "500px");
             $(element).css("z-index", "100").css("position", "absolute");
-            $(element).parent().css("height", "340px").css("z-index", "100");
-            $(element).parent().find(".captionAndNavigate").css("width", "230px").css("height", "340px").css("z-index", "100").css("top", "-15px").css("left", "-20px");
+            $(element).parent().css("height", "500px").css("z-index", "100");
+            $(element).parent().find(".captionAndNavigate").css("width", "350px").css("height", "500px").css("z-index", "100").css("top", "-35px").css("left", "-50px");
 
             $(element).parent().find(".movie-synopsis").each(function () {
                 $(this).show();
@@ -39,8 +45,7 @@ var ScaleElement = function (element) {
             $(element).parent().css("z-index", "1");
             $(element).parent().find(".captionAndNavigate").css("width", $(element).attr("org-w")).css("top", "auto").css("left", "0px").css("z-index", "1").css("height", "auto");
             $(element).parent().find(".movie-synopsis").hide();
-
-        });*/
+        });
     });
 }
 

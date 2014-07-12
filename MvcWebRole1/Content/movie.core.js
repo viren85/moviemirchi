@@ -1,6 +1,6 @@
 ﻿//var BASE_URL = "http://127.0.0.1:81/";
 var BASE_URL = "";
-
+var TILE_MODE = 0; // 0 = Old Tile with Hover effect, 1 = New Tile with Slide Effect
 var MovieCounter = 4;
 var MovieIndexer = 0;
 var Movie = 4;
@@ -59,41 +59,47 @@ function onSuccessLoadCurrentMovies(result) {
 
     if (result.length > 0) {
         MOVIES = result;
-        
+
         // adding images        
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "movie-list");
         }
-        
+
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
+        var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
+        var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
+        var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
         $(".movie-list").find("img").each(function () {
             var ratio = this.width / this.height;
-            var newWidth = 300 * ratio;
-            $(this).width(newWidth + "px").height("300px");
+            var newWidth = defaultRatio * ratio;
+            $(this).width(newWidth + "px").height(defaultTileHeight + "px");
 
-            if (newWidth > 200)
-                $(this).width("200px");
+            if (newWidth > defaultTileWidth)
+                $(this).width(defaultTileWidth + "px");
         });
-        
-        ScaleElement1($(".movie-list ul"));
+
+        if (TILE_MODE == 0)
+            ScaleElement($(".movie-list ul"));
+        else
+            ScaleNewTileElement($(".movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".movie-list"));
-        
+
         //PreparePaginationControl($(".news-container"));
 
         $(window).resize(function () {
             PreparePaginationControl($(".movie-list"));
         });
-        
+
     }
 }
 
 function onSuccessLoadUpcomingMovies(result) {
     result = JSON.parse(result);
-    
+
     if (result.length > 0) {
         //MOVIES = result;
 
@@ -101,24 +107,32 @@ function onSuccessLoadUpcomingMovies(result) {
         for (var i = 0; i < result.length; i++) {
             var list = PopulatingMovies(result[i], "upcoming-movie-list");
         }
-        
+
         /*The image width/height shall be calculated once the image is fully loaded*/
         var width = $(document).width();
 
+        var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
+        var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
+        var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
+
         $(".upcoming-movie-list").find("img").each(function () {
             var ratio = this.width / this.height;
-            var newWidth = 300 * ratio;
-            $(this).width(newWidth + "px").height("300px");
+            var newWidth = defaultRatio * ratio;
+            $(this).width(newWidth + "px").height(defaultTileHeight + "px");
 
-            if (newWidth > 200)
-                $(this).width("200px");
+            if (newWidth > defaultTileWidth)
+                $(this).width(defaultTileWidth + "px");
         });
-        
-        ScaleElement1($(".upcoming-movie-list ul"));
+
+
+        if (TILE_MODE == 0)
+            ScaleElement($(".upcoming-movie-list ul"));
+        else
+            ScaleNewTileElement($(".upcoming-movie-list ul"));
 
         // movie-list
         PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-        
+
         $(window).resize(function () {
             PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
         });
@@ -150,14 +164,14 @@ function GetLinks(html, type) {
     return links;
 }
 
-function ScaleElement1(element) {
+function ScaleNewTileElement(element) {
     var currentElement = null;
     $(element).find("li.movie #picAndCaption").each(function () {
         $(this).hover(function () {
             MOUSE_ON = $(this).attr("id");
             var that = $(this);
             setTimeout(function () {
-                
+
                 if (MOUSE_ON == $(that).attr("id")) {
                     $(that).find("#hover").css("position", "absolute").css("top", "70px").css("height", "250px");
                     $(that).find("#hover .movie-songs").show();
@@ -178,7 +192,7 @@ function ScaleElement1(element) {
             function () {
                 $(this).css("position", "relative").css("top", "auto").css("height", "auto");
                 $(this).find(".movie-songs").hide();
-                
+
             });
         });
     });
