@@ -19,6 +19,7 @@
         </div>
         <div class="songs-container" style="float: right; position: absolute; top: 500px; right: 17px;"></div>
         <div class="posters-container" style="position: relative;right: -95%;float: right;top: -910px;"></div>
+        <input type="hidden" id="hfType" value="song" />
     </div>
 
 </div>
@@ -141,7 +142,7 @@
     function FillImage(img, ul) {
         var image = $('<img/>');
         var li = $('<li/>');
-
+        var type = $("#hfType").val();
         //$(image).click(function () { Attach($(image)); });
 
         var title = $('<div/>');
@@ -159,12 +160,15 @@
                 url = $(this).attr("originalurl");
                 thamb = $(this).attr("src");
             });
-
-            //alert(url);
-            //alert($("#hf-col3-id").val());
-            $($("#hf-col3-id").val()).removeAttr("thumb");
-            $($("#hf-col3-id").val()).attr("thumb", thamb).html(url + " <a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + i + ");\">change<a/>");
-
+            if (type == "song") {
+                $($("#hf-col3-id").val()).removeAttr("thumb");
+                $($("#hf-col3-id").val()).attr("thumb", thamb).html(url + " <a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + i + ");\">change<a/>");
+            }
+            else {
+                console.log("Id:" + $("#hf-trailer-id3").val() + ",Thumb:" + thamb);
+                $($("#hf-trailer-id3").val()).removeAttr("thumb");
+                $($("#hf-trailer-id3").val()).attr("thumb", thamb).html(url + " <a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + i + ");\">change<a/>");
+            }
         });
 
         $(view).click(function () {
@@ -216,7 +220,7 @@
     }
 </script>
 
-<!-- Modal -->
+<!-- Modal Songs-->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 1200px !important">
         <div class="modal-content">
@@ -242,7 +246,33 @@
     </div>
 </div>
 
+<!-- Modal Trailer-->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        @*style="width: 1200px !important"*@
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="myModalLabel">Add Movie Trailer</h4>
+            </div>
+            <div class="modal-body">
+                <div id="buttons">
+                    <label>
+                        <input id="txtTitle" type="text" placeholder="Trailer title" />
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addTitle" class="btn btn-primary" data-dismiss="modal">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script type="text/javascript">
+    var trailerCounter = 0;
+
     SetActiveTab("Movies");
     var search = new Search("Search movies ...");
     var shortcuts = new Shortcuts();
@@ -266,5 +296,24 @@
 
     //file uploader
     //$("#poster-upload").attr("onchange", search.UploadSelectedFile(this));
+
+    $("#addTitle").click(function () {
+        var trailer = { "Title": $("#txtTitle").val(), "Thumb": "", "YoutubeURL": "" };
+        trailerCounter++;
+
+        var gridRow = $("<div/>").attr("class", "trailer-grid-row");
+        var gridRowData1 = $("<div/>").attr("class", "trailer-grid-row-data1").attr("id", "trailer-grid-row-data1_" + trailerCounter).html($("#txtTitle").val());
+        var gridRowData2 = $("<div/>").attr("class", "trailer-grid-row-data2").html("").attr("style", "display:none");
+
+        var linkText = "<a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Trailer().PopulatePopup(" + trailerCounter + ");\">add Trailer<a/>";
+
+        var gridRowData3 = $("<div/>").attr("id", "trailer-row-data3_" + i).attr("class", "trailer-grid-row-data3").attr("style", "cursor:pointer").html(linkText);
+
+        $(gridRow).append(gridRowData1);
+        $(gridRow).append(gridRowData2);
+        $(gridRow).append(gridRowData3);
+
+        $("#trailer-sortable").append(gridRow);
+    });
 
 </script>
