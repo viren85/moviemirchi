@@ -20,7 +20,7 @@ namespace MvcWebRole1.Controllers.api
                 {
                     Status = "Error",
                     UserMessage = "Error occurred while getting popular tags",
-                    ActualError = "",
+                    ActualError = "{0}",
                 })
             );
         private static string popularTags = null;
@@ -92,28 +92,60 @@ namespace MvcWebRole1.Controllers.api
                         .Take(count); //count/3
 
                     // TODO Fix Actors
-                    ////var actor = movieEntities
-                    ////    .SelectMany(m => m.GetActors())
-                    ////    .GroupBy(g => g)
-                    ////    .OrderByDescending(g => g.Count())
-                    ////    .Take(3);
-                    ////var artist = movieEntities
-                    ////    .SelectMany(m =>
-                    ////        m.GetDirectors()
-                    ////        .Concat(m.GetMusicDirectors())
-                    ////        .Concat(m.GetProducers()))
-                    ////    .GroupBy(g => g)
-                    ////    .OrderByDescending(g => g.Count())
-                    ////    .Take(2);
-                    ////var roleArtist = artist
-                    ////    .Concat(actor)
-                    ////    .Select(a => new
-                    ////    {
-                    ////        UniqueName = a.Key.ToLower().Replace(" ", "-"),
-                    ////        Name = a.Key,
-                    ////        Role = "Artists",
-                    ////        Weight = a.Count(),
-                    ////    });
+                    #region Old code for getting actors in trending section
+                    /*var actor = movieEntities
+                        .SelectMany(m => m.GetActors())
+                        .GroupBy(g => g)
+                        .OrderByDescending(g => g.Count())
+                        .Take(3);
+
+                    var artist = movieEntities
+                        .SelectMany(m =>
+                            m.GetDirectors()
+                            .Concat(m.GetMusicDirectors())
+                            .Concat(m.GetProducers()))
+                        .GroupBy(g => g)
+                        .OrderByDescending(g => g.Count())
+                        .Take(2);
+
+                    var roleArtist = artist
+                        .Concat(actor)
+                        .Select(a => new
+                        {
+                            UniqueName = a.Key.ToLower().Replace(" ", "-"),
+                            Name = a.Key,
+                            Role = "Artists",
+                            Weight = a.Count(),
+                        });
+                    */
+                    #endregion
+
+                    var actor = movieEntities
+                        .SelectMany(m => m.GetActors(jsonSerializer.Value.Deserialize<List<Cast>>(m.Casts)))
+                        .GroupBy(g => g)
+                        .OrderByDescending(g => g.Count())
+                        .Take(3);
+
+                    var artist = movieEntities
+                        .SelectMany(m =>
+                            m.GetDirectors()
+                            .Concat(m.GetMusicDirectors())
+                            .Concat(m.GetProducers()))
+                        .GroupBy(g => g)
+                        .OrderByDescending(g => g.Count())
+                        .Take(2);
+
+                    //var roleArtist = artist
+                        //.Concat(actor)
+                    var roleArtist = actor
+                        .Select(a => new
+                        {
+                            UniqueName = a.Key.ToLower().Replace(" ", "-"),
+                            Name = a.Key,
+                            Role = "Artists",
+                            Weight = a.Count(),
+                        });
+
 
                     var roleGenre = movieEntities
                         .SelectMany(m => m.Genre.Split(new string[] { " | " }, StringSplitOptions.RemoveEmptyEntries))
@@ -130,16 +162,16 @@ namespace MvcWebRole1.Controllers.api
 
 
                     var popular = string.Format(
-                        "[{0},{1},{2}]",
+                        "[{0},{1},{2},{3}]",
                         ////"[{0},{1},{2},{3}]",
                         jsonSerializer.Value.Serialize(roleMovie),
-                        ////jsonSerializer.Value.Serialize(roleArtist),
+                        jsonSerializer.Value.Serialize(roleArtist),
                         jsonSerializer.Value.Serialize(roleReviewer),
                         jsonSerializer.Value.Serialize(roleGenre));
 
                     popularTags = popular;
                 }
-                catch
+                catch(Exception ex)
                 {
                     // if any error occured then return User friendly message with system error message
                     return jsonError.Value;
