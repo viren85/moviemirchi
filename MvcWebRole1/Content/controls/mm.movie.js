@@ -301,10 +301,14 @@ var SongList = function (videos, type) {
 }
 
 var PopulateTrailers = function (trailer) {
-    var trailers = [];
-    trailers = JSON.parse(trailer);
+    try {
+        var trailers = [];
+        trailers = JSON.parse(trailer);
 
-    TrailerList(trailers, "Trailer");
+        TrailerList(trailers, "Trailer");
+    }
+    catch (e) {
+    };
 }
 
 var TrailerList = function (videos, type) {
