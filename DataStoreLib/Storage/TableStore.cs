@@ -38,7 +38,7 @@ namespace DataStoreLib.Storage
 
         #endregion
 
-        internal IDictionary<string, Table> tableList = new ConcurrentDictionary<string, Table>();
+        internal ConcurrentDictionary<string, Table> tableList = new ConcurrentDictionary<string, Table>();
 
         public static readonly string MovieTableName = "Movie";
         public static readonly string ReviewTableName = "Review";
@@ -71,24 +71,15 @@ namespace DataStoreLib.Storage
         public Table GetTable(string tableName)
         {
             Table table = null;
-            if (tableList.ContainsKey(tableName))
-            {
-                table = tableList[tableName];
-                Debug.Assert(table != null);
-            }
-            else
+            if (!tableList.TryGetValue(tableName, out table))
             {
                 table = CreateTableIfNotExist(tableName);
 
-                if (table == null)
-                {
-                    throw new ArgumentException(string.Format("failed to create/get table {0}", tableName));
-                }
-
-                tableList.Add(tableName, table);
-                Trace.TraceInformation("Added {0} to the store", tableName);
+                bool add = tableList.TryAdd(tableName, table);
+                Trace.TraceInformation("{1} {0} to the store", tableName, add? "Added" : "Failed to add");
             }
 
+            Debug.Assert(table != null);
             return table;
         }
 
@@ -105,6 +96,11 @@ namespace DataStoreLib.Storage
             var cloudTableClient = account.CreateCloudTableClient();
             var table = cloudTableClient.GetTableReference(tableName);
             table.CreateIfNotExists();
+
+            if (table == null)
+            {
+                throw new ArgumentException(string.Format("failed to create/get table {0}", tableName));
+            }
 
             return tableDict[tableName](table);
         }
