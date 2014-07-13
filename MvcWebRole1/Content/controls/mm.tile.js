@@ -74,26 +74,21 @@
 }
 
 function MovieImageLoaded(img) {
-    var width = $(document).width();
-    var imgWidth = parseInt($(img).css("width").replace("px"));
-    var imgHeight = parseInt($(img).css("height").replace("px"));
+    if (img && $(img)[0]) {
+        var width = $(document).width();
+        var imgWidth = parseInt($(img).css("width").replace("px"));
+        var imgHeight = parseInt($(img).css("height").replace("px"));
 
-    var ratio = imgWidth / imgHeight;
-    //var newWidth = 400 * ratio;
+        var ratio = imgWidth / imgHeight;
+        //var newWidth = 400 * ratio;
 
-    // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
-    // Hence keeping the height + width of fix size.
-    var newWidth = (TILE_MODE == 0) ? 263 : 200;
-    var newHeight = (TILE_MODE == 0) ? 400 : 300;
-    /*
-    if (newWidth > 263) {
-        newWidth = 263;
+        // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
+        // Hence keeping the height + width of fix size.
+        var newWidth = (TILE_MODE == 0) ? 263 : 200;
+        var newHeight = (TILE_MODE == 0) ? 400 : 300;
+
+        $(img).css("width", newWidth + "px").css("height", newHeight + "px");
     }
-    else if (newWidth < 263) {
-        newWidth = 263;
-    }*/
-
-    $(img).css("width", newWidth + "px").css("height", newHeight + "px");
 }
 
 function LoadDefaultImage(element) {
