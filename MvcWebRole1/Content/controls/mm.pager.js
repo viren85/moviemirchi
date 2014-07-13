@@ -1,6 +1,10 @@
 ﻿
 function PreparePaginationControl(rotatorControl, pagerOptions) {
 
+    var defaultTileWidth = TILE_MODE == 0 ? 280 : 240;
+    var defaultTilesInPage = TILE_MODE == 0 ? 4 : 3;
+    var defaultMoviePosterWidth = TILE_MODE == 0 ? 263 : 200;
+
     // Initialise the control options. When any option is not provided, it will initiated with default values.
     var options = (function (options) {
 
@@ -10,7 +14,7 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
             maxPages: 10,
             minControlWidth: 50, // in %
             maxControlWidth: 100, // in %
-            tileWidth: 240, // in pixels
+            tileWidth: defaultTileWidth, // in pixels
             pagerType: "circle", // Square shall be another option
             pagerPosition: "center", // left/right shall be another option
             effect: "slide", // fade shall be another effect
@@ -18,7 +22,7 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
             pagerContainerId: "now-pager", // id of the div which will hold the pager control
             pagerContainer: "pager-container",// container div for pager elements
             pageSize: $(document).width(), // Page size. This size will be used to calculate the # of tiles which could be placed in single row.
-            tilesInPage: 3, // # of tiles in single row without overflowing the content
+            tilesInPage: defaultTilesInPage, // # of tiles in single row without overflowing the content
             totalTileCount: 13, // # of tiles to be displayed. This count is specially useful for pagination.
             useDefaultTileCount: false,
             pageCount: 4, // total # of pages with tiles. This value will be calculated dynamically based on # of List Items and per tile width
@@ -252,7 +256,7 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
                             // some times the poster images of second page (and onwards) does not get default width.
                             // Hence explicitly assigning the width to all the poster images in tube
                             if ($(this).find("img.movie-poster").width() == 0) {
-                                $(this).find("img.movie-poster").css("width", "200px"); // need to get rid of hardcoded width
+                                $(this).find("img.movie-poster").css("width", defaultMoviePosterWidth + "px"); // need to get rid of hardcoded width
                             }
                         });
 

@@ -11,7 +11,10 @@
 .movie-panel {
     margin-top: 60px;
 }
-
+.movies{
+        margin-left: 7%;
+        width: 86%;
+    }
 .large-fonts {
     font-size: 2em;
     font-family: Segoe UI Light;
@@ -31,16 +34,16 @@
 
 .tube-container {
     float: left;
-    width: 100%;
+    width: 105%;
     margin-top: 20px;
 }
 
 .width60 {
-    width: 60%;
+    width: 63%;
 }
 
 .width30 {
-    width: 30%;
+    width: 36%;
     float: left;
 }
 
@@ -49,18 +52,18 @@
     color: #368BC1;
     margin-bottom: 10px;
     margin-top: 10px;
-    margin-left: 7%;
     width: 93%;
+    /*margin-left: 7%;*/
     border-left: 10px solid #368BC1;
     padding-left: 20px;
 }
 
 .width60 .section-title {
-    margin-left: 12%;
+    /*margin-left: 12%;*/
 }
 
 .width30 .section-title {
-    margin-left: 3%;
+    /*margin-left: 3%;*/
 }
 /* Rating Control */
 .rate-container {
@@ -173,7 +176,7 @@
     }
 
         .width60 .section-title, .width30 .section-title {
-            margin-left: 7%;
+            /*margin-left: 7%;*/
         }
 }
 

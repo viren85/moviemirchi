@@ -6,8 +6,8 @@
 
 <style>
     .movie-poster-details{
-        margin-left: 7%;
-        margin-right: 3%;
+        /*margin-left: 7%;
+        margin-right: 3%;*/
     }
     .movie-poster-details ul{padding:0px;}
     .movies {
@@ -23,6 +23,11 @@
 
     $(document).ready(function () {
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        if (name.indexOf("#") > -1) {
+            var prettyPhoto = name.indexOf("#");
+            name = name.substring(0, prettyPhoto);
+        }
+
         var artist = name.split('-').join(' ');
 
         var fileName = "/Images/Loading.GIF";
@@ -63,7 +68,10 @@
                     $(this).width("250px");
             });
 
-            ScaleElement1($(".movie-list ul"));
+            if (TILE_MODE == 0)
+                ScaleElement($(".movie-list ul"));
+            else
+                ScaleNewTileElement($(".movie-list ul"));
 
             // movie-list
             PreparePaginationControl($(".movie-list"));
@@ -83,7 +91,7 @@
 
             if (posters != null && posters.length > 0) {
                 //$(".bio-pic img").attr("src", "/Posters/Images/" + posters[posters.length - 1]).css("margin-left", "5%").css("margin-top", "0%");
-                $(".bio-pic img").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).css("margin-left", "5%").css("margin-top", "0%");
+                $(".bio-pic img").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).css("margin-top", "0%");
                 //$(".poster-list").parent().hide();
                 InitBio();
                 

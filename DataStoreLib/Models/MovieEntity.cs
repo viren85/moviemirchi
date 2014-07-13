@@ -2,7 +2,7 @@
 namespace DataStoreLib.Models
 {
     using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;
+    using Microsoft.WindowsAzure.Storage.Table;    
     using System;
     using System.Collections.Generic;
 
@@ -195,6 +195,19 @@ namespace DataStoreLib.Models
         public IEnumerable<string> GetActors()
         {
             return Utils.Utils.GetListFromCommaSeparatedString(Posters);
+        }
+
+        public IEnumerable<string> GetActors(List<Cast> casts)
+        {
+            //return Utils.Utils.GetListFromCommaSeparatedString(Posters);
+
+            List<string> castName = new List<string>();
+
+            foreach (Cast c in casts) {
+                castName.Add(c.name);
+            }
+
+            return castName;
         }
 
         public IEnumerable<string> GetDirectors()
