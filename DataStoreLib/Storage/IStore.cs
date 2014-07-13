@@ -224,7 +224,7 @@ namespace DataStoreLib.Storage
         {
             var retList = store.GetAllMovies();
             ////TODO Do we need to add month logic? How do we filter to current?
-            return retList.Values.Where(movie => movie.State.Trim().ToLower() != "upcoming").OrderByDescending(m => m.PublishDate);
+            return retList.Values.Where(movie => movie.State.Trim().ToLower() != "upcoming");
 
 
             //// TODO: Clean the comments
