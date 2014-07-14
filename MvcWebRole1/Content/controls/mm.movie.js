@@ -360,7 +360,7 @@ function DisplayModal(url) {
     $("#overlay").attr("class", "OverlayEffect");
     $("#modalMsg").attr("class", "ShowModal");
     $("#modalMsg").find("iframe").each(function () {
-        $(this).attr("src", url + "?autoplay=true");
+        $(this).attr("src", url.trim() + "?fs=1&hl=en_US&rel=0;autoplay=1");
     });
 
 }

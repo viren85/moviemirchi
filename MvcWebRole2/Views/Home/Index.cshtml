@@ -194,7 +194,8 @@
 
         $(image).attr("src", img.tbUrl);
 
-        $(image).attr("originalUrl", "http://www.youtube.com/embed/" + img.unescapedUrl + "?autoplay=1");
+        //$(image).attr("originalUrl", "http://www.youtube.com/embed/" + img.unescapedUrl + "?autoplay=1");
+        $(image).attr("originalUrl", "http://www.youtube.com/embed/" + img.unescapedUrl);
         $(image).attr("width", 150);
         $(image).attr("height", 120);
         if (img.video != undefined && img.video == true) {
