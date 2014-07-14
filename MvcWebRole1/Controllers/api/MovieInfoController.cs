@@ -18,7 +18,7 @@ namespace MvcWebRole1.Controllers.api
     public class MovieInfoController : BaseController
     {
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
-
+        
         // get : api/MovieInfo?q={movieId}
         protected override string ProcessRequest()
         {
@@ -30,7 +30,7 @@ namespace MvcWebRole1.Controllers.api
                 throw new ArgumentException(Constants.API_EXC_MOVIE_NAME_NOT_EXIST);
             }
 
-            string name = qpParams["q"].ToString();
+            string name = qpParams["q"].ToString().ToLower();
 
             try
             {
