@@ -372,5 +372,9 @@ function DisplayModal(url) {
 function RemoveModal() {
     $("#modalMsg").attr("class", "HideModal");
     $("#overlay").attr("class", "");
+    $("#modalMsg").find("iframe").each(function () {
+        $(this).attr("src", "");    
+    });
+    
     return false;
 }
