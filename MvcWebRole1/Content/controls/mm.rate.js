@@ -46,12 +46,17 @@ var RatingControl = function () {
 
         // TODO - Remove this if condition, once ewverything is implemented end-end
         if (rate == "" || rate == null || rate == "undefined" || rate == "0") {
-            rate = { "criticrating": "60", "teekharating": "7.5", "feekharating": "2.5" };
+            rate = { "criticrating": "", "teekharating": "", "feekharating": "" };
+        }
+
+        var hideContentControl = "";
+        if (rate.criticrating == "" || rate.criticrating == undefined || rate.feekharating == "" || rate.feekharating == undefined || rate.teekharating == "" || rate.teekharating == undefined) {
+            hideContentControl = "style=\"display:none\"";
         }
 
         var html =
                     "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Teekha hai ki feeka hai ?</div>" +
-                    "<div class=\"content\">" +
+                    "<div class=\"content\" " + hideContentControl + ">" +
                         "<div class=\"mirchi mirchimeter\">" +
                             GetMovieRateControl(rate.criticrating / 10) +
                         "</div>" +
