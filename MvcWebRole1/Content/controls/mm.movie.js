@@ -178,7 +178,7 @@ var ShowMovieReviews = function (review) {
         //(review.length > 0) ? GetReviewControl("movie-review-details", review) : GetDefaultReviewControl("movie-review-details", review);                        
         GetReviewControl("movie-review-details", review);
         if (review.length <= 0)
-            $(".movie-review-details").html("<b>Currently movie does not has any review.</b>");
+            $(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
         else {
             PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
             $(".movie-review-details").append($("#review-pager"));
@@ -301,10 +301,14 @@ var SongList = function (videos, type) {
 }
 
 var PopulateTrailers = function (trailer) {
-    var trailers = [];
-    trailers = JSON.parse(trailer);
+    try {
+        var trailers = [];
+        trailers = JSON.parse(trailer);
 
-    TrailerList(trailers, "Trailer");
+        TrailerList(trailers, "Trailer");
+    }
+    catch (e) {
+    };
 }
 
 var TrailerList = function (videos, type) {
