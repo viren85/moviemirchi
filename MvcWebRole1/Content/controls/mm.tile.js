@@ -28,6 +28,16 @@
         }
     }
 
+    console.log(movie);
+    var criticRating;
+    if (movie.MyScore == "" || movie.MyScore == undefined || JSON.parse(movie.MyScore).criticrating == undefined || JSON.parse(movie.MyScore).criticrating == "") {
+        criticRating = 0;
+    } else {        
+        criticRating = parseInt(JSON.parse(movie.MyScore).criticrating) / 10;
+    }
+    
+    console.log(criticRating);
+
     if (TILE_MODE == 0) {
         html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
                     "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 400px;\">" +
@@ -38,7 +48,8 @@
                                     "<div class=\"img-movie-name img-movie-name-tile-type-" + TILE_MODE + "\">" + movie.Name + "</div>" +
                                     "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
-                                    GetMovieRateControl(movie.Ratings) +
+                                    //GetMovieRateControl(movie.Ratings) +
+                                    GetMovieRateControl(criticRating) +
                                     "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
                                 "</div>" +
                             "</div>" +
@@ -56,7 +67,8 @@
                                 "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
                                 "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                                 "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
-                                GetRateControl(movie.Ratings) +
+                                //GetRateControl(movie.Ratings) +
+                                GetMovieRateControl(criticRating) +
                                 "<div class=\"movie-songs\" style=\"display: none;\">" + strSongs
                                 /*"<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
                                 "<div><span>Malang</span><span class='play'></span></div>" +
