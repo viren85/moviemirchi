@@ -79,6 +79,10 @@
             $(window).resize(function () {
                 PreparePaginationControl($(".movie-list"));
             });
+            
+            /*Pagination for movies */
+            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
+            
         }
     }
 
