@@ -207,6 +207,7 @@
     <Compile Include="Controllers\api\MoviesController.cs" />
     <Compile Include="Controllers\api\NewsController.cs" />
     <Compile Include="Controllers\api\ReviewerController.cs" />
+    <Compile Include="Controllers\api\SetMovieRatingController.cs" />
     <Compile Include="Controllers\api\TwitterController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\Home1Controller.cs" />
