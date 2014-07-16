@@ -15,10 +15,12 @@ namespace MvcWebRole1.Controllers.api
     /// </summary>
     public class ReviewerInfoController : BaseController
     {
+        private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
+
         // get : api/ReviewerInfo?name={id}
         protected override string ProcessRequest()
         {
-            JavaScriptSerializer json = new JavaScriptSerializer();
+            string name = "";
 
             try
             {
@@ -35,7 +37,7 @@ namespace MvcWebRole1.Controllers.api
                     throw new ArgumentException(Constants.API_EXC_REVIEWERNAME_NOT_EXIST);
                 }
 
-                string name = qpParams["name"].ToString();
+                name = qpParams["name"].ToString();
 
                 // getting reviewer details
                 var reviews = tableMgr.GetReviewsByReviewer(name);
@@ -83,12 +85,18 @@ namespace MvcWebRole1.Controllers.api
                 reviewerInfo.ReviewsDetails = reviewDetailList;
 
                 // serialize and return reviewer details along with reviews
-                return json.Serialize(reviewerInfo);
+                return jsonSerializer.Value.Serialize(reviewerInfo);
             }
             catch (Exception ex)
             {
                 // if any error occured then return User friendly message with system error message
-                return json.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_GETTING_REVIEWER_INFO, ActualError = ex.Message });
+                return jsonSerializer.Value.Serialize(
+                  new
+                  {
+                      Status = "Error",
+                      UserMessage = "Unable to get reviewer " + name + "'s details.",
+                      ActualError = ex.Message
+                  });
             }
         }
     }
