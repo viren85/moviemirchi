@@ -10,25 +10,35 @@
     }
 }
 
-var ShowTweets = function (data) {
-    var jdata = JSON.parse(data);
-    
-    if (data.length < 10) {
-        $(".tweets").parent().hide();
-    }
-    else {
-        $(".tweets").parent().show();
-        var tweets = [];
-        for (var v in jdata) {
-            var t = jdata[v];
-            tweets.push({
-                twitterid: "@" + (t.ReplyScreenName || ""),
-                text: (t.TextMessage || ""),
-            });
+var ShowTweets = function (data) {    
+    try {
+        var jdata = JSON.parse(data);
+        if (jdata.Status != undefined || jdata.Status == "Error") {
+            $(".tweets").html(jdata.UserMessage);
+        }
+        else {
+
+            if (data.length < 10) {
+                $(".tweets").parent().hide();
+            }
+            else {
+                $(".tweets").parent().show();
+                var tweets = [];
+                for (var v in jdata) {
+                    var t = jdata[v];
+                    tweets.push({
+                        twitterid: "@" + (t.ReplyScreenName || ""),
+                        text: (t.TextMessage || ""),
+                    });
+                }
+
+                var twtr = new TwitterControl(".tweets", tweets);
+                twtr.startTimer(8000);
+            }
         }
 
-        var twtr = new TwitterControl(".tweets", tweets);
-        twtr.startTimer(8000);
+    } catch (e) {
+        $(".tweets").html("Unable to get tweets.");
     }
 }
 
