@@ -15,6 +15,16 @@ namespace MvcWebRole1.Controllers.api
 
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
 
+        private static Lazy<string> jsonError = new Lazy<string>(() =>
+                        jsonSerializer.Value.Serialize(
+                            new
+                            {
+                                Status = "Error",
+                                UserMessage = "Unable to get movies for artits.",
+                                ActualError = "",
+                            })
+                        );
+
         // get : api/ArtistMovies?q=artist-name&page={default 30}
         protected override string ProcessRequest()
         {
@@ -56,6 +66,16 @@ namespace MvcWebRole1.Controllers.api
                 }
                 else // Bio
                 {
+                    jsonError = new Lazy<string>(() =>
+                        jsonSerializer.Value.Serialize(
+                            new
+                            {
+                                Status = "Error",
+                                UserMessage = "Unable to get artist's details.",
+                                ActualError = "",
+                            })
+                        );
+
                     int popularity = 0;
                     var moviesByName = tableMgr.GetArtist(artistName);
 
@@ -70,7 +90,7 @@ namespace MvcWebRole1.Controllers.api
             catch (Exception ex)
             {
                 // if any error occured then return User friendly message with system error message
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_GETTING_ARTIST_MOVIES, ActualError = ex.Message });
+                return jsonError.Value;
             }
         }
     }

@@ -7,7 +7,20 @@
 }
 
 var ShowTags = function (data) {
-    new Tags(data).InitTagCloud();
+    try {
+        var jData = JSON.parse(data);
+
+        if (jData.Status != undefined || jData.Status == "Error") {
+            $(".tags-container").html(jData.UserMessage);
+            $(".tags-container").attr("style", "padding:10px");
+        }
+        else {
+            new Tags(data).InitTagCloud();
+        }
+    } catch (e) {
+        $(".tags-container").html("Error occurred while getting popular tags.");
+        $(".tags-container").attr("style", "padding:10px");
+    }
 }
 
 var Tags = function (tagJsonString) {

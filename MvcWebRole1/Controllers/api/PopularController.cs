@@ -19,10 +19,11 @@ namespace MvcWebRole1.Controllers.api
                 new
                 {
                     Status = "Error",
-                    UserMessage = "Error occurred while getting popular tags",
-                    ActualError = "{0}",
+                    UserMessage = "Unable to get popular tags.",
+                    ActualError = "",
                 })
             );
+
         private static string popularTags = null;
 
         /// <summary>
@@ -136,7 +137,7 @@ namespace MvcWebRole1.Controllers.api
                         .Take(2);
 
                     //var roleArtist = artist
-                        //.Concat(actor)
+                    //.Concat(actor)
                     var roleArtist = actor
                         .Select(a => new
                         {
@@ -171,7 +172,7 @@ namespace MvcWebRole1.Controllers.api
 
                     popularTags = popular;
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     // if any error occured then return User friendly message with system error message
                     return jsonError.Value;
