@@ -162,7 +162,7 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.GetMovieItem = function (singleEntity, isSecondary, type) {
         var li = $("<li>");
         var divTitleDesc = $("<div>");
-        var anchor = $("<a>");
+        var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
         $(divTitleDesc).attr("class", "search-result-desc");
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span>");
@@ -207,7 +207,7 @@ var SearchResults = function (searchResults) {
         artistName.forEach(function (artist) {
             var li = $("<li>");
             var divTitleDesc = $("<div>");
-            var anchor = $("<a>");
+            var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
@@ -239,7 +239,7 @@ var SearchResults = function (searchResults) {
         criticsName.forEach(function (critics) {
             var li = $("<li>");
             var divTitleDesc = $("<div>");
-            var anchor = $("<a>");
+            var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
@@ -269,7 +269,7 @@ var SearchResults = function (searchResults) {
                 // add list item in search result
                 var li = $("<li>");
                 var divTitleDesc = $("<div>");
-                var anchor = $("<a>");
+                var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
                 $(divTitleDesc).attr("class", "search-result-desc");
                 $(divTitleDesc).html("<span class='search-result-title'>" + gen + "</span>");
@@ -287,7 +287,7 @@ var SearchResults = function (searchResults) {
 
         var li = $("<li>");
         var divTitleDesc = $("<div>");
-        var anchor = $("<a>");
+        var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
         $(divTitleDesc).attr("class", "search-result-desc");
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
