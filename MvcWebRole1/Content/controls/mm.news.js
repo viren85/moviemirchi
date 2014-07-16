@@ -4,28 +4,35 @@
 }
 
 var ShowNews = function (data) {
-
-    var jdata = JSON.parse(data);
-
-    if (data.length < 10) {
-        // TODO fix this and few lines below
-        ////$(".tweets").parent().hide();
-    } else {
-        ////$(".tweets").parent().show();
-        var news = [];
-        for (var v in jdata) {
-            var t = jdata[v];
-            news.push({
-                Link: t.Link,
-                Title: t.Title,
-                Description: t.Description,
-                Source: t.Source,
-                Image: t.Image,
-            });
+    try {
+        var jdata = JSON.parse(data);
+        if (jdata.Status != undefined || jdata.Status == "Error") {
+            $(".news-container").html(jdata.UserMessage);
         }
+        else {
+            if (data.length < 10) {
+                // TODO fix this and few lines below
+                ////$(".tweets").parent().hide();
+            } else {
+                ////$(".tweets").parent().show();
+                var news = [];
+                for (var v in jdata) {
+                    var t = jdata[v];
+                    news.push({
+                        Link: t.Link,
+                        Title: t.Title,
+                        Description: t.Description,
+                        Source: t.Source,
+                        Image: t.Image,
+                    });
+                }
 
-        var control = new NewsControl(".news-container", news);
-        control.startTimer(10000);
+                var control = new NewsControl(".news-container", news);
+                control.startTimer(10000);
+            }
+        }
+    } catch (e) {
+        $(".news-container").html("Unable to find news.");
     }
 }
 
