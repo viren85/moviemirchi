@@ -67,7 +67,13 @@ namespace MvcWebRole1.Controllers.api
             catch (Exception ex)
             {
                 // if any error occured then return User friendly message with system error message
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_GETTING_CURRENT_MOVIES, ActualError = ex.Message });
+                return jsonSerializer.Value.Serialize(
+                   new
+                   {
+                       Status = "Error",
+                       UserMessage = "Unable to get " + type + " movies",
+                       ActualError = ex.Message
+                   });
             }
         }
     }

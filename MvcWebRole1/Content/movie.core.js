@@ -55,87 +55,102 @@ function LoadUpcomingMovies() {
 }
 
 function onSuccessLoadCurrentMovies(result) {
-    result = JSON.parse(result);
+    try {
+        result = JSON.parse(result);
 
-    if (result.length > 0) {
-        MOVIES = result;
-
-        // adding images        
-        for (var i = 0; i < result.length; i++) {
-            var list = PopulatingMovies(result[i], "movie-list");
+        if (result.Status != undefined || result.Status == "Error") {
+            $(".movie-list").html(result.UserMessage);
         }
+        else {
+            if (result.length > 0) {
+                MOVIES = result;
 
-        /*The image width/height shall be calculated once the image is fully loaded*/
-        var width = $(document).width();
+                // adding images        
+                for (var i = 0; i < result.length; i++) {
+                    var list = PopulatingMovies(result[i], "movie-list");
+                }
 
-        var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
-        var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
-        var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
-        $(".movie-list").find("img").each(function () {
-            var ratio = this.width / this.height;
-            var newWidth = defaultRatio * ratio;
-            $(this).width(newWidth + "px").height(defaultTileHeight + "px");
+                /*The image width/height shall be calculated once the image is fully loaded*/
+                var width = $(document).width();
 
-            if (newWidth > defaultTileWidth)
-                $(this).width(defaultTileWidth + "px");
-        });
+                var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
+                var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
+                var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
+                $(".movie-list").find("img").each(function () {
+                    var ratio = this.width / this.height;
+                    var newWidth = defaultRatio * ratio;
+                    $(this).width(newWidth + "px").height(defaultTileHeight + "px");
 
-        if (TILE_MODE == 0)
-            ScaleElement($(".movie-list ul"));
-        else
-            ScaleNewTileElement($(".movie-list ul"));
+                    if (newWidth > defaultTileWidth)
+                        $(this).width(defaultTileWidth + "px");
+                });
 
-        // movie-list
-        PreparePaginationControl($(".movie-list"));
+                if (TILE_MODE == 0)
+                    ScaleElement($(".movie-list ul"));
+                else
+                    ScaleNewTileElement($(".movie-list ul"));
 
-        //PreparePaginationControl($(".news-container"));
+                // movie-list
+                PreparePaginationControl($(".movie-list"));
 
-        $(window).resize(function () {
-            PreparePaginationControl($(".movie-list"));
-        });
-
+                $(window).resize(function () {
+                    PreparePaginationControl($(".movie-list"));
+                });
+            }
+        }
+    } catch (e) {
+        $(".movie-list").html("Unable to get movies");
     }
 }
 
 function onSuccessLoadUpcomingMovies(result) {
-    result = JSON.parse(result);
+    try {
+        result = JSON.parse(result);
 
-    if (result.length > 0) {
-        //MOVIES = result;
-
-        // adding images        
-        for (var i = 0; i < result.length; i++) {
-            var list = PopulatingMovies(result[i], "upcoming-movie-list");
+        if (result.Status != undefined || result.Status == "Error") {
+            $(".upcoming-movie-list").html(result.UserMessage);
         }
+        else {
+            if (result.length > 0) {
+                //MOVIES = result;
 
-        /*The image width/height shall be calculated once the image is fully loaded*/
-        var width = $(document).width();
+                // adding images        
+                for (var i = 0; i < result.length; i++) {
+                    var list = PopulatingMovies(result[i], "upcoming-movie-list");
+                }
 
-        var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
-        var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
-        var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
+                /*The image width/height shall be calculated once the image is fully loaded*/
+                var width = $(document).width();
 
-        $(".upcoming-movie-list").find("img").each(function () {
-            var ratio = this.width / this.height;
-            var newWidth = defaultRatio * ratio;
-            $(this).width(newWidth + "px").height(defaultTileHeight + "px");
+                var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
+                var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
+                var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
 
-            if (newWidth > defaultTileWidth)
-                $(this).width(defaultTileWidth + "px");
-        });
+                $(".upcoming-movie-list").find("img").each(function () {
+                    var ratio = this.width / this.height;
+                    var newWidth = defaultRatio * ratio;
+                    $(this).width(newWidth + "px").height(defaultTileHeight + "px");
+
+                    if (newWidth > defaultTileWidth)
+                        $(this).width(defaultTileWidth + "px");
+                });
 
 
-        if (TILE_MODE == 0)
-            ScaleElement($(".upcoming-movie-list ul"));
-        else
-            ScaleNewTileElement($(".upcoming-movie-list ul"));
+                if (TILE_MODE == 0)
+                    ScaleElement($(".upcoming-movie-list ul"));
+                else
+                    ScaleNewTileElement($(".upcoming-movie-list ul"));
 
-        // movie-list
-        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+                // movie-list
+                PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
 
-        $(window).resize(function () {
-            PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-        });
+                $(window).resize(function () {
+                    PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+                });
+            }
+        }
+    } catch (e) {
+        $(".upcoming-movie-list").html("unable to get movies");
     }
 }
 
