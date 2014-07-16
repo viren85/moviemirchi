@@ -7,58 +7,59 @@
 }
 
 var ShowMovie = function (data) {
-    var result = JSON.parse(data);
+    try {
+        var result = JSON.parse(data);
+        if (result.Status != undefined || result.Status == "Error") {
+            $(".movie-content").html(result.UserMessage);            
+        }
+        else {
+            if (result.Movie != undefined) {
+                $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+               
+                PopulatingMovies(result.Movie, "movie-list");
 
-    if (result.Movie != undefined) {
-        $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+                if (TILE_MODE == 0)
+                    ScaleElement($(".movie-list ul"));
+                else
+                    ScaleNewTileElement($(".movie-list ul"));
 
-        //$(".tube-container").append($(".movie-details"));
-        //$(".movie-list").append($(".link-container"));
-        PopulatingMovies(result.Movie, "movie-list");
+                // Show all posters of current movie
+                var poster = [], reviews = [], songs = [], trailers = [];
 
-        if (TILE_MODE == 0)
-            ScaleElement($(".movie-list ul"));
-        else
-            ScaleNewTileElement($(".movie-list ul"));
+                poster = result.Movie.Posters;
+                reviews = result.MovieReviews;
+                songs = result.Movie.Songs;
+                trailers = result.Movie.Trailers;
+                //show movies details
+                ShowMovieDetails(result.Movie);
+                //populate movie's posters
+                PopulatePosters(poster, result.Movie.Name);
+                //populate movie's songs
+                PopulateSongs(songs);
+                //populate movie's trailers
+                PopulateTrailers(trailers);
 
-        // Show all posters of current movie
-        var poster = [], reviews = [], songs = [], trailers = [];
+                ArrangeImages($(".movie-poster-details"));
+                ShowMovieReviews(reviews);
+                PrepareGenreLinks();
 
-        poster = result.Movie.Posters;
-        reviews = result.MovieReviews;
-        songs = result.Movie.Songs;
-        trailers = result.Movie.Trailers;
-        //show movies details
-        ShowMovieDetails(result.Movie);
-        //populate movie's posters
-        PopulatePosters(poster, result.Movie.Name);
-        //populate movie's songs
-        PopulateSongs(songs);
-        //populate movie's trailers
-        PopulateTrailers(trailers);
-
-        ArrangeImages($(".movie-poster-details"));
-        ShowMovieReviews(reviews);
-        PrepareGenreLinks();
-
-        $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
-            animation_speed: 'normal',
-            theme: 'dark_square',
-            slideshow: false,
-            autoplay_slideshow: false,
-            show_title: true,
-            keyboard_shortcuts: true,
-            social_tools: false,
-            allow_resize: true,
-        });
+                $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
+                    animation_speed: 'normal',
+                    theme: 'dark_square',
+                    slideshow: false,
+                    autoplay_slideshow: false,
+                    show_title: true,
+                    keyboard_shortcuts: true,
+                    social_tools: false,
+                    allow_resize: true,
+                });
+            } else {
+                $(".movie-content").html("Unable to find movie.");
+            }
+        }
+    } catch (e) {
+        $(".movie-content").html("Unable to find movie.");
     }
-
-    //$(".content").append(GetTubeControl("Tweets", "tweets", "tweet-pager"));
-
-    //LoadTweets();
-    // TODO: Clean this code smell
-    ////var twtr = new TwitterControl(".tweets");
-    ////twtr.startTimer(12000);
 }
 
 var ShowMovieDetails = function (movie) {
@@ -373,8 +374,8 @@ function RemoveModal() {
     $("#modalMsg").attr("class", "HideModal");
     $("#overlay").attr("class", "");
     $("#modalMsg").find("iframe").each(function () {
-        $(this).attr("src", "");    
+        $(this).attr("src", "");
     });
-    
+
     return false;
 }
