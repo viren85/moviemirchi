@@ -117,7 +117,14 @@ namespace MvcWebRole1.Controllers.api
             catch (Exception ex)
             {
                 // if any error occured then return User friendly message with system error message
-                return json.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_SEARCHING_SONGS, ActualError = ex.Message });
+                
+                return json.Serialize(
+                  new
+                  {
+                      Status = "Error",
+                      UserMessage = "Unable to save your favorites. Please try again later.",
+                      ActualError = ex.Message
+                  });
             }
 
         }

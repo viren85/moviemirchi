@@ -234,42 +234,46 @@ function SaveUserFavorite() {
 }
 
 function OnSuccessSaveUserFavorite(result) {
-    result = JSON.parse(result);
+    try {
+        result = JSON.parse(result);
 
-    if (result.Status == "Ok") {
+        if (result.Status == "Ok") {
 
-        if (result.Message == "Set Cookie") {
-            new Util().SetCookie("favoriteId", result.FavoriteId, 365);
+            if (result.Message == "Set Cookie") {
+                new Util().SetCookie("favoriteId", result.FavoriteId, 365);
+            }
+
+            ClearUserFavoriteControls();
+
+            $("#favStatus").removeAttr("class");
+            $("#favStatus").attr("class", "alert alert-success");
+            $("#favStatus").attr("style", "display:block");
+            $("#favStatus").html("Successfully saved your favorite list.");
+
+            var intverval = setInterval(function () {
+                $(".user-fav").slideToggle("slow");
+                clearInterval(intverval);
+                $("#favStatus").html("");
+                $("#favStatus").hide();
+            }, 10000);
+
         }
+        else {
+            $("#favStatus").attr("style", "display:block");
+            $("#favStatus").html(result.UserMessage);
 
-        ClearUserFavoriteControls();
+            if (result.Message == "No Updated") {
+                $("#favStatus").html("You already set your favorites. Login for update.");
+            }
 
-        $("#favStatus").removeAttr("class");
-        $("#favStatus").attr("class", "alert alert-success");
-        $("#favStatus").attr("style", "display:block");
-        $("#favStatus").html("Successfully saved your favorite list.");
-
-        var intverval = setInterval(function () {
-            $(".user-fav").slideToggle("slow");
-            clearInterval(intverval);
-            $("#favStatus").html("");
-            $("#favStatus").hide();
-        }, 10000);
-
-    }
-    else {
-        $("#favStatus").attr("style", "display:block");
-        $("#favStatus").html("Ops! there is some error. Please try again.");
-
-        if (result.Message == "No Updated") {
-            $("#favStatus").html("You already set your favorites. Login for update.");
+            var intverval = setInterval(function () {
+                $("#favStatus").hide(500);
+                $("#favStatus").html("");
+                clearInterval(intverval);
+            }, 10000);
         }
-
-        var intverval = setInterval(function () {
-            $("#favStatus").hide(500);
-            $("#favStatus").html("");
-            clearInterval(intverval);
-        }, 10000);
+    } catch (e) {
+        $("#favStatus").html("Unable to save your favorites. Please try agail later");
     }
 }
 
