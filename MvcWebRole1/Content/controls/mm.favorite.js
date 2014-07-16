@@ -4,149 +4,156 @@
 }
 
 function OnSuccessPopulatingUserFavorite(result) {
-    result = JSON.parse(result);
+    try {
+        result = JSON.parse(result);
 
-    if (result.Status == "Ok") {
-        /* getting actor */
-        for (var a = 0; a < result.Actor.length; a++) {
-            //alert(result.Actor[a].name);
+        if (result.Status == "Ok") {
+            /* getting actor */
+            for (var a = 0; a < result.Actor.length; a++) {
+                //alert(result.Actor[a].name);
+                var span = $("<span/>");
+                var checkBox = $("<input/>");
+                $(checkBox).attr("type", "checkbox");
+                $(checkBox).attr("id", "fav_actor_" + a);
+
+                var checkBoxLabel = $("<label/>");
+                $(checkBoxLabel).attr("for", "fav_actor_" + a);
+                $(checkBoxLabel).html(result.Actor[a].name);
+
+                $(span).append(checkBox);
+                $(span).append(checkBoxLabel);
+
+                $("#fav_actor").append(span);
+            }
+            // adding textbox for search acotr
             var span = $("<span/>");
-            var checkBox = $("<input/>");
-            $(checkBox).attr("type", "checkbox");
-            $(checkBox).attr("id", "fav_actor_" + a);
+            $(span).attr("class", "fav-span");
+            var searchActor = $("<input/>");
+            $(searchActor).attr("type", "text");
+            $(searchActor).attr("id", "txtSearchActor");
+            $(searchActor).attr("placeholder", "Actor Name...");
+            $(searchActor).attr("class", "form-control");
 
-            var checkBoxLabel = $("<label/>");
-            $(checkBoxLabel).attr("for", "fav_actor_" + a);
-            $(checkBoxLabel).html(result.Actor[a].name);
+            $(searchActor).keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteActors", "autoCompleteActor", "actorUL", "txtSearchActor", "hfMovieId");
+                }
+            });
 
-            $(span).append(checkBox);
-            $(span).append(checkBoxLabel);
+            var autoCompleteActor = $("<div>");
+            $(autoCompleteActor).attr("id", "autoCompleteActor");
 
+            $(autoCompleteActor).append(searchActor);
+
+            $(span).append(autoCompleteActor);
+            //$(span).append(searchActor);
             $("#fav_actor").append(span);
+
+            /* getting director */
+            for (var d = 0; d < result.Director.length; d++) {
+
+                var span = $("<span/>");
+                var checkBox = $("<input/>");
+                $(checkBox).attr("type", "checkbox");
+                $(checkBox).attr("id", "fav_director_" + d);
+
+                var checkBoxLabel = $("<label/>");
+                $(checkBoxLabel).attr("for", "fav_director_" + d);
+                $(checkBoxLabel).html(result.Director[d].name);
+
+                $(span).append(checkBox);
+                $(span).append(checkBoxLabel);
+
+                $("#fav_director").append(span);
+            }
+            // adding textbox for search acotr
+            var dSpan = $("<span/>");
+            $(dSpan).attr("class", "fav-span");
+            var searchDirector = $("<input/>");
+            $(searchDirector).attr("type", "text");
+            $(searchDirector).attr("id", "txtSearchDirector");
+            $(searchDirector).attr("placeholder", "Director Name...");
+            $(searchDirector).attr("class", "form-control");
+
+            $(searchDirector).keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteDirectors", "autoCompleteDirector", "directorUL", "txtSearchDirector", "hfMovieId");
+                }
+            });
+
+            var autoCompleteDirector = $("<div>");
+            $(autoCompleteDirector).attr("id", "autoCompleteDirector");
+
+            $(autoCompleteDirector).append(searchDirector);
+
+            $(dSpan).append(autoCompleteDirector);
+
+            //$(dSpan).append(searchDirector);
+            $("#fav_director").append(dSpan);
+
+            /* getting music director*/
+            for (var md = 0; md < result.MusicDirector.length; md++) {
+
+                var span = $("<span/>");
+                var checkBox = $("<input/>");
+                $(checkBox).attr("type", "checkbox");
+                $(checkBox).attr("id", "fav_musicdirector_" + md);
+
+                var checkBoxLabel = $("<label/>");
+                $(checkBoxLabel).attr("for", "fav_musicdirector_" + md);
+                $(checkBoxLabel).html(result.MusicDirector[md].name);
+
+                $(span).append(checkBox);
+                $(span).append(checkBoxLabel);
+
+                $("#fav_musicdirector").append(span);
+            }
+
+            // adding textbox for search acotr
+            var mdSpan = $("<span/>");
+            $(mdSpan).attr("class", "fav-span");
+            var searchMusicDirector = $("<input/>");
+            $(searchMusicDirector).attr("type", "text");
+            $(searchMusicDirector).attr("id", "txtSearchMusicDirector");
+            $(searchMusicDirector).attr("placeholder", "Music Director Name...");
+            $(searchMusicDirector).attr("class", "form-control");
+
+            $(searchMusicDirector).keyup(function (e) {
+                //Fetching the textbox value.
+                if (e.keyCode == 40 || e.keyCode == 38) {
+                }
+                else {
+                    var query = $(this).val();
+                    //Calling GetItems method.
+                    autoCompleteTextBox1(query, "AutoComplete/AutoCompleteMusicDirectors", "autoCompleteMusicDirector", "musicDirectorUL", "txtSearchMusicDirector", "hfMovieId");
+                }
+            });
+
+            var autoCompleteMusicDirector = $("<div>");
+            $(autoCompleteMusicDirector).attr("id", "autoCompleteMusicDirector");
+
+            $(autoCompleteMusicDirector).append(searchMusicDirector);
+
+            $(mdSpan).append(autoCompleteMusicDirector);
+
+            //$(mdSpan).append(searchMusicDirector);
+            $("#fav_musicdirector").append(mdSpan);
         }
-        // adding textbox for search acotr
-        var span = $("<span/>");
-        $(span).attr("class", "fav-span");
-        var searchActor = $("<input/>");
-        $(searchActor).attr("type", "text");
-        $(searchActor).attr("id", "txtSearchActor");
-        $(searchActor).attr("placeholder", "Actor Name...");
-        $(searchActor).attr("class", "form-control");
-
-        $(searchActor).keyup(function (e) {
-            //Fetching the textbox value.
-            if (e.keyCode == 40 || e.keyCode == 38) {
-            }
-            else {
-                var query = $(this).val();
-                //Calling GetItems method.
-                autoCompleteTextBox1(query, "AutoComplete/AutoCompleteActors", "autoCompleteActor", "actorUL", "txtSearchActor", "hfMovieId");
-            }
-        });
-
-        var autoCompleteActor = $("<div>");
-        $(autoCompleteActor).attr("id", "autoCompleteActor");
-
-        $(autoCompleteActor).append(searchActor);
-
-        $(span).append(autoCompleteActor);
-        //$(span).append(searchActor);
-        $("#fav_actor").append(span);
-
-        /* getting director */
-        for (var d = 0; d < result.Director.length; d++) {
-
-            var span = $("<span/>");
-            var checkBox = $("<input/>");
-            $(checkBox).attr("type", "checkbox");
-            $(checkBox).attr("id", "fav_director_" + d);
-
-            var checkBoxLabel = $("<label/>");
-            $(checkBoxLabel).attr("for", "fav_director_" + d);
-            $(checkBoxLabel).html(result.Director[d].name);
-
-            $(span).append(checkBox);
-            $(span).append(checkBoxLabel);
-
-            $("#fav_director").append(span);
+        else {
+            $("#fav_actor").html(result.UserMessage);
         }
-        // adding textbox for search acotr
-        var dSpan = $("<span/>");
-        $(dSpan).attr("class", "fav-span");
-        var searchDirector = $("<input/>");
-        $(searchDirector).attr("type", "text");
-        $(searchDirector).attr("id", "txtSearchDirector");
-        $(searchDirector).attr("placeholder", "Director Name...");
-        $(searchDirector).attr("class", "form-control");
-
-        $(searchDirector).keyup(function (e) {
-            //Fetching the textbox value.
-            if (e.keyCode == 40 || e.keyCode == 38) {
-            }
-            else {
-                var query = $(this).val();
-                //Calling GetItems method.
-                autoCompleteTextBox1(query, "AutoComplete/AutoCompleteDirectors", "autoCompleteDirector", "directorUL", "txtSearchDirector", "hfMovieId");
-            }
-        });
-
-        var autoCompleteDirector = $("<div>");
-        $(autoCompleteDirector).attr("id", "autoCompleteDirector");
-
-        $(autoCompleteDirector).append(searchDirector);
-
-        $(dSpan).append(autoCompleteDirector);
-
-        //$(dSpan).append(searchDirector);
-        $("#fav_director").append(dSpan);
-
-        /* getting music director*/
-        for (var md = 0; md < result.MusicDirector.length; md++) {
-
-            var span = $("<span/>");
-            var checkBox = $("<input/>");
-            $(checkBox).attr("type", "checkbox");
-            $(checkBox).attr("id", "fav_musicdirector_" + md);
-
-            var checkBoxLabel = $("<label/>");
-            $(checkBoxLabel).attr("for", "fav_musicdirector_" + md);
-            $(checkBoxLabel).html(result.MusicDirector[md].name);
-
-            $(span).append(checkBox);
-            $(span).append(checkBoxLabel);
-
-            $("#fav_musicdirector").append(span);
-        }
-
-        // adding textbox for search acotr
-        var mdSpan = $("<span/>");
-        $(mdSpan).attr("class", "fav-span");
-        var searchMusicDirector = $("<input/>");
-        $(searchMusicDirector).attr("type", "text");
-        $(searchMusicDirector).attr("id", "txtSearchMusicDirector");
-        $(searchMusicDirector).attr("placeholder", "Music Director Name...");
-        $(searchMusicDirector).attr("class", "form-control");
-
-        $(searchMusicDirector).keyup(function (e) {
-            //Fetching the textbox value.
-            if (e.keyCode == 40 || e.keyCode == 38) {
-            }
-            else {
-                var query = $(this).val();
-                //Calling GetItems method.
-                autoCompleteTextBox1(query, "AutoComplete/AutoCompleteMusicDirectors", "autoCompleteMusicDirector", "musicDirectorUL", "txtSearchMusicDirector", "hfMovieId");
-            }
-        });
-
-        var autoCompleteMusicDirector = $("<div>");
-        $(autoCompleteMusicDirector).attr("id", "autoCompleteMusicDirector");
-
-        $(autoCompleteMusicDirector).append(searchMusicDirector);
-
-        $(mdSpan).append(autoCompleteMusicDirector);
-
-        //$(mdSpan).append(searchMusicDirector);
-        $("#fav_musicdirector").append(mdSpan);
+    } catch (e) {
+        $("#fav_actor").html("");
     }
 }
 

@@ -102,10 +102,10 @@ namespace MvcWebRole1.Controllers.api
             }
             catch (Exception ex)
             {
-                return json.Serialize(new { Status = "Error", UserMessage = Constants.UM_WHILE_GETTING_MOVIE, ActualError = ex.Message });
+                return json.Serialize(new { Status = "Error", UserMessage = "Unable to get movie cast", ActualError = ex.Message });
             }
 
-            return json.Serialize(new { Status = "Error", Message = "Query String is empty" });
+            return json.Serialize(new { Status = "Error", UserMessage = "Query string is empty." });
         }
     }
 }
