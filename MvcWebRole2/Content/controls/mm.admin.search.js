@@ -190,6 +190,7 @@ var Search = function (placeholder, searchtype) {
                 var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
                     $(".content-container").show();
                     that.PopulateMovieDetails($(this).attr("un"));
+                    trailerCounter = 0;
                 });
 
                 var img;
