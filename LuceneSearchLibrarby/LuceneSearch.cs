@@ -108,7 +108,7 @@ namespace LuceneSearchLibrarby
         /// method to remove single record from Lucene search index by record's Id field: 
         /// </summary>
         /// <param name="record_id">record id</param>
-        public static void ClearLuceneIndexRecord(int record_id)
+        public static void ClearLuceneIndexRecord(string record_id)
         {
             // init lucene
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
