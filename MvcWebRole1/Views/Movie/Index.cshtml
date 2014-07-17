@@ -11,7 +11,11 @@
     .link-container {
         display: none;
     }
-    .movie-songs { display: none; }
+
+    .movie-songs {
+        display: none;
+    }
+
     .movie-list, .movie-list ul {
         width: 300px;
     }
@@ -20,6 +24,7 @@
         float: left;
         width: 100%;
     }
+
     .movie-review-details {
         width: 100%;
         float: left;
@@ -31,6 +36,7 @@
             padding: 0px;
             list-style: none;
         }
+
     .movie-poster-details ul {
         padding: 0px;
     }
@@ -40,42 +46,48 @@
         margin-left: 0%;
         width: 50%;
         margin-bottom: 20px;
-        display:none !important;
+        display: none !important;
     }
-    .trailer{ width: 35%;}
-    .songs .section-title{
+
+    .trailer {
+        width: 35%;
+    }
+
+    .songs .section-title {
         width: 86%;
     }
-        .songs ul {
-            float: none;
-            list-style: none;
-            margin: 0px;
-            padding: 0px;
+
+    .songs ul {
+        float: none;
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+        .songs ul li {
+            background-color: #FFF;
+            width: 250px;
+            padding-bottom: 10px;
+            float: left;
+            border: 1px solid #ddd;
+            box-shadow: -3px 3px 5px #ddd;
+            cursor: pointer;
+            color: #333;
+            margin-right: 20px;
         }
-            .songs ul li {
-                background-color: #FFF;
-                width: 250px;
-                padding-bottom: 10px;
-                float: left;
-                border: 1px solid #ddd;
-                box-shadow: -3px 3px 5px #ddd;
-                cursor: pointer;
-                color: #333;
-                margin-right: 20px;
+
+            .songs ul li:hover {
+                background-color: #368bc1;
+                color: #fff;
             }
 
-                .songs ul li:hover {
-                    background-color: #368bc1;
-                    color: #fff;
-                }
-
-                .songs ul li span {
-                    font-size: 18px;
-                    padding: 5px;
-                    float: left;
-                    text-align: left;
-                    padding-top: 15px;
-                }
+            .songs ul li span {
+                font-size: 18px;
+                padding: 5px;
+                float: left;
+                text-align: left;
+                padding-top: 15px;
+            }
 
     .song-thumb {
         width: 100%;
@@ -95,20 +107,22 @@
     .trailers {
         float: left;
         margin-left: 0%;
-        width: 50%;        
+        width: 50%;
         margin-bottom: 20px;
-        display:none !important;
+        display: none !important;
     }
-    
-    .trailers .section-title{
-        width: 86%;
-    }
+
+        .trailers .section-title {
+            width: 86%;
+        }
+
         .trailers ul {
             float: none;
             list-style: none;
             margin: 0px;
             padding: 0px;
         }
+
             .trailers ul li {
                 background-color: #FFF;
                 width: 250px;
@@ -172,12 +186,19 @@
         top: 0;
         left: 0;
     }
-    #songs-pager{
+
+    #songs-pager {
         float: left;
         width: 80%;
-        margin-top:20px;
+        margin-top: 20px;
     }
-    
+
+    #trailer-pager {
+        float: left;
+        width: 80%;
+        margin-top: 20px;
+    }
+
     #modalMsg {
         color: white;
         cursor: pointer;
@@ -192,9 +213,9 @@
     </div>
     <div class="link-container songs"><div class="section-title large-fonts">Songs</div></div>
     <div class="movie-songs"><div id="songs-pager"></div></div>
-    <div class="trailers" style="float: left;">
+    <div class="link-container trailers" style="float: left;">
         <div class="section-title large-fonts">Trailers</div>
-    </div>
+    </div><div class="movie-trailer"><div id="trailer-pager"></div></div>
     <div class="review-details"></div>
     <div class="tweet-details"></div>
 </div>
@@ -218,6 +239,6 @@
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
         LoadTweets("movie", name);
-        console.log("3:" + $(".link-container .songs").css("display"));
+        //console.log("3:" + $(".link-container .songs").css("display"));
     });
 </script>

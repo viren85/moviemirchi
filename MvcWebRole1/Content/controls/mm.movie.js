@@ -294,10 +294,8 @@ var SongList = function (videos, type) {
         $(window).resize(function () {
             PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
         });
-
-        console.log("1:" + $(".songs").css("display"));
-        $(".songs").attr("style", "display:block !important;");
-        console.log("2:" + $(".songs").css("display"));
+        
+        $(".songs").attr("style", "display:block !important;");        
     }
 }
 
@@ -341,15 +339,20 @@ var TrailerList = function (videos, type) {
             j++;
         }
 
-        if (j == 2) break;
+        //if (j == 2) break;
     }
 
     if (songHasLink) {
         $(".trailers").append(ul);
+        
+        PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
+        $(".trailers").append($("#trailer-pager"));
 
-        console.log("1:" + $(".trailers").css("display"));
-        $(".trailers").attr("style", "display:block !important;");
-        console.log("2:" + $(".trailers").css("display"));
+        $(window).resize(function () {
+            PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
+        });
+
+        $(".trailers").attr("style", "display:block !important;");        
     }
 }
 
