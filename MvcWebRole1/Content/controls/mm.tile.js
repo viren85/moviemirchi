@@ -28,7 +28,7 @@
         }
     }
 
-    console.log(movie);
+    //console.log(movie);
     var criticRating;
     if (movie.MyScore == "" || movie.MyScore == undefined || JSON.parse(movie.MyScore).criticrating == undefined || JSON.parse(movie.MyScore).criticrating == "") {
         criticRating = 0;
@@ -36,7 +36,7 @@
         criticRating = parseInt(JSON.parse(movie.MyScore).criticrating) / 10;
     }
     
-    console.log(criticRating);
+    //console.log(criticRating);
 
     if (TILE_MODE == 0) {
         html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +

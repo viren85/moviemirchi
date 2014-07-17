@@ -212,14 +212,14 @@
     // Here we run a very simple test of the Graph API after login is successful.
     // This testAPI() function is only called in those cases.
     function testAPI(response) {
-        console.log('Welcome!  Fetching your information.... ');
+        //console.log('Welcome!  Fetching your information.... ');
 
         accessToken = "";
         accessToken = response.authResponse.accessToken;
 
         FB.api('/me', function (response) {
-            console.log(response);
-            console.log('Good to see you, ' + response.name + '.');
+            //console.log(response);
+            //console.log('Good to see you, ' + response.name + '.');
 
             userFields.UserId = response.id;
             userFields.UserType = "facebook";
@@ -253,8 +253,8 @@
                     loginStatus = true;
 
                     FB.api('/me', function (response) {
-                        console.log(response);
-                        console.log('Good to see you, ' + response.name + '.');
+                        //console.log(response);
+                        //console.log('Good to see you, ' + response.name + '.');
 
                         alert(response.name);
 
