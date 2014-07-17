@@ -90,7 +90,7 @@ namespace MvcWebRole2.Controllers
                     //delete Entry in lucene search index
                     LuceneSearch.ClearLuceneIndexRecord(movie.MovieId);
 
-                    string posterUrl = string.Empty;
+                    string posterUrl = "default-movie.jpg";
                     string critics = string.Empty;
 
                     if (!string.IsNullOrEmpty(entity.Posters))
