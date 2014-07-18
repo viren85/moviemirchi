@@ -62,6 +62,9 @@ namespace Crawler
                         movie.MovieId = me.MovieId;
                         movie.Popularity = Util.DEFAULT_POPULARITY;
                         movie.Posters = me.Posters;
+                        movie.Songs = me.Songs;
+                        movie.Trailers = me.Trailers;
+                        movie.State = me.State;
                         crawlPosters = false;
                     }
 
@@ -92,12 +95,13 @@ namespace Crawler
                 }
                 else
                 {
-                    poster = JsonConvert.DeserializeObject(movie.Posters) as List<string>;
+                    poster = JsonConvert.DeserializeObject<List<string>>(movie.Posters) as List<string>;
                 }
 
 
                 movie.Casts = JsonConvert.SerializeObject(cast);
-                movie.Songs = JsonConvert.SerializeObject(songs);
+                if (isCrawlPosters)
+                    movie.Songs = JsonConvert.SerializeObject(songs);
 
                 if (poster != null && poster.Count > 0)
                 {

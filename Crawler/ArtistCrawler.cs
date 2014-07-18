@@ -61,7 +61,7 @@
                 //tblMgr.UpdateArtistItemById(aeList);
 
                 foreach (ArtistEntity obj in aeList)
-                {                    
+                {
                     tblMgr.UpdateArtistById(obj);
                 }
             }
@@ -73,33 +73,43 @@
 
         public ArtistEntity PopulateArtistsDetails(string html, string url)
         {
-            ArtistEntity artist = new ArtistEntity();
-            HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
-            htmlDoc.OptionFixNestedTags = true;
-            htmlDoc.LoadHtml(html);
-            if (htmlDoc.DocumentNode != null)
+            try
             {
-                HtmlAgilityPack.HtmlNode bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
-                if (bodyNode == null)
-                {
-                    Console.WriteLine("body node is null");
-                }
-                else
-                {
-                    artist.RowKey = artist.ArtistId = Guid.NewGuid().ToString();
-                    artist.ArtistName = GetArtistName(bodyNode);
-                    artist.UniqueName = artist.ArtistName.Replace(" ", "-");
-                    artist.Bio = GetArtistBio(bodyNode);
-                    artist.Born = GetArtistBirthDetails(bodyNode);
-                    artist.MovieList = GetMovieList(bodyNode);
-                    artist.Posters = GetArtistPosters(url + "mediaindex", artist.UniqueName, bodyNode);
-                    artist.Popularity = Util.DEFAULT_POPULARITY;
-                    artist.MyScore = Util.DEFAULT_SCORE;
-                    artist.JsonString = string.Empty;
-                }
-            }
 
-            return artist;
+                ArtistEntity artist = new ArtistEntity();
+                HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
+                htmlDoc.OptionFixNestedTags = true;
+                htmlDoc.LoadHtml(html);
+                if (htmlDoc.DocumentNode != null)
+                {
+                    HtmlAgilityPack.HtmlNode bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
+                    if (bodyNode == null)
+                    {
+                        Console.WriteLine("body node is null");
+                    }
+                    else
+                    {
+                        artist.RowKey = artist.ArtistId = Guid.NewGuid().ToString();
+                        artist.ArtistName = GetArtistName(bodyNode);
+                        artist.UniqueName = artist.ArtistName.Replace(" ", "-");
+                        artist.Bio = GetArtistBio(bodyNode);
+                        artist.Born = GetArtistBirthDetails(bodyNode);
+                        artist.MovieList = GetMovieList(bodyNode);
+                        artist.Posters = GetArtistPosters(url + "mediaindex", artist.UniqueName, bodyNode);
+                        artist.Popularity = Util.DEFAULT_POPULARITY;
+                        artist.MyScore = Util.DEFAULT_SCORE;
+                        artist.JsonString = string.Empty;
+                    }
+                }
+
+                return artist;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error : " + ex.Message);
+
+                return null;
+            }
         }
 
         private string GetArtistName(HtmlNode body)

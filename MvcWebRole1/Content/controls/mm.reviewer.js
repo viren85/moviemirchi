@@ -12,7 +12,7 @@ var ShowReviews = function (data) {
         }
         else {
             if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
-                $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager"));
+                $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager", null, "review_list"));
 
                 var fileName = "/Images/user.png";
                 var name = result.Name;
@@ -38,7 +38,7 @@ var ShowReviews = function (data) {
                 });
 
                 var reviews = [];
-                var reviewTitle = GetTubeControl("Reviews", "reviews", "review-list-pager");
+                var reviewTitle = GetTubeControl("Reviews", "reviews", "review-list-pager", null, "review_list_pagger");
 
                 $(".review-list").find("ul:first").each(function () {
                     $("<div class=\"section-title large-fonts\" style=\"margin-left: 0%\">Reviews</div>").insertBefore(this);

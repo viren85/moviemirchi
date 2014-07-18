@@ -528,57 +528,41 @@ namespace MvcWebRole2.Controllers
                 {
                     try
                     {
-                        #region Temp Code for tracking moive
-                        try
+                        var items = JsonConvert.DeserializeObject(movie.Casts);
+                        JArray array = JArray.Parse(movie.Casts);
+                        List<Cast> castList = new List<Cast>();
+
+                        foreach (JObject o in array.Children<JObject>())
                         {
-                            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\GitHub-SVN\moviemirchi\Temp-Logs\Temp-Log.txt", true))
+                            Cast cast = new Cast();
+
+                            foreach (JProperty p in o.Properties())
                             {
-                                file.WriteLine(string.Format("{0} || Get artist for Movie: {1}", DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt"), movie.Name));
-                            }
-                        }
-                        catch (Exception)
-                        {
-
-                        }
-                        #endregion
-
-                        if (movie.Year.Trim() == "2014" && movie.State.Trim() != "upcoming")
-                        {
-                            var items = JsonConvert.DeserializeObject(movie.Casts);
-                            JArray array = JArray.Parse(movie.Casts);
-                            List<Cast> castList = new List<Cast>();
-
-                            foreach (JObject o in array.Children<JObject>())
-                            {
-                                Cast cast = new Cast();
-
-                                foreach (JProperty p in o.Properties())
+                                switch (p.Name)
                                 {
-                                    switch (p.Name)
-                                    {
-                                        case "charactername":
-                                            cast.charactername = p.Value.ToString();
-                                            break;
-                                        case "link":
-                                            int index = p.Value.ToString().IndexOf("?");
-                                            string linkPath = (index < 0) ? p.Value.ToString() : p.Value.ToString().Remove(index);
-                                            cast.link = "http://www.imdb.com" + linkPath;
-                                            break;
-                                        case "name":
-                                            cast.name = p.Value.ToString();
-                                            break;
-                                        case "role":
-                                            cast.role = p.Value.ToString();
-                                            break;
-                                    }
+                                    case "charactername":
+                                        cast.charactername = p.Value.ToString();
+                                        break;
+                                    case "link":
+                                        int index = p.Value.ToString().IndexOf("?");
+                                        string linkPath = (index < 0) ? p.Value.ToString() : p.Value.ToString().Remove(index);
+                                        cast.link = "http://www.imdb.com" + linkPath;
+                                        break;
+                                    case "name":
+                                        cast.name = p.Value.ToString();
+                                        break;
+                                    case "role":
+                                        cast.role = p.Value.ToString();
+                                        break;
                                 }
-
-                                if (new TableManager().GetArtist(cast.name) == null && castList.Find(c => c.name == cast.name) == null)
-                                    castList.Add(cast);
                             }
 
-                            artistCrawler.CrawlArtists(castList);
+                            if (new TableManager().GetArtist(cast.name) == null && castList.Find(c => c.name == cast.name) == null)
+                                castList.Add(cast);
                         }
+
+                        artistCrawler.CrawlArtists(castList);
+
                     }
                     catch (Exception)
                     {
@@ -1118,7 +1102,6 @@ namespace MvcWebRole2.Controllers
             {
                 if (movie.Year.Trim() == "2014" && movie.State.Trim() != "upcoming")
                 {
-
                     var items = JsonConvert.DeserializeObject(movie.Casts);
                     JArray array = JArray.Parse(movie.Casts);
                     List<Cast> castList = new List<Cast>();

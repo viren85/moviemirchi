@@ -11,7 +11,7 @@
 
         genreType = toPascalCase(genreType);
 
-        $(".movies").append(GetTubeControl("Movies By Genre - " + genreType, "movie-list", "now-pager"));
+        $(".movies").append(GetTubeControl("Movies By Genre - " + genreType, "movie-list", "now-pager", null, "genre_movies"));
 
         var apiPath = "../api/GenreMovies?type=" + genreType;
         CallHandler(apiPath, PopulateMovies);
