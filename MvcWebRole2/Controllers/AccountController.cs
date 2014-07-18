@@ -525,7 +525,7 @@ namespace MvcWebRole2.Controllers
                 var movies = tblMgr.GetAllMovies();
 
                 foreach (MovieEntity movie in movies.Values)
-                { 
+                {
                     try
                     {
                         #region Temp Code for tracking moive
@@ -542,40 +542,43 @@ namespace MvcWebRole2.Controllers
                         }
                         #endregion
 
-                        var items = JsonConvert.DeserializeObject(movie.Casts);
-                        JArray array = JArray.Parse(movie.Casts);
-                        List<Cast> castList = new List<Cast>();
-
-                        foreach (JObject o in array.Children<JObject>())
+                        if (movie.Year.Trim() == "2014" && movie.State.Trim() != "upcoming")
                         {
-                            Cast cast = new Cast();
+                            var items = JsonConvert.DeserializeObject(movie.Casts);
+                            JArray array = JArray.Parse(movie.Casts);
+                            List<Cast> castList = new List<Cast>();
 
-                            foreach (JProperty p in o.Properties())
+                            foreach (JObject o in array.Children<JObject>())
                             {
-                                switch (p.Name)
+                                Cast cast = new Cast();
+
+                                foreach (JProperty p in o.Properties())
                                 {
-                                    case "charactername":
-                                        cast.charactername = p.Value.ToString();
-                                        break;
-                                    case "link":
-                                        int index = p.Value.ToString().IndexOf("?");
-                                        string linkPath = (index < 0) ? p.Value.ToString() : p.Value.ToString().Remove(index);
-                                        cast.link = "http://www.imdb.com" + linkPath;
-                                        break;
-                                    case "name":
-                                        cast.name = p.Value.ToString();
-                                        break;
-                                    case "role":
-                                        cast.role = p.Value.ToString();
-                                        break;
+                                    switch (p.Name)
+                                    {
+                                        case "charactername":
+                                            cast.charactername = p.Value.ToString();
+                                            break;
+                                        case "link":
+                                            int index = p.Value.ToString().IndexOf("?");
+                                            string linkPath = (index < 0) ? p.Value.ToString() : p.Value.ToString().Remove(index);
+                                            cast.link = "http://www.imdb.com" + linkPath;
+                                            break;
+                                        case "name":
+                                            cast.name = p.Value.ToString();
+                                            break;
+                                        case "role":
+                                            cast.role = p.Value.ToString();
+                                            break;
+                                    }
                                 }
+
+                                if (new TableManager().GetArtist(cast.name) == null && castList.Find(c => c.name == cast.name) == null)
+                                    castList.Add(cast);
                             }
 
-                            if (new TableManager().GetArtist(cast.name) == null && castList.Find(c => c.name == cast.name) == null)
-                                castList.Add(cast);
+                            artistCrawler.CrawlArtists(castList);
                         }
-
-                        artistCrawler.CrawlArtists(castList);
                     }
                     catch (Exception)
                     {
@@ -602,7 +605,7 @@ namespace MvcWebRole2.Controllers
                 List<MovieSongsProps> movieSongs = new GenerateXMLFile().GetMoviesSongsProps(file);
 
                 TableManager tbleMgr = new TableManager();
-                
+
                 if (movieSongs != null)
                 {
                     foreach (MovieSongsProps movieSong in movieSongs)
@@ -1099,6 +1102,65 @@ namespace MvcWebRole2.Controllers
                 throw;
             }
 
+        }
+
+        [HttpGet]
+        public void FilterMovies()
+        {
+            TableManager tblMgr = new TableManager();
+            Crawler.ArtistCrawler artistCrawler = new Crawler.ArtistCrawler();
+
+            var movies = tblMgr.GetAllMovies();
+
+            //var unleased2014Movie = movies.FindAll(m => m.Year.Trim() == "2014" && m.State.Trim() != "upcoming");
+
+            foreach (MovieEntity movie in movies.Values)
+            {
+                if (movie.Year.Trim() == "2014" && movie.State.Trim() != "upcoming")
+                {
+
+                    var items = JsonConvert.DeserializeObject(movie.Casts);
+                    JArray array = JArray.Parse(movie.Casts);
+                    List<Cast> castList = new List<Cast>();
+
+                    bool hasLink = false;
+
+                    foreach (JObject o in array.Children<JObject>())
+                    {
+                        Cast cast = new Cast();
+
+                        foreach (JProperty p in o.Properties())
+                        {
+                            switch (p.Name)
+                            {
+                                case "charactername":
+                                    cast.charactername = p.Value.ToString();
+                                    break;
+                                case "link":
+                                    hasLink = true;
+                                    int index = p.Value.ToString().IndexOf("?");
+                                    string linkPath = (index < 0) ? p.Value.ToString() : p.Value.ToString().Remove(index);
+                                    cast.link = "http://www.imdb.com" + linkPath;
+                                    break;
+                                case "name":
+                                    cast.name = p.Value.ToString();
+                                    break;
+                                case "role":
+                                    cast.role = p.Value.ToString();
+                                    break;
+                            }
+                        }
+                    }
+
+                    if (!hasLink)
+                    {
+                        using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\GitHub-SVN\moviemirchi\Temp-Logs\2014-UnReleased-Moives.txt", true))
+                        {
+                            file.WriteLine(string.Format("Movie: {0} || Month: {1} || Year: {2}", movie.Name, movie.Month, movie.Year));
+                        }
+                    }
+                }
+            }
         }
     }
 }
