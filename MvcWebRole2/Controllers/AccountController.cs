@@ -525,9 +525,23 @@ namespace MvcWebRole2.Controllers
                 var movies = tblMgr.GetAllMovies();
 
                 foreach (MovieEntity movie in movies.Values)
-                {
+                { 
                     try
                     {
+                        #region Temp Code for tracking moive
+                        try
+                        {
+                            using (System.IO.StreamWriter file = new System.IO.StreamWriter(@"D:\GitHub-SVN\moviemirchi\Temp-Logs\Temp-Log.txt", true))
+                            {
+                                file.WriteLine(string.Format("{0} || Get artist for Movie: {1}", DateTime.Now.ToString("dd-MMM-yyyy hh:mm:ss tt"), movie.Name));
+                            }
+                        }
+                        catch (Exception)
+                        {
+
+                        }
+                        #endregion
+
                         var items = JsonConvert.DeserializeObject(movie.Casts);
                         JArray array = JArray.Parse(movie.Casts);
                         List<Cast> castList = new List<Cast>();
@@ -557,7 +571,7 @@ namespace MvcWebRole2.Controllers
                                 }
                             }
 
-                            if (new TableManager().GetArtist(cast.name.ToLower()) == null && castList.Find(c => c.name == cast.name) == null)
+                            if (new TableManager().GetArtist(cast.name) == null && castList.Find(c => c.name == cast.name) == null)
                                 castList.Add(cast);
                         }
 

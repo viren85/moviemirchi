@@ -61,6 +61,7 @@ namespace Crawler
                         movie.RowKey = me.RowKey;
                         movie.MovieId = me.MovieId;
                         movie.Popularity = Util.DEFAULT_POPULARITY;
+                        movie.Posters = me.Posters;
                         crawlPosters = false;
                     }
 
@@ -89,6 +90,11 @@ namespace Crawler
                 {
                     poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
                 }
+                else
+                {
+                    poster = JsonConvert.DeserializeObject(movie.Posters) as List<string>;
+                }
+
 
                 movie.Casts = JsonConvert.SerializeObject(cast);
                 movie.Songs = JsonConvert.SerializeObject(songs);
@@ -97,7 +103,7 @@ namespace Crawler
                 {
                     movie.Posters = JsonConvert.SerializeObject(poster);
                 }
-                else
+                else 
                 {
                     movie.Posters = "[]";
                 }
