@@ -145,7 +145,7 @@
 
 @media screen and (min-width: 901px) and (max-width: 1250px) {
     .movie-list ul li, .upcoming-movie-list ul li {
-        width: 30%;
+        width: 35%;
         max-width: 263px;
     }
 }
