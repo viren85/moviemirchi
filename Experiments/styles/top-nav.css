@@ -1,0 +1,33 @@
+.nav-bar-container {
+            float: left;
+            width: 100%;
+            background-color: #FFA62F;
+            box-shadow: 3px 5px 5px #ddd;
+            padding-top: 5px;
+            position: fixed;
+            z-index: 99;
+        }
+
+        ul.top-nav-bar {
+            float: left;
+            margin: 0px;
+            margin-left: 10%;
+            margin-right: 10%;
+            list-style: none;
+            padding: 5px;
+            padding-bottom: 10px;
+        }
+
+            ul.top-nav-bar li {
+                float: left;
+                font-size: 1.2em;
+                min-width: 160px;
+                color: white;
+                cursor: pointer;
+                text-align: center;
+                border-right: 1px solid #FFDB58;
+            }
+
+                ul.top-nav-bar li:last-child {
+                    border-right: 0px;
+                }
