@@ -8,6 +8,15 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
+        var json = [
+                    { "title": "Reviewer", "section": "review_list" },
+                    { "title": "Latest Reviews", "section": "now_playing" },
+                    { "title": "Archived Reviews", "section": "other_movie" }
+        ];
+
+        $(".nav-bar-container").append(GetNavBar(json));
+
         /*var qs = GetQueryStringsForHtmPage();
         var name = qs["name"];
         var movie = qs["movie"];

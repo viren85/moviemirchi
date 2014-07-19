@@ -157,7 +157,6 @@ var PopulatePosters = function (images, movieName) {
         PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
         $(".movie-poster-details").append($("#posters-pager"));
 
-
         $(".link-container").show();
     }
     else {
@@ -287,7 +286,7 @@ var SongList = function (videos, type) {
 
     if (songHasLink) {
         $(".songs").append(ul);
-
+        $(".songs").attr("id","movie_songs")
         PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
         $(".songs").append($("#songs-pager"));
 
@@ -344,6 +343,7 @@ var TrailerList = function (videos, type) {
 
     if (songHasLink) {
         $(".trailers").append(ul);
+        $(".trailers").attr("id", "movie_trailers");
 
         PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
         $(".trailers").append($("#trailer-pager"));

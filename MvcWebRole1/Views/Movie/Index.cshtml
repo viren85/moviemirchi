@@ -207,7 +207,7 @@
 
 <div class="movies">
     <div class="movie-content"></div>
-    <div class="link-container"><div class="section-title large-fonts">Posters</div></div>
+    <div class="link-container"><div id="mov_poster" class="section-title large-fonts">Posters</div></div>
     <div class="movie-details">
         <div class="movie-poster-details"><div id="posters-pager"></div></div>
     </div>
@@ -216,7 +216,7 @@
     <div class="link-container trailers" style="float: left;">
         <div class="section-title large-fonts">Trailers</div>
     </div><div class="movie-trailer"><div id="trailer-pager"></div></div>
-    <div class="review-details"></div>
+    <div class="review-details" id="movie_reviews"></div>
     <div class="tweet-details"></div>
 </div>
 
@@ -232,6 +232,19 @@
 <script type="text/javascript" src="/Content/controls/mm.gallery.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
+
+        var json = [
+                    { "title": "Movie", "section": "movie_list" },
+                    { "title": "Posters", "section": "mov_poster" },
+                    { "title": "Songs", "section": "movie_songs" },
+                    { "title": "Trailers", "section": "movie_trailers" },
+                    { "title": "Reviews", "section": "movie_reviews" },
+                    { "title": "News", "section": "movie_news" },
+                    { "title": "Tweets", "section": "movie_tweets" }
+        ];
+
+        $(".nav-bar-container").append(GetNavBar(json));
+
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
         LoadSingleMovie(name);
         //$(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));

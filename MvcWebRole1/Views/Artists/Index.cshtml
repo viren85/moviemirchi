@@ -15,7 +15,7 @@
         }
 
     .movies {
-        margin-top: 80px;
+       padding-top: 40px !important;
     }
 </style>
 <div class="movies">
@@ -26,6 +26,18 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
+
+        var json = [
+                    { "title": "Artist", "section": "artist_detail" },
+                    { "title": "Movie", "section": "artist_movies" },
+                    { "title": "Photos", "section": "artist_photo" },
+                    { "title": "News", "section": "artist_news" },
+                    { "title": "Tweets", "section": "artist_tweet" }
+        ];
+
+        $(".nav-bar-container").append(GetNavBar(json));
+
+
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
         if (name.indexOf("#") > -1) {
             var prettyPhoto = name.indexOf("#");
@@ -36,7 +48,7 @@
 
         var fileName = "/Images/Loading.GIF";
 
-        $("<div class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
+        $("<div id=\"artist_detail\" class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
         $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
         $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager", null, "artist_movies"));
         $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager", null, "artist_photo"));

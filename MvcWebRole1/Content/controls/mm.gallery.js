@@ -27,7 +27,7 @@ var ScaleElement = function (element) {
             $(element).attr("org-w", $(element).css("width")).css("width", "350px").css("top", "-35px").css("left", "-50px");
             $(element).attr("org-h", $(element).css("height")).css("height", "500px");
             $(element).css("z-index", "100").css("position", "absolute");
-            $(element).parent().css("height", "500px").css("z-index", "100");
+            $(element).parent().css("height", "500px").css("z-index", "98");
             $(element).parent().find(".captionAndNavigate").css("width", "350px").css("height", "500px").css("z-index", "100").css("top", "-35px").css("left", "-50px");
 
             $(element).parent().find(".movie-synopsis").each(function () {

@@ -39,7 +39,7 @@
         cursor: pointer;
     }
 
-.movie-list, .news-container, .critics-container, .upcoming-movie-list {
+.movie-list, .news-container, .critics-container, .upcoming-movie-list, others-movie-list {
     float: left;
     /*margin-left: 7%;*/
     width: 93%;
@@ -71,9 +71,11 @@
         text-align: left;
         position: relative;
     }
-    .tile-type-0 ul{
-        height: 400px;
-    }
+
+.tile-type-0 ul {
+    height: 400px;
+}
+
     .tile-type-0 ul li {
         width: 24%;
         min-height: 380px;
@@ -114,13 +116,15 @@
     width: 100%;
 }
 
-.img-movie-genre-tile-type-0{
+.img-movie-genre-tile-type-0 {
     font-size: 1em;
     color: #FFF;
 }
-.img-movie-date-tile-type-0{
+
+.img-movie-date-tile-type-0 {
     color: #FFF;
 }
+
 @media screen and (min-width: 321px) and (max-width: 900px) {
     .movie-list, .upcoming-movie-list {
         /*margin-left: 7%;*/
