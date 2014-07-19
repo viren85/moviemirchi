@@ -4,14 +4,14 @@
     /*margin-left: 7%;*/
 }
 
-    .review-list ul {
+    .review-list ul, .review-list-now-playing ul, .review-list-upcoming ul, .review-list-other ul {
         list-style: none;
         margin: 0 auto;
         padding: 0px;
         float: left;
     }
 
-        .review-list ul li {
+        .review-list ul li, .review-list-now-playing ul li, .review-list-upcoming ul li, .review-list-other ul li {
             float: left;
             width: 36%;
             margin-bottom: 1%;

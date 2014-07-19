@@ -61,11 +61,11 @@ namespace MvcWebRole1.Controllers.api
                         // get movie information
                         MovieEntity movie = tableMgr.GetMovieById(review.MovieId);
 
-                        if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing" || movie.State == ""))
+                        if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing" || movie.State == "released" || movie.State == "now playing" || movie.State == ""))
                         {
                             // if movie not null, then add movieid and moviename to review details
                             ReviewDetails reviewDetail = new ReviewDetails();
-                            reviewDetail.CriticsRating = review.ReviewerRating;
+                            reviewDetail.CriticsRating = string.IsNullOrEmpty(review.ReviewerRating) ? "1" : review.ReviewerRating;
                             reviewDetail.MovieId = movie.MovieId;
                             reviewDetail.MovieName = movie.Name;
                             reviewDetail.Review = review.Review;

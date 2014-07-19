@@ -12,7 +12,8 @@
         var name = qs["name"];
         var movie = qs["movie"];
         GetReviewerAndReviews(name, movie);*/
-        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);        
+        name = toPascalCase(name.split('-')[0]) + "-" + toPascalCase(name.split('-')[1]);        
         LoadReviewsByReviewer(name);
     });
 </script>

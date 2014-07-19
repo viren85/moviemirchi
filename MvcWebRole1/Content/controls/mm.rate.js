@@ -1,27 +1,18 @@
 ﻿function GetRateControl(rate) {
-    //var mirchi = (rate > 5) ? GetRedMirchi() : GetGreenMirchi();
     var mirchi = GetMovieRate(Math.round(rate));
     return mirchi;
 }
 
 function GetMovieRateControl(rate) {
-
     var result = "";
     var r = Math.round(rate);
-    /*var mirchi = (r > 5) ? GetRedMirchi() : GetGreenMirchi();
-    var grayMirchi= (r > 5) ? GetRedGrayMirchi() : GetGreenGrayMirchi();
-
-    for (i = 1; i <= 10; i++) {
-        result += i <= r ? mirchi : grayMirchi;
-    }*/
 
     return GetMovieRate(r);
 }
 
-function GetMovieRate(rating)
-{
+function GetMovieRate(rating) {
     if (rating == undefined || rating <= 0) return "";
-
+    
     return "<span class='rate rate-" + rating + "'></span>";
 }
 

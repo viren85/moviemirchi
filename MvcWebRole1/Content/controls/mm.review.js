@@ -2,11 +2,11 @@
     if (movieReviews) {
         var reviewList = $("." + containerClass + " ul");
         movieReviews.forEach(function (review) {
-            
+
             if (review.OutLink) {
 
                 var reviewText = new Util().GetEllipsisText(review.Review, 200);
-                
+
                 var html =
                     "<li class=\"arrow_container\">" +
                         "<div class=\"left\">" +
@@ -24,7 +24,7 @@
                             "</div>" +
                         "</div>" +
                         "<div class=\"right\">" +
-                            "<div class=\"mirchimeter\">" + GetRateControl(review.ReviewerRating) + "</div>" +
+                            "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
                             "<div class=\"review\">" +
                                 "<div class=\"arrow_box\">" +
                                     "<div class=\"review-content\">" +
@@ -78,7 +78,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
     if (movieReviews) {
 
         movieReviews.forEach(function (review) {
-            
+
             if (review.OutLink) {
 
                 var reviewText = new Util().GetEllipsisText(review.Review, 150);
@@ -98,7 +98,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                             "</div>" +
                             "<div class=\"right\">" +
                                 "<div class=\"review-movie-name\"><a href=\"/movie/" + uniqueName + "\">" + review.MovieName + "</a></div>" +
-                                "<div class=\"mirchimeter\">" + GetRateControl(review.ReviewerRating) + "</div>" +
+                                "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
                                 "<div class=\"critics-review\">" +
                                     "<div class=\"arrow_box\">" +
                                         "<div class=\"review-content\">" +
@@ -112,14 +112,25 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                         "</div>" +
                     "</li>";
 
-                $(".review-list ul").append(html);
+                /*if (review.MovieStatus == "upcoming") {
+                    $(".review-list-now-playing ul").append(html);
+                }*/                
+                if (review.MovieStatus == "now-playing" || review.MovieStatus == "now playing") {
+                    hasLatestReviews = true;
+                    $(".review-list-now-playing ul").append(html);
+                }
+                else if (review.MovieStatus == "" || review.MovieStatus == "released") {
+                    hasArchivedReviews = true;
+                    $(".review-list-other ul").append(html);
+                }
+
+                //$(".review-list ul").append(html);
             }
         });
     }
 };
 
 function GetReviewerPic(reviewerName) {
-    //return "/posters/images/critic/" + reviewerName.replace(" ", "-") + ".jpg";
     return PUBLIC_BLOB_URL + reviewerName.replace(" ", "-").toLowerCase() + ".jpg";
 }
 
@@ -127,17 +138,13 @@ function GetMoviePoster(posters, movieName) {
     // TODO - poster object is not getting populated hence it returns the null poster object. Hence we had to add if/else block
     var posterPath;
     if (!posters) {
-        //posterPath = "/Posters/Images/default-movie.jpg";
-        //posterPath = "/Posters/Images/" + movieName.replace(" ", "-") + "-poster-1.jpg";
         posterPath = PUBLIC_BLOB_URL + movieName.replace(" ", "-") + "-poster-1.jpg";
     } else {
         // TODO - fix this, doesn't seem right
         var posters = JSON.parse(posters);
         if (posters && posters.length && posters.length > 1) {
-            //posterPath = "/Posters/Images/" + posters[posters.length - 1];
             posterPath = PUBLIC_BLOB_URL + posters[posters.length - 1];
         } else {
-            //posterPath = "/Posters/Images/default-movie.jpg";
             posterPath = PUBLIC_BLOB_URL + movieName.split(" ").join("-") + "-poster-1.jpg";
         }
     }

@@ -4,7 +4,7 @@
     CallHandler(reviewPath, ShowReviews);
 }
 
-var ShowReviews = function (data) {    
+var ShowReviews = function (data) {
     try {
         var result = JSON.parse(data);
         if (result.Status != undefined || result.Status == "Error") {
@@ -20,7 +20,6 @@ var ShowReviews = function (data) {
 
                 for (k = 0; k < critics.length; k++) {
                     if (critics[k] != null && critics[k] != undefined && critics[k].name == result.Name) {
-                        //fileName = "/Posters/Images/critic/" + critics[k].poster;
                         fileName = PUBLIC_BLOB_URL + critics[k].poster;
                         affiliation = critics[k].aff;
                         break;
@@ -38,11 +37,11 @@ var ShowReviews = function (data) {
                 });
 
                 var reviews = [];
-                var reviewTitle = GetTubeControl("Reviews", "reviews", "review-list-pager", null, "review_list_pagger");
+                //var reviewTitle = GetTubeControl("Reviews", "reviews", "review-list-pager", null, "review_list_pagger");
 
-                $(".review-list").find("ul:first").each(function () {
+                /*$(".review-list").find("ul:first").each(function () {
                     $("<div class=\"section-title large-fonts\" style=\"margin-left: 0%\">Reviews</div>").insertBefore(this);
-                });
+                });*/
 
                 reviews = result.ReviewsDetails;
                 ShowReviewsByReviewer(reviews);
@@ -53,10 +52,18 @@ var ShowReviews = function (data) {
     }
 }
 
+var hasArchivedReviews = false;
+var hasLatestReviews = false;
+
 var ShowReviewsByReviewer = function (review) {
     // VS - For production, following line shall be uncommented. Other line is used for demo purposes, 
     // when movies does not have any associated reivews
     //if (review != "undefined" && review != null && review.length > 0) {
+
+    $(".movies").append(GetTubeControl("Latest Reviews", "review-list-now-playing", "now-pager", null, "now_playing"));
+    /*$(".movies").append(GetTubeControl("Upcoming", "review-list-upcoming", "upcoming-pager", null, "up_coming"));*/
+    $(".movies").append(GetTubeControl("Archived Reviews", "review-list-other", "other-pager", null, "other_movie"));
+
     if (review != "undefined" && review != null) {
         $(".link-container").show();
         GetReviewerReviews("movie-review-details", review);
@@ -68,6 +75,18 @@ var ShowReviewsByReviewer = function (review) {
                 $(this).hide();
             }
         });
+    }
+
+    /*Pagination for movies */
+    PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "550" });
+    /*PreparePaginationControl($(".review-list-upcoming"), { pagerContainerId: "upcoming-pager", tileWidth: "550" });*/
+    PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "550" });
+
+    if (!hasArchivedReviews) {
+        $("#other_movie").hide();
+    }
+    if (!hasLatestReviews) {
+        $("#now_playing").hide();
     }
 }
 

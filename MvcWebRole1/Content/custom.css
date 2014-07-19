@@ -51,7 +51,7 @@
     width: 100%;
 }
 
-.movie-list ul, .critics-container ul, .upcoming-movie-list ul {
+.movie-list ul, .critics-container ul, .upcoming-movie-list ul, .others-movie-list ul {
     float: left;
     list-style: none;
     padding: 0px;
@@ -60,7 +60,7 @@
     height: 480px;
 }
 
-    .movie-list ul li, .critics-container ul li, .upcoming-movie-list ul li {
+    .movie-list ul li, .critics-container ul li, .upcoming-movie-list ul li, .others-movie-list ul li {
         float: left;
         list-style: none;
         width: 19%;
