@@ -172,17 +172,17 @@ var SearchResults = function (searchResults) {
                 case "artists":
                     var artist = this.GetProcessedArtists(this.GetMatchArtistName(singleEntity));
                     if (artist !== "") {
-                        $(divTitleDesc).html($(divTitleDesc).html() + "<span class='search-result-text'><b>Artist</b>: " + GetLinks(artist, "Artists") + "</span>");                        
+                        $(divTitleDesc).html($(divTitleDesc).html() + "<span class='search-result-text'><b>Artist</b>: " + GetLinks(artist, "Artists") + "</span>");
                     }
                     break;
                 case "genre":
-                    $(divTitleDesc).html("<span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "Genre") + "</span>");                    
+                    $(divTitleDesc).html("<span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "Genre") + "</span>");
                     break;
             }
         }
 
         $(anchor).attr("href", "/Movie/" + singleEntity.Link).attr("target", "_blank");
-        $(anchor).append(this.GetImageElement(singleEntity, "movie"));
+        $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
         $(li).append(anchor);
@@ -213,7 +213,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
 
             $(anchor).attr("href", "/Artists/" + artist.split(" ").join("-")).attr("target", "_blank");
-            $(anchor).append(that.GetImageElement(singleEntity, "artist"));
+            $(anchor).append(that.GetImageElement(singleEntity, "artist", artist));
             $(anchor).append(divTitleDesc);
 
             $(li).append(anchor);
@@ -245,7 +245,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
             $(anchor).attr("href", "/Movie/Reviewer/" + critics.split(" ").join("-")).attr("target", "_blank");
-            $(anchor).append(that.GetImageElement(singleEntity, "critics"));
+            $(anchor).append(that.GetImageElement(singleEntity, "critics", critics));
             $(anchor).append(divTitleDesc);
 
             $(li).append(anchor);
@@ -275,7 +275,7 @@ var SearchResults = function (searchResults) {
                 $(divTitleDesc).html("<span class='search-result-title'>" + gen + "</span>");
 
                 $(anchor).attr("href", "/Genre/" + gen).attr("target", "_blank");
-                $(anchor).append(this.GetImageElement(singleEntity, "genre"));
+                $(anchor).append(this.GetImageElement(singleEntity, "genre", gen));
                 $(anchor).append(divTitleDesc);
 
                 $(li).append(anchor);
@@ -293,7 +293,7 @@ var SearchResults = function (searchResults) {
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
 
         $(anchor).attr("href", "/Genre/" + singleEntity.Link).attr("target", "_blank");
-        $(anchor).append(this.GetImageElement(singleEntity, "movie"));
+        $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
         $(li).append(anchor);
@@ -367,7 +367,7 @@ var SearchResults = function (searchResults) {
         return matchedItem;
     };
 
-    SearchResults.prototype.GetImageElement = function (singleEntity, type) {
+    SearchResults.prototype.GetImageElement = function (singleEntity, type, title) {
         var img = $("<img/>");
         var divImage = $("<div>");
 
@@ -376,13 +376,30 @@ var SearchResults = function (searchResults) {
         img.attr("class", "movie-poster");
 
         if (type === "movie" && singleEntity.TitleImageURL !== "") {
-            //img.attr("src", "/Posters/Images/" + singleEntity.TitleImageURL); 
             img.attr("src", PUBLIC_BLOB_URL + singleEntity.TitleImageURL);
-        } else if (type === "artist" || type === "critics") {
-            img.attr("src", "/Images/user.png");
-            img.attr("class", "person-poster");
-        } else {
-            //img.attr("src", "/Posters/Images/default-movie.jpg"); 
+        } else if (type === "artist" || type === "critics") {            
+            if (type == "artist") {
+                img.attr("src", PUBLIC_BLOB_URL + title.toLowerCase().replace(" ", "-") + "-poster-1.jpg");
+            }
+            else if (type == "critics") {
+                img.attr("src", PUBLIC_BLOB_URL + title.toLowerCase() + ".jpg");
+            }
+            else {
+                img.removeAttr("class");
+                img.attr("class", "person-poster");
+                img.attr("src", "/Images/user.png");
+            }
+
+            img.error(function () {
+                img.removeAttr("class");
+                img.attr("class", "person-poster");
+                $(this).attr("src", "/Images/user.png");
+            });
+        }
+        else if (type === "genre") {
+            img.attr("src", PUBLIC_BLOB_URL + "genre.png");
+        }
+        else {
             img.attr("src", PUBLIC_BLOB_URL + "default-movie.jpg");
         }
 
