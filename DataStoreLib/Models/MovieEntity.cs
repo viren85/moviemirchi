@@ -204,7 +204,8 @@ namespace DataStoreLib.Models
             List<string> castName = new List<string>();
 
             foreach (Cast c in casts) {
-                castName.Add(c.name);
+                if (!string.IsNullOrEmpty(c.name))
+                    castName.Add(c.name);
             }
 
             return castName;
