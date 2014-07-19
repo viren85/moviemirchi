@@ -284,7 +284,9 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
 
         // Calculate the margin - which will be left on right/left side of page
         var margin = Math.round(options.pageSize / 20);
-        options.pageSize = options.pageSize - (margin * 2);
+
+        // -40 is added to add margin between tiles
+        options.pageSize = options.pageSize - (margin * 2) - 40;
 
         options.tilesInPage = Math.floor(options.pageSize / options.tileWidth);
 
