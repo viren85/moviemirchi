@@ -252,8 +252,14 @@ namespace MvcWebRole2.Controllers
                                             re.ReviewerId = reviewerId;
                                             re.MovieId = mov.MovieId;
                                             re.OutLink = reviewLink;
-                                            if (!string.IsNullOrEmpty(reviewerId))
+
+                                            var reviewsEntity = tblMgr.GetReviewByMovieId(mov.MovieId);
+
+                                            if (!string.IsNullOrEmpty(reviewerId) && !string.IsNullOrEmpty(re.ReviewId) && !string.IsNullOrEmpty(re.MovieId) &&
+                                                reviewsEntity.Find(r => r.ReviewerName.ToLower().Trim() == re.ReviewerName.ToLower().Trim()) == null)
+                                            {
                                                 tblMgr.UpdateReviewById(re);
+                                            }
                                         }
                                     }
                                 }

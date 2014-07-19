@@ -522,6 +522,12 @@ namespace DataStoreLib.Storage
             return (key != null) ? retList[key] : null;
         }
 
+        public static List<ReviewEntity> GetReviewByMovieId(this IStore store, string movieId)
+        {
+            var retList = store.GetReviewsByMovieId(movieId);
+
+            return retList.Values.ToList();
+        }
         #endregion
 
         #region Reviewer
