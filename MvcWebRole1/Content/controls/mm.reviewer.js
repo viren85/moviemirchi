@@ -28,7 +28,7 @@ var ShowReviews = function (data) {
 
                 $(".movies").find(".review-list").each(function () {
                     $(this).prepend(ShowPersonBio(fileName, name, "", affiliation));
-                    $(this).find("img").removeAttr("style").css("width", "263px").css("float", "left");
+                    $(this).find("img").removeAttr("style").css("width", "250px").css("float", "left");
                     InitBio();
 
                     // Need to populate this text from DB

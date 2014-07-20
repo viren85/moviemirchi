@@ -98,7 +98,7 @@
                     PreparePaginationControl($(".movie-list"));
 
                     $(window).resize(function () {
-                        PreparePaginationControl($(".movie-list"));
+                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
                     });
 
                     /*Pagination for movies */
@@ -143,7 +143,7 @@
                         });
                     }
                     else {
-                        $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "263px").css("float", "left");;
+                        $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "250px").css("float", "left");;
                         $(".movie-poster-details").parent().hide();
                     }
                 }
