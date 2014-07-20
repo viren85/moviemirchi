@@ -2,7 +2,6 @@
             float: left;
             width: 100%;
             background-color: #154B6D;
-            box-shadow: 3px 5px 5px #ddd;
             padding-top: 5px;
             position: fixed;
             z-index: 99;
@@ -25,7 +24,7 @@
                 color: white;
                 cursor: pointer;
                 text-align: center;
-                border-right: 1px solid #FFDB58;
+                border-right: 1px solid #1B6EA1;
             }
 
                 ul.top-nav-bar li:last-child {
