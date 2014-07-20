@@ -12,10 +12,14 @@
     margin-top: 60px;
 }
 .movies{
-        margin-left: 7%;
+    float: left;
+    margin-left: 7%;
+    padding-top: 20px;
+        /*
         width: 86%;
-        padding-top: 20px;
+        */
     }
+.reviewer-info{margin-top: 5%;}
 .large-fonts {
     font-size: 2em;
     font-family: Segoe UI Light;
@@ -35,7 +39,7 @@
 
 .tube-container {
     float: left;
-    width: 105%;
+    width: 100%;
     margin-top: 20px;
 }
 
