@@ -1,9 +1,9 @@
 ﻿
 function PreparePaginationControl(rotatorControl, pagerOptions) {
 
-    var defaultTileWidth = TILE_MODE == 0 ? 280 : 240;
+    var defaultTileWidth = TILE_MODE == 0 ? 250 : 240;
     var defaultTilesInPage = TILE_MODE == 0 ? 4 : 3;
-    var defaultMoviePosterWidth = TILE_MODE == 0 ? 263 : 200;
+    var defaultMoviePosterWidth = TILE_MODE == 0 ? 250 : 200;
 
     // Initialise the control options. When any option is not provided, it will initiated with default values.
     var options = (function (options) {
@@ -283,12 +283,15 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
         }
 
         // Calculate the margin - which will be left on right/left side of page
-        var margin = Math.round(options.pageSize / 20);
+        var margin = Math.round(options.pageSize * 0.07);
 
-        // -40 is added to add margin between tiles
         options.pageSize = options.pageSize - (margin * 2) - 40;
 
         options.tilesInPage = Math.floor(options.pageSize / options.tileWidth);
+
+        if (options.pageSize % options.tileWidth < 30 && ((options.pagerContainerId.indexOf("movies-pager") > -1) || options.pagerContainerId.indexOf("upcoming-pager") > -1 || options.pagerContainerId.indexOf("now-pager") > -1)) {
+            options.tilesInPage = options.tilesInPage - 1;
+        }
 
         options.pageCount = Math.ceil(options.totalTileCount / options.tilesInPage);
 

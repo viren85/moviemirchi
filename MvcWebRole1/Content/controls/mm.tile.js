@@ -1,7 +1,7 @@
 ﻿function PopulatingMovies(movie, container) {
     var movieContainer = $("." + container + " ul");
 
-    $("." + container).addClass("tile-type-" + TILE_MODE);
+    //$("." + container).addClass("tile-type-" + TILE_MODE);
 
     var poster = [];
     poster = JSON.parse(movie.Posters);
@@ -96,7 +96,7 @@ function MovieImageLoaded(img) {
 
         // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
         // Hence keeping the height + width of fix size.
-        var newWidth = (TILE_MODE == 0) ? 263 : 200;
+        var newWidth = (TILE_MODE == 0) ? 250 : 200;
         var newHeight = (TILE_MODE == 0) ? 400 : 300;
 
         $(img).css("width", newWidth + "px").css("height", newHeight + "px");
@@ -111,6 +111,6 @@ function LoadDefaultImage(element) {
     var imgHeight = parseInt($(element).css("height").replace("px"));
 
     var ratio = imgWidth / imgHeight;
-    var newWidth = 263;
+    var newWidth = 250;
     $(element).css("width", newWidth + "px").css("height", "400px");
 }
