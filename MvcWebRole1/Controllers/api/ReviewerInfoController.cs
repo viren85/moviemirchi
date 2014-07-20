@@ -42,7 +42,7 @@ namespace MvcWebRole1.Controllers.api
                 // getting reviewer details
                 var reviews = tableMgr.GetReviewsByReviewer(name);
 
-                if (reviews != null)
+                if (reviews != null && reviews.Count > 0)
                 {
                     int courter = 0;
 
@@ -79,6 +79,16 @@ namespace MvcWebRole1.Controllers.api
 
                         courter++;
                     }
+                }
+                else
+                {
+                    return jsonSerializer.Value.Serialize(
+                  new
+                  {
+                      Status = "Error",
+                      UserMessage = "Currently Movie Mirchi does not have any information about this critic (" + name + ")",
+                      ActualError = string.Empty
+                  });
                 }
 
                 // add reviewList to reviewInfoObject
