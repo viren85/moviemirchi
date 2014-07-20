@@ -262,6 +262,7 @@
     <Content Include="Content\controls\mm.gallery.js" />
     <Content Include="Content\controls\mm.login.js" />
     <Content Include="Content\controls\mm.movie.js" />
+    <Content Include="Content\controls\mm.nav.js" />
     <Content Include="Content\controls\mm.news.js" />
     <Content Include="Content\controls\mm.pager.js" />
     <Content Include="Content\controls\mm.rate.js" />
@@ -276,6 +277,7 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\jquery.prettyPhoto.js" />
+    <Content Include="Content\jquery.scrollTo-min.js" />
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\prettyPhoto.css" />
@@ -291,6 +293,7 @@
     <Content Include="Content\styles\mm.reviewer.css" />
     <Content Include="Content\styles\mm.tags.css" />
     <Content Include="Content\styles\mm.twitter.css" />
+    <Content Include="Content\styles\top-nav.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -363,6 +366,7 @@
     <Content Include="Images\mirchi-sprite.png" />
     <Content Include="Images\next.png" />
     <Content Include="Images\pervious.png" />
+    <Content Include="Images\play-video.png" />
     <Content Include="Images\prettyPhoto\dark_square\btnNext.png" />
     <Content Include="Images\prettyPhoto\dark_square\btnPrevious.png" />
     <Content Include="Images\prettyPhoto\dark_square\contentPattern.png" />
