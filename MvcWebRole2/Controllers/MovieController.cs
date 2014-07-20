@@ -88,7 +88,8 @@ namespace MvcWebRole2.Controllers
                     tableMgr.UpdateMovieById(entity);
 
                     //delete Entry in lucene search index
-                    LuceneSearch.ClearLuceneIndexRecord(movie.MovieId);
+                    // Fix following method call - What shall be other param? 
+                    LuceneSearch.ClearLuceneIndexRecord(movie.MovieId, "Id");
 
                     string posterUrl = "default-movie.jpg";
                     string critics = string.Empty;
