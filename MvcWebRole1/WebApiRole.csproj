@@ -277,7 +277,6 @@
     <Content Include="Content\custom.css" />
     <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\jquery.prettyPhoto.js" />
-    <Content Include="Content\jquery.scrollTo-min.js" />
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
     <Content Include="Content\prettyPhoto.css" />
