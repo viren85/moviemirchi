@@ -272,7 +272,7 @@ var SongList = function (videos, type) {
             DisplayModal();
         });
 
-        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].SongTitle, 20)).attr("title", videos[i].SongTitle);
+        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].SongTitle, 16)).attr("title", videos[i].SongTitle);
 
         $(li).append(img);
         $(li).append(playImg);
@@ -326,7 +326,7 @@ var TrailerList = function (videos, type) {
             DisplayModal();
         });
 
-        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].Title, 20)).attr("title", videos[i].Title);
+        var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].Title, 16)).attr("title", videos[i].Title);
 
         $(li).append(img);
         $(li).append(playImg);

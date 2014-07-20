@@ -108,7 +108,7 @@ namespace LuceneSearchLibrarby
         /// method to remove single record from Lucene search index by record's Id field: 
         /// </summary>
         /// <param name="record_id">record id</param>
-        public static void ClearLuceneIndexRecord(string record_id)
+        public static void ClearLuceneIndexRecord(string record_id, string deleteByColumn)
         {
             // init lucene
             using (var analyzer = new StandardAnalyzer(Version.LUCENE_30))
@@ -117,7 +117,8 @@ namespace LuceneSearchLibrarby
                 using (var writer = new IndexWriter(_directory, analyzer, IndexWriter.MaxFieldLength.UNLIMITED))
                 {
                     // remove older index entry
-                    var searchQuery = new TermQuery(new Term("Id", record_id.ToString()));
+                    //var searchQuery = new TermQuery(new Term("Id", record_id.ToString()));
+                    var searchQuery = new TermQuery(new Term(deleteByColumn, record_id.ToString()));
                     writer.DeleteDocuments(searchQuery);
                 }
             }
