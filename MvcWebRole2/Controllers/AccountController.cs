@@ -1,5 +1,6 @@
 ﻿using Crawler;
 using Crawler.Reviews;
+using DataStoreLib.BlobStorage;
 using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using DataStoreLib.Utils;
@@ -26,6 +27,8 @@ namespace MvcWebRole2.Controllers
 {
     public class AccountController : Controller
     {
+        static IDictionary<string, MovieEntity> allMovies = null;
+        static List<string> allBlobUrls = null;
         #region Set Connection String
         private void SetConnectionString()
         {
@@ -1091,6 +1094,117 @@ namespace MvcWebRole2.Controllers
                 Debug.WriteLine("Exception: {0}", ex);
                 throw;
             }
+
+        }
+
+        public void RebuildPosters()
+        {
+            TableManager tblMgr = new TableManager();
+            BlobStorageService blobMgr = new BlobStorageService();
+
+            try
+            {
+                IDictionary<string, MovieEntity> movies = null;
+                List<string> blobUrls = null;
+                List<string> finalUrl = new List<string>();
+                if (allBlobUrls == null)
+                {
+                    blobUrls = blobMgr.GetUploadedFileFromBlob(BlobStorageService.Blob_ImageContainer);
+
+                    foreach (string url in blobUrls)
+                    {
+                        if (url.Contains("-thumb-"))
+                            continue;
+
+                        string tempUrl = url.Substring(url.LastIndexOf("/") + 1);
+                        finalUrl.Add(tempUrl);
+                    }
+
+                    allBlobUrls = finalUrl;
+                    blobUrls = allBlobUrls;
+                }
+                else
+                    blobUrls = allBlobUrls;
+
+                if (allMovies == null)
+                {
+                    movies = tblMgr.GetAllMovies();
+                    allMovies = movies;
+                }
+                else
+                    movies = allMovies;
+
+                foreach (MovieEntity movie in movies.Values)
+                {
+                    try
+                    {
+                        string pattern = movie.UniqueName + "-poster-";
+                        List<string> posters = blobMgr.GetAllFiles(blobUrls, pattern);
+
+                        if (posters != null && posters.Count > 0)
+                        {
+                            JavaScriptSerializer json = new JavaScriptSerializer();
+                            string posterJson = json.Serialize(posters);
+                            movie.Posters = posterJson;
+                            tblMgr.UpdateMovieById(movie);
+
+                            #region Lucene Index
+                            LuceneSearch.ClearLuceneIndexRecord(movie.MovieId, "Id");
+                            LuceneSearch.ClearLuceneIndexRecord(movie.UniqueName, "UniqueName");
+
+                            string posterUrl = "default-movie.jpg";
+                            string critics = string.Empty;
+
+                            if (!string.IsNullOrEmpty(movie.Posters))
+                            {
+                                List<string> pList = json.Deserialize(movie.Posters, typeof(List<string>)) as List<string>;
+                                if (pList != null && pList.Count > 0)
+                                    posterUrl = pList[pList.Count - 1];
+                            }
+
+                            var reviewDic = tblMgr.GetReviewsByMovieId(movie.MovieId);
+
+                            if (reviewDic != null && reviewDic.Values != null && reviewDic.Values.Count > 0)
+                            {
+                                List<string> lCritics = new List<string>();
+
+                                foreach (ReviewEntity re in reviewDic.Values)
+                                {
+                                    lCritics.Add(re.ReviewerName);
+                                }
+
+                                critics = json.Serialize(lCritics);
+                            }
+
+                            MovieSearchData movieSearchIndex = new MovieSearchData();
+                            movieSearchIndex.Id = movie.RowKey;
+                            movieSearchIndex.Title = movie.Name;
+                            movieSearchIndex.Type = movie.Genre;
+                            movieSearchIndex.TitleImageURL = posterUrl;
+                            movieSearchIndex.UniqueName = movie.UniqueName;
+                            movieSearchIndex.Description = movie.Casts;
+                            movieSearchIndex.Critics = critics;
+                            movieSearchIndex.Link = movie.UniqueName;
+                            LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
+                            #endregion
+                        }
+                    }
+                    catch (Exception)
+                    {
+                        Debug.WriteLine("Failed Movie:" + movie.UniqueName);
+                    }
+                }
+
+                //tblMgr.UpdateMoviesById(movies.Values);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void RebuildLucene()
+        {
 
         }
 

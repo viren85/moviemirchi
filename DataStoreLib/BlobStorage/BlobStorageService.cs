@@ -107,6 +107,19 @@ namespace DataStoreLib.BlobStorage
             }
         }
 
+        public List<string> GetAllFiles(List<string> blobFiles, string pattern)
+        {
+            try
+            {
+                return blobFiles.FindAll(m => m.Contains(pattern));
+            }
+            catch (Exception ex)
+            {
+                Console.Write(ex.Message);
+                return null;
+            }       
+        }
+
         public string UploadXMLFileOnBlob(string containerName, string fileName, string fileText)
         {
             try
