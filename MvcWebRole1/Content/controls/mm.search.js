@@ -60,7 +60,6 @@ function getItems(query) {
 
     var searchPath = "../../AutoComplete/AutoCompleteMovies?query=" + query;
     CallHandler(searchPath, function (response) {
-
         if (response) {
             if ($("#targetUL")) {
                 //If the UL element is not null or undefined we are clearing it, so that the result is appended in new UL every next time.
@@ -69,6 +68,7 @@ function getItems(query) {
 
             //assigning json response data to local variable. It is basically list of values.
             var data = response;
+            
 
             if (!data || !data.length || data.length < 1) {
                 $("#search-results").append($("<ul id='targetUL' style='display: block'><li style='height: 35px'>No results found for '" + $("#home-search").val() + "'.</li></ul>"));
@@ -130,7 +130,7 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.GetItems = function (singleEntity) {
         if (singleEntity) {
             var key = this.GetSearchQuery();
-
+            
             if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
 
                 // This is movie entity hence show the movie item
@@ -146,12 +146,12 @@ var SearchResults = function (searchResults) {
                 // This is genre entity hence show the genre item
                 this.GetGenreItem(singleEntity);
             }
-
+            
             if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
 
                 // This is artist entity hence show the artist item
                 this.GetArtistItem(singleEntity);
-
+                
                 if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetMovieItem(singleEntity, true, "artists");
                 }
@@ -201,6 +201,7 @@ var SearchResults = function (searchResults) {
 
         var pageName = new Util().GetPageName();
         var artistName = this.GetMatchArtistName(singleEntity);
+
         var that = this;
         artistName = artistName.filter(function (ar) {
             return !that.IsEntityAdded(ar);
@@ -311,11 +312,14 @@ var SearchResults = function (searchResults) {
     };
 
     SearchResults.prototype.FilterLambda = function (query) {
+
         return function (a) {
+            
             if (a) {
                 a = a.toLowerCase();
+                
                 if (a.indexOf(query) !== -1) {
-
+                    
                     // 'ali ' should match ' sajid ali khan'
                     // 'deep ' should match 'deep banarjee' and not match 'deepika padukone'
                     // As a side-effect 'a b' will now match 'xxa bxx' -> which is low-pri thus ok
@@ -336,15 +340,14 @@ var SearchResults = function (searchResults) {
     };
 
     SearchResults.prototype.GetMatchArtistName = function (singleEntity) {
-
         var query = this.GetSearchQuery();
         var artists = JSON.parse(singleEntity.Description);
         var match = artists.filter(SearchResults.prototype.FilterLambda(query));
+        
         return $.unique(match);
     };
 
     SearchResults.prototype.GetMatchCriticsName = function (singleEntity) {
-
         var query = this.GetSearchQuery();
         var critics = JSON.parse(singleEntity.Critics);
         var match = critics.filter(SearchResults.prototype.FilterLambda(query));
@@ -383,10 +386,10 @@ var SearchResults = function (searchResults) {
             img.attr("src", PUBLIC_BLOB_URL + singleEntity.TitleImageURL);
         } else if (type === "artist" || type === "critics") {
             if (type == "artist") {
-                img.attr("src", PUBLIC_BLOB_URL + title.toLowerCase().replace(" ", "-") + "-poster-1.jpg");
+                img.attr("src", PUBLIC_BLOB_URL + title.toLowerCase().split(' ').join("-") + "-poster-1.jpg");
             }
             else if (type == "critics") {
-                img.attr("src", PUBLIC_BLOB_URL + title.toLowerCase() + ".jpg");
+                img.attr("src", PUBLIC_BLOB_URL + title.toLowerCase().split(' ').join("-") + ".jpg");
             }
             else {
                 img.removeAttr("class");
