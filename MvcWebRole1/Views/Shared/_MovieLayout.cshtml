@@ -734,6 +734,25 @@
                 //$(".movie-container").scrollTo(target, { duration: "slow", offsetTop: "150" });
             });
         });
+
+        $(window).resize(function () {
+            var width = $(document).width() - 100;
+            var listCounter = 0;
+            var possibleLinks = Math.floor( width / 160);
+            
+            $("ul.top-nav-bar").find("li").each(function () {
+                if (listCounter >= possibleLinks) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+
+                listCounter++;
+            });
+            
+        });
+        
     });
 
     function toPascalCase(str) {
