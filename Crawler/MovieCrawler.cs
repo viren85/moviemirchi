@@ -98,6 +98,8 @@ namespace Crawler
                     poster = JsonConvert.DeserializeObject<List<string>>(movie.Posters) as List<string>;
                 }
 
+                if (movie.Posters.Trim() == "[]" || movie.Posters.Trim() == "")
+                    poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
 
                 movie.Casts = JsonConvert.SerializeObject(cast);
                 if (isCrawlPosters)
