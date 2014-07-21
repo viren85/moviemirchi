@@ -33,7 +33,6 @@
 
     @Scripts.Render("~/Content/jquery-1.9.1.js")
 
-    <script src="http://ajax.aspnetcdn.com/ajax/jquery/jquery-1.9.0.min.js" type="text/javascript"></script>
     @Styles.Render("~/Content/prettyPhoto.css")
     @Scripts.Render("~/Content/jquery.prettyPhoto.js")
 
@@ -59,6 +58,43 @@
         ga('create', 'UA-52983576-1', 'auto');
         ga('send', 'pageview');
 
+    </script>
+    <script>
+        var trackNewsLink = function (url) {
+            ga('send', 'event', 'news', 'click', url, {
+                'hitCallback':
+                  function () {
+                      //document.location = url;
+                  }
+            });
+        }
+
+        var trackReviewLink = function (url) {
+            ga('send', 'event', 'review', 'click', url, {
+                'hitCallback':
+                  function () {
+                      //document.location = url;
+                  }
+            });
+        }
+
+        var trackVideoLink = function (url) {
+            ga('send', 'event', 'video', 'click', url, {
+                'hitCallback':
+                  function () {
+                      //document.location = url;
+                  }
+            });
+        }
+
+        var trackSongLink = function (url) {
+            ga('send', 'event', 'song', 'click', url, {
+                'hitCallback':
+                  function () {
+                      //document.location = url;
+                  }
+            });
+        }
     </script>
 
 </head>

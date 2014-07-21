@@ -246,11 +246,13 @@
         $(".nav-bar-container").append(GetNavBar(json));
 
         var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        if (name.indexOf("?") > -1)
+            name = name.substring(0, name.indexOf("?"));
         LoadSingleMovie(name);
         //$(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
-        $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60", "movie_news"));
-        $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30", "movie_tweets"));
-        $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager", "movie_review"));
+        $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+        $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
         LoadTweets("movie", name);
         //console.log("3:" + $(".link-container .songs").css("display"));
     });

@@ -264,6 +264,7 @@ var SongList = function (videos, type) {
 
         var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL).attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
             $(document).scrollTop(0);
+            trackSongLink(videos[i].YoutubeURL);
             DisplayModal($(this).attr("video-link"));
         });
 
@@ -323,6 +324,7 @@ var TrailerList = function (videos, type) {
 
         var playImg = $("<img/>").attr("class", "song-play").attr("video-link", videos[i].YoutubeURL).attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
             $(document).scrollTop(0);
+            trackVideoLink(videos[i].YoutubeURL);
             DisplayModal();
         });
 

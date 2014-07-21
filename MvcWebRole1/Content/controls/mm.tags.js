@@ -47,20 +47,21 @@ var Tags = function (tagJsonString) {
 
     Tags.prototype.InitTagCloud = function () {
 
+        var pageName = new Util().GetPageName();
         var getReviewerLink = function (text, link) {
-            return "<a href='/movie/reviewer/" + link + "'>" + text + "</a>"
+            return "<a href='/movie/reviewer/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getMovieLink = function (text, link) {
-            return "<a href='/movie/" + link + "'>" + text + "</a>"
+            return "<a href='/movie/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getArtistLink = function (text, link) {
-            return "<a href='/Artists/" + link + "'>" + text + "</a>"
+            return "<a href='/Artists/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getGenreLink = function (text, link) {
-            return "<a href='/Genre/" + link + "'>" + text + "</a>"
+            return "<a href='/Genre/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getLink = function (list) {

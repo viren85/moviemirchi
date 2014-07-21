@@ -122,7 +122,7 @@ var NewsControl = function (selector, data) {
                             "</div>" +
                         "</div>" +
                         "<div class='news-author news-link'>" +
-                            "<a target=\"_new\" href=\"" + entry.Link + "\">" +
+                            "<a target=\"_new\" href=\"" + entry.Link + "\" onclick=\"trackNewsLink('" + entry.Link + "');\">" +
                                 (entry.Source ? entry.Source : "Link") +
                             "</a>" +
                         "</div>" +

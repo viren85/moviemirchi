@@ -29,7 +29,7 @@
                                 "<div class=\"arrow_box\">" +
                                     "<div class=\"review-content\">" +
                                         "<blockquote class=\"quote\">" + reviewText + "</blockquote>" +
-                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\">More...</a></div>" +
+                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\"  onclick=\"trackReviewLink('" + review.OutLink + "');\">More...</a></div>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +

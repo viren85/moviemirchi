@@ -17,12 +17,13 @@
         $(".nav-bar-container").append(GetNavBar(json));
 
         var genreType = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-
+        if (name.indexOf("?") > -1)
+            name = name.substring(0, name.indexOf("?"));
         genreType = toPascalCase(genreType);
 
-        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + genreType, "movie-list", "now-pager", null, "genre_nowplaying"));
-        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + genreType, "upcoming-movie-list", "upcoming-pager", null, "genre_upcoming"));
-        $(".movies").append(GetTubeControl("Other Movies By Genre - " + genreType, "others-movie-list", "other-pager", null, "genre_other"));
+        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + genreType, "movie-list", "now-pager"));
+        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + genreType, "upcoming-movie-list", "upcoming-pager"));
+        $(".movies").append(GetTubeControl("Other Movies By Genre - " + genreType, "others-movie-list", "other-pager"));
 
         var apiPath = "../api/GenreMovies?type=" + genreType;
         CallHandler(apiPath, PopulateMovies);
@@ -90,13 +91,13 @@
                     }
 
                     // movie-list PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
-                    /*PreparePaginationControl($(".movie-list", { pagerContainerId: "now-pager", tileWidth: "550" }));
+                    PreparePaginationControl($(".movie-list", { pagerContainerId: "now-pager", tileWidth: "550" }));
                     PreparePaginationControl($(".upcoming-movie-list", { pagerContainerId: "upcoming-pager", tileWidth: "550" }));
-                    PreparePaginationControl($(".others-movie-list", { pagerContainerId: "other-pager", tileWidth: "550" }));*/
+                    PreparePaginationControl($(".others-movie-list", { pagerContainerId: "other-pager", tileWidth: "550" }));
 
-                    PreparePaginationControl($(".movie-list"));
+                    /*PreparePaginationControl($(".movie-list"));
                     PreparePaginationControl($(".upcoming-movie-list"));
-                    PreparePaginationControl($(".others-movie-list"));
+                    PreparePaginationControl($(".others-movie-list"));*/
                 }
             }
         } catch (e) {

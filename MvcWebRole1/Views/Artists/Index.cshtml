@@ -44,6 +44,9 @@
             name = name.substring(0, prettyPhoto);
         }
 
+        if (name.indexOf("?") > -1)
+            name = name.substring(0, name.indexOf("?"));
+
         var artist = name.split('-').join(' ');
 
         var fileName = "/Images/Loading.GIF";

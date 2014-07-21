@@ -60,4 +60,12 @@
         }
         return "";
     }
+
+    Util.prototype.GetPageName = function () {
+        var array = document.location.href.split('/');
+        if (array != null && array.length > 1 && array[array.length - 1] != "")
+            return array[array.length - 2];
+        else
+            return "Home";
+    }
 }
