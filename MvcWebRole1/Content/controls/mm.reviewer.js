@@ -12,7 +12,7 @@ var ShowReviews = function (data) {
         }
         else {
             if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
-                $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager", null, "review_list"));
+                $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager"));
 
                 var fileName = "/Images/user.png";
                 var name = result.Name;
@@ -60,9 +60,9 @@ var ShowReviewsByReviewer = function (review) {
     // when movies does not have any associated reivews
     //if (review != "undefined" && review != null && review.length > 0) {
 
-    $(".movies").append(GetTubeControl("Latest Reviews", "review-list-now-playing", "now-pager", null, "now_playing"));
-    /*$(".movies").append(GetTubeControl("Upcoming", "review-list-upcoming", "upcoming-pager", null, "up_coming"));*/
-    $(".movies").append(GetTubeControl("Archived Reviews", "review-list-other", "other-pager", null, "other_movie"));
+    $(".movies").append(GetTubeControl("Latest Reviews", "review-list-now-playing", "now-pager"));
+    /*$(".movies").append(GetTubeControl("Upcoming", "review-list-upcoming", "upcoming-pager"));*/
+    $(".movies").append(GetTubeControl("Archived Reviews", "review-list-other", "other-pager"));
 
     if (review != "undefined" && review != null) {
         $(".link-container").show();
@@ -78,9 +78,9 @@ var ShowReviewsByReviewer = function (review) {
     }
 
     /*Pagination for movies */
-    PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "550" });
+    PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "500" });
     /*PreparePaginationControl($(".review-list-upcoming"), { pagerContainerId: "upcoming-pager", tileWidth: "550" });*/
-    PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "550" });
+    PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "500" });
 
     if (!hasArchivedReviews) {
         $("#other_movie").hide();

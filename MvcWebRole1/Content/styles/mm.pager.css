@@ -77,7 +77,7 @@
     width: 88%;
     text-align: center;
 }
-#review-pager{
+#review-pager,#genre-now,#genre-other,#genre-upcoming{
     float: left;
     width: 88%;
     margin-top: 20px;

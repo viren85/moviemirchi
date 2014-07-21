@@ -14,7 +14,7 @@ var ShowMovie = function (data) {
         }
         else {
             if (result.Movie != undefined) {
-                $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager", null, "movie_list"));
+                $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
                 PopulatingMovies(result.Movie, "movie-list");
 

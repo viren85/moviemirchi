@@ -13,23 +13,23 @@
     var indexer = 0;
     $(document).ready(function () {
         var json = [
-                    { "title": "Now Playing", "section": "now_playing" },
-                    { "title": "Upcoming Releases", "section": "up_coming" },
-                    { "title": "News", "section": "news" },
-                    { "title": "Tweets", "section": "tweets" },
-                    { "title": "Critics", "section": "top_critics" },
-                    { "title": "Trending", "section": "trending" }
+                    { "title": "Now Playing", "section": "movie-list-tube" },
+                    { "title": "Upcoming Releases", "section": "upcoming-movie-list-tube" },
+                    { "title": "News", "section": "news-container-tube" },
+                    { "title": "Tweets", "section": "tweets-tube" },
+                    { "title": "Critics", "section": "critics-container-tube" },
+                    { "title": "Trending", "section": "tags-container-tube" }
         ];
 
         $(".nav-bar-container").append(GetNavBar(json));
 
 
-        $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager", null, "now_playing"));
-        $(".movies").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager", null, "up_coming"));
-        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60", "news"));
-        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30", "tweets"));
-        $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60", "top_critics"));
-        $(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30", "trending"));
+        $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
+        $(".movies").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
+        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+        $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
+        $(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30"));
         LoadCurrentMovies();
         LoadUpcomingMovies();
         LoadTweets();

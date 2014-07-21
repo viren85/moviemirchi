@@ -28,11 +28,11 @@
     $(document).ready(function () {
 
         var json = [
-                    { "title": "Artist", "section": "artist_detail" },
-                    { "title": "Movie", "section": "artist_movies" },
-                    { "title": "Photos", "section": "artist_photo" },
-                    { "title": "News", "section": "artist_news" },
-                    { "title": "Tweets", "section": "artist_tweet" }
+                    { "title": "Artist", "section": "artist_detail-tube" },
+                    { "title": "Movie", "section": "movie-list-tube" },
+                    { "title": "Photos", "section": "movie-poster-details-tube" },
+                    { "title": "News", "section": "news-container-tube" },
+                    { "title": "Tweets", "section": "tweets-tube" }
         ];
 
         $(".nav-bar-container").append(GetNavBar(json));
@@ -51,12 +51,12 @@
 
         var fileName = "/Images/Loading.GIF";
 
-        $("<div id=\"artist_detail\" class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
+        $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
         $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
-        $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager", null, "artist_movies"));
-        $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager", null, "artist_photo"));
-        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60", "artist_news"));
-        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30", "artist_tweet"));
+        $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
+        $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
+        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
 
         //InitBio();
         var apiPath = "../api/ArtistMovies?type=movie&name=" + artist;

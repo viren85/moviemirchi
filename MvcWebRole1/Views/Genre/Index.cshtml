@@ -9,9 +9,9 @@
     $(document).ready(function () {
 
         var json = [
-                    { "title": "Now Playing", "section": "genre_nowplaying" },
-                    { "title": "Upcoming", "section": "genre_upcoming" },
-                    { "title": "Others", "section": "genre_other" }
+                    { "title": "Now Playing", "section": "movie-list-tube" },
+                    { "title": "Upcoming", "section": "upcoming-movie-list-tube" },
+                    { "title": "Others", "section": "others-movie-list-tube" }
         ];
 
         $(".nav-bar-container").append(GetNavBar(json));
@@ -21,9 +21,9 @@
             name = name.substring(0, name.indexOf("?"));
         genreType = toPascalCase(genreType);
 
-        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + genreType, "movie-list", "now-pager"));
-        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + genreType, "upcoming-movie-list", "upcoming-pager"));
-        $(".movies").append(GetTubeControl("Other Movies By Genre - " + genreType, "others-movie-list", "other-pager"));
+        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + genreType, "movie-list", "genre-now"));
+        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + genreType, "upcoming-movie-list", "genre-upcoming"));
+        $(".movies").append(GetTubeControl("Other Movies By Genre - " + genreType, "others-movie-list", "genre-other"));
 
         var apiPath = "../api/GenreMovies?type=" + genreType;
         CallHandler(apiPath, PopulateMovies);
@@ -39,14 +39,20 @@
                 $(".movie-list").html(data.UserMessage);
             }
             else {
+                var releaseCounter = 0;
                 if (data != null && data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].State == "now playing" || data[i].State == "now-playing")
                             var list = PopulatingMovies(data[i], "movie-list");
                         else if (data[i].State == "upcoming")
                             var list = PopulatingMovies(data[i], "upcoming-movie-list");
-                        else if (data[i].State == "" || data[i].State == "released")
-                            var list = PopulatingMovies(data[i], "others-movie-list");
+                        else if (data[i].State == "" || data[i].State == "released") {
+                            // It creates 20+ pages for current data. I think we shall have some restriction
+                            if (releaseCounter < 25) {
+                                var list = PopulatingMovies(data[i], "others-movie-list");
+                                releaseCounter++;
+                            }
+                        }
                     }
 
                     /*The image width/height shall be calculated once the image is fully loaded*/
@@ -91,9 +97,9 @@
                     }
 
                     // movie-list PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
-                    PreparePaginationControl($(".movie-list", { pagerContainerId: "now-pager", tileWidth: "550" }));
-                    PreparePaginationControl($(".upcoming-movie-list", { pagerContainerId: "upcoming-pager", tileWidth: "550" }));
-                    PreparePaginationControl($(".others-movie-list", { pagerContainerId: "other-pager", tileWidth: "550" }));
+                    PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
+                    PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
+                    PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
 
                     /*PreparePaginationControl($(".movie-list"));
                     PreparePaginationControl($(".upcoming-movie-list"));

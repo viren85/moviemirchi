@@ -205,15 +205,15 @@
     }
 </style>
 
-<div class="movies">
+<div class="movies movie-tube">
     <div class="movie-content"></div>
-    <div class="link-container"><div id="mov_poster" class="section-title large-fonts">Posters</div></div>
+    <div class="link-container poster-tube"><div id="mov_poster" class="section-title large-fonts">Posters</div></div>
     <div class="movie-details">
         <div class="movie-poster-details"><div id="posters-pager"></div></div>
     </div>
     <div class="link-container songs"><div class="section-title large-fonts">Songs</div></div>
     <div class="movie-songs"><div id="songs-pager"></div></div>
-    <div class="link-container trailers" style="float: left;">
+    <div class="link-container trailers trailer-tube" style="float: left;">
         <div class="section-title large-fonts">Trailers</div>
     </div><div class="movie-trailer"><div id="trailer-pager"></div></div>
     <div class="review-details" id="movie_reviews"></div>
@@ -234,13 +234,13 @@
     $(document).ready(function () {
 
         var json = [
-                    { "title": "Movie", "section": "movie_list" },
-                    { "title": "Posters", "section": "mov_poster" },
-                    { "title": "Songs", "section": "movie_songs" },
-                    { "title": "Trailers", "section": "movie_trailers" },
-                    { "title": "Reviews", "section": "movie_reviews" },
-                    { "title": "News", "section": "movie_news" },
-                    { "title": "Tweets", "section": "movie_tweets" }
+                    { "title": "Movie", "section": "movie-list-tube" },
+                    { "title": "Posters", "section": "poster-tube" },
+                    { "title": "Songs", "section": "songs-tube" },
+                    { "title": "Trailers", "section": "trailer-tube" },
+                    { "title": "Reviews", "section": "movie-review-details-tube" },
+                    { "title": "News", "section": "news-container-tube" },
+                    { "title": "Tweets", "section": "tweets-tube" }
         ];
 
         $(".nav-bar-container").append(GetNavBar(json));
