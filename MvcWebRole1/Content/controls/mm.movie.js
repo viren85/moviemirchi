@@ -261,14 +261,18 @@ var SongList = function (videos, type) {
     var songHasLink = false;
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
-        
-        var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL.trim() + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
+        var url = "";
+        if (videos[i].YoutubeURL != null && videos[i].YoutubeURL != "undefined") {
+            url = videos[i].YoutubeURL.trim();
+        }
+
+        var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
             $(document).scrollTop(0);
             trackSongLink(videos[i].YoutubeURL);
             DisplayModal($(this).attr("video-link"));
         });
 
-        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", videos[i].YoutubeURL.trim() + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
+        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
             $(document).scrollTop(0);
             DisplayModal();
         });
@@ -316,13 +320,17 @@ var TrailerList = function (videos, type) {
     var j = 0;
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
+        var url = "";
+        if (videos[i].YoutubeURL != null && videos[i].YoutubeURL != "undefined") {
+            url = videos[i].YoutubeURL.trim();
+        }
 
-        var li = $("<li/>").attr("class", "song").attr("video-link", videos[i].YoutubeURL.trim() + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].Title).click(function () {
+        var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].Title).click(function () {
             $(document).scrollTop(0);
             DisplayModal($(this).attr("video-link"));
         });
 
-        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", videos[i].YoutubeURL.trim() + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
+        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
             $(document).scrollTop(0);
             trackVideoLink(videos[i].YoutubeURL);
             DisplayModal();
