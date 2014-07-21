@@ -90,6 +90,7 @@ namespace MvcWebRole2.Controllers
                     //delete Entry in lucene search index
                     // Fix following method call - What shall be other param? 
                     LuceneSearch.ClearLuceneIndexRecord(movie.MovieId, "Id");
+                    LuceneSearch.ClearLuceneIndexRecord(movie.UniqueName, "UniqueName");
 
                     string posterUrl = "default-movie.jpg";
                     string critics = string.Empty;
