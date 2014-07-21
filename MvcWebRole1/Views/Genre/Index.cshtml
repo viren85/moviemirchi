@@ -16,16 +16,16 @@
 
         $(".nav-bar-container").append(GetNavBar(json));
 
-        var genreType = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
+        var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
         if (name.indexOf("?") > -1)
             name = name.substring(0, name.indexOf("?"));
-        genreType = toPascalCase(genreType);
+        name = toPascalCase(name);
 
-        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + genreType, "movie-list", "genre-now"));
-        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + genreType, "upcoming-movie-list", "genre-upcoming"));
-        $(".movies").append(GetTubeControl("Other Movies By Genre - " + genreType, "others-movie-list", "genre-other"));
+        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + name, "movie-list", "genre-now"));
+        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + name, "upcoming-movie-list", "genre-upcoming"));
+        $(".movies").append(GetTubeControl("Other Movies By Genre - " + name, "others-movie-list", "genre-other"));
 
-        var apiPath = "../api/GenreMovies?type=" + genreType;
+        var apiPath = "../api/GenreMovies?type=" + name;
         CallHandler(apiPath, PopulateMovies);
         LoadNews();
         LoadTweets();
