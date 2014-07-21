@@ -1154,12 +1154,26 @@ namespace MvcWebRole2.Controllers
 
                             string posterUrl = "default-movie.jpg";
                             string critics = string.Empty;
-
+                            string actor = string.Empty;
+                            List<string> actors = new List<string>();
                             if (!string.IsNullOrEmpty(movie.Posters))
                             {
                                 List<string> pList = json.Deserialize(movie.Posters, typeof(List<string>)) as List<string>;
                                 if (pList != null && pList.Count > 0)
                                     posterUrl = pList[pList.Count - 1];
+                            }
+
+                            if (!string.IsNullOrEmpty(movie.Casts))
+                            {
+                                List<Cast> aList = json.Deserialize(movie.Casts, typeof(List<Cast>)) as List<Cast>;
+                                if (aList != null)
+                                {
+                                    foreach (Cast cast in aList)
+                                        if (!string.IsNullOrEmpty(cast.name))
+                                            actors.Add(cast.name);
+                                }
+
+                                actor = json.Serialize(actors);
                             }
 
                             var reviewDic = tblMgr.GetReviewsByMovieId(movie.MovieId);
@@ -1182,7 +1196,7 @@ namespace MvcWebRole2.Controllers
                             movieSearchIndex.Type = movie.Genre;
                             movieSearchIndex.TitleImageURL = posterUrl;
                             movieSearchIndex.UniqueName = movie.UniqueName;
-                            movieSearchIndex.Description = movie.Casts;
+                            movieSearchIndex.Description = actor;
                             movieSearchIndex.Critics = critics;
                             movieSearchIndex.Link = movie.UniqueName;
                             LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
