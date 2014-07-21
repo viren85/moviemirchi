@@ -143,7 +143,7 @@ var PopulatePosters = function (images, movieName) {
             });
 
             var li = $("<li/>");
-            var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p] + "?lol=lol").attr("rel", "prettyPhoto[gallery]");
+            var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]");
 
             $(a).append(img);
             $(li).append(a);
