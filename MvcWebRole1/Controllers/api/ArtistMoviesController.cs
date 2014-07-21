@@ -71,7 +71,7 @@ namespace MvcWebRole1.Controllers.api
                             new
                             {
                                 Status = "Error",
-                                UserMessage = "Unable to get artist's details.",
+                                UserMessage = "Movie Mirchi is working on brief introduction about this artist, will be updated soon.",
                                 ActualError = "",
                             })
                         );
