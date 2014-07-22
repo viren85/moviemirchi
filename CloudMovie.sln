@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneSearchLibrarby", "Luc
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler", "Crawler\Crawler.csproj", "{7ABBD967-AD76-4EC6-B37F-7A4CD15CD123}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartMonkey", "SmartMonkey\SmartMonkey.csproj", "{98889880-CC0A-4CD5-9F51-433A8CBD6C3E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{7ABBD967-AD76-4EC6-B37F-7A4CD15CD123}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7ABBD967-AD76-4EC6-B37F-7A4CD15CD123}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7ABBD967-AD76-4EC6-B37F-7A4CD15CD123}.Release|Any CPU.Build.0 = Release|Any CPU
+		{98889880-CC0A-4CD5-9F51-433A8CBD6C3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{98889880-CC0A-4CD5-9F51-433A8CBD6C3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{98889880-CC0A-4CD5-9F51-433A8CBD6C3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{98889880-CC0A-4CD5-9F51-433A8CBD6C3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
