@@ -6,9 +6,7 @@
     });
 
     $(document).click(function () {
-        $(".home-search-bar .clear-search-bar").hide();
-        $("#search-results").hide();
-        $("#home-search").val("");
+        ClearSearchReults();
     });
 
     $("#home-search").keyup(function (e) {
@@ -55,6 +53,12 @@
         return false;
     });
 });
+
+function ClearSearchReults() {
+    $(".home-search-bar .clear-search-bar").hide();
+    $("#search-results").hide();
+    $("#home-search").val("");
+}
 
 function getItems(query) {
 

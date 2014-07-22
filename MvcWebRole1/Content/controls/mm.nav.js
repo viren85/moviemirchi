@@ -26,8 +26,10 @@ var GetNavBar = function (json) {
         if (e.originalEvent.detail > 0) {
             $(".nav-bar-container").slideUp();
         } else {
-            console.log('Up');
+            $(".nav-bar-container").slideDown();
         }
+
+        ClearSearchReults();
     });
 
     //IE, Opera, Safari
@@ -38,7 +40,7 @@ var GetNavBar = function (json) {
             $(".nav-bar-container").slideDown();
         }
 
-        //return false;
+        ClearSearchReults();
     });
 
     return list;
