@@ -109,7 +109,7 @@
                 }
             }
         } catch (e) {
-            $(".movie-list").html("Unable to get movies for artits.");
+            $(".movie-list").html("Movie Mirchi is gathering movies for this artist, will be updated soon.");
         }
     }
 
@@ -122,7 +122,11 @@
             else {
 
                 if (data != null) {
-                    $(".intro-text").html(data.Bio);
+                    if (data.Bio == "")
+                        $(".intro-text").html(data.UserMessage);
+                    else
+                        $(".intro-text").html(data.Bio);
+
                     var posters = JSON.parse(data.Posters);
 
                     if (posters != null && posters.length > 0) {
