@@ -146,6 +146,11 @@ namespace DataStoreLib.BlobStorage
         {
             try
             {
+                if (fileName.IndexOf("/") > -1)
+                {
+                    fileName = fileName.Substring(fileName.LastIndexOf("/") + 1);
+                }
+
                 CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
                 var blob = blobContainer.GetBlockBlobReference(fileName);
 
