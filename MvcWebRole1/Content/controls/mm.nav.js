@@ -23,10 +23,15 @@ var GetNavBar = function (json) {
     }
 
     $('html, body').bind('DOMMouseScroll', function (e) {
-        if (e.originalEvent.detail > 0) {
+        if ($(window).width() > 300) {
+            if (e.originalEvent.detail > 0) {
+                $(".nav-bar-container").slideUp();
+            } else {
+                $(".nav-bar-container").slideDown();
+            }
+        }
+        else {
             $(".nav-bar-container").slideUp();
-        } else {
-            $(".nav-bar-container").slideDown();
         }
 
         ClearSearchReults();
@@ -34,10 +39,15 @@ var GetNavBar = function (json) {
 
     //IE, Opera, Safari
     $('html, body').bind('mousewheel', function (e) {
-        if (e.originalEvent.wheelDelta < 0) {
+        if ($(window).width() > 300) {
+            if (e.originalEvent.wheelDelta < 0) {
+                $(".nav-bar-container").slideUp();
+            } else {
+                $(".nav-bar-container").slideDown();
+            }
+        }
+        else {
             $(".nav-bar-container").slideUp();
-        } else {
-            $(".nav-bar-container").slideDown();
         }
 
         ClearSearchReults();

@@ -96,7 +96,6 @@
             });
         }
     </script>
-
 </head>
 <body>
     <div class="movie-container">
@@ -107,9 +106,11 @@
             <div class="home-search-bar">
                 <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
                 <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
+                
                 <div class="search-button">Search</div>
                 <div id="search-results"></div>
             </div>
+            <div class="nav-options"></div>
             <div class="user-status">
                 <ul>
                     @if (Session["username"] != null)
@@ -717,40 +718,34 @@
         //setTimeout(function () { $(".footer").css("display", "block"); }, 3000);
         var height = $(document).height();
         $(".movie-panel").css("min-height", (height - 150) + "px");
-
-        // navigation in pages
-        $(".navbar").find(".nav").find("li").each(function () {
-            $(this).click(function () {
-
-                $(".navbar").find(".nav").find("li").each(function () {
-                    $(this).removeAttr("class");
-                });
-
-                $(this).attr("class", "active");
-                var target = $(this).find("a").attr("href");
-                //window.scrollBy(300, 300);
-                //Giving error need to a look over here
-                //$("body").scrollTo(target, { duration: "slow", offsetTop: "150" });
-                //$(".movie-container").scrollTo(target, { duration: "slow", offsetTop: "150" });
-            });
+        $(".nav-options").click(function () {
+                $("ul.top-nav-bar li").show();
+                $(".nav-bar-container").show();
         });
 
         $(window).resize(function () {
-            var width = $(document).width() - 100;
-            var listCounter = 0;
-            var possibleLinks = Math.floor( width / 160);
             
-            $("ul.top-nav-bar").find("li").each(function () {
-                if (listCounter >= possibleLinks) {
-                    $(this).hide();
-                }
-                else {
-                    $(this).show();
-                }
+            if ($(window).width() > 300) {
+                var width = $(document).width() - 100;
+                var listCounter = 0;
+                var possibleLinks = Math.floor(width / 200);
+                
+                $("ul.top-nav-bar").find("li").each(function () {
+                    if (listCounter >= possibleLinks) {
+                        $(this).hide();
+                    }
+                    else {
+                        $(this).show();
+                    }
 
-                listCounter++;
-            });
-            
+                    listCounter++;
+                });
+            }
+            else {
+                if ($(".nav-bar-container").css("display") == "block") {
+                    $("ul.top-nav-bar li").show();
+                }
+            }
         });
         
     });
