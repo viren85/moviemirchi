@@ -9,8 +9,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{CC5FD16D-436D-48AD-A40C-5A424C6E3E79}") = "CloudMovie", "CloudMovie\CloudMovie.ccproj", "{B052414F-2F75-4768-9BD9-63D3D83E411C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98889880-CC0A-4CD5-9F51-433A8CBD6C3E} = {98889880-CC0A-4CD5-9F51-433A8CBD6C3E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApiRole", "MvcWebRole1\WebApiRole.csproj", "{1F996680-E16A-4BB3-BD9B-561F45F348CA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{98889880-CC0A-4CD5-9F51-433A8CBD6C3E} = {98889880-CC0A-4CD5-9F51-433A8CBD6C3E}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataStoreLib", "DataStoreLib\DataStoreLib.csproj", "{85319D65-37E0-49B0-BBB8-6143CDA747C6}"
 EndProject
