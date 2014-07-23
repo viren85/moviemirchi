@@ -6,9 +6,7 @@
     });
 
     $(document).click(function () {
-        $(".home-search-bar .clear-search-bar").hide();
-        $("#search-results").hide();
-        $("#home-search").val("");
+        ClearSearchReults();
     });
 
     $("#home-search").keyup(function (e) {
@@ -56,6 +54,12 @@
     });
 });
 
+function ClearSearchReults() {
+    $(".home-search-bar .clear-search-bar").hide();
+    $("#search-results").hide();
+    $("#home-search").val("");
+}
+
 function getItems(query) {
 
     var searchPath = "../../AutoComplete/AutoCompleteMovies?query=" + query;
@@ -68,7 +72,7 @@ function getItems(query) {
 
             //assigning json response data to local variable. It is basically list of values.
             var data = response;
-            
+
 
             if (!data || !data.length || data.length < 1) {
                 $("#search-results").append($("<ul id='targetUL' style='display: block'><li style='height: 35px'>No results found for '" + $("#home-search").val() + "'.</li></ul>"));
@@ -130,28 +134,27 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.GetItems = function (singleEntity) {
         if (singleEntity) {
             var key = this.GetSearchQuery();
-            
-            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
 
+            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
             } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < MaxEntries) {
-
                 // This is critics entity hence show the critics item
                 if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetCriticsItem(singleEntity);
                 }
             } else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
-
                 // This is genre entity hence show the genre item
-                this.GetGenreItem(singleEntity);
+                if (!this.IsEntityAdded(this.GetGenre(singleEntity)))
+                    this.GetGenreItem(singleEntity);
+                else
+                    this.GetMovieItem(singleEntity, true, "genre");
             }
-            
-            if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
 
+            if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
                 // This is artist entity hence show the artist item
                 this.GetArtistItem(singleEntity);
-                
+
                 if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetMovieItem(singleEntity, true, "artists");
                 }
@@ -177,7 +180,7 @@ var SearchResults = function (searchResults) {
                     }
                     break;
                 case "genre":
-                    $(divTitleDesc).html("<span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "Genre") + "</span>");
+                    $(divTitleDesc).html($(divTitleDesc).html() + "<span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "Genre") + "</span>");
                     break;
             }
         }
@@ -269,7 +272,6 @@ var SearchResults = function (searchResults) {
 
             if (!this.IsEntityAdded(gen)) {
                 entityList.push(gen);
-
                 // add list item in search result
                 var li = $("<li>");
                 var divTitleDesc = $("<div>");
@@ -297,7 +299,7 @@ var SearchResults = function (searchResults) {
         $(divTitleDesc).attr("class", "search-result-desc");
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
 
-        $(anchor).attr("href", "/Genre/" + singleEntity.Link).attr("target", "_blank");
+        $(anchor).attr("href", "/Movie/" + singleEntity.Link).attr("target", "_blank");
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
@@ -314,12 +316,12 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.FilterLambda = function (query) {
 
         return function (a) {
-            
+
             if (a) {
                 a = a.toLowerCase();
-                
+
                 if (a.indexOf(query) !== -1) {
-                    
+
                     // 'ali ' should match ' sajid ali khan'
                     // 'deep ' should match 'deep banarjee' and not match 'deepika padukone'
                     // As a side-effect 'a b' will now match 'xxa bxx' -> which is low-pri thus ok
@@ -343,7 +345,7 @@ var SearchResults = function (searchResults) {
         var query = this.GetSearchQuery();
         var artists = JSON.parse(singleEntity.Description);
         var match = artists.filter(SearchResults.prototype.FilterLambda(query));
-        
+
         return $.unique(match);
     };
 

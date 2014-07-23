@@ -1,5 +1,5 @@
 ﻿function LoadNews() {
-    var newsPath = "../api/News?start=0&page=20";
+    var newsPath = "/api/News?start=0&page=20";
     CallHandler(newsPath, ShowNews);
 }
 
