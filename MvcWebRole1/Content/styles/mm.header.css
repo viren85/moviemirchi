@@ -25,7 +25,7 @@
         max-width: 200px;
         height: 7%;
     }
-
+    .nav-options{display: none;}
 .home-search-bar {
     position: absolute;
     left: 30%;
@@ -237,16 +237,33 @@
 }
 
 @media screen and (max-width: 320px) {
-    .logo img {
-        width: 35%;
-        height: 35px;
-    }
+    .logo {display: none;}
 
     .home-search-bar {
-        width: 50%;
-        left: 40%;
+        width: 80%;
+        left: 5%;
     }
-
+    .nav-options {
+        float: right;
+        margin-top: 25px;
+        margin-right: 5px;
+	    width: 0; 
+	    height: 0; 
+	    border-left: 10px solid transparent;
+	    border-right: 10px solid transparent;
+	    border-top: 10px solid #333;
+        display: block;
+    }
+    .nav-bar-container{ 
+        position: fixed !important;
+        width: 150px !important;
+        float: right !important;
+        right: 0px;
+        opacity: 0.98;
+        display: none;
+    }
+    ul.top-nav-bar li { border-right: none !important; text-align: left !important; padding: 5px !important; border-bottom: 1px solid #368CC1; }
+    .top-nav-bar { max-height: 180px !important; margin: 0px !important; }
         .home-search-bar input {
             width: 100%;
         }
