@@ -39,7 +39,7 @@
         cursor: pointer;
     }
 
-.movie-list, .news-container, .critics-container, .upcoming-movie-list, others-movie-list {
+.movie-list, .news-container, .critics-container, .upcoming-movie-list, .others-movie-list {
     float: left;
     /*margin-left: 7%;*/
     width: 93%;
