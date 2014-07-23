@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
 namespace SmartMonkey
 {
@@ -41,27 +43,38 @@ namespace SmartMonkey
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Starting");
 
-            foreach (var test in this.validationList)
-            {
-                string url = this.baseurl + test.Url.TrimStart('/');
-                var client = new WebClient();
-                client.DownloadStringCompleted += (sender, e) =>
-                {
-                    if (!e.Cancelled && e.Error == null)
+            var tasks =
+                this.validationList.Select(test =>
+                    Task.Factory.StartNew(() =>
                     {
-                        string data = (string)e.Result;
-                        bool res = test.Validate(data);
-                        ReportResult(test, res, data);
-                    }
-                    else
-                    {
-                        ReportResult(test, false, e.Error.ToString());
-                    }
-                };
+                        string url = this.baseurl + test.Url.TrimStart('/');
+                        var client = new WebClient();
+                        client.DownloadStringCompleted += (sender, e) =>
+                        {
+                            if (!e.Cancelled && e.Error == null)
+                            {
+                                string data = (string)e.Result;
+                                bool res = test.Validate(data);
+                                ReportResult(test, res);
+                            }
+                            else
+                            {
+                                ReportResult(test, false, e.Error.HResult + " - " + e.Error.Message);
+                            }
+                        };
 
-                var task = client.DownloadStringTaskAsync(url);
-                task.Wait();
-            }
+                        var downloadTask = client.DownloadStringTaskAsync(url);
+                        try
+                        {
+                            downloadTask.Wait();
+                        }
+                        catch (AggregateException)
+                        {
+                            // We must have handled and reported this error earlier
+                        }
+                    }));
+
+            Task.WaitAll(tasks.ToArray());
         }
 
         public void StopJumping()
@@ -78,6 +91,11 @@ namespace SmartMonkey
                 res ? "Passed" : "Failed",
                 test.Name,
                 test.Url);
+            if (!string.IsNullOrWhiteSpace(data))
+            {
+                Console.ForegroundColor = ConsoleColor.Magenta;
+                Console.WriteLine("\t{0}", data);
+            }
         }
     }
 }
