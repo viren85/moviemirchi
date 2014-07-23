@@ -104,6 +104,11 @@
                     /*PreparePaginationControl($(".movie-list"));
                     PreparePaginationControl($(".upcoming-movie-list"));
                     PreparePaginationControl($(".others-movie-list"));*/
+                    $(window).resize(function () {
+                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
+                        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
+                        PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
+                    });
                 }
             }
         } catch (e) {
