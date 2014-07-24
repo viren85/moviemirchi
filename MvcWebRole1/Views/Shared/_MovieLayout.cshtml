@@ -103,6 +103,9 @@
             <div class="logo">
                 <a href="/Home" title="Movie Mirchi Home"><img src='/Images/logo.png' /></a>
             </div>
+            <div class="small-logo">
+                <a href="/Home" title="Movie Mirchi Home"><img src='/Images/RedChilli.png' /></a>
+            </div>
             <div class="home-search-bar">
                 <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
                 <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
@@ -698,6 +701,7 @@
 <script type="text/javascript" src="/Content/movie.core.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.tube.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.pager.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.mobile.pager.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.tile.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.news.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.rate.js"></script>
@@ -718,6 +722,7 @@
         //setTimeout(function () { $(".footer").css("display", "block"); }, 3000);
         var height = $(document).height();
         $(".movie-panel").css("min-height", (height - 150) + "px");
+        
         $(".nav-options").click(function () {
                 $("ul.top-nav-bar li").show();
                 $(".nav-bar-container").show();

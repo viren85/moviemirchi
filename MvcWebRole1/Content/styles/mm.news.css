@@ -70,9 +70,9 @@
 }*/
 
 .news-left, .news-right {
-    width: 48%;
+    width: 46%;
     float: left;
-    min-width: 360px;
+    min-width: 270px;
     max-width: 360px;
 }
 
@@ -91,5 +91,9 @@
 @media screen and (max-width: 320px) {
     .news-right {
         display: none;
+    }
+    .news-container .news-content-text .news-right-content {
+        width: 46%;
+        max-height: 100px;
     }
 }

@@ -79,11 +79,12 @@
 @media screen and (max-width: 320px) {
 
     .width60, .width30 {
-        width: 100%;
+        width: 75%;
     }
 
     .tags-container {
         /*margin-left: 7%;*/
-        width: 100%;
+        width: 75%;
+        min-width: 260px;
     }
 }

@@ -1,6 +1,7 @@
 ﻿.header {
     max-height: 65px;
     height: 10%;
+    min-height: 65px;
     width: 100%;
     position: fixed;
     top: 0px;
@@ -25,7 +26,7 @@
         max-width: 200px;
         height: 7%;
     }
-    .nav-options{display: none;}
+    .small-logo,.nav-options{display: none;}
 .home-search-bar {
     position: absolute;
     left: 30%;
@@ -240,12 +241,15 @@
     .logo {display: none;}
 
     .home-search-bar {
-        width: 80%;
-        left: 5%;
+        width: 70%;
+        left: 15%;
     }
+    .small-logo{display: block;}
+    .small-logo img { width: 40px; height: 60px;}
     .nav-options {
-        float: right;
-        margin-top: 25px;
+        position: fixed;
+        top: 20px;
+        right: 5px;
         margin-right: 5px;
 	    width: 0; 
 	    height: 0; 

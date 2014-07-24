@@ -91,11 +91,19 @@ function onSuccessLoadCurrentMovies(result) {
                     ScaleNewTileElement($(".movie-list ul"));
 
                 // movie-list
-                PreparePaginationControl($(".movie-list"));
-
-                $(window).resize(function () {
+                //PreparePaginationControl($(".movie-list"));
+                if ($(window).width() < 768) {
+                    // Comment next two line and uncomment new pager line to repro unresponsive page issue
+                    /*$(".movie-list ul li").hide();
+                    $(".movie-list ul li:first").show();*/
+                    var pager = new Pager($(".movie-list"), "#now-pager");
+                }
+                else {
                     PreparePaginationControl($(".movie-list"));
-                });
+                    $(window).resize(function () {
+                        PreparePaginationControl($(".movie-list"));
+                    });
+                }
             }
         }
     } catch (e) {
@@ -142,11 +150,20 @@ function onSuccessLoadUpcomingMovies(result) {
                     ScaleNewTileElement($(".upcoming-movie-list ul"));
 
                 // movie-list
-                PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-
-                $(window).resize(function () {
+                //PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+                //var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");
+                if ($(window).width() < 768) {
+                    // Comment next two line and uncomment new pager line to repro unresponsive page issue
+                    /*$(".upcoming-movie-list ul li").hide();
+                    $(".upcoming-movie-list ul li:first").show();*/
+                    var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");
+                }
+                else{
                     PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-                });
+                    $(window).resize(function () {
+                        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+                    });
+                }
             }
         }
     } catch (e) {

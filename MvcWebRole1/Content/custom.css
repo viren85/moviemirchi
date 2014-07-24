@@ -139,7 +139,7 @@
 
 @media screen and (max-width: 320px) {
     .movie-list, .upcoming-movie-list {
-        margin-left: 15%;
+        /*margin-left: 15%;*/
     }
 
         .movie-list ul li, .upcoming-movie-list ul li {
