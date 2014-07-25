@@ -86,28 +86,30 @@
 @media screen and (max-width: 767px) {
 
 .movie-list{
-        float: left;
-        width: 93%;
+        display: table;
+        margin: 0 auto;
     }
 
         .movie-list ul {
-            float: left;
             list-style: none;
             padding: 0px;
             margin: 0px;
-            width: 95%;
+            width: 100%;
             height: 400px;
+            text-align: center;
             /*margin-left: 2%;*/
         }
 
             .movie-list ul li {
-                float: left;
+                /*float: left;
                 list-style: none;
                 width: 250px;
-                /*margin-top: 15px;*/
                 margin-right: 15px;
                 cursor: pointer;
-                text-align: left;
+                text-align: left;*/
+                /*margin-top: 15px;*/
+                display: inline-block;
+                width: 250px;
             }
                 .movie-list ul li img {
                     float: left;
@@ -133,42 +135,4 @@
 	                border-left: 20px solid #819FF7;
                 }
                 }
-                @media only screen and (max-width: 320px) {
-                    .movie-list ul {
-                        /*margin-left: 5%;*/
-                    }
-                }
-                @media only screen and (min-width: 320px) and (max-width: 380px) {
-                    
-                    .movie-list ul {
-                        margin-left: 10%;
-                        width: 95%;
-                    }
-                }
-                @media only screen and (min-width: 380px) and (max-width: 480px) {
-                    .movie-list ul {
-                        margin-left: 20%;
-                        width: 85%;
-                    }
-                }
-                @media only screen and (min-width: 480px) and (max-width: 767px) {
-                    .movie-list ul {
-                        margin-left: 10%;
-                        width: 95%;
-                    }
-                }
-
-@media screen and (min-width: 768px) {
-}
-
-@media screen and (min-width: 321px) and (max-width: 767px) {
-    .page-index {
-        margin-right: 10px;
-    }
-}
-
-@media screen and (max-width: 320px) {
-    .page-index {
-        margin-right: 10px;
-    }
-}
+                
