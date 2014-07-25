@@ -13,6 +13,9 @@ var Pager = function (tileContainer, pagerContainerSelector) {
         CalculateTiles();
         GetNavArrows(TILE_CONTAINER);
 
+        if (TILE_COUNT == Infinity)
+            TILE_COUNT = 0;
+
         // Hide all tiles before we initiate the show the correct tiles
         $(TILE_CONTAINER).find("li").hide();
         $(TILE_CONTAINER).find("li:first").show(); // This line is required because first tile does not appear when resolution is high
