@@ -288,12 +288,15 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
         options.pageSize = options.pageSize - (margin * 2) - 40;
 
         options.tilesInPage = Math.floor(options.pageSize / options.tileWidth);
-
-        if (options.pageSize % options.tileWidth < 30 && ((options.pagerContainerId.indexOf("movies-pager") > -1) || options.pagerContainerId.indexOf("upcoming-pager") > -1 || options.pagerContainerId.indexOf("now-pager") > -1)) {
-            options.tilesInPage = options.tilesInPage - 1;
+        
+        if ($(window).width() > 767) {
+            if (options.pageSize % options.tileWidth < 30 && ((options.pagerContainerId.indexOf("movies-pager") > -1) || options.pagerContainerId.indexOf("upcoming-pager") > -1 || options.pagerContainerId.indexOf("now-pager") > -1)) {
+                options.tilesInPage = options.tilesInPage - 1;
+            }
         }
 
         options.pageCount = Math.ceil(options.totalTileCount / options.tilesInPage);
+        
         
         activeTileStartIndex = ((currentPage - 1) * options.tilesInPage) + 1;
 
