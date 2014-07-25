@@ -3,6 +3,7 @@ namespace DataStoreLib.Storage
 {
     using DataStoreLib.BlobStorage;
     using DataStoreLib.Models;
+    using DataStoreLib.Utils;
     using Microsoft.WindowsAzure.Storage.Table;
     using System;
     using System.Collections.Generic;
@@ -82,14 +83,23 @@ namespace DataStoreLib.Storage
         public IDictionary<string, MovieEntity> GetAllMovies()
         {
             var movieTable = TableStore.Instance.GetTable(TableStore.MovieTableName);
-            var movies = movieTable.GetAllItems<MovieEntity>();
-            return 
-                movies
-                .OrderByDescending(m => m.Value.PublishDate)
-                .ToDictionary(
-                    g => g.Key,
-                    g => g.Value
-                );
+
+            IDictionary<string, MovieEntity> movies;
+            if (!CacheManager.TryGet<IDictionary<string, MovieEntity>>(CacheConstants.AllMovieEntities, out movies))
+            {
+                movies = movieTable.GetAllItems<MovieEntity>();
+                movies =
+                    movies
+                    .OrderByDescending(m => m.Value.PublishDate)
+                    .ToDictionary(
+                        g => g.Key,
+                        g => g.Value
+                    );
+
+                CacheManager.Add<IDictionary<string, MovieEntity>>(CacheConstants.AllMovieEntities, movies);
+            }
+
+            return movies;
         }
 
         public IDictionary<string, MovieEntity> GetArtistMovies()
@@ -643,7 +653,7 @@ namespace DataStoreLib.Storage
                 return true;
             }
             catch (Exception ex)
-            {                
+            {
                 throw ex;
             }
         }
@@ -675,7 +685,7 @@ namespace DataStoreLib.Storage
                 var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
                 var allArtists = artistTable.GetAllItems<ArtistEntity>();
 
-                return allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName.ToLower().Trim());                
+                return allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName.ToLower().Trim());
             }
             catch (Exception)
             {

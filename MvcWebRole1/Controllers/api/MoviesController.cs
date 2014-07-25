@@ -1,7 +1,6 @@
 ﻿
 namespace MvcWebRole1.Controllers.api
 {
-    using DataStoreLib.Constants;
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
     using System;
@@ -17,8 +16,6 @@ namespace MvcWebRole1.Controllers.api
     public class MoviesController : BaseController
     {
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
-        private static object _object = new object();
-
 
         // get : api/Movies?type={current/all (default)}&resultlimit={default 100}          
         protected override string ProcessRequest()
@@ -45,24 +42,21 @@ namespace MvcWebRole1.Controllers.api
 
             try
             {
-                //lock (_object) // as per viren's call
-                {
-                    var tableMgr = new TableManager();
+                var tableMgr = new TableManager();
 
-                    var moviesByName =
-                        (type == "all") ?
-                            tableMgr.GetSortedMoviesByName() :
-                            (type == "current") ?
-                                tableMgr.GetCurrentMovies() :
-                                (type == "upcoming") ?
-                                    tableMgr.GetUpcomingMovies() :
-                                        Enumerable.Empty<MovieEntity>();
+                var moviesByName =
+                    (type == "all") ?
+                        tableMgr.GetSortedMoviesByName() :
+                        (type == "current") ?
+                            tableMgr.GetCurrentMovies() :
+                            (type == "upcoming") ?
+                                tableMgr.GetUpcomingMovies() :
+                                    Enumerable.Empty<MovieEntity>();
 
-                    List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
+                List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
 
-                    // serialize movieList object and return.
-                    return jsonSerializer.Value.Serialize(movies);
-                }
+                // serialize movieList object and return.
+                return jsonSerializer.Value.Serialize(movies);
             }
             catch (Exception ex)
             {

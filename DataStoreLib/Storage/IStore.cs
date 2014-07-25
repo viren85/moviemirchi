@@ -1,4 +1,5 @@
 ﻿using DataStoreLib.Models;
+using DataStoreLib.Utils;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -222,10 +223,19 @@ namespace DataStoreLib.Storage
         /// <returns></returns>
         public static IEnumerable<MovieEntity> GetCurrentMovies(this IStore store)
         {
-            var retList = store.GetAllMovies();
-            ////TODO Do we need to add month logic? How do we filter to current?
-            return retList.Values.Where(movie => movie.State.Trim().ToLower() != "upcoming");
+            IEnumerable<MovieEntity> movies;
+            if (!CacheManager.TryGet<IEnumerable<MovieEntity>>(CacheConstants.NowPlayingMovieEntities, out movies))
+            {
+                var retList = store.GetAllMovies();
+                ////TODO Do we need to add month logic? How do we filter to current?
+                movies =
+                    retList.Values
+                        .Where(movie => movie.State.Trim().ToLower() != "upcoming");
 
+                CacheManager.Add<IEnumerable<MovieEntity>>(CacheConstants.NowPlayingMovieEntities, movies);
+            }
+
+            return movies;
 
             //// TODO: Clean the comments
             //////Debug.Assert(retList.Count == 1);
@@ -252,11 +262,19 @@ namespace DataStoreLib.Storage
 
         public static IEnumerable<MovieEntity> GetUpcomingMovies(this IStore store)
         {
-            var retList = store.GetAllMovies();
-            return
-                retList.Values
-                // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
-                    .Where(movie => movie.State.Trim().ToLower() == "upcoming").OrderBy(m => m.PublishDate);
+            IEnumerable<MovieEntity> movies;
+            if (!CacheManager.TryGet<IEnumerable<MovieEntity>>(CacheConstants.UpcomingMovieEntities, out movies))
+            {
+                var retList = store.GetAllMovies();
+                movies =
+                    retList.Values
+                    // Need to update Trailer with new column - State = Released, Upcoming, Production, PreProduction, Script, Planning etc. 
+                        .Where(movie => movie.State.Trim().ToLower() == "upcoming").OrderBy(m => m.PublishDate);
+
+                CacheManager.Add<IEnumerable<MovieEntity>>(CacheConstants.UpcomingMovieEntities, movies);
+            }
+
+            return movies;
 
             ////TODO: Clean the comments
             ////List<MovieEntity> upcomingMovies = new List<MovieEntity>();
@@ -296,10 +314,18 @@ namespace DataStoreLib.Storage
         /// <returns></returns>
         public static IEnumerable<MovieEntity> GetSortedMoviesByName(this IStore store)
         {
-            var retList = store.GetAllMovies();
-            return
-                retList.Values
-                    .OrderBy(movie => movie.Name);
+            IEnumerable<MovieEntity> movies;
+            if (!CacheManager.TryGet<IEnumerable<MovieEntity>>(CacheConstants.AllMovieEntitiesSortedByName, out movies))
+            {
+                var retList = store.GetAllMovies();
+                movies =
+                    retList.Values
+                        .OrderBy(movie => movie.Name);
+
+                CacheManager.Add<IEnumerable<MovieEntity>>(CacheConstants.AllMovieEntitiesSortedByName, movies);
+            }
+
+            return movies;
 
             ////TODO: Clean the comments
             //////Debug.Assert(retList.Count == 1);
