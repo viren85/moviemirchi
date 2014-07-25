@@ -37,6 +37,9 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             $(CURRENT_TILE).parent().find("li").hide();
             var TEMP_TILE = CURRENT_TILE;
 
+            if (TILE_COUNT == Infinity)
+                TILE_COUNT = 0;
+
             TILE_COUNT = TILE_COUNT == 0 ? 1 : TILE_COUNT; // When resolution is too low to accomodate single tile, our logic calculates it to be 0. Hence setting it to 1, to show atleast one tile.
 
             // Since window could accomodate more than one tile - show them
@@ -64,6 +67,10 @@ var Pager = function (tileContainer, pagerContainerSelector) {
         var rightArrow = $("<div/>").attr("class", "right-arrow").append($("<div/>").addClass("arrow-right")).click(function () {
             var TEMP_TILE = CURRENT_TILE;
             $(CURRENT_TILE).parent().find("li").hide();
+
+            if (TILE_COUNT == Infinity)
+                TILE_COUNT = 0;
+
             TILE_COUNT = TILE_COUNT == 0 ? 1 : TILE_COUNT;
 
             // Bug - Show all tiles which could fit in the screen when we are on last page
@@ -100,7 +107,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
     GetPager();
 
-    $(window).resize(function () {
+    /*$(window).resize(function () {
         var tileWidth = $(".movie-list .movie").width() + 40;
         var windowWidth = $(window).width();
         var availableWidth = windowWidth - 100;
@@ -114,5 +121,5 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             $(TEMP_TILE).next().show();
             TEMP_TILE = $(TEMP_TILE).next();
         }
-    });
+    });*/
 };
