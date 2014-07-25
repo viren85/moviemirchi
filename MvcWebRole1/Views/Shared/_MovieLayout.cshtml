@@ -716,7 +716,7 @@
     $(document).ready(function () {
 
         LoadNews();
-
+        ArrangeTopNavLinks();
         // This needs to be displayed only after news and tweets on page are loaded. However currently, we don't have flags which track the progress.
         // Hence directly showing the footer after interval.
         //setTimeout(function () { $(".footer").css("display", "block"); }, 3000);
@@ -729,31 +729,34 @@
         });
 
         $(window).resize(function () {
-            
-            if ($(window).width() > 300) {
-                var width = $(document).width() - 100;
-                var listCounter = 0;
-                var possibleLinks = Math.floor(width / 200);
-                
-                $("ul.top-nav-bar").find("li").each(function () {
-                    if (listCounter >= possibleLinks) {
-                        $(this).hide();
-                    }
-                    else {
-                        $(this).show();
-                    }
-
-                    listCounter++;
-                });
-            }
-            else {
-                if ($(".nav-bar-container").css("display") == "block") {
-                    $("ul.top-nav-bar li").show();
-                }
-            }
+            ArrangeTopNavLinks();
         });
         
     });
+
+    function ArrangeTopNavLinks() {
+        if ($(window).width() > 300) {
+            var width = $(document).width() - 100;
+            var listCounter = 0;
+            var possibleLinks = Math.floor(width / 200);
+
+            $("ul.top-nav-bar").find("li").each(function () {
+                if (listCounter >= possibleLinks) {
+                    $(this).hide();
+                }
+                else {
+                    $(this).show();
+                }
+
+                listCounter++;
+            });
+        }
+        else {
+            if ($(".nav-bar-container").css("display") == "block") {
+                $("ul.top-nav-bar li").show();
+            }
+        }
+    }
 
     function toPascalCase(str) {
         var arr = str.split(/\s|_/);
