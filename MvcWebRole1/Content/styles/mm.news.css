@@ -86,6 +86,10 @@
     .news-right {
         display: none;
     }
+    .news-container .news-content-text .news-right-content
+    {
+        width: 50%;
+    }
 }
 
 @media screen and (max-width: 320px) {

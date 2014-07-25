@@ -112,7 +112,7 @@ var NewsControl = function (selector, data) {
                 var isImageUrl = entry.Image ? true : false;
                 var newsTitleText = new Util().GetEllipsisText(entry.Title, 95);
 
-                var newsTextLength = $(window).width() < 320 ? 80 : 180;
+                var newsTextLength = $(window).width() < 320 ? 80 : $(window).width() < 768 ? 110 : 180;
 
                 var html =
                     "<div>" +

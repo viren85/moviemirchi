@@ -46,18 +46,20 @@ function GetQueryStringsForHtmPage() {
 
 function LoadCurrentMovies() {
     var path = "api/Movies?type=current";
+    $("<img/>").attr("src", "/Images/Loading.GIF").attr("style", "width: 32px; height: 32px; margin-left: 5%;").insertBefore($(".movie-list ul"));
     CallHandler(path, onSuccessLoadCurrentMovies);
 }
 
 function LoadUpcomingMovies() {
     var path = "api/Movies?type=upcoming";
+    $("<img/>").attr("src", "/Images/Loading.GIF").attr("style", "width: 32px; height: 32px; margin-left: 5%;").insertBefore($(".upcoming-movie-list ul"));
     CallHandler(path, onSuccessLoadUpcomingMovies);
 }
 
 function onSuccessLoadCurrentMovies(result) {
     try {
         result = JSON.parse(result);
-
+        $(".movie-list").find("img").hide();
         if (result.Status != undefined || result.Status == "Error") {
             $(".movie-list").html(result.UserMessage);
         }
@@ -85,12 +87,12 @@ function onSuccessLoadCurrentMovies(result) {
                         $(this).width(defaultTileWidth + "px");
                 });
 
-                
+
                 if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".movie-list ul"));
                 else
                     ScaleNewTileElement($(".movie-list ul"));
-                
+
                 // movie-list
                 //PreparePaginationControl($(".movie-list"));
                 if ($(window).width() < 768) {
@@ -115,7 +117,7 @@ function onSuccessLoadCurrentMovies(result) {
 function onSuccessLoadUpcomingMovies(result) {
     try {
         result = JSON.parse(result);
-
+        $(".upcoming-movie-list").find("img").hide();
         if (result.Status != undefined || result.Status == "Error") {
             $(".upcoming-movie-list").html(result.UserMessage);
         }
@@ -148,7 +150,7 @@ function onSuccessLoadUpcomingMovies(result) {
                     ScaleElement($(".upcoming-movie-list ul"));
                 else
                     ScaleNewTileElement($(".upcoming-movie-list ul"));
-                
+
                 // movie-list
                 //PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
                 //var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");
@@ -158,7 +160,7 @@ function onSuccessLoadUpcomingMovies(result) {
                     $(".upcoming-movie-list ul li:first").show();*/
                     var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");
                 }
-                else{
+                else {
                     PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
                     $(window).resize(function () {
                         PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
@@ -167,7 +169,7 @@ function onSuccessLoadUpcomingMovies(result) {
             }
         }
     } catch (e) {
-        $(".upcoming-movie-list").html("unable to get movies");
+        $(".upcoming-movie-list").html("Unable to get movies");
     }
 }
 

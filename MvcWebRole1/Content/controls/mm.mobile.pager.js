@@ -110,19 +110,19 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
     GetPager();
 
-    /*$(window).resize(function () {
+    $(window).resize(function () {
         var tileWidth = $(".movie-list .movie").width() + 40;
         var windowWidth = $(window).width();
         var availableWidth = windowWidth - 100;
         var tiles = Math.floor(availableWidth / tileWidth);
         $(CURRENT_TILE).parent().find("li").hide();
-        $(CURRENT_TILE).show();
+        $(CURRENT_TILE).css("display", "inline");
 
         TILE_COUNT = tiles;
         var TEMP_TILE = CURRENT_TILE;
         for (var i = 0; i < tiles - 1; i++) {
-            $(TEMP_TILE).next().show();
+            $(TEMP_TILE).next().css("display", "inline");
             TEMP_TILE = $(TEMP_TILE).next();
         }
-    });*/
+    });
 };

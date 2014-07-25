@@ -65,3 +65,11 @@
     width: 200px;
     margin-bottom: 15px;
 }
+@media screen and (max-width: 320px) {
+    .rating-container {
+        width: 80%;    
+    }
+    .rating-container .liner{
+        font-size: 1.3em;
+    }
+    }
