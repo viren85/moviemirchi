@@ -79,7 +79,7 @@
 @media screen and (max-width: 320px) {
 
     .width60, .width30 {
-        width: 75%;
+        width: 100%;
     }
 
     .tags-container {

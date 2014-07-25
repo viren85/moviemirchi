@@ -24,7 +24,7 @@ $(document).ready(function () {
     var counter = 1;
     var style = "";
     var impCriticsCount = new Util().GetElementCount(60, 125);
-
+    impCriticsCount = impCriticsCount == 0 ? 2 : impCriticsCount;
     critics.forEach(function (critic) {
         if (counter <= impCriticsCount) {
             //if (counter <= impCriticsCount && counter < 6) {
@@ -39,6 +39,8 @@ $(document).ready(function () {
                         "<div class=\"critics-name\">" + critic.name + "</div>" +
                     "</a>" +
                 "</li>");
+
+            //counter++;
         }
         /*else if (impCriticsCount == (counter + 1)) {
             ul.append(
@@ -77,7 +79,7 @@ $(document).ready(function () {
     counter++;*/
     });
 
-    var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "225" };
+    var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
     PreparePaginationControl($(".critics-container"), pagerJson);
     /*var totalReviewers = $(".critics-container ul li.reviewer").length;
     var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 5, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager", "tileWidth": "220" };
