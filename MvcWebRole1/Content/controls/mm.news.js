@@ -112,13 +112,15 @@ var NewsControl = function (selector, data) {
                 var isImageUrl = entry.Image ? true : false;
                 var newsTitleText = new Util().GetEllipsisText(entry.Title, 95);
 
+                var newsTextLength = $(window).width() < 320 ? 80 : 180;
+
                 var html =
                     "<div>" +
                         "<div class='news-title'>" + newsTitleText + "</div>" +
                         "<div class='news-content-container'>" +
                             "<div class='news-content-text'>" +
                                 (isImageUrl ? "<div class='left'><img class=\"img\" src=\"" + entry.Image + "\" alt=\"Image\" /></div>" : "") +
-                                "<div class='" + (isImageUrl ? "news-right-content" : "both") + "'>" + new Util().GetEllipsisText(entry.Description, 180) + "</div>" +
+                                "<div class='" + (isImageUrl ? "news-right-content" : "both") + "'>" + new Util().GetEllipsisText(entry.Description, newsTextLength) + "</div>" +
                             "</div>" +
                         "</div>" +
                         "<div class='news-author news-link'>" +
