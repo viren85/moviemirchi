@@ -3,6 +3,7 @@ namespace MvcWebRole1.Controllers.api
 {
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -23,8 +24,6 @@ namespace MvcWebRole1.Controllers.api
                     ActualError = "",
                 })
             );
-
-        private static string popularTags = null;
 
         /// <summary>
         /// 
@@ -57,7 +56,8 @@ namespace MvcWebRole1.Controllers.api
         /// <returns></returns>
         protected override string ProcessRequest()
         {
-            if (string.IsNullOrEmpty(popularTags))
+            string popularTags;
+            if (!CacheManager.TryGet<string>(CacheConstants.PopularTagsJson, out popularTags))
             {
                 try
                 {
@@ -171,6 +171,8 @@ namespace MvcWebRole1.Controllers.api
                         jsonSerializer.Value.Serialize(roleGenre));
 
                     popularTags = popular;
+
+                    CacheManager.Add<string>(CacheConstants.PopularTagsJson, popularTags);
                 }
                 catch (Exception ex)
                 {
