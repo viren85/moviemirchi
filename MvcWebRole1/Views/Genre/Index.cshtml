@@ -21,9 +21,9 @@
             name = name.substring(0, name.indexOf("?"));
         name = toPascalCase(name);
 
-        $(".movies").append(GetTubeControl("Now Playing Movies By Genre - " + name, "movie-list", "genre-now"));
-        $(".movies").append(GetTubeControl("Upcoming Movies By Genre - " + name, "upcoming-movie-list", "genre-upcoming"));
-        $(".movies").append(GetTubeControl("Other Movies By Genre - " + name, "others-movie-list", "genre-other"));
+        $(".movies").append(GetTubeControl("Now Playing Movies (" + name + ")", "movie-list", "genre-now"));
+        $(".movies").append(GetTubeControl("Upcoming Movies (" + name + ")", "upcoming-movie-list", "genre-upcoming"));
+        $(".movies").append(GetTubeControl("Archived Movies (" + name + ")", "others-movie-list", "genre-other"));
 
         var apiPath = "../api/GenreMovies?type=" + name;
         CallHandler(apiPath, PopulateMovies);
@@ -85,30 +85,37 @@
                             $(this).width("250px");
                     });*/
 
-                    if (TILE_MODE == 0){
+                    if (TILE_MODE == 0 && $(window).width() > 767) {
                         ScaleElement($(".movie-list ul"));
                         ScaleElement($(".upcoming-movie-list ul"));
                         ScaleElement($(".others-movie-list ul"));
                     }
-                    else{
+                    else {
                         ScaleNewTileElement($(".movie-list ul"));
                         ScaleNewTileElement($(".upcoming-movie-list ul"));
                         ScaleNewTileElement($(".others-movie-list ul"));
                     }
 
-                    // movie-list PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
-                    PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
-                    PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
-                    PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
-
-                    /*PreparePaginationControl($(".movie-list"));
-                    PreparePaginationControl($(".upcoming-movie-list"));
-                    PreparePaginationControl($(".others-movie-list"));*/
-                    $(window).resize(function () {
+                    if ($(window).width() < 768) {
+                        var pager = new Pager($(".movie-list"), "#genre-now");
+                        var pager1 = new Pager($(".upcoming-movie-list"), "#genre-upcoming");
+                        var pager2 = new Pager($(".others-movie-list"), "#genre-other");
+                    }
+                    else {
+                        // movie-list PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
                         PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
                         PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
                         PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
-                    });
+
+                        /*PreparePaginationControl($(".movie-list"));
+                        PreparePaginationControl($(".upcoming-movie-list"));
+                        PreparePaginationControl($(".others-movie-list"));*/
+                        $(window).resize(function () {
+                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
+                            PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
+                            PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
+                        });
+                    }
                 }
             }
         } catch (e) {
