@@ -55,7 +55,7 @@
             try
             {
                 var tableMgr = new TableManager();
-                IDictionary<string, TwitterEntity> tweets = null;
+                IEnumerable<TwitterEntity> tweets = null;
                 if (string.IsNullOrEmpty(tweetType))
                 {
                     tweets = tableMgr.GetRecentTweets(startIndex, pageSize);
@@ -67,7 +67,7 @@
 
                 jsonSerializer.Value.MaxJsonLength = Int32.MaxValue;
 
-                return jsonSerializer.Value.Serialize(tweets.Values);
+                return jsonSerializer.Value.Serialize(tweets);
             }
             catch (Exception ex)
             {

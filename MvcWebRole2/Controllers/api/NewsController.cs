@@ -61,7 +61,7 @@ namespace MvcWebRole1.Controllers.api
                 if (mode == "get")
                 {                    
                     var news = tableMgr.GetRecentNews(startIndex, pageSize);
-                    return jsonSerializer.Value.Serialize(news.Values);
+                    return jsonSerializer.Value.Serialize(news);
                 }
                 else if (mode == "delete")
                 {

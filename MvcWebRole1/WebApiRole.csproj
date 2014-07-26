@@ -262,6 +262,7 @@
     <Content Include="Content\controls\mm.favorite.js" />
     <Content Include="Content\controls\mm.gallery.js" />
     <Content Include="Content\controls\mm.login.js" />
+    <Content Include="Content\controls\mm.mobile.pager.js" />
     <Content Include="Content\controls\mm.movie.js" />
     <Content Include="Content\controls\mm.nav.js" />
     <Content Include="Content\controls\mm.news.js" />
