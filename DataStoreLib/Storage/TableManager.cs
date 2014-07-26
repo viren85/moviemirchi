@@ -535,45 +535,57 @@ namespace DataStoreLib.Storage
 
         // Need method which returns the tweets based on keywords/movie name/actor name etc.
         // Need method which returns the count of total tweets - The total count will be used in case we need pagination
-        public IDictionary<string, TwitterEntity> GetRecentTweets(int startIndex = 0, int pageSize = 20)
+        public IEnumerable<TwitterEntity> GetRecentTweets(int startIndex = 0, int pageSize = 20)
         {
-            var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
-            var allTweets = twitterTable.GetAllItems<TwitterEntity>();
-            // TODO: Uncomment the Where once we have the system end-to-end hooked up
-            var activeTweets = allTweets; //.Where(t => t.Value.Status == "1"); // Pick only active tweets
-            var sortedTweets = activeTweets.OrderByDescending(t => t.Value.Created_At); // Sort by Created date
-            var paginatedTweets =
-                (startIndex >= 0 && pageSize > 0) ?
-                    sortedTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
-                    : sortedTweets;
-            var result = paginatedTweets.ToDictionary(t => t.Key, t => t.Value);
+            IEnumerable<TwitterEntity> tweets;
 
-            return result;
+            if (!CacheManager.TryGet<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, out tweets))
+            {
+                var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
+                var allTweets = twitterTable.GetAllItems<TwitterEntity>();
+                // TODO: Uncomment the Where once we have the system end-to-end hooked up
+                var activeTweets = allTweets.Values.OrderByDescending(t => t.Created_At); // Sort by Created date
+
+                tweets = (startIndex >= 0 && pageSize > 0) ? activeTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
+                                                           : activeTweets;
+                
+
+                CacheManager.Add<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, tweets);
+            }
+
+            return tweets;
         }
 
-        public IDictionary<string, TwitterEntity> GetRecentTweets(string tweetType, string name, int startIndex = 0, int pageSize = 20)
+        public IEnumerable<TwitterEntity> GetRecentTweets(string tweetType, string name, int startIndex = 0, int pageSize = 20)
         {
-            var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
-            var allTweets = twitterTable.GetAllItems<TwitterEntity>();
-            IEnumerable<KeyValuePair<string, TwitterEntity>> sortedTweets;
-            // TODO: Uncomment the Where once we have the system end-to-end hooked up
-            var activeTweets = allTweets; //.Where(t => t.Value.Status == "1"); // Pick only active tweets
-            if (tweetType == "movie")
+            IEnumerable<TwitterEntity> tweets;
+            
+            if (!CacheManager.TryGet<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, out tweets))
             {
-                sortedTweets = activeTweets.Where(t => t.Value.TweetType == tweetType && t.Value.MovieName == name).OrderByDescending(t => t.Value.Created_At);
-            }
-            else
-            {
-                sortedTweets = activeTweets.Where(t => t.Value.TweetType == tweetType && t.Value.ArtistName == name).OrderByDescending(t => t.Value.Created_At);
+                var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
+                var allTweets = twitterTable.GetAllItems<TwitterEntity>();
+                IEnumerable<TwitterEntity> sortedTweets;
+                // TODO: Uncomment the Where once we have the system end-to-end hooked up
+                var activeTweets = allTweets; //.Where(t => t.Value.Status == "1"); // Pick only active tweets
+                if (tweetType == "movie")
+                {
+                    sortedTweets = allTweets.Values.Where(t => t.TweetType == tweetType && t.MovieName == name).OrderByDescending(t => t.Created_At);
+                }
+                else
+                {
+                    sortedTweets = activeTweets.Values.Where(t => t.TweetType == tweetType && t.ArtistName == name).OrderByDescending(t => t.Created_At);
+                }
+
+                tweets = 
+                    (startIndex > 0 && pageSize > 0) ?
+                        sortedTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
+                        : sortedTweets;
+
+
+                CacheManager.Add<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, tweets);
             }
 
-            var paginatedTweets =
-                (startIndex > 0 && pageSize > 0) ?
-                    sortedTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
-                    : sortedTweets;
-            var result = paginatedTweets.ToDictionary(t => t.Key, t => t.Value);
-
-            return result;
+            return tweets;
         }
 
         public bool DeleteTwitterItemById(List<string> twitterIds)

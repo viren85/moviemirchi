@@ -54,7 +54,7 @@ namespace MvcWebRole1.Controllers.api
             try
             {
                 var tableMgr = new TableManager();
-                IDictionary<string, TwitterEntity> tweets = null;
+                IEnumerable<TwitterEntity> tweets = null;
                 if (string.IsNullOrEmpty(tweetType))
                 {
                     tweets = tableMgr.GetRecentTweets(startIndex, pageSize);
