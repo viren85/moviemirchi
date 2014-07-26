@@ -9,8 +9,6 @@ namespace DataStoreLib.Utils
         public const string UpcomingMovieEntities = "UpcomingMovies";
         public const string NowPlayingMovieEntities = "NowPlayingMovies";
         public const string AllMovieEntitiesSortedByName = "AllMoviesSortedByName";
-        public const string NewsEntities = "News";
-        public const string TwitterEntities = "Twitter";
         #endregion
 
         #region JSON
