@@ -594,20 +594,26 @@ namespace DataStoreLib.Storage
         #endregion
 
         #region News
-        public IDictionary<string, NewsEntity> GetRecentNews(int startIndex = 0, int pageSize = 20)
+        public IEnumerable<NewsEntity> GetRecentNews(int startIndex = 0, int pageSize = 20)
         {
-            var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
-            var allNews = newsTable.GetAllItems<NewsEntity>();
-            // TODO: Uncomment the Where once we have the system end-to-end hooked up
-            var activeNews = allNews; //.Where(t => t.Value.Status == "1"); // Pick only active news
-            var sortedNews = activeNews.OrderByDescending(t => t.Value.PublishDate); // Sort by PublishDate
-            var paginatedNews =
-                (startIndex > 0 && pageSize > 0) ?
-                    sortedNews.Skip(startIndex).Take(pageSize) // Skip first x news, and then take next y news
-                    : sortedNews;
-            var result = paginatedNews.ToDictionary(t => t.Key, t => t.Value);
+            IEnumerable<NewsEntity> news;
 
-            return result;
+            if (!CacheManager.TryGet<IEnumerable<NewsEntity>>(CacheConstants.NewsEntities, out news))
+            {
+                var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
+                var allNews = newsTable.GetAllItems<NewsEntity>();
+
+                // TODO: Uncomment the Where once we have the system end-to-end hooked up
+                var activeNews = allNews; //.Where(t => t.Value.Status == "1"); // Pick only active news
+                var sortedNews = allNews.Values.OrderByDescending(t => t.PublishDate); // Sort by PublishDate
+                news = (startIndex > 0 && pageSize > 0) ? 
+                                                                       sortedNews.Skip(startIndex).Take(pageSize) // Skip first x news, and then take next y news
+                                                                     : sortedNews;
+
+                CacheManager.Add<IEnumerable<NewsEntity>>(CacheConstants.NewsEntities, news);
+            }
+
+            return news;
         }
 
         public IDictionary<string, NewsEntity> GetNewsItems()
