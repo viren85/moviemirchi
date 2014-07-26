@@ -169,7 +169,8 @@
     }
 
         .critics-container ul {
-            width: 100%;
+            width: 50%;
+            padding-left: 29%;
             height: auto;
         }
 

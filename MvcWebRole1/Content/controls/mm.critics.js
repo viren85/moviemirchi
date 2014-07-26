@@ -79,8 +79,14 @@ $(document).ready(function () {
     counter++;*/
     });
 
-    var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
-    PreparePaginationControl($(".critics-container"), pagerJson);
+    if ($(window).width() < 768) {
+        var pager = new Pager($(".critics-container"), "#critics-pager");
+    }
+    else
+    {
+        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
+        PreparePaginationControl($(".critics-container"), pagerJson);
+    }
     /*var totalReviewers = $(".critics-container ul li.reviewer").length;
     var pagerJson = { "pagerContainer": "critics-container", "tilesInPage": 5, "totalTileCount": totalReviewers, "pagerContainerId": "critics-pager", "tileWidth": "220" };
     PreparePaginationControl($(".critics-container"), pagerJson);*/

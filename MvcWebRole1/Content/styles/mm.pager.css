@@ -115,7 +115,8 @@
                     float: left;
                     border: 0px;
                 }
-                .movie-list #now-pager, .upcoming-movie-list #upcoming-pager { float: left; position: absolute; margin-top: 180px; width: 85%; }
+                .movie-list #now-pager, .upcoming-movie-list #upcoming-pager, .critics-container #critics-pager { float: left; position: absolute; margin-top: 180px; width: 85%; }
+                .critics-container #critics-pager { margin-top: 60px; width: 70%; }
                 /* Arrow */
                 .left-arrow { width: 25px; height: 25px; position: relative; left: 25px; z-index: 99; float: left; }
                 .right-arrow { width: 25px; height: 25px; position: relative; left: 110%; z-index: 99; }
