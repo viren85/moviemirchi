@@ -4,7 +4,7 @@
             background-color: #154B6D;
             padding-top: 5px;
             position: fixed;
-            z-index: 100;
+            z-index: 99;
         }
 
         ul.top-nav-bar {

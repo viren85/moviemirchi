@@ -27,6 +27,11 @@ var GetNavBar = function (json) {
             if (e.originalEvent.detail > 0) {
                 $(".nav-bar-container").slideUp();
             } else {
+
+                $("ul.top-nav-bar").find("li").each(function () {
+                     $(this).show();
+                });
+
                 $(".nav-bar-container").slideDown();
             }
         }
@@ -43,6 +48,9 @@ var GetNavBar = function (json) {
             if (e.originalEvent.wheelDelta < 0) {
                 $(".nav-bar-container").slideUp();
             } else {
+                $("ul.top-nav-bar").find("li").each(function () {
+                    $(this).show();
+                });
                 $(".nav-bar-container").slideDown();
             }
         }

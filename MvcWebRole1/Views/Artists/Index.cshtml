@@ -13,10 +13,7 @@
         .movie-poster-details ul {
             padding: 0px;
         }
-
-    .movies {
-       padding-top: 40px !important;
-    }
+    
 </style>
 <div class="movies">
     <div class="artist-bio"></div>
@@ -92,20 +89,24 @@
                             $(this).width("250px");
                     });
 
-                    if (TILE_MODE == 0)
+                    if (TILE_MODE == 0 && $(window).width()>767)
                         ScaleElement($(".movie-list ul"));
                     else
                         ScaleNewTileElement($(".movie-list ul"));
 
-                    // movie-list
-                    PreparePaginationControl($(".movie-list"));
+                    if ($(window).width() < 768) {
+                        var pager = new Pager($(".movie-list"), "#movies-pager");
+                    }
+                    else {
+                        // movie-list
+                        //PreparePaginationControl($(".movie-list"));
+                        $(window).resize(function () {
+                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
+                        });
 
-                    $(window).resize(function () {
+                        /*Pagination for movies */
                         PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
-                    });
-
-                    /*Pagination for movies */
-                    PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
+                    }
                 }
             }
         } catch (e) {

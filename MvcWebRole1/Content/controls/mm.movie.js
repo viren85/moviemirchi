@@ -18,7 +18,7 @@ var ShowMovie = function (data) {
 
                 PopulatingMovies(result.Movie, "movie-list");
 
-                if (TILE_MODE == 0)
+                if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".movie-list ul"));
                 else
                     ScaleNewTileElement($(".movie-list ul"));
@@ -154,8 +154,15 @@ var PopulatePosters = function (images, movieName) {
         $(".movie-poster-details").append(ul);
 
         /*Pagination for posters */
-        PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
-        $(".movie-poster-details").append($("#posters-pager"));
+        if ($(window).width() < 768) {
+            var pager = new Pager($(".movie-poster-details"), "#posters-pager");
+        }
+        else {
+            PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+            $(".movie-poster-details").append($("#posters-pager"));
+
+            // Write a code for window resize
+        }
 
         $(".link-container").show();
     }
@@ -180,12 +187,18 @@ var ShowMovieReviews = function (review) {
         if (review.length <= 0)
             $(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
         else {
-            PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
-            $(".movie-review-details").append($("#review-pager"));
-
-            $(window).resize(function () {
+            if ($(window).width() < 768) {
+                var pager = new Pager($(".movie-review-details"), "#review-pager");
+            }
+            else {
                 PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
-            });
+                $(".movie-review-details").append($("#review-pager"));
+
+                $(window).resize(function () {
+                    PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+                });
+            }
+            
         }
     }
     else {
@@ -291,14 +304,20 @@ var SongList = function (videos, type) {
 
     if (songHasLink) {
         $(".songs").append(ul);
-        $(".songs").attr("id","movie_songs")
-        PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
-        $(".songs").append($("#songs-pager"));
+        $(".songs").attr("id", "movie_songs")
 
-        $(window).resize(function () {
+        if ($(window).width() < 768) {
+            var pager = new Pager($(".songs"), "#songs-pager");
+        }
+        else {
             PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
-        });
 
+            $(window).resize(function () {
+                PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+            });
+        }
+
+        $(".songs").append($("#songs-pager"));
         $(".songs").attr("style", "display:block !important;");
     }
 }
@@ -355,13 +374,18 @@ var TrailerList = function (videos, type) {
         $(".trailers").append(ul);
         $(".trailers").attr("id", "movie_trailers");
 
-        PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
-        $(".trailers").append($("#trailer-pager"));
-
-        $(window).resize(function () {
+        if ($(window).width() < 768) {
+            var pager = new Pager($(".trailers"), "#trailer-pager");
+        }
+        else {
             PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
-        });
+            
+            $(window).resize(function () {
+                PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
+            });
+        }
 
+        $(".trailers").append($("#trailer-pager"));
         $(".trailers").attr("style", "display:block !important;");
     }
 }

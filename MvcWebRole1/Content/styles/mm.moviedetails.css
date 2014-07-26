@@ -98,6 +98,9 @@ div.captionAndNavigate {
     .movie-description {
         width: 44%;float: left;
     }
+    .movies {
+       padding-top: 40px !important;
+    }
 }
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
@@ -108,10 +111,11 @@ div.captionAndNavigate {
     }
 
     .movie-description {
-        margin-left: 7%;
         float: left;
         width: 87%;
+        margin-top: 20px;
     }
+    .movie-data{width: 90%;}    
 }
 
 @media screen and (max-width: 320px) {
@@ -126,5 +130,5 @@ div.captionAndNavigate {
         width: 87%;
         margin-top: 20px;
     }
-.movie-data{width: 90%;}    
+    .movie-data{width: 90%;}    
 }

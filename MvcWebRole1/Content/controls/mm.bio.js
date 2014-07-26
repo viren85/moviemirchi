@@ -14,8 +14,8 @@ var ShowPersonBio = function (imgPath, name, bioText, affiliation) {
 var InitBio = function () {
     $(".bio-pic").find("img").each(function () {
         var ratio = this.width / this.height;
-        var newHeight = 250 * ratio;
-        $(this).width("250px").height(newHeight + "px");
+        var newHeight = 240 * ratio;
+        $(this).width("240px").height(newHeight + "px");
         
         /*$(this).hover(
             function () {

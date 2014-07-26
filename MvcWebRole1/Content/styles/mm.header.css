@@ -263,11 +263,12 @@
         width: 150px !important;
         float: right !important;
         right: 0px;
+        top: 65px;
         opacity: 0.98;
         display: none;
     }
     ul.top-nav-bar li { border-right: none !important; text-align: left !important; padding: 5px !important; border-bottom: 1px solid #368CC1; }
-    .top-nav-bar { max-height: 180px !important; margin: 0px !important; }
+    .top-nav-bar { max-height: 210px !important; margin: 0px !important; }
         .home-search-bar input {
             width: 100%;
         }
