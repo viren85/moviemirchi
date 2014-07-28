@@ -6,6 +6,7 @@ namespace MvcWebRole1.Controllers
     using DataStoreLib.Utils;
     using LuceneSearchLibrarby;
     using Microsoft.WindowsAzure;
+    using System;
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
@@ -174,15 +175,22 @@ namespace MvcWebRole1.Controllers
 
         public JsonResult AutoCompleteMovies(string query)
         {
-            if (string.IsNullOrEmpty(query))
+            try
             {
-                //return null;
+                if (string.IsNullOrEmpty(query))
+                {
+                    //return null;
+                    return Json(new MovieSearchData(), JsonRequestBehavior.AllowGet);
+                }
+
+                var users = LuceneSearch.Search(query);
+
+                return Json(users, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
                 return Json(new MovieSearchData(), JsonRequestBehavior.AllowGet);
             }
-
-            var users = LuceneSearch.Search(query);
-
-            return Json(users, JsonRequestBehavior.AllowGet);
         }
     }
 }
