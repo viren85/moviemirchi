@@ -723,9 +723,15 @@
         var height = $(document).height();
         $(".movie-panel").css("min-height", (height - 150) + "px");
         
-        $(".nav-options").click(function () {
-                $("ul.top-nav-bar li").show();
-                $(".nav-bar-container").show();
+        $(".nav-options").click(function (e) {
+            if ($(".nav-bar-container").css("display") == "block") {
+                $(".nav-bar-container").css("display", "none");
+            }
+            else {
+                $(".nav-bar-container").css("display", "block");
+            }
+
+            e.stopPropagation();
         });
 
         $(window).resize(function () {

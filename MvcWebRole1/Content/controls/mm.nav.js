@@ -25,7 +25,7 @@ var GetNavBar = function (json) {
     $('html, body').bind('DOMMouseScroll', function (e) {
         if ($(window).width() > 300) {
             if (e.originalEvent.detail > 0) {
-                $(".nav-bar-container").slideUp();
+                //$(".nav-bar-container").slideUp();
             } else {
 
                 $("ul.top-nav-bar").find("li").each(function () {
@@ -46,7 +46,7 @@ var GetNavBar = function (json) {
     $('html, body').bind('mousewheel', function (e) {
         if ($(window).width() > 300) {
             if (e.originalEvent.wheelDelta < 0) {
-                $(".nav-bar-container").slideUp();
+                //$(".nav-bar-container").slideUp();
             } else {
                 $("ul.top-nav-bar").find("li").each(function () {
                     $(this).show();
