@@ -40,7 +40,7 @@
 .tube-container {
     float: left;
     width: 100%;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
 }
 
 .width60 {
@@ -175,7 +175,8 @@
 /*end*/
 
 /* End - Rating Control */
-@media screen and (min-width: 768px) {
+@media screen and (max-width: 768px) {
+    .tube-container {margin-top: 20px;}
 }
 
 @media screen and (min-width: 321px) and (max-width: 1350px) {
