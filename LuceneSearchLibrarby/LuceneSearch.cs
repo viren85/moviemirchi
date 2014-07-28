@@ -209,6 +209,11 @@ namespace LuceneSearchLibrarby
             if (string.IsNullOrEmpty(searchQuery.Replace("*", "").Replace("?", "")))
                 return new List<MovieSearchData>();
 
+            if (!System.IO.Directory.Exists(_directory.Directory.FullName)) 
+            {
+                return new List<MovieSearchData>();
+            }
+
             // set up lucene searcher
             using (var searcher = new IndexSearcher(_directory, false))
             {
