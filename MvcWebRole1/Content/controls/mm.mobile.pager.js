@@ -96,6 +96,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             $(pagerContainerSelector).find(".left-arrow").show();
         });
 
+        $(PAGER_SELECTOR).html("");
         $(PAGER_SELECTOR).append(leftArrow);
         $(PAGER_SELECTOR).append(rightArrow);
     }

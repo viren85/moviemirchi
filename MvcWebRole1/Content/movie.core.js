@@ -103,10 +103,22 @@ function onSuccessLoadCurrentMovies(result) {
                 }
                 else {
                     PreparePaginationControl($(".movie-list"));
-                    $(window).resize(function () {
-                        PreparePaginationControl($(".movie-list"));
-                    });
                 }
+
+                $(window).resize(function () {
+                    if ($(window).width() < 785) {
+                        var pager = new Pager($(".movie-list"), "#now-pager");
+                        $("#now-pager .pager-container").remove();
+                        //$("#upcoming-pager .pager-container").remove();
+                        //$("#critics-pager .pager-container").remove();
+                    }
+                    else {
+                        PreparePaginationControl($(".movie-list"));
+                        //PreparePaginationControl($(".upcoming-movie-list"));
+                        //var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
+                        //PreparePaginationControl($(".critics-container"), pagerJson);
+                    }
+                });
             }
         }
     } catch (e) {
@@ -162,10 +174,17 @@ function onSuccessLoadUpcomingMovies(result) {
                 }
                 else {
                     PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-                    $(window).resize(function () {
-                        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-                    });
                 }
+
+                $(window).resize(function () {
+                    if ($(window).width() < 785) {
+                        $("#upcoming-pager .pager-container").remove();
+                        var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");
+                    }
+                    else {
+                        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
+                    }
+                });
             }
         }
     } catch (e) {

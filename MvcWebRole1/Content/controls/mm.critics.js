@@ -93,44 +93,11 @@ $(document).ready(function () {
 });
 
 $(window).resize(function () {
-    /*$(".critics-container").find("ul li").each(function () {
-        $(this).attr("class", "reviewer-small");
-        $(this).find("img").each(function () {
-            $(this).css("width", "50px").css("height", "50px");
-        });
-
-        $(this).find(".critics-name").each(function () {
-            $(this).attr("class", "critics-name-small");
-        });
-    });*/
-
-    //1. Calculate the 60% of critics-container
-    //2. Calculate the # of elements possible to fit in in 60%
-    //3. Assign class to these elements
-    var width = $(document).width();
-    width = Math.round(width / 100);
-    width = width * 60;
-    var elementCount = Math.floor(width / 125);
-
-    var counter = 1;
-    var className = "reviewer reviewer-small";
-
-    $(".critics-container").find("ul li").each(function () {
-        if (counter < elementCount) {
-            $(this).attr("class", "reviewer");
-            $(this).find("img").each(function () {
-                $(this).css("width", "125px").css("height", "125px");
-            });
-
-            $(this).find(".critics-name-small").each(function () {
-                $(this).attr("class", "critics-name");
-            });
-        }
-
-        counter++;
-    });
-
-    $(".critics-container").find("ul li.reviewer-small:first").each(function () {
-        $(this).attr("class", "reviewer reviewer-small first-reviewer");
-    });
+    if ($(window).width() < 768) {
+        var pager = new Pager($(".critics-container"), "#critics-pager");
+    }
+    else {
+        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
+        PreparePaginationControl($(".critics-container"), pagerJson);
+    }
 });
