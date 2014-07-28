@@ -121,12 +121,19 @@ namespace DataStoreLib.Storage
 
             foreach (var tableResult in reviewResults)
             {
-                TEntity entity = null;
+                try
+                {
+                    TEntity entity = null;
 
-                entity = tableResult as TEntity;
+                    entity = tableResult as TEntity;
 
-                returnDict.Add(tableResult.ReviewId, entity);
-                iter++;
+                    returnDict.Add(tableResult.ReviewId, entity);
+                    iter++;
+                }
+                catch (System.Exception)
+                {
+                    // continue the iterator - the exception is occurred most probably due to missing data
+                }
             }
 
             return returnDict;

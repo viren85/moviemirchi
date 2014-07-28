@@ -939,6 +939,7 @@ namespace MvcWebRole2.Controllers
 
                                     switch (review.Attributes["name"].Value.Trim())
                                     {
+                                        case "BollywoodHungama":
                                         case "Bollywood Hungama":
                                             re = bh.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
@@ -994,6 +995,9 @@ namespace MvcWebRole2.Controllers
                                             re = mm.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                     }
+
+                                    if (re == null)
+                                        continue;
 
                                     critics.Add(re.ReviewerName);
 
