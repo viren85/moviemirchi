@@ -3,17 +3,20 @@
     return mirchi;
 }
 
-function GetMovieRateControl(rate) {
+function GetMovieRateControl(rate, rateValue) {
     var result = "";
     var r = Math.round(rate);
 
-    return GetMovieRate(r);
+    return GetMovieRate(r, rateValue);
 }
 
-function GetMovieRate(rating) {
+function GetMovieRate(rating, rateValue) {
     if (rating == undefined || rating <= 0) return "";
-    
-    return "<span class='rate rate-" + rating + "'></span>";
+
+    if (rateValue == undefined || rateValue == null || rateValue == "0")
+        return "<span class='rate rate-" + rating + "'></span>";
+    else
+        return "<span class='rate rate-" + rating + "'></span><span class='rate-value'>" + rateValue + "</span>";
 }
 
 function GetRedMirchi() {
@@ -33,7 +36,7 @@ function GetGreenGrayMirchi() {
 }
 
 var RatingControl = function () {
-    RatingControl.prototype.GetRatingControl = function (rate) {
+    RatingControl.prototype.GetRatingControl = function (rate, movie) {
 
         // TODO - Remove this if condition, once ewverything is implemented end-end
         if (rate == "" || rate == null || rate == "undefined" || rate == "0") {
@@ -49,7 +52,7 @@ var RatingControl = function () {
                     "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Teekha hai ki feeka hai ?</div>" +
                     "<div class=\"content\" " + hideContentControl + ">" +
                         "<div class=\"mirchi mirchimeter\">" +
-                            GetMovieRateControl(rate.criticrating / 10) +
+                            GetMovieRateControl(rate.criticrating / 10, movie.Ratings) +
                         "</div>" +
                         "<div>" +
                             "<div class=\"rate-row\">" +

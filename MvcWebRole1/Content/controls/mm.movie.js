@@ -9,6 +9,7 @@
 var ShowMovie = function (data) {
     try {
         var result = JSON.parse(data);
+        
         if (result.Status != undefined || result.Status == "Error") {
             $(".movie-content").html(result.UserMessage);
         }
@@ -112,7 +113,7 @@ var ShowMovieDetails = function (movie) {
         //$("#item3").remove();
     }
 
-    $(movieDetalis).append(new RatingControl().GetRatingControl(JSON.parse(movie.MyScore)));
+    $(movieDetalis).append(new RatingControl().GetRatingControl(JSON.parse(movie.MyScore), movie));
     $(movieDetalis).append(GetMovieSynopsis(movie.Synopsis));
     $(movieDetalis).append(GetMovieGenre(movie.Genre));
     $(movieDetalis).append(GetMovieCast(CleanCastString(cast)));

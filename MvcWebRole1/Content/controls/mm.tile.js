@@ -49,7 +49,7 @@
                                     "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
                                     //GetMovieRateControl(movie.Ratings) +
-                                    GetMovieRateControl(criticRating) +
+                                    GetMovieRateControl(criticRating, movie.Ratings) +
                                     "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
                                 "</div>" +
                             "</div>" +
@@ -68,7 +68,7 @@
                                 "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                                 "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
                                 //GetRateControl(movie.Ratings) +
-                                GetMovieRateControl(criticRating) +
+                                GetMovieRateControl(criticRating,movie.Ratings) +
                                 "<div class=\"movie-songs\" style=\"display: none;\">" + strSongs
                                 /*"<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
                                 "<div><span>Malang</span><span class='play'></span></div>" +

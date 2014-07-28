@@ -123,7 +123,15 @@
     /*margin-top: 10px;*/
     margin-bottom: 3px;
 }
+.rate-value{
+    float: left;
+    font-weight: bold;
+    font-size: 2em;
+    color:red;
+    margin-left: 20px;
+    margin-top: 10px;
 
+}
 .rate-1 {
     background-position: 0px 0px;
 }
