@@ -10,7 +10,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
     var GetPager = function () {
         CURRENT_TILE = $(TILE_CONTAINER).find("li:first");
 
-        CalculateTiles();
+        CalculateTiles(pagerContainerSelector);
         GetNavArrows(TILE_CONTAINER);
 
         if (TILE_COUNT == Infinity)
@@ -101,10 +101,19 @@ var Pager = function (tileContainer, pagerContainerSelector) {
         $(PAGER_SELECTOR).append(rightArrow);
     }
 
-    var CalculateTiles = function () {
-        var tileWidth = $(".movie-list .movie").width();
+    var CalculateTiles = function (pagerContainer) {
+        var tileWidth;
+        var subFactor = 100;
+        if (pagerContainer != "#critics-pager") {
+            tileWidth = $(".movie-list .movie").width();
+        }
+        else {
+            tileWidth = $(".critics-container .reviewer").width();
+            subFactor = 300;
+        }
+        
         var windowWidth = $(window).width();
-        var availableWidth = windowWidth - 100;
+        var availableWidth = windowWidth - subFactor;
         var tiles = Math.floor(availableWidth / tileWidth);
         TILE_COUNT = tiles;
     }
@@ -112,6 +121,23 @@ var Pager = function (tileContainer, pagerContainerSelector) {
     GetPager();
 
     $(window).resize(function () {
+        /* Handle critics 
+        if ($(".critics-container .reviewer") != null && $(".critics-container .reviewer") != undefined) {
+            var tileWidth = $(".critics-container .reviewer").width() + 40;
+            var windowWidth = $(window).width();
+            var availableWidth = windowWidth - 100;
+            var tiles = Math.floor(availableWidth / tileWidth);
+            $(CURRENT_TILE).parent().find("li").hide();
+            $(CURRENT_TILE).css("display", "inline");
+
+            TILE_COUNT = tiles;
+            var TEMP_TILE = CURRENT_TILE;
+            for (var i = 0; i < tiles - 1; i++) {
+                $(TEMP_TILE).next().css("display", "inline");
+                TEMP_TILE = $(TEMP_TILE).next();
+            }
+        }*/
+
         var tileWidth = $(".movie-list .movie").width() + 40;
         var windowWidth = $(window).width();
         var availableWidth = windowWidth - 100;
@@ -125,5 +151,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             $(TEMP_TILE).next().css("display", "inline");
             TEMP_TILE = $(TEMP_TILE).next();
         }
+
+        
     });
 };

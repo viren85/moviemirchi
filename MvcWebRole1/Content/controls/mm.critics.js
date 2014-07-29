@@ -84,7 +84,7 @@ $(document).ready(function () {
     }
     else
     {
-        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
+        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "200" };
         PreparePaginationControl($(".critics-container"), pagerJson);
     }
     /*var totalReviewers = $(".critics-container ul li.reviewer").length;
@@ -94,10 +94,10 @@ $(document).ready(function () {
 
 $(window).resize(function () {
     if ($(window).width() < 768) {
-        var pager = new Pager($(".critics-container"), "#critics-pager");
+        new Pager($(".critics-container"), "#critics-pager");
     }
     else {
-        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "90" };
+        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "200" };
         PreparePaginationControl($(".critics-container"), pagerJson);
     }
 });

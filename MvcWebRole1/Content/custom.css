@@ -123,7 +123,7 @@
     color: #FFF;
 }
 */
-@media screen and (min-width: 321px) and (max-width: 900px) {
+@media screen and (min-width: 321px) and (max-width: 767px) {
     .movie-list, .upcoming-movie-list {
         /*margin-left: 7%;*/
     }
