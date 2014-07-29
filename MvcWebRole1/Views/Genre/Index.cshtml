@@ -34,6 +34,9 @@
     function PopulateMovies(response) {
         try {
             var data = JSON.parse(response);
+            var now = 0;
+            var upcoming = 0;
+            var archived = 0;
 
             if (data.Status != undefined || data.Status == "Error") {
                 $(".movie-list").html(data.UserMessage);
@@ -42,15 +45,20 @@
                 var releaseCounter = 0;
                 if (data != null && data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
-                        if (data[i].State == "now playing" || data[i].State == "now-playing")
+                        if (data[i].State == "now playing" || data[i].State == "now-playing") {
                             var list = PopulatingMovies(data[i], "movie-list");
-                        else if (data[i].State == "upcoming")
+                            now++;
+                        }
+                        else if (data[i].State == "upcoming") {
                             var list = PopulatingMovies(data[i], "upcoming-movie-list");
+                            upcoming++;
+                        }
                         else if (data[i].State == "" || data[i].State == "released") {
                             // It creates 20+ pages for current data. I think we shall have some restriction
                             if (releaseCounter < 25) {
                                 var list = PopulatingMovies(data[i], "others-movie-list");
                                 releaseCounter++;
+                                archived++;
                             }
                         }
                     }
@@ -58,6 +66,15 @@
                     /*The image width/height shall be calculated once the image is fully loaded*/
                     var width = $(document).width();
 
+                    if (now == 0) {
+                        $("#movie-list-tube").hide();
+                    }
+                    if (upcoming == 0) {
+                        $("#upcoming-movie-list-tube").hide();
+                    }
+                    if (archived == 0) {
+                        $("#others-movie-list-tube").hide();
+                    }
                     /*$(".movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
                         var newWidth = 400 * ratio;
