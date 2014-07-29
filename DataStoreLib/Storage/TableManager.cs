@@ -694,10 +694,17 @@ namespace DataStoreLib.Storage
         {
             try
             {
-                var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
-                var allArtists = artistTable.GetAllItems<ArtistEntity>();
+                ArtistEntity artist;
 
-                return allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName.ToLower().Trim());
+                if (!CacheManager.TryGet<ArtistEntity>(CacheConstants.ArtistEntity + artistName.ToLower().Trim(), out artist))
+                {
+                    var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
+                    var allArtists = artistTable.GetAllItems<ArtistEntity>();
+                    var artistDetails = allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName.ToLower().Trim());
+                    CacheManager.Add<ArtistEntity>(CacheConstants.ArtistEntity + artistName.ToLower().Trim(), artist);
+                }
+
+                return artist;
             }
             catch (Exception)
             {
