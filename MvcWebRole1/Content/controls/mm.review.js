@@ -149,6 +149,7 @@ function GetMoviePoster(posters, movieName) {
         }
     }
 
+    //return new Util().LoadImage(posterPath);
     return posterPath;
 }
 

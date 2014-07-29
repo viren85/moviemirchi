@@ -95,7 +95,7 @@
             padding: 0px;
             margin: 0px;
             width: 100%;
-            height: 400px;
+            height: 340px;
             text-align: center;
             /*margin-left: 2%;*/
         }
@@ -109,7 +109,7 @@
                 text-align: left;*/
                 /*margin-top: 15px;*/
                 display: inline-block;
-                width: 250px;
+                width: 225px;
             }
                 .movie-list ul li img {
                     float: left;

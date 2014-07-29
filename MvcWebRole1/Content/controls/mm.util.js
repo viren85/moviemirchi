@@ -35,6 +35,21 @@
         return Math.floor(singleWidth / singleElementWidth) - 1;
     }
 
+    /*Util.prototype.LoadImage = function (path) {
+        $.ajax({
+            cache: false,
+            url: path,
+            type: 'GET',
+            dataType: 'application/octect-stream',
+            success: function (data) {
+                return path;
+            },
+            error: function (ajaxContext) {
+                return "/posters/default-movie.jpg";
+            }
+        });
+    }*/
+
     Util.prototype.IsEmailValid = function (emailText) {
         var pattern = /^[a-zA-Z0-9\-_]+(\.[a-zA-Z0-9\-_]+)*@[a-z0-9]+(\-[a-z0-9]+)*(\.[a-z0-9]+(\-[a-z0-9]+)*)*\.[a-z]{2,4}$/;
         if (pattern.test(emailText)) {

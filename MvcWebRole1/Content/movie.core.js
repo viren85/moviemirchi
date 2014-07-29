@@ -76,8 +76,8 @@ function onSuccessLoadCurrentMovies(result) {
                 var width = $(document).width();
 
                 var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
-                var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
-                var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
+                var defaultTileHeight = (TILE_MODE == 0) ? 340 : 300;
+                var defaultTileWidth = (TILE_MODE == 0) ? 225 : 200;
                 $(".movie-list").find("img").each(function () {
                     var ratio = this.width / this.height;
                     var newWidth = defaultRatio * ratio;
@@ -147,7 +147,7 @@ function onSuccessLoadUpcomingMovies(result) {
 
                 var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
                 var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
-                var defaultTileWidth = (TILE_MODE == 0) ? 250 : 200;
+                var defaultTileWidth = (TILE_MODE == 0) ? 225 : 200;
 
                 $(".upcoming-movie-list").find("img").each(function () {
                     var ratio = this.width / this.height;

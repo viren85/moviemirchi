@@ -40,7 +40,7 @@
 
     if (TILE_MODE == 0) {
         html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
-                    "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 400px;\">" +
+                    "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
                         "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
                         "<div class=\"captionAndNavigate\">" +
                             "<div id=\"captionCredit\" class=\"multimediaCaption\">" +
@@ -60,7 +60,7 @@
     else {
         html =
                 "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
-                    "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 300px;\">" +
+                    "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
                         "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
                     "</div>" +
                     "<div id=\"hover\" style=\"width: 200px; padding: 4%; background-color: white; float: left; height: 175px;border: 1px solid #ddd; box-shadow: -3px 3px 5px #ccc;\">" +
@@ -96,8 +96,8 @@ function MovieImageLoaded(img) {
 
         // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
         // Hence keeping the height + width of fix size.
-        var newWidth = (TILE_MODE == 0) ? 250 : 200;
-        var newHeight = (TILE_MODE == 0) ? 400 : 300;
+        var newWidth = (TILE_MODE == 0) ? 225 : 200;
+        var newHeight = (TILE_MODE == 0) ? 340 : 300;
 
         $(img).css("width", newWidth + "px").css("height", newHeight + "px");
     }
@@ -111,6 +111,6 @@ function LoadDefaultImage(element) {
     var imgHeight = parseInt($(element).css("height").replace("px"));
 
     var ratio = imgWidth / imgHeight;
-    var newWidth = 250;
-    $(element).css("width", newWidth + "px").css("height", "400px");
+    var newWidth = 225;
+    $(element).css("width", newWidth + "px").css("height", "340px");
 }

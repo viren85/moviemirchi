@@ -83,10 +83,10 @@
                     $(".movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
                         var newWidth = 400 * ratio;
-                        $(this).width(newWidth + "px").height("380px");
+                        $(this).width(newWidth + "px").height("340px");
 
-                        if (newWidth > 250)
-                            $(this).width("250px");
+                        if (newWidth > 225)
+                            $(this).width("225px");
                     });
 
                     if (TILE_MODE == 0 && $(window).width()>767)
@@ -101,11 +101,11 @@
                         // movie-list
                         //PreparePaginationControl($(".movie-list"));
                         $(window).resize(function () {
-                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
+                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
                         });
 
                         /*Pagination for movies */
-                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "250" });
+                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
                     }
                 }
             }
@@ -151,7 +151,7 @@
                         });
                     }
                     else {
-                        $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "250px").css("float", "left");;
+                        $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "225px").css("float", "left");;
                         $(".movie-poster-details").parent().hide();
                     }
                 }

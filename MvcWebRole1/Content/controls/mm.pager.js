@@ -1,9 +1,9 @@
 ﻿
 function PreparePaginationControl(rotatorControl, pagerOptions) {
 
-    var defaultTileWidth = TILE_MODE == 0 ? 250 : 240;
+    var defaultTileWidth = TILE_MODE == 0 ? 225 : 240;
     var defaultTilesInPage = TILE_MODE == 0 ? 4 : 3;
-    var defaultMoviePosterWidth = TILE_MODE == 0 ? 250 : 200;
+    var defaultMoviePosterWidth = TILE_MODE == 0 ? 225 : 200;
 
     // Initialise the control options. When any option is not provided, it will initiated with default values.
     var options = (function (options) {

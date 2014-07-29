@@ -78,28 +78,28 @@
                     /*$(".movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
                         var newWidth = 400 * ratio;
-                        $(this).width(newWidth + "px").height("380px");
+                        $(this).width(newWidth + "px").height("340px");
 
-                        if (newWidth > 250)
-                            $(this).width("250px");
+                        if (newWidth > 225)
+                            $(this).width("225px");
                     });
 
                     $(".upcoming-movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
                         var newWidth = 400 * ratio;
-                        $(this).width(newWidth + "px").height("380px");
+                        $(this).width(newWidth + "px").height("340px");
 
-                        if (newWidth > 250)
-                            $(this).width("250px");
+                        if (newWidth > 225)
+                            $(this).width("225px");
                     });
 
                     $(".others-movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
                         var newWidth = 400 * ratio;
-                        $(this).width(newWidth + "px").height("380px");
+                        $(this).width(newWidth + "px").height("340px");
 
-                        if (newWidth > 250)
-                            $(this).width("250px");
+                        if (newWidth > 225)
+                            $(this).width("225px");
                     });*/
 
                     if (TILE_MODE == 0 && $(window).width() > 767) {
@@ -120,17 +120,17 @@
                     }
                     else {
                         // movie-list PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
-                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
-                        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
-                        PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
+                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "225" });
+                        PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "225" });
+                        PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "225" });
 
                         /*PreparePaginationControl($(".movie-list"));
                         PreparePaginationControl($(".upcoming-movie-list"));
                         PreparePaginationControl($(".others-movie-list"));*/
                         $(window).resize(function () {
-                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "250" });
-                            PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "250" });
-                            PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "250" });
+                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "225" });
+                            PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "225" });
+                            PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "225" });
                         });
                     }
                 }
