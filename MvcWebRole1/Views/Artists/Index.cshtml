@@ -89,10 +89,12 @@
                             $(this).width("225px");
                     });
 
-                    if (TILE_MODE == 0 && $(window).width()>767)
+                    ScaleElement($(".movie-list ul"));
+                    /*if (TILE_MODE == 0 && $(window).width()>767)
                         ScaleElement($(".movie-list ul"));
                     else
                         ScaleNewTileElement($(".movie-list ul"));
+                    */
 
                     if ($(window).width() < 768) {
                         var pager = new Pager($(".movie-list"), "#movies-pager");

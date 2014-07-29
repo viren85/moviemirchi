@@ -87,12 +87,12 @@ function onSuccessLoadCurrentMovies(result) {
                         $(this).width(defaultTileWidth + "px");
                 });
 
-
-                if (TILE_MODE == 0 && $(window).width() > 767)
+                ScaleElement($(".movie-list ul"));
+                /*if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".movie-list ul"));
                 else
                     ScaleNewTileElement($(".movie-list ul"));
-
+                */
                 // movie-list
                 //PreparePaginationControl($(".movie-list"));
                 if ($(window).width() < 768) {
@@ -158,11 +158,12 @@ function onSuccessLoadUpcomingMovies(result) {
                         $(this).width(defaultTileWidth + "px");
                 });
 
-                if (TILE_MODE == 0 && $(window).width() > 767)
+                ScaleElement($(".upcoming-movie-list ul"));
+                /*if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".upcoming-movie-list ul"));
                 else
                     ScaleNewTileElement($(".upcoming-movie-list ul"));
-
+                */
                 // movie-list
                 //PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
                 //var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");

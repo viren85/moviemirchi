@@ -155,9 +155,14 @@
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
     .critics-container ul {
-        width: 100%;
+         width: 93%;
         height: auto;
     }
+        .critics-container ul {
+            width: 88%;
+            padding-left: 12%;
+            height: auto;
+        }
 
     .intro {
         float: left;

@@ -102,7 +102,10 @@
                             $(this).width("225px");
                     });*/
 
-                    if (TILE_MODE == 0 && $(window).width() > 767) {
+                    ScaleElement($(".movie-list ul"));
+                    ScaleElement($(".upcoming-movie-list ul"));
+                    ScaleElement($(".others-movie-list ul"));
+                    /*if (TILE_MODE == 0 && $(window).width() > 767) {
                         ScaleElement($(".movie-list ul"));
                         ScaleElement($(".upcoming-movie-list ul"));
                         ScaleElement($(".others-movie-list ul"));
@@ -112,6 +115,7 @@
                         ScaleNewTileElement($(".upcoming-movie-list ul"));
                         ScaleNewTileElement($(".others-movie-list ul"));
                     }
+                    */
 
                     if ($(window).width() < 768) {
                         var pager = new Pager($(".movie-list"), "#genre-now");

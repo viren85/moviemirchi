@@ -19,11 +19,12 @@ var ShowMovie = function (data) {
 
                 PopulatingMovies(result.Movie, "movie-list");
 
-                if (TILE_MODE == 0 && $(window).width() > 767)
+                ScaleElement($(".movie-list ul"));
+                /*if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".movie-list ul"));
                 else
                     ScaleNewTileElement($(".movie-list ul"));
-
+                */
                 // Show all posters of current movie
                 var poster = [], reviews = [], songs = [], trailers = [];
 
