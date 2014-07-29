@@ -2,7 +2,7 @@
 var ShowPersonBio = function (imgPath, name, bioText, affiliation) {
     var bio = "<div class=\"bio\">" +
         //class=\"bio-pic-img\"
-        "<div class=\"bio-pic\"><img src=\"" + imgPath + "\" style=\"width: 35px; height: 35px; top: 17%; left: 20%; position: absolute\" onerror=\"new Util().LoadDefaultImage(this,'critic');\" /></div>" +
+        "<div class=\"bio-pic\"><img src=\"" + imgPath + "\" style=\"width: 35px; height: 35px; top: 23%; left: 9%; position: absolute\" onerror=\"new Util().LoadDefaultImage(this,'critic');\" /></div>" +
         "<div class=\"intro\"><b>" + affiliation + "</b>" +
         //"<div>" + bioText + "</div>" +
         "<div class=\"intro-text\">Loading...</div>" +
@@ -14,8 +14,8 @@ var ShowPersonBio = function (imgPath, name, bioText, affiliation) {
 var InitBio = function () {
     $(".bio-pic").find("img").each(function () {
         var ratio = this.width / this.height;
-        var newHeight = 240 * ratio;
-        $(this).width("240px").height(newHeight + "px");
+        var newHeight = 150 * ratio;
+        $(this).width("150px").height(newHeight + "px");
         
         /*$(this).hover(
             function () {
