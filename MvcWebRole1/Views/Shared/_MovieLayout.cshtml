@@ -741,13 +741,13 @@
     });
 
     function ArrangeTopNavLinks() {
-        if ($(window).width() > 300) {
+        if ($(window).width() > 700) {
             var width = $(document).width() - 100;
             var listCounter = 0;
             var possibleLinks = Math.floor(width / 200);
 
             $("ul.top-nav-bar").find("li").each(function () {
-                if (listCounter >= possibleLinks) {
+                if (listCounter > possibleLinks) {
                     $(this).hide();
                 }
                 else {

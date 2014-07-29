@@ -23,16 +23,18 @@ var GetNavBar = function (json) {
     }
 
     $('html, body').bind('DOMMouseScroll', function (e) {
+        
         if ($(window).width() > 300) {
             if (e.originalEvent.detail > 0) {
                 //$(".nav-bar-container").slideUp();
             } else {
 
-                $("ul.top-nav-bar").find("li").each(function () {
+                /*$("ul.top-nav-bar").find("li").each(function () {
                      $(this).show();
-                });
+                });*/
+                ArrangeTopNavLinks();
 
-                $(".nav-bar-container").slideDown();
+                //$(".nav-bar-container").slideDown();
             }
         }
         else {
@@ -48,10 +50,12 @@ var GetNavBar = function (json) {
             if (e.originalEvent.wheelDelta < 0) {
                 //$(".nav-bar-container").slideUp();
             } else {
-                $("ul.top-nav-bar").find("li").each(function () {
+                /*$("ul.top-nav-bar").find("li").each(function () {
                     $(this).show();
-                });
-                $(".nav-bar-container").slideDown();
+                });*/
+
+                ArrangeTopNavLinks();
+                //$(".nav-bar-container").slideDown();
             }
         }
         else {

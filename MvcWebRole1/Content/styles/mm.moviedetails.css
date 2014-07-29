@@ -116,6 +116,7 @@ div.captionAndNavigate {
         margin-top: 20px;
     }
     .movie-data{width: 90%;}    
+    .artist-bio{width: 70%;}   
 }
 
 @media screen and (max-width: 320px) {
@@ -130,5 +131,6 @@ div.captionAndNavigate {
         width: 87%;
         margin-top: 20px;
     }
-    .movie-data{width: 90%;}    
+    .movie-data{width: 90%;} 
+    .artist-bio{width: 80%;}   
 }
