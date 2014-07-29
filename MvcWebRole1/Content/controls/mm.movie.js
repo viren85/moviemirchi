@@ -157,14 +157,21 @@ var PopulatePosters = function (images, movieName) {
 
         /*Pagination for posters */
         if ($(window).width() < 768) {
-            var pager = new Pager($(".movie-poster-details"), "#posters-pager");
+            new Pager($(".movie-poster-details"), "#posters-pager");
         }
         else {
             PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
             $(".movie-poster-details").append($("#posters-pager"));
-
-            // Write a code for window resize
         }
+
+        $(window).resize(function () {
+            if ($(window).width() < 768) {
+                new Pager($(".movie-poster-details"), "#posters-pager");
+            }
+            else {
+                PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+            }
+        });
 
         $(".link-container").show();
     }
@@ -190,18 +197,22 @@ var ShowMovieReviews = function (review) {
             $(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
         else {
             if ($(window).width() < 768) {
-                var pager = new Pager($(".movie-review-details"), "#review-pager");
+                new Pager($(".movie-review-details"), "#review-pager");
             }
             else {
                 PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
                 $(".movie-review-details").append($("#review-pager"));
-
-                $(window).resize(function () {
-                    PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
-                });
             }
-            
         }
+
+        $(window).resize(function () {
+            if ($(window).width() < 768) {
+                new Pager($(".movie-review-details"), "#review-pager");
+            }
+            else {
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+            }
+        });
     }
     else {
         $(".movie-review-details").hide();
