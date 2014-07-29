@@ -65,9 +65,9 @@
         color: #368BC1;
     }
 
-@media screen and (min-width: 321px) and (max-width: 1350px) {
-    .tweet-container {
-        /*margin-left: 6%;*/
+@media screen and (min-width: 321px) and (max-width: 500px) {
+    .tweet-right {
+        display: none;
     }
 }
 @media screen and (max-width: 320px){
