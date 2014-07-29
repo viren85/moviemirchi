@@ -100,15 +100,17 @@
                         var pager = new Pager($(".movie-list"), "#movies-pager");
                     }
                     else {
-                        // movie-list
-                        //PreparePaginationControl($(".movie-list"));
-                        $(window).resize(function () {
-                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
-                        });
-
-                        /*Pagination for movies */
                         PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
                     }
+
+                    $(window).resize(function () {
+                        if ($(window).width() < 768) {
+                            var pager = new Pager($(".movie-list"), "#movies-pager");
+                        }
+                        else {
+                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
+                        }
+                    });
                 }
             }
         } catch (e) {
