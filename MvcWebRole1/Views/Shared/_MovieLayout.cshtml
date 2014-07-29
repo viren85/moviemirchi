@@ -745,7 +745,7 @@
             var width = $(document).width() - 100;
             var listCounter = 0;
             var possibleLinks = Math.floor(width / 200);
-
+            $(".nav-bar-container").css("display", "block");
             $("ul.top-nav-bar").find("li").each(function () {
                 if (listCounter > possibleLinks) {
                     $(this).hide();
