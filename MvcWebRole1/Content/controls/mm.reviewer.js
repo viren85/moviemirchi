@@ -79,14 +79,24 @@ var ShowReviewsByReviewer = function (review) {
 
     /*Pagination for movies */
     if ($(window).width() < 768) {
-        var pager = new Pager($(".review-list-now-playing"), "#now-pager");
-        var pager1 = new Pager($(".review-list-other"), "#other-pager");
+        new Pager($(".review-list-now-playing"), "#now-pager");
+        new Pager($(".review-list-other"), "#other-pager");
     }
     else {
         PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "500" });
-        /*PreparePaginationControl($(".review-list-upcoming"), { pagerContainerId: "upcoming-pager", tileWidth: "550" });*/
         PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "500" });
     }
+
+    $(window).resize(function () {
+        if ($(window).width() < 768) {
+            new Pager($(".review-list-now-playing"), "#now-pager");
+            new Pager($(".review-list-other"), "#other-pager");
+        }
+        else {
+            PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "500" });
+            PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "500" });
+        }
+    });
 
     if (!hasArchivedReviews) {
         $("#other_movie").hide();
