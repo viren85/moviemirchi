@@ -129,7 +129,7 @@
     }
 
         .movie-list ul li, .upcoming-movie-list ul li {
-            width: 45%;
+            /*width: 45%;*/
             max-width: 225px;
         }
 }

@@ -103,7 +103,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
     var CalculateTiles = function (pagerContainer) {
         var tileWidth;
-        var subFactor = 80;
+        var subFactor = 150;
         if (pagerContainer != "#critics-pager") {
             tileWidth = $(".movie-list .movie").width();
         }
