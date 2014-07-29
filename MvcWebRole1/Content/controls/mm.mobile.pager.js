@@ -74,7 +74,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             if (TILE_COUNT == Infinity)
                 TILE_COUNT = 0;
 
-            TILE_COUNT = TILE_COUNT == 0 ? 1 : TILE_COUNT;
+            TILE_COUNT = TILE_COUNT <= 0 ? 1 : TILE_COUNT;
 
             // Bug - Show all tiles which could fit in the screen when we are on last page
             for (var i = 0; i < TILE_COUNT; i++) {
@@ -103,7 +103,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
     var CalculateTiles = function (pagerContainer) {
         var tileWidth;
-        var subFactor = 100;
+        var subFactor = 80;
         if (pagerContainer != "#critics-pager") {
             tileWidth = $(".movie-list .movie").width();
         }
@@ -140,8 +140,12 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
         var tileWidth = $(".movie-list .movie").width() + 40;
         var windowWidth = $(window).width();
-        var availableWidth = windowWidth - 100;
+        var availableWidth = windowWidth - 80;
         var tiles = Math.floor(availableWidth / tileWidth);
+
+        //$(".movie-list .movie").hide();
+        //$(".upcoming-movie-list .movie").hide();
+
         $(CURRENT_TILE).parent().find("li").hide();
         $(CURRENT_TILE).css("display", "inline");
 
@@ -151,7 +155,5 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             $(TEMP_TILE).next().css("display", "inline");
             TEMP_TILE = $(TEMP_TILE).next();
         }
-
-        
     });
 };
