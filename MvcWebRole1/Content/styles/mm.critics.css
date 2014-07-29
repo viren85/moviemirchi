@@ -6,14 +6,14 @@
 
 .bio-pic {
     float: left;
-    width: 300px;
+    width: 160px;
     /*height: 250px;*/
 }
 
     .bio-pic img {
         float: left;
-        width: 250px;
-        height: 300px;
+        width: 150px;
+        height: 120px;
         margin-right: 20px;
         position: relative;
         margin-bottom: 20px;
@@ -34,6 +34,7 @@
 .intro-text {
     /*font-size: 12px;*/
     text-align: justify;
+    margin-left: 70px;
 }
 
 .critics-left {
