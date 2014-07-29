@@ -118,7 +118,7 @@
         try {
             var data = JSON.parse(response);
             if (data.Status != undefined || data.Status == "Error") {
-                $(".intro-text").html(data.UserMessage);
+                $(".intro-text").css("margin-left", "0px").html(data.UserMessage);
             }
             else {
 
@@ -126,7 +126,7 @@
                     if (data.Bio == "")
                         $(".intro-text").html(data.UserMessage);
                     else
-                        $(".intro-text").html(data.Bio);
+                        $(".intro-text").css("margin-left", "0px").html(data.Bio);
 
                     var posters = JSON.parse(data.Posters);
 
@@ -156,12 +156,12 @@
                     }
                 }
                 else {
-                    $(".intro-text").html("Currently this artist does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
+                    $(".intro-text").css("margin-left", "0px").html("Currently this artist does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
                 }
             }
         } catch (e) {
             //console.log(e.message);
-            $(".intro-text").html("Unable to get artist's details.");
+            $(".intro-text").css("margin-left", "0px").html("Unable to get artist's details.");
         }
     }
 </script>
