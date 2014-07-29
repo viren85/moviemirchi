@@ -2,7 +2,7 @@
 var ShowPersonBio = function (imgPath, name, bioText, affiliation) {
     var bio = "<div class=\"bio\">" +
         //class=\"bio-pic-img\"
-        "<div class=\"bio-pic\"><img src=\"" + imgPath + "\" style=\"width: 50px; height: 50px; margin-top: 40%;\" onerror=\"new Util().LoadDefaultImage(this,'critic');\" /></div>" +
+        "<div class=\"bio-pic\"><img src=\"" + imgPath + "\" style=\"width: 35px; height: 35px; top: 17%; left: 20%; position: absolute\" onerror=\"new Util().LoadDefaultImage(this,'critic');\" /></div>" +
         "<div class=\"intro\"><b>" + affiliation + "</b>" +
         //"<div>" + bioText + "</div>" +
         "<div class=\"intro-text\">Loading...</div>" +
