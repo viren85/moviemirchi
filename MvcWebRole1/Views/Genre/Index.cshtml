@@ -116,11 +116,13 @@
                         ScaleNewTileElement($(".others-movie-list ul"));
                     }
                     */
-
+                    
                     if ($(window).width() < 768) {
-                        var pager = new Pager($(".movie-list"), "#genre-now");
-                        var pager1 = new Pager($(".upcoming-movie-list"), "#genre-upcoming");
-                        var pager2 = new Pager($(".others-movie-list"), "#genre-other");
+                        new Pager($(".movie-list"), "#genre-now");
+                        new Pager($(".upcoming-movie-list"), "#genre-upcoming");
+                        new Pager($(".others-movie-list"), "#genre-other");
+
+                        
                     }
                     else {
                         // movie-list PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
@@ -131,12 +133,20 @@
                         /*PreparePaginationControl($(".movie-list"));
                         PreparePaginationControl($(".upcoming-movie-list"));
                         PreparePaginationControl($(".others-movie-list"));*/
-                        $(window).resize(function () {
+                    }
+
+                    $(window).resize(function () {
+                        if ($(window).width() < 768) {
+                            new Pager($(".movie-list"), "#genre-now");
+                            new Pager($(".upcoming-movie-list"), "#genre-upcoming");
+                            new Pager($(".others-movie-list"), "#genre-other");
+                        }
+                        else {
                             PreparePaginationControl($(".movie-list"), { pagerContainerId: "genre-now", tileWidth: "225" });
                             PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "genre-upcoming", tileWidth: "225" });
                             PreparePaginationControl($(".others-movie-list"), { pagerContainerId: "genre-other", tileWidth: "225" });
-                        });
-                    }
+                        }
+                    });
                 }
             }
         } catch (e) {

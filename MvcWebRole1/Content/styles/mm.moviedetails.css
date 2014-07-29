@@ -104,7 +104,7 @@ div.captionAndNavigate {
 }
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
-    #now-pager, #upcoming-pager {
+    #now-pager, #upcoming-pager, #genre-now, #genre-upcoming, #genre-other {
         width: 95%;
         margin-bottom: 20px;
         margin-left: -40px;

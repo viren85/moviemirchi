@@ -80,7 +80,7 @@
 #review-pager,#genre-now,#genre-other,#genre-upcoming {
     float: left;
     width: 88%;
-    margin-top: 20px;
+    /*margin-top: 20px;*/
     text-align: center;
 }
 @media screen and (max-width: 767px) {
@@ -90,7 +90,7 @@
         margin: 0 auto;
     }
 
-        .movie-list ul,.upcoming-movie-list ul {
+        .movie-list ul,.upcoming-movie-list ul,.others-movie-list ul {
             list-style: none;
             padding: 0px;
             margin: 0px;
@@ -118,12 +118,12 @@
                 .movie-list #now-pager, .upcoming-movie-list #upcoming-pager, .critics-container #critics-pager, .movie-list #movies-pager, .movie-poster-details #posters-pager,
                 .movie-poster-details #posters-pager, .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other,
                 .review-list-now-playing #now-pager, .review-list-other #other-pager
-                 { float: left; position: absolute; margin-top: 145px; width: 85%; }
+                 { float: left; position: absolute; margin-top: 145px; width: 75%; }
                 .critics-container #critics-pager { margin-top: 60px; width: 70%; }
                 .movie-poster-details #posters-pager, .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other {z-index: 98; }
                 /* Arrow */
                 .left-arrow { width: 25px; height: 25px; position: relative; left: 25px; z-index: 98; float: left; }
-                .right-arrow { width: 25px; height: 25px; position: relative; left: 110%; z-index: 98; }
+                .right-arrow { width: 25px; height: 25px; position: relative; left: 125%; z-index: 98; }
 
                 #movies-pager .left-arrow { left: -10px; }
                 #movies-pager .right-arrow { left: 95%; }
@@ -147,5 +147,5 @@
 
 @media screen and (max-width: 321px) {
    .movie-list ul,.upcoming-movie-list ul { margin-left: 5%;}
-   .movie-list .right-arrow,.upcoming-movie-list .right-arrow{ left: 112%; }
+   .movie-list .right-arrow,.upcoming-movie-list .right-arrow{ left: 125%; }
 }
