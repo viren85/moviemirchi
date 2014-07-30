@@ -231,9 +231,26 @@ namespace DataStoreLib.Storage
         /// <returns></returns>
         public IDictionary<string, ReviewEntity> GetReviewsByReviewer(string reviewerName)
         {
-            var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
-            return reviewTable.GetItemsByReviewer<ReviewEntity>(reviewerName);
+            try
+            {
+                IDictionary<string, ReviewEntity> review;
+
+                if (!CacheManager.TryGet<IDictionary<string, ReviewEntity>>(CacheConstants.ReviewEntity + reviewerName.ToLower().Trim(), out review))
+                {
+                    var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
+                    var reviews = reviewTable.GetItemsByReviewer<ReviewEntity>(reviewerName);
+                    review = reviews;
+                    CacheManager.Add<IDictionary<string, ReviewEntity>>(CacheConstants.ReviewEntity + reviewerName.ToLower().Trim(), review);
+                }
+
+                return review;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
         }
+
         /// <summary>
         /// Return the list of reviewes bu reviewerId
         /// </summary>
@@ -548,7 +565,7 @@ namespace DataStoreLib.Storage
 
                 tweets = (startIndex >= 0 && pageSize > 0) ? activeTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
                                                            : activeTweets;
-                
+
 
                 CacheManager.Add<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, tweets);
             }
@@ -559,7 +576,7 @@ namespace DataStoreLib.Storage
         public IEnumerable<TwitterEntity> GetRecentTweets(string tweetType, string name, int startIndex = 0, int pageSize = 20)
         {
             IEnumerable<TwitterEntity> tweets;
-            
+
             if (!CacheManager.TryGet<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, out tweets))
             {
                 var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
@@ -576,7 +593,7 @@ namespace DataStoreLib.Storage
                     sortedTweets = activeTweets.Values.Where(t => t.TweetType == tweetType && t.ArtistName == name).OrderByDescending(t => t.Created_At);
                 }
 
-                tweets = 
+                tweets =
                     (startIndex > 0 && pageSize > 0) ?
                         sortedTweets.Skip(startIndex).Take(pageSize) // Skip first x tweets, and then take next y tweets
                         : sortedTweets;

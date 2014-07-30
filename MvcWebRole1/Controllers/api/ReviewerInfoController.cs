@@ -2,12 +2,14 @@
 namespace MvcWebRole1.Controllers.api
 {
     using DataStoreLib.Constants;
-    using DataStoreLib.Models;
-    using DataStoreLib.Storage;
-    using System;
-    using System.Collections.Generic;
-    using System.Web;
-    using System.Web.Script.Serialization;
+using DataStoreLib.Models;
+using DataStoreLib.Storage;
+using DataStoreLib.Utils;
+using System;
+using System.Collections.Generic;
+using System.Web;
+using System.Web.Script.Serialization;
+using WebGrease;
 
     /// <summary>
     /// This API returns all the information about the reviewer. This includes all the reviews written by this reviewer.
@@ -29,6 +31,7 @@ namespace MvcWebRole1.Controllers.api
                 Reviewer reviewerInfo = new Reviewer();
                 List<ReviewDetails> reviewDetailList = new List<ReviewDetails>();
 
+                //ReviewerMoviesEntity
                 // get query string parameters
                 var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
 
@@ -39,61 +42,69 @@ namespace MvcWebRole1.Controllers.api
 
                 name = qpParams["name"].ToString();
 
-                // getting reviewer details
-                var reviews = tableMgr.GetReviewsByReviewer(name);
-
-                if (reviews != null && reviews.Count > 0)
+                if (!DataStoreLib.Utils.CacheManager.TryGet<Reviewer>(CacheConstants.ReviewerMoviesEntity + name.ToLower().Trim(), out reviewerInfo))
                 {
-                    int courter = 0;
+                    reviewerInfo = new Reviewer();
+                    reviewDetailList = new List<ReviewDetails>();
 
-                    foreach (ReviewEntity review in reviews.Values)
+                    // getting reviewer details
+                    var reviews = tableMgr.GetReviewsByReviewer(name);
+
+                    if (reviews != null && reviews.Count > 0)
                     {
-                        if (courter == 0)
+                        int courter = 0;
+
+                        foreach (ReviewEntity review in reviews.Values)
                         {
-                            // getting reviewer Informations
-                            reviewerInfo.Affilation = review.Affiliation;
-                            reviewerInfo.Name = review.ReviewerName;
-                            reviewerInfo.OutLink = review.OutLink;
+                            if (courter == 0)
+                            {
+                                // getting reviewer Informations
+                                reviewerInfo.Affilation = review.Affiliation;
+                                reviewerInfo.Name = review.ReviewerName;
+                                reviewerInfo.OutLink = review.OutLink;
+                            }
+                            else if (review.MovieId == null)
+                                continue;
+
+                            // get movie information
+                            MovieEntity movie = tableMgr.GetMovieById(review.MovieId);
+
+                            if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing" || movie.State == "released" || movie.State == "now playing" || movie.State == ""))
+                            {
+                                // if movie not null, then add movieid and moviename to review details
+                                ReviewDetails reviewDetail = new ReviewDetails();
+                                reviewDetail.CriticsRating = string.IsNullOrEmpty(review.ReviewerRating) ? "1" : review.ReviewerRating;
+                                reviewDetail.MovieId = movie.MovieId;
+                                reviewDetail.MovieName = movie.Name;
+                                reviewDetail.Review = review.Review;
+                                reviewDetail.MoviePoster = movie.Posters;
+                                reviewDetail.OutLink = review.OutLink;
+                                reviewDetail.MovieStatus = movie.State;
+
+                                // add review object to review list
+                                reviewDetailList.Add(reviewDetail);
+                            }
+
+                            courter++;
                         }
-                        else if (review.MovieId == null)
-                            continue;
 
-                        // get movie information
-                        MovieEntity movie = tableMgr.GetMovieById(review.MovieId);
+                        // add reviewList to reviewInfoObject
+                        reviewerInfo.ReviewsDetails = reviewDetailList;
 
-                        if (movie != null && (movie.State == "upcoming" || movie.State == "now-playing" || movie.State == "released" || movie.State == "now playing" || movie.State == ""))
-                        {
-                            // if movie not null, then add movieid and moviename to review details
-                            ReviewDetails reviewDetail = new ReviewDetails();
-                            reviewDetail.CriticsRating = string.IsNullOrEmpty(review.ReviewerRating) ? "1" : review.ReviewerRating;
-                            reviewDetail.MovieId = movie.MovieId;
-                            reviewDetail.MovieName = movie.Name;
-                            reviewDetail.Review = review.Review;
-                            reviewDetail.MoviePoster = movie.Posters;
-                            reviewDetail.OutLink = review.OutLink;
-                            reviewDetail.MovieStatus = movie.State;
-
-                            // add review object to review list
-                            reviewDetailList.Add(reviewDetail);
-                        }
-
-                        courter++;
+                        DataStoreLib.Utils.CacheManager.Add<Reviewer>(CacheConstants.ReviewerMoviesEntity + name.ToLower().Trim(), reviewerInfo);
+                    }
+                    else
+                    {
+                        return jsonSerializer.Value.Serialize(
+                      new
+                      {
+                          Status = "Error",
+                          UserMessage = "Currently Movie Mirchi does not have any information about this critic (" + name + ")",
+                          ActualError = string.Empty
+                      });
                     }
                 }
-                else
-                {
-                    return jsonSerializer.Value.Serialize(
-                  new
-                  {
-                      Status = "Error",
-                      UserMessage = "Currently Movie Mirchi does not have any information about this critic (" + name + ")",
-                      ActualError = string.Empty
-                  });
-                }
-
-                // add reviewList to reviewInfoObject
-                reviewerInfo.ReviewsDetails = reviewDetailList;
-
+                
                 // serialize and return reviewer details along with reviews
                 return jsonSerializer.Value.Serialize(reviewerInfo);
             }
