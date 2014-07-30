@@ -208,7 +208,7 @@ var ShowMovieReviews = function (review) {
                 new Pager($(".movie-review-details"), "#review-pager");
             }
             else {
-                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "300" });
                 $(".movie-review-details").append($("#review-pager"));
             }
         }
@@ -218,7 +218,8 @@ var ShowMovieReviews = function (review) {
                 new Pager($(".movie-review-details"), "#review-pager");
             }
             else {
-                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "500" });
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "300" });
+                $(".movie-review-details").append($("#review-pager"));
             }
         });
     }
