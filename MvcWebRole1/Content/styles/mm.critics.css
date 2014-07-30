@@ -39,7 +39,7 @@
 
 .critics-left {
     float: left;
-    min-width: 170px;
+    min-width: 85px;
 }
 
 .critics-review {
@@ -48,9 +48,10 @@
 }
 
 .critics-more-link {
-    position: absolute;
+    /*position: absolute;
     right: 10px;
-    bottom: 0px;
+    bottom: 0px;*/
+    float: right;
 }
 
 .critics-review .arrow_box {
@@ -58,7 +59,7 @@
 }
 
 .arrow_container {
-    height: 260px !important;
+    height: 230px !important;
 }
 
 .critic-review {

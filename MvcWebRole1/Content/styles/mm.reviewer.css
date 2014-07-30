@@ -13,9 +13,9 @@
 
         .review-list ul li, .review-list-now-playing ul li, .review-list-upcoming ul li, .review-list-other ul li {
             float: left;
-            width: 36%;
+            width: 25%;
             margin-bottom: 1%;
-            min-width: 420px;
+            min-width: 315px;
         }
 
 .critic-label {
@@ -94,14 +94,19 @@
                 margin-bottom: 10px;
             }
 
-@media screen and (min-width: 768px) {
-    
+@media screen and (max-width: 768px) {
+    .review-list ul li, .review-list-now-playing ul li, .review-list-upcoming ul li, .review-list-other ul li
+    {
+        min-width: 290px;
+        max-width: 290px;
+    }
 }
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
      
 }
 
-@media screen and (max-width: 320px) {
-     
+@media screen and (min-width: 768px) {
+     .critics-review { width: 195px;}
+     blockquote.quote{min-height: 180px;max-height: 180px;}
 }
