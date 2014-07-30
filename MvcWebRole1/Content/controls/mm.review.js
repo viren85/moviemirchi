@@ -15,8 +15,9 @@
                                     "<a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" +
                                         "<img src=\"" + GetReviewerPic(review.ReviewerName) + "\" style=\"height:100px;width:100px\" onerror=\"this.src='" + PUBLIC_BLOB_URL + "default-movie.jpg'\" />" +
                                     "</a>" +
-                                    "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" + review.ReviewerName + "</a></div>" +
+                                    "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\" title=\"" + review.ReviewerName + "\">" + new Util().GetEllipsisText(review.ReviewerName, 20) + "</a></div>" +
                                     "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
+                                    "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
                                     /*"<div class=\"other\">" +
                                         "<div class=\"topcritic\">Top Critic</div>" +
                                     "</div>" +*/
@@ -24,7 +25,6 @@
                             "</div>" +
                         "</div>" +
                         "<div class=\"right\">" +
-                            "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
                             "<div class=\"review\">" +
                                 "<div class=\"arrow_box\">" +
                                     "<div class=\"review-content\">" +
@@ -91,14 +91,14 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                                 "<div class=\"info\">" +
                                     "<div class=\"reviewer\">" +
                                         "<a href=\"/movie/" + uniqueName + "\">" +
-                                            "<img src=\"" + GetMoviePoster(review.MoviePoster, review.MovieName) + "\" style=\"height:235px;width:150px\" onerror=\"this.src='" + PUBLIC_BLOB_URL + "default-movie.jpg'\" />" +
+                                            "<img src=\"" + GetMoviePoster(review.MoviePoster, review.MovieName) + "\" style=\"height:100px;width:75px\" onerror=\"this.src='" + PUBLIC_BLOB_URL + "default-movie.jpg'\" />" +
                                         "</a>" +
                                     "</div>" +
+                                    "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
                                 "</div>" +
                             "</div>" +
                             "<div class=\"right\">" +
                                 "<div class=\"review-movie-name\"><a href=\"/movie/" + uniqueName + "\">" + review.MovieName + "</a></div>" +
-                                "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
                                 "<div class=\"critics-review\">" +
                                     "<div class=\"arrow_box\">" +
                                         "<div class=\"review-content\">" +
