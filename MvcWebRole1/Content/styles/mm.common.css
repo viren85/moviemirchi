@@ -176,7 +176,7 @@
 
 /* End - Rating Control */
 @media screen and (max-width: 768px) {
-    .tube-container {margin-top: 20px;}
+    /*.tube-container {margin-top: 20px;}*/
     .large-fonts{font-size:1.5em;}
 }
 
