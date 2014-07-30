@@ -33,7 +33,7 @@ $(document).ready(function () {
                     "<a href=\"movie/reviewer/" + critic.href + "\" title=\"" + critic.title + " (" + critic.aff + ")" + "\">" +
                         "<div id=\"picAndCaption\" class=\"viewingDiv\">" +
                             "<div id=\"imageContainer\" class=\"viewer\">" +
-                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "(" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"" + PUBLIC_BLOB_URL + critic.poster + "\" style=\"margin: auto; height: 125px; width: 125px; \" onerror=\"LoadDefaultCriticImage(this);\">" +
+                                "<img id=\"imageEl\" class=\"movie-poster shownImage\" title=\"" + critic.title + "(" + critic.aff + ")" + "\" alt=\"" + critic.title + " (" + critic.aff + ")" + "\" src=\"" + PUBLIC_BLOB_URL + critic.poster + "\" style=\"margin: auto; height: 125px !important; width: 125px !important; \" onerror=\"LoadDefaultCriticImage(this);\">" +
                             "</div>" +
                         "</div>" +
                         "<div class=\"critics-name\">" + critic.name + "</div>" +
