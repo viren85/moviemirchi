@@ -143,4 +143,5 @@
             width: 50%;
             max-width: 225px;
         }
+        .gallery-image{max-width: 265px !important;}
 }

@@ -67,7 +67,7 @@
 }
 @media screen and (max-width: 320px) {
     .rating-container {
-        width: 80%;    
+        width: 100%;    
     }
     .rating-container .liner{
         font-size: 1.3em;
