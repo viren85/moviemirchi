@@ -9,7 +9,7 @@
 var ShowMovie = function (data) {
     try {
         var result = JSON.parse(data);
-        
+
         if (result.Status != undefined || result.Status == "Error") {
             $(".movie-content").html(result.UserMessage);
         }
@@ -177,6 +177,14 @@ var PopulatePosters = function (images, movieName) {
     }
     else {
         $(".movie-poster-details").hide();
+
+        // Remove Posters link from the top nav
+        $(".top-nav-bar").find("li").each(function () {
+            if ($(this).attr("link-id") == "mov_poster") {
+                $(this).remove();
+            }
+        });
+
         $(".link-container").find("div.section-title").each(function () {
             if ($(this).html() == "Posters") {
                 $(this).hide();
@@ -285,6 +293,7 @@ var PopulateSongs = function (song) {
 var SongList = function (videos, type) {
     var ul = $("<ul/>");
     var songHasLink = false;
+
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
         var url = "";
@@ -333,6 +342,15 @@ var SongList = function (videos, type) {
         $(".songs").append($("#songs-pager"));
         $(".songs").attr("style", "display:block !important;");
     }
+    else {
+        // Remove Songs link from the top nav
+        $(".top-nav-bar").find("li").each(function () {
+            if ($(this).attr("link-id") == "movie_songs") {
+                $(this).remove();
+            }
+        });
+
+    }
 }
 
 var PopulateTrailers = function (trailer) {
@@ -343,6 +361,11 @@ var PopulateTrailers = function (trailer) {
         TrailerList(trailers, "Trailer");
     }
     catch (e) {
+        $(".top-nav-bar").find("li").each(function () {
+            if ($(this).attr("link-id") == "movie_trailers") {
+                $(this).remove();
+            }
+        });
     };
 }
 
@@ -350,6 +373,7 @@ var TrailerList = function (videos, type) {
     var ul = $("<ul/>");
     var songHasLink = false;
     var j = 0;
+     
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
         var url = "";
@@ -392,7 +416,7 @@ var TrailerList = function (videos, type) {
         }
         else {
             PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
-            
+
             $(window).resize(function () {
                 PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
             });
@@ -400,6 +424,14 @@ var TrailerList = function (videos, type) {
 
         $(".trailers").append($("#trailer-pager"));
         $(".trailers").attr("style", "display:block !important;");
+    }
+    else {
+        // Remove Video link from the top nav
+        $(".top-nav-bar").find("li").each(function () {
+            if ($(this).attr("link-id") == "movie_trailers") {
+                $(this).remove();
+            }
+        });
     }
 }
 
