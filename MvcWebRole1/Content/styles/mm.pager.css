@@ -147,6 +147,10 @@
 }
 
 @media screen and (max-width: 321px) {
-   .movie-list ul,.upcoming-movie-list ul { margin-left: 5%;}
+   .movie-list ul,.upcoming-movie-list ul { margin-left: 7%;}
    .movie-list .right-arrow,.upcoming-movie-list .right-arrow{ left: 125%; }
+   .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other
+   {
+       width: 63%;
+   }
 }
