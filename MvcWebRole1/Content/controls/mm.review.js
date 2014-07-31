@@ -137,15 +137,16 @@ function GetReviewerPic(reviewerName) {
 function GetMoviePoster(posters, movieName) {
     // TODO - poster object is not getting populated hence it returns the null poster object. Hence we had to add if/else block
     var posterPath;
+    
     if (!posters) {
         posterPath = PUBLIC_BLOB_URL + movieName.replace(" ", "-") + "-poster-1.jpg";
     } else {
         // TODO - fix this, doesn't seem right
         var posters = JSON.parse(posters);
-        if (posters && posters.length && posters.length > 1) {
+        if (posters && posters.length && posters.length > 0) {
             posterPath = PUBLIC_BLOB_URL + posters[posters.length - 1];
         } else {
-            posterPath = PUBLIC_BLOB_URL + movieName.split(" ").join("-") + "-poster-1.jpg";
+            posterPath = PUBLIC_BLOB_URL + "default-movie.jpg";
         }
     }
 
