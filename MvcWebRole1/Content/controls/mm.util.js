@@ -83,4 +83,15 @@
         else
             return "Home";
     }
+
+
+    Util.prototype.AppendLoadImage = function (section) {
+        var fileName = "/Images/Loading.GIF";
+        var img = $("<img/>").attr("src", fileName).addClass("loadimage");
+        $(section).append(img);
+    }
+
+    Util.prototype.RemoveLoadImage = function(section) {
+        $(section).find("img").remove();
+    }
 }
