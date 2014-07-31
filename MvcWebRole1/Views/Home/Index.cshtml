@@ -26,6 +26,13 @@
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
         $(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30"));
+
+        $(".section-title").each(function () {
+            new Util().AppendLoadImage($(this));
+        });
+
+        new Util().RemoveLoadImage($("#critics-container-tube"));
+        
         LoadCurrentMovies();
         LoadUpcomingMovies();
         LoadTweets();

@@ -25,6 +25,10 @@
         $(".movies").append(GetTubeControl("Upcoming Movies (" + name + ")", "upcoming-movie-list", "genre-upcoming"));
         $(".movies").append(GetTubeControl("Archived Movies (" + name + ")", "others-movie-list", "genre-other"));
 
+        $(".section-title").each(function () {
+            new Util().AppendLoadImage($(this));
+        });
+
         var apiPath = "../api/GenreMovies?type=" + name;
         CallHandler(apiPath, PopulateMovies);
         LoadNews();
@@ -37,13 +41,18 @@
             var now = 0;
             var upcoming = 0;
             var archived = 0;
-
+            
+            new Util().RemoveLoadImage($("#movie-list-tube"));
+            new Util().RemoveLoadImage($("#upcoming-movie-list-tube"));
+            new Util().RemoveLoadImage($("#others-movie-list-tube"));
+            
             if (data.Status != undefined || data.Status == "Error") {
                 $(".movie-list").html(data.UserMessage);
             }
             else {
                 var releaseCounter = 0;
                 if (data != null && data.length > 0) {
+                    
                     for (var i = 0; i < data.length; i++) {
                         if (data[i].State == "now playing" || data[i].State == "now-playing") {
                             var list = PopulatingMovies(data[i], "movie-list");

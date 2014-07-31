@@ -46,20 +46,19 @@ function GetQueryStringsForHtmPage() {
 
 function LoadCurrentMovies() {
     var path = "api/Movies?type=current";
-    $("<img/>").attr("src", "/Images/Loading.GIF").attr("style", "width: 32px; height: 32px; margin-left: 5%;").insertBefore($(".movie-list ul"));
     CallHandler(path, onSuccessLoadCurrentMovies);
 }
 
 function LoadUpcomingMovies() {
     var path = "api/Movies?type=upcoming";
-    $("<img/>").attr("src", "/Images/Loading.GIF").attr("style", "width: 32px; height: 32px; margin-left: 5%;").insertBefore($(".upcoming-movie-list ul"));
     CallHandler(path, onSuccessLoadUpcomingMovies);
 }
 
 function onSuccessLoadCurrentMovies(result) {
     try {
         result = JSON.parse(result);
-        $(".movie-list").find("img").hide();
+        new Util().RemoveLoadImage($("#movie-list-tube"));
+
         if (result.Status != undefined || result.Status == "Error") {
             $(".movie-list").html(result.UserMessage);
         }
@@ -129,7 +128,10 @@ function onSuccessLoadCurrentMovies(result) {
 function onSuccessLoadUpcomingMovies(result) {
     try {
         result = JSON.parse(result);
-        $(".upcoming-movie-list").find("img").hide();
+
+        new Util().RemoveLoadImage($("#upcoming-movie-list-tube"));
+        //$(".upcoming-movie-list").find("img").hide();
+
         if (result.Status != undefined || result.Status == "Error") {
             $(".upcoming-movie-list").html(result.UserMessage);
         }

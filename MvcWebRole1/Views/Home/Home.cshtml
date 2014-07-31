@@ -334,22 +334,16 @@
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
         $(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30"));
-        //LoadCurrentMovies();
-        //LoadUpcomingMovies();
-        //LoadTweets();
-        //LoadTags();
+
         $(".tube-container").append($(".movie-details"));
         $(".movie-list").append($(".link-container"));
         onSuccessLoadCurrentMovies($("#CurrentMovies").val());
-
-
+        
         $(".tube-container").append($(".movie-details"));
         $(".upcoming-movie-list").append($(".link-container"));
         onSuccessLoadUpcomingMovies($("#UpcomingMovies").val());
 
-
         ShowNews($("#News").val());
         ShowTweets($("#Tweets").val());
-
     });
 </script>

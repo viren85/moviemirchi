@@ -6,6 +6,7 @@
 var ShowNews = function (data) {
     try {
         var jdata = JSON.parse(data);
+        new Util().RemoveLoadImage($("#news-container-tube"));
         if (jdata.Status != undefined || jdata.Status == "Error") {
             $(".news-container").html(jdata.UserMessage);
         }

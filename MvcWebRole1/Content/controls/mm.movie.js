@@ -9,6 +9,10 @@
 var ShowMovie = function (data) {
     try {
         var result = JSON.parse(data);
+        
+        $(".section-title").each(function () {
+            new Util().RemoveLoadImage($(this));
+        });
 
         if (result.Status != undefined || result.Status == "Error") {
             $(".movie-content").html(result.UserMessage);

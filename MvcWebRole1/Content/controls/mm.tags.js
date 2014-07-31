@@ -9,7 +9,7 @@
 var ShowTags = function (data) {
     try {
         var jData = JSON.parse(data);
-
+        new Util().RemoveLoadImage($("#tags-container-tube"));
         if (jData.Status != undefined || jData.Status == "Error") {
             $(".tags-container").html(jData.UserMessage);
             $(".tags-container").attr("style", "padding:10px");

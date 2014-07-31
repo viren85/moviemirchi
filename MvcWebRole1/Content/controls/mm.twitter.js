@@ -13,6 +13,8 @@
 var ShowTweets = function (data) {    
     try {
         var jdata = JSON.parse(data);
+        new Util().RemoveLoadImage($("#tweets-tube"));
+
         if (jdata.Status != undefined || jdata.Status == "Error") {
             $(".tweets").html(jdata.UserMessage);
         }

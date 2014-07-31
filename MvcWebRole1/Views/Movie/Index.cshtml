@@ -257,6 +257,15 @@
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
         LoadTweets("movie", name);
-        //console.log("3:" + $(".link-container .songs").css("display"));
+
+        $(".section-title").each(function () {
+            new Util().AppendLoadImage($(this));
+        });
+
+        // Hide loading image from tweets and news section after 5 sec
+        setTimeout(function () {
+            new Util().RemoveLoadImage($("#news-container-tube"));
+            new Util().RemoveLoadImage($("#tweets-tube"));
+        }, 4000);
     });
 </script>
