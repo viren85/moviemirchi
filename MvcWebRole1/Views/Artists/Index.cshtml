@@ -47,13 +47,16 @@
         var artist = name.split('-').join(' ');
 
         var fileName = "/Images/Loading.GIF";
-
         $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
-        $(".movies .artist-bio").append(ShowPersonBio(fileName, artist, "", ""));
+        $(".movies .artist-bio").append(ShowPersonBio(""));
         $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
         $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
         $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+
+        $(".section-title").each(function () {
+            new Util().AppendLoadImage($(this));
+        });
 
         //InitBio();
         var apiPath = "../api/ArtistMovies?type=movie&name=" + artist;
@@ -62,12 +65,15 @@
         CallHandler(artistBioPath, PopulateArtistsBio);
         LoadNews();
         LoadTweets("artist", name);
+
+        new Util().RemoveLoadImage($("#news-container-tube"));
+        new Util().RemoveLoadImage($("#tweets-tube"));
     });
 
     function PopulateMovies(response) {
         try {
             var data = JSON.parse(response);
-
+            new Util().RemoveLoadImage($("#movie-list-tube"));
             if (data.Status != undefined || data.Status == "Error") {
                 $(".movie-list").html(data.UserMessage);
                 $(".top-nav-bar").find("li").each(function () {
@@ -140,6 +146,7 @@
             else {
                 
                 if (data != null) {
+                    new Util().RemoveLoadImage($("#artist_detail-tube"));
                     if (data.Bio == "") 
                         $(".intro-text").html("Movie Mirchi is gathering bio-data for this artist, will be updated soon.");
                     else
@@ -148,8 +155,8 @@
                     var posters = JSON.parse(data.Posters);
 
                     if (posters != null && posters.length > 0) {
-                        //$(".bio-pic img").attr("src", "/Posters/Images/" + posters[posters.length - 1]).css("margin-left", "5%").css("margin-top", "0%");
-                        $(".bio-pic img").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).css("margin-top", "0%").css("position", "relative").css("left", "0%").css("top", "0%");
+                        new Util().RemoveLoadImage($("#movie-poster-details-tube"));
+                        $(".bio-pic").append($("<img/>").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]));
                         //$(".poster-list").parent().hide();
                         InitBio();
 

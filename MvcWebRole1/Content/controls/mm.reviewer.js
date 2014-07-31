@@ -27,10 +27,10 @@ var ShowReviews = function (data) {
                 }
 
                 $(".movies").find(".review-list").each(function () {
-                    $(this).prepend(ShowPersonBio(fileName, name, "", affiliation));
+                    $(this).prepend(ShowPersonBio(affiliation));
                     $(this).find("img").removeAttr("style").css("width", "225px").css("float", "left");
                     InitBio();
-
+                    $(".bio-pic").append($("<img/>").attr("src", fileName));
                     // Need to populate this text from DB
                     $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
 
