@@ -133,14 +133,15 @@
     function PopulateArtistsBio(response) {
         try {
             var data = JSON.parse(response);
+            
             if (data.Status != undefined || data.Status == "Error") {
                 $(".intro-text").css("margin-left", "0px").html(data.UserMessage);
             }
             else {
-
+                
                 if (data != null) {
-                    if (data.Bio == "")
-                        $(".intro-text").html(data.UserMessage);
+                    if (data.Bio == "") 
+                        $(".intro-text").html("Movie Mirchi is gathering bio-data for this artist, will be updated soon.");
                     else
                         $(".intro-text").css("margin-left", "0px").html(data.Bio);
 
