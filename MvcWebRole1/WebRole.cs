@@ -1,6 +1,7 @@
 ﻿using Microsoft.WindowsAzure.ServiceRuntime;
 using System;
 using System.Diagnostics;
+using System.IO;
 
 namespace MvcWebRole1
 {
@@ -22,8 +23,42 @@ namespace MvcWebRole1
 
         private void SetupLuceneIndexes()
         {
-            //// TODO: Implement this method
-            ;
+            try
+            {
+                var separator = new char[] { '_' };
+                var currentDir = System.Configuration.ConfigurationManager.AppSettings["ImagePath"];
+                var luceneDir = Path.Combine(currentDir, "lucene_index");
+                if (Directory.Exists(luceneDir))
+                {
+                    foreach (var file in Directory.EnumerateFiles(luceneDir))
+                    {
+                        try
+                        {
+                            var name = Path.GetFileName(file);
+                            if (name.ToLowerInvariant().Contains("segment"))
+                            {
+                                name = name.TrimStart(separator);
+                            }
+                            else if (name.ToLowerInvariant().Contains(".cfs"))
+                            {
+                                name = name.TrimEnd(separator);
+                            }
+
+                            var newFile = Path.Combine(
+                                Path.GetDirectoryName(file),
+                                name);
+                            File.Move(file, newFile);
+                        }
+                        catch
+                        {
+                        }
+                    }
+                }
+            }
+            catch
+            {
+
+            }
         }
 
         private static void RunSmartMonkey()

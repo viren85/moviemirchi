@@ -456,6 +456,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="lucene_index\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
@@ -478,23 +479,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\Home\Home.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="lucene_index\segments.gen" />
-    <Content Include="lucene_index\segments_p" />
-    <Content Include="lucene_index\_k.fdt" />
-    <Content Include="lucene_index\_k.fdx" />
-    <Content Include="lucene_index\_k.fnm" />
-    <Content Include="lucene_index\_k.frq" />
-    <Content Include="lucene_index\_k.nrm" />
-    <Content Include="lucene_index\_k.prx" />
-    <Content Include="lucene_index\_k.tii" />
-    <Content Include="lucene_index\_k.tis" />
-    <Content Include="lucene_index\_l.cfs" />
-    <Content Include="lucene_index\_m.cfs" />
-    <Content Include="lucene_index\_n.cfs" />
-    <Content Include="lucene_index\_o.cfs" />
-    <Content Include="lucene_index\_p.cfs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
@@ -533,6 +517,13 @@
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
     <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
   </Target>
+  <PropertyGroup>
+    <PreBuildEvent>ECHO "***Pre-build started"
+IF EXIST lucene_index DEL /S /Q lucene_index
+IF NOT EXIST lucene_index MKDIR lucene_index
+COPY /Y $(ProjectDir)..\LuceneSearchIndex\* lucene_index
+ECHO "***Pre-build completed"</PreBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
