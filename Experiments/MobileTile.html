@@ -1,0 +1,154 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mobile Tile</title>
+    <link rel="stylesheet" href="styles/jquery.mobile-1.0.min.css" />
+    <script src="scripts/jquery-1.6.4.min.js"></script>
+    <script src="scripts/jquery.mobile-1.0.min.js"></script>
+    <style>
+        .ui-content{padding: 0px;overflow: hidden;}
+        .ui-footer{display: none;}
+        .m-mirchi{float: left; width: 35px;height: 50px;margin-right: 20px;}
+        .m-search-bar{float:left;width:200px !important;background-color: white; font-size: 11px;border-radius:4px; margin-top: 7px;}
+        .m-menu{
+            float: left;
+            margin-left: 15px;
+            margin-top: 15px;
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid #666;
+            display: block;
+        }
+        .m-tile{width:100%;max-height:88%;margin: 0px;min-width: 320px; height: 420px;}
+        .footer-info{position: absolute;bottom:0px; min-height: 50px;background-color: #000;width:100%;opacity: .90;}
+        .m-section-title{color:white;font-size: 14px; margin-top:15px;margin-left: 70px;float: left;}
+        .m-left{
+            width: 0;
+	        height: 0;
+            float: left;
+	        border-top: 10px solid transparent;
+	        border-right: 10px solid #666;
+	        border-bottom: 10px solid transparent;
+            margin-top: 10px;
+            margin-right: 20px;
+            margin-left: 10px;
+        }
+        .m-right{
+            width: 0;
+            float: left;
+	        height: 0;
+	        border-top: 10px solid transparent;
+	        border-left: 10px solid #fff;
+	        border-bottom: 10px solid transparent;
+            margin-top: 10px;
+            margin-right: 10px;
+        }
+        .m-movie-info { float: right; background-color: white; color: black; margin-right: 10px; margin-top: 10px; padding: 5px 10px 5px 10px; border-radius: 5px; font-weight: bold; }
+        .active  { border-right: 10px solid #fff; }
+        .inactive  { border-left: 10px solid #666; }
+    </style>
+</head>
+<body class="ui-mobile-viewport">
+    <div data-role="page" id="one" data-url="one" tabindex="0" class="ui-page ui-body-c ui-page-active" style="min-height: 480px;">
+        <div data-role="header" class="ui-header ui-bar-a" role="banner">
+            <img src="images/RedChilli.png" class="m-mirchi" />
+            <input type="text" class="m-search-bar" placeholder="What do you like?" />
+            <div class="m-menu"></div>
+        </div>
+        <div data-role="content" class="ui-content" role="main">
+            <img src="https://moviemirchistorage.blob.core.windows.net/posters/kick-poster-1.jpg" class="m-tile" onload="AdjustImageSize(this);"/>
+            <div class="footer-info">
+                <div class="m-swipe">
+                    <div class="m-left"></div>
+                    <div class="m-right"></div>
+                </div>
+                <div class="m-section-title">Now Playing</div>
+                <div class="m-movie-info">i</div>
+            </div>
+        </div>
+        <div data-role="footer" data-theme="d" class="ui-footer ui-bar-d" role="contentinfo">
+        </div>
+    </div>
+    <div data-role="page" id="two" data-theme="a" data-url="two">
+        <div data-role="header" class="ui-header ui-bar-a" role="banner">
+            <img src="images/RedChilli.png" class="m-mirchi" />
+            <input type="text" class="m-search-bar" placeholder="What do you like?" />
+            <div class="m-menu"></div>
+        </div>
+        <div data-role="content" class="ui-content" role="main">
+            <img src="https://moviemirchistorage.blob.core.windows.net/posters/hate-story-2-poster-1.jpg" class="m-tile" />
+            <div class="footer-info">
+                <div class="m-swipe">
+                    <div class="m-left active"></div>
+                    <div class="m-right inactive"></div>
+                </div>
+                <div class="m-section-title">Now Playing</div>
+                <div class="m-movie-info">i</div>
+            </div>
+        </div>
+        <div data-role="footer" data-theme="d" class="ui-footer ui-bar-d" role="contentinfo">
+        </div>
+    </div><!-- /page two -->
+    <!-- Start of third page: #popup -->
+    <div data-role="dialog" id="popup" data-url="popup" tabindex="0" class="ui-page ui-body-c ui-overlay-a ui-dialog" role="dialog" style="min-height: 667px;">
+
+        <div data-role="header" data-theme="e" class="ui-corner-top ui-overlay-shadow ui-header ui-bar-e" role="banner">
+            <a href="#" data-icon="delete" data-iconpos="notext" class="ui-btn-left ui-btn ui-btn-icon-notext ui-btn-corner-all ui-shadow ui-btn-up-e" title="Close" data-theme="e" data-transition="pop" data-direction="reverse"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text">Close</span><span class="ui-icon ui-icon-delete ui-icon-shadow"></span></span></a>
+            <h1 class="ui-title" tabindex="0" role="heading" aria-level="1">Dialog</h1>
+        </div><!-- /header -->
+
+        <div data-role="content" data-theme="d" class="ui-overlay-shadow ui-content ui-body-d" role="main">
+            <h2>Popup</h2>
+            <p>I have an id of "popup" on my page container and only look like a dialog because the link to me had a <code>data-rel="dialog"</code> attribute which gives me this inset look and a <code>data-transition="pop"</code> attribute to change the transition to pop. Without this, I'd be styled as a normal page.</p>
+            <p><a href="#one" data-rel="back" data-role="button" data-inline="true" data-icon="back" data-theme="d" class="ui-btn ui-btn-up-d ui-btn-inline ui-btn-icon-left ui-btn-corner-all ui-shadow"><span class="ui-btn-inner ui-btn-corner-all" aria-hidden="true"><span class="ui-btn-text">Back to page "one"</span><span class="ui-icon ui-icon-back ui-icon-shadow"></span></span></a></p>
+        </div><!-- /content -->
+
+        <div data-role="footer" class="ui-overlay-shadow ui-corner-bottom ui-footer ui-bar-a" role="contentinfo">
+            <h4 class="ui-title" tabindex="0" role="heading" aria-level="1">Page Footer</h4>
+        </div><!-- /footer -->
+    </div><!-- /page popup -->
+
+
+    <div class="ui-loader ui-body-a ui-corner-all" style="top: 333.5px;"><span class="ui-icon ui-icon-loading spin"></span><h1>loading</h1></div>
+</body>
+</html>
+<script>
+    $('div.ui-page').live("swipeleft", function () {
+        var nextpage = $(this).next('div[data-role="page"]');
+        if (nextpage.length > 0) {
+            $.mobile.changePage(nextpage, "slide", false, true);
+        }
+    });
+    $(".m-right").live("click", function () {
+        var nextpage = $(this).parent().parent().parent().parent().next('div[data-role="page"]');
+        
+        if (nextpage.length > 0) {
+            $.mobile.changePage(nextpage, "slide", false, true);
+        }
+    });
+    $('div.ui-page').live("swiperight", function () {
+        var prevpage = $(this).prev('div[data-role="page"]');
+        if (prevpage.length > 0) {
+            $.mobile.changePage(prevpage, {
+                transition: "slide",
+                reverse: true
+            }, true, true);
+        }
+    });
+    $(".m-left").live("click", function () {
+        var prevpage = $(this).parent().parent().parent().parent().next('div[data-role="page"]');
+        if (prevpage.length > 0) {
+            //$.mobile.changePage(prevpage, "slide", true, true);
+        }
+    });
+
+    function AdjustImageSize(img) {
+        var w = $(window).width();
+        var h = Math.round($(window).height() * 0.88);
+        $(img).css("width", w).css("height", h);
+    }
+</script>
