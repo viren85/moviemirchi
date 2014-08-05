@@ -92,7 +92,7 @@ function getItems(query) {
                 var query = $("#home-search").val().toLowerCase();
                 new SearchResults(data).Init();
 
-                $(".search-result-text").find("a").attr("target", "_blank");
+                $(".search-result-text").find("a");
             }
         } else {
             //If data is null the we are removing the li and ul elements.
@@ -191,7 +191,7 @@ var SearchResults = function (searchResults) {
             }
         }
 
-        $(anchor).attr("href", "/Movie/" + singleEntity.Link + "?type=search&src=" + pageName).attr("target", "_blank");
+        $(anchor).attr("href", "/Movie/" + singleEntity.Link + "?type=search&src=" + pageName);
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
@@ -224,7 +224,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
 
-            $(anchor).attr("href", "/Artists/" + artist.split(" ").join("-") + "?type=search&src=" + pageName).attr("target", "_blank");
+            $(anchor).attr("href", "/Artists/" + artist.split(" ").join("-") + "?type=search&src=" + pageName);
             $(anchor).append(that.GetImageElement(singleEntity, "artist", artist));
             $(anchor).append(divTitleDesc);
 
@@ -257,7 +257,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
-            $(anchor).attr("href", "/Movie/Reviewer/" + critics.split(" ").join("-") + "?type=search&src=" + pageName).attr("target", "_blank");
+            $(anchor).attr("href", "/Movie/Reviewer/" + critics.split(" ").join("-") + "?type=search&src=" + pageName);
             $(anchor).append(that.GetImageElement(singleEntity, "critics", critics));
             $(anchor).append(divTitleDesc);
 
@@ -287,7 +287,7 @@ var SearchResults = function (searchResults) {
                 $(divTitleDesc).attr("class", "search-result-desc");
                 $(divTitleDesc).html("<span class='search-result-title'>" + gen + "</span>");
 
-                $(anchor).attr("href", "/Genre/" + gen + "?type=search&src=" + pageName).attr("target", "_blank");
+                $(anchor).attr("href", "/Genre/" + gen + "?type=search&src=" + pageName);
                 $(anchor).append(this.GetImageElement(singleEntity, "genre", gen));
                 $(anchor).append(divTitleDesc);
 
@@ -305,7 +305,7 @@ var SearchResults = function (searchResults) {
         $(divTitleDesc).attr("class", "search-result-desc");
         $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
 
-        $(anchor).attr("href", "/Movie/" + singleEntity.Link).attr("target", "_blank");
+        $(anchor).attr("href", "/Movie/" + singleEntity.Link);
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
