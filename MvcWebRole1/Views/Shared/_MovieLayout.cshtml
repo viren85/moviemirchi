@@ -737,6 +737,9 @@
 
         $(window).resize(function () {
             ArrangeTopNavLinks();
+            $(".movie-list ul").each(function () {
+                ScaleElement($(this));
+            });
         });
         
     });
