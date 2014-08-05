@@ -26,7 +26,34 @@
         max-width: 200px;
         height: 7%;
     }
-    .small-logo,.nav-options{display: none;}
+    .small-logo{display: block;position: absolute; left: 26%;}
+    .small-logo img { width: 40px; height: 60px;}
+    .nav-options {
+        position: fixed;
+        top: 20px;
+        right: 5px;
+        margin-right: 5px;
+	    width: 0; 
+	    height: 0; 
+	    border-left: 10px solid transparent;
+	    border-right: 10px solid transparent;
+	    border-top: 10px solid #333;
+        display: block;
+    }
+    .nav-bar-container{ 
+        position: fixed !important;
+        width: 150px !important;
+        float: right !important;
+        right: 0px;
+        top: 65px;
+        opacity: 0.98;
+        display: none;
+    }
+    ul.top-nav-bar li { border-right: none !important; text-align: left !important; padding: 5px !important; border-bottom: 1px solid #368CC1; }
+    .top-nav-bar { max-height: 179px !important; margin: 0px !important; }
+        .home-search-bar input {
+            width: 100%;
+        }
 .home-search-bar {
     position: absolute;
     left: 30%;
@@ -202,7 +229,7 @@
         width: 50%;
         height: 35px;
     }
-
+    .small-logo{display: block;position: absolute; left: 20%;}
     .home-search-bar {
         width: 50%;
     }
@@ -242,7 +269,7 @@
         width: 70%;
         left: 15%;
     }
-    .small-logo{display: block;}
+    .small-logo{display: block;position: absolute; left: 0%;}
     .small-logo img { width: 40px; height: 60px;}
     .nav-options {
         position: fixed;
@@ -305,7 +332,7 @@
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
     .logo {display: none;}
-    .small-logo{display: block; float: left; margin-left: 20%; margin-right: 2%;}
+    .small-logo{display: block; float: left;}
     .small-logo img { width: 40px; height: 60px;}
     .nav-options {
         position: fixed;
