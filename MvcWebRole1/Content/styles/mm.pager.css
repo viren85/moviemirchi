@@ -122,7 +122,7 @@
                 .critics-container #critics-pager { margin-top: 60px; width: 70%; }
                 .movie-poster-details #posters-pager, .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other {z-index: 98; }
                 /* Arrow */
-                .left-arrow { width: 25px; height: 25px; position: relative; left: 15px; z-index: 98; float: left; }
+                .left-arrow { width: 25px; height: 25px; position: relative; left: 35px; z-index: 98; float: left; }
                 .right-arrow { width: 25px; height: 25px; position: relative; left: 120%; z-index: 98; }
 
                 #movies-pager .left-arrow { left: -10px; }
@@ -145,10 +145,12 @@
                 }
                 #posters-pager,#review-pager{display:none;}
 }
-
+@media screen and (min-width: 500px) {
+    .movie-list .right-arrow,.upcoming-movie-list .right-arrow{ left: 110%; }
+}
 @media screen and (max-width: 321px) {
    .movie-list ul,.upcoming-movie-list ul { margin-left: 7%;}
-   .movie-list .right-arrow,.upcoming-movie-list .right-arrow{ left: 125%; }
+   .movie-list .right-arrow,.upcoming-movie-list .right-arrow{ left: 120%; }
    .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other
    {
        width: 63%;
