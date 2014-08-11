@@ -30,6 +30,11 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
         // Since we have initialized the pager, it won't have any items in left. Hence hide it.
         $(pagerContainerSelector).find(".left-arrow").hide();
+
+        // Since we don't have much tiles to be displayed hence hiding the right arrow
+        if (TILE_COUNT < 1) {
+            $(pagerContainerSelector).find(".right-arrow").hide();
+        }
     }
 
     var GetNavArrows = function () {
