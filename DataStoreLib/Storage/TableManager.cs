@@ -215,6 +215,17 @@ namespace DataStoreLib.Storage
             ////return returnTranslateOp;
         }
         /// <summary>
+        /// Update the review rating
+        /// </summary>
+        public bool UpdateReviewRating(string reviewId, string rating)
+        {
+            var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
+            Debug.Assert(reviewTable != null);
+
+            var updateResult = reviewTable.UpdateReviewRating(reviewId, rating);
+            return updateResult;
+        }
+        /// <summary>
         /// Return the reviews by movieid
         /// </summary>
         /// <param name="movieId"></param>

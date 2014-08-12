@@ -219,6 +219,39 @@ namespace DataStoreLib.Storage
         }
 
         protected abstract string GetParitionKey();
+
+        internal virtual ReviewEntity GetReviewById(string reviewId)
+        {
+            Debug.Assert(this._table != null);
+
+            TableQuery<ReviewEntity> query = new TableQuery<ReviewEntity>().Where(TableQuery.GenerateFilterCondition("ReviewId", QueryComparisons.Equal, reviewId));
+
+            IEnumerable<ReviewEntity> reviewResults = this._table.ExecuteQuery<ReviewEntity>(query);
+            return reviewResults.FirstOrDefault();
+        }
+
+
+        internal virtual bool UpdateReviewRating(string reviewId, string rating)
+        {
+            //var reviews = this.GetItemsById<ReviewEntity>(new string[] { reviewId });
+            //var reviewPair = reviews.FirstOrDefault();
+            ////Debug.Assert(reviewPair != default(KeyValuePair<string, ReviewEntity>);
+            //var review = reviewPair.Value;
+            var review = this.GetReviewById(reviewId);
+            Debug.Assert(review != null);
+
+            review.MyScore = rating;
+
+            var batchOp = new TableBatchOperation();
+            batchOp.InsertOrReplace(review);
+
+            var tableResult = this._table.ExecuteBatch(batchOp);
+            var result = tableResult.FirstOrDefault();
+
+            Debug.Assert(result != null);
+            Debug.Assert((result.Result as ITableEntity) != null);
+            return (result.HttpStatusCode >= 200 || result.HttpStatusCode < 300);
+        }
     }
 
 }

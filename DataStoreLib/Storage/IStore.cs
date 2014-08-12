@@ -500,6 +500,13 @@ namespace DataStoreLib.Storage
         #endregion of Movie
 
         #region Review
+        public static bool UpdateReviewRating(this IStore store, string reviewId, string rating)
+        {
+            Debug.Assert(!string.IsNullOrWhiteSpace(reviewId));
+            Debug.Assert(!string.IsNullOrWhiteSpace(rating));
+            var ret = store.UpdateReviewRating(reviewId, rating);
+            return ret;
+        }
         /// <summary>
         /// Update the review by its id
         /// </summary>
