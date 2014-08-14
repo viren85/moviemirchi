@@ -1,0 +1,46 @@
+﻿#popup{
+    width: 310px;
+}
+.modal {
+overflow-y: auto;
+}
+.modal-body {
+    float: left;
+    border-bottom: 1px solid #ddd;
+}
+.modal-footer {
+    border-top: none;
+    text-align: center;
+    font-size: 12px;
+}
+#popup-header {
+    background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
+    background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -moz-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -webkit-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -ms-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
+    color: white;
+    border-radius: 5px 5px 0px 0px;
+}
+#popup input[type="text"],#popup input[type="password"]{
+    float: left;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    width: 220px;
+    margin-left: 15px;
+    margin-bottom: 10px;
+}
+.popup-or{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.Record {
+    float: left;
+    width: 100%;
+    text-align: center;
+}
+.Record .Column2 span{font-size: 11px;}
+#popup-auth{margin-top: 20px;}
+#remember_me2{text-align: left;}
