@@ -146,9 +146,10 @@
         <ul>
             <li><a href="/Home">Home</a></li>
             <li><a href="/Home/About">About</a></li>
-            <li><a onclick="$('#Login').modal('show');">Login</a></li>
             <li>Privacy Policy</li>
             <li>Terms & Condition</li>
+            <li id="login"><a href="javascript:void(0);" onclick="$('#Login').modal('show');">Login</a></li>
+            <li id="logout" style="display: none"><a href="/Login/Logout">Logout</a></li>
         </ul>
         <div>&copy;&nbsp;2014 Movie Mirchi</div>
     </div>
@@ -180,26 +181,26 @@
                         <div id="fb-root"></div>
                         <!--Fb Login Srcipt-->
                         <script>
-                            window.userFields = {
-                                UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
-                                UserType: "@(Session["type"] != null ? Session["type"] : "")",
-                                FirstName: "@(Session["firstname"] != null ? Session["firstname"] : "")",
-                                LastName: "@(Session["lastname"] != null ? Session["lastname"] : "")",
-                                Email: "@(Session["email"] != null ? Session["email"] : "")",
-                                Mobile: "@(Session["mobile"] != null ? Session["mobile"] : "")",
-                                DateOfBirth: "@(Session["dob"] != null ? Session["dob"] : "")",
-                                Gender: "@(Session["gender"] != null ? Session["gender"] : "")",
-                                City: "@(Session["city"] != null ? Session["city"] : "")",
-                                Profile_Pic_Http: "@(Session["profile_pic"] != null ? Session["profile_pic"] : "")",
-                                Profile_Pic_Https: "@(Session["profile_pic_https"] != null ? Session["profile_pic_https"] : "")",
-                                Country: "@(Session["country"] != null ? Session["country"] : "")",
-                                accessToken: "@(Session["fb_access_token"] != null ? Session["fb_access_token"] : "")"
-                            };
+    window.userFields = {
+        UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
+        UserType: "@(Session["type"] != null ? Session["type"] : "")",
+        FirstName: "@(Session["firstname"] != null ? Session["firstname"] : "")",
+        LastName: "@(Session["lastname"] != null ? Session["lastname"] : "")",
+        Email: "@(Session["email"] != null ? Session["email"] : "")",
+        Mobile: "@(Session["mobile"] != null ? Session["mobile"] : "")",
+        DateOfBirth: "@(Session["dob"] != null ? Session["dob"] : "")",
+        Gender: "@(Session["gender"] != null ? Session["gender"] : "")",
+        City: "@(Session["city"] != null ? Session["city"] : "")",
+        Profile_Pic_Http: "@(Session["profile_pic"] != null ? Session["profile_pic"] : "")",
+        Profile_Pic_Https: "@(Session["profile_pic_https"] != null ? Session["profile_pic_https"] : "")",
+        Country: "@(Session["country"] != null ? Session["country"] : "")",
+        accessToken: "@(Session["fb_access_token"] != null ? Session["fb_access_token"] : "")"
+    };
 
 
-                            window.fbAsyncInit = function () {
-                                FB.init({
-                                    appId: '@ConfigurationManager.AppSettings["FacebookAppId"]',
+    window.fbAsyncInit = function () {
+        FB.init({
+            appId: '@ConfigurationManager.AppSettings["FacebookAppId"]',
                                     status: true, // check login status
                                     cookie: true, // enable cookies to allow the server to access the session
                                     xfbml: true  // parse XFBML
@@ -230,6 +231,7 @@
                                         // (2) it is a bad experience to be continually prompted to login upon page load.
                                         //FB.login();
                                         //fbLogin();
+
                                         testAPI(response);
                                     } else {
                                         // In this case, the person is not logged into Facebook, so we call the login()
@@ -239,6 +241,7 @@
                                         // The same caveats as above apply to the FB.login() call here.
                                         //FB.login();
                                         //fbLogin();
+
                                         testAPI(response);
                                     }
                                 });
@@ -256,15 +259,13 @@
                             // Here we run a very simple test of the Graph API after login is successful.
                             // This testAPI() function is only called in those cases.
                             function testAPI(response) {
-                                console.log('Welcome!  Fetching your information.... ');
+                                if (userFields.UserId == "")
+                                    return;
 
                                 accessToken = "";
                                 accessToken = response.authResponse.accessToken;
 
                                 FB.api('/me', function (response) {
-                                    console.log(response);
-                                    console.log('Good to see you, ' + response.name + '.');
-
                                     userFields.UserId = response.id;
                                     userFields.UserType = "facebook";
                                     userFields.FirstName = response.first_name;
@@ -297,11 +298,6 @@
                                             loginStatus = true;
 
                                             FB.api('/me', function (response) {
-                                                console.log(response);
-                                                console.log('Good to see you, ' + response.name + '.');
-
-                                                alert(response.name);
-
                                                 userFields.UserId = response.id;
                                                 userFields.UserType = "facebook";
                                                 userFields.FirstName = response.first_name;
@@ -325,13 +321,16 @@
 
                             window.connectUser = function () {
                                 $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
-                                    if (response.success == true) {
-                                        if (/iPhone/i.test(navigator.userAgent)) {
-                                            location.reload(true);
-                                        }
-                                    }
-                                }, 'json');
-                            }
+            
+            if (response.success == true) {
+                $('#login').hide();
+                $('#logout').show();
+                if (/iPhone/i.test(navigator.userAgent)) {
+                    location.reload(true);
+                }
+            }
+        }, 'json');
+    }
 
                         </script>
 
@@ -370,7 +369,7 @@
 
                                 <input id="remember_me2" class="remember_me" type="checkbox" value="true" name="remember_me" />
                                 <span>Remember me</span>
-                                <span style="float: right; margin-top: 5px; margin-right: 30px;">
+                                <span style="float: right; margin-top: 5px; margin-right: 30px; display: none;">
                                     <a href="#" class="forgot_password">Forgot Password</a>
                                 </span>
                             </div>
@@ -495,14 +494,14 @@
                         // Here we run a very simple test of the Graph API after login is successful.
                         // This testAPI() function is only called in those cases.
                         function testAPI(response) {
-                            console.log('Welcome!  Fetching your information.... ');
+                            //console.log('Welcome!  Fetching your information.... ');
 
                             accessToken = "";
                             accessToken = response.authResponse.accessToken;
 
                             FB.api('/me', function (response) {
-                                console.log(response);
-                                console.log('Good to see you, ' + response.name + '.');
+                                //console.log(response);
+                                //console.log('Good to see you, ' + response.name + '.');
 
                                 userFields.UserId = response.id;
                                 userFields.UserType = "facebook";
@@ -560,6 +559,20 @@
                         window.connectUser = function () {
                             $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
                                 if (response.success == true) {
+                                    $('#login').hide();
+                                    $('#logout').show();
+                                    if (/iPhone/i.test(navigator.userAgent)) {
+                                        location.reload(true);
+                                    }
+                                }
+                            }, 'json');
+                        }
+
+                        if (userFields.UserId != "" && userFields.UserId != null) {
+                            $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
+                                if (response.success == true) {
+                                    $('#login').hide();
+                                    $('#logout').show();
                                     if (/iPhone/i.test(navigator.userAgent)) {
                                         location.reload(true);
                                     }
@@ -708,6 +721,7 @@
 <script type="text/javascript" src="/Content/controls/mm.search.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.tags.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.nav.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.login.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 

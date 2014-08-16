@@ -47,7 +47,7 @@ namespace MvcWebRole1.Controllers
                     TableManager tblMgr = new TableManager();
                     UserEntity user = tblMgr.GetUserByName(auth.UserName);
 
-                    if (user.UserName == auth.UserName && user.Password == auth.Password)
+                    if (user != null && user.UserName == auth.UserName && user.Password == auth.Password)
                     {
                         Session["userid"] = user.UserId;
                         Session["type"] = user.UserType;
@@ -62,6 +62,10 @@ namespace MvcWebRole1.Controllers
                         Session["favorite"] = user.Favorite;
                         return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
                         //return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        return Json(new { Status = "Invalid" }, JsonRequestBehavior.AllowGet);
                     }
                 }
                 else

@@ -314,7 +314,10 @@
 
                         window.connectUser = function () {
                             $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
+                                console.log(2);
                                 if (response.success == true) {
+                                    $('#login').hide();
+                                    $('#logout').show();
                                     if (/iPhone/i.test(navigator.userAgent)) {
                                         location.reload(true);
                                     }
