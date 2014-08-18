@@ -31,7 +31,7 @@
     @Styles.Render("~/Content/styles/mm.tags.css")
     @Styles.Render("~/Content/styles/top-nav.css")
     @Styles.Render("~/Content/styles/mm.login.css")
-
+    @Styles.Render("~/Content/styles/mm.user.pref.css")
     @Scripts.Render("~/Content/jquery-1.9.1.js")
     @Scripts.Render("~/Content/bootstrap.min.js")
     @Styles.Render("~/Content/prettyPhoto.css")
@@ -722,6 +722,7 @@
 <script type="text/javascript" src="/Content/controls/mm.tags.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.nav.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.login.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.preferences.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -752,6 +753,8 @@
             });
         });
 
+        var btn = new UserPreferences();
+        $('body').append(btn);
     });
 
     function ArrangeTopNavLinks() {
