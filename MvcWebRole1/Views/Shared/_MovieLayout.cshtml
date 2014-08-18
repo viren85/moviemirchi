@@ -61,6 +61,7 @@
 
     </script>
     <script>
+        var USER_ID = "";
         var trackNewsLink = function (url) {
             ga('send', 'event', 'news', 'click', url, {
                 'hitCallback':
@@ -151,7 +152,7 @@
             <li id="login"><a href="javascript:void(0);" onclick="$('#Login').modal('show');">Login</a></li>
             <li id="logout" style="display: none"><a href="/Login/Logout">Logout</a></li>
         </ul>
-        <div>&copy;&nbsp;2014 Movie Mirchi</div>
+        <input type="hidden" id="hfUserId" /><div>&copy;&nbsp;2014 Movie Mirchi</div>
     </div>
     @*Added popup for Login*@
     <div class="modal fade" id="Login" tabindex="-2" role="dialog" aria-labelledby="myModalLabel2" aria-haspopup="false">
@@ -283,6 +284,7 @@
                             }
 
                             var accessToken;
+                            
                             var fbLogin = function () {
 
                                 FB.login(function (response) {
@@ -296,7 +298,8 @@
                                         //console.log('Welcome!  Fetching your information.... ');
                                         if (response.status === 'connected') {
                                             loginStatus = true;
-
+                                            USER_ID = response.id;
+                                            $("#hfUserId").attr("value", USER_ID);
                                             FB.api('/me', function (response) {
                                                 userFields.UserId = response.id;
                                                 userFields.UserType = "facebook";
@@ -322,15 +325,15 @@
                             window.connectUser = function () {
                                 $.post("@Url.Action("ConnectUser", "Login")", userFields, function (response) {
             
-            if (response.success == true) {
-                $('#login').hide();
-                $('#logout').show();
-                if (/iPhone/i.test(navigator.userAgent)) {
-                    location.reload(true);
-                }
-            }
-        }, 'json');
-    }
+                                    if (response.success == true) {
+                                        $('#login').hide();
+                                        $('#logout').show();
+                                        if (/iPhone/i.test(navigator.userAgent)) {
+                                            location.reload(true);
+                                        }
+                                    }
+                                }, 'json');
+                            }
 
                         </script>
 
@@ -533,7 +536,9 @@
                                     //console.log('Welcome!  Fetching your information.... ');
                                     if (response.status === 'connected') {
                                         loginStatus = true;
-
+                                        USER_ID = response.id;
+                                        $("#hfUserId").attr("value", USER_ID);
+                                        
                                         FB.api('/me', function (response) {
                                             userFields.UserId = response.id;
                                             userFields.UserType = "facebook";
@@ -608,7 +613,6 @@
                 </div>
                 <div class="modal-footer" id="popup-footer">
                     Already Movie Mirchi member? <a data-toggle="modal" href="#Login" role="presentation" data-dismiss="modal">Log in</a>
-
                 </div>
             </div>
             <!-- /.modal-content -->
@@ -723,6 +727,7 @@
 <script type="text/javascript" src="/Content/controls/mm.nav.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.login.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.preferences.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.favorite.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 

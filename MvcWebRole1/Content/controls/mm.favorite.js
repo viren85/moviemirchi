@@ -159,12 +159,54 @@ function OnSuccessPopulatingUserFavorite(result) {
 
 
 function SaveUserFavorite() {
-    var actorName = $("#txtSearchActor").val();
+    var favArtists = [];
+    var favCritics = [];
+    var favGenre = [];
+    var feedbackRate = 1;
+    var FavoriteList = [];
+
+    $(".feedback-rating span").each(function () {
+        if ($(this).attr("class") != "feedback-default" && $(this).attr("class") != "feedback-last") {
+            feedbackRate = $(this).html();
+        }
+    });
+
+    FavoriteList.push({ "Type": "Rate", "Name": feedbackRate });
+
+    $("#artist-pref-screen ul li").each(function () {
+        if ($(this).attr("class") == "selected") {
+            FavoriteList.push({ "Type": "Actor", "Name": $(this).find(".artist-name").html() });
+        }
+    });
+
+    $("#critics-pref-screen ul li").each(function () {
+        if ($(this).attr("class") == "selected") {
+            FavoriteList.push({ "Type": "Critics", "Name": $(this).find(".artist-name").html() });
+        }
+    });
+
+    $("#genre-pref-screen ul.movie-genre li").each(function () {
+        
+        if ($(this).attr("selected") == "selected") {
+            FavoriteList.push({ "Type": "Genre", "Name": $(this).find(".movie-genre").html() });
+        }
+    });
+
+    var userId = $("#hfUserId").val();
+    var cFavoriteId = new Util().GetCookie("favoriteId");
+
+    CallHandler("api/SaveUserFavorite?u=" + userId + "&c=" + cFavoriteId + "&d=" + encodeURI(JSON.stringify(FavoriteList)), OnSuccessSaveUserFavorite);
+
+    //favArtists
+
+    /*var actorName = $("#txtSearchActor").val();
     var directorName = $("#txtSearchDirector").val();
     var musicDirectorName = $("#txtSearchMusicDirector").val();
     var userId = $("#hfUserId").val();
 
     var isValid = false;
+
+
 
     var FavoriteList = [];
 
@@ -230,7 +272,7 @@ function SaveUserFavorite() {
     else {
         $("#favStatus").attr("style", "display:block");
         $("#favStatus").html("Please enter actor name or select genre");
-    }
+    }*/
 }
 
 function OnSuccessSaveUserFavorite(result) {

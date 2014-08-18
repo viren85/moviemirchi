@@ -45,9 +45,13 @@
 }
 
 .modal-body {
-    min-height: 300px;
+    min-height: 100px;
+    background-color: #fff;
 }
-
+.modal-footer{
+    background-color: #fff;
+    border-radius: 5px;
+}
 .feedback-title {
     font-size: 18px;
     text-align: center;
@@ -390,4 +394,9 @@
     padding-top: 12px;
     padding-left: 5px;
     font-weight: bold;
+}
+.save-button{
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
 }

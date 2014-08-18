@@ -5,44 +5,11 @@ var UserPreferences = function () {
         });
 
         $('body').append(GetUserFeedbackScreen());
-        //$('body').append(GetRecommendationScreen());
 
         $(".feedback-next,.feedback-prev").click(function () {
             $('.screen').hide();
             $("#" + $(this).attr("show-id")).show();
         });
-
-        /*$(".feedback-pager a").click(function () {
-            // TODO - Fix the pager
-            var screenId = $(this).parent().parent().attr("id");
-
-            $('.screen').hide();
-            var id = $(this).attr("id");
-            id = id.substring(15);
-
-            switch (id) {
-                case "1":
-                    $('#user-pref-screen').show();
-                    break;
-                case "2":
-                    $('#artist-pref-screen').show();
-                    $('#artist-pref-screen .feedback-content').attr('class', 'feedback-content');
-                    break;
-                case "3":
-                    $('#genre-pref-screen').show();
-                    $('#genre-pref-screen .feedback-content').attr('class', 'feedback-content');
-                    break;
-                case "4":
-                    $("#critics-pref-screen").show();
-                    $('#critics-pref-screen .feedback-content').attr('class', 'feedback-content');
-            }
-
-            $("#" + screenId + " .feedback-pager a").attr("class", "inactive");
-
-            for (i = 1; i <= parseInt(id) ; i++) {
-                $("#" + screenId + " #feedback-pager-" + i).attr("class", "active");
-            }
-        });*/
 
         $(".movie-genre li").click(function () {
             var className = $(this).attr("class");
@@ -161,12 +128,12 @@ var UserPreferences = function () {
                                 "<div class=\"feedback-content\">" +
                                 "<div class=\"feedback-prev\" show-id=\"artist-pref-screen\"><div><</div></div>" +
                                 "<ul class=\"movie-genre\">" +
-                                    "<li class=\"orange\"><div class=\"movie-genre\">Action</div></li>" +
+                                    "<li class=\"orange\"><div class=\"movie-genre\">Action<br/>Thriller</div></li>" +
                                     "<li class=\"green\"><div class=\"movie-genre\">Romance</div></li>" +
                                     "<li class=\"blue\"><div class=\"movie-genre\">Sci-Fi</div></li>" +
                                     "<li class=\"red\"><div class=\"movie-genre\">Drama</div></li>" +
                                     "<li class=\"maroon\"><div class=\"movie-genre\">Musical</div></li>" +
-                                    "<li class=\"yellow\"><div class=\"movie-genre\">Thriller</div></li>" +
+                                    "<li class=\"yellow\"><div class=\"movie-genre\">Comedy</div></li>" +
                                 "</ul>" +
                                 GetUserPreferencePager(3) +
                                  "<div class=\"feedback-next\" show-id=\"critics-pref-screen\"><div>></div></div>" +
@@ -182,7 +149,9 @@ var UserPreferences = function () {
                                     "<li><div class=\"critic-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/komal-nahta.jpg\" /></div><div class=\"artist-name\">Komal Nahta</div></li>" +
                                 "</ul>" +
                                 GetUserPreferencePager(4) +
+                                "<div class=\"btn btn-success save-button\" onclick=\"SaveUserFavorite();\">Save</div>" +
                             "</div></div>" +
+                            
                             "</div></div>" +
             "</div></div></div>");
         return feedback;
