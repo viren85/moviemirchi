@@ -7,7 +7,12 @@ var UserPreferences = function () {
         $('body').append(GetUserFeedbackScreen());
         //$('body').append(GetRecommendationScreen());
 
-        $(".feedback-pager a").click(function () {
+        $(".feedback-next,.feedback-prev").click(function () {
+            $('.screen').hide();
+            $("#" + $(this).attr("show-id")).show();
+        });
+
+        /*$(".feedback-pager a").click(function () {
             // TODO - Fix the pager
             var screenId = $(this).parent().parent().attr("id");
 
@@ -27,6 +32,9 @@ var UserPreferences = function () {
                     $('#genre-pref-screen').show();
                     $('#genre-pref-screen .feedback-content').attr('class', 'feedback-content');
                     break;
+                case "4":
+                    $("#critics-pref-screen").show();
+                    $('#critics-pref-screen .feedback-content').attr('class', 'feedback-content');
             }
 
             $("#" + screenId + " .feedback-pager a").attr("class", "inactive");
@@ -34,22 +42,24 @@ var UserPreferences = function () {
             for (i = 1; i <= parseInt(id) ; i++) {
                 $("#" + screenId + " #feedback-pager-" + i).attr("class", "active");
             }
-        });
+        });*/
 
         $(".movie-genre li").click(function () {
             var className = $(this).attr("class");
             if (className.indexOf("-active") <= -1) {
                 $(this).attr("class", $(this).attr("class") + "-active");
+                $(this).attr("selected", "true");
             }
             else {
                 $(this).attr("class", $(this).attr("class").substring(0, $(this).attr("class").indexOf("-active")));
+                $(this).attr("selected", "false");
             }
-            
         });
 
         $(".feedback-rating span").mouseover(function () {
             var id = parseInt($(this).html());
             var counter = 1;
+
             $(".feedback-rating span").each(function () {
                 if (counter < id) {
                     $(this).attr("class", "feedback-" + counter);
@@ -75,10 +85,32 @@ var UserPreferences = function () {
                 counter++;
             });
 
+            $("#user-pref-screen .feedback-next").show();
+            $('#artist-pref-screen .feedback-content').attr('class', 'feedback-content');
+            $('#genre-pref-screen .feedback-content').attr('class', 'feedback-content');
+            $('#critics-pref-screen .feedback-content').attr('class', 'feedback-content');
         });
 
-        $(".artist-pref-screen").click(function () {
+        $("#artist-pref-screen ul li").click(function () {
+            if ($(this).attr("class") == "selected") {
+                $(this).attr("selected", "false");
+                $(this).removeClass("selected");
+            }
+            else {
+                $(this).attr("selected", "true");
+                $(this).attr("class", "selected");
+            }
+        });
 
+        $("#critics-pref-screen ul li").click(function () {
+            if ($(this).attr("class") == "selected") {
+                $(this).attr("selected", "false");
+                $(this).removeClass("selected");
+            }
+            else {
+                $(this).attr("selected", "true");
+                $(this).attr("class", "selected");
+            }
         });
 
         return btn;
@@ -108,22 +140,26 @@ var UserPreferences = function () {
                                     "<div class=\"feedback-rate\"><div class=\"smily smily-8\"></div><div class=\"feedback-smily\">Yes, I will.</div></div>" +
                                     "<div class=\"feedback-rate\"><div class=\"smily smily-9\"></div><div class=\"feedback-smily\">Definitely.</div></div>" +
                                     "<div class=\"feedback-rate\"><div class=\"smily smily-10\"></div><div class=\"feedback-smily\">I already have!</div></div>" +
-                                    GetUserPreferencePager() +
+                                    GetUserPreferencePager(1) +
+                                    "<div style=\"display: none\" class=\"feedback-next\" show-id=\"artist-pref-screen\"><div>></div></div>" +
                                 "</div></div>" +
                             "<div class=\"screen\" id=\"artist-pref-screen\">" +
                                 "<div class=\"feedback-title\">Your favorite artists:</div>" +
                                 "<div class=\"feedback-content\">" +
+                                "<div class=\"feedback-prev\" show-id=\"user-pref-screen\"><div><</div></div>" +
                                 "<ul>" +
                                     "<li><div class=\"artist-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/deepika-padukone-poster-19.jpg\" /></div><div class=\"artist-name\">Deepika</div></li>" +
                                     "<li><div class=\"artist-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/ranveer-singh-poster-13.jpg\" /></div><div class=\"artist-name\">Ranveer</div></li>" +
                                     "<li><div class=\"artist-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/ranbir-kapoor-poster-43.jpg\" /></div><div class=\"artist-name\">Ranbeer</div></li>" +
                                     "<li><div class=\"artist-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/priyanka-chopra-poster-27.jpg\" /></div><div class=\"artist-name\">Priyanka</div></li>" +
                                 "</ul>" +
-                                GetUserPreferencePager() +
+                                GetUserPreferencePager(2) +
+                                "<div class=\"feedback-next\" show-id=\"genre-pref-screen\"><div>></div></div>" +
                             "</div></div>" +
                             "<div class=\"screen\" id=\"genre-pref-screen\">" +
                                 "<div class=\"feedback-title\">Your favorite Genre:</div>" +
                                 "<div class=\"feedback-content\">" +
+                                "<div class=\"feedback-prev\" show-id=\"artist-pref-screen\"><div><</div></div>" +
                                 "<ul class=\"movie-genre\">" +
                                     "<li class=\"orange\"><div class=\"movie-genre\">Action</div></li>" +
                                     "<li class=\"green\"><div class=\"movie-genre\">Romance</div></li>" +
@@ -132,20 +168,37 @@ var UserPreferences = function () {
                                     "<li class=\"maroon\"><div class=\"movie-genre\">Musical</div></li>" +
                                     "<li class=\"yellow\"><div class=\"movie-genre\">Thriller</div></li>" +
                                 "</ul>" +
-                                GetUserPreferencePager() +
+                                GetUserPreferencePager(3) +
+                                 "<div class=\"feedback-next\" show-id=\"critics-pref-screen\"><div>></div></div>" +
                             "</div></div>" +
-                            "</div>" + "</div>" +
+                            "<div class=\"screen\" id=\"critics-pref-screen\">" +
+                                "<div class=\"feedback-title\">Your favorite Critics:</div>" +
+                                "<div class=\"feedback-content\">" +
+                                "<div class=\"feedback-prev\" show-id=\"genre-pref-screen\"><div><</div></div>" +
+                                "<ul class=\"movie-critics\">" +
+                                    "<li><div class=\"critic-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/anupama-chopra.jpg\" /></div><div class=\"artist-name\">Anupama Chopra</div></li>" +
+                                    "<li><div class=\"critic-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/rajeev-masand.jpg\" /></div><div class=\"artist-name\">Rajeev Masand</div></li>" +
+                                    "<li><div class=\"critic-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/tarun-adarsh.jpg\" /></div><div class=\"artist-name\">Taran Adarsh</div></li>" +
+                                    "<li><div class=\"critic-picture\"><img src=\"https://moviemirchistorage.blob.core.windows.net/posters/komal-nahta.jpg\" /></div><div class=\"artist-name\">Komal Nahta</div></li>" +
+                                "</ul>" +
+                                GetUserPreferencePager(4) +
+                            "</div></div>" +
+                            "</div></div>" +
             "</div></div></div>");
         return feedback;
     }
 
-    var GetUserPreferencePager = function () {
-        var pager = "<div class=\"feedback-pager\">" +
-            "<a class=\"active\" id=\"feedback-pager-1\"></a>" +
-            "<a class=\"inactive\" id=\"feedback-pager-2\"></a>" +
-            "<a class=\"inactive\" id=\"feedback-pager-3\"></a>" +
-            "<a class=\"inactive\" id=\"feedback-pager-4\"></a>" +
-            "</div>";
+    var GetUserPreferencePager = function (activeID) {
+        var pager = "<div class=\"feedback-pager\">";
+
+        for (i = 1; i < 5; i++) {
+            if (i <= activeID)
+                pager += "<a class=\"active\" id=\"feedback-pager-" + i + "\"></a>";
+            else
+                pager += "<a class=\"inactive\" id=\"feedback-pager-" + i + "\"></a>";
+        }
+
+        pager += "</div>";
         return pager;
     }
 

@@ -41,6 +41,7 @@
 
 .modal-content {
     border-radius: 0px;
+    background-color: initial !important;
 }
 
 .modal-body {
@@ -233,6 +234,7 @@
     list-style: none;
     margin: 5%;
     padding: 0px;
+    margin-left: 30px;
 }
 
     .feedback-content ul li img {
@@ -252,6 +254,10 @@
     }
     .feedback-content ul li:hover{
         border: 3px solid #eee;
+        border-radius: 5px;
+    }
+    .feedback-content ul li.selected{
+        border: 3px solid #FFF;
         border-radius: 5px;
     } 
     
@@ -279,10 +285,12 @@
         }
 /*Genre*/
 .movie-genre{
-    float: left;
+    margin-top: 9% !important;
+    /*float: left;
     margin: 0px;
     padding: 0px;
     list-style: none;
+    margin-left: 10px;*/
 }
 .movie-genre li{
     float: left;
@@ -292,13 +300,12 @@
     height: 75px;
     margin-right: 10px !important;
     border-radius: 50%;
-    color: black;
     font-size: 11px;
     border: 1px solid #ccc;
 }
 .movie-genre li .movie-genre{
     text-align: center;
-    padding-top: 25px;
+    padding-top: 20px;
     width: 100%;
     color: black;
 }
@@ -314,34 +321,73 @@
      border-radius: 50% !important;
      border: 1px solid rgb(234, 121, 45) !important;
      font-weight: bold;
+     color: white !important;
 }
 .movie-genre li.green-active, .movie-genre li.green:hover{
      background-color: rgb(27, 181, 77) !important;
      border-radius: 50% !important;
      border: 1px solid rgb(27, 181, 77) !important;
      font-weight: bold;
+     color: white !important;
 }
 .movie-genre li.red-active, .movie-genre li.red:hover{
      background-color: rgb(142, 20, 20) !important;
      border-radius: 50% !important;
      border: 1px solid rgb(142, 20, 20) !important;
      font-weight: bold;
+     color: white !important;
 }
 .movie-genre li.blue-active, .movie-genre li.blue:hover{
      background-color: rgb(49, 143, 241) !important;
      border-radius: 50% !important;
      border: 1px solid rgb(49, 143, 241) !important;
      font-weight: bold;
+     color: white !important;
 }
 .movie-genre li.maroon-active, .movie-genre li.maroon:hover{
-     background-color: rgb(234, 121, 45) !important;
+     background-color: rgb(234, 206, 87) !important;
      border-radius: 50% !important;
-     border: 1px solid rgb(234, 121, 45) !important;
+     border: 1px solid rgb(234, 206, 87) !important;
      font-weight: bold;
+     color: white !important;
 }
 .movie-genre li.yellow-active, .movie-genre li.yellow:hover{
      background-color: rgb(234, 177, 36) !important;
      border-radius: 50% !important;
      border: 1px solid rgb(234, 177, 36) !important;
      font-weight: bold;
+     color: white !important;
+}
+.feedback-next
+{
+    height: 40px;
+    width: 25px;
+    border-radius: 40px 0 0 40px;
+    background: #fff;    
+    cursor: pointer;
+    position: absolute;
+    top: 35%;
+    right: 0%;
+}
+.feedback-prev
+{
+    height: 40px;
+    width: 25px;
+    border-radius: 0 40px 40px 0;
+    background: #fff;
+    cursor: pointer;
+    float: left;
+    position: absolute;
+    top: 35%;
+    left: 0%;
+}
+.feedback-next div{
+    padding-top: 12px;
+    padding-left: 12px;
+    font-weight: bold;
+}
+.feedback-prev div{
+    padding-top: 12px;
+    padding-left: 5px;
+    font-weight: bold;
 }
