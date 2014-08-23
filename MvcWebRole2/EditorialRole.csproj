@@ -432,6 +432,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lucene_index\" />
+    <Content Include="lucene_index\*" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
