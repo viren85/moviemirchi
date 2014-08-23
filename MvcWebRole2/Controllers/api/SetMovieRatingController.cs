@@ -3,12 +3,7 @@
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Web;
-    using System.Web.Http;
     using System.Web.Script.Serialization;
 
     /// <summary>
@@ -35,71 +30,87 @@
                     string movieId = string.Empty, reviewId = string.Empty, bagOfWord = string.Empty;
                     int rating = -1;
 
-                    if (!string.IsNullOrEmpty(qpParams["movieid"]) && !string.IsNullOrEmpty(qpParams["reviewid"]) && !string.IsNullOrEmpty(qpParams["rating"]) && !string.IsNullOrEmpty(qpParams["bagofwords"]))
+                    if (!string.IsNullOrEmpty(qpParams["movieid"]) && !string.IsNullOrEmpty(qpParams["reviewid"]) && !string.IsNullOrEmpty(qpParams["rating"]))
                     {
                         movieId = qpParams["movieid"].ToString();
                         reviewId = qpParams["reviewid"].ToString();
-                        bagOfWord = qpParams["bagofwords"].ToString();
-                        int.TryParse(qpParams["rating"].ToString(), out rating);
+                        bool isBOW = !string.IsNullOrEmpty(qpParams["bagofwords"]);
+                        bagOfWord = isBOW ? qpParams["bagofwords"].ToString() : string.Empty;
 
-                        if (rating != -1)
+                        if (int.TryParse(qpParams["rating"].ToString(), out rating))
                         {
-                            MovieEntity movie = tableMgr.GetMovieById(movieId);
-
-                            if (movie != null)
+                            if (rating != -1)
                             {
-                                movie.Ratings = rating.ToString();
+                                MovieEntity movie = tableMgr.GetMovieById(movieId);
 
-                                if (string.IsNullOrEmpty(movie.MyScore) || movie.MyScore == "0") movie.MyScore = "{\"teekharating\":\"\",\"feekharating\":\"\",\"criticrating\":\"\"}";
-
-                                RatingConvertion oldRating = jsonSerializer.Value.Deserialize(movie.MyScore, typeof(RatingConvertion)) as RatingConvertion;
-                                RatingConvertion queryRating = jsonSerializer.Value.Deserialize(bagOfWord, typeof(RatingConvertion)) as RatingConvertion;
-                                RatingConvertion newRating = new RatingConvertion();
-
-                                if (oldRating != null && queryRating != null)
+                                if (movie != null)
                                 {
-                                    newRating.teekharating = oldRating.teekharating;
-                                    newRating.feekharating = oldRating.feekharating;
-                                    newRating.criticrating = oldRating.criticrating;
+                                    ReviewEntity review = tableMgr.GetReviewById(reviewId);
 
-                                    newRating.very = queryRating.very;
-                                    newRating.good = queryRating.good;
-                                    newRating.bad = queryRating.bad;
+                                    if (review != null)
+                                    {
+                                        review.SystemRating = rating;
+                                        tableMgr.UpdateReviewById(review);
+
+                                        string myscore = movie.MyScore;
+                                        if (string.IsNullOrEmpty(myscore) || myscore == "0")
+                                        {
+                                            myscore = "{\"teekharating\":\"0\",\"feekharating\":\"0\",\"criticrating\":\"\"}";
+                                        }
+
+                                        RatingConvertion newRating = new RatingConvertion();
+                                        RatingConvertion oldRating;
+                                        try
+                                        {
+                                            oldRating = jsonSerializer.Value.Deserialize(myscore, typeof(RatingConvertion)) as RatingConvertion;
+                                        }
+                                        catch
+                                        {
+                                            myscore = "{\"teekharating\":\"0\",\"feekharating\":\"0\",\"criticrating\":\"\"}";
+                                            oldRating = jsonSerializer.Value.Deserialize(myscore, typeof(RatingConvertion)) as RatingConvertion;
+                                        }
+
+                                        var teekha = (oldRating.teekharating + rating);
+                                        var feekha = (oldRating.feekharating + (1 - rating));
+                                        newRating.teekharating = teekha;
+                                        newRating.feekharating = feekha;
+                                        newRating.criticrating = ((int)(teekha / (double)(teekha + feekha) * 100)).ToString();
+
+                                        string strNewRating = jsonSerializer.Value.Serialize(newRating);
+                                        movie.Ratings = newRating.criticrating;
+                                        movie.MyScore = strNewRating;
+                                        tableMgr.UpdateMovieById(movie);
+
+                                        return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully update movie rating" });
+                                    }
+                                    else
+                                    {
+                                        return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find review with passed review id. Please check review id." });
+                                    }
                                 }
-
-                                string strNewRating = jsonSerializer.Value.Serialize(newRating);
-
-                                movie.MyScore = strNewRating;
-
-                                tableMgr.UpdateMovieById(movie);
-
-                                return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully update movie rating" });
-                            }
-                            else
-                            {
-                                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find movie with passed movie id. Please check movie id." });
+                                else
+                                {
+                                    return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find movie with passed movie id. Please check movie id." });
+                                }
                             }
                         }
-                    }                    
+                    }
                 }
-               
+
             }
             catch (Exception ex)
             {
                 return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Error occured while updating movie rating", ActualError = ex.Message });
             }
 
-            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Error occured while updating movie rating" , ActualError = "Some of parameter is empty"});
+            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Error occured while updating movie rating", ActualError = "Some of parameter is empty" });
         }
     }
 
     public class RatingConvertion
     {
-        public string very { get; set; }
-        public string good { get; set; }
-        public string bad { get; set; }
-        public string teekharating { get; set; }
-        public string feekharating { get; set; }
+        public int teekharating { get; set; }
+        public int feekharating { get; set; }
         public string criticrating { get; set; }
     }
 }

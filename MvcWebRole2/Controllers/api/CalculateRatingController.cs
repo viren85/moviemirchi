@@ -1,17 +1,11 @@
 ﻿namespace MvcWebRole1.Controllers.api
 {
-    using DataStoreLib.Models;
     using DataStoreLib.Storage;
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics;
     using System.IO;
-    using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Web;
-    using System.Web.Http;
     using System.Web.Script.Serialization;
 
     /// <summary>
