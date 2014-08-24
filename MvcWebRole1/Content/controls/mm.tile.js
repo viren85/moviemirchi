@@ -17,26 +17,21 @@
     //anchor.append(img);
     var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
 
-    var html = "";
-    var strSongs = "", songs = [];
-    songs = JSON.parse(movie.Songs);
-    if (songs != undefined && songs.length > 0) {
-        for (var sIndex = 0; sIndex < songs.length; sIndex++) {
-            strSongs += "<div><span>" + songs[sIndex].SongTitle + "</span><span class='play'></span></div>";
+    var criticRating;
+    var hide = false;
+    if (movie.MyScore == "" || movie.MyScore == undefined) {
+        criticRating = 0;
+        hide = true;
+    } else {
 
-            if (sIndex == 2) break;
+        criticRating = JSON.parse(movie.MyScore).criticrating;
+        if (criticRating == undefined || criticRating == "") {
+            criticRating = 0;
+            hide = true;
+        } else {
+            criticRating = parseInt(criticRating) / 10;
         }
     }
-
-    //console.log(movie);
-    var criticRating;
-    if (movie.MyScore == "" || movie.MyScore == undefined || JSON.parse(movie.MyScore).criticrating == undefined || JSON.parse(movie.MyScore).criticrating == "") {
-        criticRating = 0;
-    } else {        
-        criticRating = parseInt(JSON.parse(movie.MyScore).criticrating) / 10;
-    }
-    
-    //console.log(criticRating);
 
     if (TILE_MODE == 0) {
         html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
@@ -48,16 +43,26 @@
                                     "<div class=\"img-movie-name img-movie-name-tile-type-" + TILE_MODE + "\">" + movie.Name + "</div>" +
                                     "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
-                                    //GetMovieRateControl(movie.Ratings) +
-                                    GetMovieRateControl(criticRating, movie.Ratings) +
+                                    (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
                                     "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
                                 "</div>" +
                             "</div>" +
                         "</div>" +
                     "</div>" +
                 "</div>";
-    }
-    else {
+    } else {
+        /* Experimental mode */
+        var html = "";
+        var strSongs = "", songs = [];
+        songs = JSON.parse(movie.Songs);
+        if (songs != undefined && songs.length > 0) {
+            for (var sIndex = 0; sIndex < songs.length; sIndex++) {
+                strSongs += "<div><span>" + songs[sIndex].SongTitle + "</span><span class='play'></span></div>";
+
+                if (sIndex == 2) break;
+            }
+        }
+
         html =
                 "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
                     "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
@@ -67,8 +72,7 @@
                                 "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
                                 "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
                                 "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
-                                //GetRateControl(movie.Ratings) +
-                                GetMovieRateControl(criticRating,movie.Ratings) +
+                                (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
                                 "<div class=\"movie-songs\" style=\"display: none;\">" + strSongs
                                 /*"<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
                                 "<div><span>Malang</span><span class='play'></span></div>" +
