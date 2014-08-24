@@ -149,8 +149,8 @@
             <li><a href="/Home/About">About</a></li>
             <li>Privacy Policy</li>
             <li>Terms & Condition</li>
-            <li id="login"><a href="javascript:void(0);" onclick="$('#Login').modal('show');">Login</a></li>
-            <li id="logout" style="display: none"><a href="/Login/Logout">Logout</a></li>
+            @*<li id="login"><a href="javascript:void(0);" onclick="$('#Login').modal('show');">Login</a></li>
+            <li id="logout" style="display: none"><a href="/Login/Logout">Logout</a></li>*@
         </ul>
         <input type="hidden" id="hfUserId" /><div>&copy;&nbsp;2014 Movie Mirchi</div>
     </div>
@@ -726,8 +726,8 @@
 <script type="text/javascript" src="/Content/controls/mm.tags.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.nav.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.login.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.preferences.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.favorite.js"></script>
+@*<script type="text/javascript" src="/Content/controls/mm.preferences.js"></script>
+<script type="text/javascript" src="/Content/controls/mm.favorite.js"></script>*@
 <script type="text/javascript">
     $(document).ready(function () {
 
@@ -758,8 +758,8 @@
             });
         });
 
-        var btn = new UserPreferences();
-        $('body').append(btn);
+        /*var btn = new UserPreferences();
+        $('body').append(btn);*/
     });
 
     function ArrangeTopNavLinks() {
