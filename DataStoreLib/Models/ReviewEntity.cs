@@ -27,6 +27,8 @@ namespace DataStoreLib.Models
         // For future use
         public string JsonString { get; set; }
 
+        public string CriticsRating { get; set; }
+
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);

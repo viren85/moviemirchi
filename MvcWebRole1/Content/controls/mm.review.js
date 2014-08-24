@@ -17,7 +17,7 @@
                                     "</a>" +
                                     "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\" title=\"" + review.ReviewerName + "\">" + new Util().GetEllipsisText(review.ReviewerName, 20) + "</a></div>" +
                                     "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
-                                    "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
+                                    "<div class=\"mirchimeter\">" + (review.CriticsRating ? GetRateControl(review.CriticsRating / 10) : "") + "</div>" +
                                     /*"<div class=\"other\">" +
                                         "<div class=\"topcritic\">Top Critic</div>" +
                                     "</div>" +*/
@@ -94,7 +94,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
                                             "<img src=\"" + GetMoviePoster(review.MoviePoster, review.MovieName) + "\" style=\"height:100px;width:75px\" onerror=\"this.src='" + PUBLIC_BLOB_URL + "default-movie.jpg'\" />" +
                                         "</a>" +
                                     "</div>" +
-                                    "<div class=\"mirchimeter\">" + GetRateControl(review.CriticsRating) + "</div>" +
+                                    "<div class=\"mirchimeter\">" + (review.CriticsRating ? GetRateControl(review.CriticsRating / 10) : "") + "</div>" +
                                 "</div>" +
                             "</div>" +
                             "<div class=\"right\">" +
@@ -114,7 +114,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
 
                 /*if (review.MovieStatus == "upcoming") {
                     $(".review-list-now-playing ul").append(html);
-                }*/                
+                }*/
                 if (review.MovieStatus == "now-playing" || review.MovieStatus == "now playing") {
                     hasLatestReviews = true;
                     $(".review-list-now-playing ul").append(html);
@@ -137,7 +137,7 @@ function GetReviewerPic(reviewerName) {
 function GetMoviePoster(posters, movieName) {
     // TODO - poster object is not getting populated hence it returns the null poster object. Hence we had to add if/else block
     var posterPath;
-    
+
     if (!posters) {
         posterPath = PUBLIC_BLOB_URL + movieName.replace(" ", "-") + "-poster-1.jpg";
     } else {

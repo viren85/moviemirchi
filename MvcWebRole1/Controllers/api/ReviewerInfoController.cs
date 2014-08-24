@@ -73,7 +73,7 @@ using WebGrease;
                             {
                                 // if movie not null, then add movieid and moviename to review details
                                 ReviewDetails reviewDetail = new ReviewDetails();
-                                reviewDetail.CriticsRating = string.IsNullOrEmpty(review.ReviewerRating) ? "1" : review.ReviewerRating;
+                                reviewDetail.CriticsRating = review.SystemRating == 0 ? "" : (review.SystemRating == -1 ? 0 : 100).ToString();
                                 reviewDetail.MovieId = movie.MovieId;
                                 reviewDetail.MovieName = movie.Name;
                                 reviewDetail.Review = review.Review;

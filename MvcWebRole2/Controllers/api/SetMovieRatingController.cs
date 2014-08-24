@@ -47,7 +47,10 @@
 
                                 if (review != null)
                                 {
-                                    rating = (rating < 0) ? 0 : 1;
+                                    // -1 => Negative
+                                    //  0 => No rating
+                                    // +1 => Positive
+                                    rating = (rating < 0) ? -1 : 1;
 
                                     review.SystemRating = rating;
                                     tableMgr.UpdateReviewById(review);

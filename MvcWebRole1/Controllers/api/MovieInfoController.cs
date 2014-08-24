@@ -61,6 +61,8 @@ namespace MvcWebRole1.Controllers.api
                                 ReviewEntity objReview = review.Value as ReviewEntity;
 
                                 objReview.ReviewerName = reviewer.ReviewerName;
+                                objReview.CriticsRating = objReview.SystemRating == 0 ? "" : (objReview.SystemRating == -1 ? 0 : 100).ToString();
+
                                 //objReview.OutLink = reviewer.ReviewerImage;
                                 return objReview;
                             }) :

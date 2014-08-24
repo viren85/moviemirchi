@@ -11,9 +11,9 @@ function GetMovieRateControl(rate, rateValue) {
 }
 
 function GetMovieRate(rating, rateValue) {
-    if (rating == undefined || rating <= 0) return "";
+    if (rating == undefined || rating < 0) return "";
 
-    if (rateValue == undefined || rateValue == null || rateValue == "0")
+    if (rateValue == undefined || rateValue == null)
         return "<span class='rate rate-" + rating + "'></span>";
     else
         return "<span class='rate rate-" + rating + "'></span><span class='rate-value'>" + rateValue + "</span>";
