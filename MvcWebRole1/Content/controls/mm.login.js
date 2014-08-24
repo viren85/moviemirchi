@@ -3,8 +3,8 @@
 function authenticateUser() {
     var isValid = true;
     try {
-        var username = $("#signin_email").val();
-        var loginPassword = $("#signin_password").val();
+        var username = $("#username").val();
+        var loginPassword = $("#loginPassword").val();
 
         if (username == "") {
             $("#loginError").html("Email address require.");
@@ -58,6 +58,10 @@ function ShowSuccessMessageLogin(result) {
         $("#loginError").html("Login Failed, Try again.");
         $("#loginError").show();
     }
+    else if (result.Status == "Invalid") {
+        $("#loginError").html("Login Failed. Invalid username or password.");
+        $("#loginError").show();
+    }
 }
 
 
@@ -74,16 +78,16 @@ function ClearLoginformData() {
 function RegisterUser() {
     var isValid = true;
     try {
-        var fname = $("#FirstName").val();
-        var lname = $("#LastName").val();
-        var email = $("#Email1").val();
-        var pwd = $("#password2").val();
-        var confirmPassword = $("#password3").val();
+        var fname = $("#firstName").val();
+        var lname = $("#lastName").val();
+        var email = $("#emailAddress").val();
+        var pwd = $("#userPassword").val();
+        var confirmPassword = $("#confirmPassword").val();
 
         if (fname == "") {
             $("#registerError").html("Please provide First Name.");
             $("#registerError").show();
-            $("#FirstName").focus();
+            $("#firstName").focus();
             isValid = false;
             return;
         }
@@ -92,7 +96,7 @@ function RegisterUser() {
         if (lname == "") {
             $("#registerError").html("Please provide Last Name.");
             $("#registerError").show();
-            $("#LastName").focus();
+            $("#lastName").focus();
             isValid = false;
             return;
         }
@@ -100,7 +104,7 @@ function RegisterUser() {
         if (email == "") {
             $("#registerError").html("Please provide email address.");
             $("#registerError").show();
-            $("#Email1").focus();
+            $("#emailAddress").focus();
             isValid = false;
             return;
         }
@@ -108,7 +112,7 @@ function RegisterUser() {
         if (pwd == "") {
             $("#registerError").html("Please provide password.");
             $("#registerError").show();
-            $("#password2").focus();
+            $("#userPassword").focus();
             isValid = false;
             return;
         }
@@ -116,7 +120,7 @@ function RegisterUser() {
         if (confirmPassword == "") {
             $("#registerError").html("Please provide confirm password.");
             $("#registerError").show();
-            $("#password3").focus();
+            $("#confirmPassword").focus();
             isValid = false;
             return;
         }
@@ -124,7 +128,7 @@ function RegisterUser() {
         if (!new Util().IsEmailValid(email)) {
             $("#registerError").html("Please provide valid email address.");
             $("#registerError").show();
-            $("#Email1").focus();
+            $("#emailAddress").focus();
             isValid = false;
             return;
         }
@@ -132,7 +136,7 @@ function RegisterUser() {
         if (pwd != confirmPassword) {
             $("#registerError").html("Password and confirm password does not match.");
             $("#registerError").show();
-            $("#password3").focus();
+            $("#confirmPassword").focus();
             isValid = false;
             return;
         }

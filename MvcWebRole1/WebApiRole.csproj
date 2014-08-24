@@ -267,6 +267,7 @@
     <Content Include="Content\controls\mm.nav.js" />
     <Content Include="Content\controls\mm.news.js" />
     <Content Include="Content\controls\mm.pager.js" />
+    <Content Include="Content\controls\mm.preferences.js" />
     <Content Include="Content\controls\mm.rate.js" />
     <Content Include="Content\controls\mm.review.js" />
     <Content Include="Content\controls\mm.reviewer.js" />
@@ -286,6 +287,7 @@
     <Content Include="Content\styles\mm.critics.css" />
     <Content Include="Content\styles\mm.footer.css" />
     <Content Include="Content\styles\mm.header.css" />
+    <Content Include="Content\styles\mm.login.css" />
     <Content Include="Content\styles\mm.moviedetails.css" />
     <Content Include="Content\styles\mm.news.css" />
     <Content Include="Content\styles\mm.pager.css" />
@@ -294,6 +296,7 @@
     <Content Include="Content\styles\mm.reviewer.css" />
     <Content Include="Content\styles\mm.tags.css" />
     <Content Include="Content\styles\mm.twitter.css" />
+    <Content Include="Content\styles\mm.user.pref.css" />
     <Content Include="Content\styles\top-nav.css" />
     <Content Include="Content\themes\base\images\animated-overlay.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />

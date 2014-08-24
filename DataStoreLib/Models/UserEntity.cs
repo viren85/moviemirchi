@@ -25,8 +25,7 @@ namespace DataStoreLib.Models
         public int Status { get; set; }
         public string Favorite { get; set; }
         public DateTimeOffset Created_At { get; set; }
-
-
+        public string SiteFeedbackScore { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
@@ -50,6 +49,7 @@ namespace DataStoreLib.Models
             Status = ReadInt(properties, "Status");
             Created_At = ReadTimestamp(properties, "Created_At");
             Favorite = ReadString(properties, "Favorite");
+            SiteFeedbackScore = ReadString(properties, "SiteFeedbackScore");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -74,6 +74,7 @@ namespace DataStoreLib.Models
             WriteInt(dict, "Status", Status);
             WriteTimestamp(dict, "Created_At", Created_At);
             WriteString(dict, "Favorite", Favorite);
+            WriteString(dict, "SiteFeedbackScore", SiteFeedbackScore);
 
             return dict;
         }
