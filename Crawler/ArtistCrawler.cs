@@ -1,16 +1,14 @@
 ﻿namespace Crawler
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
-    using System.Net;
-    using System.IO;
     using HtmlAgilityPack;
     using Newtonsoft.Json;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Net;
+    using System.Text;
 
     public class ArtistCrawler
     {
@@ -35,23 +33,26 @@
                     if (string.IsNullOrEmpty(cast.link)) continue;
 
                     HttpWebRequest request = (HttpWebRequest)WebRequest.Create(cast.link);
-                    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                    if (response.StatusCode == HttpStatusCode.OK)
+                    using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                     {
-                        #region Get Artist Page Content
-                        Stream receiveStream = response.GetResponseStream();
-                        StreamReader readStream = null;
-                        if (response.CharacterSet == null)
-                            readStream = new StreamReader(receiveStream);
-                        else
-                            readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                        if (response.StatusCode == HttpStatusCode.OK)
+                        {
+                            #region Get Artist Page Content
+                            using (Stream receiveStream = response.GetResponseStream())
+                            {
+                                using (StreamReader readStream =
+                                    response.CharacterSet == null ?
+                                        new StreamReader(receiveStream)
+                                        : new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet)))
+                                {
+                                    artistPageContent = readStream.ReadToEnd();
 
-                        artistPageContent = readStream.ReadToEnd();
-
-                        response.Close();
-                        readStream.Close();
-                        #endregion
+                                    response.Close();
+                                    readStream.Close();
+                                }
+                            }
+                            #endregion
+                        }
                     }
 
                     ArtistEntity artist = PopulateArtistsDetails(artistPageContent, cast.link);
@@ -75,7 +76,6 @@
         {
             try
             {
-
                 ArtistEntity artist = new ArtistEntity();
                 HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
                 htmlDoc.OptionFixNestedTags = true;
@@ -107,7 +107,6 @@
             catch (Exception ex)
             {
                 Console.WriteLine("Error : " + ex.Message);
-
                 return null;
             }
         }
@@ -142,7 +141,7 @@
             string thumbnailPath = string.Empty;
             MovieCrawler movieCrawler = new MovieCrawler();
             List<string> posters = movieCrawler.CrawlPosters(url, artistName, ref thumbnailPath);
-            return JsonConvert.SerializeObject(posters); ;
+            return JsonConvert.SerializeObject(posters);
         }
     }
 }

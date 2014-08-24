@@ -10,6 +10,7 @@ namespace MovieCrawler
     using System.Configuration;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Net;
     using System.Text;
     using System.Text.RegularExpressions;
@@ -90,23 +91,11 @@ namespace MovieCrawler
         {
             var genreNode = helper.GetElementWithAttribute(body, "div", "class", "infobar");
             var genres = genreNode.Elements("a");
-            StringBuilder movieGenre = new StringBuilder();
-            string movie = string.Empty;
 
-            if (genres != null)
-            {
-                foreach (HtmlNode node in genres)
-                {
-                    movieGenre.Append(node.InnerText);
-                    movieGenre.Append(" | ");
-                }
-
-                // Remove the last occurence of | in movie genre
-                if (movieGenre.Length > 2)
-                    movie = movieGenre.ToString().Trim().Remove(movieGenre.Length - 2, 1).Trim();
-            }
-
-            return movie;
+            string genre = genres != null ?
+                    String.Join(" | ", genres.Select(node => node.InnerHtml))
+                    : String.Empty;
+            return genre;
         }
 
         // Story or Synopsis
@@ -185,19 +174,12 @@ namespace MovieCrawler
         {
             var statsNode = helper.GetElementWithAttribute(body, "div", "id", "titleDetails");
             var statsContainer = statsNode.Elements("h3");
-            HtmlNode boxOfficeNode = null;
+
             if (statsContainer != null)
             {
-                foreach (HtmlNode node in statsContainer)
-                {
-                    if (node.InnerHtml.ToLower() == "box office")
-                    {
-                        boxOfficeNode = node;
-                        break;
-                    }
-                }
+                HtmlNode boxOfficeNode = statsContainer.FirstOrDefault(node => 0 == string.Compare(node.InnerHtml, "box office", true));
 
-                if (boxOfficeNode != null)
+                if (boxOfficeNode != default(HtmlNode))
                 {
                     var opening = boxOfficeNode.NextSibling.NextSibling;
                     var gross = opening.NextSibling.NextSibling;
@@ -219,7 +201,6 @@ namespace MovieCrawler
         //get the poster link
         public string GetMoviePoster(HtmlNode body)
         {
-            //return string.Empty;
             var posterNode = helper.GetElementWithAttribute(body, "table", "id", "title-overview-widget-layout");
             var posterLink = helper.GetElementWithAttribute(posterNode, "img", "itemprop", "image");
             return posterLink.Attributes["src"].Value;
@@ -228,7 +209,8 @@ namespace MovieCrawler
         public List<Songs> GetSongDetails(HtmlNode body)
         {
             var listNode = helper.GetElementWithAttribute(body, "div", "id", "soundtracks_content");
-            List<Songs> songs = new System.Collections.Generic.List<Songs>();
+
+            List<Songs> songs = new List<Songs>();
             if (listNode != null)
             {
                 var nodes = listNode.Elements("div");
@@ -238,29 +220,25 @@ namespace MovieCrawler
                     {
                         var songItems = node.Elements("div");
 
-
                         if (songItems != null)
                         {
                             foreach (HtmlNode song in songItems)
                             {
                                 Songs songDetail = new Songs();
-                                string title = string.Empty;
-                                string lyrics = string.Empty;
-                                string composer = string.Empty;
-                                string performer = string.Empty;
-                                string recite = string.Empty;
-                                string courtsey = string.Empty;
+                                string title, lyrics, composer, performer, recite, courtsey;
 
                                 GetSongDetails(song, out title, out lyrics, out composer, out performer, out recite, out courtsey);
-                                songDetail.SongTitle = title.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
-                                songDetail.Lyrics = lyrics.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
-                                songDetail.Composed = composer.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
-                                songDetail.Performer = performer.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
-                                songDetail.Recite = recite.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
-                                songDetail.Courtsey = courtsey.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
+                                songDetail.SongTitle = Cleanse(title);
+                                songDetail.Lyrics = Cleanse(lyrics);
+                                songDetail.Composed = Cleanse(composer);
+                                songDetail.Performer = Cleanse(performer);
+                                songDetail.Recite = Cleanse(recite);
+                                songDetail.Courtsey = Cleanse(courtsey);
 
                                 if (!title.Contains("It looks like we don't have any Soundtracks for this title yet."))
+                                {
                                     songs.Add(songDetail);
+                                }
                             }
                         }
                     }
@@ -268,6 +246,16 @@ namespace MovieCrawler
             }
 
             return songs;
+        }
+
+        private static string Cleanse(string str)
+        {
+            if (string.IsNullOrEmpty(str))
+            {
+                return string.Empty;
+            }
+
+            return str.Replace(":", string.Empty).Replace(",", string.Empty).Trim();
         }
 
         private bool GetSongDetails(HtmlNode song, out string title, out string lyrics, out string composer, out string performer, out string recite, out string courtsey)
@@ -345,14 +333,15 @@ namespace MovieCrawler
                         }
 
                         if (currentRole == "Courtesy" && string.IsNullOrEmpty(courtsey))
+                        {
                             courtsey = songs[count].InnerText;
+                        }
                     }
                 }
                 catch (Exception ex)
                 {
                     Debug.WriteLine(ex);
                 }
-
             }
 
             return true;
@@ -367,27 +356,28 @@ namespace MovieCrawler
                 return string.Empty;
             }
 
-            if (role.ToLower().IndexOf("written") > 0)
+            role = role.ToLower();
+            if (role.Contains("written"))
             {
                 currentRole = "Lyrics";
             }
-            else if (role.ToLower().IndexOf("composed") > 0)
+            else if (role.Contains("composed"))
             {
                 currentRole = "Composer";
             }
-            else if (role.ToLower().IndexOf("performed") > 0)
+            else if (role.Contains("performed"))
             {
                 currentRole = "Performer";
             }
-            else if (role.ToLower().IndexOf("courtesy") > 0)
+            else if (role.Contains("courtesy"))
             {
                 currentRole = "Courtesy";
             }
-            else if (role.ToLower().IndexOf("recited") > 0)
+            else if (role.Contains("recited"))
             {
                 currentRole = "Recite";
             }
-            else if (role.ToLower().IndexOf("and") > 0 || role.IndexOf(",") > 0)
+            else if (role.Contains("and") || role.Contains(","))
             {
                 currentRole = lastRole;
             }
@@ -402,6 +392,7 @@ namespace MovieCrawler
                 }
                 catch (Exception)
                 {
+                    // TODO: Ideally we should never hit
                 }
             }
 
@@ -420,7 +411,12 @@ namespace MovieCrawler
 
         public string GetMovieUniqueName(string movieName)
         {
-            string uniqueName = movieName.Replace(" ", "-").Replace("&", "-and-").Replace(".", string.Empty).Replace("'", string.Empty).ToLower();
+            string uniqueName = movieName
+                .Replace(" ", "-")
+                .Replace("&", "-and-")
+                .Replace(".", string.Empty)
+                .Replace("'", string.Empty)
+                .ToLower();
 
             /*var tableMgr = new TableManager();
             
@@ -442,7 +438,8 @@ namespace MovieCrawler
         public List<Cast> GetMovieCastDetails(HtmlNode body)
         {
             var headerNode = helper.GetElementWithAttribute(body, "div", "id", "fullcredits_content");
-            List<Cast> castList = new System.Collections.Generic.List<Cast>();
+
+            List<Cast> castList = new List<Cast>();
             var moviesCast = headerNode.Elements("h4");
 
             if (moviesCast != null)
@@ -468,59 +465,65 @@ namespace MovieCrawler
 
         private void CrawlPosterImagePath(string url, string movieName, int imageCounter, ref bool isThumbnailDownloaded, ref List<string> posterImagePath, ref string thumbnailImagePath)
         {
-
             try
             {
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
-                if (response.StatusCode == HttpStatusCode.OK)
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
                 {
-                    Stream receiveStream = response.GetResponseStream();
-                    StreamReader readStream = null;
-                    if (response.CharacterSet == null)
-                        readStream = new StreamReader(receiveStream);
-                    else
-                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
-                    string data = readStream.ReadToEnd();
 
-                    HtmlDocument htmlDoc = new HtmlDocument();
-                    htmlDoc.OptionFixNestedTags = true;
-                    htmlDoc.LoadHtml(data);
-                    if (htmlDoc.DocumentNode != null)
+                    if (response.StatusCode == HttpStatusCode.OK)
                     {
-                        HtmlAgilityPack.HtmlNode bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
-                        if (bodyNode == null)
+                        Stream receiveStream = response.GetResponseStream();
+                        StreamReader readStream = null;
+                        if (response.CharacterSet == null)
                         {
-                            Console.WriteLine("body node is null");
+                            readStream = new StreamReader(receiveStream);
                         }
                         else
                         {
-                            var thumbnailContainer = helper.GetElementWithAttribute(bodyNode, "div", "class", "media_single");
-                            var posterThumbnail = helper.GetElementWithAttribute(thumbnailContainer, "img", "class", "poster");
+                            readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+                        }
 
-                            var poster = helper.GetElementWithAttribute(bodyNode, "img", "id", "primary-img");
-                            string newImageName = string.Empty;
+                        string data = readStream.ReadToEnd();
 
-                            if (posterThumbnail != null && posterThumbnail.Attributes["src"] != null && !isThumbnailDownloaded)
+                        HtmlDocument htmlDoc = new HtmlDocument();
+                        htmlDoc.OptionFixNestedTags = true;
+                        htmlDoc.LoadHtml(data);
+                        if (htmlDoc.DocumentNode != null)
+                        {
+                            HtmlAgilityPack.HtmlNode bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
+                            if (bodyNode == null)
                             {
-                                string thumbnailPath = GetNewImageName(movieName, GetFileExtension(posterThumbnail.Attributes["src"].Value), imageCounter, true, ref newImageName);
-                                DownloadImage(posterThumbnail.Attributes["src"].Value, thumbnailPath);
-                                thumbnailImagePath = newImageName;
-                                isThumbnailDownloaded = true;
+                                Console.WriteLine("body node is null");
                             }
-
-                            if (poster != null && poster.Attributes["id"] != null)
+                            else
                             {
-                                string posterPath = GetNewImageName(movieName, GetFileExtension(poster.Attributes["src"].Value), imageCounter, false, ref newImageName);
-                                posterImagePath.Add(newImageName);
-                                DownloadImage(poster.Attributes["src"].Value, posterPath);
+                                var thumbnailContainer = helper.GetElementWithAttribute(bodyNode, "div", "class", "media_single");
+                                var posterThumbnail = helper.GetElementWithAttribute(thumbnailContainer, "img", "class", "poster");
+
+                                var poster = helper.GetElementWithAttribute(bodyNode, "img", "id", "primary-img");
+                                string newImageName = string.Empty;
+
+                                if (posterThumbnail != null && posterThumbnail.Attributes["src"] != null && !isThumbnailDownloaded)
+                                {
+                                    string thumbnailPath = GetNewImageName(movieName, GetFileExtension(posterThumbnail.Attributes["src"].Value), imageCounter, true, ref newImageName);
+                                    DownloadImage(posterThumbnail.Attributes["src"].Value, thumbnailPath);
+                                    thumbnailImagePath = newImageName;
+                                    isThumbnailDownloaded = true;
+                                }
+
+                                if (poster != null && poster.Attributes["id"] != null)
+                                {
+                                    string posterPath = GetNewImageName(movieName, GetFileExtension(poster.Attributes["src"].Value), imageCounter, false, ref newImageName);
+                                    posterImagePath.Add(newImageName);
+                                    DownloadImage(poster.Attributes["src"].Value, posterPath);
+                                }
                             }
                         }
-                    }
 
-                    response.Close();
-                    readStream.Close();
+                        response.Close();
+                        readStream.Close();
+                    }
                 }
             }
             catch (Exception ex)
@@ -532,8 +535,7 @@ namespace MovieCrawler
 
         public List<string> GetMoviePosterDetails(HtmlNode body, string movieName, ref List<string> posterPath, ref string thumbnailPath)
         {
-            if (posterPath == null)
-                posterPath = new List<string>();
+            posterPath = posterPath ?? new List<string>();
 
             thumbnailPath = string.Empty;
 
@@ -566,31 +568,32 @@ namespace MovieCrawler
         public string GetCleanRoleName(string castRole)
         {
             string roleName = castRole;
-            if (castRole.ToLower().Contains("direct"))
+            castRole = castRole.ToLower();
+            if (castRole.Contains("direct"))
             {
                 roleName = "Director";
             }
-            else if (castRole.ToLower().Contains("cast"))
+            else if (castRole.Contains("cast"))
             {
                 roleName = "Cast";
             }
-            else if (castRole.ToLower().Contains("writ"))
+            else if (castRole.Contains("writ"))
             {
                 roleName = "Writer";
             }
-            else if (castRole.ToLower().Contains("produce"))
+            else if (castRole.Contains("produce"))
             {
                 roleName = "Producer";
             }
-            else if (castRole.ToLower().Contains("music"))
+            else if (castRole.Contains("music"))
             {
                 roleName = "Music";
             }
-            else if (castRole.ToLower().Contains("cinemato"))
+            else if (castRole.Contains("cinemato"))
             {
                 roleName = "Cinematography";
             }
-            else if (castRole.ToLower().Contains("edit"))
+            else if (castRole.Contains("edit"))
             {
                 roleName = "Editor";
             }
@@ -623,7 +626,9 @@ namespace MovieCrawler
                                     cast.name = link.InnerText.Replace("'", string.Empty).Replace("&", string.Empty).Trim();
 
                                     if (link.Attributes["href"] != null)
+                                    {
                                         cast.link = link.Attributes["href"].Value;
+                                    }
                                 }
                                 else if (node.Attributes["class"] != null && node.Attributes["class"].Value == "credit")
                                 {
@@ -648,9 +653,10 @@ namespace MovieCrawler
                 {
                     byte[] data = client.DownloadData(url);
 
-                    Stream stream = new MemoryStream(data);
-
-                    new BlobStorageService().UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, stream);
+                    using (Stream stream = new MemoryStream(data))
+                    {
+                        new BlobStorageService().UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, stream);
+                    }
                 }
             }
             catch (Exception ex)
@@ -664,13 +670,12 @@ namespace MovieCrawler
 
         private string GetNewImageName(string movieName, string extension, int counter, bool isThumbnail, ref string newImageName)
         {
-            string tempImageName = string.Empty;
-
             if (string.IsNullOrEmpty(movieName) || string.IsNullOrEmpty(extension))
             {
                 return string.Empty;
             }
 
+            string tempImageName = string.Empty;
             try
             {
                 tempImageName = movieName.Replace(" ", "-").ToLower();
@@ -699,15 +704,13 @@ namespace MovieCrawler
             {
             }
 
-            return tempImageName; ;
+            return tempImageName;
         }
 
         public void PopulateCast(HtmlNode table, ref List<Cast> castList, string roleName)
         {
             var tbody = table.Element("tbody");
-
-            if (tbody == null)
-                tbody = table;
+            tbody = tbody ?? table;
 
             if (tbody != null)
             {
@@ -739,7 +742,9 @@ namespace MovieCrawler
                             }
 
                             if (!string.IsNullOrEmpty(cast.charactername) || !string.IsNullOrEmpty(cast.name))
+                            {
                                 castList.Add(cast);
+                            }
                         }
                     }
                 }
@@ -749,11 +754,10 @@ namespace MovieCrawler
         public string GetFileExtension(string url)
         {
             //int lastIndex = url.
-            // need to parse the url and get the extension from the url
+            // TODO: need to parse the url and get the extension from the url
             return ".jpg";
         }
 
-        //private int GetMaxImageCounter(string movieName)
         public int GetMaxImageCounter(string movieName)
         {
             string tempImageName = movieName.Replace(" ", "-").ToLower();
@@ -775,7 +779,9 @@ namespace MovieCrawler
                     fileName = fileName.Substring(0, fileName.IndexOf("."));
                     int.TryParse(fileName, out id);
                     if (id > maxId)
+                    {
                         maxId = id;
+                    }
                 }
             }
             catch (Exception)

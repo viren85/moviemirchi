@@ -1,18 +1,16 @@
-﻿using DataStoreLib.BlobStorage;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Crawler
 {
+    using DataStoreLib.BlobStorage;
+    using System;
+    using System.IO;
+    using System.Net;
+
     public static class Util
     {
-        public static string DEFAULT_POPULARITY = "1";
-        public static string DEFAULT_SCORE = "0";
+        public const string DEFAULT_POPULARITY = "1";
+        public const string DEFAULT_SCORE = "0";
+
         public static string StripHTMLTags(string html)
         {
             string stripedHtml = string.Empty;
@@ -39,6 +37,8 @@ namespace Crawler
         /// <returns></returns>
         public static string DownloadImage(string url, string fileName)
         {
+            string result = string.Empty;
+
             try
             {
                 fileName = fileName + "." + url.Substring(url.LastIndexOf(".") + 1);
@@ -47,15 +47,18 @@ namespace Crawler
                 {
                     byte[] data = client.DownloadData(url);
 
-                    Stream stream = new MemoryStream(data);
-
-                    return new BlobStorageService().UploadImageFileOnBlob(BlobStorageService.Blob_NewsImages, fileName, stream);
+                    using (Stream stream = new MemoryStream(data))
+                    {
+                        result = new BlobStorageService().UploadImageFileOnBlob(BlobStorageService.Blob_NewsImages, fileName, stream);
+                    }
                 }
             }
             catch (Exception)
             {
-                return "";
+                //TODO - Log an error message
             }
+
+            return result;
         }
     }
 }
