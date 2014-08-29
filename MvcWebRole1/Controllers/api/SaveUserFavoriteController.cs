@@ -39,6 +39,19 @@ namespace MvcWebRole1.Controllers.api
                     {
                         PopularOnMovieMirchiEntity oldObjPopular = tableMgr.GetPopularOnMovieMirchiById(objPopular.Name + "=" + objPopular.Type);
 
+                        // If the type = Actor - need to update the record
+                        if (objPopular.Type.ToLower() == "actor")
+                        {
+                            // update the popularity count
+                            ArtistEntity artist = tableMgr.GetArtist(objPopular.Name);
+                            artist.Popularity = (int.Parse(artist.Popularity) + 1).ToString();
+                            tableMgr.UpdateArtistById(artist);
+                        }
+                        else if (objPopular.Type.ToLower() == "critics")
+                        {
+                            // update the critics popularity count - currently we don't track this count
+                        }
+
                         if (oldObjPopular == null)
                         {
                             objPopular.PopularOnMovieMirchiId = Guid.NewGuid().ToString();

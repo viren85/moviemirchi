@@ -76,11 +76,29 @@ namespace MvcWebRole1.Controllers.api
                             })
                         );
 
-                    int popularity = 0;
+                    int pageHit = 0;
                     var moviesByName = tableMgr.GetArtist(artistName);
 
-                    int.TryParse(moviesByName.Popularity, out popularity);
-                    moviesByName.Popularity = (popularity + 1).ToString();
+                    // Initially popularity was meant for most accessed celebrity. Now popularity is used to
+                    // keep track of celebrities who are most liked by end users
+                    if (!string.IsNullOrEmpty(moviesByName.JsonString))
+                    {
+                        // Read pagehit value & assign it to pagehit variable
+                        Dictionary<string, object> dict = (Dictionary<string, object>)jsonSerializer.Value.Deserialize(moviesByName.JsonString, typeof(object));
+                        pageHit++;
+                        int.TryParse(dict["PageHit"].ToString(), out pageHit);
+                        dict["PageHit"] = pageHit;
+                        moviesByName.JsonString = jsonSerializer.Value.Serialize((object)dict);
+                    }
+                    else
+                    {
+                        // increment the page hit count by 1
+                        //int.TryParse(json.FirstOrDefault().Value, out pageHit);
+                        pageHit++;
+                        Dictionary<string, object> dict = new Dictionary<string, object>();
+                        dict.Add("PageHit", pageHit);
+                        moviesByName.JsonString = jsonSerializer.Value.Serialize((object)dict);
+                    }
 
                     tableMgr.UpdateArtistItemById(new List<ArtistEntity>() { moviesByName });
 
