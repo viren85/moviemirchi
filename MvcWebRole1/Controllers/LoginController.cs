@@ -210,6 +210,7 @@ namespace MvcWebRole1.Controllers
                         entity.Status = 1;
                         entity.Created_At = DateTime.Now;
                         entity.Country = string.Empty;
+                        entity.SiteFeedbackScore = string.Empty;
 
                         tblMgr.UpdateUserById(entity);
                     }

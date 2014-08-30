@@ -107,6 +107,7 @@ namespace DataStoreLib.Models
             Status = entity.Status;
             Created_At = entity.Created_At;
             Favorite = entity.Favorite;
+            SiteFeedbackScore = entity.SiteFeedbackScore;
         }
 
         public override string GetKey()

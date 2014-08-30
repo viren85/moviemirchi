@@ -49,7 +49,10 @@ function authenticateUser() {
 
 function ShowSuccessMessageLogin(result) {
     if (result.Status == "Ok") {
-        window.location = BASE_URL + 'Home/Index';
+        //window.location = BASE_URL;
+        $('#popup').modal('hide');
+        $('#SignUp').modal('hide');
+        $('#SignUp-Input').modal('hide');
     } else if (result.Status == "Require") {
         $("#loginError").html("Username and Password require.");
         $("#loginError").show();

@@ -18,6 +18,7 @@ namespace DataStoreLib.Utils
 
         #region JSON
         public const string PopularTagsJson = "PopularTags";
+        public const string UserFeedback = "UserFeedbackPopularElements";
         #endregion
 
         #region Json for cetains keys
