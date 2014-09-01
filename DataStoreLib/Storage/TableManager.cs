@@ -588,7 +588,9 @@ namespace DataStoreLib.Storage
         {
             IEnumerable<TwitterEntity> tweets;
 
-            if (!CacheManager.TryGet<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, out tweets))
+            // Home page loads the tweets in cache (20). When we access artists/movies page, tweeets are already populated
+            // Hence it was never accessing the following code block.
+            if (!CacheManager.TryGet<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities + "_" + name.ToLower(), out tweets))
             {
                 var twitterTable = TableStore.Instance.GetTable(TableStore.TwitterTableName);
                 var allTweets = twitterTable.GetAllItems<TwitterEntity>();
@@ -610,7 +612,7 @@ namespace DataStoreLib.Storage
                         : sortedTweets;
 
 
-                CacheManager.Add<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities, tweets);
+                CacheManager.Add<IEnumerable<TwitterEntity>>(CacheConstants.TwitterEntities + "_" + name.ToLower(), tweets);
             }
 
             return tweets;
