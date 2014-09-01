@@ -246,12 +246,12 @@ namespace DataStoreLib.Storage
             {
                 IDictionary<string, ReviewEntity> review;
 
-                if (!CacheManager.TryGet<IDictionary<string, ReviewEntity>>(CacheConstants.ReviewEntity + reviewerName.ToLower().Trim(), out review))
+                if (!CacheManager.TryGet<IDictionary<string, ReviewEntity>>(CacheConstants.ReviewEntity + reviewerName.Replace(" ", "-").ToLower().Trim(), out review))
                 {
                     var reviewTable = TableStore.Instance.GetTable(TableStore.ReviewTableName);
                     var reviews = reviewTable.GetItemsByReviewer<ReviewEntity>(reviewerName);
                     review = reviews;
-                    CacheManager.Add<IDictionary<string, ReviewEntity>>(CacheConstants.ReviewEntity + reviewerName.ToLower().Trim(), review);
+                    CacheManager.Add<IDictionary<string, ReviewEntity>>(CacheConstants.ReviewEntity + reviewerName.Replace(" ", "-").ToLower().Trim(), review);
                 }
 
                 return review;

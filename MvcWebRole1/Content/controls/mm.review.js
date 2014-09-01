@@ -155,5 +155,5 @@ function GetMoviePoster(posters, movieName) {
 }
 
 function FormPathFromName(name) {
-    return name.split(' ').join("-").split('.').join('');
+    return name.replace('-', '%7c').split(' ').join("-").split('.').join('');
 }
