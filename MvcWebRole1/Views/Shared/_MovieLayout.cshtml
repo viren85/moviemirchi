@@ -753,6 +753,19 @@
             e.stopPropagation();
         });
 
+        $(".nav-options").hover(function (e) {
+            $(".nav-bar-container").css("display", "block");
+            $(".nav-bar-container ul li").css("display", "block");
+
+            e.stopPropagation();
+        });
+
+        // Having issue while hiding the top nav bar on mouse out 
+        // hence commented the following code
+        /*$(".nav-bar-container ul").mouseout(function () {
+            $(".nav-bar-container").css("display", "none");
+        });*/
+
         $(window).resize(function () {
             ArrangeTopNavLinks();
             $(".movie-list ul").each(function () {
