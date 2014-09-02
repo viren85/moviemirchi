@@ -9,13 +9,13 @@
     using System.Web.Script.Serialization;
 
     /// <summary>
-    /// This api take movieId,reviewId,review text and call exe file which process the reviews and calculate it rating    
+    /// This api take movieId,reviewId and call exe file which process the reviews and calculate it rating    
     /// </summary>
     public class CalculateRatingController : BaseController
     {
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
 
-        // get : api/CalculateRating?movieid=<mid>&reviewid=<rid>&review=<review Text>          
+        // get : api/CalculateRating?movieid=<mid>&reviewid=<rid>
         protected override string ProcessRequest()
         {
             // get query string parameters
@@ -25,31 +25,62 @@
             {
                 if (queryParameters != null)
                 {
-                    var tableMgr = new TableManager();
                     var qpParams = HttpUtility.ParseQueryString(queryParameters);
 
                     string movieId = string.Empty, reviewId = string.Empty, reviewText = string.Empty;
 
-                    if (!string.IsNullOrEmpty(qpParams["movieid"]) && !string.IsNullOrEmpty(qpParams["reviewid"]) && !string.IsNullOrEmpty(qpParams["review"]))
+                    if (!string.IsNullOrEmpty(qpParams["movieid"]) && !string.IsNullOrEmpty(qpParams["reviewid"]))
                     {
                         movieId = qpParams["movieid"].ToString();
                         reviewId = qpParams["reviewid"].ToString();
-                        reviewText = qpParams["review"].ToString();
 
-                        string fileName = Path.Combine(ConfigurationManager.AppSettings["ExeFilePath"], ConfigurationManager.AppSettings["ExeFileName"]);
 
-                        //Execute exe file 
-                        var callProcessReviewProc = new Process();
-                        callProcessReviewProc.StartInfo = new ProcessStartInfo();
+                        var tableMgr = new TableManager();
+                        var review = tableMgr.GetReviewById(reviewId);
+                        if (review != null)
+                        {
+                            reviewText = review.Review;
+                        }
+                        else
+                        {
+                            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to get the review", ActualError = "" });
+                        }
 
-                        callProcessReviewProc.EnableRaisingEvents = false;
-                        callProcessReviewProc.StartInfo.FileName = fileName;
-                        callProcessReviewProc.StartInfo.Arguments = "\"" + movieId + "\" \"" + reviewId + "\" \"" + reviewText + "\"";
-                        callProcessReviewProc.StartInfo.UseShellExecute = true;
-                        callProcessReviewProc.Start();
-                        callProcessReviewProc.WaitForExit();
+                        try
+                        {
+                            //Execute exe file 
+                            var callProcessReviewProc = new Process();
+                            callProcessReviewProc.StartInfo = new ProcessStartInfo();
 
-                        return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully launch exe file" });
+                            callProcessReviewProc.EnableRaisingEvents = false;
+                            callProcessReviewProc.StartInfo.FileName = "cmd.exe";
+
+                            string dirPath = @"e:\workspace";
+                            string cmdPath = Path.Combine(dirPath, @"Scorer\scorer", "runScorer.cmd");
+                            string filename = string.Format("{0}_{1}", movieId, reviewId);
+                            string reviewFilename = Path.Combine(Path.GetTempPath(), filename + ".txt");
+                            string logFilename = Path.Combine(Path.GetTempPath(), filename + ".log");
+                            File.WriteAllText(reviewFilename, reviewText);
+
+                            callProcessReviewProc.StartInfo.Arguments =
+                                string.Format("/C {0} \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\"",
+                                    cmdPath,
+                                    dirPath,
+                                    logFilename,
+                                    movieId,
+                                    reviewId,
+                                    reviewFilename);
+
+                            callProcessReviewProc.StartInfo.UseShellExecute = true;
+                            callProcessReviewProc.Start();
+                            callProcessReviewProc.WaitForExit();
+
+                            return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully launch exe file" });
+                        }
+                        catch (Exception ex)
+                        {
+                            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Issue with executing the scorer script", ActualError = ex.Message });
+                        }
                     }
                 }
 
