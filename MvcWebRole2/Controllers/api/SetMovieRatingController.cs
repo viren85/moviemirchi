@@ -2,6 +2,7 @@
 {
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
+    using MvcWebRole2.Controllers.Library;
     using System;
     using System.Web;
     using System.Web.Script.Serialization;
@@ -24,7 +25,6 @@
             {
                 if (queryParameters != null)
                 {
-                    var tableMgr = new TableManager();
                     var qpParams = HttpUtility.ParseQueryString(queryParameters);
 
                     string movieId = string.Empty, reviewId = string.Empty, bagOfWord = string.Empty;
@@ -39,62 +39,11 @@
 
                         if (int.TryParse(qpParams["rating"].ToString(), out rating))
                         {
-                            MovieEntity movie = tableMgr.GetMovieById(movieId);
-
-                            if (movie != null)
-                            {
-                                ReviewEntity review = tableMgr.GetReviewById(reviewId);
-
-                                if (review != null)
-                                {
-                                    // -1 => Negative
-                                    //  0 => No rating
-                                    // +1 => Positive
-                                    rating = (rating < 0) ? -1 : 1;
-
-                                    review.SystemRating = rating;
-                                    tableMgr.UpdateReviewById(review);
-
-                                    string myscore = movie.MyScore;
-                                    if (string.IsNullOrEmpty(myscore) || myscore == "0")
-                                    {
-                                        myscore = "{\"teekharating\":\"0\",\"feekharating\":\"0\",\"criticrating\":\"\"}";
-                                    }
-
-                                    RatingConvertion newRating = new RatingConvertion();
-                                    RatingConvertion oldRating;
-                                    try
-                                    {
-                                        oldRating = jsonSerializer.Value.Deserialize(myscore, typeof(RatingConvertion)) as RatingConvertion;
-                                    }
-                                    catch
-                                    {
-                                        myscore = "{\"teekharating\":\"0\",\"feekharating\":\"0\",\"criticrating\":\"\"}";
-                                        oldRating = jsonSerializer.Value.Deserialize(myscore, typeof(RatingConvertion)) as RatingConvertion;
-                                    }
-
-                                    var teekha = (oldRating.teekharating + rating);
-                                    var feekha = (oldRating.feekharating + (1 - rating));
-                                    newRating.teekharating = teekha;
-                                    newRating.feekharating = feekha;
-                                    newRating.criticrating = ((int)(teekha / (double)(teekha + feekha) * 100)).ToString();
-
-                                    string strNewRating = jsonSerializer.Value.Serialize(newRating);
-                                    movie.Ratings = newRating.criticrating;
-                                    movie.MyScore = strNewRating;
-                                    tableMgr.UpdateMovieById(movie);
-
-                                    return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully update movie rating" });
-                                }
-                                else
-                                {
-                                    return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find review with passed review id. Please check review id." });
-                                }
-                            }
-                            else
-                            {
-                                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find movie with passed movie id. Please check movie id." });
-                            }
+                            return Scorer.SetReviewAndUpdateMovieRating(
+                                movieId,
+                                reviewId,
+                                rating,
+                                bagOfWord);
                         }
                     }
                 }

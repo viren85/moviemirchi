@@ -1,6 +1,8 @@
 ﻿namespace MvcWebRole1.Controllers.api
 {
+    using DataStoreLib.Models;
     using DataStoreLib.Storage;
+    using MvcWebRole2.Controllers.Library;
     using System;
     using System.Collections.Generic;
     using System.Configuration;
@@ -33,13 +35,20 @@
                     var movie = tableMgr.GetMovieById(movieId);
                     if (movie != null)
                     {
-                        movie.MyScore = "";
+                        // Reset movie score
+                        movie.MyScore = "0";
+                        movie.Ratings = "0";
                         tableMgr.UpdateMovieById(movie);
 
-                        IEnumerable<string> reviewIds = movie.GetReviewIds();
-                        foreach (string reviewId in reviewIds)
+                        IDictionary<string, ReviewEntity> reviewEntities = tableMgr.GetReviewsByMovieId(movieId);
+                        foreach (var pair in reviewEntities)
                         {
                             // Add code here
+                            var response = Scorer.QueueScoreReview(movieId, pair.Value.ReviewId);
+                            if (response.Contains("\"Error\""))
+                            {
+                                // There was an error - communicate this to user
+                            }
                         }
 
                         return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Queued rating reviews for this movie", ActualError = "" });

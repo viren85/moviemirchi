@@ -217,6 +217,7 @@
     <Compile Include="Controllers\api\NewsController.cs" />
     <Compile Include="Controllers\api\ReviewerController.cs" />
     <Compile Include="Controllers\api\ReviewRatingController.cs" />
+    <Compile Include="Controllers\api\Scorer.cs" />
     <Compile Include="Controllers\api\SetMovieRatingController.cs" />
     <Compile Include="Controllers\api\TwitterController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
