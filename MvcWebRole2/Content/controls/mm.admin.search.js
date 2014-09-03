@@ -315,6 +315,10 @@ var Search = function (placeholder, searchtype) {
 
                 $(".shortcut-container").html("");
                 $(".shortcut-container").append($("<a/>").html("Save changes").attr("onclick", "updateMovie()").attr("class", "btn btn-success").attr("title", "click here to save all the changes."));
+                $(".shortcut-container").append($("<a/>").html("Reset Movie Rating").css("float", "right").attr("class", "btn btn-danger").attr("title", "Click here to Reset the movie ratings").click(function () {
+                    CallHandler("api/RateMovie?movieid=" + MOVIES[i].MovieId, function () { $("#status").html("Movie ratings reset successfully!") });
+                }));
+
                 $(".shortcut-container").append($("<div>").attr("id", "status"));
                 // upload files
                 $("#poster-upload").attr("onchange", "UploadSelectedFile(this, '#txtUnique','poster')");
@@ -404,10 +408,6 @@ var Search = function (placeholder, searchtype) {
         if (songs.length > 0)
             CURRENT_MOVIE.Songs = JSON.stringify(songs);
 
-        console.log(CURRENT_MOVIE.Songs);
-
-
-
         //get songs list
         var trailer = [];
         $(".trailer-grid").find(".trailer-grid-row").each(function () {
@@ -429,8 +429,6 @@ var Search = function (placeholder, searchtype) {
         if (trailer.length > 0)
             CURRENT_MOVIE.Trailers = JSON.stringify(trailer);
 
-        console.log(CURRENT_MOVIE.Trailers);
-        
         //geting posters
         var posters = [];
         var selectPoster = null;
@@ -448,8 +446,6 @@ var Search = function (placeholder, searchtype) {
 
         if (posters.length > 0)
             CURRENT_MOVIE.Posters = JSON.stringify(posters);
-
-        //console.log(CURRENT_MOVIE);
 
         var movie = {
             "MovieId": CURRENT_MOVIE.MovieId,
