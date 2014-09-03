@@ -774,8 +774,10 @@
             });
         });
 
-        var btn = new UserPreferences();
-        $('body').append(btn);
+        if ($(window).width() > 767) {
+            var btn = new UserPreferences();
+            $('body').append(btn);
+        }
     });
 
     function ArrangeTopNavLinks() {
