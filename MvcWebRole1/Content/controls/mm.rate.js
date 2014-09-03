@@ -39,12 +39,14 @@ var RatingControl = function () {
     RatingControl.prototype.GetRatingControl = function (rate, movie) {
 
         // TODO - Remove this if condition, once ewverything is implemented end-end
-        if (rate == "" || rate == null || rate == "undefined" || rate == "0") {
+        if (typeof rate === "undefined" || rate === "" || rate === null || rate === "undefined" || rate === "0" || rate === 0) {
             rate = { "criticrating": "", "teekharating": "", "feekharating": "" };
         }
 
         var hideContentControl = "";
-        if (rate.criticrating == "" || rate.criticrating == undefined || rate.feekharating == "" || rate.feekharating == undefined || rate.teekharating == "" || rate.teekharating == undefined) {
+        if (typeof rate.criticrating === "undefined" || rate.criticrating === ""
+            || typeof rate.feekharating === "undefined" || rate.feekharating === ""
+            || typeof rate.teekharating === "undefined" || rate.teekharating === "") {
             hideContentControl = "style=\"display:none\"";
         }
 
