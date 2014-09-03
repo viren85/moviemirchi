@@ -37,10 +37,7 @@ namespace MovieCrawler
             movie.Month = GetMovieMonth(body);
             movie.Year = GetMovieYear(body);
             movie.Stats = GetMovieStats(body);
-            //uncommeted by vasim for testing movies
-            //movie.Casts = GetMovieCast(body);
-            //movie.Posters = GetMoviePoster(body);
-            //movie.Songs = GetMovieSongs(body);
+            
             movie.Trailers = string.Empty;
             movie.Pictures = string.Empty;
             movie.State = string.Empty;

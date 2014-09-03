@@ -175,13 +175,13 @@ function SaveUserFavorite() {
 
     $("#artist-pref-screen ul li").each(function () {
         if ($(this).attr("class") == "selected") {
-            FavoriteList.push({ "Type": "Actor", "Name": $(this).find(".artist-name").html() });
+            FavoriteList.push({ "Type": "Actor", "Name": $(this).find(".artist-name").attr("artist") });
         }
     });
 
     $("#critics-pref-screen ul li").each(function () {
         if ($(this).attr("class") == "selected") {
-            FavoriteList.push({ "Type": "Critics", "Name": $(this).find(".artist-name").html() });
+            FavoriteList.push({ "Type": "Critics", "Name": $(this).find(".artist-name").attr("critic") });
         }
     });
 

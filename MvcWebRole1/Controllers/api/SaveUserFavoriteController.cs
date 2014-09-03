@@ -39,7 +39,47 @@ namespace MvcWebRole1.Controllers.api
                     {
                         PopularOnMovieMirchiEntity oldObjPopular = tableMgr.GetPopularOnMovieMirchiById(objPopular.Name + "=" + objPopular.Type);
 
-                        if (oldObjPopular == null)
+                        // If the type = Actor - need to update the record
+                        if (objPopular.Type.ToLower() == "actor")
+                        {
+                            // update the popularity count
+                            ArtistEntity artist = tableMgr.GetArtist(objPopular.Name);
+
+                            if (artist == null)
+                                continue;
+
+                            artist.Popularity = (int.Parse(artist.Popularity) + 1).ToString();
+                            tableMgr.UpdateArtistById(artist);
+                        }
+                        else if (objPopular.Type.ToLower() == "critics")
+                        {
+                            // update the critics popularity count - We don't have column for storing popularity of critics
+                            // Hence currently it is getting stored inside reviewer image. We are not storing reviewer image in this table
+                            ReviewerEntity reviewer = tableMgr.GetReviewerById(objPopular.Name);
+
+                            if (reviewer == null)
+                                continue;
+
+                            if (string.IsNullOrEmpty(reviewer.ReviewerImage))
+                            {
+                                reviewer.ReviewerImage = "0";
+                            }
+
+                            reviewer.ReviewerImage = (int.Parse(reviewer.ReviewerImage) + 1).ToString();
+                            tableMgr.UpdateReviewerById(reviewer);
+                        }
+                        else if (objPopular.Type.ToLower() == "rate")
+                        { 
+                            // update users table - save the site rating
+                            UserEntity ue = tableMgr.GetUserById(userId);
+                            if (ue == null)
+                                continue;
+
+                            ue.SiteFeedbackScore = objPopular.Name;
+                            tableMgr.UpdateUserById(ue);
+                        }
+
+                        /*if (oldObjPopular == null && objPopular.Type.ToLower() != "rate")
                         {
                             objPopular.PopularOnMovieMirchiId = Guid.NewGuid().ToString();
                             objPopular.RowKey = objPopular.Name + "=" + objPopular.Type;
@@ -48,17 +88,19 @@ namespace MvcWebRole1.Controllers.api
 
                             tableMgr.UpdatePopularOnMovieMirchiId(objPopular);
                         }
-                        else
+                        else if (objPopular.Type.ToLower() != "rate")
                         {
                             oldObjPopular.Counter = oldObjPopular.Counter + 1;
                             objPopular.DateUpdated = DateTime.Now.ToString();
-
                             tableMgr.UpdatePopularOnMovieMirchiId(oldObjPopular);
-                        }
+                        }*/
                     }
                 }
 
-                if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(cFavoriteId))
+                // User Id must be present - Fav id not present = create
+                // USer id present - fav id present - update
+
+                /*if (string.IsNullOrEmpty(userId) && string.IsNullOrEmpty(cFavoriteId))
                 {
                     UserFavoriteEntity userFavorite = new UserFavoriteEntity();
                     userFavorite.RowKey = userFavorite.UserFavoriteId = Guid.NewGuid().ToString();
@@ -70,7 +112,8 @@ namespace MvcWebRole1.Controllers.api
 
                     return json.Serialize(new { Status = "Ok", Message = "Set Cookie", FavoriteId = userFavorite.UserFavoriteId });
                 }
-                else if (!string.IsNullOrEmpty(userId) && userId.ToLower() != "undefined" && !string.IsNullOrEmpty(cFavoriteId))
+                else */ 
+                if (!string.IsNullOrEmpty(userId) && userId.ToLower() != "undefined" && !string.IsNullOrEmpty(cFavoriteId))
                 {
                     UserFavoriteEntity userFavorite = tableMgr.GetUserFavoritesByUserId(userId);
 
@@ -83,7 +126,6 @@ namespace MvcWebRole1.Controllers.api
                             userFavorite.UserId = userId;
                             userFavorite.Favorites = favorites;
                             userFavorite.DateCreated = DateTime.Now.ToString();
-
                             tableMgr.UpdateUserFavoriteById(userFavorite);
                         }
                     }
@@ -91,7 +133,6 @@ namespace MvcWebRole1.Controllers.api
                     {
                         userFavorite.Favorites = favorites;
                         userFavorite.DateCreated = DateTime.Now.ToString();
-
                         tableMgr.UpdateUserFavoriteById(userFavorite);
                     }
 
@@ -105,11 +146,9 @@ namespace MvcWebRole1.Controllers.api
                     {
                         userFavorite.Favorites = favorites;
                         userFavorite.DateCreated = DateTime.Now.ToString();
-
                         tableMgr.UpdateUserFavoriteById(userFavorite);
-
                         return json.Serialize(new { Status = "Ok", Message = "Updated" });
-                    }                    
+                    }
                 }
 
                 return json.Serialize(new { Status = "Error", Message = "No Updated" });
@@ -117,7 +156,7 @@ namespace MvcWebRole1.Controllers.api
             catch (Exception ex)
             {
                 // if any error occured then return User friendly message with system error message
-                
+
                 return json.Serialize(
                   new
                   {

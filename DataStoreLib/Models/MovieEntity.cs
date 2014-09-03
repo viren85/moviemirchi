@@ -2,7 +2,7 @@
 namespace DataStoreLib.Models
 {
     using Microsoft.WindowsAzure.Storage;
-    using Microsoft.WindowsAzure.Storage.Table;    
+    using Microsoft.WindowsAzure.Storage.Table;
     using System;
     using System.Collections.Generic;
 
@@ -203,7 +203,8 @@ namespace DataStoreLib.Models
 
             List<string> castName = new List<string>();
 
-            foreach (Cast c in casts) {
+            foreach (Cast c in casts)
+            {
                 if (!string.IsNullOrEmpty(c.name))
                     castName.Add(c.name);
             }
@@ -223,7 +224,17 @@ namespace DataStoreLib.Models
 
         public IEnumerable<string> GetMusicDirectors()
         {
-            return Utils.Utils.GetListFromCommaSeparatedString(Casts);
+            List<string> musicDirectors = new List<string>();
+            IEnumerable<string> music = Utils.Utils.GetListFromCommaSeparatedString(Casts);
+            foreach (string str in music)
+            {
+                if (str.Contains("music"))
+                {
+                    musicDirectors.Add(str);
+                }
+            }
+
+            return musicDirectors;
         }
 
         public IEnumerable<string> GetReviewIds()

@@ -2,14 +2,14 @@
 namespace MvcWebRole1.Controllers.api
 {
     using DataStoreLib.Constants;
-using DataStoreLib.Models;
-using DataStoreLib.Storage;
-using DataStoreLib.Utils;
-using System;
-using System.Collections.Generic;
-using System.Web;
-using System.Web.Script.Serialization;
-using WebGrease;
+    using DataStoreLib.Models;
+    using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
+    using System;
+    using System.Collections.Generic;
+    using System.Web;
+    using System.Web.Script.Serialization;
+    using WebGrease;
 
     /// <summary>
     /// This API returns all the information about the reviewer. This includes all the reviews written by this reviewer.
@@ -42,7 +42,7 @@ using WebGrease;
 
                 name = qpParams["name"].ToString();
 
-                if (!DataStoreLib.Utils.CacheManager.TryGet<Reviewer>(CacheConstants.ReviewerMoviesEntity + name.ToLower().Trim(), out reviewerInfo))
+                if (!DataStoreLib.Utils.CacheManager.TryGet<Reviewer>(CacheConstants.ReviewerMoviesEntity + name.Replace(" ", "-").ToLower().Trim(), out reviewerInfo))
                 {
                     reviewerInfo = new Reviewer();
                     reviewDetailList = new List<ReviewDetails>();
@@ -91,7 +91,7 @@ using WebGrease;
                         // add reviewList to reviewInfoObject
                         reviewerInfo.ReviewsDetails = reviewDetailList;
 
-                        DataStoreLib.Utils.CacheManager.Add<Reviewer>(CacheConstants.ReviewerMoviesEntity + name.ToLower().Trim(), reviewerInfo);
+                        DataStoreLib.Utils.CacheManager.Add<Reviewer>(CacheConstants.ReviewerMoviesEntity + name.Replace(" ", "-").ToLower().Trim(), reviewerInfo);
                     }
                     else
                     {
@@ -104,7 +104,7 @@ using WebGrease;
                       });
                     }
                 }
-                
+
                 // serialize and return reviewer details along with reviews
                 return jsonSerializer.Value.Serialize(reviewerInfo);
             }
