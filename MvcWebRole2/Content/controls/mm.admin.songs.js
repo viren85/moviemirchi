@@ -1,12 +1,16 @@
 ﻿var Songs = function () {
     Songs.prototype.GetSongsGrid = function (songsList) {
-
+        
         if (songsList == null || songsList == "undefined") {
             songsList = [];
         }
 
         var container = $("<div/>").attr("class", "songs-container");
         var sectionTitle = new MovieInformation().GetMovieInfoContainer("songs-section-title", "Songs");
+        
+        var addButton = $("<div/>").attr("title", "add new song").attr("class", "btn btn-success").html("<b>+</b>").attr("style", "position: absolute;top: 12px;right: 2px;float: left;").attr("data-toggle", "modal").attr("data-target", "#mySongModal").click(function () {
+            //$("#txtSongTitle").val($("#txtFriendly").val());
+        });
 
         var grid = $("<div/>").attr("class", "songs-grid").attr("id", "songs-sortable");
         var gridHead = $("<div/>").attr("class", "songs-grid-header");
@@ -43,14 +47,14 @@
             }
         }
 
-        return $(container).append(sectionTitle).append(grid);
+        return $(container).append(sectionTitle).append(addButton).append(grid);
     }
 
     Songs.prototype.PopulatePopup = function (counter) {
-        var col1 = $("#grid-row-data1_" + counter);
+        var col1 = $("#songs-grid-row-data1_" + counter);
         $("#myModalLabel").empty();
         $("#myModalLabel").html("Attach link to '" + $(col1).html() + " " + $("#txtFriendly").val() + "'");
-        $("#myModalLabel").append($("<input/>").attr("type", "hidden").attr("id", "hf-col3-id").val("#grid-row-data3_" + counter));
+        $("#myModalLabel").append($("<input/>").attr("type", "hidden").attr("id", "hf-col3-id").val("#songs-row-data3_" + counter));
         $("#search-container").empty();
         $("#VideoFrame").hide();
         $("#query").val($(col1).html() + " " + $("#txtFriendly").val());

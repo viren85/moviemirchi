@@ -298,7 +298,7 @@ var PopulateSongs = function (song) {
 var SongList = function (videos, type) {
     var ul = $("<ul/>");
     var songHasLink = false;
-
+    
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
         var url = "";
@@ -308,7 +308,7 @@ var SongList = function (videos, type) {
 
         var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
             $(document).scrollTop(0);
-            trackSongLink(videos[i].YoutubeURL);
+            trackSongLink(url);
             DisplayModal($(this).attr("video-link"));
         });
 

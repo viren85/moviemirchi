@@ -110,7 +110,6 @@
     }
 
     function OnComp(data) {
-        console.log(data);
         FillYoutubeSearchResults(data);
     }
 
@@ -155,11 +154,12 @@
         $(attach).click(function () {
             var url = "";
             var thamb = "";
-
+            
             $(this).parent().parent().find(".SearchResultImage").each(function () {
                 url = $(this).attr("originalurl");
                 thamb = $(this).attr("src");
             });
+
             if (type == "song") {
                 $($("#hf-col3-id").val()).removeAttr("thumb");
                 $($("#hf-col3-id").val()).attr("thumb", thamb).html(url + " <a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + i + ");\">change<a/>");
@@ -220,7 +220,28 @@
         $(ul).append(li);
     }
 </script>
-
+<div class="modal fade" id="mySongModal" tabindex="-1" role="dialog" aria-labelledby="mySongModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        @*style="width: 1200px !important"*@
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="mySongModalLabel">Add Song Title</h4>
+            </div>
+            <div class="modal-body">
+                <div id="buttons">
+                    <label>
+                        <input id="txtSongTitle" type="text" placeholder="Song title" />
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="addSongTitle" class="btn btn-primary" data-dismiss="modal">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- Modal Songs-->
 <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" style="width: 1200px !important">
@@ -272,7 +293,7 @@
 
 <script type="text/javascript">
     var trailerCounter = 0;
-
+    var songCounter = 0;
     SetActiveTab("Movies");
     var search = new Search("Search movies ...");
     var shortcuts = new Shortcuts();
@@ -305,7 +326,7 @@
         var gridRowData1 = $("<div/>").attr("class", "trailer-grid-row-data1").attr("id", "trailer-grid-row-data1_" + trailerCounter).html($("#txtTitle").val());
         var gridRowData2 = $("<div/>").attr("class", "trailer-grid-row-data2").html("").attr("style", "display:none");
 
-        var linkText = "<a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Trailer().PopulatePopup(" + trailerCounter + ");\">add Trailer<a/>";
+        var linkText = "<a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Trailer().PopulatePopup(" + trailerCounter + ");\">Add Trailer<a/>";
 
         var gridRowData3 = $("<div/>").attr("id", "trailer-row-data3_" + trailerCounter).attr("class", "trailer-grid-row-data3").attr("style", "cursor:pointer").html(linkText);
 
@@ -314,6 +335,25 @@
         $(gridRow).append(gridRowData3);
 
         $("#trailer-sortable").append(gridRow);
+    });
+
+    $("#addSongTitle").click(function () {
+        var songs = { "Title": $("#txtSongTitle").val(), "Thumb": "", "YoutubeURL": "" };
+        songCounter++;
+
+        var gridRow = $("<div/>").attr("class", "songs-grid-row");
+        var gridRowData1 = $("<div/>").attr("class", "songs-grid-row-data1").attr("id", "songs-grid-row-data1_" + songCounter).html($("#txtSongTitle").val());
+        var gridRowData2 = $("<div/>").attr("class", "songs-grid-row-data2").html("").attr("style", "display:none");
+
+        var linkText = "<a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + songCounter + ");\">Add Song Link<a/>";
+
+        var gridRowData3 = $("<div/>").attr("id", "songs-row-data3_" + songCounter).attr("class", "songs-grid-row-data3").attr("style", "cursor:pointer").html(linkText);
+
+        $(gridRow).append(gridRowData1);
+        $(gridRow).append(gridRowData2);
+        $(gridRow).append(gridRowData3);
+
+        $("#songs-sortable").append(gridRow);
     });
 
 </script>
