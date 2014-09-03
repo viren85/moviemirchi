@@ -44,13 +44,14 @@ namespace MvcWebRole2.Controllers.Library
                 File.WriteAllText(reviewFilename, reviewText);
 
                 callProcessReviewProc.StartInfo.Arguments =
-                    string.Format("/C {0} \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\"",
+                    string.Format("/C {0} \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" \"{6}\"",
                         cmdPath,
                         dirPath,
                         logFilename,
                         movieId,
                         reviewId,
-                        reviewFilename);
+                        reviewFilename,
+                        "http://127.0.0.1:8080/");
 
                 callProcessReviewProc.StartInfo.UseShellExecute = true;
                 callProcessReviewProc.Start();
