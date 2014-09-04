@@ -92,6 +92,8 @@ namespace Crawler
                 if (isCrawlPosters)
                 {
                     poster = CrawlPosters(url + "mediaindex", movie.Name, ref thumbnailPath);
+                    // Call Bollywood Hungama poster crawler here
+                    //poster = CrawlBollywoodHungamaPosters(ref poster, url, movie.Name, ref thumbnailPath);
                 }
                 else
                 {
@@ -154,6 +156,41 @@ namespace Crawler
             }
 
             return casts;
+        }
+
+        public List<string> CrawlBollywoodHungamaPosters(ref List<string> posters, string url, string movieName, ref string thumbnailPath)
+        {
+            url = "http://www.bollywoodhungama.com/moviemicro/images/id/598539/category/moviestills/page/2";
+
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+
+                if (response.StatusCode == HttpStatusCode.OK)
+                {
+                    Stream receiveStream = response.GetResponseStream();
+                    StreamReader readStream = null;
+                    if (response.CharacterSet == null)
+                        readStream = new StreamReader(receiveStream);
+                    else
+                        readStream = new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet));
+
+                    string data = readStream.ReadToEnd();
+
+                    posters = GetBollywoodHungamaPosters(data, movieName, ref posters, ref thumbnailPath);
+
+                    response.Close();
+                    readStream.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("Error Url:" + url);
+                Debug.WriteLine("Message:" + ex.Message);
+            }
+
+            return posters;
         }
 
         public List<string> CrawlPosters(string url, string movieName, ref string thumbnailPath)
@@ -287,6 +324,30 @@ namespace Crawler
                 else
                 {
                     return imdb.GetMoviePosterDetails(bodyNode, movieName, ref posterPath, ref thumbnailPath);
+                }
+            }
+
+            return null;
+        }
+
+        private List<string> GetBollywoodHungamaPosters(string html, string movieName, ref List<string> posterPath, ref string thumbnailPath)
+        {
+            ImdbCrawler imdb = new ImdbCrawler();
+            posterPath = new List<string>();
+
+            HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
+            htmlDoc.OptionFixNestedTags = true;
+            htmlDoc.LoadHtml(html);
+            if (htmlDoc.DocumentNode != null)
+            {
+                HtmlAgilityPack.HtmlNode bodyNode = htmlDoc.DocumentNode.SelectSingleNode("//body");
+                if (bodyNode == null)
+                {
+                    Console.WriteLine("body node is null");
+                }
+                else
+                {
+                    return imdb.GetBollywoodHungamaMoviePosterDetails(bodyNode, movieName, ref posterPath, ref thumbnailPath);
                 }
             }
 
