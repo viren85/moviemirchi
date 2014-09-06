@@ -102,8 +102,8 @@ namespace MvcWebRole2.Controllers.Library
                         oldRating = jsonSerializer.Value.Deserialize(myscore, typeof(RatingConvertion)) as RatingConvertion;
                     }
 
-                    var teekha = (oldRating.teekharating + rating);
-                    var feekha = (oldRating.feekharating + (1 - rating));
+                    var teekha = oldRating.teekharating + (rating > 0 ? 1 : 0);
+                    var feekha = oldRating.feekharating + (rating < 0 ? 1 : 0);
                     newRating.teekharating = teekha;
                     newRating.feekharating = feekha;
                     newRating.criticrating = ((int)(teekha / (double)(teekha + feekha) * 100)).ToString();
