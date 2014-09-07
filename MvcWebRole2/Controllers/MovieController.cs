@@ -41,6 +41,7 @@ namespace MvcWebRole2.Controllers
 
             try
             {
+                data = Server.UrlDecode(data);
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 MovieEntity movie = json.Deserialize(data, typeof(MovieEntity)) as MovieEntity;
 
