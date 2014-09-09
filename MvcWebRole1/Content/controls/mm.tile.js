@@ -34,6 +34,7 @@
     }
 
     if (TILE_MODE == 0) {
+        // TODO: Fix condition for review indicator
         html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
                     "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
                         "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
@@ -45,10 +46,18 @@
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
                                     (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
                                     "<div class=\"additives\">" +
-                                        "<div class=\"aleft\"><span class=\"myglyphicon trailer\"></span></div>" +
-                                        "<div class=\"aright\"><span class=\"myglyphicon song\"></span></div>" +
-                                        "<div class=\"aleft\"><span class=\"myglyphicon photo\"></span></div>" +
-                                        "<div class=\"aright\"><span class=\"myglyphicon review\"></span></div>" +
+                                        "<div class=\"aleft\">" +
+                                            ((movie.Trailers && movie.Trailers !== "[]") ? "<span class=\"myglyphicon trailer\"></span>" : "") +
+                                        "</div>" +
+                                        "<div class=\"aright\">" +
+                                            ((movie.Songs && movie.Songs !== "[]") ? "<span class=\"myglyphicon song\"></span>" : "") +
+                                        "</div>" +
+                                        "<div class=\"aleft\">" +
+                                            (movie.Pictures ? "<span class=\"myglyphicon photo\"></span>" : "") +
+                                        "</div>" +
+                                        "<div class=\"aright\">" +
+                                            (1 === 0 ? "<span class=\"myglyphicon review\"></span>" : "") +
+                                        "</div>" +
                                     "</div>" +
                                     "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
                                 "</div>" +
