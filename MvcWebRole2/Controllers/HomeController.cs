@@ -131,6 +131,7 @@ namespace MvcWebRole2.Controllers
 
             try
             {
+                data = Server.UrlDecode(data);
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 XMLMovieProperties movieProps = json.Deserialize(data, typeof(XMLMovieProperties)) as XMLMovieProperties;
 
@@ -169,6 +170,7 @@ namespace MvcWebRole2.Controllers
 
             try
             {
+                data = Server.UrlDecode(data);
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 XMLMovieProperties movieProps = json.Deserialize(data, typeof(XMLMovieProperties)) as XMLMovieProperties;
 
