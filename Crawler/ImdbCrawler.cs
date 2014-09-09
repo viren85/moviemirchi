@@ -9,6 +9,7 @@ namespace MovieCrawler
     using System.Collections.Generic;
     using System.Configuration;
     using System.Diagnostics;
+    using System.Drawing;
     using System.IO;
     using System.Linq;
     using System.Net;
@@ -37,7 +38,7 @@ namespace MovieCrawler
             movie.Month = GetMovieMonth(body);
             movie.Year = GetMovieYear(body);
             movie.Stats = GetMovieStats(body);
-            
+
             movie.Trailers = string.Empty;
             movie.Pictures = string.Empty;
             movie.State = string.Empty;
@@ -562,6 +563,40 @@ namespace MovieCrawler
             return posterPath;
         }
 
+        public List<string> GetBollywoodHungamaMoviePosterDetails(HtmlNode body, string movieName, ref List<string> posterPath, ref string thumbnailPath)
+        {
+            posterPath = posterPath ?? new List<string>();
+            thumbnailPath = string.Empty;
+
+            var aListNode = helper.GetElementWithAttribute(body, "a", "class", "imgthpic");
+
+            if (aListNode != null)
+            {
+                var thumbnails = aListNode.Elements("img");
+                if (thumbnails != null)
+                {
+                    //int imageCounter = GetMaxImageCounter(movieName);
+                    int imageCounter = new BlobStorageService().GetImageFileCount(BlobStorageService.Blob_ImageContainer, movieName.Replace(" ", "-").ToLower() + "-poster-");
+
+                    foreach (HtmlNode thumbnail in thumbnails)
+                    {
+                        if (thumbnail.Attributes["class"] != null && thumbnail.Attributes["class"].Value == "mb10")
+                        {
+                            string href = thumbnail.Attributes["src"].Value;
+                            string newImageName = string.Empty;
+                            string newPosterPath = GetNewImageName(movieName, GetFileExtension(href), imageCounter, false, ref newImageName);
+
+                            posterPath.Add(newImageName);
+                            DownloadImage(href, newPosterPath);
+                            imageCounter++;
+                        }
+                    }
+                }
+            }
+
+            return posterPath;
+        }
+
         public string GetCleanRoleName(string castRole)
         {
             string roleName = castRole;
@@ -648,6 +683,7 @@ namespace MovieCrawler
 
                 using (WebClient client = new WebClient())
                 {
+                    client.Headers.Add("User-Agent: Other"); 
                     byte[] data = client.DownloadData(url);
 
                     using (Stream stream = new MemoryStream(data))

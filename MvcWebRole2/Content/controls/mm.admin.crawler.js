@@ -164,7 +164,7 @@
             CallController(path, "data", xmlData, function () {
                 $("#status").html(outPutMsg);
                 $(".search-result-container").children("ul").remove();
-                CallHandler("api/CrawlerFiles", function (data) {
+                CallHandler("/api/CrawlerFiles", function (data) {
                     new Search().PopulateCrawlerResults(data);
                     $(".basic-form-container").html("");
                     $(".basic-form-container").append(new MovieInformation().GetMovieInfoContainer("movie-basic-info", "Add new movie to crawl"));

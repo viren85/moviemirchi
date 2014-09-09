@@ -67,6 +67,7 @@ function CallHandler(queryString, OnComp) {
 function OnFail() { }
 
 function CallController(queryString, paramName, data, OnComplete) {
+    data = encodeURI(data);
     $.ajax({
         url: BASE_URL + queryString,
         data: { "data": data },
@@ -162,10 +163,12 @@ function IsValidURL(url) {
 }
 
 function IsURLExists(url) {
-    var isUrlExist = false;
+    //var isUrlExist = false;
     var encodedURL = encodeURIComponent(url);
 
-    $.ajax({
+    var isUrlExist = true;
+
+    /*$.ajax({
         url: "http://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20html%20where%20url%3D%22" + encodedURL + "%22&format=json",
         type: "get",
         async: false,
@@ -178,7 +181,7 @@ function IsURLExists(url) {
             alert("fail");
             isUrlExist = false;
         }
-    });
+    });*/
 
     return isUrlExist;
 }
