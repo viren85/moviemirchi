@@ -47,16 +47,16 @@
                                     (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
                                     "<div class=\"additives\">" +
                                         "<div class=\"aleft\">" +
-                                            ((movie.Trailers && movie.Trailers !== "[]") ? "<span class=\"myglyphicon trailer\"></span>" : "") +
+                                            "<span class=\"myglyphicon " + ((movie.Trailers && movie.Trailers !== "[]") ? "trailer" : "") + "\"></span>" +
                                         "</div>" +
                                         "<div class=\"aright\">" +
-                                            ((movie.Songs && movie.Songs !== "[]") ? "<span class=\"myglyphicon song\"></span>" : "") +
+                                            "<span class=\"myglyphicon " + ((movie.Songs && movie.Songs !== "[]") ? "song" : "") + "\"></span>" +
                                         "</div>" +
                                         "<div class=\"aleft\">" +
-                                            (movie.Pictures ? "<span class=\"myglyphicon photo\"></span>" : "") +
+                                            "<span class=\"myglyphicon " + ((movie.Posters && movie.Posters !== "[]") ? "photo" : "") + "\"></span>" +
                                         "</div>" +
                                         "<div class=\"aright\">" +
-                                            (1 === 0 ? "<span class=\"myglyphicon review\"></span>" : "") +
+                                            "<span class=\"myglyphicon " + (1 === 0 ? "review" : "") + "\"></span>" +
                                         "</div>" +
                                     "</div>" +
                                     "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
