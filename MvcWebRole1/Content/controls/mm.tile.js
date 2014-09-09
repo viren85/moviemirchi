@@ -44,6 +44,12 @@
                                     "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
                                     (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
+                                    "<div class=\"additives\">" +
+                                        "<div class=\"aleft\"><span class=\"myglyphicon trailer\"></span></div>" +
+                                        "<div class=\"aright\"><span class=\"myglyphicon song\"></span></div>" +
+                                        "<div class=\"aleft\"><span class=\"myglyphicon photo\"></span></div>" +
+                                        "<div class=\"aright\"><span class=\"myglyphicon review\"></span></div>" +
+                                    "</div>" +
                                     "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
                                 "</div>" +
                             "</div>" +

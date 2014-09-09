@@ -134,3 +134,51 @@ div.captionAndNavigate {
     .movie-data{width: 100%;} 
     .artist-bio{width: 80%;}   
 }
+
+/* Movie Tile */
+.additives {
+    width: 50px;
+    float: right;
+    /* TODO: position this control correctly
+        I added position and z-index but positioning needs to be fixed */
+    position: absolute;
+    z-index: 3;
+}
+.additives .aright, .additives .aleft {
+    padding-bottom: 5px;
+}
+.additives .aright {
+    margin-left: 25px;
+}
+.additives .aleft {
+    float: left;
+    width: 25px;
+}
+@font-face {
+    font-family:'Glyphicons Halflings';
+    src:url(../fonts/glyphicons-halflings-regular.eot);
+    src:url(../fonts/glyphicons-halflings-regular.eot?#iefix) format('embedded-opentype'), url(../fonts/glyphicons-halflings-regular.woff) format('woff'), url(../fonts/glyphicons-halflings-regular.ttf) format('truetype'), url(../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular) format('svg');
+}
+.myglyphicon {
+    position:relative;
+    top:1px;
+    display:inline-block;
+    font-family:'Glyphicons Halflings';
+    font-style:normal;
+    font-weight:400;
+    line-height:1;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+}
+.additives .trailer:before {
+    content:"\e059";
+}
+.additives .song:before {
+    content:"\e072";
+}
+.additives .photo:before {
+    content:"\e060";
+}
+.additives .review:before {
+    content:"\270f";
+}
