@@ -8,11 +8,12 @@
     }
 
     News.prototype.GetNewsGrid = function (newsList) {
+        
         newsList = JSON.parse(newsList);
         if (newsList == null || newsList == "undefined") {
             newsList = [];
         }
-
+        
         var container = $("<div/>").attr("class", "news-container");
         //var sectionTitle = new MovieInformation().GetMovieInfoContainer("artist-section-title", "Manage News");
         var sectionTitle = this.GetMovieInfoContainer("artist-section-title", "Manage News");
@@ -40,27 +41,27 @@
         $(gridHead).append(gridCol1).append(gridCol2).append(gridCol3).append(gridCol4);
 
         $(grid).append(gridHead);
-
-        for (i = 0; i < newsList.length; i++) {
-
+        
+        for (news in newsList) {
+            var item = newsList[news];
             var isChecked = false;
 
-            if (newsList[i].IsActive) isChecked = true;
+            if (item.IsActive) isChecked = true;
 
-            var checkbox = $("<input/>").attr("type", "checkbox").attr("id", newsList[i].NewsId).attr("checked", isChecked);
+            var checkbox = $("<input/>").attr("type", "checkbox").attr("id", item.NewsId).attr("checked", isChecked);
             var gridRow = $("<div/>").attr("class", "news-grid-row");
 
             var gridRowData1 = $("<div/>").attr("class", "news-grid-row-data1").append(checkbox);
-            var gridRowData2 = $("<div/>").attr("class", "news-grid-row-data2").html(newsList[i].Title);
-            var gridRowData3 = $("<div/>").attr("class", "news-grid-row-data3").html(newsList[i].Source);
-            var gridRowData4 = $("<div/>").attr("class", "news-grid-row-data4").html(newsList[i].PublishDate.substring(0, 25));
+            var gridRowData2 = $("<div/>").attr("class", "news-grid-row-data2").html(item.Title);
+            var gridRowData3 = $("<div/>").attr("class", "news-grid-row-data3").html(item.Source);
+            var gridRowData4 = $("<div/>").attr("class", "news-grid-row-data4").html(item.PublishDate.substring(0, 25));
 
             $(gridRow).append(gridRowData1);
             $(gridRow).append(gridRowData2);
             $(gridRow).append(gridRowData3);
             $(gridRow).append(gridRowData4);
 
-            if (newsList[i].Title != null && newsList[i].Title != undefined && newsList[i].Title != "") {
+            if (item.Title != null && item.Title != undefined && item.Title != "") {
                 $(grid).append(gridRow);
             }
         }
@@ -85,7 +86,7 @@
             if (SeletedIds.length > 0) {
                 var xmlData = JSON.stringify(SeletedIds);
 
-                CallController("Home/DeleteNews", "data", xmlData, function () {
+                CallController("/Home/DeleteNews", "data", xmlData, function () {
 
                     $(".news-container").html("");
 
@@ -111,7 +112,7 @@
         if (SeletedIds.length > 0) {
             var xmlData = JSON.stringify(SeletedIds);
 
-            CallController("Home/SetActiveNews", "data", xmlData, function () {
+            CallController("/Home/SetActiveNews", "data", xmlData, function () {
 
                 $(".news-container").html("");
 

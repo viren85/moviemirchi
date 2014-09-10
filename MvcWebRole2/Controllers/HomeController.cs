@@ -220,6 +220,7 @@ namespace MvcWebRole2.Controllers
 
             try
             {
+                data = Server.UrlDecode(data);
                 JavaScriptSerializer json = new JavaScriptSerializer();
                 List<string> newsIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
 
@@ -251,6 +252,7 @@ namespace MvcWebRole2.Controllers
             try
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
+                data = Server.UrlDecode(data);
                 List<string> newsIds = json.Deserialize(data, typeof(List<string>)) as List<string>;
 
                 if (newsIds != null)

@@ -641,7 +641,7 @@ namespace DataStoreLib.Storage
             var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
             var allNews = newsTable.GetAllItems<NewsEntity>();
             // TODO: Uncomment the Where once we have the system end-to-end hooked up
-            var activeNews = allNews; //.Where(t => t.Value.Status == "1"); // Pick only active news
+            var activeNews = allNews;//.Where(t => t.Value.IsActive == true); // Pick only active news
             var sortedNews = activeNews.OrderByDescending(t => t.Value.PublishDate); // Sort by PublishDate
             var paginatedNews =
                 (startIndex > 0 && pageSize > 0) ?
