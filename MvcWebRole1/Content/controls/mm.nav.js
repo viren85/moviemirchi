@@ -23,7 +23,7 @@ var GetNavBar = function (json) {
     }
 
     $('html, body').bind('DOMMouseScroll', function (e) {
-        
+
         if ($(window).width() > 300) {
             if (e.originalEvent.detail > 0) {
                 //$(".nav-bar-container").slideUp();
@@ -63,6 +63,14 @@ var GetNavBar = function (json) {
         }
 
         ClearSearchReults();
+    });
+
+    $(window).scroll(function () {
+        if ($(this).scrollTop() > 70) {
+            $(".small-logo img").css("width", "40px").css("height", "60px"); $('.scrollToTop').fadeIn();
+        } else {
+            $(".small-logo img").css("width", "70px").css("height", "120px");
+        }
     });
 
     return list;
