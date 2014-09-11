@@ -746,33 +746,52 @@ namespace DataStoreLib.Storage
         public static bool UpdateNewsById(this IStore store, IEnumerable<NewsEntity> news)
         {
             Debug.Assert(news != null);
-            var retList = store.UpdateNewsItemById(news);
 
-            Debug.Assert(retList.Count == 1);
-            var key = retList.Keys.FirstOrDefault();
-            return (key != null) ? retList[key] : false;
+            var newsTable = TableStore.Instance.GetTable(TableStore.NewsTableName);
+            var allNews = newsTable.GetAllItems<NewsEntity>();
+            List<NewsEntity> validatedNewsItems = new List<NewsEntity>();
+            foreach (NewsEntity ne in news)
+            {
+                try
+                {
+                    NewsEntity tempNews = allNews.Values.FirstOrDefault(n => n.Title.ToLower() == ne.Title.ToLower());
+                    if (tempNews == null)
+                    {
+                        // Insert
+                        validatedNewsItems.Add(ne);
+                    }
+                    else
+                    {
+                        // Update - Currently we will skip it
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // TODO - Add exception
+                }
+            }
+
+            if (validatedNewsItems.Count > 0)
+            {
+                var retList = store.UpdateNewsItemById(validatedNewsItems);
+
+                Debug.Assert(retList.Count == 1);
+                var key = retList.Keys.FirstOrDefault();
+                return (key != null) ? retList[key] : false;
+            }
+
+            return true;
         }
 
         public static IEnumerable<NewsEntity> GetNewsItems(this IStore store)
         {
             var retList = store.GetNewsItems();
 
-            ////TODO: Uncomment
-            //Debug.Assert(retList.Count == 1);
+            Debug.Assert(retList.Count == 1);
 
             return
                 retList.Values
                     .OrderByDescending(m => m.Timestamp);
-
-            ////TODO: Clean comments
-            ////List<NewsEntity> news = new List<NewsEntity>();
-
-            ////if (retList != null && retList.Values != null)
-            ////{
-            ////    news = (List<NewsEntity>)retList.Values.OrderBy(m => m.Timestamp).ToList();
-            ////}
-
-            ////return news;
         }
         #endregion
 
