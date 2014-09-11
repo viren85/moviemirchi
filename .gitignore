@@ -165,3 +165,8 @@ $RECYCLE.BIN/
 segments_*
 segments.gen
 **/lucene_index/
+
+# =========================
+# Ignore subfolders under packages node
+# =========================
+packages/
