@@ -229,7 +229,8 @@
         width: 50%;
         height: 35px;
     }
-    .small-logo{display: block;position: absolute; left: 20%;}
+    .small-logo{display: block;position: absolute; left: 16%;}
+    .small-logo img { width: 70px; height: 120px;}
     .home-search-bar {
         width: 50%;
     }
@@ -270,7 +271,7 @@
         left: 15%;
     }
     .small-logo{display: block;position: absolute; left: 0%;}
-    .small-logo img { width: 40px; height: 60px;}
+    .small-logo img { width: 50px; height: 95px;}
     .nav-options {
         position: fixed;
         top: 20px;

@@ -66,12 +66,21 @@ var GetNavBar = function (json) {
     });
 
     $(window).scroll(function () {
-
-        if ($(this).scrollTop() > 70) {
-            $(".small-logo img").css("width", "40px").css("height", "60px");
-            $('.scrollToTop').fadeIn();
-        } else {
-            $(".small-logo img").css("width", "70px").css("height", "120px");
+        if ($(window).width() > 320) {
+            if ($(this).scrollTop() > 70) {
+                $(".small-logo img").css("width", "40px").css("height", "60px");
+                $('.scrollToTop').fadeIn();
+            } else {
+                $(".small-logo img").css("width", "70px").css("height", "120px");
+            }
+        }
+        else {
+            if ($(this).scrollTop() > 70) {
+                $(".small-logo img").css("width", "40px").css("height", "60px");
+                $('.scrollToTop').fadeIn();
+            } else {
+                $(".small-logo img").css("width", "50px").css("height", "95px");
+            }
         }
     });
 
