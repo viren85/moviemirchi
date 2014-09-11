@@ -138,11 +138,10 @@ div.captionAndNavigate {
 /* Movie Tile */
 .additives {
     width: 50px;
-    float: right;
-    /* TODO: position this control correctly
-        I added position and z-index but positioning needs to be fixed */
     position: absolute;
     z-index: 3;
+    bottom: 10px;
+    right: 10px;
 }
 .additives .aright, .additives .aleft {
     padding-bottom: 5px;
