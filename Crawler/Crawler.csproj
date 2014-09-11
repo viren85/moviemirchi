@@ -81,6 +81,7 @@
   <ItemGroup>
     <Compile Include="ArtistCrawler.cs" />
     <Compile Include="GenerateXMLFile.cs" />
+    <Compile Include="SantaImageCrawler.cs" />
     <Compile Include="ReviewCrawler.cs" />
     <Compile Include="Reviews\AnupamaChopra.cs" />
     <Compile Include="Reviews\BoxOfficeIndia.cs" />

@@ -675,7 +675,7 @@ namespace MovieCrawler
             }
         }
 
-        private bool DownloadImage(string url, string filePath)
+        public bool DownloadImage(string url, string filePath)
         {
             try
             {
@@ -701,7 +701,7 @@ namespace MovieCrawler
             return true;
         }
 
-        private string GetNewImageName(string movieName, string extension, int counter, bool isThumbnail, ref string newImageName)
+        public string GetNewImageName(string movieName, string extension, int counter, bool isThumbnail, ref string newImageName)
         {
             if (string.IsNullOrEmpty(movieName) || string.IsNullOrEmpty(extension))
             {
