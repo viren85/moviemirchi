@@ -1,5 +1,5 @@
 ﻿
-namespace LuceneSearchLibrarby
+namespace LuceneSearchLibrary
 {
     using Lucene.Net.Analysis.Standard;
     using Lucene.Net.Documents;

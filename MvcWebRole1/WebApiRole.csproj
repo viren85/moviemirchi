@@ -449,9 +449,9 @@
       <Project>{85319d65-37e0-49b0-bbb8-6143cda747c6}</Project>
       <Name>DataStoreLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LuceneSearchLibrarby\LuceneSearchLibrarby.csproj">
+    <ProjectReference Include="..\LuceneSearchLibrary\LuceneSearchLibrary.csproj">
       <Project>{af244afd-73b7-4a2b-8645-509117379a94}</Project>
-      <Name>LuceneSearchLibrarby</Name>
+      <Name>LuceneSearchLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\SearchLib\SearchLib.csproj">
       <Project>{26f374d4-322f-404a-911e-86f8476bd740}</Project>

@@ -4,7 +4,7 @@ using DataStoreLib.BlobStorage;
 using DataStoreLib.Models;
 using DataStoreLib.Storage;
 using DataStoreLib.Utils;
-using LuceneSearchLibrarby;
+using LuceneSearchLibrary;
 using Microsoft.WindowsAzure;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;

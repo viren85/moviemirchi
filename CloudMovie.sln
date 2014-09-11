@@ -24,7 +24,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SearchLib", "SearchLib\Sear
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorialRole", "MvcWebRole2\EditorialRole.csproj", "{43457783-9306-4EBE-9100-C90890C48236}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneSearchLibrarby", "LuceneSearchLibrarby\LuceneSearchLibrarby.csproj", "{AF244AFD-73B7-4A2B-8645-509117379A94}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuceneSearchLibrary", "LuceneSearchLibrary\LuceneSearchLibrary.csproj", "{AF244AFD-73B7-4A2B-8645-509117379A94}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crawler", "Crawler\Crawler.csproj", "{7ABBD967-AD76-4EC6-B37F-7A4CD15CD123}"
 EndProject

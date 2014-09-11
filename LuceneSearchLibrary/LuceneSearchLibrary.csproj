@@ -6,9 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{AF244AFD-73B7-4A2B-8645-509117379A94}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>LuceneSearchLibrarby</RootNamespace>
-    <AssemblyName>LuceneSearchLibrarby</AssemblyName>
+    <RootNamespace>LuceneSearchLibrary</RootNamespace>
+    <AssemblyName>LuceneSearchLibrary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -52,8 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LuceneSearch.cs" />
-    <Compile Include="MoveSearchData.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="MovieSearchData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
