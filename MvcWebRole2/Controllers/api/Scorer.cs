@@ -24,7 +24,7 @@ namespace MvcWebRole2.Controllers.Library
             }
             else
             {
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to get the review", ActualError = "" });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Unable to get the review", ActualError = "" });
             }
 
             try
@@ -57,11 +57,11 @@ namespace MvcWebRole2.Controllers.Library
                 callProcessReviewProc.Start();
                 callProcessReviewProc.WaitForExit();
 
-                return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully launch exe file" });
+                return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMessage = "Successfully launch exe file" });
             }
             catch (Exception ex)
             {
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Issue with executing the scorer script", ActualError = ex.Message });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Issue with executing the scorer script", ActualError = ex.Message });
             }
         }
 
@@ -113,16 +113,16 @@ namespace MvcWebRole2.Controllers.Library
                     movie.MyScore = strNewRating;
                     tableMgr.UpdateMovieById(movie);
 
-                    return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMassege = "Successfully update movie rating" });
+                    return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMessage = "Successfully update movie rating" });
                 }
                 else
                 {
-                    return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find review with passed review id. Please check review id." });
+                    return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Unable to find review with passed review id. Please check review id." });
                 }
             }
             else
             {
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find movie with passed movie id. Please check movie id." });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Unable to find movie with passed movie id. Please check movie id." });
             }
         }
     }

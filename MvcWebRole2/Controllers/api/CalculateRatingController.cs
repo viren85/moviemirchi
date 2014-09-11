@@ -42,10 +42,10 @@
             }
             catch (Exception ex)
             {
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to launch exe file", ActualError = ex.Message });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Unable to launch exe file", ActualError = ex.Message });
             }
 
-            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to launch exe file", ActualError = "Some of parameter is empty" });
+            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Unable to launch exe file", ActualError = "Some of parameter is empty" });
         }
     }
 }

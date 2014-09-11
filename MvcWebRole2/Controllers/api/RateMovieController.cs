@@ -51,21 +51,21 @@
                             }
                         }
 
-                        return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Queued rating reviews for this movie", ActualError = "" });
+                        return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Queued rating reviews for this movie", ActualError = "" });
                     }
                     else
                     {
-                        return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Unable to find the movie", ActualError = "" });
+                        return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Unable to find the movie", ActualError = "" });
                     }
                 }
                 else
                 {
-                    return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Pass in movie ID", ActualError = "" });
+                    return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Pass in movie ID", ActualError = "" });
                 }
             }
             else
             {
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Pass in movie ID", ActualError = "" });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Pass in movie ID", ActualError = "" });
             }
         }
     }

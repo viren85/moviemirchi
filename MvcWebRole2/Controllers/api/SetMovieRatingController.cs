@@ -51,10 +51,10 @@
             }
             catch (Exception ex)
             {
-                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Error occured while updating movie rating", ActualError = ex.Message });
+                return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Error occured while updating movie rating", ActualError = ex.Message });
             }
 
-            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMassege = "Error occured while updating movie rating", ActualError = "Some of parameter is empty" });
+            return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Error occured while updating movie rating", ActualError = "Some of parameter is empty" });
         }
     }
 
