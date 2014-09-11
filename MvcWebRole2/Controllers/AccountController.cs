@@ -470,6 +470,36 @@ namespace MvcWebRole2.Controllers
         }
 
         [HttpGet]
+        public void GetPosters()
+        {
+            // List<string> processedUrl = new List<string>();
+
+            List<string> urls = new MovieCrawler.SantaImageCrawler().GetMoviePosterUrls("http://www.santabanta.com/wallpapers/bang-bang/");
+            MovieCrawler.ImdbCrawler ic = new MovieCrawler.ImdbCrawler();
+            string movieName = "bang-bang";
+            int imageCounter = new BlobStorageService().GetImageFileCount(BlobStorageService.Blob_ImageContainer, movieName.Replace(" ", "-").ToLower() + "-poster-");
+            string newImageName = string.Empty;
+            TableManager tblMgr = new TableManager();
+
+            // update the movie poster column - add source link
+            MovieEntity me = tblMgr.GetMovieByUniqueName(movieName);
+            List<string> processedUrl = JsonConvert.DeserializeObject(me.Posters) as List<string>;
+
+            if (processedUrl == null)
+                processedUrl = new List<string>();
+
+            foreach (string url in urls)
+            {
+                string posterPath = ic.GetNewImageName(movieName, ic.GetFileExtension(url), imageCounter, false, ref newImageName);
+                processedUrl.Add(newImageName);
+                ic.DownloadImage(url, posterPath);
+            }
+
+            me.Posters = JsonConvert.SerializeObject(processedUrl);
+            tblMgr.UpdateMovieById(me);
+        }
+
+        [HttpGet]
         public void GetNews(string blobXmlFilePath = "")
         {
             try
