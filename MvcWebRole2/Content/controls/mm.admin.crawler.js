@@ -29,7 +29,8 @@
         var movieName = new FormBuilder().GetTextField("txtMovieName", "Movie Name", "Movie Name");
         var month_Year = new FormBuilder().GetTextField("txtMonth", "Month Year", "Month/Year");
         var movieLink = new FormBuilder().GetTextField("txtMovieLink", "Movie Link", "Movie Link");
-
+        var posterLink = new FormBuilder().GetTextField("txtPosterLink", "Santa/Banta Link", "Santa/Banta Link");
+        var songLink = new FormBuilder().GetTextField("txtSongLink", "Saavn Link", "Saavn Link");
         //$(formContainer).append(isEnabled);
 
         $(function () {
@@ -39,13 +40,52 @@
         $(formContainer).append(movieName);
         $(formContainer).append(month_Year);
         $(formContainer).append(movieLink);
+        $(formContainer).append(posterLink);
+        $(formContainer).append(songLink);
         $(formContainer).append($("<div/>").attr("id", "reviewlinks").attr("style", "width: 120%;").append(this.AddReviewControl(true)));
 
-        var buttonContainer = $("<div/>").attr("style", "width: 100%;").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right: 10px;").html("Save").click(function () {
+        var buttonContainer = $("<div/>").attr("style", "width: 130%;").append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right: 10px;").html("Save").click(function () {
             saveXmlFile(false);
         }));
         $(buttonContainer).append($("<div/>").attr("class", "btn btn-primary").attr("style", "margin-right: 10px;").html("Save & Crawl").click(function () {
             saveXmlFile(true);
+        }));
+
+        $(buttonContainer).append($("<div/>").attr("class", "btn btn-warning").attr("style", "margin-right: 10px;").html("Crawl Santa Posters").click(function () {
+            if ($("#txtPosterLink").val() == "") {
+                alert("Please enter santabanta website Wall paper link");
+            }
+            else {
+                // Call an API
+                $("#status").html("<b>Note</b>:- You are about to crawl movie posters, it will take few minutes or more.");
+
+                var objXmlData = {
+                    "SantaPosterLink": $("#txtPosterLink").val(),
+                    "MovieName": $("#txtMovieName").val()
+                };
+
+                var xmlData = JSON.stringify(objXmlData);
+
+                CallController("../Account/CrawlPosters", "data", xmlData, function () {
+                    $("#status").html("Movie Posters crawled.");
+                    $(".search-result-container").children("ul").remove();
+                    CallHandler("/api/CrawlerFiles", function (data) {
+                        new Search().PopulateCrawlerResults(data);
+                        $(".basic-form-container").html("");
+                        $(".basic-form-container").append(new MovieInformation().GetMovieInfoContainer("movie-basic-info", "Add new movie to crawl"));
+                        $(".basic-form-container").append(new Crawler().BuildForm());
+                    });
+                });
+            }
+        }));
+
+        $(buttonContainer).append($("<div/>").attr("class", "btn btn-success").attr("style", "margin-right: 10px;").html("Crawl Saavn Songs").click(function () {
+            if ($("#txtSongLink").val() == "") {
+                alert("Please enter Saavn website Song link");
+            }
+            else {
+                // Call an API
+            }
         }));
 
         $(buttonContainer).append($("<div/>").attr("class", "btn btn-danger").attr("style", "margin-right: 10px;").html("Cancel"));
@@ -112,6 +152,8 @@
         var movieName = $("#txtMovieName").val();
         var monthYear = $("#txtMonth").val();
         var movieLink = $("#txtMovieLink").val();
+        var santaLink = $("#txtPosterLink").val();
+        var saavnLink = $("#txtSongLink").val();
 
         var reviewsLink = [];
 
@@ -145,6 +187,8 @@
             var objXmlData = {
                 "MovieName": movieName,
                 "MovieLink": movieLink,
+                "SantaPosterLink": santaLink,
+                "SaavnSongLink": saavnLink,
                 "Year": 00,
                 "Month": monthYear,
                 "Reviews": reviewsLink
@@ -175,13 +219,13 @@
     }
 
     Crawler.prototype.PopulateCrawlerFileDetails = function (crawlFile) {
-        console.log(crawlFile);
-
         $(".section-title").html("Change movie details to crawl");
 
         $("#txtMovieName").val(crawlFile.MovieName);
         $("#txtMonth").val(crawlFile.Month + " " + crawlFile.Year);
         $("#txtMovieLink").val(crawlFile.MovieLink);
+        $("#txtPosterLink").val(crawlFile.SantaPosterLink);
+        $("#txtSongLink").val(crawlFile.SaavnSongLink);
 
         $("#reviewlinks").html("");
         var reviews = crawlFile.Reviews;

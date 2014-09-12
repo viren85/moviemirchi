@@ -144,6 +144,8 @@ namespace MvcWebRole2.Controllers
                     crawlMovieEntity.Year = Convert.ToInt32(movieProps.Month.Split(new char[] { ' ' })[1]);
                     crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
                     crawlMovieEntity.Reviews = movieProps.Reviews;
+                    crawlMovieEntity.SantaPosterLink = movieProps.SantaPosterLink;
+                    crawlMovieEntity.SaavnSongLink = movieProps.SaavnSongLink;
 
                     string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
 
@@ -180,6 +182,9 @@ namespace MvcWebRole2.Controllers
 
                     crawlMovieEntity.MovieName = movieProps.MovieName;
                     crawlMovieEntity.MovieLink = movieProps.MovieLink;
+                    crawlMovieEntity.SantaPosterLink = movieProps.SantaPosterLink;
+                    crawlMovieEntity.SaavnSongLink = movieProps.SaavnSongLink;
+
                     crawlMovieEntity.Year = Convert.ToInt32(movieProps.Month.Split(new char[] { ' ' })[1]);
                     crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
                     crawlMovieEntity.Reviews = movieProps.Reviews;

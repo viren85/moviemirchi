@@ -83,6 +83,14 @@ namespace Crawler
             movieLink.Value = objMovie.MovieLink.ToString();
             movie.Attributes.Append(movieLink);
 
+            XmlAttribute santaPosterLink = documnet.CreateAttribute("santaposterlink");
+            santaPosterLink.Value = objMovie.SantaPosterLink.ToString();
+            movie.Attributes.Append(santaPosterLink);
+
+            XmlAttribute saavnSongLink = documnet.CreateAttribute("saavnsonglink");
+            saavnSongLink.Value = objMovie.SaavnSongLink.ToString();
+            movie.Attributes.Append(saavnSongLink);
+
             foreach (XMLReivewProperties xmlReviews in objMovie.Reviews)
             {
                 XmlNode review = documnet.CreateNode(XmlNodeType.Element, "Review", "");
@@ -107,6 +115,8 @@ namespace Crawler
             {
                 movieNode.Attributes["name"].Value = objMovie.MovieName;
                 movieNode.Attributes["link"].Value = objMovie.MovieLink;
+                movieNode.Attributes["santaposterlink"].Value = objMovie.SantaPosterLink;
+                movieNode.Attributes["saavnsonglink"].Value = objMovie.SaavnSongLink;
 
                 movieNode.RemoveAll();
 
@@ -172,6 +182,16 @@ namespace Crawler
 
                         singleMovie.MovieName = movieNode.Attributes["name"].Value;
                         singleMovie.MovieLink = movieNode.Attributes["link"].Value;
+
+                        if (movieNode.Attributes["santaposterlink"] != null)
+                            singleMovie.SantaPosterLink = movieNode.Attributes["santaposterlink"].Value;
+                        else
+                            singleMovie.SantaPosterLink = string.Empty;
+
+                        if (movieNode.Attributes["saavnsonglink"] != null)
+                            singleMovie.SaavnSongLink = movieNode.Attributes["saavnsonglink"].Value;
+                        else
+                            singleMovie.SaavnSongLink = string.Empty;
 
                         var reviewNodes = movieNode.SelectNodes("Review");
 

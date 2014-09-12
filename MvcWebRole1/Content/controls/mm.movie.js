@@ -9,7 +9,7 @@
 var ShowMovie = function (data) {
     try {
         var result = JSON.parse(data);
-        
+
         $(".section-title").each(function () {
             new Util().RemoveLoadImage($(this));
         });
@@ -37,9 +37,11 @@ var ShowMovie = function (data) {
                 songs = result.Movie.Songs;
                 trailers = result.Movie.Trailers;
                 //show movies details
+
                 ShowMovieDetails(result.Movie);
+
                 //populate movie's posters
-                PopulatePosters(poster, result.Movie.Name);
+                PopulatePosters(poster, result.Movie.Name, result.Movie.Pictures);
                 //populate movie's songs
                 PopulateSongs(songs);
                 //populate movie's trailers
@@ -60,11 +62,11 @@ var ShowMovie = function (data) {
                     allow_resize: true,
                 });
             } else {
-                $(".movie-content").html("Unable to find movie.");
+                $(".movie-content").html("Unable to find movie 1 .");
             }
         }
     } catch (e) {
-        $(".movie-content").html("Unable to find movie.");
+        $(".movie-content").html("Unable to find movie 2.");
     }
 }
 
@@ -131,15 +133,21 @@ var ShowMovieDetails = function (movie) {
 }
 
 // images is JSON object
-var PopulatePosters = function (images, movieName) {
+var PopulatePosters = function (images, movieName, picture) {
+
     var poster = [];
+    var pictures = [];
     poster = JSON.parse(images);
+
+    if (picture != "")
+        pictures = JSON.parse(picture);
 
     if (poster != "undefined" && poster != null && poster.length > 1) {
 
         var ul = $("<ul/>").attr("class", "gallery clearfix");
 
         for (var p = 0; p < poster.length; p++) {
+
             var img = $("<img/>")
             img.attr("class", "gallery-image");
             img.attr("alt", movieName);
@@ -148,11 +156,18 @@ var PopulatePosters = function (images, movieName) {
                 $(this).hide();
             });
 
-            var li = $("<li/>");
+            var li = $("<li/>").css("display", "inline-block").css("text-align", "center");
             var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]");
+            var source;
+            if (pictures.length == 0 || pictures[p] == null || pictures[p].source == null || pictures[p].source == "undefined" || pictures[p].source == "") {
+                source = $("<span/>").html("Source: IMDB").css("display", "block");
+            } else {
+                source = $("<span/>").html("Source: ").css("display", "block").append($("<a/>").attr("href", pictures[p].source).html("View").attr("target", "new"));
+            }
 
             $(a).append(img);
             $(li).append(a);
+            $(li).append(source);
             $(ul).append(li);
             //$(".movie-poster-details").append(img);
         }
@@ -298,7 +313,7 @@ var PopulateSongs = function (song) {
 var SongList = function (videos, type) {
     var ul = $("<ul/>");
     var songHasLink = false;
-    
+
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
         var url = "";
@@ -378,7 +393,7 @@ var TrailerList = function (videos, type) {
     var ul = $("<ul/>");
     var songHasLink = false;
     var j = 0;
-     
+
     for (i = 0; i < videos.length; i++) {
         var img = $("<img/>").attr("class", "song-thumb").attr("src", videos[i].Thumb);
         var url = "";

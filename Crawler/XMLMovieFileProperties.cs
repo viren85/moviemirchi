@@ -13,6 +13,10 @@ namespace Crawler
         public string MovieId { get; set; }
         public string MovieName { get; set; }
         public string MovieLink { get; set; }
+
+        public string SantaPosterLink { get; set; }
+        public string SaavnSongLink { get; set; }
+
         public int Year { get; set; }
         public string Month { get; set; }
         public List<XMLReivewProperties> Reviews { get; set; }
