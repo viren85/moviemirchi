@@ -25,7 +25,7 @@ namespace SmartMonkey
             };
 
             IMonkey monkey = new SmartMonkey();
-            monkey.BaseUrl = @"http://d7a4de6fe86e4edd8bc6ad0f83ce59bc.cloudapp.net/";
+            monkey.BaseUrl = @"http://451a26608c494838ae8cb17189110428.cloudapp.net/";
             monkey.AddTests(
                 dict.Select(item =>
                 {
