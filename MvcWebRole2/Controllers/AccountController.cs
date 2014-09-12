@@ -354,7 +354,6 @@ namespace MvcWebRole2.Controllers
                 Debug.WriteLine("Exception: {0}", ex);
                 throw;
             }
-
         }
 
         [HttpGet]
@@ -467,36 +466,6 @@ namespace MvcWebRole2.Controllers
             {
 
             }
-        }
-
-        [HttpGet]
-        public void GetPosters()
-        {
-            // List<string> processedUrl = new List<string>();
-
-            List<string> urls = new MovieCrawler.SantaImageCrawler().GetMoviePosterUrls("http://www.santabanta.com/wallpapers/bang-bang/");
-            MovieCrawler.ImdbCrawler ic = new MovieCrawler.ImdbCrawler();
-            string movieName = "bang-bang";
-            int imageCounter = new BlobStorageService().GetImageFileCount(BlobStorageService.Blob_ImageContainer, movieName.Replace(" ", "-").ToLower() + "-poster-");
-            string newImageName = string.Empty;
-            TableManager tblMgr = new TableManager();
-
-            // update the movie poster column - add source link
-            MovieEntity me = tblMgr.GetMovieByUniqueName(movieName);
-            List<string> processedUrl = JsonConvert.DeserializeObject(me.Posters) as List<string>;
-
-            if (processedUrl == null)
-                processedUrl = new List<string>();
-
-            foreach (string url in urls)
-            {
-                string posterPath = ic.GetNewImageName(movieName, ic.GetFileExtension(url), imageCounter, false, ref newImageName);
-                processedUrl.Add(newImageName);
-                ic.DownloadImage(url, posterPath);
-            }
-
-            me.Posters = JsonConvert.SerializeObject(processedUrl);
-            tblMgr.UpdateMovieById(me);
         }
 
         [HttpGet]
@@ -933,6 +902,17 @@ namespace MvcWebRole2.Controllers
                             TableManager tblMgr = new TableManager();
                             string posterUrl = string.Empty;
 
+                            if (movie.Attributes["santaposterlink"] != null && !string.IsNullOrEmpty(movie.Attributes["santaposterlink"].Value))
+                            {
+                                XMLMovieProperties prop = new XMLMovieProperties();
+                                prop.SantaPosterLink = movie.Attributes["santaposterlink"].Value;
+                                prop.MovieName = mov.UniqueName;
+
+                                CrawlPosters(json.Serialize(prop));
+                            }
+
+                            // Crawl Songs from Saavn
+
                             if (string.IsNullOrEmpty(mov.RowKey) || string.IsNullOrEmpty(mov.MovieId)) continue;
 
                             tblMgr.UpdateMovieById(mov);
@@ -1129,6 +1109,74 @@ namespace MvcWebRole2.Controllers
                 throw;
             }
 
+        }
+
+        [HttpPost]
+        public void CrawlPosters(string data)
+        {
+            if (string.IsNullOrEmpty(data)) return;
+
+            JavaScriptSerializer json = new JavaScriptSerializer();
+
+            data = Server.UrlDecode(data);
+
+            XMLMovieProperties prop = json.Deserialize<XMLMovieProperties>(data);
+
+            //string movieUrl,string movieUniqueName
+            TableManager tblMgr = new TableManager();
+            List<string> urls = new MovieCrawler.SantaImageCrawler().GetMoviePosterUrls(prop.SantaPosterLink);
+            MovieCrawler.ImdbCrawler ic = new MovieCrawler.ImdbCrawler();
+
+            int imageCounter = new BlobStorageService().GetImageFileCount(BlobStorageService.Blob_ImageContainer, prop.MovieName.Replace(" ", "-").ToLower() + "-poster-");
+            string newImageName = string.Empty;
+
+
+            // update the movie poster column - add source link
+            MovieEntity me = tblMgr.GetMovieByUniqueName(prop.MovieName);
+            List<string> processedUrl = JsonConvert.DeserializeObject(me.Posters) as List<string>;
+            List<PosterInfo> posters = JsonConvert.DeserializeObject(me.Pictures) as List<PosterInfo>;
+
+            if (processedUrl == null)
+            {
+                processedUrl = new List<string>();
+                posters = new List<PosterInfo>();
+            }
+            else
+            {
+                foreach (string process in processedUrl)
+                {
+                    PosterInfo info = new PosterInfo();
+                    info.url = process;
+                    posters.Add(info);
+                }
+            }
+
+            foreach (string url in urls)
+            {
+                PosterInfo info = new PosterInfo();
+
+                try
+                {
+                    string posterPath = ic.GetNewImageName(prop.MovieName, ic.GetFileExtension(url), imageCounter, false, ref newImageName);
+                    ic.DownloadImage(url, posterPath);
+
+                    processedUrl.Add(newImageName);
+
+                    info.url = newImageName;
+                    info.source = prop.SantaPosterLink;
+                    posters.Add(info);
+
+                    imageCounter++;
+                }
+                catch (Exception ex)
+                {
+                    // Skip that image
+                }
+            }
+
+            me.Posters = JsonConvert.SerializeObject(processedUrl);
+            me.Pictures = JsonConvert.SerializeObject(posters);
+            tblMgr.UpdateMovieById(me);
         }
 
         public void RebuildPosters()
