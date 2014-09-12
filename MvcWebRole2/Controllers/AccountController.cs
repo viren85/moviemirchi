@@ -1118,7 +1118,14 @@ namespace MvcWebRole2.Controllers
 
             JavaScriptSerializer json = new JavaScriptSerializer();
 
-            data = Server.UrlDecode(data);
+            try
+            {
+                data = Server.UrlDecode(data);
+            }
+            catch(Exception ex)
+            {
+                // in some cases data is already decoded - hence we dont need to redecoded it. it throws an exception
+            }
 
             XMLMovieProperties prop = json.Deserialize<XMLMovieProperties>(data);
 
