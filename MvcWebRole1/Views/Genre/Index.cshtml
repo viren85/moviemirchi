@@ -21,9 +21,10 @@
             name = name.substring(0, name.indexOf("?"));
         name = toPascalCase(name);
 
-        $(".movies").append(GetTubeControl("Now Playing Movies (" + name + ")", "movie-list", "genre-now"));
-        $(".movies").append(GetTubeControl("Upcoming Movies (" + name + ")", "upcoming-movie-list", "genre-upcoming"));
-        $(".movies").append(GetTubeControl("Archived Movies (" + name + ")", "others-movie-list", "genre-other"));
+        $(".movies").append(GetTubeControl(name + " Movies", "genre-name"));
+        $(".movies").append(GetTubeControl("Now Playing", "movie-list", "genre-now"));
+        $(".movies").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "genre-upcoming"));
+        $(".movies").append(GetTubeControl("Previous Movies", "others-movie-list", "genre-other"));
 
         $(".section-title").each(function () {
             new Util().AppendLoadImage($(this));
@@ -45,6 +46,7 @@
             new Util().RemoveLoadImage($("#movie-list-tube"));
             new Util().RemoveLoadImage($("#upcoming-movie-list-tube"));
             new Util().RemoveLoadImage($("#others-movie-list-tube"));
+            new Util().RemoveLoadImage($("#genre-name-tube"));
             
             if (data.Status != undefined || data.Status == "Error") {
                 $(".movie-list").html(data.UserMessage);
@@ -99,6 +101,7 @@
                             }
                         });
                     }
+
                     /*$(".movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
                         var newWidth = 400 * ratio;
