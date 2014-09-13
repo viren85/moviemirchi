@@ -16,6 +16,7 @@ var GetNavBar = function (json) {
             $('html, body').animate({
                 scrollTop: $("#" + $(this).attr('link-id')).offset().top - 120
             }, 500);
+            $(".nav-bar-container").hide();
             return false;
         });
 
@@ -38,7 +39,7 @@ var GetNavBar = function (json) {
             }
         }
         else {
-            $(".nav-bar-container").slideUp();
+            //$(".nav-bar-container").slideUp();
         }
 
         ClearSearchReults();
@@ -59,7 +60,7 @@ var GetNavBar = function (json) {
             }
         }
         else {
-            $(".nav-bar-container").slideUp();
+            //$(".nav-bar-container").slideUp();
         }
 
         ClearSearchReults();
