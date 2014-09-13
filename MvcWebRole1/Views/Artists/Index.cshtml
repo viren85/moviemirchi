@@ -26,7 +26,9 @@
 
         var json = [
                     { "title": "Artist", "section": "artist_detail-tube" },
-                    { "title": "Movie", "section": "movie-list-tube" },
+                    { "title": "Upcoming Movies", "section": "upcoming-movie-list-tube" },
+                    { "title": "Now Playing Movies", "section": "nowplaying-movie-list-tube" },
+                    { "title": "Previous Movies", "section": "previous-movie-list-tube" },
                     { "title": "Photos", "section": "movie-poster-details-tube" },
                     { "title": "News", "section": "news-container-tube" },
                     { "title": "Tweets", "section": "tweets-tube" }
@@ -47,9 +49,11 @@
         var artist = name.split('-').join(' ');
 
         var fileName = "/Images/Loading.GIF";
-        $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + artist + "</div>").insertBefore($(".movies .artist-bio"));
+        $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + toPascalCase(artist) + "</div>").insertBefore($(".movies .artist-bio"));
         $(".movies .artist-bio").append(ShowPersonBio(""));
-        $(".movies").append(GetTubeControl("Movies", "movie-list", "movies-pager"));
+        $(".movies").append(GetTubeControl("Upcoming Movies", "upcoming-movie-list", "upcoming-movies-pager"));
+        $(".movies").append(GetTubeControl("Now Playing Movies", "nowplaying-movie-list", "nowplaying-movies-pager"));
+        $(".movies").append(GetTubeControl("Previous Movies", "previous-movie-list", "previous-movies-pager"));
         $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
         $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
@@ -85,11 +89,52 @@
             else {
                 if (data != null && data.length > 0) {
                     for (var i = 0; i < data.length; i++) {
-                        var list = PopulatingMovies(data[i], "movie-list");
+                        //var list = PopulatingMovies(data[i], "movie-list");
+                        if (data[i].State == "now playing" || data[i].State == "now-playing") {
+                            var list = PopulatingMovies(data[i], "nowplaying-movie-list");
+                            now++;
+                        }
+                        else if (data[i].State == "upcoming") {
+                            var list = PopulatingMovies(data[i], "upcoming-movie-list");
+                            upcoming++;
+                        }
+                        else if (data[i].State == "" || data[i].State == "released") {
+                            // It creates 20+ pages for current data. I think we shall have some restriction
+                            if (releaseCounter < 25) {
+                                var list = PopulatingMovies(data[i], "previous-movie-list");
+                                releaseCounter++;
+                                archived++;
+                            }
+                        }
                     }
 
                     /*The image width/height shall be calculated once the image is fully loaded*/
                     var width = $(document).width();
+
+                    if (now == 0) {
+                        $("#movie-list-tube").hide();
+                        $(".top-nav-bar").find("li").each(function () {
+                            if ($(this).attr("link-id") == "movie-list-tube") {
+                                $(this).remove();
+                            }
+                        });
+                    }
+                    if (upcoming == 0) {
+                        $("#upcoming-movie-list-tube").hide();
+                        $(".top-nav-bar").find("li").each(function () {
+                            if ($(this).attr("link-id") == "upcoming-movie-list-tube") {
+                                $(this).remove();
+                            }
+                        });
+                    }
+                    if (archived == 0) {
+                        $("#others-movie-list-tube").hide();
+                        $(".top-nav-bar").find("li").each(function () {
+                            if ($(this).attr("link-id") == "others-movie-list-tube") {
+                                $(this).remove();
+                            }
+                        });
+                    }
 
                     $(".movie-list").find("img").each(function () {
                         var ratio = this.width / this.height;
@@ -160,7 +205,7 @@
                         //$(".poster-list").parent().hide();
                         InitBio();
 
-                        PopulatePosters(data.Posters, data.ArtistName);
+                        PopulatePosters(data.Posters, data.ArtistName, null);
                         ArrangeImages($(".movie-poster-details"));
 
                         $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
@@ -185,7 +230,7 @@
                     }
                 }
                 else {
-                    $(".intro-text").css("margin-left", "0px").html("Currently this artist does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
+                    $(".intro-text").css("margin-left", "0px").html("Currently this artist does not have any biography on <a href=\"/home\">Movie Mirchi</a>");
                 }
             }
         } catch (e) {
