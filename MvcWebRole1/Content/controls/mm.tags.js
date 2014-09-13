@@ -49,19 +49,19 @@ var Tags = function (tagJsonString) {
 
         var pageName = new Util().GetPageName();
         var getReviewerLink = function (text, link) {
-            return "<a href='/movie/reviewer/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
+            return "<a href='/movie/reviewer/" + link.toLowerCase() + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getMovieLink = function (text, link) {
-            return "<a href='/movie/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
+            return "<a href='/movie/" + link.toLowerCase() + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getArtistLink = function (text, link) {
-            return "<a href='/Artists/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
+            return "<a href='/artists/" + link.toLowerCase() + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getGenreLink = function (text, link) {
-            return "<a href='/Genre/" + link + "?type=trend&src=" + pageName + "'>" + text + "</a>"
+            return "<a href='/genre/" + link.toLowerCase() + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getLink = function (list) {

@@ -104,10 +104,10 @@
     <div class="movie-container">
         <div class="header">
             <div class="logo">
-                <a href="/Home" title="Movie Mirchi Home"><img src='/Images/logo.png' /></a>
+                <a href="/home" title="Movie Mirchi Home"><img src='/Images/logo.png' /></a>
             </div>
             <div class="small-logo">
-                <a href="/Home" title="Movie Mirchi Home"><img src='/Images/RedChilli.png' /></a>
+                <a href="/home" title="Movie Mirchi Home"><img src='/Images/RedChilli.png' /></a>
             </div>
             <div class="home-search-bar">
                 <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
@@ -148,12 +148,12 @@
     <div class="footer">
 
         <ul>
-            <li><a href="/Home">Home</a></li>
-            <li><a href="/Home/About">About</a></li>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/home/about">About</a></li>
             <li>Privacy Policy</li>
             <li>Terms & Condition</li>
             @*<li id="login"><a href="javascript:void(0);" onclick="$('#Login').modal('show');">Login</a></li>
-                <li id="logout" style="display: none"><a href="/Login/Logout">Logout</a></li>*@
+                <li id="logout" style="display: none"><a href="/login/logout">Logout</a></li>*@
         </ul>
         <input type="hidden" id="hfUserId" /><div>&copy;&nbsp;2014 Movie Mirchi</div>
     </div>
@@ -811,7 +811,7 @@
             arr[i] = arr[i].substr(0, 1).toUpperCase() +
                      (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : "");
         }
-        return arr.join("");
+        return arr.join(" ");
     }
 
 </script>

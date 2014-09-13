@@ -15,7 +15,7 @@ var ShowReviews = function (data) {
             if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
                 $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager"));
 
-                var fileName = "/Images/user.png";
+                var fileName = "/images/user.png";
                 var name = result.Name;
                 var affiliation = "";
 
@@ -33,7 +33,7 @@ var ShowReviews = function (data) {
                     InitBio();
                     $(".bio-pic").append($("<img/>").attr("src", fileName));
                     // Need to populate this text from DB
-                    $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/Home\">Movie Mirchi</a>");
+                    $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/home\">Movie Mirchi</a>");
 
                 });
 

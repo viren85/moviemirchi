@@ -12,7 +12,7 @@
 
     list.attr("class", "movie")
     //anchor.attr("href", "Movie?name=" + movie.UniqueName);
-    anchor.attr("href", "/Movie/" + movie.UniqueName);
+    anchor.attr("href", "/movie/" + movie.UniqueName);
     anchor.attr("title", movie.Name);
     //anchor.append(img);
     var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;

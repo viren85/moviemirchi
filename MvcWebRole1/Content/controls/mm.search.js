@@ -189,7 +189,7 @@ var SearchResults = function (searchResults) {
             }
         }
 
-        $(anchor).attr("href", "/Movie/" + singleEntity.Link + "?type=search&src=" + pageName);
+        $(anchor).attr("href", "/movie/" + singleEntity.Link.toLowerCase() + "?type=search&src=" + pageName);
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
@@ -222,7 +222,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
 
-            $(anchor).attr("href", "/Artists/" + artist.split(" ").join("-") + "?type=search&src=" + pageName);
+            $(anchor).attr("href", "/artists/" + artist.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
             $(anchor).append(that.GetImageElement(singleEntity, "artist", artist));
             $(anchor).append(divTitleDesc);
 
@@ -255,7 +255,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
-            $(anchor).attr("href", "/Movie/Reviewer/" + critics.split(" ").join("-") + "?type=search&src=" + pageName);
+            $(anchor).attr("href", "/movie/reviewer/" + critics.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
             $(anchor).append(that.GetImageElement(singleEntity, "critics", critics));
             $(anchor).append(divTitleDesc);
 
@@ -301,9 +301,9 @@ var SearchResults = function (searchResults) {
         var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
         $(divTitleDesc).attr("class", "search-result-desc");
-        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/Movie/Reviewer") + "</span>");
+        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/movie/reviewer") + "</span>");
 
-        $(anchor).attr("href", "/Movie/" + singleEntity.Link);
+        $(anchor).attr("href", "/movie/" + singleEntity.Link.toLowerCase());
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 

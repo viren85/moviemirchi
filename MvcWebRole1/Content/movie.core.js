@@ -213,7 +213,7 @@ function GetLinks(html, type) {
     var genre = html.split("|");
     var links = "";
     for (i = 0; i < genre.length; i++) {
-        links += "<a href='/" + type + "/" + genre[i].trim().split(' ').join('-').split('.').join('') + "'>" + genre[i].trim() + "</a> | "
+        links += "<a href='/" + type.toLowerCase() + "/" + genre[i].trim().split(' ').join('-').split('.').join('').toLowerCase() + "'>" + genre[i].trim() + "</a> | "
     }
 
     links = links.substring(0, links.lastIndexOf("|"));

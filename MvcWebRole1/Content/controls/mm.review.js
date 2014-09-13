@@ -29,7 +29,7 @@
                                 "<div class=\"arrow_box\">" +
                                     "<div class=\"review-content\">" +
                                         "<blockquote class=\"quote\">" + reviewText + "</blockquote>" +
-                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink + "\"  onclick=\"trackReviewLink('" + review.OutLink + "');\">More...</a></div>" +
+                                            "<div class=\"more-link\"><a target=\"_new\" href=\"" + review.OutLink.toLowerCase() + "\"  onclick=\"trackReviewLink('" + review.OutLink.toLowerCase() + "');\">More...</a></div>" +
                                     "</div>" +
                                 "</div>" +
                             "</div>" +
@@ -155,5 +155,5 @@ function GetMoviePoster(posters, movieName) {
 }
 
 function FormPathFromName(name) {
-    return name.replace('-', '%7c').split(' ').join("-").split('.').join('');
+    return name.replace('-', '%7c').split(' ').join("-").split('.').join('').toLowerCase();
 }
