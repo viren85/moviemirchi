@@ -7,9 +7,7 @@
 
     $(document).click(function () {
         ClearSearchReults();
-        if ($(window).width() < 767) {
-            $(".nav-bar-container").hide();
-        }
+        $(".nav-bar-container").hide();
     });
 
     $("#home-search").keyup(function (e) {
