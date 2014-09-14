@@ -1,0 +1,146 @@
+<html>
+<head>
+    <title>moviemirchi player</title>
+    <script type='text/javascript' src='scripts/jquery-2.1.1.min.js'></script>
+    <script type='text/javascript' src='jQuery.tubeplayer.min.js'></script>
+    <link rel="stylesheet" type="text/css" href="styles/bootstrap.min.css" />
+    <style type="text/css">
+        #player-container {
+            width: 220px;
+        }
+
+        .player-player, .player-playlist {
+            padding: 5px;
+            margin: 5px;
+        }
+
+        .player-player {
+        }
+
+
+        .player-controls {
+        }
+
+            .player-controls span {
+                padding: 10px;
+                padding-right: 23px;
+                margin: 10px;
+                border: 1px solid #666;
+                border-radius: 50%;
+                background-color: #98BEF5;
+            }
+
+        .player-playlist {
+            border: 1px solid #666;
+        }
+
+            .player-playlist .entry {
+                border: 1px solid #24707a;
+                margin: 2px;
+                padding: 3px;
+            }
+
+                .player-playlist .entry span {
+                    margin-right: 10px;
+                }
+
+                .player-playlist .entry.selected {
+                    background-color: #110d37;
+                    color: #ffffff;
+                }
+    </style>
+</head>
+<body>
+    <div id='player-container' class="player">
+        <div class='player-player'></div>
+        <div class='player-controls'></div>
+        <div class='player-playlist'></div>
+    </div>
+    <script>
+        var $container = $("#player-container");
+
+        var $player = $container.find(".player-player");
+        $player.tubeplayer({
+            width: 200, // the width of the player
+            height: 200, // the height of the player
+            allowFullScreen: "false", // true by default, allow user to go full screen
+            initialVideo: "", // the video that is loaded into the player
+            preferredQuality: "default",// preferred quality: default, small, medium, large, hd720
+            onPlay: function (id) { }, // after the play method is called
+            onPause: function () { }, // after the pause method is called
+            onStop: function () { }, // after the player is stopped
+            onSeek: function (time) { }, // after the video has been seeked to a defined point
+            onMute: function () { }, // after the player is muted
+            onUnMute: function () { } // after the player is unmuted
+        });
+
+        var $controls = $container.find(".player-controls");
+        $controls.append(
+            "<span class=\"glyphicon glyphicon-play playpause\"></span>" +
+            //"<span class=\"glyphicon glyphicon-stop stop\"></span>" +
+            "<span class=\"glyphicon glyphicon-volume-off muteunmute\"></span>" +
+            "<span class=\"glyphicon glyphicon-chevron-left previous\"></span>" +
+            "<span class=\"glyphicon glyphicon-chevron-right next\"></span>"
+            );
+
+        $controls.find(".playpause").click(function () {
+            var el = $(this);
+            if (el.hasClass("glyphicon-play")) {
+                $player.tubeplayer("play");
+                el.removeClass("glyphicon-play").addClass("glyphicon-pause");
+            } else {
+                $player.tubeplayer("pause");
+                el.removeClass("glyphicon-pause").addClass("glyphicon-play");
+            }
+        });
+        //$controls.find(".stop").click(function () {
+        //    $player.tubeplayer("stop");
+        //});
+        $controls.find(".muteunmute").click(function () {
+            var el = $(this);
+            if (el.hasClass("glyphicon-volume-off")) {
+                $player.tubeplayer("mute");
+                el.removeClass("glyphicon-volume-off").addClass("glyphicon-volume-up");
+            } else {
+                $player.tubeplayer("unmute");
+                el.removeClass("glyphicon-volume-up").addClass("glyphicon-volume-off");
+            }
+        });
+
+        var $playlist = $container.find(".player-playlist");
+
+        var queueVideo = function (song) {
+
+            var movie = song.movie || "";
+            var name = song.name || "";
+            var yid = (song.url || "v=").split("v=")[1].split("&")[0];
+
+            var que = $(
+                "<div class=\"entry\" yid=\"" + yid + "\">" +
+                "  <span class=\"glyphicon glyphicon-music\"></span>" +
+                ((name ? name : "Song") + (movie ? " - " + movie : "")) +
+                "</div>");
+            $playlist.append(que);
+
+            que.click(function () {
+                $player.tubeplayer("play", yid);
+                $playlist.find(".entry.selected").removeClass("selected");
+                $(this).addClass("selected");
+            });
+        };
+        var queueVideos = function (songs) {
+            $.each(songs, function (k, song) {
+                queueVideo(song);
+            });
+        };
+
+        queueVideos([
+            { movie: 'Movie1', song: 'Song1', url: "https://www.youtube.com/watch?v=bfFq93KwXJM" },
+            { movie: 'Movie2', song: 'Song2', url: "https://www.youtube.com/watch?v=v8HKNHhEDRU" },
+            { movie: 'Movie3', song: 'Song3', url: "https://www.youtube.com/watch?v=bfFq93KwXJM" }
+        ]);
+
+    </script>
+
+</body>
+</html>
