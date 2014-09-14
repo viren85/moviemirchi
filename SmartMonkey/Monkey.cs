@@ -28,6 +28,16 @@ namespace SmartMonkey
 
         }
 
+        public void AddTest(Test test)
+        {
+            if (this.validationList == null)
+            {
+                this.validationList = new List<Test>();
+            }
+
+            this.validationList.Add(test);
+        }
+
         public void AddTests(IEnumerable<Test> tests)
         {
             if (this.validationList == null)
@@ -55,11 +65,11 @@ namespace SmartMonkey
                             {
                                 string data = (string)e.Result;
                                 bool res = test.Validate(data);
-                                ReportResult(test, res);
+                                test.ReportResult(res, data);
                             }
                             else
                             {
-                                ReportResult(test, false, e.Error.HResult + " - " + e.Error.Message);
+                                test.ReportResult(false, e.Error.HResult + " - " + e.Error.Message);
                             }
                         };
 
@@ -81,21 +91,6 @@ namespace SmartMonkey
         {
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine("Stopping");
-        }
-
-        private static void ReportResult(Test test, bool res, string data = "")
-        {
-            Console.ForegroundColor = res ? ConsoleColor.DarkGreen : ConsoleColor.DarkRed;
-            Console.WriteLine(
-                "{0}: {1} - {2}",
-                res ? "Passed" : "Failed",
-                test.Name,
-                test.Url);
-            if (!string.IsNullOrWhiteSpace(data))
-            {
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("\t{0}", data);
-            }
         }
     }
 }
