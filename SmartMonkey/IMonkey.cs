@@ -1,13 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace SmartMonkey
 {
     interface IMonkey
     {
+        string Name { get; set; }
         string BaseUrl { get; set; }
+        Action<Test> JumpStyle { get; set; }
         void AddTest(Test test);
         void AddTests(IEnumerable<Test> tests);
-        void StartJumping();
-        void StopJumping();
+        void Jump();
     }
 }

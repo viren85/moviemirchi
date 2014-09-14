@@ -8,64 +8,45 @@ namespace SmartMonkey
 {
     public abstract class Monkey : IMonkey
     {
-        private string baseurl;
-        private List<Test> validationList;
+        public string Name { get; set; }
+        public string BaseUrl { get; set; }
+        public Action<Test> JumpStyle { get; set; }
 
-        public string BaseUrl
-        {
-            get
-            {
-                return this.baseurl;
-            }
-            set
-            {
-                this.baseurl = value.Trim().TrimEnd('/') + '/';
-            }
-        }
+        protected List<Test> ValidationList { get; private set; }
 
         public Monkey()
         {
-
+            this.ValidationList = new List<Test>();
         }
 
         public void AddTest(Test test)
         {
-            if (this.validationList == null)
-            {
-                this.validationList = new List<Test>();
-            }
-
-            this.validationList.Add(test);
+            this.ValidationList.Add(test);
         }
 
         public void AddTests(IEnumerable<Test> tests)
         {
-            if (this.validationList == null)
-            {
-                this.validationList = new List<Test>();
-            }
-
-            this.validationList.AddRange(tests);
+            this.ValidationList.AddRange(tests);
         }
 
-        public void StartJumping()
+        public void Jump()
         {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Starting");
+            Console.WriteLine("Starting - {0}", this.Name);
 
             var tasks =
-                this.validationList.Select(test =>
+                this.ValidationList.Select(test =>
                     Task.Factory.StartNew(() =>
                     {
-                        string url = this.baseurl + test.Url.TrimStart('/');
+                        string url = this.BaseUrl + test.Url.TrimStart('/');
                         var client = new WebClient();
                         client.DownloadStringCompleted += (sender, e) =>
                         {
                             if (!e.Cancelled && e.Error == null)
                             {
                                 string data = (string)e.Result;
-                                bool res = test.Validate(data);
-                                test.ReportResult(res, data);
+                                test.Data = data;
+                                this.JumpStyle(test);
                             }
                             else
                             {
@@ -85,12 +66,9 @@ namespace SmartMonkey
                     }));
 
             Task.WaitAll(tasks.ToArray());
-        }
 
-        public void StopJumping()
-        {
             Console.ForegroundColor = ConsoleColor.White;
-            Console.WriteLine("Stopping");
+            Console.WriteLine("Stopping - {0}", this.Name);
         }
     }
 }

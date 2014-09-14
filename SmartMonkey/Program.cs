@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Validator = System.Func<string, string, bool>;
 
@@ -12,12 +13,50 @@ namespace SmartMonkey
         {
             string url = GetBaseURL(args);
 
-            IMonkey monkey = SetupSmartMonkey(url);
-            monkey.StartJumping();
-            monkey.StopJumping();
+            var monkeys = new IMonkey[] { 
+                SetupHitMonkey(url), 
+                SetupCacheMonkey(url),
+            };
+            foreach (IMonkey monkey in monkeys)
+            {
+                monkey.Jump();
+            }
         }
 
-        private static IMonkey SetupSmartMonkey(string url)
+        private static IMonkey SetupCacheMonkey(string url)
+        {
+            System.Func<Test, IEnumerable<string>> cacheMovieInfo = test =>
+                {
+                    var movies =
+                        test.Data.Split(new string[] { "MovieId" }, StringSplitOptions.None).Skip(1)
+                        .Select(m =>
+                            m.Split(new string[] { "UniqueName\\\":\\\"" }, StringSplitOptions.None).Skip(1).First()
+                            .Split(new string[] { "\\\"" }, StringSplitOptions.None).First());
+
+                    return movies.Select(id => "api/movieinfo?q=" + id);
+                };
+
+            CacheMonkey monkey = new CacheMonkey();
+            monkey.Name = "CacheMonkey";
+            monkey.BaseUrl = url;
+            monkey.AddTest(new Test()
+            {
+                Name = "Now playing",
+                Url = "api/movies?type=current",
+                Validate = Test.DefaultValidate(null),
+                Scratch = cacheMovieInfo,
+            });
+            monkey.AddTest(new Test()
+            {
+                Name = "Upcoming",
+                Url = "api/movies?type=upcoming",
+                Validate = Test.DefaultValidate(null),
+                Scratch = cacheMovieInfo,
+            });
+            return monkey;
+        }
+
+        private static IMonkey SetupHitMonkey(string url)
         {
             var dict = new Dictionary<string, string>()
             {
@@ -35,7 +74,8 @@ namespace SmartMonkey
                 {"Reviewer", "api/reviewerinfo?name=Anupama%20Chopra"},
             };
 
-            IMonkey monkey = new SmartMonkey();
+            IMonkey monkey = new HitMonkey();
+            monkey.Name = "HitMonkey";
             monkey.BaseUrl = url;
             monkey.AddTests(
                 dict.Select(item =>

@@ -29,10 +29,11 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CacheMonkey.cs" />
     <Compile Include="IMonkey.cs" />
     <Compile Include="Monkey.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="SmartMonkey.cs" />
+    <Compile Include="HitMonkey.cs" />
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>

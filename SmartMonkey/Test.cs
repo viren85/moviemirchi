@@ -1,5 +1,5 @@
 ﻿using System;
-using Validator = System.Func<string, bool>;
+using System.Collections.Generic;
 
 namespace SmartMonkey
 {
@@ -9,12 +9,15 @@ namespace SmartMonkey
 
         public string Name { get; set; }
         public string Url { get; set; }
-        public Validator Validate { get; set; }
+        public string Data { get; set; }
+        public System.Func<string, bool> Validate { get; set; }
+
+        public System.Func<Test, IEnumerable<string>> Scratch { get; set; }
 
         internal static System.Func<string, System.Func<string, bool>> DefaultValidate =
             (errStr) =>
             {
-                return new Validator((data) =>
+                return new System.Func<string, bool>((data) =>
                 {
                     if (string.IsNullOrWhiteSpace(data))
                     {
