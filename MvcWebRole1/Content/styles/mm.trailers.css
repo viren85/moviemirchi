@@ -71,3 +71,19 @@
         display: none !important;
     }
 }
+ @media screen and (max-width: 320px) {
+    .trailers ul li{
+        margin-left: 25px;
+    }
+    #trailer-pager {
+        position: absolute;
+        margin-top: 125px;
+        width: 80%;
+    }
+    #trailer-pager .right-arrow{
+        left: 100%;
+    }
+    #trailer-pager .left-arrow{
+        left: 0px;
+    }
+}

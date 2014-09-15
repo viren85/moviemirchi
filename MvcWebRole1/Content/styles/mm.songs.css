@@ -70,4 +70,23 @@
         margin-bottom: 20px;
         display: none !important;
     }
+    
 }
+
+@media screen and (max-width: 320px) {
+    .songs ul li{
+        margin-left: 25px;
+    }
+    #songs-pager {
+        position: absolute;
+        margin-top: 125px;
+        width: 80%;
+    }
+    #songs-pager .right-arrow{
+        left: 100%;
+    }
+    #songs-pager .left-arrow{
+        left: 0px;
+    }
+}
+
