@@ -90,7 +90,7 @@ var ShowMovieDetails = function (movie) {
             var name = null;
             if (casts[c].name != null)
                 name = casts[c].name.split(' ').join('-').toLowerCase();
-            
+
             if (casts[c].role.toLowerCase() == "director" && casts[c].name != null && directors.indexOf(casts[c].name) == -1) {
                 if (casts[c].charactername == null) {
                     directors += "<a href=\"/artists/" + name + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
@@ -327,13 +327,21 @@ var SongList = function (videos, type) {
         }
 
         var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
-            $(document).scrollTop(0);
+            //$(document).scrollTop(0);
+            $('html,body').css({
+                'overflow': 'hidden',
+                'height': '100%'
+            });
             trackSongLink(url);
             DisplayModal($(this).attr("video-link"));
         });
 
         var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
-            $(document).scrollTop(0);
+            //$(document).scrollTop(0);
+            $('html,body').css({
+                'overflow': 'hidden',
+                'height': '100%'
+            });
             DisplayModal();
         });
 
@@ -465,6 +473,10 @@ $("#overlay").click(function () {
 });
 
 $("#modalMsg").click(function () {
+    $('html,body').css({
+        'overflow': 'auto',
+        'height': 'auto'
+    });
     return;
 });
 
@@ -482,6 +494,11 @@ function RemoveModal() {
     $("#overlay").attr("class", "");
     $("#modalMsg").find("iframe").each(function () {
         $(this).attr("src", "");
+    });
+
+    $('html,body').css({
+        'overflow': 'auto',
+        'height': 'auto'
     });
 
     return false;
