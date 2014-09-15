@@ -8,7 +8,11 @@ namespace SmartMonkey
         {
             this.JumpStyle = (test) =>
             {
-                bool res = test.Validate(test.Data);
+                bool res = true;
+                if (test.Validate != null)
+                {
+                    res = test.Validate(test.Data);
+                }
                 test.ReportResult(res, test.Data);
             };
         }

@@ -33,7 +33,7 @@ namespace SmartMonkey
                             m.Split(new string[] { "UniqueName\\\":\\\"" }, StringSplitOptions.None).Skip(1).First()
                             .Split(new string[] { "\\\"" }, StringSplitOptions.None).First());
 
-                    return movies.Select(id => "api/movieinfo?q=" + id);
+                    return movies.Select(id => "movie/" + id);
                 };
 
             CacheMonkey monkey = new CacheMonkey();

@@ -19,49 +19,10 @@ namespace SmartMonkey
             };
         }
 
-        //public override void StartJumping()
-        //{
-        //    Console.ForegroundColor = ConsoleColor.White;
-        //    Console.WriteLine("Starting - {0}", this.Name);
-
-        //    var tasks =
-        //        this.ValidationList.Select(test =>
-        //            Task.Factory.StartNew(() =>
-        //            {
-        //                string url = this.BaseUrl + test.Url.TrimStart('/');
-        //                var client = new WebClient();
-        //                client.DownloadStringCompleted += (sender, e) =>
-        //                {
-        //                    if (!e.Cancelled && e.Error == null)
-        //                    {
-        //                        string data = (string)e.Result;
-        //                        test.Data = data;
-        //                        this.JumpStyle(test);
-        //                    }
-        //                    else
-        //                    {
-        //                        test.ReportResult(false, e.Error.HResult + " - " + e.Error.Message);
-        //                    }
-        //                };
-
-        //                var downloadTask = client.DownloadStringTaskAsync(url);
-        //                try
-        //                {
-        //                    downloadTask.Wait();
-        //                }
-        //                catch (AggregateException)
-        //                {
-        //                    // We must have handled and reported this error earlier
-        //                }
-        //            }));
-
-        //    Task.WaitAll(tasks.ToArray());
-        //}
-
         private void InitiateHitMonkey(Test test, IEnumerable<string> movies)
         {
             IMonkey monkey = new HitMonkey();
-            monkey.Name = "HitMonkey";
+            monkey.Name = "HitMonkey for " + test.Name;
             monkey.BaseUrl = this.BaseUrl;
             monkey.AddTests(
                 movies.Select(movie =>
@@ -70,7 +31,7 @@ namespace SmartMonkey
                     {
                         Name = test.Name + " - " + movie,
                         Url = movie,
-                        Validate = test.Validate,
+                        Validate = null, //test.Validate,
                     };
                 }));
             monkey.Jump();
