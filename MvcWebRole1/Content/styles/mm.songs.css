@@ -1,0 +1,73 @@
+﻿    .movie-songs {
+        display: none;
+    }    
+    .songs {
+        float: left;
+        margin-left: 0%;
+        width: 50%;
+        margin-bottom: 20px;
+        display: none !important;
+    }
+    .songs .section-title {
+        width: 86%;
+    }
+
+    .songs ul {
+        float: none;
+        list-style: none;
+        margin: 0px;
+        padding: 0px;
+    }
+
+        .songs ul li {
+            background-color: #FFF;
+            width: 225px;
+            padding-bottom: 10px;
+            float: left;
+            border: 1px solid #ddd;
+            box-shadow: -3px 3px 5px #ddd;
+            cursor: pointer;
+            color: #333;
+            margin-right: 10px;
+        }
+
+            .songs ul li:hover {
+                background-color: #368bc1;
+                color: #fff;
+            }
+
+            .songs ul li span {
+                font-size: 18px;
+                padding: 5px;
+                float: left;
+                text-align: left;
+                padding-top: 15px;
+            }
+
+    .song-thumb {
+        width: 100%;
+        float: left;
+    }
+
+    .song-play {
+        float: right;
+        width: 32px;
+        height: 32px;
+        z-index: 2;
+        margin-right: 10px;
+        margin-top: 10px;
+    }
+    #songs-pager {
+        float: left;
+        width: 80%;
+        margin-top: 20px;
+    }
+    /*End*/
+@media screen and (max-width: 768px) {
+    .songs {
+        margin-left: 0%;
+        width: 100%;
+        margin-bottom: 20px;
+        display: none !important;
+    }
+}
