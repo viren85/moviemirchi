@@ -62,11 +62,11 @@ var ShowMovie = function (data) {
                     allow_resize: true,
                 });
             } else {
-                $(".movie-content").html("Unable to find movie 1 .");
+                $(".movie-content").html("Unable to find movie.");
             }
         }
     } catch (e) {
-        $(".movie-content").html("Unable to find movie 2.");
+        $(".movie-content").html("Unable to find movie.");
     }
 }
 
@@ -332,6 +332,7 @@ var SongList = function (videos, type) {
                 'overflow': 'hidden',
                 'height': '100%'
             });
+
             trackSongLink(url);
             DisplayModal($(this).attr("video-link"));
         });
