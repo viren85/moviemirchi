@@ -302,7 +302,9 @@
     <Content Include="Content\styles\mm.rate.css" />
     <Content Include="Content\styles\mm.review.css" />
     <Content Include="Content\styles\mm.reviewer.css" />
+    <Content Include="Content\styles\mm.songs.css" />
     <Content Include="Content\styles\mm.tags.css" />
+    <Content Include="Content\styles\mm.trailers.css" />
     <Content Include="Content\styles\mm.twitter.css" />
     <Content Include="Content\styles\mm.user.pref.css" />
     <Content Include="Content\styles\top-nav.css" />
