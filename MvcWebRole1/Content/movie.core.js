@@ -77,13 +77,22 @@ function onSuccessLoadCurrentMovies(result) {
                 var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
                 var defaultTileHeight = (TILE_MODE == 0) ? 340 : 300;
                 var defaultTileWidth = (TILE_MODE == 0) ? 225 : 200;
-                $(".movie-list").find("img").each(function () {
-                    var ratio = this.width / this.height;
-                    var newWidth = defaultRatio * ratio;
-                    $(this).width(newWidth + "px").height(defaultTileHeight + "px");
 
-                    if (newWidth > defaultTileWidth)
-                        $(this).width(defaultTileWidth + "px");
+                var ratio = 0;
+                var newWidth = 0;
+                $(".movie-list").find("img:first").each(function () {
+                    ratio = this.width / this.height;
+                    newWidth = defaultRatio * ratio;
+                });
+                $(".movie-list").find("img").each(function () {
+                    var $this = $(this);
+                    $this.height(defaultTileHeight + "px");
+
+                    if (newWidth > defaultTileWidth) {
+                        $this.width(defaultTileWidth + "px");
+                    } else {
+                        $this.width(newWidth + "px");
+                    }
                 });
 
                 ScaleElement($(".movie-list ul"));
@@ -151,13 +160,21 @@ function onSuccessLoadUpcomingMovies(result) {
                 var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
                 var defaultTileWidth = (TILE_MODE == 0) ? 225 : 200;
 
+                var ratio = 0;
+                var newWidth = 0;
+                $(".upcoming-movie-list").find("img:first").each(function () {
+                    ratio = this.width / this.height;
+                    newWidth = defaultRatio * ratio;
+                });
                 $(".upcoming-movie-list").find("img").each(function () {
-                    var ratio = this.width / this.height;
-                    var newWidth = defaultRatio * ratio;
-                    $(this).width(newWidth + "px").height(defaultTileHeight + "px");
+                    var $this = $(this);
+                    $this.height(defaultTileHeight + "px");
 
-                    if (newWidth > defaultTileWidth)
-                        $(this).width(defaultTileWidth + "px");
+                    if (newWidth > defaultTileWidth) {
+                        $this.width(defaultTileWidth + "px");
+                    } else {
+                        $this.width(newWidth + "px");
+                    }
                 });
 
                 ScaleElement($(".upcoming-movie-list ul"));
