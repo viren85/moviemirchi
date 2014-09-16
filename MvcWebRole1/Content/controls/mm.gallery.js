@@ -43,7 +43,12 @@ var ScaleElement = function (element) {
             var $parent = $element.parent();
             $parent.css("height", "500px").css("z-index", "98");
             $parent.find(".captionAndNavigate").css("width", "300px").css("height", "400px").css("z-index", "100").css("top", "-35px").css("left", "-50px");
-            $parent.find(".additives").css("position", "relative").css("top", "10px").css("float", "right");
+            $parent.find(".additives").css({
+                "position": "relative",
+                "margin-top": "20px",
+                "margin-left": "10px",
+                "float": "left"
+            });
             $parent.find(".movie-synopsis").show();
 
         }, function (e) {
