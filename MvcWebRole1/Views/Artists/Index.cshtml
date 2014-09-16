@@ -77,7 +77,11 @@
     function PopulateMovies(response) {
         try {
             var data = JSON.parse(response);
-            new Util().RemoveLoadImage($("#movie-list-tube"));
+            var now = 0, upcoming = 0, archived = 0;
+            new Util().RemoveLoadImage($("#upcoming-movies-pager"));
+            new Util().RemoveLoadImage($("#nowplaying-movie-list-tube"));
+            new Util().RemoveLoadImage($("#previous-movies-pager"));
+
             if (data.Status != undefined || data.Status == "Error") {
                 $(".movie-list").html(data.UserMessage);
                 $(".top-nav-bar").find("li").each(function () {
@@ -110,7 +114,6 @@
 
                     /*The image width/height shall be calculated once the image is fully loaded*/
                     var width = $(document).width();
-
                     if (now == 0) {
                         $("#movie-list-tube").hide();
                         $(".top-nav-bar").find("li").each(function () {
@@ -128,9 +131,9 @@
                         });
                     }
                     if (archived == 0) {
-                        $("#others-movie-list-tube").hide();
+                        $("#previous-movie-list-tube").hide();
                         $(".top-nav-bar").find("li").each(function () {
-                            if ($(this).attr("link-id") == "others-movie-list-tube") {
+                            if ($(this).attr("link-id") == "previous-movie-list-tube") {
                                 $(this).remove();
                             }
                         });
@@ -187,9 +190,13 @@
             
             if (data.Status != undefined || data.Status == "Error") {
                 $(".intro-text").css("margin-left", "0px").html(data.UserMessage);
+                $("#artist_detail-tube").each(function () {
+                    new Util().RemoveLoadImage($(this));
+                });
+
+                $("#movie-poster-details-tube").hide();
             }
             else {
-                
                 if (data != null) {
                     new Util().RemoveLoadImage($("#artist_detail-tube"));
                     if (data.Bio == "") 
@@ -234,7 +241,6 @@
                 }
             }
         } catch (e) {
-            //console.log(e.message);
             $(".intro-text").css("margin-left", "0px").html("Unable to get artist's details.");
         }
     }
