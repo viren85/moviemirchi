@@ -66,24 +66,24 @@ var GetNavBar = function (json) {
         ClearSearchReults();
     });
 
-    $(window).scroll(function () {
-        if ($(window).width() > 320) {
-            if ($(this).scrollTop() > 70) {
-                $(".small-logo img").css("width", "40px").css("height", "60px");
-                $('.scrollToTop').fadeIn();
-            } else {
-                $(".small-logo img").css("width", "70px").css("height", "120px");
-            }
-        }
-        else {
-            if ($(this).scrollTop() > 70) {
-                $(".small-logo img").css("width", "40px").css("height", "60px");
-                $('.scrollToTop').fadeIn();
-            } else {
-                $(".small-logo img").css("width", "50px").css("height", "95px");
-            }
-        }
-    });
-
     return list;
 }
+
+$(window).scroll(function () {
+    if ($(window).width() > 320) {
+        if ($(this).scrollTop() > 40) {
+            $(".small-logo img").css("width", "40px").css("height", "60px");
+            $('.scrollToTop').fadeIn();
+        } else {
+            $(".small-logo img").css("width", "70px").css("height", "120px");
+        }
+    }
+    else {
+        if ($(this).scrollTop() > 70) {
+            $(".small-logo img").css("width", "40px").css("height", "60px");
+            $('.scrollToTop').fadeIn();
+        } else {
+            $(".small-logo img").css("width", "50px").css("height", "95px");
+        }
+    }
+});
