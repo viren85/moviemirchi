@@ -122,8 +122,8 @@
                 .critics-container #critics-pager { margin-top: 60px; width: 70%; }
                 .movie-poster-details #posters-pager, .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other {z-index: 98; }
                 /* Arrow */
-                .left-arrow { width: 25px; height: 25px; position: relative; left: 35px; z-index: 98; float: left; }
-                .right-arrow { width: 25px; height: 25px; position: relative; left: 105%; z-index: 98; }
+                .left-arrow { width: 20px; height: 25px; position: relative; left: 35px; z-index: 98; float: left; }
+                .right-arrow { width: 20px; height: 25px; position: relative; left: 105%; z-index: 98; }
 
                 #movies-pager .left-arrow { left: -10px; }
                 #movies-pager .right-arrow { left: 95%; }
@@ -151,7 +151,7 @@
 @media screen and (max-width: 401px) {
    .movie-list ul,.upcoming-movie-list ul { margin-left: 7%;}
    .movie-list .right-arrow,.upcoming-movie-list .left-arrow{ left: 35px; }
-   #now-pager .right-arrow,.upcoming-movie-list .right-arrow{ left: 102%; }
+   #now-pager .right-arrow,.upcoming-movie-list .right-arrow{ left: 113%; }
    .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other
    {
        width: 63%;
@@ -166,19 +166,24 @@
    #review-pager .left-arrow { left: -5%; }
    #review-pager .right-arrow { left: 99%; }
    .movie-review-details ul { margin-left: 8px !important;}
+    #review-list-now-playing-tube #now-pager .right-arrow { left: 125%;}
+    #review-list-other-tube #other-pager .right-arrow { left: 125%;}
+    #review-list-now-playing-tube #now-pager .left-arrow { left: 25px !important;}
+    #review-list-other-tube #other-pager .left-arrow { left: 25px;}
+}
+@media screen and (min-width: 321px) {
+    #review-list-now-playing-tube #now-pager .right-arrow { left: 105%;}
+    #review-list-other-tube #other-pager .right-arrow { left: 105%;}
 }
 @media screen and (max-width: 321px) {
-   .movie-list ul,.upcoming-movie-list ul { margin-left: 7%;}
-   .movie-list .right-arrow,.upcoming-movie-list .left-arrow{ left: 35px; }
-   #now-pager .right-arrow,.upcoming-movie-list .right-arrow{ left: 113%; }
-   .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other
-   {
-       width: 63%;
-   }
-   .left-arrow { left: 35px; }
-   .right-arrow { left: 130%; }
    #critics-pager .left-arrow { left: 20px; }
    #critics-pager .right-arrow { left: 110%; }
+   /* .movie-list ul,.upcoming-movie-list ul { margin-left: 7%;}
+   .movie-list .right-arrow,.upcoming-movie-list .left-arrow{ left: 35px; }
+   #now-pager .right-arrow,.upcoming-movie-list .right-arrow{ left: 113%; }
+   .movie-list #genre-now, .upcoming-movie-list #genre-upcoming, .others-movie-list #genre-other { width: 63%; }
+   .left-arrow { left: 30px; }
+   .right-arrow { left: 130%; }
    #genre-now .left-arrow, #genre-upcoming .left-arrow, #genre-other .left-arrow{ left: -5px; }
-   #genre-now .right-arrow, #genre-upcoming .right-arrow, #genre-other .right-arrow{ left: 125%; }
+   #genre-now .right-arrow, #genre-upcoming .right-arrow, #genre-other .right-arrow{ left: 125%; }*/
 }

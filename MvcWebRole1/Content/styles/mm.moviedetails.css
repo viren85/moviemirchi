@@ -120,7 +120,7 @@ div.captionAndNavigate {
 }
 
 @media screen and (max-width: 320px) {
-    #now-pager, #upcoming-pager {
+    #now-pager, #upcoming-pager, #other-pager {
         width: 95%;
         margin-bottom: 20px;
         margin-left: -40px;
