@@ -45,9 +45,9 @@
 
     .rating-container .mirchi {
         margin: 10px;
-        padding-top: 15px;
-        width: 150px;
-        height: 100px;
+        /*padding-top: 15px;*/
+        width: 100px;
+        height: 75px;
     }
 
     .rating-container .text {
