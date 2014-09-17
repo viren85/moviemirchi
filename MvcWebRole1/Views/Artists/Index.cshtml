@@ -242,6 +242,10 @@
             }
         } catch (e) {
             $(".intro-text").css("margin-left", "0px").html("Unable to get artist's details.");
+            
+            $(".section-title").each(function () {
+                new Util().RemoveLoadImage($(this));
+            });
         }
     }
 </script>
