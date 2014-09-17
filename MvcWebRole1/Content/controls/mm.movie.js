@@ -416,12 +416,20 @@ var TrailerList = function (videos, type) {
         }
 
         var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].Title).click(function () {
-            $(document).scrollTop(0);
+            //$(document).scrollTop(0);
+            $('html,body').css({
+                'overflow': 'hidden',
+                'height': '100%'
+            });
             DisplayModal($(this).attr("video-link"));
         });
 
         var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
-            $(document).scrollTop(0);
+            //$(document).scrollTop(0);
+            $('html,body').css({
+                'overflow': 'hidden',
+                'height': '100%'
+            });
             trackVideoLink(videos[i].YoutubeURL);
             DisplayModal();
         });
