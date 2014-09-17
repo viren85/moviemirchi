@@ -162,6 +162,10 @@
    #critics-pager .right-arrow { left: 75%; }
    #genre-now .left-arrow, #genre-upcoming .left-arrow, #genre-other .left-arrow{ left: -5px; }
    #genre-now .right-arrow, #genre-upcoming .right-arrow, #genre-other .right-arrow{ left: 125%; }
+   #review-pager { position: absolute; margin-top: 70px; }
+   #review-pager .left-arrow { left: -5%; }
+   #review-pager .right-arrow { left: 99%; }
+   .movie-review-details ul { margin-left: 8px !important;}
 }
 @media screen and (max-width: 321px) {
    .movie-list ul,.upcoming-movie-list ul { margin-left: 7%;}

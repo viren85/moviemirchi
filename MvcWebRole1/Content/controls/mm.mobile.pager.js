@@ -35,6 +35,19 @@ var Pager = function (tileContainer, pagerContainerSelector) {
         if ($(window).width() > 767 && TILE_COUNT < 1) {
             $(pagerContainerSelector).find(".right-arrow").hide();
         }
+        else if (TILE_COUNT == 1 && pagerContainerSelector == "#review-pager") {
+            console.log(TILE_COUNT);
+            // Calculate actual tile counts
+            var count = 0;
+            $(".movie-review-details li").each(function () {
+                count++;
+            });
+
+            if (count > 1) {
+                $(pagerContainerSelector).show();
+                $(pagerContainerSelector).find(".right-arrow").show();
+            }
+        }
     }
 
     var GetNavArrows = function () {
@@ -110,10 +123,17 @@ var Pager = function (tileContainer, pagerContainerSelector) {
     var CalculateTiles = function (pagerContainer) {
         var tileWidth;
         var subFactor = 150;
+        var windowWidth = $(window).width();
+
+        if (windowWidth <= 400) {
+            TILE_COUNT = 1;
+            return;
+        }
 
         if (pagerContainer != "#critics-pager") {
-            if ($(".movie-list") == null || $(".movie-list") == undefined || $(".movie-list").length == 0) {
-                tileWidth = $(".review-list-now-playing li").width();
+
+            if (pagerContainer == "#review-pager") {
+                tileWidth = $(".movie-review-details li").width();
             }
             else {
                 tileWidth = $(".movie-list .movie").width();
@@ -124,10 +144,8 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             subFactor = 300;
         }
 
-        var windowWidth = $(window).width();
         var availableWidth = windowWidth - subFactor;
         var tiles = Math.floor(availableWidth / tileWidth);
-
         TILE_COUNT = tiles;
     }
 
