@@ -71,6 +71,21 @@
         display: none !important;
     }
 }
+ @media screen and (max-width: 400px) {
+    #trailer-pager{
+        margin-top: 135px;
+        position: absolute;
+    }
+     #trailer-pager .right-arrow{
+        left: 90%;
+    }
+     #trailer-pager .left-arrow{
+        left: 0px;
+    }
+    .trailers ul {
+        margin-left: 35px;
+    }
+ }
  @media screen and (max-width: 320px) {
     .trailers ul li{
         margin-left: 25px;
@@ -85,5 +100,8 @@
     }
     #trailer-pager .left-arrow{
         left: 0px;
+    }
+    .trailers ul {
+        margin-left: 0px;
     }
 }

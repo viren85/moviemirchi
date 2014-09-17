@@ -72,6 +72,21 @@
     }
     
 }
+@media screen and (max-width: 400px) {
+    #songs-pager{
+        margin-top: 135px;
+        position: absolute;
+    }
+    #songs-pager .right-arrow{
+        left: 90%;
+    }
+    #songs-pager .left-arrow{
+        left: 0px;
+    }
+    .songs ul {
+        margin-left: 35px;
+    }
+}
 
 @media screen and (max-width: 320px) {
     .songs ul li{
@@ -87,6 +102,9 @@
     }
     #songs-pager .left-arrow{
         left: 0px;
+    }
+    .songs ul {
+        margin-left: 0px;
     }
 }
 
