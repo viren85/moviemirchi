@@ -13,7 +13,7 @@
         .movie-poster-details ul {
             padding: 0px;
         }
-    
+
 </style>
 <div class="movies">
     <div class="artist-bio"></div>
@@ -104,9 +104,8 @@
                         }
                         else if (data[i].State == "" || data[i].State == "released") {
                             // It creates 20+ pages for current data. I think we shall have some restriction
-                            if (releaseCounter < 25) {
+                            if (archived < 25) {
                                 var list = PopulatingMovies(data[i], "previous-movie-list");
-                                releaseCounter++;
                                 archived++;
                             }
                         }
@@ -187,7 +186,7 @@
     function PopulateArtistsBio(response) {
         try {
             var data = JSON.parse(response);
-            
+
             if (data.Status != undefined || data.Status == "Error") {
                 $(".intro-text").css("margin-left", "0px").html(data.UserMessage);
                 $("#artist_detail-tube").each(function () {
@@ -199,7 +198,7 @@
             else {
                 if (data != null) {
                     new Util().RemoveLoadImage($("#artist_detail-tube"));
-                    if (data.Bio == "") 
+                    if (data.Bio == "")
                         $(".intro-text").html("Movie Mirchi is gathering bio-data for this artist, will be updated soon.");
                     else
                         $(".intro-text").css("margin-left", "0px").html(data.Bio);
@@ -242,7 +241,7 @@
             }
         } catch (e) {
             $(".intro-text").css("margin-left", "0px").html("Unable to get artist's details.");
-            
+
             $(".section-title").each(function () {
                 new Util().RemoveLoadImage($(this));
             });

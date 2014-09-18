@@ -144,10 +144,11 @@ var PopulatePosters = function (images, movieName, picture) {
     var pictures = [];
     poster = JSON.parse(images);
 
-    if (picture != "")
+    if (pictures && picture != "") {
         pictures = JSON.parse(picture);
+    }
 
-    if (poster != "undefined" && poster != null && poster.length > 1) {
+    if (poster && poster.length > 1) {
 
         var ul = $("<ul/>").attr("class", "gallery clearfix");
 
