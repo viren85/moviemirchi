@@ -77,9 +77,9 @@
         try {
             var data = JSON.parse(response);
             var now = 0, upcoming = 0, archived = 0;
-            new Util().RemoveLoadImage($("#upcoming-movies-pager"));
+            new Util().RemoveLoadImage($("#upcoming-movie-list-tube"));
             new Util().RemoveLoadImage($("#nowplaying-movie-list-tube"));
-            new Util().RemoveLoadImage($("#previous-movies-pager"));
+            new Util().RemoveLoadImage($("#previous-movie-list-tube"));
 
             if (data.Status != undefined || data.Status == "Error") {
                 $(".movie-list").html(data.UserMessage);
@@ -113,7 +113,7 @@
                     /*The image width/height shall be calculated once the image is fully loaded*/
                     var width = $(document).width();
                     if (now == 0) {
-                        $("#movie-list-tube").hide();
+                        $("#nowplaying-movie-list-tube").hide();
                         $(".top-nav-bar").find("li").each(function () {
                             if ($(this).attr("link-id") == "movie-list-tube") {
                                 $(this).remove();

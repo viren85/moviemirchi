@@ -170,10 +170,18 @@
     #review-list-other-tube #other-pager .right-arrow { left: 125%;}
     #review-list-now-playing-tube #now-pager .left-arrow { left: 25px !important;}
     #review-list-other-tube #other-pager .left-arrow { left: 25px;}
+
+    #previous-movies-pager .left-arrow { position: absolute; left: 10px; margin-top: 150px;}
+    #previous-movies-pager .right-arrow { position: absolute; left: 83%; margin-top: 150px;}
+
     .movie-poster-details #posters-pager .right-arrow {left: 105%; }
     .movie-poster-details #posters-pager .left-arrow {left: -10px; }
     .movie-poster-details ul {margin-left: 7px;}
     .movie-poster-details #posters-pager { margin-top: 75px;}
+    #movie-poster-details-tube #posters-pager { margin-top: 115px;}
+    #upcoming-movies-pager .right-arrow,#nowplaying-movies-pager .right-arrow {position: absolute; margin-top: 140px;left: 83%;}
+    #upcoming-movies-pager .left-arrow,#nowplaying-movies-pager .left-arrow {position: absolute; margin-top: 140px;left: 10px;}
+
 }
 @media screen and (min-width: 321px) {
     #review-list-now-playing-tube #now-pager .right-arrow { left: 105%;}
