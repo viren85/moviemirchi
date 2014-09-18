@@ -13,7 +13,6 @@
         .movie-poster-details ul {
             padding: 0px;
         }
-
 </style>
 <div class="movies">
     <div class="artist-bio"></div>
@@ -138,36 +137,44 @@
                         });
                     }
 
-                    $(".movie-list").find("img").each(function () {
-                        var ratio = this.width / this.height;
-                        var newWidth = 400 * ratio;
-                        $(this).width(newWidth + "px").height("340px");
+                    // TODO: Revisit my fix - there is nothing like ".movie-list" here, we have three over here
+                    $.each(["upcoming-", "nowplaying-", "previous-"], function (k, v) {
 
-                        if (newWidth > 225)
-                            $(this).width("225px");
-                    });
+                        var $list = $("." + v + "movie-list");
+                        $list.addClass("movie-list");
 
-                    ScaleElement($(".movie-list ul"));
-                    /*if (TILE_MODE == 0 && $(window).width()>767)
-                        ScaleElement($(".movie-list ul"));
-                    else
-                        ScaleNewTileElement($(".movie-list ul"));
-                    */
+                        var ratio = 0;
+                        var newWidth = 0;
+                        $list.find("img:first").each(function () {
+                            ratio = this.width / this.height;
+                            newWidth = 400 * ratio;
+                        });
+                        $list.find("img").each(function () {
+                            var $this = $(this);
+                            $this.width(newWidth + "px").height("340px");
 
-                    if ($(window).width() < 768) {
-                        var pager = new Pager($(".movie-list"), "#movies-pager");
-                    }
-                    else {
-                        PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
-                    }
+                            if (newWidth > 225) {
+                                $this.width("225px");
+                            }
+                        });
 
-                    $(window).resize(function () {
-                        if ($(window).width() < 768) {
-                            var pager = new Pager($(".movie-list"), "#movies-pager");
-                        }
-                        else {
-                            PreparePaginationControl($(".movie-list"), { pagerContainerId: "movies-pager", tileWidth: "225" });
-                        }
+                        ScaleElement($list.find("ul"));
+                        /*if (TILE_MODE == 0 && $(window).width()>767)
+                            ScaleElement($(".movie-list ul"));
+                        else
+                            ScaleNewTileElement($(".movie-list ul"));
+                        */
+
+                        var resizeHandler = function () {
+                            if ($(window).width() < 768) {
+                                /*var pager = */new Pager($list, "#" + v + "movies-pager");
+                            } else {
+                                PreparePaginationControl($list, { pagerContainerId: "" + v + "movies-pager", tileWidth: "225" });
+                            }
+                        };
+
+                        resizeHandler();
+                        $(window).resize(resizeHandler);
                     });
                 }
                 else {
