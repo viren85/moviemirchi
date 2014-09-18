@@ -144,7 +144,7 @@ var PopulatePosters = function (images, movieName, picture) {
     var pictures = [];
     poster = JSON.parse(images);
 
-    if (pictures && picture != "") {
+    if (picture && picture != "") {
         pictures = JSON.parse(picture);
     }
 
