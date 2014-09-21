@@ -965,6 +965,7 @@ namespace MvcWebRole2.Controllers
                                         case "Filmfare":
                                             re = ff.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
+                                        case "CNN IBN":
                                         case "CNNIBN":
                                             re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
