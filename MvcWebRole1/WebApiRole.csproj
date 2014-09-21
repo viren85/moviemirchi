@@ -22,7 +22,7 @@
     <IISExpressUseClassicPipelineMode />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
     <RestorePackages>true</RestorePackages>
-    <NuGetPackageImportStamp>60637843</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>a86a6fa5</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -364,6 +364,7 @@
     <Content Include="Images\small_gold_star.png" />
     <Content Include="Images\star-rating.png" />
     <Content Include="Images\user.png" />
+    <Content Include="JSLintNet.json" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -501,7 +502,9 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+    <Error Condition="!Exists('..\packages\JSLintNet.MSBuild.1.6.5\build\JSLintNet.MSBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\JSLintNet.MSBuild.1.6.5\build\JSLintNet.MSBuild.targets'))" />
   </Target>
+  <Import Project="..\packages\JSLintNet.MSBuild.1.6.5\build\JSLintNet.MSBuild.targets" Condition="Exists('..\packages\JSLintNet.MSBuild.1.6.5\build\JSLintNet.MSBuild.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

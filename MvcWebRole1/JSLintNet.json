@@ -1,0 +1,32 @@
+﻿{
+  "ignore": [
+    "\\Content\\bootstrap.min.js",
+    "\\Content\\jquery-1.9.1.js",
+    "\\Scripts\\jquery-2.1.1.intellisense.js",
+    "\\Scripts\\jquery-2.1.1.js",
+    "\\Scripts\\jquery-2.1.1.min.js",
+    "\\Scripts\\jquery-ui-1.11.1.js",
+    "\\Scripts\\jquery-ui.min-1.11.1.js",
+    "\\Scripts\\jquery.unobtrusive-ajax.js",
+    "\\Scripts\\jquery.unobtrusive-ajax.min.js",
+    "\\Scripts\\jquery.validate-vsdoc.js",
+    "\\Scripts\\jquery.validate.js",
+    "\\Scripts\\jquery.validate.min.js",
+    "\\Scripts\\jquery.validate.unobtrusive.js",
+    "\\Scripts\\jquery.validate.unobtrusive.min.js",
+    "\\Scripts\\knockout-3.2.0.debug.js",
+    "\\Scripts\\knockout-3.2.0.js",
+    "\\Scripts\\modernizr-2.8.3.js"
+  ],
+  "options": {
+    "predef": {
+      "jQuery": false,
+      "$": false
+    },
+    "browser": true,
+    "unparam": true
+  },
+  "runOnSave": false,
+  "runOnBuild": false,
+  "cancelBuild": false,
+}
