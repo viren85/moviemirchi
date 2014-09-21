@@ -70,18 +70,26 @@ namespace Crawler.Reviews
                 }
                 else
                 {
-                    var headerNode = helper.GetElementWithAttribute(bodyNode, "h1", "class", "pageheadlineh1");
-                    HtmlNode node = headerNode.SelectSingleNode("i");
+                    // Reviewer Name
+                    // Reviewer Rating
+                    // Review Text
+
+                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "ndmv-celeb-detail-bread ndmv-review-breadcrumb");
+                    HtmlNode node = headerNode.SelectSingleNode("div");
                     var header = node == null ? string.Empty : node.InnerText;
 
-                    var reviewerName = helper.GetElementWithAttribute(bodyNode, "span", "id", "MainContent_lb_StoryBy");
+                    var reviewerName = helper.GetElementWithAttribute(node, "a", "class", "fn");
                     var reviewName = reviewerName == null ? string.Empty : reviewerName.InnerText;
 
-                    var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "id", "MainContent_lb_StoryFull");
-                    var reviews = reviewContentNode == null ? string.Empty : reviewContentNode.InnerText;
+                    var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "row ndmv-celeb-detail-info ndmv-review-detail");
+                    var contentNode = helper.GetElementWithAttribute(reviewContentNode, "div", "class", "col-md-16");
+
+                    var textNode = contentNode.Elements("p");
+
+                    var reviews = contentNode == null ? string.Empty : textNode.FirstOrDefault().InnerText.Replace("SPOILERS ALERT", string.Empty);
 
                     var reviewerRating = string.Empty;
-                    var reviewRating = helper.GetElementWithAttribute(bodyNode, "span", "id", "MainContent_lb_Rating");
+                    var reviewRating = helper.GetElementWithAttribute(bodyNode, "div", "class", "ndmv-movie-rating");
                     if (reviewRating != null)
                     {
                         reviewerRating = PrepareRatingValue(reviewRating);
@@ -110,33 +118,38 @@ namespace Crawler.Reviews
         {
             double rate = 0;
             string imageSrc = string.Empty;
-          
-            HtmlNodeCollection ratingContentNodes = ratingNode.SelectNodes("img");
+
+            try
+            {
+                HtmlNodeCollection ratingContentNodes = ratingNode.SelectNodes("span");
                 if (ratingContentNodes != null)
                 {
                     foreach (var ratingContentNode in ratingContentNodes)
                     {
-                        HtmlAttribute src = ratingContentNode.Attributes["src"];
-                        imageSrc = src.Value;
-                        if (imageSrc != null)
+                        HtmlAttribute src = ratingContentNode.Attributes["class"];
+                        switch (src.Value)
                         {
-                            try
-                            {
-                                bool fullPoint = Regex.IsMatch(imageSrc, "0");
-                                
-                                if (fullPoint)
-                                {
-                                    rate += 1;
-                                }                                
-                            }
-                            catch
-                            {
-                            }
+                            case "rating-full":
+                                rate += 1;
+                                break;
+                            case "rating-half":
+                                rate += 0.5;
+                                break;
+                            case "rating-null":
+                                rate += 0;
+                                break;
+
                         }
                     }
                 }
-            
-            rate = rate * 2;
+
+                rate = rate * 2;
+            }
+            catch (Exception ex)
+            {
+                // Log an exception
+            }
+
             return rate.ToString();
         }
     }
