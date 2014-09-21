@@ -189,8 +189,8 @@ namespace MvcWebRole2.Controllers
                     crawlMovieEntity.Month = movieProps.Month.Split(new char[] { ' ' })[0];
                     crawlMovieEntity.Reviews = movieProps.Reviews;
 
-                    string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);                   
-                    new AccountController().CrawlfromXML(xmlFileContent);
+                    string xmlFileContent = new GenerateXMLFile().CreatingFile(crawlMovieEntity);
+                    new AccountController().CrawlfromXML(xmlFileContent, crawlMovieEntity.MovieName);
                     //new AccountController().Crawl();
 
                     // cral artits 

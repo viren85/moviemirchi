@@ -871,7 +871,7 @@ namespace MvcWebRole2.Controllers
 
         #endregion
 
-        public void CrawlfromXML(string xmlData)
+        public void CrawlfromXML(string xmlData, string movieName)
         {
             if (string.IsNullOrEmpty(xmlData)) return;
 
@@ -892,6 +892,12 @@ namespace MvcWebRole2.Controllers
 
                 foreach (XmlNode movie in movies)
                 {
+                    // Check movie name, we just need to crawl single movie and not all the movies present in XML file for current month
+                    if (movie.Attributes["name"].Value.ToLower() != movieName.ToLower())
+                    {
+                        continue;
+                    }
+
                     if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
                     {
                         try
@@ -1092,7 +1098,6 @@ namespace MvcWebRole2.Controllers
                             movieSearchIndex.Link = mov.UniqueName;
                             LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                             #endregion
-
                         }
                         catch (Exception)
                         {
