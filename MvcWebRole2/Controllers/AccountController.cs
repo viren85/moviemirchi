@@ -948,8 +948,18 @@ namespace MvcWebRole2.Controllers
                                 MumbaiMirror mm = new MumbaiMirror();
 
                                 var reviews = movie.SelectNodes("Review");
+
+                                List<ReviewEntity> reviewList = tblMgr.GetReviewByMovieId(mov.MovieId);
+
                                 foreach (XmlNode review in reviews)
                                 {
+                                    ReviewEntity duplicateRE = reviewList.Find(r => r.Affiliation == review.Attributes["name"].Value);
+                                    if (duplicateRE != null)
+                                    {
+                                        // We found the duplicate, skip this review to crawl
+                                        continue;
+                                    }
+
                                     ReviewEntity re = new ReviewEntity();
                                     string reviewLink = review.Attributes["link"].Value;
 
@@ -984,6 +994,7 @@ namespace MvcWebRole2.Controllers
                                         case "Komal Nahta's Blog":
                                             re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
+                                        case "Mid Day":
                                         case "MidDay":
                                             re = md.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
@@ -1128,7 +1139,7 @@ namespace MvcWebRole2.Controllers
             {
                 data = Server.UrlDecode(data);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // in some cases data is already decoded - hence we dont need to redecoded it. it throws an exception
             }

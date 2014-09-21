@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<Movies year="2014">
+	<Month name="July">  	
+		<Movie name="Kick" link="http://www.imdb.com/title/tt2372222/">
+			<Review name="Bollywood Hungama" link="http://www.bollywoodhungama.com/moviemicro/criticreview/id/546231"/>
+			<Review name="Hindustan Times" link="http://www.hindustantimes.com/audio-news-video/AV-Entertainment/Movie-Review-Bollywood-lovers-Salman-Khan-delivers-the-Kick/Article2-1244615.aspx"/>
+			<Review name="Filmfare" link="http://www.filmfare.com/reviews/movie-review-kick-6817.html"/>
+			<Review name="CNNIBN" link="http://ibnlive.in.com/news/kick-review-it-has-a-mission-to-reinforce-that-salman-may-be-a-bad-boy-but-has-a-heart-of-gold/488289-47-84.html"/>
+			<Review name="Box Office India" link="http://www.boxofficeindia.co.in/kick-14/"/>
+			<Review name="DNA" link="http://www.dnaindia.com/entertainment/review-film-review-kick-is-non-stop-entertainment-and-salman-khan-at-his-best-2005174"/>
+			<Review name="FirstPost" link="http://www.firstpost.com/bollywood/kick-review-no-paisa-vasool-in-salman-khans-spectacularly-dull-film-1633895.html"/>
+			<Review name="IndianExpress" link="http://indianexpress.com/article/entertainment/movie-review/kick-film-review-salman-khan-starrer-is-unjhelable/"/>
+			<Review name="KomalNahta" link="http://komalsreviews.wordpress.com/2014/07/25/344/"/>
+			<Review name="MidDay" link="http://www.mid-day.com/articles/movie-review-kick/15477199"/>
+			<Review name="NDTV" link="http://movies.ndtv.com/movie-reviews/kick-movie-review-994"/>
+			<Review name="Rajasen" link="http://rajasen.com/2014/07/25/review-sajid-nadiadwalas-kick/"/>
+			<Review name="Rediff" link="http://www.rediff.com/movies/review/review-kick-is-salmans-best-film-in-a-decade/20140725.htm"/>
+			<Review name="Telegraph" link="http://www.telegraph.co.uk/culture/film/filmreviews/7545480/Kick-Ass-review.html"/>
+			<Review name="The Hindu" link="http://www.thehindu.com/features/cinema/cinema-reviews/kick-film-review/article6249421.ece"/>
+			<Review name="Times Of India" link="http://timesofindia.indiatimes.com/entertainment/hindi/movie-review/Kick/movie-review/38993390.cms"/>
+			<Review name="Mumbai Mirror" link="http://www.mumbaimirror.com/entertainment/bollywood/Film-review-Kick/articleshow/38996049.cms"/>
+		</Movie> 
+	</Month>
+</Movies>
