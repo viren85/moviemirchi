@@ -58,6 +58,8 @@ namespace Crawler.Reviews
         {
             ReviewEntity re = new ReviewEntity();
             string rating = string.Empty;
+            string reviewerName = string.Empty;
+
             HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
             htmlDoc.OptionFixNestedTags = true;
             htmlDoc.LoadHtml(html);
@@ -70,15 +72,20 @@ namespace Crawler.Reviews
                 }
                 else
                 {
-                    var headerNode = helper.GetElementWithAttribute(bodyNode, "h1", "class", "inner_title MT10");
-                    //HtmlNode head = headerNode.SelectSingleNode("h1");
-                    var header = headerNode == null ? string.Empty : headerNode.InnerText;
+                    // Review Text
+                    // Rate is not present
 
-                    var reviewerName = helper.GetElementWithAttribute(bodyNode, "div", "id", "author");
-                    HtmlNode reviewerNameNode = reviewerName.SelectSingleNode("h3");                    
-                    var reviewName = reviewerNameNode == null ? string.Empty : reviewerNameNode.FirstChild.InnerText;
+                    // Reviewer Name
+                    var topNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "artTps");//artTps
+                    var reviewerNode = helper.GetElementWithAttribute(topNode, "span", "class", "by");//artTps topNode.Element("span");
+                    var reviewer = reviewerNode.Element("a");
 
-                    var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "stry_cont");
+                    if (reviewer != null)
+                    {
+                        reviewerName = reviewer.InnerText;
+                    }
+
+                    var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "fullCont");
                     HtmlNodeCollection nodes = reviewContentNode.SelectNodes("p");
                     var review = string.Empty;
                     foreach (var ratingNode in nodes)
@@ -89,7 +96,7 @@ namespace Crawler.Reviews
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation.Trim();
                     re.Review = review.Trim();
-                    re.ReviewerName = reviewName.Trim();
+                    re.ReviewerName = reviewerName.Trim();
                     re.ReviewerRating = string.Empty;
                     re.MyScore = string.Empty;
                     re.JsonString = string.Empty;
@@ -100,6 +107,6 @@ namespace Crawler.Reviews
             return null;
         }
 
-     
+
     }
 }
