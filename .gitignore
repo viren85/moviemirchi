@@ -170,3 +170,8 @@ segments.gen
 # Ignore subfolders under packages node
 # =========================
 packages/
+
+# =======
+# Ignore smartmonkey.exe
+# =======
+smartmonkey.exe
