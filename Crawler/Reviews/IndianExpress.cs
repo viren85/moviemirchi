@@ -57,7 +57,7 @@ namespace Crawler.Reviews
         public ReviewEntity PopulateReviewDetail(string html, string affiliation)
         {
             ReviewEntity re = new ReviewEntity();
-            string rating = string.Empty;
+            
             HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
             htmlDoc.OptionFixNestedTags = true;
             htmlDoc.LoadHtml(html);
@@ -70,54 +70,62 @@ namespace Crawler.Reviews
                 }
                 else
                 {
-                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "id", "ie2013-content");
-                    HtmlNode header = headerNode.Element("h1");
-                    var head = header == null ? headerNode.InnerHtml : header.InnerText;
-                    //var reviewerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "blbox");
-                    // var reviewerMiddleNode = helper.GetElementWithAttribute(reviewerNode, "div", "class", "blbox");
-                    var reviewerName = helper.GetElementWithAttribute(bodyNode, "div", "class", "story-date");
-                    HtmlNode node = reviewerName.Element("a");
-                    var reviewName = node == null ? reviewerName.InnerHtml : node.InnerText;
-
-                    var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "ie2013-contentstory");
-                    HtmlNodeCollection nodes = reviewContentNode.SelectNodes("p");
-                    var review = string.Empty;
-                    var reviewerRating = string.Empty;
-                    foreach (var ratingNode in nodes)
+                    try
                     {
-                        review += ratingNode.InnerText;
-
-                        if (ratingNode.InnerText.ToLower().Contains("rating"))
+                        // Rating
+                        var ratingNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story-rating");
+                        var imageContainer = ratingNode.Element("span");
+                        var ratingImages = imageContainer.Elements("img");
+                        int rate = 0;
+                        foreach (var rateImage in ratingImages)
                         {
-                            try
-                            {   //string count = ratingNode.InnerText.Contains("*");
-                                int rate = 0;
+                            HtmlAttribute src = rateImage.Attributes["src"];
 
-                                rating = ratingNode.InnerText.Replace("Indian Express Rating:", "").Trim();
-                                if (ratingNode.InnerText.ToLower().Contains("*"))
-                                {
-                                    rate = review.Count(s => s == '*');
-                                }
-                                //rating = rating.Remove(rating.Length - 1);
-                                rating = (rate * 2).ToString();
-
-                            }
-                            catch (Exception)
+                            if (src != null)
                             {
+                                if (src.Value.Contains("star-one-1"))
+                                {
+                                    rate += 1;
+                                }
+
+                                #region Commented Code
+                                /*else if (src.Value.Contains("star-no-1"))
+                            {
+                            // We don't need to add any rating because its 0
                             }
-
-
+                            else
+                            {
+                                // This case could be 0.5 but not sure how it appears on review page. 
+                                // Need to wait for same for other movie reviews
+                            }*/
+                                #endregion
+                            }
                         }
-                    }
 
-                    re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
-                    re.Affiliation = affiliation.Trim();
-                    re.Review = review.Replace("&#39;", "'").Trim();
-                    re.ReviewerName = reviewName.Trim();
-                    re.ReviewerRating = rating;
-                    re.MyScore = string.Empty;
-                    re.JsonString = string.Empty;
-                    return re;
+                        rate = rate * 2;
+
+                        // Reviewer
+                        var reviewerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "editor");
+                        var reviewerName = reviewerNode.Element("a");//, "class", "fn");
+                        var reviewName = reviewerName == null ? string.Empty : reviewerName.InnerText;
+
+                        // Review Text
+                        var reviewBody = helper.GetElementWithAttribute(bodyNode, "div", "class", "main-body-content");
+                        var reviewText = reviewBody == null ? string.Empty : reviewBody.InnerText;
+
+                        re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
+                        re.Affiliation = affiliation.Trim();
+                        re.Review = reviewText.Replace("&#39;", "'").Trim();
+                        re.ReviewerName = reviewName.Trim();
+                        re.ReviewerRating = rate.ToString();
+                        re.MyScore = string.Empty;
+                        re.JsonString = string.Empty;
+                        return re;
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log an exception
+                    }
                 }
             }
 

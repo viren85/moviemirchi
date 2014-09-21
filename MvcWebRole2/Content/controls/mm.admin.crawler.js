@@ -179,7 +179,7 @@
         }
 
         if (hasDuplicates(reviewsLink)) {
-            $("#status").attr("style", "color:red").html("Please select one review affiliation!");
+            $("#status").attr("style", "color:red").html("Please select unique affiliation. Duplicate affiliation found.");
             isValid = false;
         }
 
@@ -308,6 +308,7 @@ function hasDuplicates(array) {
         if (Object.prototype.hasOwnProperty.call(valuesSoFar, value)) {
             return true;
         }
+
         valuesSoFar[value] = true;
     }
     return false;

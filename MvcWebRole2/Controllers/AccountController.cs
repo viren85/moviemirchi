@@ -871,7 +871,7 @@ namespace MvcWebRole2.Controllers
 
         #endregion
 
-        public void CrawlfromXML(string xmlData)
+        public void CrawlfromXML(string xmlData, string movieName)
         {
             if (string.IsNullOrEmpty(xmlData)) return;
 
@@ -892,6 +892,12 @@ namespace MvcWebRole2.Controllers
 
                 foreach (XmlNode movie in movies)
                 {
+                    // Check movie name, we just need to crawl single movie and not all the movies present in XML file for current month
+                    if (movie.Attributes["name"].Value.ToLower() != movieName.ToLower())
+                    {
+                        continue;
+                    }
+
                     if (movie.Attributes["link"] != null && !string.IsNullOrEmpty(movie.Attributes["link"].Value))
                     {
                         try
@@ -942,8 +948,18 @@ namespace MvcWebRole2.Controllers
                                 MumbaiMirror mm = new MumbaiMirror();
 
                                 var reviews = movie.SelectNodes("Review");
+
+                                List<ReviewEntity> reviewList = tblMgr.GetReviewByMovieId(mov.MovieId);
+
                                 foreach (XmlNode review in reviews)
                                 {
+                                    ReviewEntity duplicateRE = reviewList.Find(r => r.Affiliation == review.Attributes["name"].Value);
+                                    if (duplicateRE != null)
+                                    {
+                                        // We found the duplicate, skip this review to crawl
+                                        continue;
+                                    }
+
                                     ReviewEntity re = new ReviewEntity();
                                     string reviewLink = review.Attributes["link"].Value;
 
@@ -959,6 +975,7 @@ namespace MvcWebRole2.Controllers
                                         case "Filmfare":
                                             re = ff.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
+                                        case "CNN IBN":
                                         case "CNNIBN":
                                             re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
@@ -977,6 +994,7 @@ namespace MvcWebRole2.Controllers
                                         case "Komal Nahta's Blog":
                                             re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
+                                        case "Mid Day":
                                         case "MidDay":
                                             re = md.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
@@ -993,7 +1011,7 @@ namespace MvcWebRole2.Controllers
                                             re = tg.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                         case "The Hindu":
-                                            re = fp.Crawl(reviewLink, review.Attributes["name"].Value);
+                                            re = th.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                         case "Times of India":
                                             re = toi.Crawl(reviewLink, review.Attributes["name"].Value);
@@ -1092,7 +1110,6 @@ namespace MvcWebRole2.Controllers
                             movieSearchIndex.Link = mov.UniqueName;
                             LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                             #endregion
-
                         }
                         catch (Exception)
                         {
@@ -1122,7 +1139,7 @@ namespace MvcWebRole2.Controllers
             {
                 data = Server.UrlDecode(data);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 // in some cases data is already decoded - hence we dont need to redecoded it. it throws an exception
             }
