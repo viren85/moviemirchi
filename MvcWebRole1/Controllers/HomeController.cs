@@ -15,7 +15,6 @@ namespace MvcWebRole1.Controllers
         //
         // GET: /Home/
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
-        private static string popularTags = null;
 
         public ActionResult Index()
         {

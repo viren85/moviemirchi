@@ -54,7 +54,7 @@ namespace MvcWebRole1.Controllers.api
                 List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
                 return jsonSerializer.Value.Serialize(movies);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // if any error occured then return User friendly message with system error message
                 return jsonError.Value;

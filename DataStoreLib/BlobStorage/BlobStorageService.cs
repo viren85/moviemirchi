@@ -45,9 +45,9 @@ namespace DataStoreLib.BlobStorage
 
                 return blobs;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
         #endregion
@@ -66,9 +66,9 @@ namespace DataStoreLib.BlobStorage
                     return GetSinglFile(containerName, fileName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
             return "";
@@ -101,9 +101,9 @@ namespace DataStoreLib.BlobStorage
 
                 return file;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -134,9 +134,9 @@ namespace DataStoreLib.BlobStorage
                     return GetSinglFile(containerName, fileName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
             return "";

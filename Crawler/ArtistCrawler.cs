@@ -14,6 +14,7 @@
     {
         private CrawlerHelper helper = new CrawlerHelper();
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2202:Do not dispose objects multiple times")]
         public void CrawlArtists(List<Cast> castItems)
         {
             if (castItems == null)
@@ -46,9 +47,6 @@
                                         : new StreamReader(receiveStream, Encoding.GetEncoding(response.CharacterSet)))
                                 {
                                     artistPageContent = readStream.ReadToEnd();
-
-                                    response.Close();
-                                    readStream.Close();
                                 }
                             }
                             #endregion

@@ -74,9 +74,9 @@ namespace DataStoreLib.Storage
 
                 return true;
             }
-            catch (System.Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

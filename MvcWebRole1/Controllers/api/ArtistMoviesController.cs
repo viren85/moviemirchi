@@ -105,7 +105,7 @@ namespace MvcWebRole1.Controllers.api
                     return jsonSerializer.Value.Serialize(moviesByName);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // if any error occured then return User friendly message with system error message
                 return jsonError.Value;

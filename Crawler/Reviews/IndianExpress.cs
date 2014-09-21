@@ -122,7 +122,7 @@ namespace Crawler.Reviews
                         re.JsonString = string.Empty;
                         return re;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         // Log an exception
                     }

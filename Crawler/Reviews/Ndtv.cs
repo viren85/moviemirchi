@@ -145,7 +145,7 @@ namespace Crawler.Reviews
 
                 rate = rate * 2;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // Log an exception
             }

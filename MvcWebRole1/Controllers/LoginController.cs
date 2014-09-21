@@ -79,8 +79,6 @@ namespace MvcWebRole1.Controllers
                 //TempData["Failed"] = "Login Failed. Please try again";
                 return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
             }
-
-            return View();
         }
 
         private void SetConnectionString()

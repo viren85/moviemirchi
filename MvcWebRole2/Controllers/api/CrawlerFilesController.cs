@@ -58,9 +58,9 @@ namespace MvcWebRole1.Controllers.api
                 }
 
             }
-            catch (System.Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
 
             return string.Empty;

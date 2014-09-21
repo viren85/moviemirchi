@@ -765,7 +765,7 @@ namespace DataStoreLib.Storage
                         // Update - Currently we will skip it
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // TODO - Add exception
                 }

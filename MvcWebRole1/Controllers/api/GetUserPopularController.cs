@@ -39,7 +39,6 @@ namespace MvcWebRole1.Controllers.api
 
                     // hard code genre & critics
                     var tableMgr = new TableManager();
-                    int pop = 0;
                     List<ArtistEntity> artistList = tableMgr.GetAllArtist(string.Empty).ToList();
 
                     foreach (ArtistEntity ae in artistList)
@@ -104,7 +103,7 @@ namespace MvcWebRole1.Controllers.api
 
                     CacheManager.Add<string>(CacheConstants.UserFeedback, userFeedbackTags);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // if any error occured then return User friendly message with system error message
                     return jsonError.Value;

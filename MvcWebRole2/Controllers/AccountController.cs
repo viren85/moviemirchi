@@ -1139,7 +1139,7 @@ namespace MvcWebRole2.Controllers
             {
                 data = Server.UrlDecode(data);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // in some cases data is already decoded - hence we dont need to redecoded it. it throws an exception
             }
@@ -1192,7 +1192,7 @@ namespace MvcWebRole2.Controllers
 
                     imageCounter++;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // Skip that image
                 }
@@ -1317,9 +1317,9 @@ namespace MvcWebRole2.Controllers
 
                 //tblMgr.UpdateMoviesById(movies.Values);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 

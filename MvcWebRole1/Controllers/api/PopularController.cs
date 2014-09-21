@@ -174,7 +174,7 @@ namespace MvcWebRole1.Controllers.api
 
                     CacheManager.Add<string>(CacheConstants.PopularTagsJson, popularTags);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     // if any error occured then return User friendly message with system error message
                     return jsonError.Value;

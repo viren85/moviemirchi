@@ -518,9 +518,6 @@ namespace MovieCrawler
                                 }
                             }
                         }
-
-                        response.Close();
-                        readStream.Close();
                     }
                 }
             }

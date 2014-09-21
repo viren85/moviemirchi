@@ -40,9 +40,9 @@ namespace Crawler
                     return objGenerateXml.GetMoviesFromXml(files);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }            
         }
     }

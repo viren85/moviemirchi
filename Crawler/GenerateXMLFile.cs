@@ -215,9 +215,9 @@ namespace Crawler
 
                 return movieList;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -233,7 +233,7 @@ namespace Crawler
                 {
                     documnet.Load(file);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {                    
                     return null;
                 }
@@ -253,9 +253,9 @@ namespace Crawler
 
                 return movieSongsList;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

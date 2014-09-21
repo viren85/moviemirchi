@@ -43,7 +43,7 @@ namespace MovieCrawler
                     return GetMoviePoster(htmlDoc.DocumentNode);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO - Log an exception
             }
@@ -75,7 +75,7 @@ namespace MovieCrawler
                     }
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO - Log an exception message here
             }
@@ -112,7 +112,7 @@ namespace MovieCrawler
 
                 return posters;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // TODO - Log error message
             }
