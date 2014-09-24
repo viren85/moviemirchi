@@ -288,7 +288,7 @@ namespace MvcWebRole2.Controllers
             return Json(new { Status = "Ok", Message = "Selected news updated successfully." }, JsonRequestBehavior.AllowGet);
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public ActionResult CrawlNews(string data)
         {
             try
@@ -305,7 +305,7 @@ namespace MvcWebRole2.Controllers
             {
                 return Json(new { Status = "Error", Message = "Error occured.", ActualMessage = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-        }
+        }*/
         #endregion
 
         #region Tweeter section

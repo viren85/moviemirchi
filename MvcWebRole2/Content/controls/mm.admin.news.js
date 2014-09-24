@@ -126,7 +126,7 @@
     }
 
     News.prototype.CrawlNews = function () {
-        CallController("../Home/CrawlNews", "data", "", function () {
+        CallHandler("api/NewsCrawler", function () {
             $("#status").html("Successfully crawl news!");
         });
     }

@@ -468,7 +468,7 @@ namespace MvcWebRole2.Controllers
             }
         }
 
-        [HttpGet]
+        /*[HttpGet]
         public void GetNews(string blobXmlFilePath = "")
         {
             try
@@ -520,7 +520,7 @@ namespace MvcWebRole2.Controllers
             {
                 Console.Write(ex.Message);
             }
-        }
+        }*/
 
         [HttpGet]
         public void GetArtists()
