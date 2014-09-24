@@ -68,6 +68,12 @@ var Search = function (placeholder, searchtype) {
 
         $(txtSearch).keypress(function () {
             if ($(this).val().length > 2) {
+                switch (type) {
+                    case "movies":
+                        type = "searchmovies";
+                        break;
+                }
+
                 that.GetSearchResults($(".search-result-container"), type);
             }
         });
@@ -96,23 +102,26 @@ var Search = function (placeholder, searchtype) {
         }
 
         switch (type) {
+            case "searchmovies":
+                CallHandler("api/Search" + queryString, this.PopulateSearchResults);
+                break;
             case "movies":
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
                 break;
             case "artists":
-                CallHandler("../api/Artists" + queryString, this.PopulateArtistsResults);
+                CallHandler("api/Artists" + queryString, this.PopulateArtistsResults);
                 break;
             case "critics":
-                CallHandler("../api/Reviewer" + queryString, this.PopulateCriticsResult);
+                CallHandler("api/Reviewer" + queryString, this.PopulateCriticsResult);
                 break;
             case "crawler":
-                CallHandler("../api/CrawlerFiles" + queryString, this.PopulateCrawlerResults);
+                CallHandler("api/CrawlerFiles" + queryString, this.PopulateCrawlerResults);
                 break;
             case "news":
-                CallHandler("../api/News?start=0&page=20", this.PopulateNewsResults);
+                CallHandler("api/News?start=0&page=20", this.PopulateNewsResults);
                 break;
             case "twitter":
-                CallHandler("../api/Twitter?start=0&page=0", this.PopulateTwitterResults);
+                CallHandler("api/Twitter?start=0&page=0", this.PopulateTwitterResults);
                 break;
             default:
                 CallHandler("api/Movies" + queryString, this.PopulateSearchResults);
@@ -178,57 +187,65 @@ var Search = function (placeholder, searchtype) {
 
     Search.prototype.PopulateSearchResults = function (data) {
         // Prepare search result UI from this function
-        var json = JSON.parse(data);
-        MOVIES = json;
-        $(resultContainer).children("ul").remove();
-        //Comment following line once API is functional        
-        if (json != null) {
-            var searchResultList = $("<ul/>").attr("class", "search-result-list");
+        try{
+            var json = JSON.parse(data);
+            MOVIES = json;
+            console.log(data);
 
-            for (i = 0; i < json.length; i++) {
-                //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
-                var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
-                    $(".content-container").show();
-                    that.PopulateMovieDetails($(this).attr("un"));
-                    trailerCounter = 0;
-                });
+            $(resultContainer).children("ul").remove();
+            //Comment following line once API is functional        
+            if (json != null) {
+                var searchResultList = $("<ul/>").attr("class", "search-result-list");
 
-                var img;
-                var posters = JSON.parse(json[i].Posters);
+                for (i = 0; i < json.length; i++) {
+                    //if (json[i].Name.indexOf($(".search-text").val()) > -1) {
+                    var item = $("<li/>").attr("class", "search-result-list-item").attr("un", json[i].UniqueName).click(function () {
+                        $(".content-container").show();
+                        that.PopulateMovieDetails($(this).attr("un"));
+                        trailerCounter = 0;
+                    });
 
-                if (posters.length > 0) {
-                    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).attr("class", "search-item-img");
+                    var img;
+                    var posters = JSON.parse(json[i].Posters);
+
+                    if (posters.length > 0) {
+                        img = $("<img/>").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]).attr("class", "search-item-img");
+                    }
+                    else {
+                        img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
+                    }
+
+                    var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
+                    var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
+                    $(item).append(img);
+                    $(item).append(movieTitle);
+                    $(item).append(year);
+                    $(searchResultList).append(item);
+                    //}
                 }
-                else {
-                    img = $("<img/>").attr("src", PUBLIC_BLOB_URL + "default-movie.jpg").attr("class", "search-item-img");
+
+                if (resultContainer == null || resultContainer == "undefined") {
+                    resultContainer = $(".search-result-container");
                 }
 
-                var movieTitle = $("<div/>").attr("class", "search-movie-name").html(json[i].Name);
-                var year = $("<div/>").attr("class", "search-movie-year").html(json[i].Year);
-                $(item).append(img);
-                $(item).append(movieTitle);
-                $(item).append(year);
-                $(searchResultList).append(item);
-                //}
+                if (json.length == 0) {
+                    var item1 = $("<li/>").attr("class", "search-result-list-item");
+
+                    var text = $(".search-text").val() == "" ? "Currently you haven't added any movie" : "Currently you haven't added \"" + $(".search-text").val() + "\" movie";
+
+                    var empty = $("<div/>").attr("class", "search-movie-name").attr("style", "width: 90%;margin-left: 5%;").html(text);
+                    $(item1).append(empty);
+                    $(item1).append($("<div/>").attr("class", "search-movie-year").html(""));
+                    $(searchResultList).append(item1);
+                }
+
+                $(resultContainer).append(searchResultList);
             }
-
-            if (resultContainer == null || resultContainer == "undefined") {
-                resultContainer = $(".search-result-container");
-            }
-
-            if (json.length == 0) {
-                var item1 = $("<li/>").attr("class", "search-result-list-item");
-
-                var text = $(".search-text").val() == "" ? "Currently you haven't added any movie" : "Currently you haven't added \"" + $(".search-text").val() + "\" movie";
-
-                var empty = $("<div/>").attr("class", "search-movie-name").attr("style", "width: 90%;margin-left: 5%;").html(text);
-                $(item1).append(empty);
-                $(item1).append($("<div/>").attr("class", "search-movie-year").html(""));
-                $(searchResultList).append(item1);
-            }
-
-            $(resultContainer).append(searchResultList);
         }
+        catch(e) {
+            console.log(e);
+        }
+
     }
 
     Search.prototype.PopulateMovieDetails = function (uname) {

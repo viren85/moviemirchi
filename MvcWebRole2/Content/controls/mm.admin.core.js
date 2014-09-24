@@ -1,5 +1,5 @@
 ﻿var PUBLIC_BASE_URL = "";
-var BASE_URL = "";
+var BASE_URL = "http://127.0.0.1:8081/";
 //var PUBLIC_BLOB_URL = "http://127.0.0.1:10000/devstoreaccount1/posters/";
 //var PUBLIC_BLOB_URL = "https://moviemirchistorage1.blob.core.windows.net/posters/";
 var PUBLIC_BLOB_URL = "https://moviemirchistorage.blob.core.windows.net/posters/";
@@ -52,7 +52,8 @@ var FormBuilder = function () {
 }
 
 function CallHandler(queryString, OnComp) {
-    $.ajax({
+    $.getJSON(BASE_URL + queryString, OnComp);
+    /*$.ajax({
         url: BASE_URL + queryString,
         contentType: "application/json; charset=utf-8",
         dataType: "json",
@@ -60,7 +61,7 @@ function CallHandler(queryString, OnComp) {
         cache: false,
         success: OnComp,
         error: OnFail
-    });
+    });*/
     return false;
 }
 
@@ -118,7 +119,7 @@ function UploadSelectedFile(element, txtName, imgType) {
                                 $(".single-poster").remove();
                                 $(".search-result-container").children("ul").remove();
 
-                                CallHandler("api/Reviewer", new Search().PopulateCriticsResult);
+                                CallHandler("/api/Reviewer", new Search().PopulateCriticsResult);
                             }
 
                             new Posters().AddSinglePoster(ResJSON.FileUrl, imgType);
@@ -126,7 +127,9 @@ function UploadSelectedFile(element, txtName, imgType) {
                     }
                 };
 
-                xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                // Since base url will point to the API site
+                //xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                xhr.open('POST', 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
                 xhr.setRequestHeader('X-FILE-NAME', file.name);
                 xhr.send(file);
             };

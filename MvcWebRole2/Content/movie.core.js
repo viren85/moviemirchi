@@ -175,7 +175,7 @@ function CommentedCode() {
     }
     
     function LoadSingleMovie(movieId) {
-        var path = "../api/MovieInfo?q=" + movieId;
+        var path = "api/MovieInfo?q=" + movieId;
     
         CallHandler(path, onSuccessLoadSingleMovie);
     }
