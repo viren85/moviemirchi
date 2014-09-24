@@ -19,7 +19,7 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
-  </Role>-->
+  </Role>
   <Role name="APIRole">
     <Instances count="1" />
     <ConfigurationSettings>
@@ -31,5 +31,5 @@
     <ConfigurationSettings>
       <Setting name="Microsoft.WindowsAzure.Plugins.Diagnostics.ConnectionString" value="UseDevelopmentStorage=true" />
     </ConfigurationSettings>
-  </Role>
+  </Role>-->
 </ServiceConfiguration>

@@ -39,14 +39,6 @@
     <ServiceConfiguration Include="ServiceConfiguration.CloudStaging.cscfg" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\APIRole\APIRole.csproj">
-      <Name>APIRole</Name>
-      <Project>{9380bb56-805b-41b7-9733-b4c18cb0e5e9}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>APIRole</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
     <ProjectReference Include="..\MvcWebRole1\WebApiRole.csproj">
       <Name>WebApiRole</Name>
       <Project>{1f996680-e16a-4bb3-bd9b-561f45f348ca}</Project>
@@ -55,29 +47,13 @@
       <RoleName>WebApiRole</RoleName>
       <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
     </ProjectReference>
-    <ProjectReference Include="..\MvcWebRole2\EditorialRole.csproj">
-      <Name>EditorialRole</Name>
-      <Project>{43457783-9306-4ebe-9100-c90890c48236}</Project>
-      <Private>True</Private>
-      <RoleType>Web</RoleType>
-      <RoleName>EditorialRole</RoleName>
-      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="APIRoleContent\" />
     <Folder Include="WebApiRoleContent" />
-    <Folder Include="EditorialRoleContent" />
     <Folder Include="Profiles" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="APIRoleContent\diagnostics.wadcfg">
-      <SubType>Content</SubType>
-    </Content>
     <Content Include="WebApiRoleContent\diagnostics.wadcfg">
-      <SubType>Content</SubType>
-    </Content>
-    <Content Include="EditorialRoleContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
   </ItemGroup>

@@ -7,12 +7,12 @@
           <Binding name="Endpoint1" endpointName="Endpoint1" />
         </Bindings>
       </Site>
-      <Site name="Editorial" physicalDirectory="MvcWebRole2">
+      <Site name="Editorial" physicalDirectory="../../../MvcWebRole2">
         <Bindings>
           <Binding name="Endpoint2" endpointName="Endpoint2" />
         </Bindings>
       </Site>
-      <Site name="API" physicalDirectory="APIRole">
+      <Site name="API" physicalDirectory="../../../APIRole">
         <Bindings>
           <Binding name="Endpoint3" endpointName="Endpoint3" />
         </Bindings>
@@ -29,35 +29,5 @@
     <ConfigurationSettings>
       <Setting name="StorageTableConnectionString" />
     </ConfigurationSettings>
-  </WebRole>
-  <WebRole name="APIRole" vmsize="Small">
-    <Sites>
-      <Site name="Web">
-        <Bindings>
-          <Binding name="Endpoint1" endpointName="Endpoint1" />
-        </Bindings>
-      </Site>
-    </Sites>
-    <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="http" port="8082" />
-    </Endpoints>
-    <Imports>
-      <Import moduleName="Diagnostics" />
-    </Imports>
-  </WebRole>
-  <WebRole name="EditorialRole" vmsize="Small">
-    <Sites>
-      <Site name="Web">
-        <Bindings>
-          <Binding name="Endpoint1" endpointName="Endpoint1" />
-        </Bindings>
-      </Site>
-    </Sites>
-    <Endpoints>
-      <InputEndpoint name="Endpoint1" protocol="http" port="8083" />
-    </Endpoints>
-    <Imports>
-      <Import moduleName="Diagnostics" />
-    </Imports>
   </WebRole>
 </ServiceDefinition>
