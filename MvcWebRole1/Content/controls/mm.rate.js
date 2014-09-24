@@ -11,6 +11,9 @@ function GetMovieRateControl(rate, rateValue) {
 }
 
 function GetMovieRate(rating, rateValue) {
+    // TODO: Get rid of return once we want to show mirchi
+    return;
+
     if (rating == undefined || rating < 0) return "";
 
     if (rateValue == undefined || rateValue == null)
