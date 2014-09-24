@@ -39,6 +39,14 @@
     <ServiceConfiguration Include="ServiceConfiguration.CloudStaging.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\APIRole\APIRole.csproj">
+      <Name>APIRole</Name>
+      <Project>{9380bb56-805b-41b7-9733-b4c18cb0e5e9}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>APIRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
     <ProjectReference Include="..\MvcWebRole1\WebApiRole.csproj">
       <Name>WebApiRole</Name>
       <Project>{1f996680-e16a-4bb3-bd9b-561f45f348ca}</Project>
@@ -57,13 +65,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="IndexerRoleContent\" />
+    <Folder Include="APIRoleContent\" />
     <Folder Include="WebApiRoleContent" />
     <Folder Include="EditorialRoleContent" />
     <Folder Include="Profiles" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="IndexerRoleContent\diagnostics.wadcfg">
+    <Content Include="APIRoleContent\diagnostics.wadcfg">
       <SubType>Content</SubType>
     </Content>
     <Content Include="WebApiRoleContent\diagnostics.wadcfg">

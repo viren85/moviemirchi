@@ -221,28 +221,9 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AdminController.cs" />
-    <Compile Include="Controllers\api\ActorController.cs" />
-    <Compile Include="Controllers\api\GenreMoviesController.cs" />
-    <Compile Include="Controllers\api\ArtistMoviesController.cs" />
-    <Compile Include="Controllers\api\GetActorsController.cs" />
-    <Compile Include="Controllers\api\AllSongsController.cs" />
-    <Compile Include="Controllers\api\BaseController.cs" />
-    <Compile Include="Controllers\api\GetCastByTypeController.cs" />
-    <Compile Include="Controllers\api\MovieInfo.cs" />
-    <Compile Include="Controllers\api\NewsController.cs" />
-    <Compile Include="Controllers\api\GetUserPopularController.cs" />
-    <Compile Include="Controllers\api\PopularController.cs" />
-    <Compile Include="Controllers\api\TwitterController.cs" />
-    <Compile Include="Controllers\api\MovieReviewController.cs" />
-    <Compile Include="Controllers\api\MovieInfoController.cs" />
-    <Compile Include="Controllers\api\MoviesController.cs" />
-    <Compile Include="Controllers\api\PosterController.cs" />
-    <Compile Include="Controllers\api\ReviewerInfoController.cs" />
-    <Compile Include="Controllers\api\SaveUserFavoriteController.cs" />
-    <Compile Include="Controllers\api\SearchController.cs" />
-    <Compile Include="Controllers\api\SendMailController.cs" />
-    <Compile Include="Controllers\api\SongController.cs" />
-    <Compile Include="Controllers\api\TrailerController.cs" />
+    <Compile Include="..\APIRole\Controllers\BaseController.cs">
+    <Link>Controllers\BaseController.cs</Link>
+  </Compile>
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />

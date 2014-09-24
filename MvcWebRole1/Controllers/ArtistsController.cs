@@ -1,6 +1,7 @@
 ﻿
 namespace MvcWebRole1.Controllers
 {
+    using CloudMovie.APIRole.API;
     using DataStoreLib.Utils;
     using Microsoft.WindowsAzure;
     using System.Diagnostics;

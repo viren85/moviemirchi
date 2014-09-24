@@ -1,5 +1,6 @@
-﻿//var BASE_URL = "http://127.0.0.1:81/";
-var BASE_URL = "";
+﻿var BASE_URL = "http://127.0.0.1:8081/";
+//var BASE_URL = "";
+
 var TILE_MODE = 0; // 0 = Old Tile with Hover effect, 1 = New Tile with Slide Effect
 var MovieCounter = 4;
 var MovieIndexer = 0;
