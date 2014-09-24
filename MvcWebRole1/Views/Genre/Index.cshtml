@@ -30,7 +30,7 @@
             new Util().AppendLoadImage($(this));
         });
 
-        var apiPath = "../api/GenreMovies?type=" + name;
+        var apiPath = "/api/GenreMovies?type=" + name;
         CallHandler(apiPath, PopulateMovies);
         LoadNews();
         LoadTweets();

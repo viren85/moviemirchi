@@ -1,4 +1,4 @@
-﻿var BASE_URL = "http://127.0.0.1:8081/";
+﻿var BASE_URL = "http://127.255.0.0:8083";
 //var BASE_URL = "";
 
 var TILE_MODE = 0; // 0 = Old Tile with Hover effect, 1 = New Tile with Slide Effect
@@ -12,15 +12,7 @@ var Index = 0;
 var MOUSE_ON;
 
 function CallHandler(queryString, OnComp) {
-    $.ajax({
-        url: BASE_URL + queryString,
-        contentType: "application/json; charset=utf-8",
-        dataType: "json",
-        responseType: "json",
-        cache: false,
-        success: OnComp,
-        error: OnFail
-    });
+    $.getJSON(BASE_URL + queryString, OnComp);
     return false;
 }
 
@@ -44,12 +36,12 @@ function GetQueryStringsForHtmPage() {
 }
 
 function LoadCurrentMovies() {
-    var path = "api/Movies?type=current";
+    var path = "/api/Movies?type=current";
     CallHandler(path, onSuccessLoadCurrentMovies);
 }
 
 function LoadUpcomingMovies() {
-    var path = "api/Movies?type=upcoming";
+    var path = "/api/Movies?type=upcoming";
     CallHandler(path, onSuccessLoadUpcomingMovies);
 }
 

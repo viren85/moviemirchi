@@ -1,7 +1,7 @@
 ﻿function LoadReviewsByReviewer(reviewer) {
     reviewer = reviewer.split('-').join(' ');
     reviewer = reviewer.replace('%7c', '-');
-    var reviewPath = "../../api/ReviewerInfo?name=" + reviewer;
+    var reviewPath = "/api/ReviewerInfo?name=" + reviewer;
     CallHandler(reviewPath, ShowReviews);
 }
 

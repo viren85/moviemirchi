@@ -2,7 +2,7 @@
     // call API to populate the tags - instead of using hardcoded values
     // new Tags().InitTagCloud();
 
-    var popularPath = "../api/Popular?type=all";
+    var popularPath = "/api/Popular?type=all";
     CallHandler(popularPath, ShowTags);
 }
 

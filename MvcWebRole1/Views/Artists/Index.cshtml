@@ -62,8 +62,8 @@
         });
 
         //InitBio();
-        var apiPath = "../api/ArtistMovies?type=movie&name=" + artist;
-        var artistBioPath = "../api/ArtistMovies?type=bio&name=" + artist;
+        var apiPath = "/api/ArtistMovies?type=movie&name=" + artist;
+        var artistBioPath = "/api/ArtistMovies?type=bio&name=" + artist;
         CallHandler(apiPath, PopulateMovies);
         CallHandler(artistBioPath, PopulateArtistsBio);
         LoadNews();

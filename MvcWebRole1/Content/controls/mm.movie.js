@@ -1,6 +1,6 @@
 ﻿function LoadSingleMovie(movieId) {
-    var path = "../api/MovieInfo?q=" + movieId;
-    var reviewPath = "../api/MovieReview?q=" + movieId;
+    var path = "/api/MovieInfo?q=" + movieId;
+    var reviewPath = "/api/MovieReview?q=" + movieId;
 
     CallHandler(path, ShowMovie);
     //CallHandler(reviewPath, ShowMovieReviews);

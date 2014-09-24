@@ -1,11 +1,11 @@
 ﻿function LoadTweets(type, name) {
     $(".tweets").parent().hide();
     if (type == null || type == "undefined" || name == null || name == "undefined") {
-        var tweetPath = "../api/Twitter?start=0&page=20";
+        var tweetPath = "/api/Twitter?start=0&page=20";
         CallHandler(tweetPath, ShowTweets);
     }
     else {
-        var tweetPath = "../api/Twitter?start=0&page=20&type=" + type + "&name=" + name;
+        var tweetPath = "/api/Twitter?start=0&page=20&type=" + type + "&name=" + name;
         CallHandler(tweetPath, ShowTweets);
     }
 }
