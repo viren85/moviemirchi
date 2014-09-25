@@ -238,7 +238,7 @@ var Twitter = function () {
     }
 
     Twitter.prototype.CrawlTwitts = function () {
-        CallController("Home/CrawlTwitts", "data", "", function () {
+        CallController("api/CrawlTweets/GetTweets", "data", "", function () {
             $("#status").html("Successfully crawl news!");
         });
     }

@@ -95,12 +95,12 @@ namespace DataStoreLib.BlobStorage
         {
             try
             {
-                /*List<string> blobFiles = GetUploadedFileFromBlob(containerName);
+                List<string> blobFiles = GetUploadedFileFromBlob(containerName);
 
                 var file = blobFiles.Find(m => m.Contains(fileName));
 
-                return file;*/
-                return fileName;
+                return file;
+                //return fileName;
             }
             catch (Exception)
             {
