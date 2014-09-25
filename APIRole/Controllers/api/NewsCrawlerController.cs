@@ -37,7 +37,7 @@ namespace CloudMovie.APIRole.Controllers.api
             }
         }
 
-        public void GetNews(string blobXmlFilePath = "")
+        private void GetNews(string blobXmlFilePath = "")
         {
             try
             {
