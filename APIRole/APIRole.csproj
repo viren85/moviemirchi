@@ -44,6 +44,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\api\CrawlTweetsController.cs" />
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
+    <Compile Include="Controllers\api\MovieController.cs" />
     <Compile Include="Controllers\api\NewsCrawlerController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
@@ -161,6 +162,10 @@
     <ProjectReference Include="..\DataStoreLib\DataStoreLib.csproj">
       <Project>{85319d65-37e0-49b0-bbb8-6143cda747c6}</Project>
       <Name>DataStoreLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LuceneSearchLibrary\LuceneSearchLibrary.csproj">
+      <Project>{af244afd-73b7-4a2b-8645-509117379a94}</Project>
+      <Name>LuceneSearchLibrary</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
