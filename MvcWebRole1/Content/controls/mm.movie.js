@@ -162,6 +162,11 @@ var PopulatePosters = function (images, movieName, picture) {
                 $(this).hide();
             });
 
+            // Track the poster click event in GA
+            img.click(function () {
+                trackPhotoLink($(this).attr("src"));
+            });
+
             var li = $("<li/>").css("display", "inline-block").css("text-align", "center");
             var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]");
             var source;
@@ -422,6 +427,8 @@ var TrailerList = function (videos, type) {
                 'overflow': 'hidden',
                 'height': '100%'
             });
+
+            trackVideoLink(url);
             DisplayModal($(this).attr("video-link"));
         });
 
@@ -431,6 +438,7 @@ var TrailerList = function (videos, type) {
                 'overflow': 'hidden',
                 'height': '100%'
             });
+
             trackVideoLink(videos[i].YoutubeURL);
             DisplayModal();
         });
