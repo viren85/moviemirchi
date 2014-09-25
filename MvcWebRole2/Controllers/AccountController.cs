@@ -1151,28 +1151,29 @@ namespace MvcWebRole2.Controllers
             List<string> urls = new MovieCrawler.SantaImageCrawler().GetMoviePosterUrls(prop.SantaPosterLink);
             MovieCrawler.ImdbCrawler ic = new MovieCrawler.ImdbCrawler();
 
-            int imageCounter = new BlobStorageService().GetImageFileCount(BlobStorageService.Blob_ImageContainer, prop.MovieName.Replace(" ", "-").ToLower() + "-poster-");
-            string newImageName = string.Empty;
-
-
-            // update the movie poster column - add source link
             MovieEntity me = tblMgr.GetMovieByUniqueName(prop.MovieName);
             List<string> processedUrl = JsonConvert.DeserializeObject(me.Posters) as List<string>;
             List<PosterInfo> posters = JsonConvert.DeserializeObject(me.Pictures) as List<PosterInfo>;
 
-            if (processedUrl == null)
+            int imageCounter = 1;
+            string newImageName = string.Empty;
+
+            if (processedUrl != null)
             {
-                processedUrl = new List<string>();
-                posters = new List<PosterInfo>();
-            }
-            else
-            {
+                imageCounter = processedUrl.Count + 1;
+
                 foreach (string process in processedUrl)
                 {
                     PosterInfo info = new PosterInfo();
                     info.url = process;
                     posters.Add(info);
                 }
+            }
+            else
+            {
+                processedUrl = new List<string>();
+                posters = new List<PosterInfo>();
+
             }
 
             foreach (string url in urls)

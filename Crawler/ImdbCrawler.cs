@@ -18,10 +18,10 @@ namespace MovieCrawler
 
     public class ImdbCrawler
     {
-        private static readonly string PosterPath = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters");
+        /*private static readonly string PosterPath = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters");
         private static readonly string PosterImagePath = Path.Combine(PosterPath, "Images");
-        private static readonly string PosterThumbnailPath = Path.Combine(PosterPath, "Thumbnails");
-
+        private static readonly string PosterThumbnailPath = Path.Combine(PosterPath, "Thumbnails");*/
+        
         private CrawlerHelper helper = new CrawlerHelper();
 
         // Parent Node/Body
@@ -721,13 +721,13 @@ namespace MovieCrawler
                     tempImageName += "thumb-";
                     tempImageName += counter + extension;
                     newImageName = tempImageName;
-                    tempImageName = Path.Combine(PosterThumbnailPath, tempImageName);
+                    //tempImageName = Path.Combine(PosterThumbnailPath, tempImageName);
                 }
                 else
                 {
                     tempImageName += counter + extension;
                     newImageName = tempImageName;
-                    tempImageName = Path.Combine(PosterImagePath, tempImageName);
+                    //tempImageName = Path.Combine(PosterImagePath, tempImageName);
                 }
             }
             catch (Exception)
@@ -788,7 +788,7 @@ namespace MovieCrawler
             return ".jpg";
         }
 
-        public int GetMaxImageCounter(string movieName)
+        /*public int GetMaxImageCounter(string movieName)
         {
             string tempImageName = movieName.Replace(" ", "-").ToLower();
             tempImageName += "-poster-*";
@@ -820,6 +820,6 @@ namespace MovieCrawler
             }
 
             return maxId + 1;
-        }
+        }*/
     }
 }

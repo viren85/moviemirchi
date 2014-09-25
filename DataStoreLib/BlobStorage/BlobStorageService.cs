@@ -62,8 +62,8 @@ namespace DataStoreLib.BlobStorage
                     CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
                     CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
                     blob.UploadFromStream(stream);
-
-                    return GetSinglFile(containerName, fileName);
+                    return fileName;
+                    //return GetSinglFile(containerName, fileName);
                 }
             }
             catch (Exception)
@@ -95,11 +95,12 @@ namespace DataStoreLib.BlobStorage
         {
             try
             {
-                List<string> blobFiles = GetUploadedFileFromBlob(containerName);
+                /*List<string> blobFiles = GetUploadedFileFromBlob(containerName);
 
                 var file = blobFiles.Find(m => m.Contains(fileName));
 
-                return file;
+                return file;*/
+                return fileName;
             }
             catch (Exception)
             {

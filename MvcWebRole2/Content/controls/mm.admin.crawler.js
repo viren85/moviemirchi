@@ -66,7 +66,7 @@
 
                 var xmlData = JSON.stringify(objXmlData);
 
-                CallController("../Account/CrawlPosters", "data", xmlData, function () {
+                CallController("api/CrawlPosters", "data", objXmlData, function () {
                     $("#status").html("Movie Posters crawled.");
                     $(".search-result-container").children("ul").remove();
                     CallHandler("api/CrawlerFiles", function (data) {

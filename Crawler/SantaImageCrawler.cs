@@ -18,9 +18,11 @@ namespace MovieCrawler
 
     public class SantaImageCrawler
     {
+        /*
         private static readonly string PosterPath = Path.Combine(ConfigurationManager.AppSettings["ImagePath"], "Posters");
         private static readonly string PosterImagePath = Path.Combine(PosterPath, "Images");
         private static readonly string PosterThumbnailPath = Path.Combine(PosterPath, "Thumbnails");
+        */
 
         private CrawlerHelper helper = new CrawlerHelper();
 

@@ -68,10 +68,10 @@ function CallHandler(queryString, OnComp) {
 function OnFail() { }
 
 function CallController(queryString, paramName, data, OnComplete) {
-    data = encodeURI(data);
+    //data = encodeURI(data);
     $.ajax({
         url: BASE_URL + queryString,
-        data: { "data": data },
+        data: data,
         type: 'POST',
         dataType: 'json',
         success: OnComplete,
