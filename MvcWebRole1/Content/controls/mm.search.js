@@ -37,7 +37,7 @@
             // keyCode is 13 for 'Enter' keypress. On Enter we want to treat it as click on Search button
         else if (query.length > 3 || !e.originalEvent || e.keyCode === 13) {
             //if ($(window).width() < 768)
-                $(".nav-bar-container").hide();
+            $(".nav-bar-container").hide();
 
             getItems(query);
             $("#search-results").show();
@@ -66,7 +66,7 @@ function ClearSearchReults() {
 
 function getItems(query) {
 
-    var searchPath = "../../AutoComplete/AutoCompleteMovies?query=" + query;
+    var searchPath = "/api/AutoComplete?query=" + query;
     CallHandler(searchPath, function (response) {
         if (response) {
             if ($("#targetUL")) {
@@ -75,7 +75,7 @@ function getItems(query) {
             }
 
             //assigning json response data to local variable. It is basically list of values.
-            var data = response;
+            var data = JSON.parse(response);
 
 
             if (!data || !data.length || data.length < 1) {

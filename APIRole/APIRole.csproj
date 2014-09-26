@@ -42,6 +42,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\api\AutoCompleteController.cs" />
     <Compile Include="Controllers\api\CrawlTweetsController.cs" />
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />
