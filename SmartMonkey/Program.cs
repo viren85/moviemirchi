@@ -7,15 +7,18 @@ namespace SmartMonkey
 {
     class Program
     {
-        private const string BaseUrl = @"http://451a26608c494838ae8cb17189110428.cloudapp.net/";
+        private const string APIUrl = @"http://96d1f263dff744ddab4f493b9ac935e5.cloudapp.net:8081/";
+        private const string WebUrl = @"http://96d1f263dff744ddab4f493b9ac935e5.cloudapp.net:80/";
 
         static void Main(string[] args)
         {
-            string url = GetBaseURL(args);
+            string apiurl = GetURL(args, 0, APIUrl);
+            string weburl = GetURL(args, 1, WebUrl);
+            Console.WriteLine("APIUrl is {1}{0}WebUrl is {2}{0}", Environment.NewLine, apiurl, weburl);
 
             var monkeys = new IMonkey[] { 
-                SetupHitMonkey(url), 
-                SetupCacheMonkey(url),
+                SetupHitMonkey(apiurl, weburl), 
+                SetupCacheMonkey(apiurl, weburl),
             };
             foreach (IMonkey monkey in monkeys)
             {
@@ -23,7 +26,7 @@ namespace SmartMonkey
             }
         }
 
-        private static IMonkey SetupCacheMonkey(string url)
+        private static IMonkey SetupCacheMonkey(string apiurl, string weburl)
         {
             System.Func<Test, IEnumerable<string>> cacheMovieInfo = test =>
                 {
@@ -38,7 +41,8 @@ namespace SmartMonkey
 
             CacheMonkey monkey = new CacheMonkey();
             monkey.Name = "CacheMonkey";
-            monkey.BaseUrl = url;
+            monkey.APIUrl = apiurl;
+            monkey.WebUrl = weburl;
             monkey.AddTest(new Test()
             {
                 Name = "Now playing",
@@ -56,7 +60,7 @@ namespace SmartMonkey
             return monkey;
         }
 
-        private static IMonkey SetupHitMonkey(string url)
+        private static IMonkey SetupHitMonkey(string apiurl, string weburl)
         {
             var dict = new Dictionary<string, string>()
             {
@@ -76,7 +80,8 @@ namespace SmartMonkey
 
             IMonkey monkey = new HitMonkey();
             monkey.Name = "HitMonkey";
-            monkey.BaseUrl = url;
+            monkey.APIUrl = apiurl;
+            monkey.WebUrl = weburl;
             monkey.AddTests(
                 dict.Select(item =>
                 {
@@ -97,17 +102,17 @@ namespace SmartMonkey
             return monkey;
         }
 
-        private static string GetBaseURL(string[] args)
+        private static string GetURL(string[] args, int index, string defaultUrl)
         {
             string url = null;
-            if (args != null && args.Length > 0)
+            if (args != null && args.Length > index)
             {
-                url = args[0];
+                url = args[index];
             }
 
             if (string.IsNullOrWhiteSpace(url))
             {
-                url = BaseUrl;
+                url = defaultUrl;
             }
 
             url = url.Trim();

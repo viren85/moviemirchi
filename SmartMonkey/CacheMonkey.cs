@@ -23,7 +23,9 @@ namespace SmartMonkey
         {
             IMonkey monkey = new HitMonkey();
             monkey.Name = "HitMonkey for " + test.Name;
-            monkey.BaseUrl = this.BaseUrl;
+            // This is twisted for a good reason
+            monkey.APIUrl = this.WebUrl;
+            monkey.WebUrl = this.WebUrl;
             monkey.AddTests(
                 movies.Select(movie =>
                 {

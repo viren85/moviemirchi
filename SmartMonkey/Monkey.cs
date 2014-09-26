@@ -9,7 +9,8 @@ namespace SmartMonkey
     public abstract class Monkey : IMonkey
     {
         public string Name { get; set; }
-        public string BaseUrl { get; set; }
+        public string APIUrl { get; set; }
+        public string WebUrl { get; set; }
         public Action<Test> JumpStyle { get; set; }
 
         protected List<Test> ValidationList { get; private set; }
@@ -38,7 +39,7 @@ namespace SmartMonkey
                 this.ValidationList.Select(test =>
                     Task.Factory.StartNew(() =>
                     {
-                        string url = this.BaseUrl + test.Url.TrimStart('/');
+                        string url = this.APIUrl + test.Url.TrimStart('/');
                         var client = new WebClient();
                         client.DownloadStringCompleted += (sender, e) =>
                         {
