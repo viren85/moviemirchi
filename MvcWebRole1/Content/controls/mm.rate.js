@@ -12,7 +12,7 @@ function GetMovieRateControl(rate, rateValue) {
 
 function GetMovieRate(rating, rateValue) {
     // TODO: Get rid of return once we want to show mirchi
-    return;
+    return "<span />";
 
     if (rating == undefined || rating < 0) return "";
 
@@ -55,7 +55,7 @@ var RatingControl = function () {
 
         var html =
                     "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Teekha hai ki feeka hai ?</div>" +
-                    "<div class=\"content\" " + hideContentControl + ">" +
+                    "<div class=\"content\" " + hideContentControl + " style=\"display: none\">" +
                         "<div class=\"mirchi mirchimeter\">" +
                             GetMovieRateControl(rate.criticrating / 10, movie.Ratings) +
                         "</div>" +
