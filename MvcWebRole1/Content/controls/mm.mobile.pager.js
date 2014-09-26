@@ -12,10 +12,10 @@ var Pager = function (tileContainer, pagerContainerSelector) {
 
         CalculateTiles(pagerContainerSelector);
         GetNavArrows(TILE_CONTAINER);
-         
+
         if (TILE_COUNT == Infinity)
             TILE_COUNT = 0;
-        
+
         // Hide all tiles before we initiate the show the correct tiles
         $(TILE_CONTAINER).find("li").hide();
         $(TILE_CONTAINER).find("li:first").show(); // This line is required because first tile does not appear when resolution is high
@@ -52,7 +52,7 @@ var Pager = function (tileContainer, pagerContainerSelector) {
             $(tileContainer).find("li").each(function () {
                 count++;
             });
-            
+
             if (count > 1) {
                 $(pagerContainerSelector).show();
             }
@@ -136,20 +136,28 @@ var Pager = function (tileContainer, pagerContainerSelector) {
         var tileWidth;
         var subFactor = 150;
         var windowWidth = $(window).width();
+        var totalTiles = 0;
 
         if (windowWidth <= 400) {
             TILE_COUNT = 1;
             return;
         }
 
-        if (pagerContainer != "#critics-pager") {
+        // Calculate if we have only 1 tile to display
+        $(pagerContainer).parent().find("ul li").each(function () {
+            totalTiles++;
+        });
 
-            if (pagerContainer == "#review-pager") {
+        if (totalTiles < 2) {
+            TILE_COUNT = 1;
+            return;
+        }
+
+        if (pagerContainer != "#critics-pager") {
+            if (pagerContainer == "#review-pager") 
                 tileWidth = $(".movie-review-details li").width();
-            }
-            else {
+            else 
                 tileWidth = $(".movie-list .movie").width();
-            }
         }
         else {
             tileWidth = $(".critics-container .reviewer").width();
