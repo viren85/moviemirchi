@@ -232,8 +232,10 @@ var ShowMovieReviews = function (review) {
         $(".link-container").show();
         //(review.length > 0) ? GetReviewControl("movie-review-details", review) : GetDefaultReviewControl("movie-review-details", review);                        
         GetReviewControl("movie-review-details", review);
-        if (review.length <= 0)
-            $(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
+        if (review.length <= 0) {
+            //$(".movie-review-details").html("<b>Currently this movie does not have any reviews.</b>");
+            $(".review-details").hide();
+        }
         else {
             if ($(window).width() < 768) {
                 new Pager($(".movie-review-details"), "#review-pager");
