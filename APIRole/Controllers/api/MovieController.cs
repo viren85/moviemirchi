@@ -126,7 +126,7 @@ namespace CloudMovie.APIRole.API
                     LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return null;
             }

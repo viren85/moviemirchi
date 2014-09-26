@@ -91,7 +91,7 @@ namespace CloudMovie.APIRole.Controllers.api
                 me.Pictures = JsonConvert.SerializeObject(posters);
                 tblMgr.UpdateMovieById(me);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }

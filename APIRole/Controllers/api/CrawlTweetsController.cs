@@ -38,12 +38,12 @@ namespace CloudMovie.APIRole.Controllers.api
                     string twitXmlBlobFilePath = _blobStorageService.GetSinglFile(BlobStorageService.Blob_XMLFileContainer, "Twitter.xml");
                     GetTweets(twitXmlBlobFilePath);
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     //return Json(new { Status = "Error", Message = "Error occured.", ActualMessage = ex.Message }, JsonRequestBehavior.AllowGet);
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
             }
