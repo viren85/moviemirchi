@@ -5,7 +5,7 @@
     .trailers {
         float: left;
         margin-left: 0%;
-        width: 50%;
+        width: 100%;
         margin-bottom: 20px;
         display: none !important;
     }
@@ -70,8 +70,18 @@
         margin-bottom: 20px;
         display: none !important;
     }
+    #trailer-pager{
+        float: left;
+        width: 80%;
+        margin-top: 130px;
+        position: absolute;
+    }
+    .trailers ul
+    {
+        margin-left: 35px;
+    }
 }
- @media screen and (max-width: 400px) {
+ /*@media screen and (max-width: 400px) {
     #trailer-pager{
         margin-top: 135px;
         position: absolute;
@@ -85,7 +95,7 @@
     .trailers ul {
         margin-left: 35px;
     }
- }
+ }*/
  @media screen and (max-width: 320px) {
     .trailers ul li{
         margin-left: 25px;
@@ -93,11 +103,11 @@
     #trailer-pager {
         position: absolute;
         margin-top: 125px;
-        width: 80%;
+        width: 87%;
     }
-    #trailer-pager .right-arrow{
+    /*#trailer-pager .right-arrow{
         left: 100%;
-    }
+    }*/
     #trailer-pager .left-arrow{
         left: 0px;
     }
