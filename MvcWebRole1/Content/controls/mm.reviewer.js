@@ -63,7 +63,7 @@ var ShowReviewsByReviewer = function (review) {
 
     $(".movies").append(GetTubeControl("Latest Reviews", "review-list-now-playing", "now-pager"));
     /*$(".movies").append(GetTubeControl("Upcoming", "review-list-upcoming", "upcoming-pager"));*/
-    $(".movies").append(GetTubeControl("Archived Reviews", "review-list-other", "other-pager"));
+    $(".movies").append(GetTubeControl("Previous Reviews", "review-list-other", "other-pager"));
 
     if (review != "undefined" && review != null) {
         $(".link-container").show();
