@@ -9,6 +9,7 @@
         margin: 0 auto;
         padding: 0px;
         float: left;
+        /*margin-left: 15px;*/
     }
 
         .review-list ul li, .review-list-now-playing ul li, .review-list-upcoming ul li, .review-list-other ul li {

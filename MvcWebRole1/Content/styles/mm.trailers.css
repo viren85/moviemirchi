@@ -80,6 +80,9 @@
     {
         margin-left: 35px;
     }
+    #trailer-pager .left-arrow{
+        left: 0px;
+    }
 }
  /*@media screen and (max-width: 400px) {
     #trailer-pager{

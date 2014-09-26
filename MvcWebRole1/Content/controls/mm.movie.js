@@ -167,7 +167,7 @@ var PopulatePosters = function (images, movieName, picture) {
                 trackPhotoLink($(this).attr("src"));
             });
 
-            var li = $("<li/>").css("display", "inline-block").css("text-align", "center");
+            var li = $("<li/>").css("display", "inline-block").css("text-align", "center").css("float", "left");
             var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]");
             var source;
             if (pictures.length == 0 || pictures[p] == null || pictures[p].source == null || pictures[p].source == "undefined" || pictures[p].source == "") {
@@ -200,6 +200,7 @@ var PopulatePosters = function (images, movieName, picture) {
             }
             else {
                 PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+                $(".movie-poster-details").append($("#posters-pager"));
             }
         });
 

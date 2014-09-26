@@ -50,6 +50,7 @@ div.captionAndNavigate {
     text-align: left;
     z-index: 2;
     width: 100%;
+    /*display: none;*/
 }
 .movie-synopsis {
     float: left;
@@ -116,7 +117,11 @@ div.captionAndNavigate {
         margin-top: 20px;
     }
     .movie-data{width: 90%;}    
-    .artist-bio{width: 70%;}   
+    .artist-bio{width: 100%;}
+    
+    .movie-review-details ul{
+        margin-left: 35px !important;
+    }
 }
 
 @media screen and (max-width: 320px) {
