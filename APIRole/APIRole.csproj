@@ -80,6 +80,7 @@
     </Compile>
     <Compile Include="Library\Scorer.cs" />
     <Compile Include="UDT\MovieInfo.cs" />
+    <Compile Include="UDT\MoviePostData.cs" />
     <Compile Include="UDT\RatingConversion.cs" />
     <Compile Include="UDT\SearchResults.cs" />
   </ItemGroup>
