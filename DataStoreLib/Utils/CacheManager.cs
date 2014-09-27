@@ -14,7 +14,7 @@ namespace DataStoreLib.Utils
                 key,
                 o,
                 null,
-                DateTime.Now.AddMinutes(60),
+                DateTime.Now.AddHours(12),
                 Cache.NoSlidingExpiration);
         }
 
