@@ -4,9 +4,12 @@ namespace CloudMovie.APIRole.API
     using CloudMovie.APIRole.UDT;
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
     using LuceneSearchLibrary;
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
 
@@ -17,66 +20,46 @@ namespace CloudMovie.APIRole.API
     public class MovieController : BaseController
     {
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
-        private static Random random = new Random();
 
-        // get : api/Movies?type={current/all (default)}&resultlimit={default 100}          
         protected override string ProcessRequest()
         {
             return string.Empty;
         }
 
-        [System.Web.Http.HttpGet]
-        [System.Web.Http.AcceptVerbs("POST")]
+        [AcceptVerbs("POST")]
         public ActionResult AddMovie(MoviePostData data)
         {
-            if (data == null || string.IsNullOrEmpty(data.Name))
+            if (data == null || string.IsNullOrEmpty(data.Name) || string.IsNullOrEmpty(data.UniqueName))
             {
                 return null;
             }
 
-            MovieEntity movie = data.GetMovieEntity();
-
             try
             {
-                string uniqueName = movie.Name.Replace(" ", "-").Replace("&", "-and-").Replace(".", "").Replace("'", "").ToLower();
-
                 var tableMgr = new TableManager();
-                MovieEntity oldEntity = tableMgr.GetMovieByUniqueName(uniqueName);
+                MovieEntity movie = data.GetMovieEntity();
+                movie.RowKey = movie.MovieId;
+                tableMgr.UpdateMovieById(movie);
 
-                if (oldEntity != null)
-                {
-                    int num = random.Next(999999);
+                UpdateCache(movie);
 
-                    oldEntity.UniqueName = num.ToString() + oldEntity.UniqueName;
+                UpdateLuceneIndex(movie);
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 
-                    //tableMgr.UpdateMovieById(oldEntity);
-                }
+            return null;
+        }
 
-                MovieEntity entity = new MovieEntity();
+        private static void UpdateLuceneIndex(MovieEntity movie)
+        {
+            var tableMgr = new TableManager();
 
-                //entity.RowKey = entity.MovieId = Guid.NewGuid().ToString();
-                entity.RowKey = entity.MovieId = movie.MovieId;
-                entity.Name = movie.Name;
-                entity.AltNames = movie.AltNames;
-                entity.Posters = movie.Posters;
-                entity.Ratings = movie.Ratings;
-                entity.Synopsis = movie.Synopsis;
-                entity.Casts = movie.Casts;
-                entity.Stats = movie.Stats;
-                entity.Songs = movie.Songs;
-                entity.Trailers = movie.Trailers;
-                entity.Pictures = movie.Pictures;
-                entity.Genre = movie.Genre;
-                entity.Month = movie.Month;
-                entity.Year = movie.Year;
-                entity.UniqueName = movie.UniqueName;
-                entity.State = movie.State;
-                entity.MyScore = movie.MyScore;
-                entity.JsonString = movie.JsonString;
-                entity.Popularity = movie.Popularity;
-
-                tableMgr.UpdateMovieById(entity);
-
+            // Update Lucene
+            Task.Run(() =>
+            {
                 //delete Entry in lucene search index
                 // Fix following method call - What shall be other param? 
                 LuceneSearch.ClearLuceneIndexRecord(movie.MovieId, "Id");
@@ -85,48 +68,71 @@ namespace CloudMovie.APIRole.API
                 string posterUrl = "default-movie.jpg";
                 string critics = string.Empty;
 
-                if (!string.IsNullOrEmpty(entity.Posters))
+                if (!string.IsNullOrEmpty(movie.Posters))
                 {
-                    List<string> pList = jsonSerializer.Value.Deserialize(entity.Posters, typeof(List<string>)) as List<string>;
+                    List<string> pList = jsonSerializer.Value.Deserialize(movie.Posters, typeof(List<string>)) as List<string>;
                     if (pList != null && pList.Count > 0)
                     {
-                        posterUrl = pList[pList.Count - 1];
+                        posterUrl = pList.Last();
                     }
                 }
 
-                var reviewDic = tableMgr.GetReviewsByMovieId(entity.MovieId);
-
+                var reviewDic = tableMgr.GetReviewsByMovieId(movie.MovieId);
                 if (reviewDic != null && reviewDic.Values != null && reviewDic.Values.Count > 0)
                 {
-                    List<string> lCritics = new List<string>();
-
-                    foreach (ReviewEntity re in reviewDic.Values)
-                    {
-                        lCritics.Add(re.ReviewerName);
-                    }
-
-                    critics = jsonSerializer.Value.Serialize(lCritics);
+                    critics = jsonSerializer.Value.Serialize(reviewDic.Values.Select(re => re.ReviewerName));
                 }
 
                 // add updated entry in lucene search index
                 MovieSearchData movieSearchIndex = new MovieSearchData();
-                movieSearchIndex.Id = entity.RowKey;
-                movieSearchIndex.Title = entity.Name;
-                movieSearchIndex.Type = entity.Genre;
+                movieSearchIndex.Id = movie.RowKey;
+                movieSearchIndex.Title = movie.Name;
+                movieSearchIndex.Type = movie.Genre;
                 movieSearchIndex.TitleImageURL = posterUrl;
-                movieSearchIndex.UniqueName = entity.UniqueName;
+                movieSearchIndex.UniqueName = movie.UniqueName;
                 movieSearchIndex.Description = movie.Casts;
                 movieSearchIndex.Critics = critics;
-                movieSearchIndex.Link = entity.UniqueName;
+                movieSearchIndex.Link = movie.UniqueName;
 
                 LuceneSearch.AddUpdateLuceneIndex(movieSearchIndex);
-            }
-            catch (Exception)
-            {
-                return null;
-            }
+            });
+        }
 
-            return null;
+        private static void UpdateCache(MovieEntity movie)
+        {
+            // Remove movie from Cache
+            var movieKey = CacheConstants.MovieInfoJson + movie.UniqueName;
+            var isCached = CacheManager.Exists(movieKey);
+            CacheManager.Remove(movieKey);
+
+            var tableMgr = new TableManager();
+
+            // Update more Cache
+            Task.Run(() =>
+            {
+                CacheManager.Remove(CacheConstants.AllMovieEntities);
+                tableMgr.GetAllMovies();
+
+                if (isCached)
+                {
+                    Task.Run(() =>
+                    {
+                        MovieInfoController.GetMovieInfo(movie.UniqueName);
+                    });
+                }
+
+                Task.Run(() =>
+                {
+                    CacheManager.Remove(CacheConstants.UpcomingMovieEntities);
+                    var movies = tableMgr.GetCurrentMovies();
+                });
+
+                Task.Run(() =>
+                {
+                    CacheManager.Remove(CacheConstants.NowPlayingMovieEntities);
+                    var movies = tableMgr.GetUpcomingMovies();
+                });
+            });
         }
     }
 }

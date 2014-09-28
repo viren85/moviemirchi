@@ -27,6 +27,7 @@ namespace CloudMovie.APIRole.UDT
 
         public MovieEntity GetMovieEntity()
         {
+            // TODO: Add error/edge-case handling as appropriate
             MovieEntity movie = new MovieEntity();
             movie.MovieId = this.MovieId;
             movie.Name = this.Name;
@@ -35,7 +36,7 @@ namespace CloudMovie.APIRole.UDT
             movie.Ratings = this.Ratings;
             movie.Synopsis = this.Synopsis;
             movie.Casts = this.Casts;
-            movie.Stats = this.Stats;
+            movie.Stats = this.Stats ?? string.Empty;
             movie.Songs = this.Songs;
             movie.Trailers = this.Trailers;
             movie.Pictures = this.Pictures;

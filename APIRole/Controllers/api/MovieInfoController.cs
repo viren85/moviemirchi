@@ -31,9 +31,15 @@ namespace CloudMovie.APIRole.API
                 throw new ArgumentException(Constants.API_EXC_MOVIE_NAME_NOT_EXIST);
             }
 
-            string name = qpParams["q"].ToString().ToLower();
+            string name = qpParams["q"].ToString();
+            var json = GetMovieInfo(name);
+            return json;
+        }
 
-            string json;
+        internal static string GetMovieInfo(string name)
+        {
+            name = name.ToLower();
+            string json = string.Empty;
             if (!CacheManager.TryGet<string>(CacheConstants.MovieInfoJson + name, out json))
             {
 
@@ -86,7 +92,7 @@ namespace CloudMovie.APIRole.API
                 {
                     // if any error occured then return User friendly message with system error message
                     // use jsonError here because more custumizable
-                    return jsonSerializer.Value.Serialize(
+                    json = jsonSerializer.Value.Serialize(
                     new
                     {
                         Status = "Error",
@@ -95,7 +101,6 @@ namespace CloudMovie.APIRole.API
                     });
                 }
             }
-
             return json;
         }
     }
