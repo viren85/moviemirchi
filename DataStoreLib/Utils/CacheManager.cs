@@ -18,6 +18,16 @@ namespace DataStoreLib.Utils
                 Cache.NoSlidingExpiration);
         }
 
+        public static void Add<T>(string key, T o, DateTime expiration)
+        {
+            HttpRuntime.Cache.Insert(
+                key,
+                o,
+                null,
+                expiration,
+                Cache.NoSlidingExpiration);
+        }
+
         public static void Remove(string key)
         {
             HttpRuntime.Cache.Remove(key);
@@ -25,13 +35,7 @@ namespace DataStoreLib.Utils
 
         public static void Clear()
         {
-            List<string> toRemove = new List<string>();
-            foreach (DictionaryEntry cacheItem in HttpRuntime.Cache)
-            {
-                toRemove.Add(cacheItem.Key.ToString());
-            }
-
-            foreach (string key in toRemove)
+            foreach (string key in CacheManager.GetAllKeys())
             {
                 HttpRuntime.Cache.Remove(key);
             }
@@ -53,6 +57,14 @@ namespace DataStoreLib.Utils
             {
                 value = default(T);
                 return false;
+            }
+        }
+
+        public static IEnumerable<string> GetAllKeys()
+        {
+            foreach (DictionaryEntry cacheItem in HttpRuntime.Cache)
+            {
+                yield return cacheItem.Key.ToString();
             }
         }
     }
