@@ -102,31 +102,37 @@ namespace CloudMovie.APIRole.API
         {
             // Remove movie from Cache
             var movieKey = CacheConstants.MovieInfoJson + movie.UniqueName;
-            var isCached = CacheManager.Exists(movieKey);
+            var isPreviouslyCached = CacheManager.Exists(movieKey);
             CacheManager.Remove(movieKey);
 
             var tableMgr = new TableManager();
 
+            // Cache if previously cached or movie is upcoming/current
+            Task.Run(() =>
+            {
+                if (isPreviouslyCached || movie.State == "upcoming" || movie.State == "now playing")
+                {
+                    MovieInfoController.GetMovieInfo(movie.UniqueName);
+                }
+            });
+
             // Update more Cache
             Task.Run(() =>
             {
+                // Update cache for AllMovies
+                // Note: We are not updating CacheConstants.AllMovieEntitiesSortedByName here
+                // because typically the name of the movie does not changes as often
                 CacheManager.Remove(CacheConstants.AllMovieEntities);
                 tableMgr.GetAllMovies();
 
-                if (isCached)
-                {
-                    Task.Run(() =>
-                    {
-                        MovieInfoController.GetMovieInfo(movie.UniqueName);
-                    });
-                }
-
+                // Update current movies
                 Task.Run(() =>
                 {
                     CacheManager.Remove(CacheConstants.UpcomingMovieEntities);
                     var movies = tableMgr.GetCurrentMovies();
                 });
 
+                // Update upcoming movies
                 Task.Run(() =>
                 {
                     CacheManager.Remove(CacheConstants.NowPlayingMovieEntities);
