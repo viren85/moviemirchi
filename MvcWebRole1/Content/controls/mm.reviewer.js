@@ -33,7 +33,7 @@ var ShowReviews = function (data) {
                     InitBio();
                     $(".bio-pic").append($("<img/>").attr("src", fileName));
                     // Need to populate this text from DB
-                    $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/home\">Movie Mirchi</a>");
+                    $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/\">Movie Mirchi</a>");
 
                 });
 
