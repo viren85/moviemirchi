@@ -220,12 +220,10 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="..\APIRole\Controllers\BaseController.cs">
       <Link>Controllers\BaseController.cs</Link>
     </Compile>
     <Compile Include="Controllers\GenreController.cs" />
-    <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />

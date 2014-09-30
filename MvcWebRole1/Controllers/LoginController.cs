@@ -17,10 +17,6 @@ namespace MvcWebRole1.Controllers
 
     public class LoginController : Controller
     {
-        //string userName, password;
-        //
-        // GET: /Login/
-
         [HttpGet]
         public ActionResult UserLogin()
         {
@@ -43,8 +39,6 @@ namespace MvcWebRole1.Controllers
 
                 if (auth != null)
                 {
-                    SetConnectionString();
-
                     TableManager tblMgr = new TableManager();
                     UserEntity user = tblMgr.GetUserByName(auth.UserName);
 
@@ -82,17 +76,8 @@ namespace MvcWebRole1.Controllers
             }
         }
 
-        private void SetConnectionString()
-        {
-            var connectionString = CloudConfigurationManager.GetSetting("StorageTableConnectionString");
-            Trace.TraceInformation("Connection str read");
-            ConnectionSettingsSingleton.Instance.StorageConnectionString = connectionString;
-        }
-
         public ActionResult ConnectUser(UserEntity user)
         {
-            SetConnectionString();
-
             TableManager tblMgr = new TableManager();
 
             try
@@ -135,7 +120,6 @@ namespace MvcWebRole1.Controllers
                     user.RowKey = user.UserId;
 
                     tblMgr.UpdateUserById(user);
-                    //return RedirectToAction("Index", "Home");
                     return Json(new { success = true, createdUser = true });
                 }
 
@@ -191,8 +175,6 @@ namespace MvcWebRole1.Controllers
                     {
                         return Json(new { Status = "Error", Message = "Password and confirm password does not match." }, JsonRequestBehavior.AllowGet);
                     }
-
-                    SetConnectionString();
 
                     TableManager tblMgr = new TableManager();
 
@@ -274,13 +256,6 @@ namespace MvcWebRole1.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-
-        [HttpGet]
-        public ActionResult Test()
-        {
-            return View();
-        }
-
         /// <summary>
         /// this funcion will return users ip address
         /// </summary>
@@ -290,6 +265,5 @@ namespace MvcWebRole1.Controllers
             var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
             return (from ip in host.AddressList where ip.AddressFamily == AddressFamily.InterNetwork select ip.ToString()).ToList();
         }
-
     }
 }
