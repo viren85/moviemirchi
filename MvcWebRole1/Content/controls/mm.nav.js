@@ -16,7 +16,7 @@ var GetNavBar = function (json) {
 
     $.each(json, function (k, v) {
 
-        var li = $("<li/>").text(v.title);
+        var li = $("<li/>").text(v.title).attr("link-id", v.section);
         li.click(function () {
 
             body.animate({
