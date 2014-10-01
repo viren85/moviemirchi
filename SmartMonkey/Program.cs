@@ -92,12 +92,22 @@ namespace SmartMonkey
                         Validate = Test.DefaultValidate(null),
                     };
                 }));
-            monkey.AddTest(new Test()
-            {
-                Name = "Search",
-                Url = "autocomplete/autocompletemovies?query=deepika",
-                Validate = Test.DefaultValidate("\"id\":null"),
-            });
+            monkey.AddTests(
+                new string[] {
+                    "api/AutoComplete?query=deepika",
+                    "api/AutoComplete?query=chennai",
+                    "api/AutoComplete?query=leela",
+                    "api/AutoComplete?query=ali",
+                    "api/AutoComplete?query=masand",
+                    "api/AutoComplete?query=sonam%20kapoor",
+                    "api/AutoComplete?query=drama",
+                }
+                .Select(u => new Test()
+                {
+                    Name = "Search",
+                    Url = u,
+                    Validate = Test.DefaultValidate("\"id\":null"),
+                }));
 
             return monkey;
         }
