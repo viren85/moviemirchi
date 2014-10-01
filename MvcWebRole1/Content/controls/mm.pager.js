@@ -272,10 +272,8 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
 
         var currentPage = 1;
 
-        var li = $(rotatorControl).find("li");
-
         // 1. Hide all the li element which are present in ul
-        li.hide();
+        var li = $(rotatorControl).find("li").hide();;
 
         // 2. calculate the page size, calculate the tile size, calculate the # of pages required to showcase the gallery
         if (!options.useDefaultTileCount) {
@@ -285,18 +283,9 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
         // Calculate the margin - which will be left on right/left side of page
         var margin = Math.round(options.pageSize * 0.07);
 
-        options.pageSize = options.pageSize - (margin * 2) - 40;
-
+        options.pageSize = options.pageSize - margin;
         options.tilesInPage = Math.floor(options.pageSize / options.tileWidth);
-        
-        if ($(window).width() > 767) {
-            if (options.pageSize % options.tileWidth < 30 && ((options.pagerContainerId.indexOf("movies-pager") > -1) || options.pagerContainerId.indexOf("upcoming-pager") > -1 || options.pagerContainerId.indexOf("now-pager") > -1)) {
-                options.tilesInPage = options.tilesInPage - 1;
-            }
-        }
-
         options.pageCount = Math.ceil(options.totalTileCount / options.tilesInPage);
-        
         
         activeTileStartIndex = ((currentPage - 1) * options.tilesInPage) + 1;
 
@@ -306,7 +295,7 @@ function PreparePaginationControl(rotatorControl, pagerOptions) {
         // 3. Prepare pager control - assign link to each of the pagination link
         $("#" + options.pagerContainerId).append(GetPaginationControl(rotatorControl, options));
 
-        // Show/hide tiles 
+        // Show/hide tiles
         var showIndex = options.activeTileStartIndex + options.tilesInPage - 1;
 
         li.each(function (tileIndex) {

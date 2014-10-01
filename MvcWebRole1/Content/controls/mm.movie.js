@@ -190,7 +190,7 @@ var PopulatePosters = function (images, movieName, picture) {
             new Pager($(".movie-poster-details"), "#posters-pager");
         }
         else {
-            PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+            PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "370" });
             $(".movie-poster-details").append($("#posters-pager"));
         }
 
@@ -199,7 +199,7 @@ var PopulatePosters = function (images, movieName, picture) {
                 new Pager($(".movie-poster-details"), "#posters-pager");
             }
             else {
-                PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "350" });
+                PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "370" });
                 $(".movie-poster-details").append($("#posters-pager"));
             }
         });
@@ -241,7 +241,7 @@ var ShowMovieReviews = function (review) {
                 new Pager($(".movie-review-details"), "#review-pager");
             }
             else {
-                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "300" });
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "360" });
                 $(".movie-review-details").append($("#review-pager"));
             }
         }
@@ -251,7 +251,7 @@ var ShowMovieReviews = function (review) {
                 new Pager($(".movie-review-details"), "#review-pager");
             }
             else {
-                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "300" });
+                PreparePaginationControl($(".movie-review-details"), { pagerContainerId: "review-pager", tileWidth: "360" });
                 $(".movie-review-details").append($("#review-pager"));
             }
         });

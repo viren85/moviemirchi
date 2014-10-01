@@ -84,8 +84,8 @@ var ShowReviewsByReviewer = function (review) {
         new Pager($(".review-list-other"), "#other-pager");
     }
     else {
-        PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "300" });
-        PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "300" });
+        PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "360" });
+        PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "360" });
     }
 
     $(window).resize(function () {
@@ -94,8 +94,8 @@ var ShowReviewsByReviewer = function (review) {
             new Pager($(".review-list-other"), "#other-pager");
         }
         else {
-            PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "300" });
-            PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "300" });
+            PreparePaginationControl($(".review-list-now-playing"), { pagerContainerId: "now-pager", tileWidth: "360" });
+            PreparePaginationControl($(".review-list-other"), { pagerContainerId: "other-pager", tileWidth: "360" });
         }
     });
 

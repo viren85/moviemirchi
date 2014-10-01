@@ -1,4 +1,4 @@
-﻿var BASE_URL = "http://127.255.0.0:8083";
+﻿var BASE_URL = "http://127.0.0.1:8081";
 //var BASE_URL = "";
 
 var TILE_MODE = 0; // 0 = Old Tile with Hover effect, 1 = New Tile with Slide Effect
@@ -126,7 +126,7 @@ function LoadMovies(result, options) {
                     $(".upcoming-movie-list ul li:first").show();*/
                     /*var pager = */new Pager($list, options.pagerSelector);
                 } else {
-                    PreparePaginationControl($list, { pagerContainerId: options.pagerId });
+                    PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
                 }
 
                 $(window).resize(function () {
@@ -134,7 +134,7 @@ function LoadMovies(result, options) {
                         $(options.pagerSelector + " .pager-container").remove();
                         /*var pager = */new Pager($list, options.pagerSelector);
                     } else {
-                        PreparePaginationControl($list, { pagerContainerId: options.pagerId });
+                        PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
                     }
                 });
             }
