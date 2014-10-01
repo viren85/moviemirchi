@@ -757,15 +757,27 @@
             }
             else {
                 $(".nav-bar-container").css("display", "block");
-                $(".nav-bar-container ul li").css("display", "block");
+                //$(".nav-bar-container ul li").css("display", "block");
             }
 
             e.stopPropagation();
         });
 
+        $(".nav-options").bind('touchstart', function (event) {
+            if ($(".nav-bar-container").css("display") == "block") {
+                $(".nav-bar-container").css("display", "none");
+            }
+            else {
+                $(".nav-bar-container").css("display", "block");
+                //$(".nav-bar-container ul li").css("display", "block");
+            }
+
+            event.preventDefault();
+        });
+
         $(".nav-options").hover(function (e) {
             $(".nav-bar-container").css("display", "block");
-            $(".nav-bar-container ul li").css("display", "block");
+            //$(".nav-bar-container ul li").css("display", "block");
 
             e.stopPropagation();
         });
