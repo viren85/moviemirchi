@@ -106,11 +106,11 @@
 
 function MovieImageLoaded(img) {
     if (img && $(img)[0]) {
-        var width = $(document).width();
+        /*var width = $(document).width();
         var imgWidth = parseInt($(img).css("width").replace("px"));
         var imgHeight = parseInt($(img).css("height").replace("px"));
 
-        var ratio = imgWidth / imgHeight;
+        var ratio = imgWidth / imgHeight;*/
         //var newWidth = 400 * ratio;
 
         // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
@@ -119,6 +119,7 @@ function MovieImageLoaded(img) {
         var newHeight = (TILE_MODE == 0) ? 340 : 300;
 
         $(img).css("width", newWidth + "px").css("height", newHeight + "px");
+        $(img).parent("li.movie").show();
     }
 }
 
