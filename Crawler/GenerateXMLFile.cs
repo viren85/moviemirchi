@@ -96,11 +96,11 @@ namespace Crawler
                 XmlNode review = documnet.CreateNode(XmlNodeType.Element, "Review", "");
 
                 XmlAttribute reviewName = documnet.CreateAttribute("name");
-                reviewName.Value = xmlReviews.Name.ToString();
+                reviewName.Value = string.IsNullOrEmpty(xmlReviews.Name) ? string.Empty : xmlReviews.Name.ToString();
                 review.Attributes.Append(reviewName);
 
                 XmlAttribute reviewLink = documnet.CreateAttribute("link");
-                reviewLink.Value = xmlReviews.Link.ToString();
+                reviewLink.Value = string.IsNullOrEmpty(xmlReviews.Link) ? string.Empty : xmlReviews.Link.ToString();
                 review.Attributes.Append(reviewLink);
 
                 movie.AppendChild(review);
@@ -234,7 +234,7 @@ namespace Crawler
                     documnet.Load(file);
                 }
                 catch (Exception)
-                {                    
+                {
                     return null;
                 }
 
@@ -244,7 +244,7 @@ namespace Crawler
                 foreach (XmlNode movieNode in movieNodes)
                 {
                     MovieSongsProps singleMovie = new MovieSongsProps();
-                    
+
                     singleMovie.MovieName = movieNode.Attributes["name"].Value;
                     singleMovie.MovieSongLink = movieNode.Attributes["link"].Value;
 

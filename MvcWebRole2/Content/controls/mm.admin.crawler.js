@@ -191,21 +191,23 @@
                 "SaavnSongLink": saavnLink,
                 "Year": 00,
                 "Month": monthYear,
-                "Reviews": reviewsLink
+                "Reviews": reviewsLink,
+                "Crawl": false
             };
 
             var xmlData = JSON.stringify(objXmlData);
 
             var outPutMsg = "XML file generated successfully!";
-            var path = "../Home/CreateXMLFile";
+            var path = "api/CrawlerFiles";
 
-            if (isCrawl){
-                path = "../Home/CreateXMLFileAndCrawl";
+            if (isCrawl) {
+                objXmlData.Crawl = true;
+                path = "api/CrawlerFiles/CreateXMLFileAndCrawl";
                 outPutMsg = "XML file generated successfully and Crawl movie.";
                 $("#status").html("<b>Note</b>:- Your are about to crawl movie, it will take few minuts or more.");
             }
 
-            CallController(path, "data", xmlData, function () {
+            CallController(path, "data", objXmlData, function () {
                 $("#status").html(outPutMsg);
                 $(".search-result-container").children("ul").remove();
                 CallHandler("api/CrawlerFiles", function (data) {

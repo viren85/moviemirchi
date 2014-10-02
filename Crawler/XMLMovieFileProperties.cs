@@ -21,6 +21,8 @@ namespace Crawler
         public string Month { get; set; }
         public List<XMLReivewProperties> Reviews { get; set; }
 
+        public string Crawl { get; set; }
+
         public List<XMLMovieProperties> GetMovieListFromXMLFiles(bool isFromLatest)
         {
             try
