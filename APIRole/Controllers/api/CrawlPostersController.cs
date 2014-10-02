@@ -36,7 +36,7 @@ namespace CloudMovie.APIRole.Controllers.api
                 List<string> urls = new SantaImageCrawler().GetMoviePosterUrls(prop.SantaPosterLink);
                 ImdbCrawler ic = new ImdbCrawler();
 
-                MovieEntity me = tblMgr.GetMovieByUniqueName(prop.MovieName.ToLower());
+                MovieEntity me = tblMgr.GetMovieByUniqueName(prop.MovieName.ToLower().Replace(" ", "-"));
                 List<string> processedUrl = json.Deserialize<List<string>>(me.Posters);
                 List<PosterInfo> posters = json.Deserialize<List<PosterInfo>>(me.Pictures);
 
