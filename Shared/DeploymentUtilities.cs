@@ -84,21 +84,9 @@ namespace CloudMovie.Library
                 {
                     var paths =
                         serverManager.Sites
+                            .Where(s => s.Name.EndsWith("_" + name))
                              .SelectMany(site => site.Applications
-                                 .Select(a =>
-                                 {
-                                     // logger.Info("GetVirtualDirPath: Applications Path {0}", a.Path);
-                                     return a;
-                                 })
-                                 //// On the Azure machine we have only one Application which is the root
-                                 //// This the Where condition fails
-                                 .Where(a => a.Path.Contains(name))
                                  .SelectMany(ar => ar.VirtualDirectories
-                                     .Select(vr =>
-                                     {
-                                         // logger.Info("GetVirtualDirPath: Virtual Directory physical path {0}", vr.PhysicalPath);
-                                         return vr;
-                                     })
                                      .Select(vr => vr.PhysicalPath)))
                              .FirstOrDefault();
 
@@ -173,15 +161,15 @@ namespace CloudMovie.Library
                 var luceneDir = Path.Combine(path, "lucene_index");
                 foreach (var file in Directory.EnumerateFiles(luceneDir))
                 {
-                    GetFullAccess(file);
+                    //GetFullAccess(file);
                 }
 
-                ConfigurationManager.AppSettings["ImagePath"] = VirtualDirPath = path;
+                //ConfigurationManager.AppSettings["ImagePath"] = VirtualDirPath = path;
                 // logger.Info("OnStart: Path is now set to {0}", path);
                 // logger.Info("OnStart: Reading path from config {0}", ConfigurationManager.AppSettings["ImagePath"]);
 
                 // logger.Info("OnStart: Calling WriteToConfig");
-                WriteToConfig(path, path);
+                //WriteToConfig(path, path);
                 // logger.Info("OnStart: Return from WriteToConfig");
 
                 // logger.Info("OnStart: Calling SetupLuceneIndexes");
@@ -190,6 +178,7 @@ namespace CloudMovie.Library
             }
         }
 
+        // This won't ever work
         public static void WriteToConfig(string path, string dir)
         {
             try
@@ -226,7 +215,7 @@ namespace CloudMovie.Library
                 var path = DeploymentUtilities.GetVirtualDirPath(name);
                 var filePath = Path.Combine(path, fileRelativePath);
 
-                GetFullAccess(filePath);
+                ////GetFullAccess(filePath);
 
                 var repl = @"var BASE_URL = ""http://23.99.69.77:8081/"";";
                 var start = "var BASE_URL = ";

@@ -19,14 +19,14 @@ namespace MvcWebRole1
 
             // WEB role
             {
-                DeploymentUtilities.UpdateBaseUrl("Web", @"Content\movie.core.js");
+                // DeploymentUtilities.UpdateBaseUrl("Web", @"Content\movie.core.js");
 
 
-                Task.Run(() =>
-                {
-                    var installDirPath = DeploymentUtilities.GetVirtualDirPath("Web");
-                    DeploymentUtilities.ScheduleSmartMonkey(installDirPath);
-                });
+                //Task.Run(() =>
+                //{
+                //    var installDirPath = DeploymentUtilities.GetVirtualDirPath("Web");
+                //    DeploymentUtilities.ScheduleSmartMonkey(installDirPath);
+                //});
 
                 Task.Run(() =>
                 {
@@ -36,14 +36,14 @@ namespace MvcWebRole1
 
             // Editorial role
             {
-                DeploymentUtilities.UpdateBaseUrl("Editorial", @"Content\controls\mm.admin.core.js");
-                DeploymentUtilities.UpdateBaseUrl("Editorial", @"Content\movie.autocomplete.js");
+                // DeploymentUtilities.UpdateBaseUrl("Editorial", @"Content\controls\mm.admin.core.js");
+                // DeploymentUtilities.UpdateBaseUrl("Editorial", @"Content\movie.autocomplete.js");
             }
 
             // API role
             {
                 // Lucene setup
-                DeploymentUtilities.HandleLucene("API");
+                // DeploymentUtilities.HandleLucene("API");
             }
 
             return result;
