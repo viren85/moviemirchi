@@ -62,8 +62,8 @@ namespace DataStoreLib.BlobStorage
                     CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
                     CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
                     blob.UploadFromStream(stream);
-                    return fileName;
-                    //return GetSinglFile(containerName, fileName);
+                    //return fileName;
+                    return GetSinglFile(containerName, fileName);
                 }
             }
             catch (Exception)
