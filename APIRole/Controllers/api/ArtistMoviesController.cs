@@ -1,6 +1,7 @@
 ﻿using DataStoreLib.Constants;
 using DataStoreLib.Models;
 using DataStoreLib.Storage;
+using DataStoreLib.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,7 +29,8 @@ namespace CloudMovie.APIRole.API
         // get : api/ArtistMovies?q=artist-name&page={default 30}
         protected override string ProcessRequest()
         {
-            int resultLimit = 30;
+            const int defaultMoviesCount = 30;
+            int resultLimit = defaultMoviesCount;
             string artistName = string.Empty;
             string dataType = string.Empty;
 
@@ -60,9 +62,25 @@ namespace CloudMovie.APIRole.API
 
                 if (dataType == "movie")
                 {
-                    var moviesByName = tableMgr.GetArtistMovies(artistName);
-                    List<MovieEntity> movies = moviesByName.Take(resultLimit).ToList();
-                    return jsonSerializer.Value.Serialize(movies);
+                    if (resultLimit == defaultMoviesCount)
+                    {
+                        string json;
+                        string uArtistName = artistName.Replace(" ", "-").Replace(".", "-");
+                        if (!CacheManager.TryGet<string>(CacheConstants.ArtistMoviesJson + uArtistName, out json))
+                        {
+                            var moviesByName = tableMgr.GetArtistMovies(artistName);
+                            var movies = moviesByName.Take(resultLimit);
+                            json = jsonSerializer.Value.Serialize(movies);
+                            CacheManager.Add<string>(CacheConstants.ArtistMoviesJson + uArtistName, json);
+                        }
+                        return json;
+                    }
+                    else
+                    {
+                        var moviesByName = tableMgr.GetArtistMovies(artistName);
+                        var movies = moviesByName.Take(resultLimit);
+                        return jsonSerializer.Value.Serialize(movies);
+                    }
                 }
                 else // Bio
                 {
