@@ -133,7 +133,7 @@ var ShowMovieDetails = function (movie) {
     $(movieDetalis).append(GetMovieProducer(CleanCastString(producers)));
     $(movieDetalis).append(GetMovieMusicDirector(CleanCastString(music)));
     $(movieDetalis).append(GetMovieWriter(CleanCastString(writers)));
-    $(movieDetalis).append(GetMovieStats(movie.Stats));
+    //$(movieDetalis).append(GetMovieStats(movie.Stats));
     $(".tube-container:first").append(movieDetalis);
 }
 
