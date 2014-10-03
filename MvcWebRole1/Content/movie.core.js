@@ -87,29 +87,7 @@ function LoadMovies(result, options) {
                     /*var list = */PopulatingMovies(this, options.listClassName);
                 })
 
-                /*The image width/height shall be calculated once the image is fully loaded*/
-                var width = $(document).width();
-
-                var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
-                var defaultTileHeight = (TILE_MODE == 0) ? 380 : 300;
-                var defaultTileWidth = (TILE_MODE == 0) ? 225 : 200;
-
-                var ratio = 0;
-                var newWidth = 0;
-                $list.find("img:first").each(function () {
-                    ratio = this.width / this.height;
-                    newWidth = defaultRatio * ratio;
-                });
-                $list.find("img").each(function () {
-                    var $this = $(this);
-                    $this.height(defaultTileHeight + "px");
-
-                    if (newWidth > defaultTileWidth) {
-                        $this.width(defaultTileWidth + "px");
-                    } else {
-                        $this.width(newWidth + "px");
-                    }
-                });
+                SetTileSize(options.listSelector);
 
                 ScaleElement($(options.listSelector + " ul"));
                 /*if (TILE_MODE == 0 && $(window).width() > 767)
@@ -200,5 +178,34 @@ function ScaleNewTileElement(element) {
 
             });
         });
+    });
+}
+
+function SetTileSize(tileSelector) {
+
+    var $list = $(tileSelector);
+
+    /*The image width/height shall be calculated once the image is fully loaded*/
+    var width = $(document).width();
+
+    var defaultRatio = (TILE_MODE == 0) ? 400 : 300;
+    var defaultTileHeight = (TILE_MODE == 0) ? 340 : 300;
+    var defaultTileWidth = (TILE_MODE == 0) ? 225 : 200;
+
+    var ratio = 0;
+    var newWidth = 0;
+    $list.find("img:first").each(function () {
+        ratio = this.width / this.height;
+        newWidth = defaultRatio * ratio;
+    });
+    $list.find("img").each(function () {
+        var $this = $(this);
+        $this.height(defaultTileHeight + "px");
+
+        if (newWidth > defaultTileWidth) {
+            $this.width(defaultTileWidth + "px");
+        } else {
+            $this.width(newWidth + "px");
+        }
     });
 }

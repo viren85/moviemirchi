@@ -23,6 +23,8 @@ var ShowMovie = function (data) {
 
                 PopulatingMovies(result.Movie, "movie-list");
 
+                SetTileSize(".movie-list");
+
                 ScaleElement($(".movie-list ul"));
                 /*if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".movie-list ul"));
