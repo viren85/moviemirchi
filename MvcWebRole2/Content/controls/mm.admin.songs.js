@@ -51,7 +51,7 @@
     }
 
     Songs.prototype.PopulatePopup = function (counter) {
-        var col1 = $("#songs-grid-row-data1_" + counter);
+        var col1 = $("#grid-row-data1_" + counter);
         $("#myModalLabel").empty();
         $("#myModalLabel").html("Attach link to '" + $(col1).html() + " " + $("#txtFriendly").val() + "'");
         $("#myModalLabel").append($("<input/>").attr("type", "hidden").attr("id", "hf-col3-id").val("#songs-row-data3_" + counter));
