@@ -8,7 +8,7 @@
         newWidth = 200 * ratio;
     });
     $(container).find("img").each(function () {
-        $(this).width(newWidth + "px").height("200px").css("max-width", "400px");
+        $(this).height("200px").css("max-width", "400px");
     });
 }
 

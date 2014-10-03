@@ -49,7 +49,6 @@ var ShowMovie = function (data) {
                 //populate movie's trailers
                 PopulateTrailers(trailers);
 
-                ArrangeImages($(".movie-poster-details"));
                 ShowMovieReviews(reviews);
                 PrepareGenreLinks();
 
@@ -186,6 +185,8 @@ var PopulatePosters = function (images, movieName, picture) {
         }
 
         $(".movie-poster-details").append(ul);
+
+        ArrangeImages($(".movie-poster-details"));
 
         /*Pagination for posters */
         if ($(window).width() < 768) {
