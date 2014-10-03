@@ -375,7 +375,7 @@ var SongList = function (videos, type) {
             var pager = new Pager($(".songs"), "#songs-pager");
         }
         else {
-            PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+            PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "250" });
         }
 
         $(window).resize(function () {
@@ -383,7 +383,7 @@ var SongList = function (videos, type) {
                 var pager = new Pager($(".songs"), "#songs-pager");
             }
             else {
-                PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "500" });
+                PreparePaginationControl($(".songs"), { pagerContainerId: "songs-pager", tileWidth: "250" });
             }
         });
 
@@ -474,7 +474,7 @@ var TrailerList = function (videos, type) {
             var pager = new Pager($(".trailers"), "#trailer-pager");
         }
         else {
-            PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
+            PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "250" });
         }
 
         $(window).resize(function () {
@@ -482,7 +482,7 @@ var TrailerList = function (videos, type) {
                 var pager = new Pager($(".trailers"), "#trailer-pager");
             }
             else {
-                PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "500" });
+                PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "250" });
             }
         });
 
