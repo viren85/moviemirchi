@@ -99,6 +99,15 @@
             });
         }
 
+        var trackSearchLink = function (pageName, searchTerm) {
+            ga('send', 'event', 'search', 'click', pageName + "-" + searchTerm, {
+                'hitCallback':
+                  function () {
+                      //document.location = url;
+                  }
+            });
+        }
+
         var trackPhotoLink = function (url) {
             ga('send', 'event', 'photo', 'click', url, {
                 'hitCallback':

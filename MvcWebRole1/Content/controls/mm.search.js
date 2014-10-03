@@ -190,6 +190,8 @@ var SearchResults = function (searchResults) {
         }
 
         $(anchor).attr("href", "/movie/" + singleEntity.Link.toLowerCase() + "?type=search&src=" + pageName);
+        $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/movie/" + singleEntity.Link.toLowerCase() + "');");
+        
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
@@ -223,6 +225,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
 
             $(anchor).attr("href", "/artists/" + artist.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
+            $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/artists/" + singleEntity.Link.toLowerCase() + "');");
             $(anchor).append(that.GetImageElement(singleEntity, "artist", artist));
             $(anchor).append(divTitleDesc);
 
@@ -256,6 +259,7 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
             $(anchor).attr("href", "/movie/reviewer/" + critics.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
+            $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/movie/reviewer/" + critics.split(" ").join("-").toLowerCase() + "');");
             $(anchor).append(that.GetImageElement(singleEntity, "critics", critics));
             $(anchor).append(divTitleDesc);
 
@@ -286,6 +290,7 @@ var SearchResults = function (searchResults) {
                 $(divTitleDesc).html("<span class='search-result-title'>" + gen + "</span>");
 
                 $(anchor).attr("href", "/Genre/" + gen + "?type=search&src=" + pageName);
+                $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/Genre/" + gen + "');");
                 $(anchor).append(this.GetImageElement(singleEntity, "genre", gen));
                 $(anchor).append(divTitleDesc);
 
