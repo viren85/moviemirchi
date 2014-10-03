@@ -14,8 +14,6 @@ var Twitter = function () {
     Twitter.prototype.GetTwitterGrid = function (newsList) {
         TwitterList = newsList;
         newsList = JSON.parse(newsList);
-        console.log(newsList);
-        //TwitterList = newsList;
 
         if (newsList == null || newsList == "undefined") {
             newsList = [];
@@ -154,8 +152,6 @@ var Twitter = function () {
     Twitter.prototype.GetTwitterPreviousGrid = function (newsList) {
         
         newsList = JSON.parse(newsList);
-        console.log(newsList);
-        //TwitterList = newsList;
 
         if (newsList == null || newsList == "undefined") {
             newsList = [];

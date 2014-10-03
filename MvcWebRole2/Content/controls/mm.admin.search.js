@@ -190,7 +190,6 @@ var Search = function (placeholder, searchtype) {
         try{
             var json = JSON.parse(data);
             MOVIES = json;
-            console.log(data);
 
             $(resultContainer).children("ul").remove();
             //Comment following line once API is functional        
@@ -252,7 +251,7 @@ var Search = function (placeholder, searchtype) {
         for (var i = 0; i < MOVIES.length; i++) {
             if (MOVIES[i].UniqueName == uname) {
                 CURRENT_MOVIE = MOVIES[i]; // assign selected movie to current movie variable      
-                console.log(CURRENT_MOVIE);
+                
                 $("#txtUnique").val(MOVIES[i].UniqueName);
                 $("#txtFriendly").val(MOVIES[i].Name);
                 $("#txtSynopsis").val(MOVIES[i].Synopsis);
@@ -569,7 +568,6 @@ var Search = function (placeholder, searchtype) {
     // crawler
     Search.prototype.PopulateCrawlerResults = function (data) {
         // Prepare search result UI from this function
-        console.log(data);
         var json = JSON.parse(data);
         CRAWLFILES = json;
         $(resultContainer).children("ul").remove();
