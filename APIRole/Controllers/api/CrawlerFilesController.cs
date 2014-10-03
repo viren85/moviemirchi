@@ -149,6 +149,9 @@ namespace CloudMovie.APIRole.API
                             #region Crawl Movie
                             MovieEntity mov = movieCrawler.Crawl(movie.Attributes["link"].Value);
                             TableManager tblMgr = new TableManager();
+                            // Save the crawled content because in case of new movies, it fails
+                            tblMgr.UpdateMovieById(mov);
+
                             string posterUrl = string.Empty;
 
                             if (movie.Attributes["santaposterlink"] != null && !string.IsNullOrEmpty(movie.Attributes["santaposterlink"].Value))
@@ -394,6 +397,9 @@ namespace CloudMovie.APIRole.API
 
             MovieEntity me = tblMgr.GetMovieByUniqueName(prop.MovieName);
             List<string> processedUrl = json.Deserialize<List<string>>(me.Posters);
+
+            me.Pictures = (string.IsNullOrEmpty(me.Pictures) || me.Pictures == "null") ? "[]" : me.Pictures;
+            
             List<CloudMovie.APIRole.UDT.PosterInfo> posters = json.Deserialize<List<CloudMovie.APIRole.UDT.PosterInfo>>(me.Pictures);
 
             int imageCounter = 1;
