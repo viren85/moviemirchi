@@ -329,6 +329,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\bg_direction_nav.png" />
     <Content Include="Images\clear-button.png" />
+    <Content Include="Images\favicon.png" />
     <Content Include="Images\GreenChilli.png" />
     <Content Include="Images\GreenGrayChilli.png" />
     <Content Include="Images\Loading.GIF" />
