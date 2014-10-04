@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace SmartMonkey
@@ -40,29 +41,22 @@ namespace SmartMonkey
                     Task.Factory.StartNew(() =>
                     {
                         string url = this.APIUrl + test.Url.TrimStart('/');
-                        var client = new WebClient();
-                        client.DownloadStringCompleted += (sender, e) =>
+
+                        using (HttpClient client = new HttpClient())
                         {
-                            if (!e.Cancelled && e.Error == null)
+                            HttpResponseMessage response = client.GetAsync(url).Result;
+                            string data = response.Content.ReadAsStringAsync().Result;
+                            var statusCode = response.StatusCode;
+                            
+                            if (statusCode == HttpStatusCode.OK)
                             {
-                                string data = (string)e.Result;
                                 test.Data = data;
                                 this.JumpStyle(test);
                             }
                             else
                             {
-                                test.ReportResult(false, e.Error.HResult + " - " + e.Error.Message);
+                                test.ReportResult(false, statusCode + " - " + response.ReasonPhrase);
                             }
-                        };
-
-                        var downloadTask = client.DownloadStringTaskAsync(url);
-                        try
-                        {
-                            downloadTask.Wait();
-                        }
-                        catch (AggregateException)
-                        {
-                            // We must have handled and reported this error earlier
                         }
                     }));
 
