@@ -191,7 +191,7 @@ var SearchResults = function (searchResults) {
 
         $(anchor).attr("href", "/movie/" + singleEntity.Link.toLowerCase() + "?type=search&src=" + pageName);
         $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/movie/" + singleEntity.Link.toLowerCase() + "');");
-        
+
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));
         $(anchor).append(divTitleDesc);
 
@@ -278,7 +278,7 @@ var SearchResults = function (searchResults) {
         else {
             var gen = this.GetGenre(singleEntity);
 
-            if (!this.IsEntityAdded(gen)) {
+            if (gen.indexOf("<") < 0 && !this.IsEntityAdded(gen)) {
                 entityList.push(gen);
                 // add list item in search result
                 var li = $("<li>");
