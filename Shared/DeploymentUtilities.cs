@@ -84,21 +84,9 @@ namespace CloudMovie.Library
                 {
                     var paths =
                         serverManager.Sites
+                            .Where(s => s.Name.EndsWith("_" + name))
                              .SelectMany(site => site.Applications
-                                 .Select(a =>
-                                 {
-                                     // logger.Info("GetVirtualDirPath: Applications Path {0}", a.Path);
-                                     return a;
-                                 })
-                                 //// On the Azure machine we have only one Application which is the root
-                                 //// This the Where condition fails
-                                 .Where(a => a.Path.Contains(name))
                                  .SelectMany(ar => ar.VirtualDirectories
-                                     .Select(vr =>
-                                     {
-                                         // logger.Info("GetVirtualDirPath: Virtual Directory physical path {0}", vr.PhysicalPath);
-                                         return vr;
-                                     })
                                      .Select(vr => vr.PhysicalPath)))
                              .FirstOrDefault();
 
@@ -176,12 +164,12 @@ namespace CloudMovie.Library
                     GetFullAccess(file);
                 }
 
-                ConfigurationManager.AppSettings["ImagePath"] = VirtualDirPath = path;
+                // ConfigurationManager.AppSettings["ImagePath"] = VirtualDirPath = path;
                 // logger.Info("OnStart: Path is now set to {0}", path);
                 // logger.Info("OnStart: Reading path from config {0}", ConfigurationManager.AppSettings["ImagePath"]);
 
                 // logger.Info("OnStart: Calling WriteToConfig");
-                WriteToConfig(path, path);
+                // WriteToConfig(path, path);
                 // logger.Info("OnStart: Return from WriteToConfig");
 
                 // logger.Info("OnStart: Calling SetupLuceneIndexes");
