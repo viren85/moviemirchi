@@ -164,32 +164,37 @@ namespace CloudMovie.Library
                     GetFullAccess(file);
                 }
 
-                // ConfigurationManager.AppSettings["ImagePath"] = VirtualDirPath = path;
-                // logger.Info("OnStart: Path is now set to {0}", path);
-                // logger.Info("OnStart: Reading path from config {0}", ConfigurationManager.AppSettings["ImagePath"]);
-
-                // logger.Info("OnStart: Calling WriteToConfig");
-                // WriteToConfig(path, path);
-                // logger.Info("OnStart: Return from WriteToConfig");
-
                 // logger.Info("OnStart: Calling SetupLuceneIndexes");
                 SetupLuceneIndexes(path);
                 // logger.Info("OnStart: Return from SetupLuceneIndexes");
             }
         }
 
-        public static void WriteToConfig(string path, string dir)
+        public static void WriteToConfig(string path, string value)
         {
             try
             {
-                GetFullAccess(Path.Combine(dir, "web.config"));
+                string filePath = Path.Combine(path, "web.config");
+                GetFullAccess(filePath);
 
-                var config = ConfigurationManager.OpenExeConfiguration(ConfigurationUserLevel.None);
+                if (!isLocal)
+                {
+                    var repl = "<add key=\"ImagePath\" value=\"" + value + "\" />";
+                    var hit = false;
 
-                // logger.Info("WriteToConfig: Setting ImagePath in the config to {0}", path);
-                config.AppSettings.Settings["ImagePath"].Value = path;
-                config.Save(ConfigurationSaveMode.Modified);
-                ConfigurationManager.RefreshSection("appSettings");
+                    var lines = File.ReadAllLines(filePath);
+                    var acc = lines.Aggregate<string>((a, b) =>
+                    {
+                        if (!hit && (b.Contains("<add key=\"ImagePath\" value=\"") && !b.Contains("<!--")))
+                        {
+                            hit = true;
+                            return a + repl;
+                        }
+                        return a + b;
+                    });
+
+                    File.WriteAllText(filePath, acc);
+                }
             }
             catch (Exception) // ex)
             {
