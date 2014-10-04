@@ -1,5 +1,13 @@
 ﻿function LoadTweets(type, name) {
     $(".tweets").parent().hide();
+
+    // Hide from top navigation link
+    $(".top-nav-bar").find("li").each(function () {
+        if ($(this).attr("link-id") == "tweets-tube") {
+            $(this).hide();
+        }
+    });
+
     if (type == null || type == "undefined" || name == null || name == "undefined") {
         var tweetPath = "/api/Twitter?start=0&page=20";
         CallHandler(tweetPath, ShowTweets);
@@ -25,6 +33,13 @@ var ShowTweets = function (data) {
             }
             else {
                 $(".tweets").parent().show();
+
+                $(".top-nav-bar").find("li").each(function () {
+                    if ($(this).attr("link-id") == "tweets-tube") {
+                        $(this).show();
+                    }
+                });
+
                 var tweets = [];
                 for (var v in jdata) {
                     var t = jdata[v];
