@@ -94,6 +94,21 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="lucene_index\segments.gen" />
+    <Content Include="lucene_index\segments_9p" />
+    <Content Include="lucene_index\_ak.fdt" />
+    <Content Include="lucene_index\_ak.fdx" />
+    <Content Include="lucene_index\_ak.fnm" />
+    <Content Include="lucene_index\_ak.frq" />
+    <Content Include="lucene_index\_ak.nrm" />
+    <Content Include="lucene_index\_ak.prx" />
+    <Content Include="lucene_index\_ak.tii" />
+    <Content Include="lucene_index\_ak.tis" />
+    <Content Include="lucene_index\_al.cfs" />
+    <Content Include="lucene_index\_am.cfs" />
+    <Content Include="lucene_index\_an.cfs" />
+    <Content Include="lucene_index\_ao.cfs" />
+    <Content Include="lucene_index\_ap.cfs" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
