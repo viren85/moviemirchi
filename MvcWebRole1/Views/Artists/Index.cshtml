@@ -211,15 +211,24 @@
                         $(".intro-text").css("margin-left", "0px").html(data.Bio);
 
                     var posters = JSON.parse(data.Posters);
-
+                    
                     if (posters != null && posters.length > 0) {
                         new Util().RemoveLoadImage($("#movie-poster-details-tube"));
                         $(".bio-pic").append($("<img/>").attr("src", PUBLIC_BLOB_URL + posters[posters.length - 1]));
-                        //$(".poster-list").parent().hide();
                         InitBio();
 
-                        PopulatePosters(data.Posters, data.ArtistName, null);
-                        ArrangeImages($(".movie-poster-details"));
+                        if (posters.length > 1) {
+                            PopulatePosters(data.Posters, data.ArtistName, null);
+                            ArrangeImages($(".movie-poster-details"));
+                        }
+                        else {
+                            $("#movie-poster-details-tube").hide();
+                            $(".top-nav-bar").find("li").each(function () {
+                                if ($(this).attr("link-id") == "movie-poster-details-tube") {
+                                    $(this).remove();
+                                }
+                            });
+                        }
 
                         $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
                             animation_speed: 'normal',
@@ -235,6 +244,7 @@
                     else {
                         $(".bio-pic img").attr("src", "/Images/user.png").removeAttr("style").css("width", "140px").css("float", "left");;
                         $(".movie-poster-details").parent().hide();
+                        $("#movie-poster-details-tube").hide();
                         $(".top-nav-bar").find("li").each(function () {
                             if ($(this).attr("link-id") == "movie-poster-details-tube") {
                                 $(this).remove();
