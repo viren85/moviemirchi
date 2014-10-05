@@ -231,13 +231,7 @@
     <Compile Include="..\APIRole\Controllers\BaseController.cs">
       <Link>Controllers\BaseController.cs</Link>
     </Compile>
-    <Compile Include="Controllers\AutoCompleteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
-    <Compile Include="Controllers\MovieController.cs" />
-    <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="Controllers\ReviewerController.cs" />
-    <Compile Include="Controllers\SearchResults.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -247,11 +241,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\MovieList-Aug-2014.xml" />
-    <Content Include="App_Data\MovieList-Dec-2014.xml" />
-    <Content Include="App_Data\MovieList-Nov-2014.xml" />
-    <Content Include="App_Data\MovieList-Oct-2014.xml" />
-    <Content Include="App_Data\MovieList-Sep-2014.xml" />
     <Content Include="Content\bootstrap-responsive.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
@@ -323,12 +312,7 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="Handler\UploadFile.ashx" />
     <Content Include="Content\controls\mm.admin.songs.js" />
     <Content Include="NLog.config">
@@ -361,28 +345,28 @@
     <Content Include="Images\orderedList9.png" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="Views\Account\Login.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Movie\AddMovie.cshtml" />
-    <Content Include="Views\Movie\UpdateMovie.cshtml" />
-    <Content Include="Views\Reviewer\AddAffiliation.cshtml" />
-    <Content Include="Views\Review\AddMovieReview.cshtml" />
-    <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Reviewer\AddReviewer.cshtml" />
-    <Content Include="Views\Review\UpdateMovieReview.cshtml" />
-    <Content Include="Views\Reviewer\UpdateAffiliation.cshtml" />
-    <Content Include="Views\Reviewer\UpdateReviewer.cshtml" />
     <Content Include="Views\Shared\_AdminMasterLayout.cshtml" />
     <Content Include="Views\Home\Artists.cshtml" />
     <Content Include="Views\Home\Critics.cshtml" />
     <Content Include="Views\Home\Crawler.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\Twitter.cshtml" />
-    <Content Include="Views\Shared\_LoginLayout.cshtml" />
-    <Content Include="Views\Shared\_AdminLayout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="lucene_index\*" />
+    <Content Include="lucene_index\_b4.fdt" />
+    <Content Include="lucene_index\_b4.fdx" />
+    <Content Include="lucene_index\_b4.fnm" />
+    <Content Include="lucene_index\_b4.frq" />
+    <Content Include="lucene_index\_b4.nrm" />
+    <Content Include="lucene_index\_b4.prx" />
+    <Content Include="lucene_index\_b4.tii" />
+    <Content Include="lucene_index\_b4.tis" />
+    <Content Include="lucene_index\_b5.cfs_" />
+    <Content Include="lucene_index\_b6.cfs_" />
+    <Content Include="lucene_index\_b7.cfs_" />
+    <Content Include="lucene_index\__segments.gen" />
+    <Content Include="lucene_index\__segments_a5" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config">
