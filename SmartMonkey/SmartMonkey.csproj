@@ -30,12 +30,14 @@
     <Reference Include="System.Net.Http" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CacheMonkey.cs" />
-    <Compile Include="IMonkey.cs" />
-    <Compile Include="Monkey.cs" />
+    <Compile Include="Monkey\CacheMonkey.cs" />
+    <Compile Include="Monkey\IMonkey.cs" />
+    <Compile Include="Monkey\Monkey.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="HitMonkey.cs" />
-    <Compile Include="Test.cs" />
+    <Compile Include="Monkey\HitMonkey.cs" />
+    <Compile Include="Setup\SetupHitMonkey.cs" />
+    <Compile Include="Setup\SetupCacheMonkey.cs" />
+    <Compile Include="UDT\Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

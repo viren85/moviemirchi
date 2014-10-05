@@ -16,100 +16,18 @@ namespace SmartMonkey
             string weburl = GetURL(args, 1, WebUrl);
             Console.WriteLine("APIUrl is {1}{0}WebUrl is {2}{0}", Environment.NewLine, apiurl, weburl);
 
+            var hits = new SetupHitMonkey(apiurl, weburl);
+            var cache = new SetupCacheMonkey(apiurl, weburl);
+
             var monkeys = new IMonkey[] { 
-                SetupHitMonkey(apiurl, weburl), 
-                SetupCacheMonkey(apiurl, weburl),
+                hits.HitProductAPIs(),
+                cache.CacheMoviePage(),
+                cache.CacheArtistPage(),
             };
             foreach (IMonkey monkey in monkeys)
             {
                 monkey.Jump();
             }
-        }
-
-        private static IMonkey SetupCacheMonkey(string apiurl, string weburl)
-        {
-            System.Func<Test, IEnumerable<string>> cacheMovieInfo = test =>
-                {
-                    var movies =
-                        test.Data.Split(new string[] { "MovieId" }, StringSplitOptions.None).Skip(1)
-                        .Select(m =>
-                            m.Split(new string[] { "UniqueName\\\":\\\"" }, StringSplitOptions.None).Skip(1).First()
-                            .Split(new string[] { "\\\"" }, StringSplitOptions.None).First());
-
-                    return movies.Select(id => "movie/" + id);
-                };
-
-            CacheMonkey monkey = new CacheMonkey();
-            monkey.Name = "CacheMonkey";
-            monkey.APIUrl = apiurl;
-            monkey.WebUrl = weburl;
-            monkey.AddTest(new Test()
-            {
-                Name = "Now playing",
-                Url = "api/movies?type=current",
-                Validate = Test.DefaultValidate(null),
-                Scratch = cacheMovieInfo,
-            });
-            monkey.AddTest(new Test()
-            {
-                Name = "Upcoming",
-                Url = "api/movies?type=upcoming",
-                Validate = Test.DefaultValidate(null),
-                Scratch = cacheMovieInfo,
-            });
-            return monkey;
-        }
-
-        private static IMonkey SetupHitMonkey(string apiurl, string weburl)
-        {
-            var dict = new Dictionary<string, string>()
-            {
-                {"Now playing", "api/movies?type=current"},
-                {"Upcoming", "api/movies?type=upcoming"},
-                {"Twitter", "api/twitter?start=0&page=20"},
-                {"Popular", "api/popular?type=all"},
-                {"News", "api/news?start=0&page=20"},
-                {"Movie info", "api/movieinfo?q=humshakals"},
-                {"Twitter movie", "api/twitter?start=0&page=20&type=movie&name=humshakals"},
-                {"Twitter Artist", "api/twitter?start=0&page=20&type=artist&name=Bipasha-Basu"},
-                {"Artist bio", "api/artistmovies?type=bio&name=Bipasha%20Basu"},
-                {"Artist movies", "api/artistmovies?type=movie&name=Bipasha%20Basu"},
-                {"Genre movies", "api/genremovies?type=Romance"},
-                {"Reviewer", "api/reviewerinfo?name=Anupama%20Chopra"},
-            };
-
-            IMonkey monkey = new HitMonkey();
-            monkey.Name = "HitMonkey";
-            monkey.APIUrl = apiurl;
-            monkey.WebUrl = weburl;
-            monkey.AddTests(
-                dict.Select(item =>
-                {
-                    return new Test()
-                    {
-                        Name = item.Key,
-                        Url = item.Value,
-                        Validate = Test.DefaultValidate(null),
-                    };
-                }));
-            monkey.AddTests(
-                new string[] {
-                    "api/AutoComplete?query=deepika",
-                    "api/AutoComplete?query=chennai",
-                    "api/AutoComplete?query=leela",
-                    "api/AutoComplete?query=ali",
-                    "api/AutoComplete?query=masand",
-                    "api/AutoComplete?query=sonam%20kapoor",
-                    "api/AutoComplete?query=drama",
-                }
-                .Select(u => new Test()
-                {
-                    Name = "Search",
-                    Url = u,
-                    Validate = Test.DefaultValidate("\"id\":null"),
-                }));
-
-            return monkey;
         }
 
         private static string GetURL(string[] args, int index, string defaultUrl)

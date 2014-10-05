@@ -10,14 +10,15 @@ namespace SmartMonkey
         public string Name { get; set; }
         public string Url { get; set; }
         public string Data { get; set; }
-        public System.Func<string, bool> Validate { get; set; }
+        public Func<string, bool> Validate { get; set; }
 
-        public System.Func<Test, IEnumerable<string>> Scratch { get; set; }
+        public Func<Test, IEnumerable<string>> ScratchLevel1 { get; set; }
+        public Func<Test, IEnumerable<string>> ScratchLevel2 { get; set; }
 
-        internal static System.Func<string, System.Func<string, bool>> DefaultValidate =
+        internal static Func<string, Func<string, bool>> DefaultValidate =
             (errStr) =>
             {
-                return new System.Func<string, bool>((data) =>
+                return new Func<string, bool>((data) =>
                 {
                     if (string.IsNullOrWhiteSpace(data))
                     {
