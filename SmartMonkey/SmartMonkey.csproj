@@ -37,7 +37,9 @@
     <Compile Include="Monkey\HitMonkey.cs" />
     <Compile Include="Setup\SetupHitMonkey.cs" />
     <Compile Include="Setup\SetupCacheMonkey.cs" />
+    <Compile Include="UDT\ResultCollection.cs" />
     <Compile Include="UDT\Test.cs" />
+    <Compile Include="UDT\TestResult.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

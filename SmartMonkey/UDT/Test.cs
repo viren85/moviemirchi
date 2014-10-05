@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartMonkey.UDT;
+using System;
 using System.Collections.Generic;
 
 namespace SmartMonkey
@@ -11,8 +12,9 @@ namespace SmartMonkey
         public string BaseUrl { get; set; }
         public string Url { get; set; }
         public string Data { get; set; }
-        public Func<string, bool> Validate { get; set; }
+        public bool Result { get; set; }
 
+        public Func<string, bool> Validate { get; set; }
         public Func<Test, IEnumerable<string>> ScratchLevel1 { get; set; }
         public Func<Test, IEnumerable<string>> ScratchLevel2 { get; set; }
 
@@ -38,20 +40,28 @@ namespace SmartMonkey
                 });
             };
 
-        public void ReportResult(bool res, string data = "")
+        public void ReportResult()
         {
+            string result = this.Result ? "Passed" : "Failed";
+            ResultCollection.Add(new TestResult
+            {
+                Name = this.Name,
+                Url = this.Url,
+                Result = this.Result,
+            });
+
             lock (lockObject)
             {
-                Console.ForegroundColor = res ? ConsoleColor.DarkGreen : ConsoleColor.DarkRed;
+                Console.ForegroundColor = this.Result ? ConsoleColor.DarkGreen : ConsoleColor.DarkRed;
                 Console.WriteLine(
                     "{0}: {1} - {2}",
-                    res ? "Passed" : "Failed",
+                    result,
                     this.Name,
                     this.Url);
-                if (!res && !string.IsNullOrWhiteSpace(data))
+                if (!this.Result && !string.IsNullOrWhiteSpace(this.Data))
                 {
                     Console.ForegroundColor = ConsoleColor.Magenta;
-                    Console.WriteLine("\t{0}", data);
+                    Console.WriteLine("\t{0}", this.Data);
                 }
             }
         }

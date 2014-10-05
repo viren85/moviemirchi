@@ -47,7 +47,7 @@ namespace SmartMonkey
                             HttpResponseMessage response = client.GetAsync(url).Result;
                             string data = response.Content.ReadAsStringAsync().Result;
                             var statusCode = response.StatusCode;
-                            
+
                             if (statusCode == HttpStatusCode.OK)
                             {
                                 test.Data = data;
@@ -55,7 +55,9 @@ namespace SmartMonkey
                             }
                             else
                             {
-                                test.ReportResult(false, statusCode + " - " + response.ReasonPhrase);
+                                test.Data = statusCode + " - " + response.ReasonPhrase;
+                                test.Result = false;
+                                test.ReportResult();
                             }
                         }
                     }));

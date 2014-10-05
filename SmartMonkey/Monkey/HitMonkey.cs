@@ -13,7 +13,8 @@ namespace SmartMonkey
                 {
                     res = test.Validate(test.Data);
                 }
-                test.ReportResult(res, test.Data);
+                test.Result = res;
+                test.ReportResult();
             };
         }
     }

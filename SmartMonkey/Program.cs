@@ -1,7 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using SmartMonkey.UDT;
+using System;
 using System.Linq;
-using Validator = System.Func<string, string, bool>;
 
 namespace SmartMonkey
 {
@@ -28,6 +27,9 @@ namespace SmartMonkey
             {
                 monkey.Jump();
             }
+
+            ResultCollection.Stats();
+            ResultCollection.SendMail();
         }
 
         private static string GetURL(string[] args, int index, string defaultUrl)
