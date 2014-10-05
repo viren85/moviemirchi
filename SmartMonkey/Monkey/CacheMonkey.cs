@@ -30,8 +30,7 @@ namespace SmartMonkey
         {
             IMonkey monkey = new HitMonkey();
             monkey.Name = "HitMonkey for " + test.Name;
-            // This is twisted for a good reason
-            monkey.APIUrl = this.WebUrl;
+            monkey.APIUrl = this.APIUrl;
             monkey.WebUrl = this.WebUrl;
             monkey.AddTests(
                 urls.Select(url =>
@@ -39,6 +38,7 @@ namespace SmartMonkey
                     return new Test()
                     {
                         Name = test.Name + " - " + url,
+                        BaseUrl = this.WebUrl,
                         Url = url,
                         Validate = null, //test.Validate,
                     };
@@ -58,6 +58,7 @@ namespace SmartMonkey
                     return new Test()
                     {
                         Name = test.Name + " - " + url,
+                        BaseUrl = this.APIUrl,
                         Url = url,
                         Validate = null, //test.Validate,
                         ScratchLevel1 = test.ScratchLevel2,

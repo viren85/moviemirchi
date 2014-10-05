@@ -40,7 +40,7 @@ namespace SmartMonkey
                 this.ValidationList.Select(test =>
                     Task.Factory.StartNew(() =>
                     {
-                        string url = this.APIUrl + test.Url.TrimStart('/');
+                        string url = test.BaseUrl.TrimEnd('/') + '/' + test.Url.TrimStart('/');
 
                         using (HttpClient client = new HttpClient())
                         {

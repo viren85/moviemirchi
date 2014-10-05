@@ -42,6 +42,7 @@ namespace SmartMonkey
                     return new Test()
                     {
                         Name = item.Key,
+                        BaseUrl = this.APIUrl,
                         Url = item.Value,
                         Validate = Test.DefaultValidate(null),
                     };
@@ -59,6 +60,7 @@ namespace SmartMonkey
                 .Select(u => new Test()
                 {
                     Name = "Search",
+                    BaseUrl = this.APIUrl,
                     Url = u,
                     Validate = Test.DefaultValidate("\"id\":null"),
                 }));

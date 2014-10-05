@@ -8,6 +8,7 @@ namespace SmartMonkey
         private static object lockObject = new object();
 
         public string Name { get; set; }
+        public string BaseUrl { get; set; }
         public string Url { get; set; }
         public string Data { get; set; }
         public Func<string, bool> Validate { get; set; }

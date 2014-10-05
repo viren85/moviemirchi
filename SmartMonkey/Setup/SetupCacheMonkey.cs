@@ -76,6 +76,7 @@ namespace SmartMonkey
             monkey.AddTest(new Test()
             {
                 Name = "Now playing",
+                BaseUrl = this.APIUrl,
                 Url = "api/movies?type=current",
                 Validate = Test.DefaultValidate(null),
                 ScratchLevel1 = funcLevel1,
@@ -85,6 +86,7 @@ namespace SmartMonkey
             {
                 Name = "Upcoming",
                 Url = "api/movies?type=upcoming",
+                BaseUrl = this.APIUrl,
                 Validate = Test.DefaultValidate(null),
                 ScratchLevel1 = funcLevel1,
                 ScratchLevel2 = funcLevel2,
