@@ -1,9 +1,0 @@
-<?xml version="1.0"?>
-<Movies year="2014">
-	<Month name="December">
-		<Movie name="All Is Well" link="http://www.imdb.com/title/tt3547616/"/>
-		<Movie name="Tevar" link="http://www.imdb.com/title/tt3398048/"/>
-		<Movie name="P.K." link="http://www.imdb.com/title/tt2338151/"/>
-		<Movie name="Welcome Back" link="http://www.imdb.com/title/tt3159708/"/>
-	</Month>
-</Movies>
