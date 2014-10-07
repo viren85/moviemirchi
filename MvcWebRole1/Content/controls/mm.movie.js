@@ -21,7 +21,7 @@ var ShowMovie = function (data) {
             if (result.Movie != undefined) {
                 $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
-                PopulatingMovies(result.Movie, "movie-list");
+                PopulatingMovies(result.Movie, "movie-list", { disableClick: true, });
 
                 SetTileSize(".movie-list");
 

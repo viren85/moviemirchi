@@ -1,4 +1,4 @@
-﻿function PopulatingMovies(movie, container) {
+﻿function PopulatingMovies(movie, container, options) {
     var movieContainer = $("." + container + " ul");
 
     //$("." + container).addClass("tile-type-" + TILE_MODE);
@@ -7,13 +7,14 @@
     poster = JSON.parse(movie.Posters);
     var src = (poster != null && poster.length > 0) ? PUBLIC_BLOB_URL + poster[poster.length - 1] : PUBLIC_BLOB_URL + "default-movie.jpg";
 
-    var anchor = $("<a/>");
     var list = $("<li/>");
-
     list.attr("class", "movie")
-    //anchor.attr("href", "Movie?name=" + movie.UniqueName);
-    anchor.attr("href", "/movie/" + movie.UniqueName);
+    var anchor = $("<a/>");
     anchor.attr("title", movie.Name);
+    if (options && options.disableClick) {
+    } else {
+        anchor.attr("href", "/movie/" + movie.UniqueName);
+    }
     //anchor.append(img);
     var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
 
