@@ -24,6 +24,7 @@ namespace DataStoreLib.Utils
         #region Json for cetains keys
         public const string MovieInfoJson = "MovieInfoJson_";
         public const string ArtistMoviesJson = "ArtistMoviesJson_";
+        public const string ArtistBioJson = "ArtistBioJson_";
         #endregion
     }
 }
