@@ -4,20 +4,38 @@ namespace DataStoreLib.Models
     using Microsoft.WindowsAzure.Storage.Table;
     using System;
     using System.Collections.Generic;
+    using System.Web.Script.Serialization;
 
     public class NewsEntity : TableEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
-        public string NewsId { get; set; }
+
+        public string Desc
+        {
+            get
+            {
+                return (this.Description ?? string.Empty).Substring(0, Math.Min(this.Description.Length, 190));
+            }
+        }
+
         public string Title { get; set; }
-        public string Description { get; set; }
         public string Image { get; set; }
         public string Link { get; set; }
-        public string PublishDate { get; set; }
         public string Source { get; set; }
+
+        [ScriptIgnore]
+        public string NewsId { get; set; }
+        [ScriptIgnore]
+        public string Description { get; set; }
+        [ScriptIgnore]
+        public string PublishDate { get; set; }
+        [ScriptIgnore]
         public string MovieName { get; set; }
+        [ScriptIgnore]
         public string ArtistName { get; set; }
+        [ScriptIgnore]
         public string FutureJson { get; set; }
+        [ScriptIgnore]
         public bool  IsActive { get; set; }
 
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)

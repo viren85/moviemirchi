@@ -24,7 +24,7 @@ var ShowNews = function (data) {
                     news.push({
                         Link: t.Link,
                         Title: t.Title,
-                        Description: t.Description,
+                        Description: t.Desc,
                         Source: t.Source,
                         Image: t.Image,
                     });

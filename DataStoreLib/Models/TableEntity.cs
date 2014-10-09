@@ -8,6 +8,7 @@ namespace DataStoreLib.Models
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.Linq;
+    using System.Web.Script.Serialization;
     using IEntityPropertyDictionary = System.Collections.Generic.IDictionary<string, Microsoft.WindowsAzure.Storage.Table.EntityProperty>;
 
     public abstract class TableEntity : TableServiceEntity, IDataStoreTableEntity
@@ -20,8 +21,14 @@ namespace DataStoreLib.Models
         {
         }
 
+        [ScriptIgnore]
         public string ETag { get; set; }
+        [ScriptIgnore]
         public new DateTimeOffset Timestamp { get; set; }
+        [ScriptIgnore]
+        public override string PartitionKey { get; set; }
+        [ScriptIgnore]
+        public override string RowKey { get; set; }
 
         public virtual void ReadEntity(IEntityPropertyDictionary properties, OperationContext operationContext)
         {
