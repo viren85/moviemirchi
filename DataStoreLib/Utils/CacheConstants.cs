@@ -25,6 +25,7 @@ namespace DataStoreLib.Utils
         public const string MovieInfoJson = "MovieInfoJson_";
         public const string ArtistMoviesJson = "ArtistMoviesJson_";
         public const string ArtistBioJson = "ArtistBioJson_";
+        public const string NewsJson = "NewsJson";
         #endregion
     }
 }

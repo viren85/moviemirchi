@@ -4,6 +4,7 @@ namespace CloudMovie.APIRole.API
     using DataStoreLib.Constants;
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
+    using DataStoreLib.Utils;
     using System;
     using System.Collections.Generic;
     using System.Linq;
@@ -17,14 +18,16 @@ namespace CloudMovie.APIRole.API
     public class NewsController : BaseController
     {
         private static Lazy<JavaScriptSerializer> jsonSerializer = new Lazy<JavaScriptSerializer>(() => new JavaScriptSerializer());
+        private const int defaultStartIndex = 0;
+        private const int defaultPageSize = 20;
 
         // get : api/news?start=0&page=20
         protected override string ProcessRequest()
         {
             var tableMgr = new TableManager();
 
-            int startIndex = 0;
-            int pageSize = 20;
+            int startIndex = defaultStartIndex;
+            int pageSize = defaultPageSize;
             string mode = "get";
             string newsId = string.Empty;
 
@@ -59,9 +62,24 @@ namespace CloudMovie.APIRole.API
             try
             {
                 if (mode == "get")
-                {                    
-                    var news = tableMgr.GetRecentNews(startIndex, pageSize);
-                    return jsonSerializer.Value.Serialize(news);
+                {
+                    string json;
+                    if (startIndex == defaultStartIndex && pageSize == defaultPageSize)
+                    {
+                        if (!CacheManager.TryGet(CacheConstants.NewsJson, out json))
+                        {
+                            var news = tableMgr.GetRecentNews(startIndex, pageSize);
+                            json = jsonSerializer.Value.Serialize(news);
+                            CacheManager.Add(CacheConstants.NewsJson, json);
+                        }
+                    }
+                    else
+                    {
+                        var news = tableMgr.GetRecentNews(startIndex, pageSize);
+                        json = jsonSerializer.Value.Serialize(news);
+                    }
+
+                    return json;
                 }
                 else if (mode == "delete")
                 {
