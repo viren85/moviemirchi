@@ -1,32 +1,29 @@
 ﻿function PopulatingMovies(movie, container, options) {
     var movieContainer = $("." + container + " ul");
 
-    //$("." + container).addClass("tile-type-" + TILE_MODE);
-
     var poster = [];
     poster = JSON.parse(movie.Posters);
     var src = (poster != null && poster.length > 0) ? PUBLIC_BLOB_URL + poster[poster.length - 1] : PUBLIC_BLOB_URL + "default-movie.jpg";
 
-    var list = $("<li/>");
-    list.attr("class", "movie")
-    var anchor = $("<a/>");
-    anchor.attr("title", movie.Name);
+    var list = $("<li itemscope itemtype=\"http://schema.org/Movie\" class=\"movie\"></li>");
+    var anchor = $("<a title=\"" + movie.Name + "\"></a>");
     if (options && options.disableClick) {
     } else {
         anchor.attr("href", "/movie/" + movie.UniqueName);
     }
-    //anchor.append(img);
+    anchor.prepend("<meta itemprop=\"url\" content=\"/movie/" + movie.UniqueName + "\">");
+
     var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
 
     var criticRating;
     var hide = false;
-    if (movie.MyScore == "" || movie.MyScore == undefined) {
+    if (!movie.MyScore || movie.MyScore === "") {
         criticRating = 0;
         hide = true;
     } else {
 
         criticRating = JSON.parse(movie.MyScore).criticrating;
-        if (criticRating == undefined || criticRating == "") {
+        if (!criticRating || criticRating === "") {
             criticRating = 0;
             hide = true;
         } else {
@@ -38,10 +35,12 @@
         // TODO: Fix condition for review indicator
         html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
                     "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
-                        "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
+                        "<img itemprop=\"image\" id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
                         "<div class=\"captionAndNavigate\">" +
                             "<div id=\"captionCredit\" class=\"multimediaCaption\">" +
                                 "<div id=\"photoCaption\">" +
+                                    "<meta itemprop=\"name\" content=\"" + movie.Name + "\">" +
+                                    "<meta itemprop=\"datePublished\" content=\"" + movie.Month + "\">" +
                                     "<div class=\"img-movie-name img-movie-name-tile-type-" + TILE_MODE + "\">" + movie.Name + "</div>" +
                                     "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +

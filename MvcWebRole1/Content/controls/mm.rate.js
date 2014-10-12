@@ -14,12 +14,16 @@ function GetMovieRate(rating, rateValue) {
     // TODO: Get rid of return once we want to show mirchi
     return "<span />";
 
-    if (rating == undefined || rating < 0) return "";
-
-    if (rateValue == undefined || rateValue == null)
+    if (rating == undefined || rating < 0) {
+        return ""
+    } else if (rateValue == undefined || rateValue == null) {
         return "<span class='rate rate-" + rating + "'></span>";
-    else
-        return "<span class='rate rate-" + rating + "'></span><span class='rate-value'>" + rateValue + "</span>";
+    } else {
+        return
+        "<span itemprop=\"aggregateRating\" itemscope itemtype=\"http://schema.org/AggregateRating\" class='rate rate-" + rating + "'></span>" +
+        "<meta itemprop=\"ratingValue\" content=\"" + rateValue + "\">" +
+        "<span class='rate-value'>" + rateValue + "</span>";
+    }
 }
 
 function GetRedMirchi() {

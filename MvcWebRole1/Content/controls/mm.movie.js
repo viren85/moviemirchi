@@ -74,13 +74,18 @@ var ShowMovie = function (data) {
 var ShowMovieDetails = function (movie) {
     var movieDetalis = $("<div/>").addClass("movie-description");
 
-    var directors = "", directorsList = "";
-    var writers = "", writerList = "";
-    var producers = "", producersList = "";
-    var music = "", musicList = "";
-    var cast = "", actorList = "";
-    var artistCounter = 0;
-    var songsList = "";
+    var directors = "",
+        directorsList = "",
+        writers = "",
+        writerList = "",
+        producers = "",
+        producersList = "",
+        music = "",
+        musicList = "",
+        cast = "",
+        actorList = "",
+        artistCounter = 0,
+        songsList = "";
 
     var casts = [];
     casts = JSON.parse(movie.Casts);
@@ -276,12 +281,22 @@ var GetMovieGenre = function (genre) {
 
 var GetMovieCast = function (movieCast) {
     movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Stars:", movieCast);
+    return GetMovieDataHolder(
+        "Stars:",
+        "<span itemprop=\"actor\" itemscope itemtype=\"http://schema.org/Person\">" +
+        "<span itemprop=\"name\">" +
+            movieCast +
+        "</span></span>");
 }
 
 var GetMovieDirector = function (movieCast) {
     movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Directors:", movieCast);
+    return GetMovieDataHolder(
+        "Directors:",
+        "<span itemprop=\"director\" itemscope itemtype=\"http://schema.org/Person\">" +
+        "<span itemprop=\"name\">" +
+            movieCast +
+        "</span></span>");
 }
 
 var GetMovieProducer = function (movieCast) {
