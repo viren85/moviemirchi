@@ -67,5 +67,83 @@ namespace SmartMonkey
 
             return monkey;
         }
+
+        public IMonkey HitReviewerPage()
+        {
+            IMonkey monkey = new HitMonkey();
+            monkey.Name = "Reviewer monkey";
+            monkey.APIUrl = this.APIUrl;
+            monkey.WebUrl = this.WebUrl;
+            monkey.AddTests(
+                new string[] {
+                    "rajeev-masand",
+                    "tarun-adarsh",
+                    "anupama-chopra",
+                    "shubra-gupta",
+                    "tushar-joshi",
+                    "raja-sen",
+                    "shubha-shetty",
+                    "pratim-gupta",
+                    "vajir-singh",
+                    "komal-nahta",
+                    "sudhish-kamath",
+                    "sarit-ray",
+                    "gaurav-malani",
+                    "aseem-chhabra",
+                    "saibal-chatterjee",
+                    "rachit-gupta",
+                    "mihir-fadnavis",
+                    "taran-adarsh",
+                }
+                .Select(u => new Test()
+                {
+                    Name = "Reviewer page",
+                    BaseUrl = this.WebUrl,
+                    Url = "movie/reviewer/" + u,
+                    Validate = null,
+                }));
+
+            return monkey;
+        }
+
+        public IMonkey HitGenrePage()
+        {
+            IMonkey monkey = new HitMonkey();
+            monkey.Name = "Genre monkey";
+            monkey.APIUrl = this.APIUrl;
+            monkey.WebUrl = this.WebUrl;
+            monkey.AddTests(
+                new string[] {
+                    "Adventure",
+                    "Biography",
+                    "Comedy",
+                    "Crime",
+                    "Drama",
+                    "Romance",
+                    "Thriller",
+                    "Action",
+                    "Family",
+                    "Musical",
+                    "Mystery",
+                    "War",
+                    "History",
+                    "Horror",
+                    "Music",
+                    "Sport",
+                    "Sci-Fi",
+                    "Western",
+                    "Animation",
+                    "Fantasy",
+                }
+                .Select(u => new Test()
+                {
+                    Name = "Genre page",
+                    BaseUrl = this.WebUrl,
+                    Url = "genre/" + u,
+                    Validate = null,
+                }));
+
+            return monkey;
+        }
     }
 }

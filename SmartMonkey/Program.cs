@@ -29,6 +29,8 @@ namespace SmartMonkey
                 hits.HitProductAPIs(),
                 cache.CacheMoviePage(),
                 cache.CacheArtistPage(),
+                hits.HitReviewerPage(),
+                hits.HitGenrePage(),
             };
             foreach (IMonkey monkey in monkeys)
             {
