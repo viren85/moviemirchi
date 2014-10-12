@@ -1,13 +1,20 @@
 ﻿using SmartMonkey.UDT;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SmartMonkey
 {
     class Program
     {
-        private const string APIUrl = @"http://96d1f263dff744ddab4f493b9ac935e5.cloudapp.net:8081/";
-        private const string WebUrl = @"http://96d1f263dff744ddab4f493b9ac935e5.cloudapp.net:80/";
+        public const string APIUrl = @"http://96d1f263dff744ddab4f493b9ac935e5.cloudapp.net:8081/";
+        public const string WebUrl = @"http://moviemirchi.co.in/";
+        public static readonly IEnumerable<string> SeedUrl =
+            // Add urls here to make them appear in sitemap
+                new string[] {
+                    "",
+                    "home/about",
+                }.AsEnumerable();
 
         static void Main(string[] args)
         {
@@ -18,7 +25,7 @@ namespace SmartMonkey
             var hits = new SetupHitMonkey(apiurl, weburl);
             var cache = new SetupCacheMonkey(apiurl, weburl);
 
-            var monkeys = new IMonkey[] { 
+            var monkeys = new IMonkey[] {
                 hits.HitProductAPIs(),
                 cache.CacheMoviePage(),
                 cache.CacheArtistPage(),
@@ -29,6 +36,11 @@ namespace SmartMonkey
             }
 
             ResultCollection.Stats();
+            ResultCollection.GenerateSitemap(
+                WebUrl,
+                filePath: "sitemap.xml",
+                seedUrl: SeedUrl
+            );
             ResultCollection.SendMail();
         }
 

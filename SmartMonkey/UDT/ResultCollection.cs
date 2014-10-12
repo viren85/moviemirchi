@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Xml.Linq;
 
 namespace SmartMonkey.UDT
 {
@@ -41,6 +42,44 @@ namespace SmartMonkey.UDT
                 list.Count(r => r.Result),
                 list.Count(r => !r.Result)
             );
+        }
+
+        public static void GenerateSitemap(string root, string filePath, IEnumerable<string> seedUrl)
+        {
+            if (string.IsNullOrWhiteSpace(filePath))
+            {
+                throw new ArgumentException("filePath is not valid");
+            }
+
+            // Add the urls here
+            var seed = seedUrl ?? Enumerable.Empty<string>();
+            var allUrls = seed.Concat(list.Where(u => u.Result).Select(u => u.Url));
+            var properUrls = allUrls
+                .Where(u => !u.StartsWith("api/"))
+                .Select(u => root + u);
+            var urls = properUrls.Distinct();
+
+            XNamespace goog = "http://www.google.com/schemas/sitemap/0.9";
+            var xdoc = new XDocument(
+                new XElement(goog + "urlset",
+                    urls.Select(url =>
+                        new XElement(goog + "url",
+                            new XElement(goog + "loc", url)
+                    ))
+                )
+            );
+
+            try
+            {
+                xdoc.Save(filePath);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Could not save Sitemap at {1}{0}Exception: {2}{0}"
+                    , Environment.NewLine
+                    , filePath
+                    , ex);
+            }
         }
 
         public static void SendMail()
