@@ -5,16 +5,16 @@
 <div class="movies">
 
 </div>
-<div class="news">
-</div>
+@*<div class="news">
+</div>*@
 <script type="text/javascript">
     $(document).ready(function () {
 
         var json = [
                     { "title": "Reviewer", "section": "review-list-tube" },
                     { "title": "Latest Reviews", "section": "review-list-now-playing-tube" },
-                    { "title": "Previous Reviews", "section": "review-list-other-tube" },
-                    { "title": "News", "section": "news-container-tube" }
+                    { "title": "Previous Reviews", "section": "review-list-other-tube" }
+                    /*,{ "title": "News", "section": "news-container-tube" }*/
         ];
 
         $(".nav-bar-container").append(GetNavBar(json));
@@ -43,7 +43,7 @@
         }
 
         LoadReviewsByReviewer(finalName);
-        $(".news").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        //$(".news").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
     });
 </script>
 <script type="text/javascript" src="/Content/controls/mm.review.js"></script>

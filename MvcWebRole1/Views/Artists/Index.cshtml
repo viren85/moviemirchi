@@ -29,7 +29,7 @@
                     { "title": "Now Playing Movies", "section": "nowplaying-movie-list-tube" },
                     { "title": "Previous Movies", "section": "previous-movie-list-tube" },
                     { "title": "Photos", "section": "movie-poster-details-tube" },
-                    { "title": "News", "section": "news-container-tube" },
+                    /*{ "title": "News", "section": "news-container-tube" },*/
                     { "title": "Tweets", "section": "tweets-tube" }
         ];
 
@@ -54,7 +54,7 @@
         $(".movies").append(GetTubeControl("Now Playing Movies", "nowplaying-movie-list", "nowplaying-movies-pager"));
         $(".movies").append(GetTubeControl("Previous Movies", "previous-movie-list", "previous-movies-pager"));
         $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
-        $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        //$(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
 
         $(".section-title").each(function () {
@@ -66,10 +66,10 @@
         var artistBioPath = "/api/ArtistMovies?type=bio&name=" + artist;
         CallHandler(apiPath, PopulateMovies);
         CallHandler(artistBioPath, PopulateArtistsBio);
-        LoadNews();
+        //LoadNews();
         LoadTweets("artist", name);
 
-        new Util().RemoveLoadImage($("#news-container-tube"));
+        //new Util().RemoveLoadImage($("#news-container-tube"));
         new Util().RemoveLoadImage($("#tweets-tube"));
     });
 

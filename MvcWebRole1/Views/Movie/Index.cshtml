@@ -108,7 +108,7 @@
                     { "title": "Songs", "section": "movie_songs" },
                     { "title": "Trailers", "section": "movie_trailers" },
                     { "title": "Reviews", "section": "movie-review-details-tube" },
-                    { "title": "News", "section": "news-container-tube" },
+                    /*{ "title": "News", "section": "news-container-tube" },*/
                     { "title": "Tweets", "section": "tweets-tube" }
         ];
 
@@ -119,7 +119,7 @@
             name = name.substring(0, name.indexOf("?"));
         LoadSingleMovie(name);
         //$(".movie-songs").append(GetTubeControl("Songs", "movie-songs-details", "songs", "songs"));
-        $(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+        //$(".tweet-details").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
         LoadTweets("movie", name);
@@ -130,7 +130,7 @@
 
         // Hide loading image from tweets and news section after 5 sec
         setTimeout(function () {
-            new Util().RemoveLoadImage($("#news-container-tube"));
+            //new Util().RemoveLoadImage($("#news-container-tube"));
             new Util().RemoveLoadImage($("#tweets-tube"));
         }, 4000);
     });
