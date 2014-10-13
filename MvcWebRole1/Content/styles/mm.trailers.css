@@ -86,6 +86,15 @@
     #trailer-pager .left-arrow{
         left: 0px;
     }
+    .ShowModal{
+        left: 1% !important;
+        top: 0% !important;
+        width: 98% !important;
+        height: 275px !important;
+    }
+    .ShowModal iframe{
+        height: 275px !important;
+    }
 }
  /*@media screen and (max-width: 400px) {
     #trailer-pager{
@@ -119,5 +128,13 @@
     }
     .trailers ul {
         margin-left: 0px;
+    }
+    .ShowModal{
+        left: 1% !important;
+        top: 5% !important;
+        width: 98% !important;
+    }
+    .ShowModal iframe{
+        height: 250px !important;
     }
 }
