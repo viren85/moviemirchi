@@ -33,9 +33,12 @@
                 margin-right: 10px;
             }
 
-                .trailers ul li:hover {
+                .trailers ul li:hover{
                     background-color: #368bc1;
                     color: #fff;
+                }
+                .trailers ul li:hover a,.songs ul li:hover a {
+                    color: #fff;    
                 }
 
                 .trailers ul li span {

@@ -43,10 +43,14 @@
     border-radius: 0px;
     background-color: initial !important;
 }
-
+.modal-header{
+    border: none;
+}
 .modal-body {
-    min-height: 100px;
-    background-color: #fff;
+    /*min-height: 100px;
+        background-color: #fff;*/
+    padding: 0px !important;
+    min-height: 250px;
 }
 .modal-footer{
     background-color: #fff;

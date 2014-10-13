@@ -5,8 +5,8 @@
 overflow-y: auto;
 }
 .modal-body {
-    float: left;
-    border-bottom: 1px solid #ddd;
+    
+    /*float: left;border-bottom: 1px solid #ddd;*/
 }
 .modal-footer {
     border-top: none;

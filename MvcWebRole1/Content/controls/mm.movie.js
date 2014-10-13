@@ -354,31 +354,31 @@ var SongList = function (videos, type) {
         }
 
         var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].SongTitle).click(function () {
-            //$(document).scrollTop(0);
-            $('html,body').css({
-                'overflow': 'hidden',
-                'height': '100%'
-            });
-
-            trackSongLink(url);
-            DisplayModal($(this).attr("video-link"));
-        });
-
-        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
-            //$(document).scrollTop(0);
-            $('html,body').css({
-                'overflow': 'hidden',
-                'height': '100%'
-            });
             DisplayModal();
+            trackSongLink(url);
+            $('html, body').animate({ scrollTop: 0 }, 500);
         });
+
+        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type);
 
         var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].SongTitle, 16)).attr("title", videos[i].SongTitle);
 
-        $(li).append(img);
-        $(li).append(playImg);
+        var a = $("<a/>").attr("href", "#modalMsg").attr("role", "button").attr("data-toggle", "modal").attr("video-link", url + "?autoplay=1").click(function () {
+            DisplayModal($(this).attr("video-link"));
+            trackSongLink(url);
+            $('html, body').animate({ scrollTop: 0 }, 500);
+        });
 
-        $(li).append(title);
+        $('#modalMsg').on('hidden', function () {
+            RemoveModal();
+        });
+
+        $(a).append(img);
+        $(a).append(playImg);
+
+        $(a).append(title);
+        $(li).append(a);
+
         if (videos[i].YoutubeURL != undefined && videos[i].YoutubeURL != "" && videos[i].YoutubeURL != null) {
             $(ul).append(li);
             songHasLink = true;
@@ -447,41 +447,32 @@ var TrailerList = function (videos, type) {
             url = videos[i].YoutubeURL.trim();
         }
 
-        var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].Title).click(function () {
-            //$(document).scrollTop(0);
-            $('html,body').css({
-                'overflow': 'hidden',
-                'height': '100%'
-            });
-
-            trackVideoLink(url);
-            DisplayModal($(this).attr("video-link"));
-        });
-
-        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type).click(function () {
-            //$(document).scrollTop(0);
-            $('html,body').css({
-                'overflow': 'hidden',
-                'height': '100%'
-            });
-
-            trackVideoLink(videos[i].YoutubeURL);
-            DisplayModal();
-        });
+        var li = $("<li/>").attr("class", "song").attr("video-link", url + "?autoplay=1").attr("title", "Play YouTube " + type + " - " + videos[i].Title);
+        var playImg = $("<img/>").attr("class", "song-play").attr("video-link", url + "?autoplay=1").attr("src", "../images/play-video.png").attr("title", "Play YouTube " + type);
 
         var title = $("<span/>").html(new Util().GetEllipsisText(videos[i].Title, 16)).attr("title", videos[i].Title);
 
-        $(li).append(img);
-        $(li).append(playImg);
+        var a = $("<a/>").attr("href", "#modalMsg").attr("role", "button").attr("data-toggle", "modal").attr("video-link", url + "?autoplay=1").click(function () {
+            DisplayModal($(this).attr("video-link"));
+            trackVideoLink(url);
+            $('html, body').animate({ scrollTop: 0 }, 500);
+        });
 
-        $(li).append(title);
+        $('#modalMsg').on('hidden', function () {
+            RemoveModal();
+        });
+
+        $(a).append(img);
+        $(a).append(playImg);
+
+        $(a).append(title);
+        $(li).append(a);
+
         if (videos[i].YoutubeURL != undefined && videos[i].YoutubeURL != "" && videos[i].YoutubeURL != null && videos[i].Thumb != undefined && videos[i].Thumb != "" && videos[i].Thumb != null) {
             $(ul).append(li);
             songHasLink = true;
             j++;
         }
-
-        //if (j == 2) break;
     }
 
     if (songHasLink) {
@@ -517,37 +508,17 @@ var TrailerList = function (videos, type) {
     }
 }
 
-$("#overlay").click(function () {
-    RemoveModal();
-});
-
-$("#modalMsg").click(function () {
-    $('html,body').css({
-        'overflow': 'auto',
-        'height': 'auto'
-    });
-    return;
-});
-
 function DisplayModal(url) {
-    $("#overlay").attr("class", "OverlayEffect");
+    //$("#overlay").attr("class", "OverlayEffect");
     $("#modalMsg").attr("class", "ShowModal");
     $("#modalMsg").find("iframe").each(function () {
         $(this).attr("src", url);
     });
-
 }
 
 function RemoveModal() {
-    $("#modalMsg").attr("class", "HideModal");
-    $("#overlay").attr("class", "");
     $("#modalMsg").find("iframe").each(function () {
         $(this).attr("src", "");
-    });
-
-    $('html,body').css({
-        'overflow': 'auto',
-        'height': 'auto'
     });
 
     return false;
