@@ -82,6 +82,8 @@ var ShowMovieDetails = function (movie) {
         producersList = "",
         music = "",
         musicList = "",
+        singer = "",
+        singerList = "",
         cast = "",
         actorList = "",
         artistCounter = 0,
@@ -108,9 +110,13 @@ var ShowMovieDetails = function (movie) {
                 writerList += "<li class='team-item'><a href=\"/artists/" + name + "\">" + casts[c].name + "</a></li>";
             }
             else if (casts[c].role.toLowerCase() == "music" && casts[c].name != null && music.indexOf(casts[c].name) == -1) {
-                if (casts[c].charactername == null) {
+
+                if (casts[c].charactername == null || casts[c].charactername.indexOf("music") > -1) {
                     music += "<a  href=\"/artists/" + name + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
                     musicList += "<li class='team-item'><a href=\"/artists/" + name + "\">" + casts[c].name + "</a></li>";
+                } else if (casts[c].charactername == "playback singer") {
+                    singer += "<a  href=\"/artists/" + name + "\" title='click here to view profile'>" + casts[c].name + "</a>, ";
+                    singerList += "<li class='team-item'><a href=\"/artists/" + name + "\">" + casts[c].name + "</a></li>";
                 }
             }
             else if (casts[c].role.toLowerCase() == "producer" && casts[c].name != null && producers.indexOf(casts[c].name) == -1) {
@@ -138,6 +144,7 @@ var ShowMovieDetails = function (movie) {
     $(movieDetalis).append(GetMovieDirector(CleanCastString(directors)));
     $(movieDetalis).append(GetMovieProducer(CleanCastString(producers)));
     $(movieDetalis).append(GetMovieMusicDirector(CleanCastString(music)));
+    $(movieDetalis).append(GetMovieSinger(CleanCastString(singer)));
     $(movieDetalis).append(GetMovieWriter(CleanCastString(writers)));
     //$(movieDetalis).append(GetMovieStats(movie.Stats));
     $(".tube-container:first").append(movieDetalis);
@@ -149,7 +156,7 @@ var PopulatePosters = function (images, movieName, picture) {
     var poster = [];
     var pictures = [];
     poster = JSON.parse(images);
-    
+
     if (picture && picture != "") {
         pictures = JSON.parse(picture);
     }
@@ -176,7 +183,7 @@ var PopulatePosters = function (images, movieName, picture) {
             var li = $("<li/>").css("display", "inline-block").css("text-align", "center").css("float", "left");
             var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]").css("float", "left").css("position", "relative");
             var source;
-            
+
             if (pictures.length == 0 || pictures[p] == null || pictures[p].source == null || pictures[p].source == "undefined" || pictures[p].source == "") {
                 source = $("<span/>").html("Source: IMDB");
             } else {
@@ -325,7 +332,11 @@ var GetMovieProducer = function (movieCast) {
 
 var GetMovieMusicDirector = function (movieCast) {
     movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Music Director:", movieCast);
+    return GetMovieDataHolder("Music:", movieCast);
+}
+var GetMovieSinger = function (movieCast) {
+    movieCast = movieCast.length == 0 ? "-" : movieCast;
+    return GetMovieDataHolder("Singer:", movieCast);
 }
 
 var GetMovieWriter = function (movieCast) {
