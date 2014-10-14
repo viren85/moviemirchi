@@ -149,7 +149,7 @@ var PopulatePosters = function (images, movieName, picture) {
     var poster = [];
     var pictures = [];
     poster = JSON.parse(images);
-
+    
     if (picture && picture != "") {
         pictures = JSON.parse(picture);
     }
@@ -174,17 +174,36 @@ var PopulatePosters = function (images, movieName, picture) {
             });
 
             var li = $("<li/>").css("display", "inline-block").css("text-align", "center").css("float", "left");
-            var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]");
+            var a = $("<a/>").attr("href", PUBLIC_BLOB_URL + poster[p]).attr("rel", "prettyPhoto[gallery]").css("float", "left").css("position", "relative");
             var source;
+            
             if (pictures.length == 0 || pictures[p] == null || pictures[p].source == null || pictures[p].source == "undefined" || pictures[p].source == "") {
-                source = $("<span/>").html("Source: IMDB").css("display", "block");
+                source = $("<span/>").html("Source: IMDB");
             } else {
-                source = $("<span/>").html("Source: ").css("display", "block").append($("<a/>").attr("href", pictures[p].source).html("View").attr("target", "new"));
+                source = $("<span/>").html("Source: ").append($("<a/>").attr("href", pictures[p].source).html("View").attr("target", "new"));
             }
 
+            $(source).css(
+                {
+                    "display": "block",
+                    "position": "absolute",
+                    "top": "170px",
+                    "left": "5px",
+                    "float": "left",
+                    "padding-left": "10px",
+                    "background-color": "white",
+                    "padding-right": "10px",
+                    "border-radius": "0px 3px 3px 0px",
+                    "border": "1px solid #333",
+                    "border-left": "0px",
+                    "opacity": "0.8"
+                }
+           );
+
             $(a).append(img);
+            $(a).append(source);
             $(li).append(a);
-            $(li).append(source);
+            //$(li).append(source);
             $(ul).append(li);
             //$(".movie-poster-details").append(img);
         }
