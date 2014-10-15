@@ -6,7 +6,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class MovieEntity : TableEntity
+    public class MovieEntity : TableStorageEntity
     {
 
         #region table members
@@ -51,57 +51,6 @@ namespace DataStoreLib.Models
             }
         }
 
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            MovieId = ReadString(properties, "MovieId");
-            Name = ReadString(properties, "Name");
-            AltNames = ReadString(properties, "AltNames");
-            Posters = ReadString(properties, "Posters");
-            Ratings = ReadString(properties, "Rating");
-            Synopsis = ReadString(properties, "Synopsis");
-            Casts = ReadString(properties, "Cast");
-            Stats = ReadString(properties, "Stats");
-            Songs = ReadString(properties, "Songs");
-            Trailers = ReadString(properties, "Trailers");
-            Pictures = ReadString(properties, "Pictures");
-            Genre = ReadString(properties, "Genre");
-            Month = ReadString(properties, "Month");
-            Year = ReadString(properties, "Year");
-            UniqueName = ReadString(properties, "UniqueName");
-            State = ReadString(properties, "State");
-            MyScore = ReadString(properties, "MyScore");
-            JsonString = ReadString(properties, "JsonString");
-            Popularity = ReadString(properties, "Popularity");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "MovieId", MovieId);
-            WriteString(dict, "Name", Name);
-            WriteString(dict, "AltNames", AltNames);
-            WriteString(dict, "Posters", Posters);
-            WriteString(dict, "Rating", Ratings);
-            WriteString(dict, "Synopsis", Synopsis);
-            WriteString(dict, "Cast", Casts);
-            WriteString(dict, "Stats", Stats);
-            WriteString(dict, "Songs", Songs);
-            WriteString(dict, "Trailers", Trailers);
-            WriteString(dict, "Pictures", Pictures);
-            WriteString(dict, "Month", Month);
-            WriteString(dict, "Year", Year);
-            WriteString(dict, "Genre", Genre);
-            WriteString(dict, "UniqueName", UniqueName);
-            WriteString(dict, "State", State);
-            WriteString(dict, "MyScore", MyScore);
-            WriteString(dict, "JsonString", JsonString);
-            WriteString(dict, "Popularity", Popularity);
-
-            return dict;
-        }
         #endregion
         public MovieEntity()
             : base(PARTITION_KEY, string.Empty)

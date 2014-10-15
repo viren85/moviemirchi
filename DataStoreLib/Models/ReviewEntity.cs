@@ -5,7 +5,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class ReviewEntity : TableEntity
+    public class ReviewEntity : TableStorageEntity
     {
         #region table emembers
         public static readonly string PARTITION_KEY = "CloudMovie";
@@ -28,45 +28,6 @@ namespace DataStoreLib.Models
         public string JsonString { get; set; }
 
         public string CriticsRating { get; set; }
-
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            ReviewId = ReadString(properties, "ReviewId");
-            ReviewerId = ReadString(properties, "ReviewerId");
-            ReviewerName = ReadString(properties, "ReviewerName");
-            Review = ReadString(properties, "Review");
-            ReviewerRating = ReadString(properties, "ReviewerRating");
-            SystemRating = ReadInt(properties, "SystemRating");
-            MovieId = ReadString(properties, "MovieId");
-            Hot = ReadBool(properties, "Hot");
-            OutLink = ReadString(properties, "OutLink");
-            Affiliation = ReadString(properties, "Affiliation");
-            Summary = ReadString(properties, "Summary");
-            MyScore = ReadString(properties, "MyScore");
-            JsonString = ReadString(properties, "JsonString");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "ReviewId", ReviewId);
-            WriteString(dict, "ReviewerName", ReviewerName);
-            WriteString(dict, "Review", Review);
-            WriteString(dict, "ReviewerRating", ReviewerRating);
-            WriteInt(dict, "SystemRating", SystemRating);
-            WriteString(dict, "MovieId", MovieId);
-            WriteString(dict, "ReviewerId", ReviewerId);
-            WriteBool(dict, "Hot", Hot);
-            WriteString(dict, "OutLink", OutLink);
-            WriteString(dict, "Affiliation", Affiliation);
-            WriteString(dict, "Summary", Summary);
-            WriteString(dict, "MyScore", MyScore);
-            WriteString(dict, "JsonString", JsonString);
-            return dict;
-        }
 
         #endregion
 

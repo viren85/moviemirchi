@@ -23,7 +23,7 @@ namespace DataStoreLib.Storage
             return ReviewEntity.PARTITION_KEY;
         }
 
-        public IDictionary<string, TEntity> GetItemsByReviewerAndMovieId<TEntity>(string reviewerId) where TEntity : DataStoreLib.Models.TableEntity
+        public IDictionary<string, TEntity> GetItemsByReviewerAndMovieId<TEntity>(string reviewerId) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(_table != null);
 
@@ -50,7 +50,7 @@ namespace DataStoreLib.Storage
         }
 
 
-        public IDictionary<string, TEntity> GetReviewByMovieAndReviewId<TEntity>(string reviewerId, string movieId) where TEntity : DataStoreLib.Models.TableEntity
+        public IDictionary<string, TEntity> GetReviewByMovieAndReviewId<TEntity>(string reviewerId, string movieId) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             var operationList = new Dictionary<string, TableResult>();
 

@@ -6,36 +6,14 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class ReviewerEntity : TableEntity
+    public class ReviewerEntity : TableStorageEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
         public string ReviewerId { get; set; }
         public string ReviewerName { get; set; }
         public string ReviewerImage { get; set; }
         public string Affilation { get; set; }
-
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-            ReviewerId = ReadString(properties, "ReviewerId");
-            ReviewerName = ReadString(properties, "ReviewerName");
-            ReviewerImage = ReadString(properties, "ReviewerImage");
-            Affilation = ReadString(properties, "Affilation");
-
-
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "ReviewerId", ReviewerId);
-            WriteString(dict, "ReviewerName", ReviewerName);
-            WriteString(dict, "ReviewerImage", ReviewerImage);
-            WriteString(dict, "Affilation", Affilation);
-            return dict;
-        }
-
+        
         public ReviewerEntity()
             : base(PARTITION_KEY, string.Empty)
         {

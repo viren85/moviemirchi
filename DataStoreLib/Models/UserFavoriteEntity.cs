@@ -5,7 +5,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class UserFavoriteEntity: TableEntity
+    public class UserFavoriteEntity: TableStorageEntity
     {
         #region table members
         public static readonly string PARTITION_KEY = "CloudMovie";
@@ -13,28 +13,6 @@ namespace DataStoreLib.Models
         public string UserId { get; set; }
         public string Favorites { get; set; }
         public string DateCreated { get; set; }
-
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            UserFavoriteId = ReadString(properties, "UserFavoriteId");
-            UserId = ReadString(properties, "UserId");
-            Favorites = ReadString(properties, "Favorites");
-            DateCreated = ReadString(properties, "DateCreated");            
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "UserFavoriteId", UserFavoriteId);
-            WriteString(dict, "UserId", UserId);
-            WriteString(dict, "Favorites", Favorites);
-            WriteString(dict, "DateCreated", DateCreated);
-            
-            return dict;
-        }
 
         #endregion
 

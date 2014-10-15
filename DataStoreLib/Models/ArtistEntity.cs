@@ -5,7 +5,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class ArtistEntity : TableEntity
+    public class ArtistEntity : TableStorageEntity
     {
         #region table members
         public static readonly string PARTITION_KEY = "CloudMovie";
@@ -22,39 +22,6 @@ namespace DataStoreLib.Models
 
         // For future use
         public string JsonString { get; set; }
-
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            ArtistId = ReadString(properties, "ArtistId");
-            ArtistName = ReadString(properties, "ArtistName");
-            UniqueName = ReadString(properties, "UniqueName");
-            Bio = ReadString(properties, "Bio");
-            Born = ReadString(properties, "Born");
-            MovieList = ReadString(properties, "MovieList");
-            Popularity = ReadString(properties, "Popularity");
-            Posters = ReadString(properties, "Posters");
-            MyScore = ReadString(properties, "MyScore");
-            JsonString = ReadString(properties, "JsonString");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "ArtistId", ArtistId);
-            WriteString(dict, "ArtistName", ArtistName);
-            WriteString(dict, "UniqueName", UniqueName);
-            WriteString(dict, "Bio", Bio);
-            WriteString(dict, "Born", Born);
-            WriteString(dict, "MovieList", MovieList);
-            WriteString(dict, "Popularity", Popularity);
-            WriteString(dict, "Posters", Posters);
-            WriteString(dict, "MyScore", MyScore);
-            WriteString(dict, "JsonString", JsonString);
-            return dict;
-        }
 
         #endregion
 

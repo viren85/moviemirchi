@@ -23,7 +23,7 @@ namespace DataStoreLib.Storage
             return ReviewerEntity.PARTITION_KEY;
         }
 
-        public virtual IDictionary<string, TEntity> GetAllReviewers<TEntity>() where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetAllReviewers<TEntity>() where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(_table != null);
 

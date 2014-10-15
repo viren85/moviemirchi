@@ -17,7 +17,7 @@ namespace DataStoreLib.Storage
             this._table = table;
         }
 
-        public virtual IDictionary<string, TEntity> GetItemsById<TEntity>(IEnumerable<string> idSource, string partitionKey = "") where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetItemsById<TEntity>(IEnumerable<string> idSource, string partitionKey = "") where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             var idSourceList = idSource.ToList();
             Debug.Assert(idSourceList.Count != 0);
@@ -86,7 +86,7 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-        public virtual IDictionary<string, TEntity> GetAllItems<TEntity>() where TEntity : DataStoreLib.Models.TableEntity, new()
+        public virtual IDictionary<string, TEntity> GetAllItems<TEntity>() where TEntity : DataStoreLib.Models.TableStorageEntity, new()
         {
             Debug.Assert(this._table != null);
 
@@ -103,7 +103,7 @@ namespace DataStoreLib.Storage
                     );
         }
 
-        public virtual IDictionary<string, TEntity> GetItemsByMovieId<TEntity>(string movieId) where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetItemsByMovieId<TEntity>(string movieId) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(this._table != null);
 
@@ -139,7 +139,7 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-        public virtual IDictionary<string, TEntity> GetItemsByReviewer<TEntity>(string reviewerName) where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetItemsByReviewer<TEntity>(string reviewerName) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(this._table != null);
             var operationList = new Dictionary<string, TableResult>();
@@ -164,7 +164,7 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-        public virtual IDictionary<string, TEntity> GetAllAffilationItems<TEntity>() where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetAllAffilationItems<TEntity>() where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(this._table != null);
 
@@ -191,7 +191,7 @@ namespace DataStoreLib.Storage
             return returnDict;
         }
 
-        public virtual IDictionary<string, TEntity> GetAllReviewItems<TEntity>() where TEntity : DataStoreLib.Models.TableEntity
+        public virtual IDictionary<string, TEntity> GetAllReviewItems<TEntity>() where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(this._table != null);
 

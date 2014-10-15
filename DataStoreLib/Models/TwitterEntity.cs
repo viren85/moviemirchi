@@ -5,7 +5,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class TwitterEntity : TableEntity
+    public class TwitterEntity : TableStorageEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
         
@@ -28,58 +28,6 @@ namespace DataStoreLib.Models
         public string ArtistName { get; set; }
         public bool IsActive { get; set; }
 
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            TwitterId = ReadString(properties, "TwitterId");
-            TwitterIdString = ReadString(properties, "TwitterIdString");
-            TextMessage = ReadString(properties, "TextMessage");
-            Source = ReadString(properties, "Source");
-            FromUser = ReadString(properties, "FromUser");
-            FromUserId = ReadString(properties, "FromUserId");
-            ReplyUserId = ReadString(properties, "ReplyUserId");
-            ReplyScreenName = ReadString(properties, "ReplyScreenName");
-            ResultType = ReadString(properties, "ResultType");
-            LanguageCode = ReadString(properties, "LanguageCode");
-            ProfileImageUrl = ReadString(properties, "ProfileImageUrl");
-            ProfileSecureImageUrl = ReadString(properties, "ProfileSecureImageUrl");
-            Created_At = ReadTimestamp(properties, "Created_At");
-            Status = ReadString(properties, "Status");
-            TweetType = ReadString(properties, "TweetType");
-            MovieName = ReadString(properties, "MovieName");
-            ArtistName = ReadString(properties, "ArtistName");
-            IsActive = ReadBool(properties, "IsActive");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "TwitterId", TwitterId);
-            WriteString(dict, "TwitterIdString", TwitterIdString);
-            WriteString(dict, "TextMessage", TextMessage);
-
-            WriteString(dict, "Source", Source);
-            WriteString(dict, "FromUser", FromUser);
-            WriteString(dict, "FromUserId", FromUserId);
-            WriteString(dict, "ReplyUserId", ReplyUserId);
-            WriteString(dict, "ReplyScreenName", ReplyScreenName);
-            WriteString(dict, "ResultType", ResultType);
-            WriteString(dict, "LanguageCode", LanguageCode);
-            WriteString(dict, "ProfileImageUrl", ProfileImageUrl);
-            WriteString(dict, "ProfileSecureImageUrl", ProfileSecureImageUrl);
-
-            WriteTimestamp(dict, "Created_At", Created_At);
-            WriteString(dict, "Status", Status);
-            WriteString(dict, "TweetType", TweetType);
-            WriteString(dict, "MovieName", MovieName);
-            WriteString(dict, "ArtistName", ArtistName);
-
-            WriteBool(dict, "IsActive", IsActive);
-
-            return dict;
-        }
         public TwitterEntity()
             : base(PARTITION_KEY, string.Empty)
         { }

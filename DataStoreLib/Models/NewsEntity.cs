@@ -6,7 +6,7 @@ namespace DataStoreLib.Models
     using System.Collections.Generic;
     using System.Web.Script.Serialization;
 
-    public class NewsEntity : TableEntity
+    public class NewsEntity : TableStorageEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
 
@@ -38,41 +38,6 @@ namespace DataStoreLib.Models
         [ScriptIgnore]
         public bool  IsActive { get; set; }
 
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            NewsId = ReadString(properties, "NewsId");
-            Title = ReadString(properties, "Title");
-            Description = ReadString(properties, "Description");
-            Image = ReadString(properties, "Image");
-            Link = ReadString(properties, "Link");
-            PublishDate = ReadString(properties, "PublishDate");
-            Source = ReadString(properties, "Source");
-            MovieName = ReadString(properties, "MovieName");
-            ArtistName = ReadString(properties, "ArtistName");
-            FutureJson = ReadString(properties, "FutureJson");
-            IsActive = ReadBool(properties, "IsActive");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "NewsId", NewsId);
-            WriteString(dict, "Title", Title);
-            WriteString(dict, "Description", Description);
-            WriteString(dict, "Image", Image);
-            WriteString(dict, "Link", Link);
-            WriteString(dict, "PublishDate", PublishDate);
-            WriteString(dict, "Source", Source);
-            WriteString(dict, "MovieName", MovieName);
-            WriteString(dict, "ArtistName", ArtistName);
-            WriteString(dict, "FutureJson", FutureJson);
-            WriteBool(dict, "IsActive", IsActive);
-
-            return dict;
-        }
         public NewsEntity()
             : base(PARTITION_KEY, string.Empty)
         { }

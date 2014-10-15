@@ -6,7 +6,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class AffilationEntity : TableEntity
+    public class AffilationEntity : TableStorageEntity
     {
         public const string PARTITION_KEY = "CloudMovie";
 
@@ -21,32 +21,6 @@ namespace DataStoreLib.Models
         public string LogoLink { get; set; }
 
         public string Country { get; set; }
-
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            AffilationId = ReadString(properties, "AffilationId");
-            AffilationName = ReadString(properties, "AffilationName");
-            WebsiteName = ReadString(properties, "WebsiteName");
-            WebsiteLink = ReadString(properties, "WebsiteLink");
-            LogoLink = ReadString(properties, "LogoLink");
-            Country = ReadString(properties, "Country");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "AffilationId", AffilationId);
-            WriteString(dict, "AffilationName", AffilationName);
-            WriteString(dict, "WebsiteName", WebsiteName);
-            WriteString(dict, "WebsiteLink", WebsiteLink);
-            WriteString(dict, "LogoLink", LogoLink);
-            WriteString(dict, "Country", Country);
-
-            return dict;
-        }
 
         public AffilationEntity()
             : base(PARTITION_KEY, string.Empty)

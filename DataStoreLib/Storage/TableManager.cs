@@ -467,7 +467,7 @@ namespace DataStoreLib.Storage
             var userFavoriteTable = TableStore.Instance.GetTable(TableStore.UserFavoriteTableName);
             Debug.Assert(userFavoriteTable != null);
 
-            var movieList = new List<DataStoreLib.Models.TableEntity>(userFavorites).ConvertAll(x => (ITableEntity)x);
+            var movieList = new List<DataStoreLib.Models.TableStorageEntity>(userFavorites).ConvertAll(x => (ITableEntity)x);
             var returnOp = userFavoriteTable.UpdateItemsById(movieList);
 
             var returnTranslateOp = new Dictionary<UserFavoriteEntity, bool>();
@@ -491,7 +491,7 @@ namespace DataStoreLib.Storage
             var popularOnMoiveMirchiTable = TableStore.Instance.GetTable(TableStore.PopularOnMovieMirchiName);
             Debug.Assert(popularOnMoiveMirchiTable != null);
 
-            var movieList = new List<DataStoreLib.Models.TableEntity>(popularOnMovieMirchis).ConvertAll(x => (ITableEntity)x);
+            var movieList = new List<DataStoreLib.Models.TableStorageEntity>(popularOnMovieMirchis).ConvertAll(x => (ITableEntity)x);
             var returnOp = popularOnMoiveMirchiTable.UpdateItemsById(movieList);
 
             var returnTranslateOp = new Dictionary<PopularOnMovieMirchiEntity, bool>();

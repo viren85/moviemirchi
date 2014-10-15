@@ -24,7 +24,7 @@ namespace DataStoreLib.Storage
             return TwitterEntity.PARTITION_KEY;
         }
 
-        public IDictionary<string, TEntity> GetItemsByTwitterId<TEntity>(string twitterId) where TEntity : DataStoreLib.Models.TableEntity
+        public IDictionary<string, TEntity> GetItemsByTwitterId<TEntity>(string twitterId) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(_table != null);
 

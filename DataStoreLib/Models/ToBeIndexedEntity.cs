@@ -4,7 +4,7 @@ namespace DataStoreLib.Models
     using Microsoft.WindowsAzure.Storage.Table;
     using System.Collections.Generic;
 
-    public class ToBeIndexedEntity : TableEntity
+    public class ToBeIndexedEntity : TableStorageEntity
     {
         public static readonly string MoviePartitionKey = "Movie";
         public static readonly string ReviewPartitionkey = "Review";
@@ -34,22 +34,6 @@ namespace DataStoreLib.Models
         public override string GetKey()
         {
             return this.EntityId;
-        }
-
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties,
-                                        Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            EntityId = ReadString(properties, "EntityId");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "EntityId", EntityId);
-            return dict;
         }
 
         public static ToBeIndexedEntity CreateMovieEntity(string entityId)

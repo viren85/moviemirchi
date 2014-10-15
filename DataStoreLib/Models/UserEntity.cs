@@ -5,7 +5,7 @@ namespace DataStoreLib.Models
     using System;
     using System.Collections.Generic;
 
-    public class UserEntity : TableEntity
+    public class UserEntity : TableStorageEntity
     {
         public static readonly string PARTITION_KEY = "CloudMovie";
         public string UserId { get; set; }
@@ -27,57 +27,6 @@ namespace DataStoreLib.Models
         public DateTimeOffset Created_At { get; set; }
         public string SiteFeedbackScore { get; set; }
 
-        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            base.ReadEntity(properties, operationContext);
-
-            UserId = ReadString(properties, "UserId");
-            UserName = ReadString(properties, "UserName");
-            Password = ReadString(properties, "Password");
-
-            UserType = ReadString(properties, "UserType");
-            FirstName = ReadString(properties, "FirstName");
-            LastName = ReadString(properties, "LastName");
-            Email = ReadString(properties, "Email");
-            Mobile = ReadString(properties, "Mobile");
-            DateOfBirth = ReadString(properties, "DateOfBirth");
-            Gender = ReadString(properties, "Gender");
-            City = ReadString(properties, "City");
-            Profile_Pic_Http = ReadString(properties, "Profile_Pic_Http");
-            Profile_Pic_Https = ReadString(properties, "Profile_Pic_Https");
-            Country = ReadString(properties, "Country");
-            Status = ReadInt(properties, "Status");
-            Created_At = ReadTimestamp(properties, "Created_At");
-            Favorite = ReadString(properties, "Favorite");
-            SiteFeedbackScore = ReadString(properties, "SiteFeedbackScore");
-        }
-
-        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
-        {
-            var dict = MergeDicts(base.WriteEntity(operationContext));
-
-            WriteString(dict, "UserId", UserId);
-            WriteString(dict, "UserName", UserName);
-            WriteString(dict, "Password", Password);
-
-            WriteString(dict, "UserType", UserType);
-            WriteString(dict, "FirstName", FirstName);
-            WriteString(dict, "LastName", LastName);
-            WriteString(dict, "Email", Email);
-            WriteString(dict, "Mobile", Mobile);
-            WriteString(dict, "DateOfBirth", DateOfBirth);
-            WriteString(dict, "Gender", Gender);
-            WriteString(dict, "City", City);
-            WriteString(dict, "Profile_Pic_Http", Profile_Pic_Http);
-            WriteString(dict, "Profile_Pic_Https", Profile_Pic_Https);
-            WriteString(dict, "Country", Country);
-            WriteInt(dict, "Status", Status);
-            WriteTimestamp(dict, "Created_At", Created_At);
-            WriteString(dict, "Favorite", Favorite);
-            WriteString(dict, "SiteFeedbackScore", SiteFeedbackScore);
-
-            return dict;
-        }
         public UserEntity()
             : base(PARTITION_KEY, string.Empty)
         { }

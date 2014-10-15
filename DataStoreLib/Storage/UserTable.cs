@@ -24,7 +24,7 @@ namespace DataStoreLib.Storage
         }
 
 
-        public IDictionary<string, TEntity> GetItemsByUserName<TEntity>(string userName) where TEntity : DataStoreLib.Models.TableEntity
+        public IDictionary<string, TEntity> GetItemsByUserName<TEntity>(string userName) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
             Debug.Assert(_table != null);
 
@@ -52,7 +52,7 @@ namespace DataStoreLib.Storage
         /*
        
         */
-        public IDictionary<string, TEntity> UserAuthentication<TEntity>(string userName, string password) where TEntity : DataStoreLib.Models.TableEntity
+        public IDictionary<string, TEntity> UserAuthentication<TEntity>(string userName, string password) where TEntity : DataStoreLib.Models.TableStorageEntity
         {
 
             Debug.Assert(_table != null);
