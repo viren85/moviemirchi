@@ -40,6 +40,7 @@
     <Compile Include="Setup\SetupHitMonkey.cs" />
     <Compile Include="Setup\SetupCacheMonkey.cs" />
     <Compile Include="UDT\ResultCollection.cs" />
+    <Compile Include="UDT\TaskExtensions.cs" />
     <Compile Include="UDT\Test.cs" />
     <Compile Include="UDT\TestResult.cs" />
   </ItemGroup>
