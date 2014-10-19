@@ -245,6 +245,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="..\packages\jQuery.2.1.1\Content\Scripts\jquery-2.1.1.min.js">
+      <Link>Content\jquery-2.1.1.min.js</Link>
+    </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\controls\mm.bio.js" />
@@ -268,7 +271,6 @@
     <Content Include="Content\controls\mm.twitter.js" />
     <Content Include="Content\controls\mm.util.js" />
     <Content Include="Content\custom.css" />
-    <Content Include="Content\jquery-1.9.1.js" />
     <Content Include="Content\jquery.prettyPhoto.js" />
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
@@ -410,6 +412,11 @@
       <Name>SearchLib</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\packages\jQuery.2.1.1\Content\Scripts\jquery-2.1.1.min.map">
+      <Link>Content\jquery-2.1.1.min.map</Link>
+    </Content>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -445,6 +452,13 @@
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Bcl.Build.1.0.21\build\Microsoft.Bcl.Build.targets'))" />
+  </Target>
+  <Target Name="CopyLinkedContentFiles" BeforeTargets="Build">
+    <Copy SourceFiles="%(Content.Identity)" 
+          DestinationFiles="%(Content.Link)" 
+          SkipUnchangedFiles='true' 
+          OverwriteReadOnlyFiles='true' 
+          Condition="'%(Content.Link)' != ''" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
