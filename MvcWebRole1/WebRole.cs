@@ -27,6 +27,9 @@ namespace MvcWebRole1
             // Lucene setup
             DeploymentUtilities.HandleLucene("API");
 
+            // Setup IIS settings
+            DeploymentUtilities.SetupIISSettings();
+
             // Schedule monkey
             Task.Run(() =>
             {
@@ -37,7 +40,8 @@ namespace MvcWebRole1
             // Run monkey
             Task.Run(() =>
             {
-                DeploymentUtilities.RunSmartMonkey();
+                var installDirPath = DeploymentUtilities.GetVirtualDirPath("Web");
+                DeploymentUtilities.RunSmartMonkey(installDirPath);
             });
 
             // Mark as start

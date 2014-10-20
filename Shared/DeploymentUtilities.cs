@@ -14,8 +14,8 @@ namespace CloudMovie.Library
 
     public static class DeploymentUtilities
     {
-        // Update this for local runs
-        private static bool isLocal = false;
+        // Update this for non-local runs
+        private static bool isLocal = true;
         private static Dictionary<string, string> localDeploymentsPaths = new Dictionary<string, string>()
         {
             {"Web", @"C:\Users\bash\Documents\GitHub\moviemirchi\MvcWebRole1"},
@@ -27,14 +27,14 @@ namespace CloudMovie.Library
         public static string VirtualDirPath = @"C:\Users\bash\Documents\GitHub\moviemirchi\qiouwpeiqwokelwqej";
         //private static logger logger = LogManager.GetCurrentClassLogger();
 
-        public static void RunSmartMonkey()
+        public static void RunSmartMonkey(string dirPath)
         {
             try
             {
                 // Run SmartMonkey
-                using (Process p = Process.Start("SmartMonkey.exe"))
+                using (Process p = Process.Start(Path.Combine(dirPath, "SmartMonkey.exe")))
                 {
-
+                    p.WaitForExit(300000);
                 }
             }
             catch
@@ -237,6 +237,33 @@ namespace CloudMovie.Library
                 });
 
                 File.WriteAllText(filePath, acc);
+            }
+        }
+
+        public static void SetupIISSettings()
+        {
+            if (!isLocal)
+            {
+                var script =
+                @"cd %windir%\System32\inetsrv
+appcmd.exe unlock config -section:system.webServer/httpCompression
+appcmd.exe set config -section:system.webServer/httpCompression /+""dynamicTypes.[mimeType='application/json',enabled='True']"" /commit:apphost
+appcmd.exe set config -section:system.webServer/httpCompression /+""dynamicTypes.[mimeType='application/json; charset=utf-8',enabled='True']"" /commit:apphost
+cd ..
+iisreset.exe
+";
+                try
+                {
+                    File.WriteAllText("iis.cmd", script);
+                    using (Process p = Process.Start("cmd.exe", " /s iis.cmd"))
+                    {
+                        p.WaitForExit(300000);
+                    }
+                }
+                catch
+                {
+
+                }
             }
         }
     }
