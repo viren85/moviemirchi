@@ -256,6 +256,7 @@ var Search = function (placeholder, searchtype) {
                 $("#txtFriendly").val(MOVIES[i].Name);
                 $("#txtSynopsis").val(MOVIES[i].Synopsis);
                 $("#txtBudget").val(MOVIES[i].Stats.replace("&nbsp;", " "));
+                $("#txtReleaseDate").val(MOVIES[i].Month);
                 $("#txtState").val(MOVIES[i].State);
 
                 $(".form-container").find("radio").each(function () { $(this).prop('checked', false); });
@@ -352,6 +353,7 @@ var Search = function (placeholder, searchtype) {
         var friendlyName = $("#txtFriendly").val();
         var synopsis = $("#txtSynopsis").val();
         var stats = $("#txtBudget").val();
+        var release = $("#txtReleaseDate").val();
 
         if (uniqueName != undefined && uniqueName != "") {
             CURRENT_MOVIE.UniqueName = uniqueName
@@ -367,6 +369,10 @@ var Search = function (placeholder, searchtype) {
 
         if (stats != undefined && stats != "") {
             CURRENT_MOVIE.Stats = stats
+        }
+
+        if (release != undefined && release != "") {
+            CURRENT_MOVIE.Month = release
         }
 
         // get state
