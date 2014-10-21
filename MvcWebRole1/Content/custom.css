@@ -2,7 +2,6 @@
     float: left;
     width: 100%;
 }
-
     .cast-item:hover {
         background-color: #EEE;
     }
@@ -11,15 +10,12 @@
     float: left;
     min-width: 100px;
 }
-
     .cast-details a {
         cursor: pointer;
     }
-
         .cast-details a:hover {
             text-decoration: underline;
         }
-
 .cast-details-right {
     float: right;
 }
@@ -41,9 +37,7 @@
 
 .movie-list, .news-container, .critics-container, .upcoming-movie-list, .others-movie-list {
     float: left;
-    /*margin-left: 7%;*/
     width: 93%;
-    /*margin-bottom: 20px;*/
 }
 .news-container {
     width: 100%;
@@ -89,7 +83,6 @@
 .img-movie-genre {
     float: left;
     font-size: 0.85em;
-    /*color: #333;*/
     margin-bottom: 5px;
     width: 100%;
 }
@@ -97,35 +90,15 @@
 .img-movie-date {
     float: left;
     font-size: 0.8em;
-    /*color: #333;*/
     width: 100%;
 }
-/*
-.img-movie-genre-tile-type-0 {
-    font-size: 1em;
-    color: #FFF;
-}
-
-.img-movie-date-tile-type-0 {
-    color: #FFF;
-}
-*/
 @media screen and (min-width: 321px) and (max-width: 767px) {
-    .movie-list, .upcoming-movie-list {
-        /*margin-left: 7%;*/
-    }
-
         .movie-list ul li, .upcoming-movie-list ul li {
-            /*width: 45%;*/
             max-width: 225px;
         }
 }
 
 @media screen and (max-width: 320px) {
-    .movie-list, .upcoming-movie-list {
-        /*margin-left: 15%;*/
-    }
-
         .movie-list ul li, .upcoming-movie-list ul li {
             width: 50%;
             max-width: 225px;

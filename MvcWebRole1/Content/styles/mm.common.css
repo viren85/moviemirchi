@@ -40,8 +40,15 @@
 .tube-container {
     float: left;
     width: 100%;
-    /*margin-top: 20px;*/
 }
+.about-us {
+   float: left;
+   margin-left: 7%;
+   margin-right: 7%;
+   text-align: justify;
+}
+.gallery li { list-style: none; }
+.active { color: #696464; background-color: #BDB58B;}
 
 .width60 {
     width: 63%;
@@ -51,27 +58,17 @@
     width: 36%;
     float: left;
 }
-
 .section-title {
     float: left;
     color: #368BC1;
     margin-bottom: 10px;
     margin-top: 10px;
     width: 93%;
-    /*margin-left: 7%;*/
     border-left: 10px solid #368BC1;
     padding-left: 20px;
 }
 .loadimage{
     margin-left: 20px; width: 35px; height: 35px;
-}
-
-.width60 .section-title {
-    /*margin-left: 12%;*/
-}
-
-.width30 .section-title {
-    /*margin-left: 3%;*/
 }
 /* Rating Control */
 .rate-container {

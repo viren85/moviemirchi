@@ -5,56 +5,7 @@
 @Styles.Render("~/Content/styles/mm.moviedetails.css")
 @Styles.Render("~/Content/styles/mm.songs.css")
 @Styles.Render("~/Content/styles/mm.trailers.css")
-<style>
-    body {
-        background-color: #eee;
-    }
-
-    .link-container {
-        display: none;
-    }
-
-    .movie-list, .movie-list ul {
-        width: 265px;
-    }
-
-    .movie-details, .review-details {
-        float: left;
-        width: 100%;
-    }
-
-    .movie-review-details {
-        width: 100%;
-        float: left;
-    }
-
-        .movie-review-details ul {
-            float: left;
-            margin: 0px;
-            padding: 0px;
-            list-style: none;
-            width: 100%;
-        }
-
-    .movie-poster-details ul {
-        padding: 0px;
-    }
-    .ShowModal{
-        position: absolute;
-        z-index: 1111;
-        left: 25%;
-        top: 5%;
-        width: 40%;
-        height: 250px;
-    }
-    .song a:hover{
-        color: white;
-        }
-    .modal-header .close{
-        color: white;
-        font-size: 32px;    
-    }
-</style>
+<style type="text/css">.movie-list, .movie-list ul { width: 265px; }</style>
 <div class="movies movie-tube">
     <div class="movie-content"></div>
     <div class="link-container poster-tube"><div id="mov_poster" class="section-title large-fonts">Posters</div></div>
@@ -78,12 +29,6 @@
         <iframe style="border: 0px; width: 100%; height: 300px" allowfullscreen></iframe>
     </div>
 </div>
-
-@*<div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
-    <div onclick="return RemoveModal();">Close</div>
-    <iframe style="border: 0px; width: 100%; height: 100%;"></iframe>
-</div>*@
-@*<div id="overlay"></div>*@
 <script type="text/javascript" src="/Content/controls/mm.movie.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.review.js"></script>
 <script type="text/javascript" src="/Content/controls/mm.gallery.js"></script>
