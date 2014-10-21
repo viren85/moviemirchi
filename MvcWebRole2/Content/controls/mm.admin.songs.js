@@ -32,7 +32,7 @@
             if (songsList[i].YoutubeURL != null && songsList[i].YoutubeURL != undefined && songsList[i].YoutubeURL != "")
                 linkText = songsList[i].YoutubeURL + " <a href=\"#\" data-toggle=\"modal\" data-target=\".bs-example-modal-lg\" onclick=\"new Songs().PopulatePopup(" + i + ");\">change<a/>";
 
-            var gridRowData3 = $("<div/>").attr("id", "grid-row-data3_" + i).attr("class", "songs-grid-row-data3").attr("style", "cursor:pointer").html(linkText);
+            var gridRowData3 = $("<div/>").attr("id", "songs-row-data3_" + i).attr("class", "songs-grid-row-data3").attr("style", "cursor:pointer").html(linkText);
 
             if (songsList[i].Thumb != null && songsList[i].Thumb != undefined && songsList[i].Thumb != "")
                 $(gridRowData3).attr("thumb", songsList[i].Thumb);
@@ -49,7 +49,7 @@
 
         return $(container).append(sectionTitle).append(addButton).append(grid);
     }
-
+    
     Songs.prototype.PopulatePopup = function (counter) {
         var col1 = $("#grid-row-data1_" + counter);
         $("#myModalLabel").empty();
