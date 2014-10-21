@@ -373,25 +373,12 @@ namespace DataStoreLib.Storage
         public static IEnumerable<MovieEntity> SearchMovies(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
-            Debug.Assert(retList.Count == 1);
+            //Debug.Assert(retList.Count == 1);
 
             searchText = searchText.ToLower();
             return
                 retList.Values
                     .Where(movie => movie.Name.ToLower().Contains(searchText));
-
-            ////TODO: Clean comments
-            ////List<MovieEntity> currentMovies = new List<MovieEntity>();
-
-            ////foreach (var currentMovie in retList.Values)
-            ////{
-            ////    if (currentMovie.Name.ToLower().Contains(searchText.ToLower()))
-            ////    {
-            ////        currentMovies.Add(currentMovie);
-            ////    }
-            ////}
-
-            ////return currentMovies;
         }
         public static IEnumerable<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
         {
