@@ -357,6 +357,7 @@
     <Content Include="Views\Home\Crawler.cshtml" />
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\Twitter.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lucene_index\_b4.fdt" />
