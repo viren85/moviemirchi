@@ -1,41 +1,122 @@
 ﻿using System.Web.Mvc;
+using System.Configuration;
 
 namespace MvcWebRole2.Controllers
 {
     public class HomeController : Controller
     {
         #region Various Views
+
         public ActionResult Index()
         {
-            return View();
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
         }
+
 
         public ActionResult Artists()
         {
-            return View();
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         public ActionResult Critics()
         {
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        public ActionResult Login()
+        {
             return View();
         }
 
+        [HttpPost]
+        public ActionResult UserLogin(LoginDetails data)
+        {
+            if (data == null || string.IsNullOrEmpty(data.UserName) || string.IsNullOrEmpty(data.Password))
+            {
+                return null;
+            }
+
+            if (ConfigurationManager.AppSettings["AdminUserName"] == data.UserName && ConfigurationManager.AppSettings["AdminPassword"] == data.Password)
+            {
+                if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+                {
+                    Session.Add("AdminUserName", data.UserName);
+                    Session.Add("AdminPassword", data.Password);
+                }
+
+                return Json(new { result = "Redirect", url = Url.Action("Index", "Home") });
+            }
+
+            return View();
+        }
         [HttpGet]
         public ActionResult Crawler()
         {
-            return View();
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
+
+        
+        public ActionResult Logout()
+        {
+            Session["AdminUserName"] = null;
+            Session["AdminPassword"] = null;
+            Session.Abandon();
+
+            return new RedirectResult("/Home/Login");
         }
 
         [HttpGet]
         public ActionResult News()
         {
-            return View();
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpGet]
         public ActionResult Twitter()
         {
-            return View();
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
         }
         #endregion
 
@@ -114,5 +195,12 @@ namespace MvcWebRole2.Controllers
         }
          * */
         #endregion
+    }
+
+
+    public class LoginDetails
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
     }
 }
