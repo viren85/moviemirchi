@@ -15,27 +15,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     @Styles.Render("~/Content/bootstrap.min.css")
-    @Styles.Render("~/Content/custom.css")
-    @Styles.Render("~/Content/styles/mm.header.css")
-    @Styles.Render("~/Content/styles/mm.footer.css")
-    @Styles.Render("~/Content/styles/mm.common.css")
-    @Styles.Render("~/Content/styles/mm.pager.css")
-    @Styles.Render("~/Content/styles/mm.critics.css")
-    @Styles.Render("~/Content/styles/mm.news.css")
-    @Styles.Render("~/Content/styles/mm.review.css")
-    @Styles.Render("~/Content/styles/mm.reviewer.css")
-    @Styles.Render("~/Content/styles/mm.twitter.css")
-    @Styles.Render("~/Content/styles/mm.moviedetails.css")
-    @Styles.Render("~/Content/styles/mm.rate.css")
-    @Styles.Render("~/Content/styles/mm.tags.css")
-    @Styles.Render("~/Content/styles/top-nav.css")
-    @Styles.Render("~/Content/styles/mm.login.css")
-    @Styles.Render("~/Content/styles/mm.user.pref.css")
-    @Styles.Render("~/Content/prettyPhoto.css")
+    @Styles.Render("~/bundles/style/prettyphoto")
+    @Styles.Render("~/bundles/style/custom")
+    @Styles.Render("~/bundles/style/controls")
+
     @Scripts.Render("~/Content/jquery-2.1.1.min.js")
     @Scripts.Render("~/Content/bootstrap.min.js")
-    @Scripts.Render("~/Content/jquery.prettyPhoto.js")
+    @Scripts.Render("~/bundles/script/prettyphoto")
+    @Scripts.Render("~/bundles/script/moviecore")
+    @Scripts.Render("~/bundles/script/controls")
+
     <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
         .gallery li {
@@ -733,23 +724,8 @@
     </div>
 </body>
 </html>
-<script type="text/javascript" src="/Content/movie.core.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.tube.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.pager.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.mobile.pager.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.tile.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.news.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.rate.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.gallery.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.critics.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.twitter.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.util.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.search.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.tags.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.nav.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.login.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.preferences.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.favorite.js"></script>
+@*TODO: Fix this script file include using bundle*@
+@*<script type="text/javascript" src="/Content/controls/mm.nav.js"></script>*@
 <script type="text/javascript">
     $(document).ready(function () {
         //ArrangeTopNavLinks();

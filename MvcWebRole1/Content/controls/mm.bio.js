@@ -1,4 +1,4 @@
-﻿var width = $(document).width();
+﻿//var width = $(document).width();
 var ShowPersonBio = function (affiliation) {
     var bio = "<div class=\"bio\">" +
         "<div class=\"bio-pic\"></div>" +
