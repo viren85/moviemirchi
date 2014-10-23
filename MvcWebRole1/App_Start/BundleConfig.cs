@@ -34,7 +34,7 @@ namespace MvcWebRole1
                 //     "~/content/bootstrap*"));
 
                 bundles.Add(new StyleBundle("~/bundles/style/prettyphoto").Include(
-                    "~/content/controls/prettyphoto.css"));
+                    "~/content/prettyphoto.css"));
 
                 bundles.Add(new StyleBundle("~/bundles/style/jqueryui").IncludeDirectory(
                     "~/content/themes/base", "*.css", false));
