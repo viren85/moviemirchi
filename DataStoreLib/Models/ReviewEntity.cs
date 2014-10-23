@@ -29,6 +29,8 @@ namespace DataStoreLib.Models
 
         public string CriticsRating { get; set; }
 
+        public string Tags { get; set; }
+
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
@@ -46,6 +48,7 @@ namespace DataStoreLib.Models
             Summary = ReadString(properties, "Summary");
             MyScore = ReadString(properties, "MyScore");
             JsonString = ReadString(properties, "JsonString");
+            Tags = ReadString(properties, "Tags");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -65,6 +68,7 @@ namespace DataStoreLib.Models
             WriteString(dict, "Summary", Summary);
             WriteString(dict, "MyScore", MyScore);
             WriteString(dict, "JsonString", JsonString);
+            WriteString(dict, "Tags", Tags);
             return dict;
         }
 
@@ -97,6 +101,7 @@ namespace DataStoreLib.Models
             Summary = review.Summary;
             MyScore = review.MyScore;
             JsonString = review.JsonString;
+            Tags = review.Tags;
         }
 
         public override string GetKey()
@@ -104,7 +109,7 @@ namespace DataStoreLib.Models
             return this.ReviewId;
         }
 
-        public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, string reviewerId, bool hot, string outLink, string affiliation, string summary, string myScore, string jsonString, int reviewerRating = 0, int systemRating = 0)
+        public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, string reviewerId, bool hot, string outLink, string affiliation, string summary, string myScore, string jsonString, int reviewerRating = 0, int systemRating = 0, string tags = null)
         {
             var reviewId = Guid.NewGuid().ToString();
             var reviewEntity = new ReviewEntity(reviewId);
@@ -121,6 +126,7 @@ namespace DataStoreLib.Models
             reviewEntity.Summary = summary;
             reviewEntity.MyScore = myScore;
             reviewEntity.JsonString = jsonString;
+            reviewEntity.Tags = tags ?? string.Empty;
             return reviewEntity;
         }
     }

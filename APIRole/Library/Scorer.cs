@@ -7,6 +7,7 @@ namespace CloudMovie.APIRole.Library
     using System;
     using System.Diagnostics;
     using System.IO;
+    using System.Linq;
     using System.Web.Script.Serialization;
 
     internal abstract class Scorer
@@ -57,11 +58,64 @@ namespace CloudMovie.APIRole.Library
                 callProcessReviewProc.Start();
                 callProcessReviewProc.WaitForExit();
 
+                // TODO: This is not quite wired correctly, revisit this
+                // We say WaitForExit, and that is why we can guarantee that the processing is completed, and log file is ready for read.
+                // Somehow write this through bag of words that we would receive in SetReviewAndUpdateMovieRating method.
+                Scorer.SetTagsForReview(reviewId, logFilename);
+
                 return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMessage = "Successfully launch exe file" });
             }
             catch (Exception ex)
             {
                 return jsonSerializer.Value.Serialize(new { Status = "Error", UserMessage = "Issue with executing the scorer script", ActualError = ex.Message });
+            }
+        }
+
+        internal static void SetTagsForReview(string reviewId, string filePath)
+        {
+            var lines = File.ReadAllLines(filePath);
+
+
+            // Input:Sentiment: thumbsdown
+            var sentiment =
+                lines
+                    .First(line => line.StartsWith("Sentiment: "))
+                    .Replace("Sentiment: ", "")
+                    .Trim();
+
+            // Input:	Word: drama 	POS-tagger:  NN 	POS-SWN:  n 	Tag: POS 	Sentiment:  0.13774104683195595 	DebugString: null
+            var terms =
+                lines
+                    .Where(line => line.Contains("POS-tagger:"))
+                    .Select(line => line.Split('\t')
+                        .Skip(1)
+                        .Select(l => l.Trim()
+                            .Split(':')
+                            .Select(ll => ll.Trim())
+                            .ToArray())
+                        .ToDictionary(l => l[0], l => l[1]))
+                    .ToList();
+
+            terms.Sort((a, b) => double.Parse(a["Sentiment"]).CompareTo(double.Parse(b["Sentiment"])));
+
+            var pos = terms
+                .Take(sentiment == "thumbsdown" ? 6 : 4);
+            var neg = terms.
+                Skip(Math.Max(0, terms.Count - (sentiment == "thumbsup" ? 6 : 4)))
+                .Take(sentiment == "thumbsup" ? 6 : 4);
+
+            var tags =
+                string.Join(" ",
+                    pos
+                        .Concat(neg)
+                        .Select(term => term["Word"]));
+
+            var tableMgr = new TableManager();
+            ReviewEntity review = tableMgr.GetReviewById(reviewId);
+            if (review != null)
+            {
+                review.Tags = tags;
+                tableMgr.UpdateReviewById(review);
             }
         }
 
