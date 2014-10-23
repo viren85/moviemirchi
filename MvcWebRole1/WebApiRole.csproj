@@ -278,6 +278,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Content\styles\linkreference\mm.linkreference.css" />
     <Content Include="Content\styles\mm.common.css" />
     <Content Include="Content\styles\mm.critics.css" />
     <Content Include="Content\styles\mm.footer.css" />
