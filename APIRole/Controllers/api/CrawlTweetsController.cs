@@ -17,7 +17,7 @@ namespace CloudMovie.APIRole.Controllers.api
     using System.Web;
     using System.Web.Mvc;
     using System.Xml;
-    using Twitterizer;
+    //using Twitterizer;
 
     public class CrawlTweetsController : BaseController
     {
@@ -55,100 +55,100 @@ namespace CloudMovie.APIRole.Controllers.api
         
         private void GetTweets(string blobXmlFilePath = "")
         {
-            try
-            {
-                string consumerKey = ConfigurationManager.AppSettings["TwitterConsumerKey"];
-                string consumerSecret = ConfigurationManager.AppSettings["TwitterConsumerSecret"];
-                List<string> tweetIdList = new List<string>();
-                OAuthTokens oaccesstkn = new OAuthTokens();
-                oaccesstkn.AccessToken = ConfigurationManager.AppSettings["TwitterAccessToken"];
-                oaccesstkn.AccessTokenSecret = ConfigurationManager.AppSettings["TwitterAccessSecret"]; ;
-                oaccesstkn.ConsumerKey = consumerKey;
-                oaccesstkn.ConsumerSecret = consumerSecret;
+            //try
+            //{
+            //    string consumerKey = ConfigurationManager.AppSettings["TwitterConsumerKey"];
+            //    string consumerSecret = ConfigurationManager.AppSettings["TwitterConsumerSecret"];
+            //    List<string> tweetIdList = new List<string>();
+            //    OAuthTokens oaccesstkn = new OAuthTokens();
+            //    oaccesstkn.AccessToken = ConfigurationManager.AppSettings["TwitterAccessToken"];
+            //    oaccesstkn.AccessTokenSecret = ConfigurationManager.AppSettings["TwitterAccessSecret"]; ;
+            //    oaccesstkn.ConsumerKey = consumerKey;
+            //    oaccesstkn.ConsumerSecret = consumerSecret;
 
-                XmlDocument xdoc = new XmlDocument();
+            //    XmlDocument xdoc = new XmlDocument();
 
-                if (blobXmlFilePath == "")
-                {
-                    string basePath = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
-                    string filePath = Path.Combine(basePath, "Twitter.xml");
+            //    if (blobXmlFilePath == "")
+            //    {
+            //        string basePath = HttpContext.Current.Server.MapPath(ConfigurationManager.AppSettings["MovieList"]);
+            //        string filePath = Path.Combine(basePath, "Twitter.xml");
 
-                    xdoc.Load(filePath);
-                }
-                else
-                {
-                    xdoc.Load(blobXmlFilePath);
-                }
+            //        xdoc.Load(filePath);
+            //    }
+            //    else
+            //    {
+            //        xdoc.Load(blobXmlFilePath);
+            //    }
 
-                var items = xdoc.SelectNodes("Search/WhiteList/Item");
+            //    var items = xdoc.SelectNodes("Search/WhiteList/Item");
 
-                if (items != null)
-                {
-                    foreach (XmlNode item in items)
-                    {
-                        WebRequestBuilder webRequest = new WebRequestBuilder(new Uri(string.Format(ConfigurationManager.AppSettings["TwitterUrl"], item.InnerText, 500)), HTTPVerb.GET, oaccesstkn);
+            //    if (items != null)
+            //    {
+            //        foreach (XmlNode item in items)
+            //        {
+            //            WebRequestBuilder webRequest = new WebRequestBuilder(new Uri(string.Format(ConfigurationManager.AppSettings["TwitterUrl"], item.InnerText, 500)), HTTPVerb.GET, oaccesstkn);
 
-                        string responseText;
-                        using (var response = webRequest.ExecuteRequest())
-                        {
-                            using (var reader = new StreamReader(response.GetResponseStream()))
-                            {
-                                responseText = reader.ReadToEnd();
-                            }
-                        }
+            //            string responseText;
+            //            using (var response = webRequest.ExecuteRequest())
+            //            {
+            //                using (var reader = new StreamReader(response.GetResponseStream()))
+            //                {
+            //                    responseText = reader.ReadToEnd();
+            //                }
+            //            }
 
-                        var brr = Encoding.UTF8.GetBytes(responseText);
+            //            var brr = Encoding.UTF8.GetBytes(responseText);
 
-                        var streamReader = new StreamReader(new MemoryStream(brr));
+            //            var streamReader = new StreamReader(new MemoryStream(brr));
 
-                        var serializer = new DataContractJsonSerializer(typeof(SearchResults));
+            //            var serializer = new DataContractJsonSerializer(typeof(SearchResults));
 
-                        var tweetsResponse = (SearchResults)serializer.ReadObject(streamReader.BaseStream);
+            //            var tweetsResponse = (SearchResults)serializer.ReadObject(streamReader.BaseStream);
 
-                        streamReader.Close();
-                        TableManager tblMgr = new TableManager();
-                        foreach (var mmTweetData in tweetsResponse.Results)
-                        {
-                            var tweetId = mmTweetData.Id.ToString();
-                            tweetIdList = new List<string>();
-                            tweetIdList.Add(tweetId);
+            //            streamReader.Close();
+            //            TableManager tblMgr = new TableManager();
+            //            foreach (var mmTweetData in tweetsResponse.Results)
+            //            {
+            //                var tweetId = mmTweetData.Id.ToString();
+            //                tweetIdList = new List<string>();
+            //                tweetIdList.Add(tweetId);
 
-                            if (!tblMgr.IsTweetExist(tweetIdList))
-                            {
+            //                if (!tblMgr.IsTweetExist(tweetIdList))
+            //                {
 
-                                var myTweet = new TwitterEntity
-                                {
-                                    RowKey = Guid.NewGuid().ToString(),
-                                    TwitterId = tweetId,
-                                    TwitterIdString = mmTweetData.Id_Str,
-                                    TextMessage = mmTweetData.Text,
-                                    Source = mmTweetData.Source,
-                                    FromUser = mmTweetData.Source,
-                                    FromUserId = mmTweetData.ToUserName,
-                                    ProfileImageUrl = mmTweetData.User.ProfileImageUrl,
-                                    ProfileSecureImageUrl = mmTweetData.User.ProfileImageUrlHttps,
-                                    ReplyUserId = mmTweetData.User.FromUserId.ToString(),
-                                    ReplyScreenName = mmTweetData.User.FromUser,
-                                    ResultType = mmTweetData.SearchMetaData.ResultType,
-                                    LanguageCode = mmTweetData.SearchMetaData.IsoLanguageCode,
-                                    Created_At = ParseTwitterDateTime(mmTweetData.CreatedAt),
-                                    Status = "-1",
-                                    TweetType = item.Attributes["type"].Value,
-                                    MovieName = item.Attributes["movie-name"] != null ? item.Attributes["movie-name"].Value : string.Empty,
-                                    ArtistName = item.Attributes["artist-name"] != null ? item.Attributes["artist-name"].Value : string.Empty
-                                };
+            //                    var myTweet = new TwitterEntity
+            //                    {
+            //                        RowKey = Guid.NewGuid().ToString(),
+            //                        TwitterId = tweetId,
+            //                        TwitterIdString = mmTweetData.Id_Str,
+            //                        TextMessage = mmTweetData.Text,
+            //                        Source = mmTweetData.Source,
+            //                        FromUser = mmTweetData.Source,
+            //                        FromUserId = mmTweetData.ToUserName,
+            //                        ProfileImageUrl = mmTweetData.User.ProfileImageUrl,
+            //                        ProfileSecureImageUrl = mmTweetData.User.ProfileImageUrlHttps,
+            //                        ReplyUserId = mmTweetData.User.FromUserId.ToString(),
+            //                        ReplyScreenName = mmTweetData.User.FromUser,
+            //                        ResultType = mmTweetData.SearchMetaData.ResultType,
+            //                        LanguageCode = mmTweetData.SearchMetaData.IsoLanguageCode,
+            //                        Created_At = ParseTwitterDateTime(mmTweetData.CreatedAt),
+            //                        Status = "-1",
+            //                        TweetType = item.Attributes["type"].Value,
+            //                        MovieName = item.Attributes["movie-name"] != null ? item.Attributes["movie-name"].Value : string.Empty,
+            //                        ArtistName = item.Attributes["artist-name"] != null ? item.Attributes["artist-name"].Value : string.Empty
+            //                    };
 
-                                tblMgr.UpdateTweetById(myTweet);
+            //                    tblMgr.UpdateTweetById(myTweet);
 
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception)
-            {
+            //                }
+            //            }
+            //        }
+            //    }
+            //}
+            //catch (Exception)
+            //{
 
-            }
+            //}
         }
 
         private DateTime ParseTwitterDateTime(string date)

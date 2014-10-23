@@ -1,15 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.WindowsAzure.Storage.Blob;
-using Microsoft.WindowsAzure.Storage;
-using DataStoreLib.Utils;
-using System.IO;
-
+﻿
 namespace DataStoreLib.BlobStorage
 {
+    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.WindowsAzure.Storage.Blob;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Threading.Tasks;
+
     public class BlobStorageService
     {
         public const string Blob_ImageContainer = "posters";
@@ -52,6 +50,26 @@ namespace DataStoreLib.BlobStorage
         }
         #endregion
 
+        public void SetBlobProperties(string containerName)
+        {
+            CloudBlobContainer container = GetCloudBlobContainer(containerName);
+            var blobs = container.ListBlobs(null, true);
+            Parallel.ForEach(blobs, blob => SetBlobProperties(blob as CloudBlockBlob));
+        }
+
+        public void SetBlobProperties(CloudBlockBlob blob)
+        {
+            // Set all the properties on the blob as required
+
+            // set cache-control header if necessary
+            string header = "max-age=31536000";
+            if (blob.Properties.CacheControl != header)
+            {
+                blob.Properties.CacheControl = header;
+                blob.SetProperties();
+            }
+        }
+
         public string UploadImageFileOnBlob(string containerName, string fileName, Stream stream)
         {
             try
@@ -62,7 +80,10 @@ namespace DataStoreLib.BlobStorage
                     CloudBlobContainer blobContainer = GetCloudBlobContainer(containerName);
                     CloudBlockBlob blob = blobContainer.GetBlockBlobReference(fileName);
                     blob.UploadFromStream(stream);
-                    //return fileName;
+
+                    // Set properties on the blob
+                    SetBlobProperties(blob);
+
                     return GetSinglFile(containerName, fileName);
                 }
             }
@@ -88,7 +109,7 @@ namespace DataStoreLib.BlobStorage
             {
                 Console.Write(ex.Message);
                 return 0;
-            }            
+            }
         }
 
         public string GetSinglFile(string containerName, string fileName)
@@ -118,7 +139,7 @@ namespace DataStoreLib.BlobStorage
             {
                 Console.Write(ex.Message);
                 return null;
-            }       
+            }
         }
 
         public string UploadXMLFileOnBlob(string containerName, string fileName, string fileText)

@@ -94,6 +94,13 @@ div.captionAndNavigate {
 .movie-songs div { float: left; width: 100%;}
 .movie-songs span.play{float: right; background-image:url('/images/play.png');background-size: 16px 16px; width: 16px; height: 16px;}
 
+.link-container { display: none; }
+.movie-details, .review-details { float: left; width: 100%; }
+.movie-review-details { width: 100%; float: left; }
+.movie-review-details ul { float: left; margin: 0px; padding: 0px; list-style: none; width: 100%; }
+.movie-poster-details ul { padding: 0px; }
+.song a:hover{ color: white; }
+.modal-header .close{ color: white; font-size: 32px; }
 /*Movie description end */
 @media screen and (min-width: 768px) {
     .movie-description {
@@ -185,4 +192,7 @@ div.captionAndNavigate {
 }
 .additives .review:before {
     content:"\270f";
+}
+.movie-poster-details ul {
+    padding: 0px;
 }

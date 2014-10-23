@@ -78,6 +78,7 @@ namespace CloudMovie.APIRole.API
                                 reviewDetail.Review = review.Review;
                                 reviewDetail.MoviePoster = movie.Posters;
                                 reviewDetail.OutLink = review.OutLink;
+                                reviewDetail.Tags = review.Tags;
                                 reviewDetail.MovieStatus = movie.State;
 
                                 // add review object to review list
@@ -138,7 +139,7 @@ namespace CloudMovie.APIRole.API
         public string ReviewDate { get; set; }
         public string OutLink { get; set; }
         public string MoviePoster { get; set; }
-
+        public string Tags { get; set; }
         public string MovieStatus { get; set; }
     }
 }

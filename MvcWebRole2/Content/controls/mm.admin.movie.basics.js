@@ -17,6 +17,7 @@
         var synopsis = new FormBuilder().GetTextArea("txtSynopsis", "Movie Synopsis", "Synopsis");
         var processedSynopsis = new FormBuilder().GetTextArea("txtProcessedSynopsis", "Processed Synopsis", "Processed Synopsis");
         var budget = new FormBuilder().GetTextArea("txtBudget", "Movie Budget/Stats", "Budget");
+        var releaseDate = new FormBuilder().GetTextField("txtReleaseDate", "Release Date", "Release Date");
         // va
         var stateUpcoming = new FormBuilder().GetRadioButton("rbUpcoming", "Upcoming", "State", false);
         var stateNowPlaying = new FormBuilder().GetRadioButton("rbNowPlaying", "Now Playing", "State", false);
@@ -30,6 +31,7 @@
         $(formContainer).append(synopsis);
         $(formContainer).append(processedSynopsis);
         $(formContainer).append(budget);
+        $(formContainer).append(releaseDate);
 
         $(formContainer).append(stateUpcoming);
         $(formContainer).append(stateNowPlaying);

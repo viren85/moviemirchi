@@ -9,6 +9,9 @@ namespace SmartMonkey
 {
     public abstract class Monkey : IMonkey
     {
+        private static object lockObject = new object();
+        private static HttpClient client = new HttpClient();
+
         public string Name { get; set; }
         public string APIUrl { get; set; }
         public string WebUrl { get; set; }
@@ -37,30 +40,51 @@ namespace SmartMonkey
             Console.WriteLine("Starting - {0}", this.Name);
 
             var tasks =
-                this.ValidationList.Select(test =>
-                    Task.Factory.StartNew(() =>
-                    {
-                        string url = test.BaseUrl.TrimEnd('/') + '/' + test.Url.TrimStart('/');
-
-                        using (HttpClient client = new HttpClient())
+                this.ValidationList
+                    .Select(test =>
+                        client.GetAsync(test.BaseUrl.TrimEnd('/') + '/' + test.Url.TrimStart('/'))
+                        .IgnoreExceptions(e =>
                         {
-                            HttpResponseMessage response = client.GetAsync(url).Result;
-                            string data = response.Content.ReadAsStringAsync().Result;
-                            var statusCode = response.StatusCode;
-
-                            if (statusCode == HttpStatusCode.OK)
+                            lock (lockObject)
                             {
-                                test.Data = data;
-                                this.JumpStyle(test);
+                                var messages = e.InnerExceptions
+                                    .Select(a => a.InnerException)
+                                    .Where(b => b.InnerException == null)
+                                    .Select(c => c.Message);
+
+                                var color = Console.ForegroundColor;
+                                Console.ForegroundColor = ConsoleColor.Yellow;
+                                Console.WriteLine("Exception: {1}{0}{2}",
+                                    Environment.NewLine,
+                                    test.Url,
+                                    string.Join(" | ", messages));
+                                Console.ForegroundColor = color;
+                            }
+                        })
+                        .ContinueWith(taskResponse =>
+                        {
+                            if (taskResponse.Status == TaskStatus.Faulted || taskResponse.Status == TaskStatus.Canceled)
+                            {
                             }
                             else
                             {
-                                test.Data = statusCode + " - " + response.ReasonPhrase;
-                                test.Result = false;
-                                test.ReportResult();
+                                HttpResponseMessage response = taskResponse.Result;
+                                string data = response.Content.ReadAsStringAsync().Result;
+                                var statusCode = response.StatusCode;
+
+                                if (statusCode == HttpStatusCode.OK)
+                                {
+                                    test.Data = data;
+                                    this.JumpStyle(test);
+                                }
+                                else
+                                {
+                                    test.Data = statusCode + " - " + response.ReasonPhrase;
+                                    test.Result = false;
+                                    test.ReportResult();
+                                }
                             }
-                        }
-                    }));
+                        }));
 
             Task.WaitAll(tasks.ToArray());
 

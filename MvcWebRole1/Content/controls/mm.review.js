@@ -5,7 +5,7 @@
 
             if (review.OutLink) {
 
-                var reviewText = new Util().GetEllipsisText(review.Review, 200);
+                var reviewText = review.Tags ? review.Tags : new Util().GetEllipsisText(review.Review, 200);
 
                 var html =
                     "<li class=\"arrow_container\">" +
@@ -81,7 +81,7 @@ var GetReviewerReviews = function (containerClass, movieReviews) {
 
             if (review.OutLink) {
 
-                var reviewText = new Util().GetEllipsisText(review.Review, 150);
+                var reviewText = review.Tags ? review.Tags : new Util().GetEllipsisText(review.Review, 150);
                 var uniqueName = FormPathFromName(review.MovieName);
 
                 var html =

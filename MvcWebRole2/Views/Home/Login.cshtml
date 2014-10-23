@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Login";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Login</title>
+    @Scripts.Render("~/Content/jquery-2.1.1.min.js")
+</head>
+<body>
+    <div>
+        <input type="text" id="txtUserName" name="userName" placeholder="User Name" />
+        <input type="password" id="txtPassword" name="password" placeholder="Password" />
+        <input type="button" onclick="return Login();" value="Login" id="btnLogin" />
+    </div>
+</body>
+</html>
+<script>
+    function Login() {
+        var data = { "UserName": $("#txtUserName").val(), "Password": $("#txtPassword").val() };
+        $.ajax({
+            url: "/Home/USerLogin",
+            data: data,
+            type: 'POST',
+            dataType: 'json',
+            success: function (response) { if (response.result == 'Redirect') { window.location = response.url; } },
+            error: function () { $("#btnLogin").show().val("Invalid Login"); }
+        });
+
+        $("#btnLogin").hide();
+        return false;
+    }
+</script>

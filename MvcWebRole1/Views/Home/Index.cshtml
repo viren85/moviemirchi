@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Index";
-    //Layout = "~/Views/Shared/_MovieMirchiLayout.cshtml";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
 <div class="movies" style="padding-top: 2%">
@@ -33,6 +32,7 @@
 
         new Util().RemoveLoadImage($("#critics-container-tube"));
 
+        LoadCritics();
         LoadNews();
         LoadCurrentMovies();
         LoadUpcomingMovies();

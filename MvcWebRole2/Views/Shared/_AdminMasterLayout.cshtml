@@ -11,7 +11,16 @@
     @Styles.Render("~/Content/bootstrap.min.css")    
     @Styles.Render("~/Content/jquery-ui.css")
     @*@Styles.Render("~/Content/bootstrap-responsive.css")*@
-    @Scripts.Render("~/Content/jquery-1.9.1.js")
+    @Styles.Render("~/Content/styles/mm.common.css")
+    @Styles.Render("~/Content/styles/mm.admin.search.css")
+    @Styles.Render("~/Content/styles/mm.admin.artists.css")
+    @Styles.Render("~/Content/styles/mm.admin.posters.css")
+    @Styles.Render("~/Content/styles/mm.admin.news.css")
+    @Styles.Render("~/Content/styles/mm.admin.twitter.css")
+    @Styles.Render("~/Content/styles/mm.admin.songs.css")
+    @Styles.Render("~/Content/styles/mm.admin.trailer.css")
+
+    @Scripts.Render("~/Content/jquery-2.1.1.min.js")
     @Scripts.Render("~/Content/bootstrap.min.js")
     @Scripts.Render("~/Content/jquery-ui.js") @*added  by vasim for sortable grid*@
     @Scripts.Render("~/Content/jquery.fileupload.js")
@@ -28,15 +37,6 @@
     @Scripts.Render("~/Content/controls/mm.admin.twitter.js")
     @Scripts.Render("~/Content/controls/mm.admin.songs.js")
     @Scripts.Render("~/Content/controls/mm.admin.trailer.js")
-
-    @Styles.Render("~/Content/styles/mm.common.css")
-    @Styles.Render("~/Content/styles/mm.admin.search.css")
-    @Styles.Render("~/Content/styles/mm.admin.artists.css")
-    @Styles.Render("~/Content/styles/mm.admin.posters.css")
-    @Styles.Render("~/Content/styles/mm.admin.news.css")
-    @Styles.Render("~/Content/styles/mm.admin.twitter.css")
-    @Styles.Render("~/Content/styles/mm.admin.songs.css")
-    @Styles.Render("~/Content/styles/mm.admin.trailer.css")
     
     @*@Scripts.Render("~/Content/movie.core.js")
         @Styles.Render("~/Content/movie.style.css")
@@ -69,7 +69,7 @@
                     Welcome, Administrator
                 </li>
                 <li class="log">
-                    @Html.ActionLink("Logout", "Logout", "Account")
+                    @Html.ActionLink("Logout", "Logout", "Home")
                 </li>
 
             </ul>

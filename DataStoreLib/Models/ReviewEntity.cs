@@ -58,6 +58,7 @@ namespace DataStoreLib.Models
             Summary = review.Summary;
             MyScore = review.MyScore;
             JsonString = review.JsonString;
+            Tags = review.Tags;
         }
 
         public override string GetKey()
@@ -65,7 +66,7 @@ namespace DataStoreLib.Models
             return this.ReviewId;
         }
 
-        public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, string reviewerId, bool hot, string outLink, string affiliation, string summary, string myScore, string jsonString, int reviewerRating = 0, int systemRating = 0)
+        public static ReviewEntity CreateReviewEntity(string reviewrName, string review, string movieId, string reviewerId, bool hot, string outLink, string affiliation, string summary, string myScore, string jsonString, int reviewerRating = 0, int systemRating = 0, string tags = null)
         {
             var reviewId = Guid.NewGuid().ToString();
             var reviewEntity = new ReviewEntity(reviewId);
@@ -82,6 +83,7 @@ namespace DataStoreLib.Models
             reviewEntity.Summary = summary;
             reviewEntity.MyScore = myScore;
             reviewEntity.JsonString = jsonString;
+            reviewEntity.Tags = tags ?? string.Empty;
             return reviewEntity;
         }
     }

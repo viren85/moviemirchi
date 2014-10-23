@@ -2,58 +2,9 @@
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
-@Styles.Render("~/Content/styles/mm.moviedetails.css")
-@Styles.Render("~/Content/styles/mm.songs.css")
-@Styles.Render("~/Content/styles/mm.trailers.css")
-<style>
-    body {
-        background-color: #eee;
-    }
+<style type="text/css">
 
-    .link-container {
-        display: none;
-    }
-
-    .movie-list, .movie-list ul {
-        width: 265px;
-    }
-
-    .movie-details, .review-details {
-        float: left;
-        width: 100%;
-    }
-
-    .movie-review-details {
-        width: 100%;
-        float: left;
-    }
-
-        .movie-review-details ul {
-            float: left;
-            margin: 0px;
-            padding: 0px;
-            list-style: none;
-            width: 100%;
-        }
-
-    .movie-poster-details ul {
-        padding: 0px;
-    }
-    .ShowModal{
-        position: absolute;
-        z-index: 1111;
-        left: 25%;
-        top: 5%;
-        width: 40%;
-        height: 250px;
-    }
-    .song a:hover{
-        color: white;
-        }
-    .modal-header .close{
-        color: white;
-        font-size: 32px;    
-    }
+    .movie-list{width: auto; }
 </style>
 <div class="movies movie-tube">
     <div class="movie-content"></div>
@@ -78,15 +29,6 @@
         <iframe style="border: 0px; width: 100%; height: 300px" allowfullscreen></iframe>
     </div>
 </div>
-
-@*<div id="modalMsg" style="width: 500px; height: 300px;" class="HideModal">
-    <div onclick="return RemoveModal();">Close</div>
-    <iframe style="border: 0px; width: 100%; height: 100%;"></iframe>
-</div>*@
-@*<div id="overlay"></div>*@
-<script type="text/javascript" src="/Content/controls/mm.movie.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.review.js"></script>
-<script type="text/javascript" src="/Content/controls/mm.gallery.js"></script>
 <script type="text/javascript">
     $(document).ready(function () {
 
