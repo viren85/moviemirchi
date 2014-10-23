@@ -40,12 +40,12 @@ namespace MvcWebRole1
                     "~/content/themes/base", "*.css", false));
 
                 bundles.Add(new StyleBundle("~/bundles/style/custom").Include(
-                     "~/content/controls/custom.css"));
+                     "~/content/custom.css"));
 
                 bundles.Add(new StyleBundle("~/bundles/style/controls").IncludeDirectory(
                      "~/content/styles", "*.css", false));
             }
-
+ 
             ////BundleTable.EnableOptimizations = true;
         }
     }
