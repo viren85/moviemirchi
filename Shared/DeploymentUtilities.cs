@@ -246,6 +246,8 @@ namespace CloudMovie.Library
             {
                 var script =
                 @"cd %windir%\System32\inetsrv
+%systemdrive%
+cd %windir%\System32\inetsrv
 appcmd.exe unlock config -section:system.webServer/httpCompression
 appcmd.exe set config -section:system.webServer/httpCompression /+""dynamicTypes.[mimeType='application/json',enabled='True']"" /commit:apphost
 appcmd.exe set config -section:system.webServer/httpCompression /+""dynamicTypes.[mimeType='application/json; charset=utf-8',enabled='True']"" /commit:apphost
