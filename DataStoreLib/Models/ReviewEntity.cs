@@ -31,6 +31,8 @@ namespace DataStoreLib.Models
 
         public string Tags { get; set; }
 
+        public string AlgoLogUrl { get; set; }
+
         public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
         {
             base.ReadEntity(properties, operationContext);
@@ -49,6 +51,7 @@ namespace DataStoreLib.Models
             MyScore = ReadString(properties, "MyScore");
             JsonString = ReadString(properties, "JsonString");
             Tags = ReadString(properties, "Tags");
+            AlgoLogUrl = ReadString(properties, "AlgoLogUrl");
         }
 
         public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
@@ -69,6 +72,7 @@ namespace DataStoreLib.Models
             WriteString(dict, "MyScore", MyScore);
             WriteString(dict, "JsonString", JsonString);
             WriteString(dict, "Tags", Tags);
+            WriteString(dict, "AlgoLogUrl", AlgoLogUrl);
             return dict;
         }
 
@@ -102,6 +106,7 @@ namespace DataStoreLib.Models
             MyScore = review.MyScore;
             JsonString = review.JsonString;
             Tags = review.Tags;
+            AlgoLogUrl = review.AlgoLogUrl;
         }
 
         public override string GetKey()
@@ -127,6 +132,7 @@ namespace DataStoreLib.Models
             reviewEntity.MyScore = myScore;
             reviewEntity.JsonString = jsonString;
             reviewEntity.Tags = tags ?? string.Empty;
+            reviewEntity.AlgoLogUrl = string.Empty;
             return reviewEntity;
         }
     }

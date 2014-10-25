@@ -43,6 +43,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\api\AlgorithmLogController.cs" />
     <Compile Include="Controllers\api\BuildLuceneController.cs" />
     <Compile Include="Controllers\api\AutoCompleteController.cs" />
     <Compile Include="Controllers\api\CrawlTweetsController.cs" />
