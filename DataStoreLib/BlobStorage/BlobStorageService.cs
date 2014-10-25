@@ -13,6 +13,7 @@ namespace DataStoreLib.BlobStorage
         public const string Blob_ImageContainer = "posters";
         public const string Blob_XMLFileContainer = "crawlfiles";
         public const string Blob_NewsImages = "newsimages";
+        public const string Blob_AlgoLogs = "algorithmlogs";
 
         #region Private Methods
         private CloudBlobContainer GetCloudBlobContainer(string containerName)
@@ -84,7 +85,14 @@ namespace DataStoreLib.BlobStorage
                     // Set properties on the blob
                     SetBlobProperties(blob);
 
-                    return GetSinglFile(containerName, fileName);
+                    switch (containerName)
+                    {
+                        case "newsimages":
+                        case "algorithmlogs":
+                            return GetSinglFile(containerName, fileName);
+                        default:
+                            return fileName;
+                    }
                 }
             }
             catch (Exception)

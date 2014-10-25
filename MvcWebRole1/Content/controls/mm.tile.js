@@ -13,7 +13,7 @@
     }
     anchor.prepend("<meta itemprop=\"url\" content=\"/movie/" + movie.UniqueName + "\">");
 
-    var synopsis = movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
+    var synopsis = movie.Synopsis!= null && movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
 
     var criticRating;
     var hide = false;
@@ -65,36 +65,6 @@
                         "</div>" +
                     "</div>" +
                 "</div>";
-    } else {
-        /* Experimental mode */
-        var html = "";
-        var strSongs = "", songs = [];
-        songs = JSON.parse(movie.Songs);
-        if (songs != undefined && songs.length > 0) {
-            for (var sIndex = 0; sIndex < songs.length; sIndex++) {
-                strSongs += "<div><span>" + songs[sIndex].SongTitle + "</span><span class='play'></span></div>";
-
-                if (sIndex == 2) break;
-            }
-        }
-
-        html =
-                "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
-                    "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
-                        "<img id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
-                    "</div>" +
-                    "<div id=\"hover\" style=\"width: 200px; padding: 4%; background-color: white; float: left; height: 175px;border: 1px solid #ddd; box-shadow: -3px 3px 5px #ccc;\">" +
-                                "<div class=\"img-movie-name\">" + movie.Name + "</div>" +
-                                "<div class=\"img-movie-genre\">" + movie.Genre + "</div>" +
-                                "<div class=\"img-movie-date\">" + movie.Month + "</div>" +
-                                (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
-                                "<div class=\"movie-songs\" style=\"display: none;\">" + strSongs
-                                /*"<div><span>Tu hi Junoon</span><span class='play'></span></div>" +
-                                "<div><span>Malang</span><span class='play'></span></div>" +
-                                "<div><span>Kamli</span><span class='play'></span></div>"*/
-                                + "</div>" +
-                    "</div>" +
-                "</div>";
     }
 
     anchor.append(html);
@@ -106,13 +76,6 @@
 
 function MovieImageLoaded(img) {
     if (img && $(img)[0]) {
-        /*var width = $(document).width();
-        var imgWidth = parseInt($(img).css("width").replace("px"));
-        var imgHeight = parseInt($(img).css("height").replace("px"));
-
-        var ratio = imgWidth / imgHeight;*/
-        //var newWidth = 400 * ratio;
-
         // When image is of small size, it leaves lot of white spaces next to tile. When image is of large size (Dhoom), it overlaps the next image
         // Hence keeping the height + width of fix size.
         var newWidth = (TILE_MODE == 0) ? 225 : 200;
@@ -124,7 +87,6 @@ function MovieImageLoaded(img) {
 }
 
 function LoadDefaultImage(element) {
-    //$(element).attr("src", "/Posters/Images/default-movie.jpg"); 
     $(element).attr("src", PUBLIC_BLOB_URL + "default-movie.jpg");
     var width = $(document).width();
     var imgWidth = parseInt($(element).css("width").replace("px"));

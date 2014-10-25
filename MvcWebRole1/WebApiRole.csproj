@@ -274,6 +274,10 @@
     <Content Include="Content\jquery.prettyPhoto.js" />
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
+    <Content Include="Content\pages\mm.artist.js" />
+    <Content Include="Content\pages\mm.critics.js" />
+    <Content Include="Content\pages\mm.genre.js" />
+    <Content Include="Content\pages\mm.movie.js" />
     <Content Include="Content\prettyPhoto.css" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.ttf" />
