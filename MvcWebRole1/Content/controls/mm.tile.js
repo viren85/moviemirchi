@@ -1,4 +1,8 @@
-﻿function PopulatingMovies(movie, container, options) {
+﻿var isLink = function (v) {
+    return v.YoutubeURL;
+};
+
+function PopulatingMovies(movie, container, options) {
     var movieContainer = $("." + container + " ul");
 
     var poster = [];
@@ -47,10 +51,10 @@
                                     (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
                                     "<div class=\"additives\">" +
                                         "<div class=\"aleft\">" +
-                                            "<span class=\"myglyphicon " + ((movie.Trailers && movie.Trailers !== "[]" && movie.Trailers.indexOf("YoutubeURL") > -1) ? "trailer" : "") + "\"></span>" +
+                                            "<span class=\"myglyphicon " + ((movie.Trailers && movie.Trailers !== "[]" && JSON.parse(movie.Trailers).filter(isLink).length > 0) ? "trailer" : "") + "\"></span>" +
                                         "</div>" +
                                         "<div class=\"aright\">" +
-                                            "<span class=\"myglyphicon " + ((movie.Songs && movie.Songs !== "[]" && movie.Songs.indexOf("YoutubeURL") > -1) ? "song" : "") + "\"></span>" +
+                                            "<span class=\"myglyphicon " + ((movie.Songs && movie.Songs !== "[]" && JSON.parse(movie.Songs).filter(isLink).length > 0) ? "song" : "") + "\"></span>" +
                                         "</div>" +
                                         "<div class=\"aleft\">" +
                                             "<span class=\"myglyphicon " + ((movie.Posters && movie.Posters !== "[]" && JSON.parse(movie.Posters).length > 1) ? "photo" : "") + "\"></span>" +
