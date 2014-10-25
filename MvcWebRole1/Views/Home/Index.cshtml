@@ -12,8 +12,8 @@
                     { "title": "Upcoming Releases", "section": "upcoming-movie-list-tube" },
                     { "title": "News", "section": "news-container-tube" },
                     { "title": "Tweets", "section": "tweets-tube" },
-                    { "title": "Critics", "section": "critics-container-tube" },
-                    { "title": "Trending", "section": "tags-container-tube" }
+                    { "title": "Critics", "section": "critics-container-tube" }
+                    //,{ "title": "Trending", "section": "tags-container-tube" }
         ];
 
         $(".nav-bar-container").append(GetNavBar(json));
@@ -24,7 +24,7 @@
         $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
         $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
         $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
-        $(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30"));
+        //$(".movies").append(GetTubeControl("Trending", "tags-container", "tags-pager", "width30"));
 
         $(".section-title").each(function () {
             new Util().AppendLoadImage($(this));
@@ -37,6 +37,6 @@
         LoadCurrentMovies();
         LoadUpcomingMovies();
         LoadTweets();
-        LoadTags();        
+        //LoadTags();        
     });
 </script>
