@@ -81,28 +81,22 @@ function LoadMovies(result, options) {
             $list.html(result.UserMessage);
         } else {
             if (result.length > 0) {
-
                 // adding images
                 $.each(result, function () {
-                    /*var list = */PopulatingMovies(this, options.listClassName);
+                    try{
+                        PopulatingMovies(this, options.listClassName);
+                    }
+                    catch (e) {
+
+                    }
                 })
 
                 SetTileSize(options.listSelector);
 
                 ScaleElement($(options.listSelector + " ul"));
-                /*if (TILE_MODE == 0 && $(window).width() > 767)
-                    ScaleElement($(".upcoming-movie-list ul"));
-                else
-                    ScaleNewTileElement($(".upcoming-movie-list ul"));
-                */
-                // movie-list
-                //PreparePaginationControl($(".upcoming-movie-list"), { pagerContainerId: "upcoming-pager" });
-                //var pager = new Pager($(".upcoming-movie-list"), "#upcoming-pager");
+
                 if ($(window).width() < 768) {
-                    // Comment next two line and uncomment new pager line to repro unresponsive page issue
-                    /*$(".upcoming-movie-list ul li").hide();
-                    $(".upcoming-movie-list ul li:first").show();*/
-                    /*var pager = */new Pager($list, options.pagerSelector);
+                    new Pager($list, options.pagerSelector);
                 } else {
                     PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
                 }
@@ -110,7 +104,7 @@ function LoadMovies(result, options) {
                 $(window).resize(function () {
                     if ($(window).width() < 785) {
                         $(options.pagerSelector + " .pager-container").remove();
-                        /*var pager = */new Pager($list, options.pagerSelector);
+                        new Pager($list, options.pagerSelector);
                     } else {
                         PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
                     }

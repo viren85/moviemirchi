@@ -1,6 +1,5 @@
 ﻿
 function PreparePaginationControl(rotatorControl, pagerOptions) {
-
     var defaultTileWidth = TILE_MODE == 0 ? 225 : 240;
     var defaultTilesInPage = TILE_MODE == 0 ? 4 : 3;
     var defaultMoviePosterWidth = TILE_MODE == 0 ? 225 : 200;
