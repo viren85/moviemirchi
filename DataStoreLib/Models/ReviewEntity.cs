@@ -59,6 +59,7 @@ namespace DataStoreLib.Models
             MyScore = review.MyScore;
             JsonString = review.JsonString;
             Tags = review.Tags;
+            AlgoLogUrl = review.AlgoLogUrl;
         }
 
         public override string GetKey()
@@ -84,6 +85,7 @@ namespace DataStoreLib.Models
             reviewEntity.MyScore = myScore;
             reviewEntity.JsonString = jsonString;
             reviewEntity.Tags = tags ?? string.Empty;
+            reviewEntity.AlgoLogUrl = string.Empty;
             return reviewEntity;
         }
     }

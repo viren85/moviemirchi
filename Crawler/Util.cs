@@ -60,5 +60,20 @@ namespace Crawler
 
             return result;
         }
+
+        public static string UploadLogFile(string fileName)
+        {
+            try
+            {
+                using (Stream stream = new StreamReader(fileName).BaseStream)
+                {
+                    return new BlobStorageService().UploadImageFileOnBlob(BlobStorageService.Blob_AlgoLogs, Path.GetFileName(fileName), stream);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

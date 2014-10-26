@@ -20,7 +20,7 @@
             $(".home-search-bar .clear-search-bar").hide();
         }
 
-        if (query.length <= 3) {
+        if (query.length <= 2) {
             $("#search-results").hide();
         }
 
@@ -35,7 +35,7 @@
             // When keyup is called from click, originalEvent is not set
 
             // keyCode is 13 for 'Enter' keypress. On Enter we want to treat it as click on Search button
-        else if (query.length > 3 || !e.originalEvent || e.keyCode === 13) {
+        else if (query.length > 2 || !e.originalEvent || e.keyCode === 13) {
             //if ($(window).width() < 768)
             $(".nav-bar-container").hide();
 

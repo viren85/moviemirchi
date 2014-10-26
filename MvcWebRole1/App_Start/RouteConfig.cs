@@ -10,6 +10,7 @@ namespace MvcWebRole1
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapMvcAttributeRoutes();
             routes.MapRoute(
                 name: "Movie route",
                 url: "Movie/{name}",

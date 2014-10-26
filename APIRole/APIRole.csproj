@@ -43,6 +43,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\api\AlgorithmLogController.cs" />
     <Compile Include="Controllers\api\BuildLuceneController.cs" />
     <Compile Include="Controllers\api\AutoCompleteController.cs" />
     <Compile Include="Controllers\api\CrawlTweetsController.cs" />
@@ -80,7 +81,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Library\ImageGenerator.cs" />
     <Compile Include="Library\Scorer.cs" />
+    <Compile Include="Library\TweetFormatter.cs" />
     <Compile Include="UDT\MovieInfo.cs" />
     <Compile Include="UDT\MoviePostData.cs" />
     <Compile Include="UDT\RatingConversion.cs" />
@@ -88,6 +91,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Global.asax" />
+    <Content Include="Resources\favicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\TweetImageHeader.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -150,6 +159,7 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Net" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Net.Http.Extensions">
