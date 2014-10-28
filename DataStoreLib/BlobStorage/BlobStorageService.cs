@@ -6,6 +6,7 @@ namespace DataStoreLib.BlobStorage
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Threading.Tasks;
 
     public class BlobStorageService
@@ -55,6 +56,13 @@ namespace DataStoreLib.BlobStorage
         {
             CloudBlobContainer container = GetCloudBlobContainer(containerName);
             var blobs = container.ListBlobs(null, true);
+            Parallel.ForEach(blobs, blob => SetBlobProperties(blob as CloudBlockBlob));
+        }
+
+        public void SetBlobProperties(string containerName, string[] fileNames)
+        {
+            CloudBlobContainer container = GetCloudBlobContainer(containerName);
+            var blobs = container.ListBlobs(null, true).Where(b => fileNames.Any(f => b.Uri.ToString().Contains(f)));
             Parallel.ForEach(blobs, blob => SetBlobProperties(blob as CloudBlockBlob));
         }
 
