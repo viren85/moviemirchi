@@ -39,6 +39,16 @@
     <ServiceConfiguration Include="ServiceConfiguration.CloudStaging.cscfg" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\MvcWebRole1\WebApiRole.csproj">
+      <Name>WebApiRole</Name>
+      <Project>{1f996680-e16a-4bb3-bd9b-561f45f348ca}</Project>
+      <Private>True</Private>
+      <RoleType>Web</RoleType>
+      <RoleName>WebApiRole</RoleName>
+      <UpdateDiagnosticsConnectionStringOnPublish>True</UpdateDiagnosticsConnectionStringOnPublish>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="WebApiRoleContent" />
     <Folder Include="Profiles" />
   </ItemGroup>
