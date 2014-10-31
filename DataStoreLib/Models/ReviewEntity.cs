@@ -29,6 +29,10 @@ namespace DataStoreLib.Models
 
         public string CriticsRating { get; set; }
 
+        public string Tags { get; set; }
+
+        public string AlgoLogUrl { get; set; }
+
         #endregion
 
         public ReviewEntity()
