@@ -90,7 +90,7 @@ namespace CloudMovie.APIRole.API
                 movieSearchIndex.Type = movie.Genre;
                 movieSearchIndex.TitleImageURL = posterUrl;
                 movieSearchIndex.UniqueName = movie.UniqueName;
-                movieSearchIndex.Description = movie.Casts;
+                movieSearchIndex.Description = movie.Cast;
                 movieSearchIndex.Critics = critics;
                 movieSearchIndex.Link = movie.UniqueName;
 

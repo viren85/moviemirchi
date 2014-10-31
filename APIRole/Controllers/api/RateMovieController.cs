@@ -37,7 +37,7 @@
                     {
                         // Reset movie score
                         movie.MyScore = "0";
-                        movie.Ratings = "0";
+                        movie.Rating = "0";
                         tableMgr.UpdateMovieById(movie);
 
                         IDictionary<string, ReviewEntity> reviewEntities = tableMgr.GetReviewsByMovieId(movieId);

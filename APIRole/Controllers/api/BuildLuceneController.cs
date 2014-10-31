@@ -51,7 +51,7 @@ namespace CloudMovie.APIRole.API
             foreach (MovieEntity movie in movies.Values)
             {
                 List<String> posters = json.Deserialize(movie.Posters, typeof(List<String>)) as List<String>;
-                List<APIRole.UDT.Cast> casts = json.Deserialize(movie.Casts, typeof(List<APIRole.UDT.Cast>)) as List<APIRole.UDT.Cast>;
+                List<APIRole.UDT.Cast> casts = json.Deserialize(movie.Cast, typeof(List<APIRole.UDT.Cast>)) as List<APIRole.UDT.Cast>;
 
                 List<string> actors = new List<string>();
                 List<string> critics = new List<string>();

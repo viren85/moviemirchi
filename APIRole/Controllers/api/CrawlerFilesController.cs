@@ -291,7 +291,7 @@ namespace CloudMovie.APIRole.API
                             #endregion
 
                             #region Lucene Search Index
-                            List<APIRole.UDT.Cast> casts = json.Deserialize(mov.Casts, typeof(List<APIRole.UDT.Cast>)) as List<APIRole.UDT.Cast>;
+                            List<APIRole.UDT.Cast> casts = json.Deserialize(mov.Cast, typeof(List<APIRole.UDT.Cast>)) as List<APIRole.UDT.Cast>;
                             List<String> posters = json.Deserialize(mov.Posters, typeof(List<String>)) as List<String>;
                             List<String> actors = new List<string>();
 

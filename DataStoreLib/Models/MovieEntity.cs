@@ -16,9 +16,9 @@ namespace DataStoreLib.Models
         public string Name { get; set; }
         public string AltNames { get; set; }
         public string Posters { get; set; }
-        public string Ratings { get; set; }
+        public string Rating { get; set; }
         public string Synopsis { get; set; }
-        public string Casts { get; set; }
+        public string Cast { get; set; }
         public string Stats { get; set; }
         public string Songs { get; set; }
         public string Trailers { get; set; }
@@ -70,9 +70,9 @@ namespace DataStoreLib.Models
             Name = entity.Name;
             AltNames = entity.AltNames;
             Posters = entity.Posters;
-            Ratings = entity.Ratings;
+            Rating = entity.Rating;
             Synopsis = entity.Synopsis;
-            Casts = entity.Casts;
+            Cast = entity.Cast;
             Stats = entity.Stats;
             Songs = entity.Songs;
             Trailers = entity.Trailers;
@@ -116,9 +116,9 @@ namespace DataStoreLib.Models
             entity.MovieId = movieId;
             entity.Name = name;
             entity.Posters = posters;
-            entity.Ratings = rating;
+            entity.Rating = rating;
             entity.Synopsis = synopsis;
-            entity.Casts = cast;
+            entity.Cast = cast;
             entity.Stats = stats;
             entity.Songs = songs;
             entity.Trailers = trailers;
@@ -163,7 +163,7 @@ namespace DataStoreLib.Models
 
         public IEnumerable<string> GetDirectors()
         {
-            return Utils.Utils.GetListFromCommaSeparatedString(Ratings);
+            return Utils.Utils.GetListFromCommaSeparatedString(Rating);
         }
 
         public IEnumerable<string> GetProducers()
@@ -174,7 +174,7 @@ namespace DataStoreLib.Models
         public IEnumerable<string> GetMusicDirectors()
         {
             List<string> musicDirectors = new List<string>();
-            IEnumerable<string> music = Utils.Utils.GetListFromCommaSeparatedString(Casts);
+            IEnumerable<string> music = Utils.Utils.GetListFromCommaSeparatedString(Cast);
             foreach (string str in music)
             {
                 if (str.Contains("music"))
@@ -203,12 +203,12 @@ namespace DataStoreLib.Models
 
         public void SetDirectors(IEnumerable<string> list)
         {
-            Ratings = Utils.Utils.GetCommaSeparatedStringFromList(list);
+            Rating = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
         public void SetMusicDirectors(IEnumerable<string> list)
         {
-            Casts = Utils.Utils.GetCommaSeparatedStringFromList(list);
+            Cast = Utils.Utils.GetCommaSeparatedStringFromList(list);
         }
 
         public void SetReviewIds(IEnumerable<string> list)

@@ -32,7 +32,7 @@ namespace MovieCrawler
             movie.Name = GetMovieName(body);
             movie.AltNames = GetMovieByAltName(body);
             movie.UniqueName = GetMovieUniqueName(movie.Name);
-            movie.Ratings = GetMovieRating(body);
+            movie.Rating = GetMovieRating(body);
             movie.Synopsis = GetMovieStory(body);
             movie.Genre = GetMovieGenre(body);
             movie.Month = GetMovieMonth(body);

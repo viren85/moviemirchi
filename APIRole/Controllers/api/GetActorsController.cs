@@ -37,7 +37,7 @@ namespace CloudMovie.APIRole.API
                 int counter = 0;
                 foreach (var movie in movies)
                 {
-                    List<Cast> castList = json.Deserialize(movie.Casts, typeof(List<Cast>)) as List<Cast>;
+                    List<Cast> castList = json.Deserialize(movie.Cast, typeof(List<Cast>)) as List<Cast>;
                     if (castList != null)
                     {
                        

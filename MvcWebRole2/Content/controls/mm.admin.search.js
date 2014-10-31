@@ -399,7 +399,7 @@ var Search = function (placeholder, searchtype) {
         });
 
         if (artists.length > 0)
-            CURRENT_MOVIE.Casts = JSON.stringify(artists);
+            CURRENT_MOVIE.Cast = JSON.stringify(artists);
 
         //get songs list
         var songs = [];
@@ -474,9 +474,9 @@ var Search = function (placeholder, searchtype) {
             "Name": CURRENT_MOVIE.Name,
             "AltNames": CURRENT_MOVIE.AltNames,
             "Posters": CURRENT_MOVIE.Posters,
-            "Ratings": CURRENT_MOVIE.Ratings,
+            "Ratings": CURRENT_MOVIE.Rating,
             "Synopsis": CURRENT_MOVIE.Synopsis,
-            "Casts": CURRENT_MOVIE.Casts,
+            "Casts": CURRENT_MOVIE.Cast,
             "Stats": CURRENT_MOVIE.Stats,
             "Songs": CURRENT_MOVIE.Songs,
             "Trailers": CURRENT_MOVIE.Trailers,

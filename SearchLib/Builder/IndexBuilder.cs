@@ -100,9 +100,9 @@ namespace SearchLib.Builder
 
                         doc.Add(new Field(Constants.Constants.Field_Actors, movieEntity.Posters, Field.Store.NO,
                                           Field.Index.ANALYZED));
-                        doc.Add(new Field(Constants.Constants.Field_Directors, movieEntity.Ratings, Field.Store.YES,
+                        doc.Add(new Field(Constants.Constants.Field_Directors, movieEntity.Rating, Field.Store.YES,
                                           Field.Index.ANALYZED));
-                        doc.Add(new Field(Constants.Constants.Field_MusicDirectors, movieEntity.Casts,
+                        doc.Add(new Field(Constants.Constants.Field_MusicDirectors, movieEntity.Cast,
                                           Field.Store.YES, Field.Index.ANALYZED));
                         doc.Add(new Field(Constants.Constants.Field_Name, movieEntity.Name, Field.Store.YES,
                                           Field.Index.ANALYZED));

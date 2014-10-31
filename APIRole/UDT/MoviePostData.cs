@@ -33,9 +33,9 @@ namespace CloudMovie.APIRole.UDT
             movie.Name = this.Name;
             movie.AltNames = this.AltNames;
             movie.Posters = this.Posters;
-            movie.Ratings = this.Ratings;
+            movie.Rating = this.Ratings;
             movie.Synopsis = this.Synopsis;
-            movie.Casts = this.Casts ?? string.Empty;
+            movie.Cast = this.Casts ?? string.Empty;
             movie.Stats = this.Stats ?? string.Empty;
             movie.Songs = this.Songs;
             movie.Trailers = this.Trailers;

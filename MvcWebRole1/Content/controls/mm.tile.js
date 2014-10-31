@@ -48,7 +48,7 @@ function PopulatingMovies(movie, container, options) {
                                     "<div class=\"img-movie-name img-movie-name-tile-type-" + TILE_MODE + "\">" + movie.Name + "</div>" +
                                     "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
                                     "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
-                                    (!hide ? GetMovieRateControl(criticRating, movie.Ratings) : "") +
+                                    (!hide ? GetMovieRateControl(criticRating, movie.Rating) : "") +
                                     "<div class=\"additives\">" +
                                         "<div class=\"aleft\">" +
                                             "<span class=\"myglyphicon " + ((movie.Trailers && movie.Trailers !== "[]" && JSON.parse(movie.Trailers).filter(isLink).length > 0) ? "trailer" : "") + "\"></span>" +

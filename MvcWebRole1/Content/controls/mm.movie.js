@@ -90,7 +90,7 @@ var ShowMovieDetails = function (movie) {
         songsList = "";
 
     var casts = [];
-    casts = JSON.parse(movie.Casts);
+    casts = JSON.parse(movie.Cast);
 
     if (casts != "undefined" && casts != null && casts.length > 0) {
         for (var c = 0; c < casts.length; c++) {

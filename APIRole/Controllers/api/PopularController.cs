@@ -122,7 +122,7 @@ namespace CloudMovie.APIRole.API
                     #endregion
 
                     var actor = movieEntities
-                        .SelectMany(m => m.GetActors(jsonSerializer.Value.Deserialize<List<Cast>>(m.Casts)))
+                        .SelectMany(m => m.GetActors(jsonSerializer.Value.Deserialize<List<Cast>>(m.Cast)))
                         .GroupBy(g => g)
                         .OrderByDescending(g => g.Count())
                         .Take(3);

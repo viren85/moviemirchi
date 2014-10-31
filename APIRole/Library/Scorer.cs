@@ -163,7 +163,7 @@ namespace CloudMovie.APIRole.Library
                     newRating.criticrating = ((int)(teekha / (double)(teekha + feekha) * 100)).ToString();
 
                     string strNewRating = jsonSerializer.Value.Serialize(newRating);
-                    movie.Ratings = newRating.criticrating;
+                    movie.Rating = newRating.criticrating;
                     movie.MyScore = strNewRating;
                     tableMgr.UpdateMovieById(movie);
 

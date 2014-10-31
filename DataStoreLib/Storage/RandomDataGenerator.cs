@@ -78,10 +78,10 @@ namespace DataStoreLib.Storage
 
             entity.Posters = GetRandomElementsFromList(Actors, rand);
             entity.Songs = rand.Next(10).ToString();
-            entity.Ratings = GetRandomElementsFromList(Directors, rand);
+            entity.Rating = GetRandomElementsFromList(Directors, rand);
             entity.Trailers = "Trailers";
             entity.MovieId = id;
-            entity.Casts = GetRandomElementsFromList(MusicDirecotrs, rand);
+            entity.Cast = GetRandomElementsFromList(MusicDirecotrs, rand);
             entity.Name = GetRandomMovieName(Name, rand);
             entity.Synopsis = GetRandomElementsFromList(Producers, rand);
 

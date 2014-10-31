@@ -298,7 +298,7 @@ namespace DataStoreLib.Storage
         public static IEnumerable<MovieEntity> GetArtistMovies(this IStore store, string artistName)
         {
             var retList = store.GetAllMovies();
-            return retList.Values.Where(movie => movie.Casts != null && movie.Casts.ToLower().Contains(artistName));
+            return retList.Values.Where(movie => movie.Cast != null && movie.Cast.ToLower().Contains(artistName));
         }
 
         public static IEnumerable<MovieEntity> GetGenrewiseMovies(this IStore store, string genre)
@@ -388,14 +388,14 @@ namespace DataStoreLib.Storage
             searchText = searchText.ToLower();
             return
                 retList.Values
-                    .Where(movie => movie.Casts.ToString().ToLower().Contains(searchText));
+                    .Where(movie => movie.Cast.ToString().ToLower().Contains(searchText));
 
             ////TODO: Clean comments
             ////List<MovieEntity> actors = new List<MovieEntity>();
 
             ////foreach (var actor in retList.Values)
             ////{
-            ////    if (actor.Casts.ToString().ToLower().Contains(searchText.ToLower()))
+            ////    if (actor.Cast.ToString().ToLower().Contains(searchText.ToLower()))
             ////    {
             ////        actors.Add(actor);
             ////    }
@@ -464,14 +464,14 @@ namespace DataStoreLib.Storage
             searchText = searchText.ToLower();
             return
                 retList.Values
-                    .Where(movie => movie.Casts.ToLower().Contains(searchText));
+                    .Where(movie => movie.Cast.ToLower().Contains(searchText));
 
             ////TODO: Clean comments
             ////List<MovieEntity> characters = new List<MovieEntity>();
 
             ////foreach (var character in retList.Values)
             ////{
-            ////    if (character.Casts.ToLower().Contains(searchText.ToLower()))
+            ////    if (character.Cast.ToLower().Contains(searchText.ToLower()))
             ////    {
             ////        characters.Add(character);
             ////    }

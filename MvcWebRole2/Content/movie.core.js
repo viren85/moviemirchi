@@ -210,7 +210,7 @@ function CommentedCode() {
             var directors = ""; var writers = ""; var cast = "";
     
             var casts = [];
-            casts = JSON.parse(result.Movie.Casts);
+            casts = JSON.parse(result.Movie.Cast);
     
             if (casts.length > 0) {
                 for (var c = 0; c < casts.length; c++) {
@@ -242,7 +242,7 @@ function CommentedCode() {
             $("#cast").html("<b>Cast :</b> " + cast);
     
             var ratings = [];
-            ratings = JSON.parse(result.Movie.Ratings);
+            ratings = JSON.parse(result.Movie.Rating);
     
             var rating = 3;
             if (ratings.critic != undefined)
