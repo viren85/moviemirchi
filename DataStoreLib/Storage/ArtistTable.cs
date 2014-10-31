@@ -1,11 +1,12 @@
 ﻿
+using DataStoreLib.Models;
+using Microsoft.WindowsAzure.Storage.Table;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+
 namespace DataStoreLib.Storage
 {
-    using DataStoreLib.Models;
-    using Microsoft.WindowsAzure.Storage.Table;
-    using System.Collections.Generic;
-    using System.Diagnostics;
-
     internal class ArtistTable : Table
     {
         protected ArtistTable(CloudTable table)
@@ -23,5 +24,14 @@ namespace DataStoreLib.Storage
             return ArtistEntity.PARTITION_KEY;
         }
 
+        public ArtistEntity GetArtist(string artistName)
+        {
+            var filterByUniqueName = TableQuery.CombineFilters(
+                        TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "CloudMovie"),
+                        TableOperators.And,
+                        TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, artistName));
+            var query = new TableQuery<ArtistEntity>().Where(filterByUniqueName);
+            return base._table.ExecuteQuery(query).FirstOrDefault();
+        }
     }
 }

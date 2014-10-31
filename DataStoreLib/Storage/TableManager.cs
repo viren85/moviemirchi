@@ -725,13 +725,10 @@ namespace DataStoreLib.Storage
             try
             {
                 ArtistEntity artist;
-
-                artistName = artistName.ToLower().Trim();
                 if (!CacheManager.TryGet<ArtistEntity>(CacheConstants.ArtistEntity + artistName, out artist))
                 {
                     var artistTable = TableStore.Instance.GetTable(TableStore.ArtistTableName) as ArtistTable;
-                    var allArtists = artistTable.GetAllItems<ArtistEntity>();
-                    artist = allArtists.Values.SingleOrDefault(a => a.ArtistName.ToLower().Trim() == artistName);
+                    artist = artistTable.GetArtist(artistName);
                     CacheManager.Add<ArtistEntity>(CacheConstants.ArtistEntity + artistName, artist);
                 }
 

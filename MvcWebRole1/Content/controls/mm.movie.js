@@ -21,7 +21,7 @@ var ShowMovie = function (data) {
             if (result.Movie != undefined) {
                 $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
 
-                PopulatingMovies(result.Movie, "movie-list", { disableClick: true, });
+                PopulatingMovies(result.Movie, "movie-list", { disableClick: true });
 
                 SetTileSize(".movie-list");
 
@@ -60,7 +60,7 @@ var ShowMovie = function (data) {
                     show_title: true,
                     keyboard_shortcuts: true,
                     social_tools: false,
-                    allow_resize: true,
+                    allow_resize: true
                 });
             } else {
                 $(".movie-content").html("Unable to find movie.");
