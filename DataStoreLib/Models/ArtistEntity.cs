@@ -45,13 +45,13 @@ namespace DataStoreLib.Models
 
         public override string GetKey()
         {
-            return this.ArtistId;
+            return this.RowKey;
         }
 
         public static ArtistEntity CreateArtistEntity(string artistName, string uniqueName, string bio, string born, string movieList, string popularity, string posters, string myScore, string jsonString)
         {
             var artistId = Guid.NewGuid().ToString();
-            var artistEntity = new ArtistEntity(artistId);
+            var artistEntity = new ArtistEntity(uniqueName.ToLower());
             artistEntity.ArtistId = artistId;
             artistEntity.ArtistName = artistName;
             artistEntity.UniqueName = uniqueName;
