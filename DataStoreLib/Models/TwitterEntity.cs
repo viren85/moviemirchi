@@ -62,6 +62,19 @@ namespace DataStoreLib.Models
             IsActive = entity.IsActive;
         }
 
+        public override void ReadEntity(IDictionary<string, EntityProperty> properties, Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        {
+            base.ReadEntity(properties, operationContext);
+            Created_At = ReadTimestamp(properties, "Created_At");
+        }
+
+        public override IDictionary<string, EntityProperty> WriteEntity(Microsoft.WindowsAzure.Storage.OperationContext operationContext)
+        {
+            var dict = base.WriteEntity(operationContext);
+            WriteTimestamp(dict, "Created_At", Created_At);
+            return dict;
+        }
+
         public override string GetKey()
         {
             return this.RowKey;

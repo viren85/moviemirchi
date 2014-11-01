@@ -23,6 +23,33 @@ namespace DataStoreLib.Models
         {
         }
 
+        internal static DateTimeOffset ReadTimestamp(IEntityPropertyDictionary properties, string key)
+        {
+            if (properties.ContainsKey(key))
+            {
+                var val = properties[key].DateTimeOffsetValue;
+                if (!val.HasValue)
+                {
+                    return DateTime.MinValue;
+                }
+                else
+                {
+                    return val.Value;
+                }
+            }
+            else
+            {
+                //return DateTime.MinValue;
+                return DateTime.Now;
+            }
+        }
+
+        internal static void WriteTimestamp(IEntityPropertyDictionary prop, string key, DateTimeOffset val)
+        {
+            Debug.Assert(!prop.ContainsKey(key));
+            prop[key] = new EntityProperty(val);
+        }
+
         #region typecasts
 
         internal static IEntityPropertyDictionary MergeDicts(IEntityPropertyDictionary dictionary)
