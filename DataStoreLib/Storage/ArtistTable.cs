@@ -26,10 +26,11 @@ namespace DataStoreLib.Storage
 
         public ArtistEntity GetArtist(string artistName)
         {
+            var lowerCaseArtistName = artistName.ToLower();
             var filterByUniqueName = TableQuery.CombineFilters(
                         TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "CloudMovie"),
                         TableOperators.And,
-                        TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, artistName));
+                        TableQuery.GenerateFilterCondition("RowKey", QueryComparisons.Equal, lowerCaseArtistName));
             var query = new TableQuery<ArtistEntity>().Where(filterByUniqueName);
             return base._table.ExecuteQuery(query).FirstOrDefault();
         }

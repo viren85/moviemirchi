@@ -131,18 +131,19 @@ namespace CloudMovie.APIRole.API
                     string uArtistName = artistName.Replace(" ", "-").Replace(".", "-");
                     if (!CacheManager.TryGet<string>(CacheConstants.ArtistBioJson + uArtistName, out json))
                     {
-                        json = UpdateArtistHit(artistName);
+                        json = UpdateArtistHit(uArtistName);
                         CacheManager.Add<string>(CacheConstants.ArtistBioJson + uArtistName, json);
                     }
                     else
                     {
-                        Task.Run(() => UpdateArtistHit(artistName));
+                        Task.Run(() => UpdateArtistHit(uArtistName));
                     }
                     return json;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                // TODO: Log the error message
                 // if any error occured then return User friendly message with system error message
                 if (dataType == "movie")
                 {
