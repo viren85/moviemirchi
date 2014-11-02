@@ -7,10 +7,7 @@
 
     $(".nav-bar-container").append(GetNavBar(json));
 
-    var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-    if (name.indexOf("?") > -1)
-        name = name.substring(0, name.indexOf("?"));
-
+    var name = GetEntityName(document.location.href, "reviewer");
     var nameArray = name.split('-');
     var finalName = "";
     for (i = 0; i < nameArray.length; i++) {
@@ -27,4 +24,6 @@
     }
 
     LoadReviewsByReviewer(finalName);
+
+    RecentlyViewedCookies.add({ name: name, type: 'reviewer', url: "/reviewer/" + name });
 }

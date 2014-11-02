@@ -9,6 +9,13 @@ namespace MvcWebRole1
         public static void RegisterBundles(BundleCollection bundles)
         {
             // JS
+            bundles.Add(new ScriptBundle("~/bundles/script/jquery").Include(
+                 "~/content/jquery-2.1.1.min.js",
+                 "~/content/jquery.cookie.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/script/bootstrap").Include(
+                 "~/content/jbootstrap.min.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/script/prettyphoto").Include(
                  "~/content/jquery.prettyphoto.js"));
 

@@ -2,6 +2,7 @@
 namespace CloudMovie.APIRole.Library
 {
     using CloudMovie.APIRole.UDT;
+    using Crawler;
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
     using System;
@@ -16,6 +17,7 @@ namespace CloudMovie.APIRole.Library
 
         internal static string QueueScoreReview(string movieId, string reviewId)
         {
+            const string APIHost = "http://127.0.0.1:8081/";
             string reviewText;
             var tableMgr = new TableManager();
             var review = tableMgr.GetReviewById(reviewId);
@@ -42,25 +44,28 @@ namespace CloudMovie.APIRole.Library
                 string filename = string.Format("{0}_{1}", movieId, reviewId);
                 string reviewFilename = Path.Combine(Path.GetTempPath(), filename + ".txt");
                 string logFilename = Path.Combine(Path.GetTempPath(), filename + ".log");
+                string uploadLogsUrl = string.Format("{0}api/algorithmlog?id={1}&p={2}", 
+                    APIHost,
+                    reviewId,
+                    logFilename);
                 File.WriteAllText(reviewFilename, reviewText);
 
                 callProcessReviewProc.StartInfo.Arguments =
-                    string.Format("/C {0} \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" \"{6}\"",
+                    string.Format("/C {0} \"{1}\" \"{2}\" \"{3}\" \"{4}\" \"{5}\" \"{6}\" \"{7}\"",
                         cmdPath,
                         dirPath,
                         logFilename,
                         movieId,
                         reviewId,
                         reviewFilename,
-                        "http://127.0.0.1:8081/");
+                        APIHost,
+                        uploadLogsUrl);
 
                 callProcessReviewProc.StartInfo.UseShellExecute = true;
                 callProcessReviewProc.Start();
                 callProcessReviewProc.WaitForExit();
 
-                // TODO: This is not quite wired correctly, revisit this
-                // We say WaitForExit, and that is why we can guarantee that the processing is completed, and log file is ready for read.
-                // Somehow write this through bag of words that we would receive in SetReviewAndUpdateMovieRating method.
+                Scorer.UploadAlgorithmRunLogs(logFilename, reviewId);
                 Scorer.SetTagsForReview(reviewId, logFilename);
 
                 return jsonSerializer.Value.Serialize(new { Status = "Ok", UserMessage = "Successfully launch exe file" });
@@ -71,10 +76,18 @@ namespace CloudMovie.APIRole.Library
             }
         }
 
+        internal static void UploadAlgorithmRunLogs(string physicalPath, string reviewId)
+        {
+            TableManager tm = new TableManager();
+            string blobPath = Util.UploadLogFile(physicalPath);
+            ReviewEntity re = tm.GetReviewById(reviewId);
+            re.AlgoLogUrl = blobPath;
+            tm.UpdateReviewById(re);
+        }
+
         internal static void SetTagsForReview(string reviewId, string filePath)
         {
             var lines = File.ReadAllLines(filePath);
-
 
             // Input:Sentiment: thumbsdown
             var sentiment =

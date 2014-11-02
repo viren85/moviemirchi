@@ -234,6 +234,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
+    <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -247,6 +248,9 @@
   <ItemGroup>
     <Content Include="..\packages\jQuery.2.1.1\Content\Scripts\jquery-2.1.1.min.js">
       <Link>Content\jquery-2.1.1.min.js</Link>
+    </Content>
+    <Content Include="..\packages\jquery.cookie.1.4.0\Content\Scripts\jquery.cookie.js">
+      <Link>Content\jquery.cookie.js</Link>
     </Content>
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
@@ -390,7 +394,7 @@
     <Content Include="Views\Web.config" />
     <Content Include="Views\Shared\_MovieLayout.cshtml" />
     <Content Include="Views\Movie\Index.cshtml" />
-    <Content Include="Views\Movie\Reviewer.cshtml" />
+    <Content Include="Views\Reviewer\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Artists\Index.cshtml" />
     <Content Include="Views\Genre\Index.cshtml" />

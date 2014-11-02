@@ -1,21 +1,15 @@
 ﻿
 namespace CloudMovie.APIRole.API
 {
-    using Crawler;
-    using DataStoreLib.Constants;
-    using DataStoreLib.Models;
+    using CloudMovie.APIRole.Library;
     using DataStoreLib.Storage;
     using System;
-    using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Web;
-    using System.Web.Mvc;
-    using System.Web.Script.Serialization;
 
     /// <summary>
     /// This API Accepts the physical path as query string, parses the path, scans the path and uploads the files to Blob  
     /// </summary>
+    [Obsolete("Do not call this API, this is now integrated after the run for algorithm is scheduled and completed", true)]
     public class AlgorithmLogController : BaseController
     {
 
@@ -35,20 +29,20 @@ namespace CloudMovie.APIRole.API
                     {
                         physicalPath = qpParams["p"].ToString().ToLower().Trim();
                         reviewId = qpParams["id"].ToString();
+                        Scorer.UploadAlgorithmRunLogs(physicalPath, reviewId);
                     }
-
-                    string blobPath = Util.UploadLogFile(physicalPath);
-                    ReviewEntity re = tm.GetReviewById(reviewId);
-                    re.AlgoLogUrl = blobPath;
-                    tm.UpdateReviewById(re);
+                    else
+                    {
+                        return "Empty parameters";
+                    }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                throw ex;
+                throw;
             }
 
-            return string.Empty;
+            return "Ok";
         }
     }
 }

@@ -10,9 +10,7 @@
 
     $(".nav-bar-container").append(GetNavBar(json));
 
-    var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-    if (name.indexOf("?") > -1)
-        name = name.substring(0, name.indexOf("?"));
+    var name = GetEntityName(document.location.href, "movie");
 
     LoadSingleMovie(name);
 
@@ -28,7 +26,48 @@
     setTimeout(function () {
         new Util().RemoveLoadImage($("#tweets-tube"));
     }, 4000);
+
+    RecentlyViewedCookies.add({ name: name, type: 'movie', url: "/movie/" + name });
 }
+
+var GetEntityName = function (url, page) {
+    page = page + "/";
+    var name = url.substring(url.indexOf(page) + page.length);
+    if (name.indexOf("#") > -1) {
+        name = name.substring(0, name.indexOf("#"))
+    }
+    if (name.indexOf("?") > -1) {
+        name = name.substring(0, name.indexOf("?"));
+    }
+    return name;
+};
+
+var RecentlyViewedCookies = {
+    add: (function () {
+        var unique = function (a) {
+            var o = {}, i, l = a.length, r = [];
+            for (i = 0; i < l; i += 1) o[a[i].url] = a[i];
+            for (i in o) r.push(o[i]);
+            return r;
+        };
+        return function (currentPage) {
+            var arr = RecentlyViewedCookies.get();
+            arr.unshift(currentPage);
+            arr = unique(arr);
+            $.cookie("RecentlyViewed", JSON.stringify(arr), { path: '/' });
+        }
+    })(),
+    get: function () {
+        var arr;
+        var s = $.cookie("RecentlyViewed");
+        try {
+            arr = JSON.parse(s);
+        } catch (e) {
+        }
+        arr = (arr || []);
+        return arr;
+    }
+};
 
 function PrepareHomePage() {
     var json = [

@@ -11,15 +11,7 @@ function PrepareArtistPage() {
 
     $(".nav-bar-container").append(GetNavBar(json));
 
-    var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-    if (name.indexOf("#") > -1) {
-        var prettyPhoto = name.indexOf("#");
-        name = name.substring(0, prettyPhoto);
-    }
-
-    if (name.indexOf("?") > -1)
-        name = name.substring(0, name.indexOf("?"));
-
+    var name = GetEntityName(document.location.href, "artists");
     var artist = name.split('-').join(' ');
 
     var fileName = "/Images/Loading.GIF";
@@ -42,6 +34,8 @@ function PrepareArtistPage() {
     LoadTweets("artist", name);
 
     new Util().RemoveLoadImage($("#tweets-tube"));
+
+    RecentlyViewedCookies.add({ name: name, type: 'artist', url: "/artists/" + name });
 }
 
 // This method loads artists default poster, artists bio and all the posters

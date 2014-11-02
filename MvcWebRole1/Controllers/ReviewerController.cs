@@ -3,10 +3,10 @@ namespace MvcWebRole1.Controllers
 {
     using System.Web.Mvc;
 
-    public class MovieController : Controller
+    public class ReviewerController : Controller
     {
         [HttpGet]
-        public ActionResult Index(string movieid)
+        public ActionResult Index(string name)
         {
             return View();
         }
