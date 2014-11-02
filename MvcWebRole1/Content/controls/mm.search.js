@@ -258,8 +258,8 @@ var SearchResults = function (searchResults) {
             $(divTitleDesc).attr("class", "search-result-desc");
             $(divTitleDesc).html("<span class='search-result-title'>" + critics + "</span>");
 
-            $(anchor).attr("href", "/movie/reviewer/" + critics.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
-            $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/movie/reviewer/" + critics.split(" ").join("-").toLowerCase() + "');");
+            $(anchor).attr("href", "/reviewer/" + critics.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
+            $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/reviewer/" + critics.split(" ").join("-").toLowerCase() + "');");
             $(anchor).append(that.GetImageElement(singleEntity, "critics", critics));
             $(anchor).append(divTitleDesc);
 
@@ -306,7 +306,7 @@ var SearchResults = function (searchResults) {
         var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
         $(divTitleDesc).attr("class", "search-result-desc");
-        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/movie/reviewer") + "</span>");
+        $(divTitleDesc).html("<span class='search-result-title'>" + singleEntity.Title + "</span><span class='search-result-text'><b>Genre</b>: " + GetLinks(singleEntity.Type, "/reviewer") + "</span>");
 
         $(anchor).attr("href", "/movie/" + singleEntity.Link.toLowerCase());
         $(anchor).append(this.GetImageElement(singleEntity, "movie", singleEntity.Title));

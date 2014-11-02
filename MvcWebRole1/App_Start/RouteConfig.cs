@@ -23,6 +23,12 @@ namespace MvcWebRole1
             );
 
             routes.MapRoute(
+                name: "Reviewer route",
+                url: "Reviewer/{name}",
+                defaults: new { controller = "Reviewer", action = "Index" }
+            );
+
+            routes.MapRoute(
                 name: "Genre route",
                 url: "Genre/{name}",
                 defaults: new { controller = "Genre", action = "Index" }

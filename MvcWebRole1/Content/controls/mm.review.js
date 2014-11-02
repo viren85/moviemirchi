@@ -12,10 +12,10 @@
                         "<div class=\"left\">" +
                             "<div class=\"info\">" +
                                 "<div class=\"reviewer\">" +
-                                    "<a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" +
+                                    "<a href=\"/reviewer/" + FormPathFromName(review.ReviewerName) + "\">" +
                                         "<img src=\"" + GetReviewerPic(review.ReviewerName) + "\" style=\"height:100px;width:100px\" onerror=\"this.src='" + PUBLIC_BLOB_URL + "default-movie.jpg'\" />" +
                                     "</a>" +
-                                    "<div class=\"reviewer-name\"><a href=\"/movie/reviewer/" + FormPathFromName(review.ReviewerName) + "\" title=\"" + review.ReviewerName + "\">" + new Util().GetEllipsisText(review.ReviewerName, 20) + "</a></div>" +
+                                    "<div class=\"reviewer-name\"><a href=\"/reviewer/" + FormPathFromName(review.ReviewerName) + "\" title=\"" + review.ReviewerName + "\">" + new Util().GetEllipsisText(review.ReviewerName, 20) + "</a></div>" +
                                     "<div class=\"affiliation\">" + review.Affiliation + "</div>" +
                                     "<div class=\"mirchimeter\">" + (review.CriticsRating ? GetRateControl(review.CriticsRating / 10) : "") + "</div>" +
                                     /*"<div class=\"other\">" +

@@ -49,7 +49,7 @@ var Tags = function (tagJsonString) {
 
         var pageName = new Util().GetPageName();
         var getReviewerLink = function (text, link) {
-            return "<a href='/movie/reviewer/" + link.toLowerCase() + "?type=trend&src=" + pageName + "'>" + text + "</a>"
+            return "<a href='/reviewer/" + link.toLowerCase() + "?type=trend&src=" + pageName + "'>" + text + "</a>"
         };
 
         var getMovieLink = function (text, link) {
