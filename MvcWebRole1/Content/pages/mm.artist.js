@@ -42,6 +42,8 @@ function PrepareArtistPage() {
     LoadTweets("artist", name);
 
     new Util().RemoveLoadImage($("#tweets-tube"));
+
+    RecentlyViewedCookies.add({ name: name, type: 'artist', url: "/artists/" + name });
 }
 
 // This method loads artists default poster, artists bio and all the posters

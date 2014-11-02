@@ -27,4 +27,6 @@
     }
 
     LoadReviewsByReviewer(finalName);
+
+    RecentlyViewedCookies.add({ name: name, type: 'reviewer', url: "/reviewer/" + name });
 }

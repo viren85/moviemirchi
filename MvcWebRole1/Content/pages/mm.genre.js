@@ -23,4 +23,6 @@
 
     var apiPath = "/api/GenreMovies?type=" + name;
     CallHandler(apiPath, PopulateMovies);
+
+    RecentlyViewedCookies.add({ name: name, type: 'genre', url: "/genre/" + name });
 }
