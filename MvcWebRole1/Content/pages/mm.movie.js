@@ -10,9 +10,14 @@
 
     $(".nav-bar-container").append(GetNavBar(json));
 
-    var name = document.location.href.substring(document.location.href.lastIndexOf("/") + 1);
-    if (name.indexOf("?") > -1)
+    var url = document.location.href;
+    var name = url.substring(url.indexOf("movie/") + "movie/".length);
+    if (name.indexOf("#") > -1) {
+        name = name.substring(0, name.indexOf("#"))
+    }
+    if (name.indexOf("?") > -1) {
         name = name.substring(0, name.indexOf("?"));
+    }
 
     LoadSingleMovie(name);
 
