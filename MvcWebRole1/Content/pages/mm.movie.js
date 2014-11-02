@@ -10,14 +10,7 @@
 
     $(".nav-bar-container").append(GetNavBar(json));
 
-    var url = document.location.href;
-    var name = url.substring(url.indexOf("movie/") + "movie/".length);
-    if (name.indexOf("#") > -1) {
-        name = name.substring(0, name.indexOf("#"))
-    }
-    if (name.indexOf("?") > -1) {
-        name = name.substring(0, name.indexOf("?"));
-    }
+    var name = GetEntityName(document.location.href, "movie");
 
     LoadSingleMovie(name);
 
@@ -36,6 +29,18 @@
 
     RecentlyViewedCookies.add({ name: name, type: 'movie', url: "/movies/" + name });
 }
+
+var GetEntityName = function (url, page) {
+    page = page + "/";
+    var name = url.substring(url.indexOf(page) + page.length);
+    if (name.indexOf("#") > -1) {
+        name = name.substring(0, name.indexOf("#"))
+    }
+    if (name.indexOf("?") > -1) {
+        name = name.substring(0, name.indexOf("?"));
+    }
+    return name;
+};
 
 var RecentlyViewedCookies = {
     add: (function () {

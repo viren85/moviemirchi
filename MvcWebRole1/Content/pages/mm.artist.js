@@ -11,15 +11,7 @@ function PrepareArtistPage() {
 
     $(".nav-bar-container").append(GetNavBar(json));
 
-    var url = document.location.href;
-    var name = url.substring(url.indexOf("artists/") + "artists/".length);
-    if (name.indexOf("#") > -1) {
-        name = name.substring(0, name.indexOf("#"))
-    }
-    if (name.indexOf("?") > -1) {
-        name = name.substring(0, name.indexOf("?"));
-    }
-
+    var name = GetEntityName(document.location.href, "artists");
     var artist = name.split('-').join(' ');
 
     var fileName = "/Images/Loading.GIF";
