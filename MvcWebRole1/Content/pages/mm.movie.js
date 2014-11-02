@@ -27,7 +27,7 @@
         new Util().RemoveLoadImage($("#tweets-tube"));
     }, 4000);
 
-    RecentlyViewedCookies.add({ name: name, type: 'movie', url: "/movies/" + name });
+    RecentlyViewedCookies.add({ name: name, type: 'movie', url: "/movie/" + name });
 }
 
 var GetEntityName = function (url, page) {
