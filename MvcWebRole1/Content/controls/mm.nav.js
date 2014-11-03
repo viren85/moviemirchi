@@ -71,28 +71,4 @@ var handlePageScrolling = function () {
             ClearSearchReults();
         };
     };
-
-    var body = $('html, body');
-    body.bind('DOMMouseScroll', getFunctionOnScroll('DOMMouseScroll'));
-    //IE, Opera, Safari
-    body.bind('mousewheel', getFunctionOnScroll('mousewheel'));
 };
-
-$(window).scroll(function () {
-    if ($(window).width() > 320) {
-        if ($(this).scrollTop() > 40) {
-            $(".small-logo img").css("width", "40px").css("height", "60px");
-            $('.scrollToTop').fadeIn();
-        } else {
-            $(".small-logo img").css("width", "70px").css("height", "120px");
-        }
-    }
-    else {
-        if ($(this).scrollTop() > 70) {
-            $(".small-logo img").css("width", "40px").css("height", "60px");
-            $('.scrollToTop').fadeIn();
-        } else {
-            $(".small-logo img").css("width", "50px").css("height", "95px");
-        }
-    }
-});
