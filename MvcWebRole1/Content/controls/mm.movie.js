@@ -39,19 +39,15 @@ var ShowMovie = function (data) {
                 songs = result.Movie.Songs;
                 trailers = result.Movie.Trailers;
                 //show movies details
-
                 ShowMovieDetails(result.Movie);
-
                 //populate movie's posters
                 PopulatePosters(poster, result.Movie.Name, result.Movie.Pictures);
                 //populate movie's songs
                 PopulateSongs(songs);
                 //populate movie's trailers
                 PopulateTrailers(trailers);
-
                 ShowMovieReviews(reviews);
                 PrepareGenreLinks();
-
                 $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
                     animation_speed: 'normal',
                     theme: 'dark_square',
@@ -91,7 +87,6 @@ var ShowMovieDetails = function (movie) {
 
     var casts = [];
     casts = JSON.parse(movie.Casts);
-
     if (casts != "undefined" && casts != null && casts.length > 0) {
         for (var c = 0; c < casts.length; c++) {
 
@@ -301,57 +296,99 @@ var ShowMovieReviews = function (review) {
 }
 
 var GetMovieGenre = function (genre) {
-    genre = genre.length == 0 ? "-" : genre;
-    return GetMovieDataHolder("Genre:", genre);
+    if (!genre) {
+        GetMovieDataHolder("Genre:", "-");
+    } else {
+        genre = genre.length == 0 ? "-" : genre;
+        return GetMovieDataHolder("Genre:", genre);
+    }
 }
 
 var GetMovieCast = function (movieCast) {
-    movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder(
-        "Stars:",
-        "<span itemprop=\"actor\" itemscope itemtype=\"http://schema.org/Person\">" +
-        "<span itemprop=\"name\">" +
-            movieCast +
-        "</span></span>");
+    if (!movieCast) {
+        return GetMovieDataHolder("Stars:", "-");
+    }
+    else {
+        movieCast = movieCast.length == 0 ? "-" : movieCast;
+        return GetMovieDataHolder(
+            "Stars:",
+            "<span itemprop=\"actor\" itemscope itemtype=\"http://schema.org/Person\">" +
+            "<span itemprop=\"name\">" +
+                movieCast +
+            "</span></span>");
+    }
 }
 
 var GetMovieDirector = function (movieCast) {
-    movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder(
-        "Directors:",
-        "<span itemprop=\"director\" itemscope itemtype=\"http://schema.org/Person\">" +
-        "<span itemprop=\"name\">" +
-            movieCast +
-        "</span></span>");
+    if (!movieCast) {
+        return GetMovieDataHolder("Directors:", "-");
+    }
+    else {
+        movieCast = movieCast.length == 0 ? "-" : movieCast;
+        return GetMovieDataHolder(
+            "Directors:",
+            "<span itemprop=\"director\" itemscope itemtype=\"http://schema.org/Person\">" +
+            "<span itemprop=\"name\">" +
+                movieCast +
+            "</span></span>");
+    }
 }
 
 var GetMovieProducer = function (movieCast) {
-    movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Producers:", movieCast);
+    if (!movieCast) {
+        return GetMovieDataHolder("Producers:", "-");
+    }
+    else {
+        movieCast = movieCast.length == 0 ? "-" : movieCast;
+        return GetMovieDataHolder("Producers:", movieCast);
+    }
 }
 
 var GetMovieMusicDirector = function (movieCast) {
-    movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Music:", movieCast);
+    if (!movieCast) {
+        return GetMovieDataHolder("Music:", "-");
+    }
+    else {
+        movieCast = movieCast.length == 0 ? "-" : movieCast;
+        return GetMovieDataHolder("Music:", movieCast);
+    }
 }
 var GetMovieSinger = function (movieCast) {
-    movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Singer:", movieCast);
+    if (!movieCast) {
+        return GetMovieDataHolder("Singer:", "-");
+    }
+    else {
+        movieCast = movieCast.length == 0 ? "-" : movieCast;
+        return GetMovieDataHolder("Singer:", movieCast);
+    }
 }
 
 var GetMovieWriter = function (movieCast) {
-    movieCast = movieCast.length == 0 ? "-" : movieCast;
-    return GetMovieDataHolder("Writer:", movieCast);
+    if (!movieCast) {
+        return GetMovieDataHolder("Writer:", "-");
+    }
+    else {
+        movieCast = movieCast.length == 0 ? "-" : movieCast;
+        return GetMovieDataHolder("Writer:", movieCast);
+    }
 }
 
 var GetMovieStats = function (movieStats) {
-    movieStats = movieStats.length == 0 ? "-" : movieStats;
-    return GetMovieDataHolder("Statistics:", movieStats);
+    if (!movieStats)
+        return GetMovieDataHolder("Statistics:", "-");
+    else {
+        movieStats = movieStats.length == 0 ? "-" : movieStats;
+        return GetMovieDataHolder("Statistics:", movieStats);
+    }
 }
 
 var GetMovieSynopsis = function (synopsis) {
-    synopsis = synopsis.length == 0 ? "-" : synopsis;
-    return GetMovieDataHolder("Synopsis:", synopsis);
+    if (!synopsis)
+        GetMovieDataHolder("Synopsis:", "-");
+    else {
+        synopsis = synopsis.length == 0 ? "-" : synopsis;
+        return GetMovieDataHolder("Synopsis:", synopsis);
+    }
 }
 
 var GetMovieDataHolder = function (label, data) {
