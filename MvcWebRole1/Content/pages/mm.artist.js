@@ -6,7 +6,8 @@ function PrepareArtistPage() {
                 { "title": "Now Playing Movies", "section": "nowplaying-movie-list-tube" },
                 { "title": "Previous Movies", "section": "previous-movie-list-tube" },
                 { "title": "Photos", "section": "movie-poster-details-tube" },
-                { "title": "Tweets", "section": "tweets-tube" }
+                { "title": "Tweets", "section": "tweets-tube" },
+                { "title": "Recently Viewed", "section": "recent-container-tube" }
     ];
 
     $(".nav-bar-container").append(GetNavBar(json));
@@ -22,6 +23,7 @@ function PrepareArtistPage() {
     $(".movies").append(GetTubeControl("Previous Movies", "previous-movie-list", "previous-movies-pager"));
     $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
     $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+    $(".movies").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager"));
 
     $(".section-title").each(function () {
         new Util().AppendLoadImage($(this));
@@ -32,9 +34,9 @@ function PrepareArtistPage() {
     CallHandler(apiPath, PopulateMovies);
     CallHandler(artistBioPath, PopulateArtistsBio);
     LoadTweets("artist", name);
-
+    LoadRecentVisits();
     new Util().RemoveLoadImage($("#tweets-tube"));
-
+    
     RecentlyViewedCookies.add({ name: name, type: 'artist', url: "/artists/" + name });
 }
 

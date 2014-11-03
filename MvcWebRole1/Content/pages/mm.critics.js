@@ -2,7 +2,8 @@
     var json = [
                     { "title": "Reviewer", "section": "review-list-tube" },
                     { "title": "Latest Reviews", "section": "review-list-now-playing-tube" },
-                    { "title": "Previous Reviews", "section": "review-list-other-tube" }
+                    { "title": "Previous Reviews", "section": "review-list-other-tube" },
+                    { "title": "Recently Viewed", "section": "recent-container-tube" }
     ];
 
     $(".nav-bar-container").append(GetNavBar(json));
@@ -24,6 +25,6 @@
     }
 
     LoadReviewsByReviewer(finalName);
-
+    
     RecentlyViewedCookies.add({ name: name, type: 'reviewer', url: "/reviewer/" + name });
 }

@@ -46,7 +46,7 @@ function LoadCritics() {
         var pager = new Pager($(".critics-container"), "#critics-pager");
     }
     else {
-        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "200" };
+        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "225" };
         PreparePaginationControl($(".critics-container"), pagerJson);
     }
 }
@@ -56,7 +56,7 @@ $(window).resize(function () {
         new Pager($(".critics-container"), "#critics-pager");
     }
     else {
-        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "200" };
+        var pagerJson = { "pagerContainerId": "critics-pager", "tileWidth": "225" };
         PreparePaginationControl($(".critics-container"), pagerJson);
     }
 });
