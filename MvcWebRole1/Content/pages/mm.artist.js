@@ -16,7 +16,7 @@ function PrepareArtistPage() {
     var artist = name.split('-').join(' ');
 
     var fileName = "/Images/Loading.GIF";
-    $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + toPascalCase(artist) + "</div>").insertBefore($(".movies .artist-bio"));
+    $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + new Util().toPascalCase(artist) + "</div>").insertBefore($(".movies .artist-bio"));
     $(".movies .artist-bio").append(ShowPersonBio(""));
     $(".movies").append(GetTubeControl("Upcoming Movies", "upcoming-movie-list", "upcoming-movies-pager"));
     $(".movies").append(GetTubeControl("Now Playing Movies", "nowplaying-movie-list", "nowplaying-movies-pager"));

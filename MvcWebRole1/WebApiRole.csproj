@@ -257,6 +257,7 @@
     <Content Include="Content\controls\mm.bio.js" />
     <Content Include="Content\controls\mm.critics.js" />
     <Content Include="Content\controls\mm.favorite.js" />
+    <Content Include="Content\controls\mm.ga.js" />
     <Content Include="Content\controls\mm.gallery.js" />
     <Content Include="Content\controls\mm.login.js" />
     <Content Include="Content\controls\mm.mobile.pager.js" />
@@ -266,6 +267,7 @@
     <Content Include="Content\controls\mm.pager.js" />
     <Content Include="Content\controls\mm.preferences.js" />
     <Content Include="Content\controls\mm.rate.js" />
+    <Content Include="Content\controls\mm.recent.js" />
     <Content Include="Content\controls\mm.review.js" />
     <Content Include="Content\controls\mm.reviewer.js" />
     <Content Include="Content\controls\mm.search.js" />
@@ -275,6 +277,7 @@
     <Content Include="Content\controls\mm.twitter.js" />
     <Content Include="Content\controls\mm.util.js" />
     <Content Include="Content\custom.css" />
+    <Content Include="Content\jquery-2.1.1.min.js" />
     <Content Include="Content\jquery.prettyPhoto.js" />
     <Content Include="Content\movie.autocomplete.js" />
     <Content Include="Content\movie.core.js" />
@@ -425,6 +428,9 @@
     <Content Include="..\packages\jQuery.2.1.1\Content\Scripts\jquery-2.1.1.min.map">
       <Link>Content\jquery-2.1.1.min.map</Link>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Content\jquery-2.1.1.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

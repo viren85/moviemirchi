@@ -9,7 +9,7 @@
     $(".nav-bar-container").append(GetNavBar(json));
 
     var name = GetEntityName(document.location.href, "genre");
-    name = toPascalCase(name);
+    name = new Util().toPascalCase(name);
 
     $(".movies").append(GetTubeControl(name + " Movies", "genre-name"));
     $(".movies").append(GetTubeControl("Now Playing", "nowplaying-movie-list", "nowplaying-movies-pager"));

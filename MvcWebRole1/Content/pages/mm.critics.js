@@ -12,7 +12,7 @@
     var nameArray = name.split('-');
     var finalName = "";
     for (i = 0; i < nameArray.length; i++) {
-        finalName += toPascalCase(nameArray[i]) + "-";
+        finalName += new Util().toPascalCase(nameArray[i]) + "-";
     }
 
     if (nameArray.length > 0) {
@@ -20,7 +20,7 @@
         if (finalName.indexOf('%7c') > -1) {
             var index = finalName.indexOf('%7c') + 3;
             var last = finalName.substring(index);
-            finalName = finalName.substring(0, index) + toPascalCase(last);
+            finalName = finalName.substring(0, index) + new Util().toPascalCase(last);
         }
     }
 

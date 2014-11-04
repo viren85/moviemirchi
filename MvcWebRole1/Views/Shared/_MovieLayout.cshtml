@@ -1,12 +1,8 @@
-﻿@using System.Configuration;
-@using DataStoreLib.Storage;
-
-@{
+﻿@{
     Layout = null;
 }
 
 <!DOCTYPE html>
-
 <html>
 <head>
     <title>Movie Mirchi</title>
@@ -18,7 +14,6 @@
     <meta name="description" content="Movie Mirchi :: Largest aggregator Of Bollywood Entertainment Content - View Movie Information, Critics Review and Bollywood News.">
     <meta name="keywords" content="Movie Mirchi,Bollywood,Entertainment,Movie Reviews,Critics Review,Movie Rating,Trailers,Songs,Photos,Pictures,Bollywood News,Genre">
     <meta name="author" content="Movie Mirchi">
-    
 
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/bundles/style/custom")
@@ -35,75 +30,6 @@
     @Scripts.Render("~/bundles/script/pages")
 
     <link rel="icon" type="image/png" href="images/favicon.png">
-    <script>
-        (function (i, s, o, g, r, a, m) {
-            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
-                (i[r].q = i[r].q || []).push(arguments)
-            }, i[r].l = 1 * new Date(); a = s.createElement(o),
-            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
-        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-
-        ga('create', 'UA-52983576-1', 'auto');
-        ga('require', 'displayfeatures');
-        ga('send', 'pageview');
-
-    </script>
-    <script>
-        var USER_ID = "";
-        var trackNewsLink = function (url) {
-            ga('send', 'event', 'news', 'click', url, {
-                'hitCallback':
-                  function () {
-                      //document.location = url;
-                  }
-            });
-        }
-
-        var trackReviewLink = function (url) {
-            ga('send', 'event', 'review', 'click', url, {
-                'hitCallback':
-                  function () {
-                      //document.location = url;
-                  }
-            });
-        }
-
-        var trackVideoLink = function (url) {
-            ga('send', 'event', 'video', 'click', url, {
-                'hitCallback':
-                  function () {
-                      //document.location = url;
-                  }
-            });
-        }
-
-        var trackSongLink = function (url) {
-            ga('send', 'event', 'song', 'click', url, {
-                'hitCallback':
-                  function () {
-                      //document.location = url;
-                  }
-            });
-        }
-
-        var trackSearchLink = function (pageName, searchTerm) {
-            ga('send', 'event', 'search', 'click', pageName + "-" + searchTerm, {
-                'hitCallback':
-                  function () {
-                      //document.location = url;
-                  }
-            });
-        }
-
-        var trackPhotoLink = function (url) {
-            ga('send', 'event', 'photo', 'click', url, {
-                'hitCallback':
-                  function () {
-                      //document.location = url;
-                  }
-            });
-        }
-    </script>
 </head>
 <body>
     <div class="movie-container">
@@ -137,99 +63,3 @@
     </div>
 </body>
 </html>
-@*TODO: Fix this script file include using bundle*@
-@*<script type="text/javascript" src="/Content/controls/mm.nav.js"></script>*@
-<script type="text/javascript">
-    $(document).ready(function () {
-        //ArrangeTopNavLinks();
-        // This needs to be displayed only after news and tweets on page are loaded. However currently, we don't have flags which track the progress.
-        // Hence directly showing the footer after interval.
-        //setTimeout(function () { $(".footer").css("display", "block"); }, 3000);
-        //var height = $(document).height();
-        //$(".movie-panel").css("min-height", (height - 150) + "px");
-
-        $(".nav-options").click(function (e) {
-            if ($(".nav-bar-container").css("display") == "block") {
-                $(".nav-bar-container").css("display", "none");
-            }
-            else {
-                $(".nav-bar-container").css("display", "block");
-                //$(".nav-bar-container ul li").css("display", "block");
-            }
-
-            e.stopPropagation();
-        });
-
-        $(".nav-options").bind('touchstart', function (event) {
-            if ($(".nav-bar-container").css("display") == "block") {
-                $(".nav-bar-container").css("display", "none");
-            }
-            else {
-                $(".nav-bar-container").css("display", "block");
-                //$(".nav-bar-container ul li").css("display", "block");
-            }
-
-            event.preventDefault();
-        });
-
-        $(".nav-options").hover(function (e) {
-            $(".nav-bar-container").css("display", "block");
-            //$(".nav-bar-container ul li").css("display", "block");
-
-            e.stopPropagation();
-        });
-
-        // Having issue while hiding the top nav bar on mouse out
-        // hence commented the following code
-        /*$(".nav-bar-container ul").mouseout(function () {
-            $(".nav-bar-container").css("display", "none");
-        });*/
-
-        $(window).resize(function () {
-            ArrangeTopNavLinks();
-            $(".movie-list ul").each(function () {
-                ScaleElement($(this));
-            });
-        });
-
-        /*if ($(window).width() > 767) {
-            var btn = new UserPreferences();
-            $('body').append(btn);
-        }*/
-    });
-
-    function ArrangeTopNavLinks() {
-        if ($(window).width() > 700) {
-            var width = $(document).width() - 100;
-            var listCounter = 0;
-            var possibleLinks = Math.floor(width / 200);
-            //$(".nav-bar-container").css("display", "block");
-            $("ul.top-nav-bar").find("li").each(function () {
-                if (listCounter > possibleLinks) {
-                    $(this).hide();
-                }
-                else {
-                    //$(this).show();
-                }
-
-                listCounter++;
-            });
-        }
-        else {
-            //$("ul.top-nav-bar li").hide();
-            /*if ($(".nav-bar-container").css("display") == "block") {
-                $("ul.top-nav-bar li").show();
-            }*/
-        }
-    }
-
-    function toPascalCase(str) {
-        var arr = str.split(/\s|_/);
-        for (var i = 0, l = arr.length; i < l; i++) {
-            arr[i] = arr[i].substr(0, 1).toUpperCase() +
-                     (arr[i].length > 1 ? arr[i].substr(1).toLowerCase() : "");
-        }
-        return arr.join(" ");
-    }
-
-</script>

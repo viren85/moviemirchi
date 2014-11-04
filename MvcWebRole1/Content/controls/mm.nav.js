@@ -72,3 +72,55 @@ var handlePageScrolling = function () {
         };
     };
 };
+
+function ArrangeTopNavLinks() {
+    if ($(window).width() > 700) {
+        var width = $(document).width() - 100;
+        var listCounter = 0;
+        var possibleLinks = Math.floor(width / 200);
+
+        $("ul.top-nav-bar").find("li").each(function () {
+            if (listCounter > possibleLinks) {
+                $(this).hide();
+            }
+
+            listCounter++;
+        });
+    }
+}
+
+$(document).ready(function () {
+    $(".nav-options").click(function (e) {
+        if ($(".nav-bar-container").css("display") == "block") {
+            $(".nav-bar-container").css("display", "none");
+        }
+        else {
+            $(".nav-bar-container").css("display", "block");
+        }
+
+        e.stopPropagation();
+    });
+
+    $(".nav-options").bind('touchstart', function (event) {
+        if ($(".nav-bar-container").css("display") == "block") {
+            $(".nav-bar-container").css("display", "none");
+        }
+        else {
+            $(".nav-bar-container").css("display", "block");
+        }
+
+        event.preventDefault();
+    });
+
+    $(".nav-options").hover(function (e) {
+        $(".nav-bar-container").css("display", "block");
+        e.stopPropagation();
+    });
+
+    $(window).resize(function () {
+        ArrangeTopNavLinks();
+        $(".movie-list ul").each(function () {
+            ScaleElement($(this));
+        });
+    });
+});
