@@ -77,10 +77,6 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Facebook, Version=6.0.10.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Facebook.6.8.0\lib\net45\Facebook.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -230,9 +226,9 @@
     <Compile Include="..\APIRole\Controllers\BaseController.cs">
       <Link>Controllers\BaseController.cs</Link>
     </Compile>
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\GenreController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ArtistsController.cs" />
     <Compile Include="Controllers\ReviewerController.cs" />
     <Compile Include="Controllers\MovieController.cs" />
@@ -257,6 +253,8 @@
     <Content Include="Content\controls\mm.bio.js" />
     <Content Include="Content\controls\mm.critics.js" />
     <Content Include="Content\controls\mm.favorite.js" />
+    <Content Include="Content\controls\mm.fb.signin.js" />
+    <Content Include="Content\controls\mm.fb.signup.js" />
     <Content Include="Content\controls\mm.ga.js" />
     <Content Include="Content\controls\mm.gallery.js" />
     <Content Include="Content\controls\mm.login.js" />
@@ -271,6 +269,7 @@
     <Content Include="Content\controls\mm.review.js" />
     <Content Include="Content\controls\mm.reviewer.js" />
     <Content Include="Content\controls\mm.search.js" />
+    <Content Include="Content\controls\mm.signin.js" />
     <Content Include="Content\controls\mm.tags.js" />
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
@@ -414,10 +413,6 @@
     <ProjectReference Include="..\DataStoreLib\DataStoreLib.csproj">
       <Project>{85319d65-37e0-49b0-bbb8-6143cda747c6}</Project>
       <Name>DataStoreLib</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\LuceneSearchLibrary\LuceneSearchLibrary.csproj">
-      <Project>{af244afd-73b7-4a2b-8645-509117379a94}</Project>
-      <Name>LuceneSearchLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\SearchLib\SearchLib.csproj">
       <Project>{26f374d4-322f-404a-911e-86f8476bd740}</Project>

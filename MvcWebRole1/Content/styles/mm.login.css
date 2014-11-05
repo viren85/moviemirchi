@@ -21,7 +21,6 @@ overflow-y: auto;
     background-image: -ms-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
     background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
     color: white;
-    border-radius: 5px 5px 0px 0px;
 }
 #popup input[type="text"],#popup input[type="password"]{
     float: left;
@@ -41,6 +40,8 @@ overflow-y: auto;
     width: 100%;
     text-align: center;
 }
-.Record .Column2 span{font-size: 11px;}
+.Record .Column2 span{font-size: 13px;}
+.Record .Column2 { margin-left: 20px; }
+.Record .Column2 .alert { margin-left: 5%; margin-top: 20px; padding: 0px; margin-bottom: 0px; width: 80%; } 
 #popup-auth{margin-top: 20px;}
-#remember_me2{text-align: left;}
+#remember_me2{text-align: left; margin-right: 10px;}

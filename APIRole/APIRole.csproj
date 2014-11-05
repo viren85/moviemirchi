@@ -46,6 +46,7 @@
     <Compile Include="Controllers\api\AlgorithmLogController.cs" />
     <Compile Include="Controllers\api\BuildLuceneController.cs" />
     <Compile Include="Controllers\api\AutoCompleteController.cs" />
+    <Compile Include="Controllers\api\UserSignupController.cs" />
     <Compile Include="Controllers\api\CrawlTweetsController.cs" />
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />
@@ -110,6 +111,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Facebook, Version=4.1.0.0, Culture=neutral, PublicKeyToken=58cb4f2111d1e6de, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Facebook.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Data.Edm, Version=5.6.2.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.Data.Edm.5.6.2\lib\net40\Microsoft.Data.Edm.dll</HintPath>

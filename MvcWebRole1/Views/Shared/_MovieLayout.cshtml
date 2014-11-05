@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-
+@using System.Configuration;
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +14,9 @@
     <meta name="description" content="Movie Mirchi :: Largest aggregator Of Bollywood Entertainment Content - View Movie Information, Critics Review and Bollywood News.">
     <meta name="keywords" content="Movie Mirchi,Bollywood,Entertainment,Movie Reviews,Critics Review,Movie Rating,Trailers,Songs,Photos,Pictures,Bollywood News,Genre">
     <meta name="author" content="Movie Mirchi">
-
+    <script>
+        var fbAppId = '@ConfigurationManager.AppSettings["FacebookAppId"]';
+    </script>
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/bundles/style/custom")
     @Styles.Render("~/Content/styles/linkreference/mm.linkreference.css")
@@ -28,7 +30,7 @@
     @Scripts.Render("~/bundles/script/moviecore")
     @Scripts.Render("~/bundles/script/controls")
     @Scripts.Render("~/bundles/script/pages")
-
+    
     <link rel="icon" type="image/png" href="images/favicon.png">
 </head>
 <body>
@@ -58,8 +60,58 @@
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/sitemap.xml">Sitemap</a></li>
+            <li><a data-toggle="modal" href="#Login" role="presentation" id="LoginLink">Sign In</a></li>
+            <li><a href="javascript:void(0);" onclick="DoLogout();" id="LogoutLink">Sign Out</a></li>
         </ul>
         <input type="hidden" id="hfUserId" /><div>&copy;&nbsp;2014 Movie Mirchi</div>
     </div>
+
 </body>
 </html>
+<script>
+    
+    var userId = "@(Session["userid"] != null ? Session["userid"] : "")";
+    if (userId != "") {
+        $("#LogoutLink").show();
+        $("#LoginLink").hide();
+    }
+    else {
+        $("#LoginLink").show();
+        $("#LogoutLink").hide();
+    }
+
+    window.userFields = {
+        UserId: "@(Session["userid"] != null ? Session["userid"] : "")",
+        UserType: "@(Session["type"] != null ? Session["type"] : "")",
+        FirstName: "@(Session["firstname"] != null ? Session["firstname"] : "")",
+        LastName: "@(Session["lastname"] != null ? Session["lastname"] : "")",
+        Email: "@(Session["email"] != null ? Session["email"] : "")",
+        Mobile: "@(Session["mobile"] != null ? Session["mobile"] : "")",
+        DateOfBirth: "@(Session["dob"] != null ? Session["dob"] : "")",
+        Gender: "@(Session["gender"] != null ? Session["gender"] : "")",
+        City: "@(Session["city"] != null ? Session["city"] : "")",
+        Profile_Pic_Http: "@(Session["profile_pic"] != null ? Session["profile_pic"] : "")",
+        Profile_Pic_Https: "@(Session["profile_pic_https"] != null ? Session["profile_pic_https"] : "")",
+        Country: "@(Session["country"] != null ? Session["country"] : "")",
+        AccessToken: "@(Session["fb_access_token"] != null ? Session["fb_access_token"] : "")"
+    };
+
+
+
+    window.connectUser = function () {
+        $.ajax({
+            url: BASE_URL + '/api/UserSignup/Register',
+            data: userFields,
+            type: 'Post',
+            dataType: 'text',
+            success: ShowSuccessMessageLogin,
+            error: function (xhr, status, error) {
+                $("#popup-auth").attr("onclick", "AuthenticateUser();").html("Login");
+            }
+        });
+    }
+
+    GetFBLoginDialog();
+    GetFBSignupDialog();
+    GetEmailSignupDialog();
+</script>
