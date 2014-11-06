@@ -327,10 +327,10 @@ var SearchResults = function (searchResults) {
 
         return function (a) {
 
-            if (a) {
-                a = a.toLowerCase();
+            if (a && a.name) {
+                a.name = a.name.toLowerCase();
 
-                if (a.indexOf(query) !== -1) {
+                if (a.name.indexOf(query) !== -1) {
 
                     // 'ali ' should match ' sajid ali khan'
                     // 'deep ' should match 'deep banarjee' and not match 'deepika padukone'
@@ -341,7 +341,7 @@ var SearchResults = function (searchResults) {
 
                     // 'padukone' should match 'deepika padukone'
                     // 'deep' should not match 'sandeep'
-                    return (a.split(' ').filter(function (s) {
+                    return (a.name.split(' ').filter(function (s) {
                         return s.indexOf(query) === 0;
                     }).length > 0);
                 }
