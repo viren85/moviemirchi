@@ -199,7 +199,7 @@ var SearchResults = function (searchResults) {
         $(li).append(anchor);
         $("#targetUL").append(li);
 
-        entityList.push(singleEntity.Title);
+        entityList.push(singleEntity);
         searchResultCounter++;
     };
 
@@ -223,11 +223,11 @@ var SearchResults = function (searchResults) {
             var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
             $(divTitleDesc).attr("class", "search-result-desc");
-            $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
+            $(divTitleDesc).html("<span class='search-result-title'>" + artist.name + "</span>");
 
-            $(anchor).attr("href", "/artists/" + artist.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
+            $(anchor).attr("href", "/artists/" + artist.name.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
             $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/artists/" + singleEntity.Link.toLowerCase() + "');");
-            $(anchor).append(that.GetImageElement(singleEntity, "artist", artist));
+            $(anchor).append(that.GetImageElement(singleEntity, "artist", artist.name));
             $(anchor).append(divTitleDesc);
 
             $(li).append(anchor);
@@ -279,7 +279,7 @@ var SearchResults = function (searchResults) {
         else {
             var gen = this.GetGenre(singleEntity);
 
-            if (gen.indexOf("<") < 0 && !this.IsEntityAdded(gen)) {
+            if (gen.indexOf("<") !== -1 || !this.IsEntityAdded(gen)) {
                 entityList.push(gen);
                 // add list item in search result
                 var li = $("<li>");
@@ -327,10 +327,10 @@ var SearchResults = function (searchResults) {
 
         return function (a) {
 
-            if (a && a.name) {
-                a.name = a.name.toLowerCase();
+            if (a) {
+                var v = (a.name ? a.name : a).toLowerCase();
 
-                if (a.name.indexOf(query) !== -1) {
+                if (v.indexOf(query) !== -1) {
 
                     // 'ali ' should match ' sajid ali khan'
                     // 'deep ' should match 'deep banarjee' and not match 'deepika padukone'
@@ -341,7 +341,7 @@ var SearchResults = function (searchResults) {
 
                     // 'padukone' should match 'deepika padukone'
                     // 'deep' should not match 'sandeep'
-                    return (a.name.split(' ').filter(function (s) {
+                    return (v.split(' ').filter(function (s) {
                         return s.indexOf(query) === 0;
                     }).length > 0);
                 }
@@ -370,7 +370,9 @@ var SearchResults = function (searchResults) {
 
         var query = this.GetSearchQuery();
         var filtArtists = artists.filter(SearchResults.prototype.FilterLambda(query));
-        return $.unique(filtArtists.length > 0 ? filtArtists : artists).join("| ");
+        return $.unique(filtArtists.length > 0 ? filtArtists : artists).map(function (v) {
+            return v.name;
+        }).join("| ");
     };
 
     SearchResults.prototype.GetGenre = function (singleEntity) {
