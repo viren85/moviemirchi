@@ -48,13 +48,14 @@ var GetEntityName = function (url, page) {
 
 var RecentlyViewedCookies = {
     add: (function () {
-        var unique = function (a) {
+        var unique = unique || function (a) {
             var o = {}, i, l = a.length, r = [];
             for (i = 0; i < l; i += 1) o[a[i].url] = a[i];
             for (i in o) r.push(o[i]);
             return r;
         };
         return function (currentPage) {
+            currentPage.name = new Util().toPascalCase(currentPage.name.replace(/-/g, " "));
             var arr = RecentlyViewedCookies.get();
             arr.unshift(currentPage);
             arr = unique(arr);
@@ -69,6 +70,9 @@ var RecentlyViewedCookies = {
         } catch (e) {
         }
         arr = (arr || []);
+
+        // We want only first 10 elements
+        arr = arr.splice(0, 10);
         return arr;
     }
 };
