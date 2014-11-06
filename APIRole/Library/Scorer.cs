@@ -44,7 +44,7 @@ namespace CloudMovie.APIRole.Library
                 string filename = string.Format("{0}_{1}", movieId, reviewId);
                 string reviewFilename = Path.Combine(Path.GetTempPath(), filename + ".txt");
                 string logFilename = Path.Combine(Path.GetTempPath(), filename + ".log");
-                string uploadLogsUrl = string.Format("{0}api/algorithmlog?id={1}&p={2}", 
+                string uploadLogsUrl = string.Format("{0}api/algorithmlog?id={1}&p={2}",
                     APIHost,
                     reviewId,
                     logFilename);
@@ -90,11 +90,11 @@ namespace CloudMovie.APIRole.Library
             var lines = File.ReadAllLines(filePath);
 
             // Input:Sentiment: thumbsdown
-            var sentiment =
-                lines
-                    .First(line => line.StartsWith("Sentiment: "))
-                    .Replace("Sentiment: ", "")
-                    .Trim();
+            //var sentiment =
+            //    lines
+            //        .First(line => line.StartsWith("Sentiment: "))
+            //        .Replace("Sentiment: ", "")
+            //        .Trim();
 
             // Input:	Word: drama 	POS-tagger:  NN 	POS-SWN:  n 	Tag: POS 	Sentiment:  0.13774104683195595 	DebugString: null
             var terms =
@@ -107,21 +107,23 @@ namespace CloudMovie.APIRole.Library
                             .Select(ll => ll.Trim())
                             .ToArray())
                         .ToDictionary(l => l[0], l => l[1]))
+                        .Where(l => l["DebugString"] == "bigram_a_n")
                     .ToList();
 
-            terms.Sort((a, b) => double.Parse(a["Sentiment"]).CompareTo(double.Parse(b["Sentiment"])));
+            //terms.Sort((a, b) => double.Parse(a["Sentiment"]).CompareTo(double.Parse(b["Sentiment"])));
 
-            var pos = terms
-                .Take(sentiment == "thumbsdown" ? 6 : 4);
-            var neg = terms.
-                Skip(Math.Max(0, terms.Count - (sentiment == "thumbsup" ? 6 : 4)))
-                .Take(sentiment == "thumbsup" ? 6 : 4);
+            //var pos = terms
+            //    .Take(sentiment == "thumbsdown" ? 6 : 4);
+            //var neg = terms
+            //    .Skip(Math.Max(0, terms.Count - (sentiment == "thumbsup" ? 6 : 4)))
+            //    .Take(sentiment == "thumbsup" ? 6 : 4);
 
             var tags =
-                string.Join(" ",
-                    pos
-                        .Concat(neg)
-                        .Select(term => term["Word"]));
+                string.Join(", ",
+                    terms
+                //pos
+                //.Concat(neg)
+                        .Select(term => term["Word"].Replace("_", " ")));
 
             var tableMgr = new TableManager();
             ReviewEntity review = tableMgr.GetReviewById(reviewId);
