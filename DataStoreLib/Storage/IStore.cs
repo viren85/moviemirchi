@@ -326,18 +326,6 @@ namespace DataStoreLib.Storage
             }
 
             return movies;
-
-            ////TODO: Clean the comments
-            //////Debug.Assert(retList.Count == 1);
-
-            ////List<MovieEntity> currentMovies = new List<MovieEntity>();
-
-            ////if (retList != null && retList.Values != null)
-            ////{
-            ////    currentMovies = (List<MovieEntity>)retList.Values.OrderBy(m => m.Name).ToList();
-            ////}
-
-            ////return currentMovies;
         }
 
 
@@ -351,30 +339,10 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                     .Where(movie => movie.Songs.ToLower().Contains(searchText));
-
-
-            ////TODO: What are you returning song that matches the searchtext or movie which has atleast one song that matches the searchtext?
-            //// I guess it is the latter, so you might want to rename the method by GetMovieWithSong
-            //// What is movie.Songs? I would imagine this as a List<string> but it is not. So, I dont know what to expect here.
-
-            ////TODO: Clean comments
-            ////List<MovieEntity> currentSongs = new List<MovieEntity>();
-
-            ////foreach (var currentSong in retList.Values)
-            ////{
-            ////    if (currentSong.Songs.ToLower().Contains(searchText.ToLower()))
-            ////    {
-            ////        currentSongs.Add(currentSong);
-            ////    }
-            ////}
-
-            ////return currentSongs;
         }
         public static IEnumerable<MovieEntity> SearchMovies(this IStore store, string searchText)
         {
             var retList = store.GetAllMovies();
-            //Debug.Assert(retList.Count == 1);
-
             searchText = searchText.ToLower();
             return
                 retList.Values
@@ -389,19 +357,6 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                     .Where(movie => movie.Cast.ToString().ToLower().Contains(searchText));
-
-            ////TODO: Clean comments
-            ////List<MovieEntity> actors = new List<MovieEntity>();
-
-            ////foreach (var actor in retList.Values)
-            ////{
-            ////    if (actor.Cast.ToString().ToLower().Contains(searchText.ToLower()))
-            ////    {
-            ////        actors.Add(actor);
-            ////    }
-            ////}
-
-            ////return actors;
         }
 
 
@@ -414,22 +369,6 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                     .Where(movie => movie.Name.ToLower().Contains(searchText));
-
-            //// TODO: How is different from SearchMovies?
-            //// Do you want to add a TODO in SearchMovies to search on other features along with Title like cast, songs, etc?
-
-            ////TODO: Clean comments
-            ////List<MovieEntity> titles = new List<MovieEntity>();
-
-            ////foreach (var title in retList.Values)
-            ////{
-            ////    if (title.Name.ToLower().Contains(searchText.ToLower()))
-            ////    {
-            ////        titles.Add(title);
-            ////    }
-            ////}
-
-            ////return titles;
         }
 
         public static IEnumerable<MovieEntity> SearchTrailer(this IStore store, string searchText)
@@ -441,19 +380,6 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                     .Where(movie => movie.Trailers.ToLower().Contains(searchText));
-
-            ////TODO: Clean comments
-            ////List<MovieEntity> traileres = new List<MovieEntity>();
-
-            ////foreach (var trailer in retList.Values)
-            ////{
-            ////    if (trailer.Trailers.ToLower().Contains(searchText.ToLower()))
-            ////    {
-            ////        traileres.Add(trailer);
-            ////    }
-            ////}
-
-            ////return traileres;
         }
 
         public static IEnumerable<MovieEntity> SearchCharacter(this IStore store, string searchText)
@@ -465,23 +391,7 @@ namespace DataStoreLib.Storage
             return
                 retList.Values
                     .Where(movie => movie.Cast.ToLower().Contains(searchText));
-
-            ////TODO: Clean comments
-            ////List<MovieEntity> characters = new List<MovieEntity>();
-
-            ////foreach (var character in retList.Values)
-            ////{
-            ////    if (character.Cast.ToLower().Contains(searchText.ToLower()))
-            ////    {
-            ////        characters.Add(character);
-            ////    }
-            ////}
-
-            ////return characters;
         }
-
-        //public static List<MovieEntity> 
-
         #endregion
 
         #endregion of Movie

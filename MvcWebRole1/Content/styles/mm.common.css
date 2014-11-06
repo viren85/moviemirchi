@@ -173,6 +173,9 @@
     background-position: -689px 0px;
 }
 /*end*/
+#recent-container-tube .section-title{
+    width: 100%;
+}
 
 /* End - Rating Control */
 @media screen and (max-width: 768px) {

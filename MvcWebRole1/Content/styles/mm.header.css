@@ -27,7 +27,7 @@
         height: 7%;
     }
     .small-logo{display: block; position: absolute; left: 6%; z-index: 0;}
-    .small-logo img { width: 70px; height: 120px;}
+    .small-logo img { width: 100px; height: 60px;}
     .nav-options {
         position: fixed;
         top: 20px;
@@ -270,8 +270,8 @@
         width: 70%;
         left: 15%;
     }
-    .small-logo{display: block;position: absolute; left: 0%;}
-    .small-logo img { width: 50px; height: 95px;}
+    .small-logo{display: block;position: absolute; left: 0%; margin-top: 10px;}
+    .small-logo img { width: 40px; height: 35px;}
     .nav-options {
         position: fixed;
         top: 20px;
@@ -333,8 +333,8 @@
 
 @media screen and (min-width: 321px) and (max-width: 767px) {
     .logo {display: none;}
-    .small-logo{display: block; float: left;}
-    .small-logo img { width: 40px; height: 60px;}
+    .small-logo{display: block; float: left;margin-top: 10px;}
+    .small-logo img { width: 50px; height: 40px;}
     .nav-options {
         position: fixed;
         top: 20px;

@@ -1,6 +1,4 @@
-﻿
-/*------ Login ----------------------------------------*/
-function authenticateUser() {
+﻿function AuthenticateUser() {
     var isValid = true;
     try {
         var username = $("#username").val();
@@ -21,63 +19,62 @@ function authenticateUser() {
             isValid = false;
             return;
         }
-        //CallHandler("Login/UserLogin", encodeURI(JSON.stringify(hfLogin)));
 
         if (isValid) {
-            var hflogin = ({ "UserName": username, "Email": username, "Password": loginPassword });
-            // $("#hfLogin").val(JSON.stringify(hfLogin));
+            var hflogin = { "UserName": username, "Email": username, "Password": loginPassword };
+
+            $("#popup-auth").removeAttr("onclick").html("Login&nbsp;<img src=\"images/Loading.gif\" width=\"10px\" height=\"10px\" />");
 
             $.ajax({
-                url: BASE_URL + 'Login/UserLogin',
-                data: { "hfLogin": JSON.stringify(hflogin) },
+                url: WEB_BASE_URL + '/Login/UserLogin',
+                data: hflogin,
                 type: 'Post',
-                dataType: 'json',
+                dataType: 'text',
                 success: ShowSuccessMessageLogin,
                 error: function (xhr, status, error) {
+                    console.log(error);
+                    $("#popup-auth").attr("onclick", "AuthenticateUser();").html("Login");
                 }
             });
         }
-
-
     } catch (ex) {
         $("#loginError").html("There some error please try again.");
         $("#loginError").show();
+        $("#popup-auth").attr("onclick", "AuthenticateUser();").html("Login");
     }
-
-
 }
 
 function ShowSuccessMessageLogin(result) {
-    if (result.Status == "Ok") {
-        //window.location = BASE_URL;
-        $('#popup').modal('hide');
+
+    if (result == "OK") {
+        $('#Login').modal('hide');
         $('#SignUp').modal('hide');
         $('#SignUp-Input').modal('hide');
-    } else if (result.Status == "Require") {
-        $("#loginError").html("Username and Password require.");
+        ClearLoginformData();
+    } else if (result == "MISSING") {
+        $("#loginError").html("Username and Password are mandatory.");
         $("#loginError").show();
         ClearLoginformData();
-    } else if (result.Status == "Error") {
-        $("#loginError").html("Login Failed, Try again.");
+    } else if (result == "ERROR") {
+        $("#loginError").html("Error occurred.");
         $("#loginError").show();
     }
-    else if (result.Status == "Invalid") {
-        $("#loginError").html("Login Failed. Invalid username or password.");
+    else if (result == "INVALID") {
+        $("#loginError").html("Invalid username or password.");
         $("#loginError").show();
     }
-}
 
+    $("#popup-auth").attr("onclick", "AuthenticateUser();").html("Login");
+    $("#LoginLink").hide();
+    $("#LogoutLink").show();
+}
 
 function ClearLoginformData() {
-
-    $("#signin_email").val("");
-    $("#signin_password").val("");
-    $("#loginError").hide("");
-    //$("#Login"). data-dismiss("modal");
+    $("#username").val("");
+    $("#loginPassword").val("");
+    $("#loginError").hide().html("");
 }
 
-
-/*Register the user from popup  -------------------*/
 function RegisterUser() {
     var isValid = true;
     try {
@@ -94,7 +91,6 @@ function RegisterUser() {
             isValid = false;
             return;
         }
-
 
         if (lname == "") {
             $("#registerError").html("Please provide Last Name.");
@@ -148,16 +144,17 @@ function RegisterUser() {
             var user = {
                 "FirstName": fname,
                 "LastName": lname,
-                "UserName": email,
+                "UserId": email,
                 "Email": email,
                 "Password": pwd,
                 "Mobile": confirmPassword // mobile no use as confirm password
             };
-            //$("#hfAffilations").val(JSON.stringify(user));
-            $.ajax({
+            
+            $("#btnRegister").removeAttr("onclick").html("Register&nbsp;<img src=\"images/Loading.gif\" width=\"10px\" height=\"10px\" />");
 
-                url: 'Login/Register',
-                data: { "userJson": JSON.stringify(user) },
+            $.ajax({
+                url: BASE_URL + '/api/UserSignup/Register',
+                data: user,
                 type: 'POST',
                 dataType: 'json',
                 success: ShowSuccessMessage,
@@ -172,12 +169,13 @@ function RegisterUser() {
 }
 
 function ShowSuccessMessage(result) {
+    $("#btnRegister").attr("onclick", "RegisterUser();").html("Register");
 
-    if (result.Status == "Ok") {
+    if (result == "OK") {
         $("#successStatusR").html("You are successfully register. Please login to access your account.");
         $("#successStatusR").show();
         ClearformData();
-    } else if (result.Status == "Error") {
+    } else if (result == "ERROR") {
         if (result.Message != undefined) {
             $("#registerError").html(result.Message);
         }
@@ -188,17 +186,31 @@ function ShowSuccessMessage(result) {
         $("#registerError").html("Unable to register. Please try again after some time.");
         $("#registerError").show();
     }
-
-
 }
 
 function ClearformData() {
-    $("#FirstName").val("");
-    $("#LastName").val("");
-    $("#Email1").val("");
-    $("#password2").val("");
-    $("#password3").val("");
-    $("#registerError").hide("");
+    $("#firstName").val("");
+    $("#lastName").val("");
+    $("#emailAddress").val("");
+    $("#userPassword").val("");
+    $("#confirmPassword").val("");
+    $("#registerError").html().hide();
 }
 
-/* end Login*/
+function DoLogout() {
+    $("#LogoutLink").removeAttr("onclick").html("Sign Out&nbsp;<img src=\"images/Loading.gif\" width=\"10px\" height=\"10px\" />");
+    $.ajax({
+        url: WEB_BASE_URL + '/Login/Logout',
+        type: 'get',
+        success: ShowSuccessMessageLogout,
+        error: function (xhr, status, error) {
+
+        }
+    });
+}
+
+function ShowSuccessMessageLogout() {
+    $("#LoginLink").show();
+    $("#LogoutLink").attr("onclick", "DoLogout();").html("Sign Out").hide();
+    ClearLoginformData();
+}

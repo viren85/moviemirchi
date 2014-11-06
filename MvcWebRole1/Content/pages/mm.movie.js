@@ -5,7 +5,8 @@
                     { "title": "Songs", "section": "movie_songs" },
                     { "title": "Trailers", "section": "movie_trailers" },
                     { "title": "Reviews", "section": "movie-review-details-tube" },
-                    { "title": "Tweets", "section": "tweets-tube" }
+                    { "title": "Tweets", "section": "tweets-tube" },
+                    { "title": "Recently Viewed", "section": "recent-container-tube" }
     ];
 
     $(".nav-bar-container").append(GetNavBar(json));
@@ -16,6 +17,8 @@
 
     $(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
     $(".review-details").append(GetTubeControl("Reviews", "movie-review-details", "review-pager"));
+    $(".recent-details").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager", "width30"));
+
     LoadTweets("movie", name);
 
     $(".section-title").each(function () {
@@ -27,6 +30,7 @@
         new Util().RemoveLoadImage($("#tweets-tube"));
     }, 4000);
 
+    LoadRecentVisits();
     RecentlyViewedCookies.add({ name: name, type: 'movie', url: "/movie/" + name });
 }
 
@@ -75,17 +79,18 @@ function PrepareHomePage() {
                     { "title": "Upcoming Releases", "section": "upcoming-movie-list-tube" },
                     { "title": "News", "section": "news-container-tube" },
                     { "title": "Tweets", "section": "tweets-tube" },
-                    { "title": "Critics", "section": "critics-container-tube" }
+                    { "title": "Critics", "section": "critics-container-tube" },
+                    { "title": "Recently Viewed", "section": "recent-container-tube" }
     ];
 
     $(".nav-bar-container").append(GetNavBar(json));
-
 
     $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
     $(".movies").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
     $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
     $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
     $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
+    $(".movies").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager", "width30"));
 
     $(".section-title").each(function () {
         new Util().AppendLoadImage($(this));
@@ -98,4 +103,5 @@ function PrepareHomePage() {
     LoadCurrentMovies();
     LoadUpcomingMovies();
     LoadTweets();
+    LoadRecentVisits();
 }

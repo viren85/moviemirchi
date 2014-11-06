@@ -46,6 +46,8 @@ var ShowReviews = function (data) {
 
                 reviews = result.ReviewsDetails;
                 ShowReviewsByReviewer(reviews);
+                $(".movies").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager"));
+                LoadRecentVisits();
             }
         }
     } catch (e) {

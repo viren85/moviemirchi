@@ -17,7 +17,7 @@ function PopulatingMovies(movie, container, options) {
     }
     anchor.prepend("<meta itemprop=\"url\" content=\"/movie/" + movie.UniqueName + "\">");
 
-    var synopsis = movie.Synopsis!= null && movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis;
+    var synopsis = movie.Synopsis && movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis ? movie.Synopsis : "";
 
     var criticRating;
     var hide = false;

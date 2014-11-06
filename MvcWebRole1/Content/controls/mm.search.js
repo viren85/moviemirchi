@@ -20,10 +20,10 @@
             $(".home-search-bar .clear-search-bar").hide();
         }
 
-        if (query.length <= 2) {
+        if (query.length <= 1) {
             $("#search-results").hide();
         }
-
+        
         // kyeCode is 27 for 'ESC' keypress. On Esc we want to dismiss search
         if (e.keyCode === 27) {
             $(".home-search-bar .clear-search-bar").hide();
@@ -35,10 +35,9 @@
             // When keyup is called from click, originalEvent is not set
 
             // keyCode is 13 for 'Enter' keypress. On Enter we want to treat it as click on Search button
-        else if (query.length > 2 || !e.originalEvent || e.keyCode === 13) {
+        else if (query.length > 1 || !e.originalEvent || e.keyCode === 13) {
             //if ($(window).width() < 768)
             $(".nav-bar-container").hide();
-
             getItems(query);
             $("#search-results").show();
         }
@@ -76,8 +75,6 @@ function getItems(query) {
 
             //assigning json response data to local variable. It is basically list of values.
             var data = JSON.parse(response);
-
-
             if (!data || !data.length || data.length < 1) {
                 $("#search-results").append($("<ul id='targetUL' style='display: block'><li style='height: 35px'>No results found for '" + $("#home-search").val() + "'.</li></ul>"));
             } else {
@@ -138,11 +135,15 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.GetItems = function (singleEntity) {
         if (singleEntity) {
             var key = this.GetSearchQuery();
-
             if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
-            } else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < MaxEntries) {
+            }
+            else if (singleEntity.UniqueName && singleEntity.UniqueName.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.UniqueName) && searchResultCounter < MaxEntries) {
+                // This is movie entity hence show the movie item
+                this.GetMovieItem(singleEntity);
+            }
+            else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < MaxEntries) {
                 // This is critics entity hence show the critics item
                 if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                     this.GetCriticsItem(singleEntity);

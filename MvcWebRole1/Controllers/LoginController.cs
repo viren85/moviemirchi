@@ -1,269 +1,122 @@
 ﻿
 namespace MvcWebRole1.Controllers
 {
-    using CloudMovie.APIRole.API;
     using DataStoreLib.Models;
     using DataStoreLib.Storage;
-    using DataStoreLib.Utils;
-    using Microsoft.WindowsAzure;
     using System;
-    using System.Collections.Generic;
     using System.Configuration;
-    using System.Diagnostics;
-    using System.Linq;
-    using System.Net.Sockets;
+    using System.Security.Cryptography;
+    using System.Text;
     using System.Web.Mvc;
     using System.Web.Script.Serialization;
 
     public class LoginController : Controller
     {
-        [HttpGet]
-        public ActionResult UserLogin()
-        {
-
-            return View();
-        }
+        private const string SUCCESS = "OK";
+        private const string INVALID = "INVALID";
+        private const string MISSING = "MISSING";
+        private const string ERROR = "ERROR";
 
         [HttpPost]
-        public ActionResult UserLogin(string hfLogin)
+        public string UserLogin(LoginProperties data)
         {
-            if (string.IsNullOrEmpty(hfLogin))
+            if (data == null)
             {
-                return View();
+                return MISSING;
             }
 
             try
             {
                 JavaScriptSerializer json = new JavaScriptSerializer();
-                UserEntity auth = json.Deserialize(hfLogin, typeof(UserEntity)) as UserEntity;
+                UserEntity auth = new UserEntity();
 
-                if (auth != null)
+                auth.UserName = data.UserName;
+                auth.Password = GetHashPassword(data.Password);
+
+                if (!string.IsNullOrEmpty(auth.UserName))
                 {
                     TableManager tblMgr = new TableManager();
                     UserEntity user = tblMgr.GetUserByName(auth.UserName);
 
                     if (user != null && user.UserName == auth.UserName && user.Password == auth.Password)
                     {
-                        Session["userid"] = user.UserId;
-                        Session["type"] = user.UserType;
-                        Session["firstname"] = user.FirstName;
-                        Session["lastname"] = user.LastName;
-                        Session["email"] = user.Email;
-                        Session["mobile"] = user.Mobile;
-                        Session["dob"] = user.DateOfBirth;
-                        Session["gender"] = user.Gender;
-                        Session["city"] = user.City;
-                        Session["username"] = user.FirstName + " " + user.LastName;
-                        Session["favorite"] = user.Favorite;
-                        return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
-                        //return RedirectToAction("Index", "Home");
+                        return Login(user.UserId, user.UserType, user.FirstName, user.LastName, user.Email, user.Mobile, user.DateOfBirth, user.Gender, user.City, user.Favorite);
                     }
                     else
                     {
-                        return Json(new { Status = "Invalid" }, JsonRequestBehavior.AllowGet);
+                        return INVALID;
                     }
                 }
                 else
                 {
-                    //TempData["Error"] = "Username or Password Require.";
-                    return Json(new { Status = "Require" }, JsonRequestBehavior.AllowGet);
+                    return MISSING;
                 }
             }
             catch (Exception)
             {
-                //TempData["Failed"] = "Login Failed. Please try again";
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
+                return ERROR;
             }
         }
-
-        public ActionResult ConnectUser(UserEntity user)
+        private string GetHashPassword(string password)
         {
-            TableManager tblMgr = new TableManager();
-
-            try
+            using (MD5 md5Hash = MD5.Create())
             {
-                Session["userid"] = user.UserId;
-                Session["type"] = user.UserType;
-                Session["firstname"] = user.FirstName;
-                Session["lastname"] = user.LastName;
-                Session["email"] = user.Email;
-                Session["mobile"] = user.Mobile;
-                Session["dob"] = user.DateOfBirth;
-                Session["gender"] = user.Gender;
-                Session["city"] = user.City;
-                Session["username"] = user.FirstName + " " + user.LastName;
-                Session["profile_pic"] = user.Profile_Pic_Http;
-                Session["profile_pic_https"] = user.Profile_Pic_Https;
-                Session["facebook_access_token"] = user.Country;
-                Session["favorite"] = user.Favorite = null;
+                byte[] data = md5Hash.ComputeHash(Encoding.UTF8.GetBytes(password));
 
-                if (user.UserType == "facebook")
+                StringBuilder sBuilder = new StringBuilder();
+
+                for (int i = 0; i < data.Length; i++)
                 {
-                    var fb = new Facebook.FacebookClient();
-                    dynamic result = fb.Get("oauth/access_token",
-                                            new
-                                            {
-                                                client_id = ConfigurationManager.AppSettings["FacebookAppId"],
-                                                client_secret = ConfigurationManager.AppSettings["FacebookAppSecret"],
-                                                grant_type = "fb_exchange_token",
-                                                fb_exchange_token = user.Country
-                                            });
+                    sBuilder.Append(data[i].ToString("x2"));
                 }
 
-                var userResponse = tblMgr.GetUserById(user.UserId);
-
-                if (userResponse == null)
-                {
-                    user.Status = 1;
-                    user.Created_At = DateTime.Now;
-                    user.Country = string.Empty;
-                    user.RowKey = user.UserId;
-
-                    tblMgr.UpdateUserById(user);
-                    return Json(new { success = true, createdUser = true });
-                }
-
-                return Json(new { success = true, createdUser = false });
-
-            }
-            catch (Exception)
-            {
-                return Json(new { success = false });
+                return sBuilder.ToString();
             }
         }
-
-        #region Registration
-
-        [HttpGet]
-        public ActionResult Register()
-        {
-            if (Session["userid"] != null)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-
-            return View();
-        }
-
-        [HttpPost]
-        public ActionResult Register(string userJson)
-        {
-            if (string.IsNullOrEmpty(userJson))
-            {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
-            }
-
-            try
-            {
-                JavaScriptSerializer json = new JavaScriptSerializer();
-
-                UserEntity deUser = json.Deserialize(userJson, typeof(UserEntity)) as UserEntity;
-
-                if (deUser != null)
-                {
-                    try
-                    {
-                        System.Net.Mail.MailAddress email = new System.Net.Mail.MailAddress(deUser.Email);
-                    }
-                    catch (Exception)
-                    {
-                        return Json(new { Status = "Error", Message = "Please provide valid email address." }, JsonRequestBehavior.AllowGet);
-                    }
-
-
-                    if (deUser.Password != deUser.Mobile) //mobile number used to hold confirm password
-                    {
-                        return Json(new { Status = "Error", Message = "Password and confirm password does not match." }, JsonRequestBehavior.AllowGet);
-                    }
-
-                    TableManager tblMgr = new TableManager();
-
-                    UserEntity oldUser = tblMgr.GetUserByName(deUser.UserName);
-
-                    if (oldUser == null)
-                    {
-                        UserEntity entity = new UserEntity();
-                        entity.RowKey = entity.UserId = Guid.NewGuid().ToString();
-                        entity.UserName = deUser.UserName;
-                        entity.Email = deUser.Email;
-                        entity.Password = deUser.Password;
-                        entity.UserType = "Application";
-                        entity.Status = 1;
-                        entity.Created_At = DateTime.Now;
-                        entity.Country = string.Empty;
-                        entity.SiteFeedbackScore = string.Empty;
-
-                        tblMgr.UpdateUserById(entity);
-                    }
-                    else
-                    {
-                        return Json(new { Status = "Error", Message = "Username (" + deUser.UserName + ") already exist. Please choose another username." }, JsonRequestBehavior.AllowGet);
-                    }
-                }
-                else
-                {
-                    return Json(new { Status = "Error", Message = "" }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception)
-            {
-                return Json(new { Status = "Error" }, JsonRequestBehavior.AllowGet);
-            }
-
-            return Json(new { Status = "Ok" }, JsonRequestBehavior.AllowGet);
-        }
-
-        #endregion
-
-
-        public ActionResult Logout()
+        public string Login(string userid, string usertype, string firstName, string lastName, string email, string mobile, string dob, string gender, string city, string favorite)
         {
             if (Session["username"] != null)
             {
-                var fb = new Facebook.FacebookClient();
-                var result = fb.GetLogoutUrl(new
-                {
-                    client_id = ConfigurationManager.AppSettings["FacebookAppId"],
-                    client_secret = ConfigurationManager.AppSettings["FacebookAppSecret"],
-                    grant_type = "fb_exchange_token",
-                    fb_exchange_token = Session["facebook_access_token"]
-                });
-
-                
-
-                Session["userid"] = null;
-                Session["type"] = null;
-                Session["firstname"] = null;
-                Session["lastname"] = null;
-                Session["email"] = null;
-                Session["mobile"] = null;
-                Session["dob"] = null;
-                Session["gender"] = null;
-                Session["city"] = null;
-
-                Session["profile_pic"] = null;
-                Session["profile_pic_https"] = null;
-                Session["facebook_access_token"] = null;
-                Session["favorite"] = null;
-                Session["username"] = null;
-
-                Session.Abandon();
-                Session.Clear();
+                return "OK";
             }
 
-            Session.Abandon();
-            Session.Clear();
-            return RedirectToAction("Index", "Home");
+            try
+            {
+                // Set session
+                Session["userid"] = userid;
+                Session["type"] = usertype;
+                Session["firstname"] = firstName;
+                Session["lastname"] = lastName;
+                Session["email"] = email;
+                Session["mobile"] = mobile;
+                Session["dob"] = dob;
+                Session["gender"] = gender;
+                Session["city"] = city;
+                Session["username"] = firstName + " " + lastName;
+                Session["favorite"] = favorite;
+
+                return "OK";
+            }
+            catch (Exception)
+            {
+                return "ERROR";
+            }
         }
 
-        /// <summary>
-        /// this funcion will return users ip address
-        /// </summary>
-        /// <returns></returns>
-        public static IEnumerable<string> GetAddresses()
+        public void Logout()
         {
-            var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
-            return (from ip in host.AddressList where ip.AddressFamily == AddressFamily.InterNetwork select ip.ToString()).ToList();
+            if (Session["username"] != null)
+            {
+                Session["username"] = null;
+                Session.Abandon();
+            }
         }
+    }
+
+    public class LoginProperties
+    {
+        public string UserName { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
     }
 }

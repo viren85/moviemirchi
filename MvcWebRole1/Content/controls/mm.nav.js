@@ -71,28 +71,56 @@ var handlePageScrolling = function () {
             ClearSearchReults();
         };
     };
-
-    var body = $('html, body');
-    body.bind('DOMMouseScroll', getFunctionOnScroll('DOMMouseScroll'));
-    //IE, Opera, Safari
-    body.bind('mousewheel', getFunctionOnScroll('mousewheel'));
 };
 
-$(window).scroll(function () {
-    if ($(window).width() > 320) {
-        if ($(this).scrollTop() > 40) {
-            $(".small-logo img").css("width", "40px").css("height", "60px");
-            $('.scrollToTop').fadeIn();
-        } else {
-            $(".small-logo img").css("width", "70px").css("height", "120px");
-        }
+function ArrangeTopNavLinks() {
+    if ($(window).width() > 700) {
+        var width = $(document).width() - 100;
+        var listCounter = 0;
+        var possibleLinks = Math.floor(width / 200);
+
+        $("ul.top-nav-bar").find("li").each(function () {
+            if (listCounter > possibleLinks) {
+                $(this).hide();
+            }
+
+            listCounter++;
+        });
     }
-    else {
-        if ($(this).scrollTop() > 70) {
-            $(".small-logo img").css("width", "40px").css("height", "60px");
-            $('.scrollToTop').fadeIn();
-        } else {
-            $(".small-logo img").css("width", "50px").css("height", "95px");
+}
+
+$(document).ready(function () {
+    $(".nav-options").click(function (e) {
+        if ($(".nav-bar-container").css("display") == "block") {
+            $(".nav-bar-container").css("display", "none");
         }
-    }
+        else {
+            $(".nav-bar-container").css("display", "block");
+        }
+
+        e.stopPropagation();
+    });
+
+    $(".nav-options").bind('touchstart', function (event) {
+        if ($(".nav-bar-container").css("display") == "block") {
+            $(".nav-bar-container").css("display", "none");
+        }
+        else {
+            $(".nav-bar-container").css("display", "block");
+        }
+
+        event.preventDefault();
+    });
+
+    $(".nav-options").hover(function (e) {
+        $(".nav-bar-container").css("display", "block");
+        e.stopPropagation();
+    });
+
+    $(window).resize(function () {
+        ArrangeTopNavLinks();
+        $(".movie-list ul").each(function () {
+            ScaleElement($(this));
+        });
+    });
 });

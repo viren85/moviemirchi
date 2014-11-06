@@ -41,15 +41,14 @@
 
 .modal-content {
     border-radius: 0px;
-    background-color: initial !important;
 }
 .modal-header{
     border: none;
 }
 .modal-header .close{
     position: fixed;
-    left: 65%;
-    top: 10%;
+    left: 85%;
+    /*top: -10%;*/
     z-index: 1111;
     color: black !important;
 }
@@ -57,13 +56,13 @@
     padding: 0px !important;
     min-height: 250px;
 }
-.modal-body iframe{
+/*.modal-body iframe{
     position: fixed;
     left: 27%;
     z-index: 1111;
     width: 40% !important;
     height: 40%;
-}
+}*/
 .modal-footer{
     background-color: #fff;
     border-radius: 5px;

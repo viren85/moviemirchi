@@ -14,7 +14,7 @@ namespace MvcWebRole1
                  "~/content/jquery.cookie.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/script/bootstrap").Include(
-                 "~/content/jbootstrap.min.js"));
+                 "~/content/bootstrap.min.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/script/prettyphoto").Include(
                  "~/content/jquery.prettyphoto.js"));
