@@ -58,8 +58,8 @@ namespace SmartMonkey
 
             return actors.SelectMany(a => new Url[] {
                 new Url(this.WebUrl, "artists/" + a.Replace(" ", "-")),
-                new Url(this.APIUrl, "api/ArtistMovies?type=bio&name=" + HttpUtility.UrlEncode(a)),
-                new Url(this.APIUrl, "api/ArtistMovies?type=movie&name=" + HttpUtility.UrlEncode(a)),
+                new Url(this.APIUrl, "api/ArtistMovies?type=bio&name=" + a.Replace(" ", "%20")),
+                new Url(this.APIUrl, "api/ArtistMovies?type=movie&name=" + a.Replace(" ", "%20")),
             });
         }
 
