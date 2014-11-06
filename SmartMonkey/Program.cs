@@ -9,12 +9,12 @@ namespace SmartMonkey
     {
         public const string APIUrl = @"http://96d1f263dff744ddab4f493b9ac935e5.cloudapp.net:8081/";
         public const string WebUrl = @"http://moviemirchi.co.in/";
-        public static readonly IEnumerable<string> SeedUrl =
+        public static readonly IEnumerable<Url> SeedUrl =
             // Add urls here to make them appear in sitemap
                 new string[] {
                     "",
                     "home/about",
-                }.AsEnumerable();
+                }.Select(u => new Url("", u));
 
         static void Main(string[] args)
         {

@@ -42,7 +42,7 @@ namespace SmartMonkey
             var tasks =
                 this.ValidationList
                     .Select(test =>
-                        client.GetAsync(test.BaseUrl.TrimEnd('/') + '/' + test.Url.TrimStart('/'))
+                        client.GetAsync(test.Url.Base.TrimEnd('/') + '/' + test.Url.Part.TrimStart('/'))
                         .IgnoreExceptions(e =>
                         {
                             lock (lockObject)
@@ -56,7 +56,7 @@ namespace SmartMonkey
                                 Console.ForegroundColor = ConsoleColor.Yellow;
                                 Console.WriteLine("Exception: {1}{0}{2}",
                                     Environment.NewLine,
-                                    test.Url,
+                                    test.Url.Part,
                                     string.Join(" | ", messages));
                                 Console.ForegroundColor = color;
                             }

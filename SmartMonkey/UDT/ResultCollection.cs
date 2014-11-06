@@ -44,7 +44,7 @@ namespace SmartMonkey.UDT
             );
         }
 
-        public static void GenerateSitemap(string root, string filePath, IEnumerable<string> seedUrl)
+        public static void GenerateSitemap(string root, string filePath, IEnumerable<Url> seedUrl)
         {
             if (string.IsNullOrWhiteSpace(filePath))
             {
@@ -52,11 +52,11 @@ namespace SmartMonkey.UDT
             }
 
             // Add the urls here
-            var seed = seedUrl ?? Enumerable.Empty<string>();
-            var allUrls = seed.Concat(list.Where(u => u.Result).Select(u => u.Url));
+            var seed = seedUrl ?? Enumerable.Empty<Url>();
+            var allUrls = seed.Concat(list.Where(u => u.Result).Select(u => new Url("", u.Url)));
             var properUrls = allUrls
-                .Where(u => !u.StartsWith("api/"))
-                .Select(u => root + u);
+                .Where(u => !u.Part.StartsWith("api/"))
+                .Select(u => root + u.Part);
             var urls = properUrls.Distinct();
 
             XNamespace goog = "http://www.google.com/schemas/sitemap/0.9";

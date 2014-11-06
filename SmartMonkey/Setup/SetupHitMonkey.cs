@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using SmartMonkey.UDT;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SmartMonkey
@@ -42,8 +43,7 @@ namespace SmartMonkey
                     return new Test()
                     {
                         Name = item.Key,
-                        BaseUrl = this.APIUrl,
-                        Url = item.Value,
+                        Url = new Url(this.APIUrl, item.Value),
                         Validate = Test.DefaultValidate(null),
                     };
                 }));
@@ -60,8 +60,7 @@ namespace SmartMonkey
                 .Select(u => new Test()
                 {
                     Name = "Search",
-                    BaseUrl = this.APIUrl,
-                    Url = u,
+                    Url = new Url(this.APIUrl, u),
                     Validate = Test.DefaultValidate("\"id\":null"),
                 }));
 
@@ -98,8 +97,7 @@ namespace SmartMonkey
                 .Select(u => new Test()
                 {
                     Name = "Reviewer page",
-                    BaseUrl = this.WebUrl,
-                    Url = "movie/reviewer/" + u,
+                    Url = new Url(this.WebUrl, "reviewer/" + u),
                     Validate = null,
                 }));
 
@@ -138,8 +136,7 @@ namespace SmartMonkey
                 .Select(u => new Test()
                 {
                     Name = "Genre page",
-                    BaseUrl = this.WebUrl,
-                    Url = "genre/" + u,
+                    Url = new Url(this.WebUrl, "genre/" + u),
                     Validate = null,
                 }));
 

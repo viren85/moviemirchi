@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SmartMonkey.UDT;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 
 namespace SmartMonkey
 {
@@ -15,7 +17,7 @@ namespace SmartMonkey
             this.WebUrl = weburl;
         }
 
-        private static readonly Func<Test, IEnumerable<string>> cacheMoviePage = test =>
+        private IEnumerable<Url> cacheMoviePage(Test test)
         {
             var movies =
                 test.Data.Split(new string[] { "MovieId" }, StringSplitOptions.None).Skip(1)
@@ -23,10 +25,10 @@ namespace SmartMonkey
                     m.Split(new string[] { "UniqueName\\\":\\\"" }, StringSplitOptions.None).Skip(1).First()
                     .Split(new string[] { "\\\"" }, StringSplitOptions.None).First());
 
-            return movies.Select(id => "movie/" + id);
-        };
+            return movies.Select(id => new Url(this.WebUrl, "movie/" + id));
+        }
 
-        private static readonly Func<Test, IEnumerable<string>> cacheMovieInfo = test =>
+        private IEnumerable<Url> cacheMovieInfo(Test test)
         {
             var movies =
                 test.Data.Split(new string[] { "MovieId" }, StringSplitOptions.None).Skip(1)
@@ -34,15 +36,15 @@ namespace SmartMonkey
                     m.Split(new string[] { "UniqueName\\\":\\\"" }, StringSplitOptions.None).Skip(1).First()
                     .Split(new string[] { "\\\"" }, StringSplitOptions.None).First());
 
-            return movies.Select(id => "api/movieinfo?q=" + id);
-        };
+            return movies.Select(id => new Url(this.APIUrl, "api/movieinfo?q=" + id));
+        }
 
-        private static readonly Func<Test, IEnumerable<string>> cacheArtistPage = test =>
+        private IEnumerable<Url> cacheArtistPage(Test test)
         {
             if (!test.Data.Contains("Actor"))
             {
-                Console.WriteLine("Note: No actors for {0}", test.Url);
-                return Enumerable.Empty<string>();
+                Console.WriteLine("Note: No actors for {0}", test.Url.Part);
+                return Enumerable.Empty<Url>();
             }
 
             var seg =
@@ -54,20 +56,24 @@ namespace SmartMonkey
                     .Split(new string[] { "\\\\\\\"" }, StringSplitOptions.None).FirstOrDefault())
                 .Where(s => !String.IsNullOrWhiteSpace(s));
 
-            return actors.Select(a => "artists/" + a.Replace(" ", "-"));
-        };
+            return actors.SelectMany(a => new Url[] {
+                new Url(this.WebUrl, "artists/" + a.Replace(" ", "-")),
+                new Url(this.APIUrl, "api/ArtistMovies?type=bio&name=" + HttpUtility.UrlEncode(a)),
+                new Url(this.APIUrl, "api/ArtistMovies?type=movie&name=" + HttpUtility.UrlEncode(a)),
+            });
+        }
 
         public IMonkey CacheMoviePage()
         {
-            return Setup(cacheMoviePage);
+            return Setup(this.cacheMoviePage);
         }
 
         public IMonkey CacheArtistPage()
         {
-            return Setup(cacheMovieInfo, cacheArtistPage);
+            return Setup(this.cacheMovieInfo, this.cacheArtistPage);
         }
 
-        private IMonkey Setup(Func<Test, IEnumerable<string>> funcLevel1, Func<Test, IEnumerable<string>> funcLevel2 = null)
+        private IMonkey Setup(Func<Test, IEnumerable<Url>> funcLevel1, Func<Test, IEnumerable<Url>> funcLevel2 = null)
         {
             CacheMonkey monkey = new CacheMonkey();
             monkey.Name = "CacheMonkey";
@@ -76,8 +82,7 @@ namespace SmartMonkey
             monkey.AddTest(new Test()
             {
                 Name = "Now playing",
-                BaseUrl = this.APIUrl,
-                Url = "api/movies?type=current",
+                Url = new Url(this.APIUrl, "api/movies?type=current"),
                 Validate = Test.DefaultValidate(null),
                 ScratchLevel1 = funcLevel1,
                 ScratchLevel2 = funcLevel2,
@@ -85,8 +90,7 @@ namespace SmartMonkey
             monkey.AddTest(new Test()
             {
                 Name = "Upcoming",
-                Url = "api/movies?type=upcoming",
-                BaseUrl = this.APIUrl,
+                Url = new Url(this.APIUrl, "api/movies?type=upcoming"),
                 Validate = Test.DefaultValidate(null),
                 ScratchLevel1 = funcLevel1,
                 ScratchLevel2 = funcLevel2,

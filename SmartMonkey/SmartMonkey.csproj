@@ -28,6 +28,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Net.Http" />
+    <Reference Include="System.Web" />
     <Reference Include="System.XML" />
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
@@ -43,6 +44,7 @@
     <Compile Include="UDT\TaskExtensions.cs" />
     <Compile Include="UDT\Test.cs" />
     <Compile Include="UDT\TestResult.cs" />
+    <Compile Include="UDT\Url.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

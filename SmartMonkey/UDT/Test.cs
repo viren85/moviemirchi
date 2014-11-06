@@ -9,14 +9,13 @@ namespace SmartMonkey
         private static object lockObject = new object();
 
         public string Name { get; set; }
-        public string BaseUrl { get; set; }
-        public string Url { get; set; }
+        public Url Url { get; set; }
         public string Data { get; set; }
         public bool Result { get; set; }
 
         public Func<string, bool> Validate { get; set; }
-        public Func<Test, IEnumerable<string>> ScratchLevel1 { get; set; }
-        public Func<Test, IEnumerable<string>> ScratchLevel2 { get; set; }
+        public Func<Test, IEnumerable<Url>> ScratchLevel1 { get; set; }
+        public Func<Test, IEnumerable<Url>> ScratchLevel2 { get; set; }
 
         internal static Func<string, Func<string, bool>> DefaultValidate =
             (errStr) =>
@@ -46,7 +45,7 @@ namespace SmartMonkey
             ResultCollection.Add(new TestResult
             {
                 Name = this.Name,
-                Url = this.Url,
+                Url = this.Url.Part,
                 Result = this.Result,
             });
 
@@ -57,7 +56,7 @@ namespace SmartMonkey
                     "{0}: {1} - {2}",
                     result,
                     this.Name,
-                    this.Url);
+                    this.Url.Part);
                 if (!this.Result && !string.IsNullOrWhiteSpace(this.Data))
                 {
                     Console.ForegroundColor = ConsoleColor.Magenta;

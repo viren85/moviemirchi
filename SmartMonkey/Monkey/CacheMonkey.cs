@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SmartMonkey.UDT;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -26,7 +27,7 @@ namespace SmartMonkey
             };
         }
 
-        private void InitiateHitMonkey(Test test, IEnumerable<string> urls)
+        private void InitiateHitMonkey(Test test, IEnumerable<Url> urls)
         {
             IMonkey monkey = new HitMonkey();
             monkey.Name = "HitMonkey for " + test.Name;
@@ -37,8 +38,7 @@ namespace SmartMonkey
                 {
                     return new Test()
                     {
-                        Name = test.Name + " - " + url,
-                        BaseUrl = this.WebUrl,
+                        Name = test.Name + " - " + url.Part,
                         Url = url,
                         Validate = null, //test.Validate,
                     };
@@ -46,7 +46,7 @@ namespace SmartMonkey
             monkey.Jump();
         }
 
-        private void InitiateCacheMonkey(Test test, IEnumerable<string> urls)
+        private void InitiateCacheMonkey(Test test, IEnumerable<Url> urls)
         {
             CacheMonkey monkey = new CacheMonkey();
             monkey.Name = "CacheMonkey for " + test.Name;
@@ -57,8 +57,7 @@ namespace SmartMonkey
                 {
                     return new Test()
                     {
-                        Name = test.Name + " - " + url,
-                        BaseUrl = this.APIUrl,
+                        Name = test.Name + " - " + url.Part,
                         Url = url,
                         Validate = null, //test.Validate,
                         ScratchLevel1 = test.ScratchLevel2,
