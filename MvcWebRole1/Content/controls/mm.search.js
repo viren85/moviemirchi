@@ -23,7 +23,7 @@
         if (query.length <= 1) {
             $("#search-results").hide();
         }
-        
+
         // kyeCode is 27 for 'ESC' keypress. On Esc we want to dismiss search
         if (e.keyCode === 27) {
             $(".home-search-bar .clear-search-bar").hide();
@@ -115,6 +115,7 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.Init = function () {
 
         var that = this;
+
         resultData.forEach(function (result, index) {
             if (index < MaxEntries) {
                 that.GetItems(result);
@@ -135,14 +136,15 @@ var SearchResults = function (searchResults) {
     SearchResults.prototype.GetItems = function (singleEntity) {
         if (singleEntity) {
             var key = this.GetSearchQuery();
-            if (singleEntity.Title && singleEntity.Title.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
+
+            if (singleEntity.Title && singleEntity.Title.replace(".", "").toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
                 // This is movie entity hence show the movie item
                 this.GetMovieItem(singleEntity);
             }
-            else if (singleEntity.UniqueName && singleEntity.UniqueName.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.UniqueName) && searchResultCounter < MaxEntries) {
-                // This is movie entity hence show the movie item
-                this.GetMovieItem(singleEntity);
-            }
+                /*else if (singleEntity.UniqueName && singleEntity.UniqueName.toLowerCase().indexOf(key) > -1 && !this.IsEntityAdded(singleEntity.UniqueName) && searchResultCounter < MaxEntries) {
+                    // This is movie entity hence show the movie item
+                    this.GetMovieItem(singleEntity);
+                }*/
             else if (singleEntity.Critics && singleEntity.Critics.toLowerCase().indexOf(key) > -1 && searchResultCounter < MaxEntries) {
                 // This is critics entity hence show the critics item
                 if (!this.IsEntityAdded(singleEntity.Title) && searchResultCounter < MaxEntries) {
@@ -150,10 +152,12 @@ var SearchResults = function (searchResults) {
                 }
             } else if (singleEntity.Type && singleEntity.Type.toLowerCase().indexOf(key) > -1) {
                 // This is genre entity hence show the genre item
-                if (!this.IsEntityAdded(this.GetGenre(singleEntity)))
+                if (!this.IsEntityAdded(this.GetGenre(singleEntity))) {
                     this.GetGenreItem(singleEntity);
-                else
+                }
+                else {
                     this.GetMovieItem(singleEntity, true, "genre");
+                }
             }
 
             if (singleEntity.Description && singleEntity.Description.toLowerCase().indexOf(key) > -1) {
@@ -199,7 +203,7 @@ var SearchResults = function (searchResults) {
         $(li).append(anchor);
         $("#targetUL").append(li);
 
-        entityList.push(singleEntity);
+        entityList.push(singleEntity.Title);
         searchResultCounter++;
     };
 
@@ -223,11 +227,11 @@ var SearchResults = function (searchResults) {
             var anchor = $("<a>").attr("style", "float:left;width:100%;height:100%");
 
             $(divTitleDesc).attr("class", "search-result-desc");
-            $(divTitleDesc).html("<span class='search-result-title'>" + artist.name + "</span>");
+            $(divTitleDesc).html("<span class='search-result-title'>" + artist + "</span>");
 
-            $(anchor).attr("href", "/artists/" + artist.name.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
+            $(anchor).attr("href", "/artists/" + artist.split(" ").join("-").toLowerCase() + "?type=search&src=" + pageName);
             $(anchor).attr("onclick", "trackSearchLink('" + document.location.href + "','" + "/artists/" + singleEntity.Link.toLowerCase() + "');");
-            $(anchor).append(that.GetImageElement(singleEntity, "artist", artist.name));
+            $(anchor).append(that.GetImageElement(singleEntity, "artist", artist));
             $(anchor).append(divTitleDesc);
 
             $(li).append(anchor);
@@ -355,7 +359,6 @@ var SearchResults = function (searchResults) {
         var query = this.GetSearchQuery();
         var artists = JSON.parse(singleEntity.Description);
         var match = artists.filter(SearchResults.prototype.FilterLambda(query));
-
         return $.unique(match);
     };
 
@@ -367,12 +370,20 @@ var SearchResults = function (searchResults) {
     };
 
     SearchResults.prototype.GetProcessedArtists = function (artists) {
-
         var query = this.GetSearchQuery();
         var filtArtists = artists.filter(SearchResults.prototype.FilterLambda(query));
-        return $.unique(filtArtists.length > 0 ? filtArtists : artists).map(function (v) {
-            return v.name;
-        }).join("| ");
+
+        switch (filtArtists.length) {
+            case 0:
+                return artists;
+                break;
+            case 1:
+                return filtArtists[0];
+                break;
+            default:
+                return $.unique(filtArtists).map(function (v) { return v.name; }).join("| ");
+                break;
+        }
     };
 
     SearchResults.prototype.GetGenre = function (singleEntity) {
