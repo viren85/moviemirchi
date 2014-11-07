@@ -74,7 +74,62 @@ window.fbAsyncInit = function () {
         xfbml: true  
     });
 
-    FB.Event.subscribe('auth.authResponseChange', function (response) {
+    FB.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
+            loginStatus = true;
+            USER_ID = response.id;
+            $("#hfUserId").attr("value", USER_ID);
+            FB.api('/me', function (response) {
+                userFields.UserId = response.id;
+                userFields.UserType = "facebook";
+                userFields.FirstName = response.first_name;
+                userFields.LastName = response.last_name;
+                userFields.Email = response.email;
+                userFields.Mobile = "";
+                userFields.DateOfBirth = response.birthday;
+                userFields.Gender = response.gender;
+                userFields.City = "";
+                userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
+                userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
+                userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
+                connectUser();
+            });
+        } else if (response.status === 'not_authorized') {
+            FB.login(function (response) {
+                if (response.authResponse) {
+                    accessToken = "";
+                    accessToken = response.authResponse.accessToken;
+
+                    $(window).colorbox.close();
+
+                    if (response.status === 'connected') {
+                        loginStatus = true;
+                        USER_ID = response.id;
+                        $("#hfUserId").attr("value", USER_ID);
+                        FB.api('/me', function (response) {
+                            userFields.UserId = response.id;
+                            userFields.UserType = "facebook";
+                            userFields.FirstName = response.first_name;
+                            userFields.LastName = response.last_name;
+                            userFields.Email = response.email;
+                            userFields.Mobile = "";
+                            userFields.DateOfBirth = response.birthday;
+                            userFields.Gender = response.gender;
+                            userFields.City = "";
+                            userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
+                            userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
+                            userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
+                            connectUser();
+                        });
+                    }
+                }
+            }, { scope: 'email,user_about_me,user_birthday' });
+        } else {
+            // the user isn't logged in to Facebook.
+        }
+    });
+
+    /*FB.Event.subscribe('auth.authResponseChange', function (response) {
         if (response.status === 'connected') {
             var uid = response.authResponse.userID;
             var accessToken = response.authResponse.accessToken;
@@ -83,37 +138,9 @@ window.fbAsyncInit = function () {
         } else {
             GetFacebookUserFields(response);
         }
-    });
+    });*/
 
-    FB.login(function (response) {
-        if (response.authResponse) {
-            accessToken = "";
-            accessToken = response.authResponse.accessToken;
-
-            $(window).colorbox.close();
-
-            if (response.status === 'connected') {
-                loginStatus = true;
-                USER_ID = response.id;
-                $("#hfUserId").attr("value", USER_ID);
-                FB.api('/me', function (response) {
-                    userFields.UserId = response.id;
-                    userFields.UserType = "facebook";
-                    userFields.FirstName = response.first_name;
-                    userFields.LastName = response.last_name;
-                    userFields.Email = response.email;
-                    userFields.Mobile = "";
-                    userFields.DateOfBirth = response.birthday;
-                    userFields.Gender = response.gender;
-                    userFields.City = "";
-                    userFields.Profile_Pic_Http = "http://graph.facebook.com/" + response.id + "/picture?type=large";
-                    userFields.Profile_Pic_Https = "https://graph.facebook.com/" + response.id + "/picture?type=large";
-                    userFields.Country = accessToken; // since we do not want to make major changes, posting access token in country field
-                    connectUser();
-                });
-            }
-        }
-    }, { scope: 'email,user_about_me,user_birthday,user_website,publish_actions' });
+    
 };
 
 function GetFacebookUserFields(response) {
