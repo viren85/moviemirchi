@@ -23,7 +23,7 @@
         $(grid).append(gridHead);
 
         for (i = 0; i < trailerList.length; i++) {
-            trailerCounter = i;
+            trailerCounter = i + 1;
             var gridRow = $("<div/>").attr("class", "trailer-grid-row");
             var gridRowData1 = $("<div/>").attr("class", "trailer-grid-row-data1").attr("id", "trailer-grid-row-data1_" + i).html(trailerList[i].Title);
             var gridRowData2 = $("<div/>").attr("class", "trailer-grid-row-data2").html(trailerList[i].Thumb).attr("style", "display:none");
@@ -60,7 +60,8 @@
         $("#myModalLabel").append($("<input/>").attr("type", "hidden").attr("id", "hf-trailer-id1").val("#trailer-grid-row-data1_" + counter));
         $("#search-container").empty();
         $("#VideoFrame").hide();
-        $("#query").val($("#txtFriendly").val() + " official trailer");
+        //$("#query").val($("#txtFriendly").val() + " official trailer");
+        $("#query").val($(col1).html() + " " + $("#txtFriendly").val());
         $("#hfType").val("trailer");
     }
 }
