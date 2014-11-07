@@ -338,7 +338,10 @@
 
     $("#addSongTitle").click(function () {
         var songs = { "Title": $("#txtSongTitle").val(), "Thumb": "", "YoutubeURL": "" };
-        songCounter++;
+
+        $(".songs-grid-row").each(function () {
+            songCounter++;
+        });
 
         var gridRow = $("<div/>").attr("class", "songs-grid-row");
         var gridRowData1 = $("<div/>").attr("class", "songs-grid-row-data1").attr("id", "songs-grid-row-data1_" + songCounter).html($("#txtSongTitle").val());
