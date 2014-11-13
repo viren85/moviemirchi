@@ -21,6 +21,7 @@ namespace MvcWebRole1
 
             // Replace base url
             DeploymentUtilities.UpdateBaseUrl("Web", @"Content\movie.core.js");
+            DeploymentUtilities.UpdateWebUrl("Web", @"Content\movie.core.js");
             DeploymentUtilities.UpdateBaseUrl("Editorial", @"Content\controls\mm.admin.core.js");
             DeploymentUtilities.UpdateBaseUrl("Editorial", @"Content\movie.autocomplete.js");
 

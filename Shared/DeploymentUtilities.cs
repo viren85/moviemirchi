@@ -214,6 +214,16 @@ namespace CloudMovie.Library
 
         public static void UpdateBaseUrl(string name, string fileRelativePath)
         {
+            UpdateProdUrl(name, fileRelativePath, "BASE_URL", "http://23.99.69.77:8081/");
+        }
+
+        public static void UpdateWebUrl(string name, string fileRelativePath)
+        {
+            UpdateProdUrl(name, fileRelativePath, "WEB_BASE_URL", "http://23.99.69.77:80/");
+        }
+
+        private static void UpdateProdUrl(string name, string fileRelativePath, string varName, string value)
+        {
             if (!isLocal)
             {
                 var path = DeploymentUtilities.GetVirtualDirPath(name);
@@ -221,8 +231,8 @@ namespace CloudMovie.Library
 
                 GetFullAccess(filePath);
 
-                var repl = @"var BASE_URL = ""http://23.99.69.77:8081/"";";
-                var start = "var BASE_URL = ";
+                var repl = "var " + varName + @" = """ + value + @""";";
+                var start = "var " + varName + " = ";
                 var hit = false;
 
                 var lines = File.ReadAllLines(filePath);
