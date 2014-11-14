@@ -67,7 +67,7 @@ var Search = function (placeholder, searchtype) {
         var btnSearch = $("<div/>").attr("class", "btn btn-success").html("Go");
 
         $(txtSearch).keypress(function () {
-            if ($(this).val().length > 2) {
+            if ($(this).val().length >= 1) {
                 switch (type) {
                     case "movies":
                         type = "searchmovies";

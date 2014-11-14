@@ -346,7 +346,7 @@ namespace DataStoreLib.Storage
             searchText = searchText.ToLower();
             return
                 retList.Values
-                    .Where(movie => movie.Name.ToLower().Contains(searchText));
+                    .Where(movie => movie.Name.ToLower().Contains(searchText) || movie.UniqueName.Contains(searchText));
         }
         public static IEnumerable<MovieEntity> SearchMoviesByActor(this IStore store, string searchText)
         {
