@@ -114,6 +114,14 @@
     width: 24px !important;
     height: 24px !important;
 }
+.sharethis-counter{
+    float: right;
+    margin-right: 50px;
+    margin-top: 20px;
+}
+.stButton .stFb, .stButton .stTwbutton, .stButton .stMainServices{
+    height: 22px !important;
+}
 /*Login/Signup links*/
 #targetUL {
     width: 85%;

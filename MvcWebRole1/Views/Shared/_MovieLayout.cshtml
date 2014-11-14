@@ -32,6 +32,8 @@
     @Scripts.Render("~/bundles/script/pages")
     
     <link rel="icon" type="image/png" href="images/favicon.png">
+    @*<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>*@
+    <script type="text/javascript">stLight.options({ publisher: "6865d871-3c72-4f05-b5c7-3280b83bef96", doNotHash: false, doNotCopy: false, hashAddressBar: false });</script>
 </head>
 <body>
     <div class="movie-container">
@@ -49,11 +51,19 @@
                 <div class="search-button">Search</div>
                 <div id="search-results"></div>
             </div>
+            <div class="sharethis-counter">
+                <span class='st_facebook_hcount' displaytext='Facebook'></span>
+                <span class='st_twitter_hcount' displaytext='Tweet'></span>
+            </div>
             <div class="nav-options"></div>
         </div>
     </div>
     <div id="container" class="movie-panel">
         <div class="nav-bar-container"></div>
+        <div class="share-buttons">
+            <span class='st_facebook_large' displaytext='Facebook' st_msg="http://bit.ly/MovieMirchi"></span>
+            <span class='st_twitter_large' st_via="MovieMirchiCo" st_msg="http://bit.ly/MovieMirchi"></span>
+        </div>
         @RenderBody()
     </div>
     <div class="footer">

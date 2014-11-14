@@ -11,6 +11,18 @@
 .movie-panel {
     margin-top: 60px;
 }
+.share-buttons{
+    position: fixed;
+    top: 25%;
+    left: 0%;
+    background-color: white;
+    padding: 5px;
+    padding-bottom: 0px;
+    width: 50px;
+    border: 1px solid #666;
+    border-radius: 0px 3px 3px 0px;
+    border-left: 0px;
+}
 .movies{
     float: left;
     margin-left: 7%;
