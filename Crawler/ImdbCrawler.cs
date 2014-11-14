@@ -39,6 +39,7 @@ namespace MovieCrawler
             movie.Year = GetMovieYear(body);
             movie.Stats = GetMovieStats(body);
 
+            movie.TwitterHandle = string.Empty;
             movie.Trailers = string.Empty;
             movie.Pictures = string.Empty;
             movie.State = string.Empty;
@@ -91,7 +92,7 @@ namespace MovieCrawler
             var genres = genreNode.Elements("a");
 
             string genre = genres != null ?
-                    String.Join(" | ", genres.Select(node => node.InnerHtml))
+                    String.Join(" | ", genres.Select(node => node.InnerText))
                     : String.Empty;
             return genre;
         }
@@ -171,10 +172,10 @@ namespace MovieCrawler
         public string GetMovieStats(HtmlNode body)
         {
             var statsNode = helper.GetElementWithAttribute(body, "div", "id", "titleDetails");
-            var statsContainer = statsNode.Elements("h3");
 
-            if (statsContainer != null)
+            if (statsNode != null)
             {
+                var statsContainer = statsNode.Elements("h3");
                 HtmlNode boxOfficeNode = statsContainer.FirstOrDefault(node => 0 == string.Compare(node.InnerHtml, "box office", true));
 
                 if (boxOfficeNode != default(HtmlNode))

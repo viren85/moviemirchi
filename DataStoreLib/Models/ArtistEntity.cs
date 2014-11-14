@@ -19,6 +19,7 @@ namespace DataStoreLib.Models
         public string Popularity { get; set; }
         public string Posters { get; set; }
         public string MyScore { get; set; }
+        public string TwitterHandle { get; set; }
 
         // For future use
         public string JsonString { get; set; }
@@ -48,7 +49,7 @@ namespace DataStoreLib.Models
             return this.RowKey;
         }
 
-        public static ArtistEntity CreateArtistEntity(string artistName, string uniqueName, string bio, string born, string movieList, string popularity, string posters, string myScore, string jsonString)
+        public static ArtistEntity CreateArtistEntity(string artistName, string uniqueName, string bio, string born, string movieList, string popularity, string posters, string myScore, string jsonString, string twitterHandle)
         {
             var artistId = Guid.NewGuid().ToString();
             var artistEntity = new ArtistEntity(uniqueName.ToLower());
@@ -62,6 +63,7 @@ namespace DataStoreLib.Models
             artistEntity.Posters = posters;
             artistEntity.MyScore = myScore;
             artistEntity.JsonString = jsonString;
+            artistEntity.TwitterHandle = twitterHandle;
             return artistEntity;
         }
     }

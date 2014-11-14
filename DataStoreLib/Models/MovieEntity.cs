@@ -32,6 +32,7 @@ namespace DataStoreLib.Models
         // For future use
         public string JsonString { get; set; }
         public string Popularity { get; set; }
+        public string TwitterHandle { get; set; }
 
         public DateTime PublishDate
         {
@@ -85,6 +86,7 @@ namespace DataStoreLib.Models
             MyScore = entity.MyScore;
             JsonString = entity.JsonString;
             Popularity = entity.Popularity;
+            TwitterHandle = entity.TwitterHandle;
         }
 
         public override string GetKey()
@@ -108,7 +110,8 @@ namespace DataStoreLib.Models
                                                     string state,
                                                     string myScore,
                                                     string jsonString,
-                                                    string popularity
+                                                    string popularity,
+                                                    string twitterHandle
                                                     )
         {
             var movieId = Guid.NewGuid().ToString();
@@ -131,6 +134,7 @@ namespace DataStoreLib.Models
             entity.MyScore = myScore;
             entity.JsonString = jsonString;
             entity.Popularity = popularity;
+            entity.TwitterHandle = twitterHandle;
 
             return entity;
         }
