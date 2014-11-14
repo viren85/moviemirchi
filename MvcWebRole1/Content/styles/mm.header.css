@@ -17,13 +17,12 @@
 
 .logo {
     position: absolute;
-    left: 14%;
-    top: 15px;
+    left: 7%;
+    top: 10px;
 }
 
     .logo img {
-        width: 75%;
-        max-width: 200px;
+        width: 90%;
         height: 7%;
     }
     .small-logo{display: block; position: absolute; left: 6%; z-index: 0;}
