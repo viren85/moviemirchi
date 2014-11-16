@@ -84,9 +84,17 @@ function LoadMovies(result, options, title) {
             if (result.length > 0) {
                 $("." + options.listClassName).prepend(LoadMovieTube(result, title));
 
-                var tubeWidth = $(window).width() - Math.round($(window).width() / 6);
-                $("." + options.listClassName + " .movie-tube-container").css("width", tubeWidth + "px");
-                
+                if (!new Util().IsMobile()) {
+                    var tubeWidth = $(window).width() - Math.round($(window).width() / 6);
+                    $("." + options.listClassName + " .movie-tube-container").css("width", tubeWidth + "px");
+                }
+                else {
+                    
+                    var tubeWidth = $(window).width() - 100;
+                    //alert('not mobile' + tubeWidth);
+                    $("." + options.listClassName + " .movie-tube-container").css("width", tubeWidth + "px");
+                }
+
                 InitMovieTube("." + options.listClassName);
                 //$(".twitter-container").show();
                 // adding images

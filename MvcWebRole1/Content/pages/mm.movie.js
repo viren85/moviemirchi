@@ -12,7 +12,7 @@
     //$(".nav-bar-container").append(GetNavBar(json));
 
     var name = GetEntityName(document.location.href, "movie");
-    
+
     LoadSingleMovie(name);
 
     //$(".tweet-details").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
@@ -26,7 +26,7 @@
     $(".movies").append("<div class=\"movie-trailers\"><div class=\"tube-tilte\">Trailers</div></div>");
     $(".movies").append("<div class=\"movie-reviews\"><div class=\"tube-tilte\">Reviews</div></div>");
     $(".movies").append("<div class=\"recent-container\"><div class=\"tube-tilte\">Recent</div></div>");
-    
+
     LoadTweets("movie", name);
 
     $(".section-title").each(function () {
@@ -123,6 +123,14 @@ function PrepareHomePage() {
     LoadNews();
     LoadCurrentMovies();
     LoadUpcomingMovies();
-    LoadTweets("home", "");
+
+    if (!new Util().IsMobile()) {
+        LoadTweets("home", "");
+    }
+    else {
+        $(".twitter-container").remove();
+        $(".focus-container").remove();
+    }
+
     LoadRecentVisits();
 }

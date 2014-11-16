@@ -103,4 +103,14 @@
         }
         return arr.join(" ");
     }
+
+    Util.prototype.IsMobile = function () {
+        var windowWidth = window.screen.width < window.outerWidth ? window.screen.width : window.outerWidth;
+        var mobile = windowWidth < 800;
+        /*
+        try{ document.createEvent("TouchEvent"); return true; }
+        catch(e){ return false; }
+        */
+        return mobile;
+    }
 }

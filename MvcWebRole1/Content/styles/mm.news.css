@@ -74,7 +74,12 @@
     float: left;
     
 }
-
+@media screen and (max-width: 800px){
+    .news-left, .news-right {
+        width: 100%;
+        margin-left: 30px;
+    }
+}
 @media screen and (min-width: 321px) and (max-width: 1350px) {
     .news-content {
         /*margin-left: 6%;*/

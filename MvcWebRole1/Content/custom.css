@@ -92,6 +92,9 @@
     font-size: 0.8em;
     width: 100%;
 }
+@media screen and (max-width: 800px){
+    .news-container {margin-top: 0px; width: 80%;}
+}
 @media screen and (min-width: 321px) and (max-width: 767px) {
         .movie-list ul li, .upcoming-movie-list ul li {
             max-width: 225px;

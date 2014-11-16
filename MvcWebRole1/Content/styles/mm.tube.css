@@ -20,3 +20,8 @@
 
 .review-list-now-playing {float: left; width: 100%;}
 .review-list-other{float: left; width: 100%;}
+
+@media screen and (max-width: 800px){
+    .tube-tilte {width: 95%; margin-left: 30px; }
+    .movie-tube-container {margin-top: 0px; margin-left: 30px;}
+}

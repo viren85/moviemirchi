@@ -30,8 +30,15 @@
     @Scripts.Render("~/bundles/script/moviecore")
     @Scripts.Render("~/bundles/script/controls")
     @Scripts.Render("~/bundles/script/pages")
-    
+
     <link rel="icon" type="image/png" href="images/favicon.png">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (!new Util().IsMobile()) {
+                $(".hero-img").css('display', 'block');
+            }
+        });
+    </script>
     @*<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>*@
     <script type="text/javascript">stLight.options({ publisher: "6865d871-3c72-4f05-b5c7-3280b83bef96", doNotHash: false, doNotCopy: false, hashAddressBar: false });</script>
 </head>
@@ -43,10 +50,10 @@
             </div>
         </div>
         <div class="header">
-            
+
             @*<div class="small-logo">
-                <a href="/" title="Movie Mirchi"><img src='/Images/RedChilli.png' /></a>
-            </div>*@
+                    <a href="/" title="Movie Mirchi"><img src='/Images/RedChilli.png' /></a>
+                </div>*@
             <div class="home-search-bar">
                 <input type="text" class="form-control search" placeholder="What do you like? Movies, Celebrities, Reviewers ..." id="home-search" name="query" value="" autocomplete="off" />
                 <span class="clear-search-bar" title="Clear search"><img src="/Images/clear-button.png" class="clear-search-bar-button"></span>
@@ -80,7 +87,7 @@
 </body>
 </html>
 <script>
-    
+
     var userId = "@(Session["userid"] != null ? Session["userid"] : "")";
     if (userId != "") {
         $("#LogoutLink").show();

@@ -185,8 +185,12 @@ function InitMovieTube(container) {
     var rightParentWid = parseInt($('.tube-right-nav').parent().outerWidth());
     var rightWid = parseInt($('.tube-right-nav').outerWidth()) / 1.2;
     // .tube-right-navositioning right navigation div
-
-    $('.tube-right-nav').css({ 'left': rightParentWid + rightWid + 50 + 'px' });
+    if (!new Util().IsMobile()) {
+        $('.tube-right-nav').css({ 'left': rightParentWid + rightWid + 50 + 'px' });
+    }
+    else {
+        $('.tube-right-nav').css({ 'left': rightParentWid + 'px' });
+    }
     // Code to run on mouse hover on parent div
     $(container).hover(function () {
         $(container + ' .tube-left-nav, ' + container + ' .tube-right-nav').animate({ 'opacity': '0.5' }, { duration: 500, queue: true });
