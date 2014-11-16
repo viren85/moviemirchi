@@ -37,6 +37,9 @@
             if (!new Util().IsMobile()) {
                 $(".hero-img").css('display', 'block');
             }
+            else {
+                $("#mobile-search").css('display', 'block');
+            }
         });
     </script>
     @*<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>*@
@@ -62,9 +65,10 @@
                 <div id="search-results"></div>
             </div>
             <div class="sharethis-counter">
-                <ul style="list-style: none; float: left; margin: 8px; ">
-                    <li><a style="color: white" data-toggle="modal" href="#Login" role="presentation" id="LoginLink">Sign In</a></li>
-                    <li><a style="color: white" href="javascript:void(0);" onclick="DoLogout();" id="LogoutLink">Sign Out</a></li>
+                <ul style="list-style: none; float: left; margin-right: 3px; ">
+                    <li id="mobile-search" title="Search"><img src="~/Images/search.png" width="30" /></li>
+                    <li title="Sign in" style="float: left; margin-left: 5px;"><a style="color: white" data-toggle="modal" href="#Login" role="presentation" id="LoginLink"><img src="~/Images/login.png" /></a></li>
+                    <li title="Sign out" style="float: left; margin-left: 5px;"><a style="color: white" href="javascript:void(0);" onclick="DoLogout();" id="LogoutLink"><img src="~/Images/logout.png" /></a></li>
                 </ul>
                 <span class='st_facebook_large' displaytext='Facebook' st_msg="http://bit.ly/MovieMirchi"></span>
                 <span class='st_twitter_large' st_via="MovieMirchiCo" st_msg="http://bit.ly/MovieMirchi"></span>

@@ -195,6 +195,7 @@
 .recent-list li { float: left; margin-left: 10px; margin-bottom: 10px; text-align: center; font-size: 11px; }
 .recent-list li img { float: left; width: 60px; height: 70px; margin: 5px; margin-top: 0px; margin-bottom: 5px; }
 /* End - Rating Control */
+#mobile-search {background-color: #FFF; border-radius: 5px; padding: 1px; float: left;display: none;}
 @media screen and (max-width: 800px){
     .movies {padding-top: 50px;}
     .recent-list {margin-top: 0px;margin-left: 3%;}
