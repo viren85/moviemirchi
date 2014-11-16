@@ -40,7 +40,7 @@ var LoadPhotoTube = function (photos, tubeTitle, pics) {
                 source = "<span class=\"source\">Source: Santa Banta</span>";
             }
 
-            tube += "<a href=\"" + PUBLIC_BLOB_URL + photos[i] + "\" rel=\"prettyPhoto[gallery]\"><img src=\"" + PUBLIC_BLOB_URL + photos[i] + "\" style=\"width: 200px; height: 250px;float: left; margin-left: 10px;\" />" + source + "</a>";
+            tube += "<a href=\"" + PUBLIC_BLOB_URL + photos[i] + "\" onclick=\"trackPhotoLink('" + PUBLIC_BLOB_URL + photos[i] + "');\" rel=\"prettyPhoto[gallery]\"><img src=\"" + PUBLIC_BLOB_URL + photos[i] + "\" style=\"width: 200px; height: 250px;float: left; margin-left: 10px;\" />" + source + "</a>";
 
         }
         catch (e) {
@@ -63,7 +63,7 @@ var LoadTrailerTube = function (videos, tubeTitle) {
                     "<div class=\"tube-tile-container\"><ul>";
 
     for (i = 0; i < videos.length; i++) {
-        var t = "<li data-toggle=\"modal\" data-target=\"#modal-video\" onclick=\"DisplayModal('" + videos[i].YoutubeURL.trim() + "?autoplay=1');\" class=\"song\" video-link=\"" + videos[i].YoutubeURL.trim() + "?autoplay=1\" title=\"Play YouTube Trailer - " + videos[i].Title + "\"><img class=\"song-thumb\" src=\"" + videos[i].Thumb + "\" /><img src=\"../images/play-video.png\" title=\"Play YouTube Trailer\" class=\"song-play\" video-link=\"" + videos[i].YoutubeURL.trim() + "?autoplay=1\" /><span title=\"" + videos[i].Title + "\">" + new Util().GetEllipsisText(videos[i].Title, 16) + "</span></li>";
+        var t = "<li data-toggle=\"modal\" data-target=\"#modal-video\" onclick=\"trackVideoLink('" + videos[i].YoutubeURL.trim() + "');DisplayModal('" + videos[i].YoutubeURL.trim() + "?autoplay=1');\" class=\"song\" video-link=\"" + videos[i].YoutubeURL.trim() + "?autoplay=1\" title=\"Play YouTube Trailer - " + videos[i].Title + "\"><img class=\"song-thumb\" src=\"" + videos[i].Thumb + "\" /><img src=\"../images/play-video.png\" title=\"Play YouTube Trailer\" class=\"song-play\" video-link=\"" + videos[i].YoutubeURL.trim() + "?autoplay=1\" /><span title=\"" + videos[i].Title + "\">" + new Util().GetEllipsisText(videos[i].Title, 16) + "</span></li>";
         tube += t;
     }
 
@@ -78,7 +78,7 @@ var LoadSongTube = function (songs, tubeTitle) {
                     "<div class=\"tube-tile-container\"><ul>";
 
     for (i = 0; i < songs.length; i++) {
-        var t = "<li data-toggle=\"modal\" data-target=\"#modal-video\" onclick=\"DisplayModal('" + songs[i].YoutubeURL.trim() + "?autoplay=1');\" class=\"song\" video-link=\"" + songs[i].YoutubeURL.trim() + "?autoplay=1\" title=\"Play Song - " + songs[i].SongTitle + "\"><img class=\"song-thumb\" src=\"" + songs[i].Thumb + "\" /><img src=\"../images/play-video.png\" title=\"Play YouTube Trailer\" class=\"song-play\" video-link=\"" + songs[i].YoutubeURL.trim() + "?autoplay=1\" /><span title=\"" + songs[i].SongTitle + "\">" + new Util().GetEllipsisText(songs[i].SongTitle, 16) + "</span></li>";
+        var t = "<li data-toggle=\"modal\" data-target=\"#modal-video\" onclick=\"trackSongLink('" + songs[i].YoutubeURL.trim() + "');DisplayModal('" + songs[i].YoutubeURL.trim() + "?autoplay=1');\" class=\"song\" video-link=\"" + songs[i].YoutubeURL.trim() + "?autoplay=1\" title=\"Play Song - " + songs[i].SongTitle + "\"><img class=\"song-thumb\" src=\"" + songs[i].Thumb + "\" /><img src=\"../images/play-video.png\" title=\"Play YouTube Trailer\" class=\"song-play\" video-link=\"" + songs[i].YoutubeURL.trim() + "?autoplay=1\" /><span title=\"" + songs[i].SongTitle + "\">" + new Util().GetEllipsisText(songs[i].SongTitle, 16) + "</span></li>";
         tube += t;
     }
 
