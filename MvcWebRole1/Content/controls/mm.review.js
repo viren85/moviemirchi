@@ -157,3 +157,7 @@ function GetMoviePoster(posters, movieName) {
 function FormPathFromName(name) {
     return name.replace('-', '%7c').split(' ').join("-").split('.').join('').toLowerCase();
 }
+
+function ShowPath(name) {
+    return name.replace(/%7c/g, '-').split(' ').join("-").split('.').join('').toLowerCase();
+}

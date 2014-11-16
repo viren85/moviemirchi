@@ -1,0 +1,22 @@
+﻿.movie-tube-container,.photo-tube-container,.trailer-tube-container,.song-tube-container,.review-tube-container 
+{ overflow:hidden; height: 250px;float: left; margin-top: 30px; }
+.tube-tilte{float: left; text-align: left;font-size: 20px; width: 70px; margin-right: 40px; margin-top: 20px; font-weight: bold; color: #368BC1;}
+.tube-tile-container { width: 2250px; height: 250px; overflow:hidden; position:relative; }
+.tube-left-nav,.tube-right-nav { width:50px; height:250px; position:absolute; background-color:Black; z-index:1000; opacity: 0.5; filter:alpha(opacity=50); }
+.tube-right-nav { z-index:1000; position:absolute; float:right; background-color: Black; }
+.tube-left-nav img, .tube-right-nav img { margin-top:100px; }
+.tube-tile-container a { float: left; position: relative;}
+.tube-tile-container  span.source {position: absolute; left: 3%; bottom: 3%; background-color: white; opacity: 0.9; border-radius: 0px 3px 3px 0px; padding: 3px; }
+
+.trailer-tube-container, .trailer-tube-container .tube-tile-container, .trailer-tube-container .tube-left-nav,.trailer-tube-container .tube-right-nav {height: 200px;}
+.trailer-tube-container .tube-left-nav img,.trailer-tube-container .tube-right-nav img { margin-top: 70px; }
+
+.song-tube-container, .song-tube-container .tube-tile-container, 
+.song-tube-container .tube-left-nav,
+.song-tube-container .tube-right-nav {height: 200px;}
+
+.song-tube-container .tube-left-nav img,
+.song-tube-container .tube-right-nav img { margin-top: 70px; }
+
+.review-list-now-playing {float: left; width: 100%;}
+.review-list-other{float: left; width: 100%;}

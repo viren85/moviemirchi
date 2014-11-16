@@ -1,28 +1,21 @@
-﻿    .movie-songs {
-        display: none;
+﻿    .songs {
+        /*display: none;*/
     }    
-    .songs {
-        float: left;
-        margin-left: 0%;
-        width: 100%;
-        margin-bottom: 20px;
-        display: none !important;
-    }
-    .songs .section-title {
+     
+    .movie-songs .section-title {
         width: 86%;
     }
 
-    .songs ul {
+    .movie-songs ul {
         float: none;
         list-style: none;
         margin: 0px;
         padding: 0px;
     }
 
-        .songs ul li {
+        .movie-songs ul li {
             background-color: #FFF;
             width: 225px;
-            padding-bottom: 10px;
             float: left;
             border: 1px solid #ddd;
             box-shadow: -3px 3px 5px #ddd;
@@ -31,17 +24,16 @@
             margin-right: 10px;
         }
 
-            .songs ul li:hover {
+            .movie-songs ul li:hover {
                 background-color: #368bc1;
                 color: #fff;
             }
 
-            .songs ul li span {
-                font-size: 16px;
+            .movie-songs ul li span {
+                font-size: 14px;
                 padding: 5px;
                 float: left;
                 text-align: left;
-                padding-top: 15px;
             }
 
     .song-thumb {
@@ -51,11 +43,11 @@
 
     .song-play {
         float: right;
-        width: 32px;
-        height: 32px;
+        width: 24px;
+        height: 24px;
         z-index: 2;
-        margin-right: 10px;
-        margin-top: 10px;
+        margin-right: 2px;
+        margin-top: 2px;
     }
     #songs-pager {
         float: left;

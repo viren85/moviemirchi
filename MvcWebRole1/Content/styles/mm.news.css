@@ -70,10 +70,9 @@
 }*/
 
 .news-left, .news-right {
-    width: 46%;
+    width: 42%;
     float: left;
-    min-width: 270px;
-    max-width: 360px;
+    
 }
 
 @media screen and (min-width: 321px) and (max-width: 1350px) {

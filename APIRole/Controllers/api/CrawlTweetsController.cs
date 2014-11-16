@@ -17,6 +17,7 @@ namespace CloudMovie.APIRole.Controllers.api
     using System.Text;
     using System.Web;
     using System.Web.Mvc;
+    using System.Web.Script.Serialization;
     using System.Xml;
     using Twitterizer;
     //using Twitterizer;
@@ -25,34 +26,19 @@ namespace CloudMovie.APIRole.Controllers.api
     {
         protected override string ProcessRequest()
         {
-            return string.Empty;
-        }
+            JavaScriptSerializer json = new JavaScriptSerializer();
+            var qpParams = HttpUtility.ParseQueryString(this.Request.RequestUri.Query);
 
-        [System.Web.Http.HttpGet]
-        [System.Web.Http.AcceptVerbs("GET", "POST")]
-        public ActionResult GetTweets()
-        {
-            try
+            if (string.IsNullOrEmpty(qpParams["p"]))
             {
-                try
-                {
-                    /*BlobStorageService _blobStorageService = new BlobStorageService();
-                    string twitXmlBlobFilePath = _blobStorageService.GetSinglFile(BlobStorageService.Blob_XMLFileContainer, "Twitter.xml");
-                    GetTweets(twitXmlBlobFilePath);*/
-                    List<TwitterEntity> tweets = GetTweet("home", "");
-                }
-                catch (Exception)
-                {
-                    //return Json(new { Status = "Error", Message = "Error occured.", ActualMessage = ex.Message }, JsonRequestBehavior.AllowGet);
-                }
-            }
-            catch (Exception)
-            {
-
+                throw new ArgumentException();
             }
 
-            return null;
-            //return Json(new { Status = "Ok", Message = "Selected news deleted successfully." }, JsonRequestBehavior.AllowGet);
+            string page = qpParams["p"];
+            string name = qpParams["n"];
+
+            List<TwitterEntity> tweets = GetTweet(page, name);
+            return json.Serialize(tweets);
         }
 
         private List<TwitterEntity> GetLatestTweets(string handle)
@@ -158,7 +144,7 @@ namespace CloudMovie.APIRole.Controllers.api
                         {
                             // Call GetMovieTweets method
                             List<TwitterEntity> tweets = GetLatestTweets(movie.TwitterHandle);
-                            
+
                             // Add this movie to cache
                             if (tweets != null && tweets.Count > 0)
                             {
@@ -167,7 +153,7 @@ namespace CloudMovie.APIRole.Controllers.api
                                 {
                                     CacheManager.Remove(CacheConstants.TwitterJson + movie.UniqueName);
                                 }
-                                
+
                                 CacheManager.Add(CacheConstants.TwitterJson + movie.UniqueName, tweets);
                             }
 
@@ -175,7 +161,7 @@ namespace CloudMovie.APIRole.Controllers.api
                             {
                                 // Just keep top 5 tweets
                                 tweets.RemoveRange(5, tweets.Count - 5);
-                                twitterList.AddRange(tweets); 
+                                twitterList.AddRange(tweets);
                             }
                             else if (tweets != null)
                                 twitterList.AddRange(tweets); // Merge the tweet lists into one
@@ -289,7 +275,6 @@ namespace CloudMovie.APIRole.Controllers.api
 
             return null;
         }
-
 
         private DateTime ParseTwitterDateTime(string date)
         {

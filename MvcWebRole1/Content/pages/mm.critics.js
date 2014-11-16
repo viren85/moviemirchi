@@ -1,12 +1,12 @@
 ﻿function PrepareReviewerPage() {
-    var json = [
+    /*var json = [
                     { "title": "Reviewer", "section": "review-list-tube" },
                     { "title": "Latest Reviews", "section": "review-list-now-playing-tube" },
                     { "title": "Previous Reviews", "section": "review-list-other-tube" },
                     { "title": "Recently Viewed", "section": "recent-container-tube" }
     ];
 
-    $(".nav-bar-container").append(GetNavBar(json));
+    $(".nav-bar-container").append(GetNavBar(json));*/
 
     var name = GetEntityName(document.location.href, "reviewer");
     var nameArray = name.split('-');
@@ -25,6 +25,9 @@
     }
 
     LoadReviewsByReviewer(finalName);
-    
-    RecentlyViewedCookies.add({ name: name, type: 'reviewer', url: "/reviewer/" + name });
+}
+
+var TrackRecentCriticsVisit = function (name) {
+    var src = $(".bio-pic").find("img").attr("src");
+    RecentlyViewedCookies.add({ name: name, type: 'reviewer', url: "/reviewer/" + name.replace(' ', '-'), src: src });
 }

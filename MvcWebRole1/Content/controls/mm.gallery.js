@@ -5,10 +5,10 @@
     var newWidth = 0;
     $(container).find("img:first").each(function () {
         ratio = this.width / this.height;
-        newWidth = 200 * ratio;
+        newWidth = 250 * ratio;
     });
     $(container).find("img").each(function () {
-        $(this).height("200px").css("max-width", "400px");
+        $(this).height("250px").css("max-width", "400px");
     });
 }
 

@@ -14,9 +14,9 @@
 
         .review-list ul li, .review-list-now-playing ul li, .review-list-upcoming ul li, .review-list-other ul li {
             float: left;
-            width: 25%;
+            width: 15%;
             margin-bottom: 1%;
-            min-width: 315px;
+            /*min-width: 315px;*/
         }
 
 .critic-label {
@@ -105,5 +105,5 @@
 }
 @media screen and (min-width: 768px) {
      .critics-review { width: 195px;}
-     blockquote.quote{min-height: 180px;max-height: 180px;}
+     blockquote.quote{min-height: 200px;}
 }

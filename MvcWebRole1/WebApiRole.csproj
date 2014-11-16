@@ -269,6 +269,7 @@
     <Content Include="Content\controls\mm.tags.js" />
     <Content Include="Content\controls\mm.tile.js" />
     <Content Include="Content\controls\mm.tube.js" />
+    <Content Include="Content\controls\mm.tube2.js" />
     <Content Include="Content\controls\mm.twitter.js" />
     <Content Include="Content\controls\mm.util.js" />
     <Content Include="Content\custom.css" />
@@ -298,6 +299,7 @@
     <Content Include="Content\styles\mm.songs.css" />
     <Content Include="Content\styles\mm.tags.css" />
     <Content Include="Content\styles\mm.trailers.css" />
+    <Content Include="Content\styles\mm.tube.css" />
     <Content Include="Content\styles\mm.twitter.css" />
     <Content Include="Content\styles\mm.user.pref.css" />
     <Content Include="Content\styles\top-nav.css" />

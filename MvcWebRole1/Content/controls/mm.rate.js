@@ -58,7 +58,7 @@ var RatingControl = function () {
         }
 
         var html =
-                    "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Teekha hai ki feeka hai ?</div>" +
+                    "<div class=\"movie-data-row rate-data-row\"><div class=\"rating-container\"><div class=\"liner\">Teekha hai ki feeka hai?</div>" +
                     "<div class=\"content\" " + hideContentControl + " style=\"display: none\">" +
                         "<div class=\"mirchi mirchimeter\">" +
                             GetMovieRateControl(rate.criticrating / 10, movie.Rating) +

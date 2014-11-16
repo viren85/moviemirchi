@@ -53,7 +53,7 @@ function onSuccessLoadUpcomingMovies(result) {
         listClassName: "upcoming-movie-list",
         pagerSelector: "#upcoming-pager",
         pagerId: "upcoming-pager",
-    });
+    },"Upcoming");
 }
 
 function onSuccessLoadCurrentMovies(result) {
@@ -63,10 +63,10 @@ function onSuccessLoadCurrentMovies(result) {
         listClassName: "movie-list",
         pagerSelector: "#now-pager",
         pagerId: "now-pager",
-    });
+    }, "Now Playing");
 }
 
-function LoadMovies(result, options) {
+function LoadMovies(result, options, title) {
     var $list = $(options.listSelector);
 
     if (!result || result === "") {
@@ -77,22 +77,29 @@ function LoadMovies(result, options) {
         result = JSON.parse(result);
 
         new Util().RemoveLoadImage($(options.tubeSelector));
-
+        
         if (result.Status && result.Status === "Error") {
             $list.html(result.UserMessage);
         } else {
             if (result.length > 0) {
+                $("." + options.listClassName).prepend(LoadMovieTube(result, title));
+
+                var tubeWidth = $(window).width() - Math.round($(window).width() / 6);
+                $("." + options.listClassName + " .movie-tube-container").css("width", tubeWidth + "px");
+                
+                InitMovieTube("." + options.listClassName);
+                //$(".twitter-container").show();
                 // adding images
-                $.each(result, function () {
+                /*$.each(result, function () {
                     try{
                         PopulatingMovies(this, options.listClassName);
                     }
                     catch (e) {
 
                     }
-                })
+                })*/
 
-                SetTileSize(options.listSelector);
+                /*SetTileSize(options.listSelector);
 
                 ScaleElement($(options.listSelector + " ul"));
 
@@ -109,7 +116,7 @@ function LoadMovies(result, options) {
                     } else {
                         PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
                     }
-                });
+                });*/
             }
         }
     } catch (e) {

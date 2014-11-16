@@ -5,25 +5,29 @@
     width: 100%;
     position: fixed;
     top: 0px;
-    z-index: 100;
+    z-index: 1001;
     box-shadow: 0px 3px 10px #666;
-    background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
+    background-color: #181f25;
+    /*background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
     background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
     background-image: -moz-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
     background-image: -webkit-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
     background-image: -ms-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
-    background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);*/
 }
-
-.logo {
-    position: absolute;
-    left: 7%;
+.logo-container{
+    position: fixed;
     top: 10px;
+    left: 2%;
+    width: 12%;
+    height: 7%;
+    z-index: 1011;
 }
+.logo { margin: 10px;}
 
     .logo img {
-        width: 90%;
-        height: 7%;
+        width: 100%;
+        height: 10%;
     }
     .small-logo{display: block; position: absolute; left: 6%; z-index: 0;}
     .small-logo img { width: 100px; height: 60px;}
@@ -55,40 +59,42 @@
         }
 .home-search-bar {
     position: absolute;
-    left: 30%;
+    left: 33%;
     top: 10px;
-    width: 30%;
-    background-color: #333;
-    border-radius: 5px;
+    height: 65%;
+    /*background-color: #333;
+    border-radius: 5px;*/
     padding: 3px;
+    z-index: 11;
 }
 
     .home-search-bar input {
         float: left;
         width: 70%;
-        height: 7%;
+        height: 99%;
         outline: none;
-        border-radius: 5px !important;
-        box-shadow: 0px 0px 15px #368BC1 !important;
     }
 
 .search-button {
     float: left;
     padding: 8px;
+    height: 98%;
     text-align: center;
-    background-color: lightsalmon;
     color: #fff;
-    margin-top: 1px;
     border-radius: 4px;
-    margin-left: 5px;
-    font-size: 13px;
+    background-image: -webkit-gradient( linear, left top, left bottom, color-stop(0, #368CC1), color-stop(0.5, #1B6EA1) );
+    background-image: -o-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -moz-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -webkit-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: -ms-linear-gradient(bottom, #368CC1 0%, #1B6EA1 50%);
+    background-image: linear-gradient(to bottom, #368CC1 0%, #1B6EA1 50%);
+    margin-left: 3px;
     cursor: pointer;
+    font-size: 14px;
 }
 
 .search {
     outline: none;
-    border: 2px solid #368BC1 !important;
-    border-radius: 5px !important;
 }
 
 .clear-search-bar {
@@ -115,9 +121,12 @@
     height: 24px !important;
 }
 .sharethis-counter{
-    float: right;
-    margin-right: 50px;
-    margin-top: 20px;
+    position: fixed;
+    z-index: 11;
+    right: 10px;
+    top: 15px;
+    margin-right: 10px;
+    width: 200px;
 }
 .stButton .stFb, .stButton .stTwbutton, .stButton .stMainServices{
     height: 22px !important;
@@ -159,7 +168,6 @@
 .movie-poster {
     float: left;
     width: 50px;
-    height: 70px;
     margin-right: 10px;
 }
 .person-poster{

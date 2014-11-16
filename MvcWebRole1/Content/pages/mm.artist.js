@@ -1,6 +1,6 @@
 ﻿// This method loads the artist page content
 function PrepareArtistPage() {
-    var json = [
+    /*var json = [
                 { "title": "Artist", "section": "artist_detail-tube" },
                 { "title": "Upcoming Movies", "section": "upcoming-movie-list-tube" },
                 { "title": "Now Playing Movies", "section": "nowplaying-movie-list-tube" },
@@ -10,15 +10,14 @@ function PrepareArtistPage() {
                 { "title": "Recently Viewed", "section": "recent-container-tube" }
     ];
 
-    $(".nav-bar-container").append(GetNavBar(json));
+    $(".nav-bar-container").append(GetNavBar(json));*/
 
     var name = GetEntityName(document.location.href, "artists");
     var artist = name.split('-').join(' ');
 
     var fileName = "/Images/Loading.GIF";
-    $("<div id=\"artist_detail-tube\" class=\"section-title large-fonts\">" + new Util().toPascalCase(artist) + "</div>").insertBefore($(".movies .artist-bio"));
-    $(".movies .artist-bio").append(ShowPersonBio(""));
-    $(".movies").append(GetTubeControl("Upcoming Movies", "upcoming-movie-list", "upcoming-movies-pager"));
+
+    /*$(".movies").append(GetTubeControl("Upcoming Movies", "upcoming-movie-list", "upcoming-movies-pager"));
     $(".movies").append(GetTubeControl("Now Playing Movies", "nowplaying-movie-list", "nowplaying-movies-pager"));
     $(".movies").append(GetTubeControl("Previous Movies", "previous-movie-list", "previous-movies-pager"));
     $(".movies").append(GetTubeControl("Photos", "movie-poster-details", "posters-pager"));
@@ -27,17 +26,31 @@ function PrepareArtistPage() {
 
     $(".section-title").each(function () {
         new Util().AppendLoadImage($(this));
-    });
+    });*/
+
+    $(".movies").append("<div class=\"movie-details\" style=\"margin-left: 0px\"><div class=\"tube-tilte\"  style=\"width: 200px\">" + new Util().toPascalCase(artist) + " </div><div class=\"artist-bio\">" + ShowPersonBio("") + "</div></div>");
+    //$(".movies .artist-bio").append(ShowPersonBio(""));
+    $(".movies").append("<div class=\"movie-list\"></div>");
+    $(".movies").append("<div class=\"upcoming-movie-list\"></div>");
+    $(".movies").append("<div class=\"previous-movie-list\"></div>");
+    $(".movies").append("<div class=\"recent-container\"><div class=\"tube-tilte\">Recent</div></div>");
 
     var apiPath = "/api/ArtistMovies?type=movie&name=" + artist;
     var artistBioPath = "/api/ArtistMovies?type=bio&name=" + artist;
+
     CallHandler(apiPath, PopulateMovies);
     CallHandler(artistBioPath, PopulateArtistsBio);
+
     LoadTweets("artist", name);
     LoadRecentVisits();
     new Util().RemoveLoadImage($("#tweets-tube"));
-    
-    RecentlyViewedCookies.add({ name: name, type: 'artist', url: "/artists/" + name });
+
+
+}
+
+var TrackRecentArtistVisit = function (name) {
+    var src = $(".artist-bio").find("img").attr("src");
+    RecentlyViewedCookies.add({ name: name, type: 'artist', url: "/artists/" + name.replace(' ', '-'), src: src });
 }
 
 // This method loads artists default poster, artists bio and all the posters
@@ -102,6 +115,8 @@ function PopulateArtistsBio(response) {
                         }
                     });
                 }
+
+                TrackRecentArtistVisit(data.ArtistName);
             }
             else {
                 $(".intro-text").css("margin-left", "0px").html("Currently this artist does not have any biography on <a href=\"/\">Movie Mirchi</a>");
@@ -122,10 +137,10 @@ function PopulateMovies(response) {
         var data = JSON.parse(response);
         var now = 0, upcoming = 0, archived = 0;
 
-        new Util().RemoveLoadImage($("#genre-name-tube"));
+        /*new Util().RemoveLoadImage($("#genre-name-tube"));
         new Util().RemoveLoadImage($("#upcoming-movie-list-tube"));
         new Util().RemoveLoadImage($("#nowplaying-movie-list-tube"));
-        new Util().RemoveLoadImage($("#previous-movie-list-tube"));
+        new Util().RemoveLoadImage($("#previous-movie-list-tube"));*/
 
         if (data.Status != undefined || data.Status == "Error") {
             $(".movie-list").html(data.UserMessage);
@@ -136,29 +151,53 @@ function PopulateMovies(response) {
             });
         }
         else {
+
             if (data != null && data.length > 0) {
+                var np = [];
+                var um = [];
+                var pm = [];
+
                 for (var i = 0; i < data.length; i++) {
                     //var list = PopulatingMovies(data[i], "movie-list");
                     if (data[i].State == "now playing" || data[i].State == "now-playing") {
-                        var list = PopulatingMovies(data[i], "nowplaying-movie-list");
+                        //var list = PopulatingMovies(data[i], "movie-list");
+                        np.push(data[i]);
                         now++;
                     }
                     else if (data[i].State == "upcoming") {
-                        var list = PopulatingMovies(data[i], "upcoming-movie-list");
+                        //var list = PopulatingMovies(data[i], "upcoming-movie-list");
+                        um.push(data[i]);
                         upcoming++;
                     }
                     else if (data[i].State == "" || data[i].State == "released") {
                         // It creates 20+ pages for current data. I think we shall have some restriction
                         if (archived < 25) {
-                            var list = PopulatingMovies(data[i], "previous-movie-list");
+                            //var list = PopulatingMovies(data[i], "previous-movie-list");
+                            pm.push(data[i]);
                             archived++;
                         }
                     }
                 }
 
+                if (now > 0) 
+                    $(".movie-list").prepend(LoadMovieTube(np, "Now Playing"));
+
+                if (upcoming > 0)
+                    $(".upcoming-movie-list").prepend(LoadMovieTube(um, "Upcoming"));
+
+                if (archived > 0)
+                    $(".previous-movie-list").prepend(LoadMovieTube(pm, "Previous"));
+
+                var tubeWidth = $(window).width() - Math.round($(window).width() / 3);
+                $(".movie-tube-container").css("width", tubeWidth + "px");
+
+                InitMovieTube(".movie-list");
+                InitMovieTube(".upcoming-movie-list");
+                InitMovieTube(".previous-movie-list");
+                
                 /*The image width/height shall be calculated once the image is fully loaded*/
                 var width = $(document).width();
-                if (now == 0) {
+                /*if (now == 0) {
                     $("#nowplaying-movie-list-tube").hide();
                     $(".top-nav-bar").find("li").each(function () {
                         if ($(this).attr("link-id") == "movie-list-tube") {
@@ -181,12 +220,12 @@ function PopulateMovies(response) {
                             $(this).remove();
                         }
                     });
-                }
+                }*/
 
                 // TODO: Revisit my fix - there is nothing like ".movie-list" here, we have three over here
-                $.each(["upcoming-", "nowplaying-", "previous-"], function (k, v) {
+                $.each(["upcoming-", "", "previous-"], function (k, v) {
 
-                    var $list = $("." + v + "movie-list");
+                    /*var $list = $("." + v + "movie-list");
                     $list.addClass("movie-list");
 
                     var ratio = 0;
@@ -205,8 +244,8 @@ function PopulateMovies(response) {
                     });
 
                     ScaleElement($list.find("ul"));
-
-                    var resizeHandler = function () {
+                    */
+                    /*var resizeHandler = function () {
                         if ($(window).width() < 768) {
                             new Pager($list, "#" + v + "movies-pager");
                         } else {
@@ -215,7 +254,7 @@ function PopulateMovies(response) {
                     };
 
                     resizeHandler();
-                    $(window).resize(resizeHandler);
+                    $(window).resize(resizeHandler);*/
                 });
             }
             else {
@@ -229,4 +268,6 @@ function PopulateMovies(response) {
     } catch (e) {
         $(".movie-list").html("Movie Mirchi is gathering movies for this artist, will be updated soon.");
     }
+
+    $(".footer").show();
 }

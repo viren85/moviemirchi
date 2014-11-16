@@ -2,15 +2,16 @@
     var items = RecentlyViewedCookies.get();
 
     if (!items || items.length <= 0) {
-        $("#recent-container-tube").remove();
+        $(".recent-container").remove();
     } else {
-
-        $el = $(".recent-container");
+        var list = $("<ul/>").addClass("recent-list");
         $.each(items, function (k, v) {
-            var item = $("<div/>").html("<a href=\"" + v.url + "\">" + v.name + "</a>");
-            $el.append(item);
+            var src = v.src ? v.src : "https://moviemirchistorage.blob.core.windows.net/posters/default-movie.jpg";
+            var item = $("<li/>").html("<a href=\"" + v.url + "\"><img src=\"" + src + "\" /><br/><span>" + v.name + "</span></a>");
+            $(list).append(item);
         });
 
-        new Util().RemoveLoadImage($("#recent-container-tube"));
+        $(".recent-container").append(list);
+        //new Util().RemoveLoadImage($(".recent-container"));
     }
 }

@@ -37,10 +37,13 @@
 </head>
 <body>
     <div class="movie-container">
-        <div class="header">
+        <div class="logo-container">
             <div class="logo">
                 <a href="/" title="Movie Mirchi"><img src='/Images/logo.png' /></a>
             </div>
+        </div>
+        <div class="header">
+            
             @*<div class="small-logo">
                 <a href="/" title="Movie Mirchi"><img src='/Images/RedChilli.png' /></a>
             </div>*@
@@ -52,26 +55,24 @@
                 <div id="search-results"></div>
             </div>
             <div class="sharethis-counter">
-                <span class='st_facebook_hcount' displaytext='Facebook'></span>
-                <span class='st_twitter_hcount' displaytext='Tweet'></span>
+                <ul style="list-style: none; float: left; margin: 8px; ">
+                    <li><a style="color: white" data-toggle="modal" href="#Login" role="presentation" id="LoginLink">Sign In</a></li>
+                    <li><a style="color: white" href="javascript:void(0);" onclick="DoLogout();" id="LogoutLink">Sign Out</a></li>
+                </ul>
+                <span class='st_facebook_large' displaytext='Facebook' st_msg="http://bit.ly/MovieMirchi"></span>
+                <span class='st_twitter_large' st_via="MovieMirchiCo" st_msg="http://bit.ly/MovieMirchi"></span>
             </div>
-            <div class="nav-options"></div>
+            @*<div class="nav-options"></div>*@
         </div>
     </div>
-    <div id="container" class="movie-panel">
+    <div id="container">
         <div class="nav-bar-container"></div>
-        <div class="share-buttons">
-            <span class='st_facebook_large' displaytext='Facebook' st_msg="http://bit.ly/MovieMirchi"></span>
-            <span class='st_twitter_large' st_via="MovieMirchiCo" st_msg="http://bit.ly/MovieMirchi"></span>
-        </div>
         @RenderBody()
     </div>
     <div class="footer">
         <ul>
             <li><a href="/">Home</a></li>
             <li><a href="/sitemap.xml">Sitemap</a></li>
-            <li><a data-toggle="modal" href="#Login" role="presentation" id="LoginLink">Sign In</a></li>
-            <li><a href="javascript:void(0);" onclick="DoLogout();" id="LogoutLink">Sign Out</a></li>
         </ul>
         <input type="hidden" id="hfUserId" /><div>&copy;&nbsp;2014 Movie Mirchi</div>
     </div>

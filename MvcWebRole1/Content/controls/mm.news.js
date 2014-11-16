@@ -38,6 +38,8 @@ var ShowNews = function (data) {
         console.log(e);
         $(".news-container").html("Unable to find news.");
     }
+
+    $(".footer").show();
 }
 
 var Timer = function (callback, delay) {
@@ -80,7 +82,7 @@ var NewsControl = function (selector, data) {
 
     // Setup
     (function () {
-        $(selector).html(
+        $(selector).append(
             "<div class='news-content'>" +
                 "<div class='news-left'>" +
                     "<div class=\"tweet-cell\"></div>" +

@@ -35,14 +35,14 @@
         cursor: pointer;
     }
 
-.movie-list, .news-container, .critics-container, .upcoming-movie-list, .others-movie-list {
+.movie-list, .news-container, .critics-container, .upcoming-movie-list, .others-movie-list,.previous-movie-list {
     float: left;
-    width: 93%;
 }
 .news-container {
-    width: 100%;
+    width: 74%;
+    margin-top: 20px;
 }
-.movie-list ul, .critics-container ul, .upcoming-movie-list ul, .others-movie-list ul {
+.movie-list ul, .critics-container ul, .upcoming-movie-list ul, .others-movie-list ul,.previous-movie-list ul {
     float: left;
     list-style: none;
     padding: 0px;
@@ -51,12 +51,12 @@
     height: 340px;
 }
 
-    .movie-list ul li, .critics-container ul li, .upcoming-movie-list ul li, .others-movie-list ul li {
+    .movie-list ul li, .critics-container ul li, .upcoming-movie-list ul li, .others-movie-list ul li, .previous-movie-list ul li {
         float: left;
         list-style: none;
         width: 225px;
         margin-right: 10px;
-        margin-bottom: 1%;
+        /*margin-bottom: 1%;*/
         cursor: pointer;
         text-align: left;
         position: relative;
@@ -72,7 +72,7 @@
         .critics-container ul li {
             width: 120px;
             margin-right: 10px;
-            min-height: 90px;
+            min-height: 55px;
         }
 
             .critics-container ul li.reviewer-empty {

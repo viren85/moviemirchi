@@ -47,8 +47,8 @@
 }
 .modal-header .close{
     position: fixed;
-    left: 85%;
-    /*top: -10%;*/
+    left: 93%;
+    top: 8%;
     z-index: 1111;
     color: black !important;
 }

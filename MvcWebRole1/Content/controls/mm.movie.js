@@ -8,6 +8,7 @@
 
 var ShowMovie = function (data) {
     try {
+
         var result = JSON.parse(data);
 
         $(".section-title").each(function () {
@@ -19,34 +20,62 @@ var ShowMovie = function (data) {
         }
         else {
             if (result.Movie != undefined) {
-                $(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+                //$(".movie-content").append(GetTubeControl(result.Movie.Name, "movie-list", "movie-pager"));
+                var poster = JSON.parse(result.Movie.Posters);
+                var src = (poster != null && poster.length > 0) ? PUBLIC_BLOB_URL + poster[poster.length - 1] : PUBLIC_BLOB_URL + "default-movie.jpg";
 
-                PopulatingMovies(result.Movie, "movie-list", { disableClick: true });
+                $(".movie-details").append("<div class=\"movie-poster-container\"><img src=\"" + src + "\" class=\"movie-poster\"  /></div>");
+                //PopulatingMovies(result.Movie, "movie-list", { disableClick: true });
 
-                SetTileSize(".movie-list");
+                //SetTileSize(".movie-list");
 
-                ScaleElement($(".movie-list ul"));
+                //ScaleElement($(".movie-list ul"));
                 /*if (TILE_MODE == 0 && $(window).width() > 767)
                     ScaleElement($(".movie-list ul"));
                 else
                     ScaleNewTileElement($(".movie-list ul"));
                 */
                 // Show all posters of current movie
-                var poster = [], reviews = [], songs = [], trailers = [];
+                var reviews = [], songs = [], trailers = [];
 
-                poster = result.Movie.Posters;
+                //poster = result.Movie.Posters;
                 reviews = result.MovieReviews;
                 songs = result.Movie.Songs;
                 trailers = result.Movie.Trailers;
                 //show movies details
                 ShowMovieDetails(result.Movie);
                 //populate movie's posters
-                PopulatePosters(poster, result.Movie.Name, result.Movie.Pictures);
-                //populate movie's songs
-                PopulateSongs(songs);
-                //populate movie's trailers
-                PopulateTrailers(trailers);
-                ShowMovieReviews(reviews);
+                //PopulatePosters(poster, result.Movie.Name, result.Movie.Pictures);
+                if (poster.length > 1) {
+                    $(".movie-photos").append(LoadPhotoTube(poster, "Gallery", result.Movie.Pictures));
+                    var tubeWidth = $(window).width() - Math.round($(window).width() / 3);
+                    $(".photo-tube-container").css("width", tubeWidth + "px");
+
+                    InitMovieTube(".photo-tube-container");
+                }
+
+                if (songs.length > 0) {
+                    PopulateSongs(songs);
+                    var tubeWidth = $(window).width() - Math.round($(window).width() / 3);
+                    $(".song-tube-container").css("width", tubeWidth + "px");
+                    InitTrailerTube(".song-tube-container");
+                }
+
+                if (trailers.length > 0) {
+                    PopulateTrailers(trailers);
+                    var tubeWidth = $(window).width() - Math.round($(window).width() / 3);
+                    $(".trailer-tube-container").css("width", tubeWidth + "px");
+                    InitTrailerTube(".trailer-tube-container");
+                }
+
+                if (reviews.length > 0) {
+                    $(".movie-reviews").append(LoadReviewsTube(reviews, "Reviews"));
+                    var tubeWidth = $(window).width() - Math.round($(window).width() / 3);
+                    $(".review-tube-container").css("width", tubeWidth + "px");
+                    InitTrailerTube(".review-tube-container");
+                }
+
+                //ShowMovieReviews(reviews);
                 PrepareGenreLinks();
                 $(".gallery a[rel^='prettyPhoto']").prettyPhoto({
                     animation_speed: 'normal',
@@ -58,12 +87,15 @@ var ShowMovie = function (data) {
                     social_tools: false,
                     allow_resize: true
                 });
+
+                TrackRecentMovieVisit(result.Movie.Name);
+                $(".footer").show();
             } else {
-                $(".movie-content").html("Unable to find movie.");
+                //$(".movie-content").html("Unable to find movie.");
             }
         }
     } catch (e) {
-        $(".movie-content").html("Unable to find movie.");
+        //$(".movie-content").html("Unable to find movie.");
     }
 }
 
@@ -132,7 +164,7 @@ var ShowMovieDetails = function (movie) {
         //$("#item3").remove();
     }
 
-    $(movieDetalis).append(new RatingControl().GetRatingControl(JSON.parse(movie.MyScore), movie));
+    //$(".movie-poster-container").append(new RatingControl().GetRatingControl(JSON.parse(movie.MyScore), movie));
     $(movieDetalis).append(GetMovieSynopsis(movie.Synopsis));
     $(movieDetalis).append(GetMovieGenre(movie.Genre));
     $(movieDetalis).append(GetMovieCast(CleanCastString(cast)));
@@ -142,7 +174,7 @@ var ShowMovieDetails = function (movie) {
     $(movieDetalis).append(GetMovieSinger(CleanCastString(singer)));
     $(movieDetalis).append(GetMovieWriter(CleanCastString(writers)));
     //$(movieDetalis).append(GetMovieStats(movie.Stats));
-    $(".tube-container:first").append(movieDetalis);
+    $(".movie-details").append(movieDetalis);
 }
 
 // images is JSON object
@@ -150,7 +182,8 @@ var PopulatePosters = function (images, movieName, picture) {
 
     var poster = [];
     var pictures = [];
-    poster = JSON.parse(images);
+
+    poster = images;//JSON.parse(images);
 
     if (picture && picture != "") {
         pictures = JSON.parse(picture);
@@ -210,20 +243,20 @@ var PopulatePosters = function (images, movieName, picture) {
             //$(".movie-poster-details").append(img);
         }
 
-        $(".movie-poster-details").append(ul);
+        $(".movie-photos").append(ul);
 
-        ArrangeImages($(".movie-poster-details"));
+        ArrangeImages($(".movie-photos"));
 
-        /*Pagination for posters */
+        /*Pagination for posters 
         if ($(window).width() < 768) {
             new Pager($(".movie-poster-details"), "#posters-pager");
         }
         else {
             PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "370" });
             $(".movie-poster-details").append($("#posters-pager"));
-        }
+        }*/
 
-        $(window).resize(function () {
+        /*$(window).resize(function () {
             if ($(window).width() < 768) {
                 new Pager($(".movie-poster-details"), "#posters-pager");
             }
@@ -231,7 +264,7 @@ var PopulatePosters = function (images, movieName, picture) {
                 PreparePaginationControl($(".movie-poster-details"), { pagerContainerId: "posters-pager", tileWidth: "370" });
                 $(".movie-poster-details").append($("#posters-pager"));
             }
-        });
+        });*/
 
         $(".link-container").show();
     }
@@ -406,7 +439,9 @@ var CleanCastString = function (str) {
 var PopulateSongs = function (song) {
     var songs = [];
     songs = JSON.parse(song);
-    SongList(songs, "Song");
+
+    $(".movie-songs").append(LoadSongTube(songs, "Songs"));
+    //SongList(songs, "Song");
 }
 
 var SongList = function (videos, type) {
@@ -490,8 +525,8 @@ var PopulateTrailers = function (trailer) {
     try {
         var trailers = [];
         trailers = JSON.parse(trailer);
-
-        TrailerList(trailers, "Trailer");
+        $(".movie-trailers").append(LoadTrailerTube(trailers, "Trailer"));
+        //TrailerList(trailers, "Trailer");
     }
     catch (e) {
         $(".top-nav-bar").find("li").each(function () {
@@ -525,9 +560,9 @@ var TrailerList = function (videos, type) {
             $('html, body').animate({ scrollTop: 0 }, 500);
         });
 
-        $('#modalMsg').on('hidden', function () {
+        /*$('#modalMsg').on('hidden', function () {
             RemoveModal();
-        });
+        });*/
 
         $(a).append(img);
         $(a).append(playImg);
@@ -543,10 +578,10 @@ var TrailerList = function (videos, type) {
     }
 
     if (songHasLink) {
-        $(".trailers").append(ul);
-        $(".trailers").attr("id", "movie_trailers");
+        $(".movie-trailers").append(ul);
+        $(".movie-trailers").attr("id", "movie_trailers");
 
-        if ($(window).width() < 768) {
+        /*if ($(window).width() < 768) {
             var pager = new Pager($(".trailers"), "#trailer-pager");
         }
         else {
@@ -561,30 +596,30 @@ var TrailerList = function (videos, type) {
                 PreparePaginationControl($(".trailers"), { pagerContainerId: "trailer-pager", tileWidth: "250" });
             }
         });
-
-        $(".trailers").append($("#trailer-pager"));
-        $(".trailers").attr("style", "display:block !important;");
+        */
+        //$(".movie-trailers").append($("#trailer-pager"));
+        //$(".movie-trailers").attr("style", "display:block !important;");
     }
-    else {
+    /*else {
         // Remove Video link from the top nav
         $(".top-nav-bar").find("li").each(function () {
             if ($(this).attr("link-id") == "movie_trailers") {
                 $(this).remove();
             }
         });
-    }
+    }*/
 }
 
 function DisplayModal(url) {
     //$("#overlay").attr("class", "OverlayEffect");
-    $("#modalMsg").attr("class", "ShowModal");
-    $("#modalMsg").find("iframe").each(function () {
+    //$("#modalMsg").attr("class", "ShowModal");
+    $("#modal-video").find("iframe").each(function () {
         $(this).attr("src", url);
     });
 }
 
 function RemoveModal() {
-    $("#modalMsg").find("iframe").each(function () {
+    $("#modal-video").find("iframe").each(function () {
         $(this).attr("src", "");
     });
 

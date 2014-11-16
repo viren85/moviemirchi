@@ -6,8 +6,8 @@
 
 .bio-pic {
     float: left;
-    width: 160px;
-    /*height: 250px;*/
+    /*width: 160px;
+    height: 250px;*/
 }
 
     .bio-pic img {
@@ -18,14 +18,10 @@
         position: relative;
         margin-bottom: 20px;
     }
-
-        
-
 .intro {
     float: left;
-    width: 44%;
+    width: 60%;
     /*
-    
     font-size: 20px;
     position: absolute;
     left: 30%;*/
@@ -36,6 +32,26 @@
     text-align: justify;
     margin-left: 70px;
 }
+.critics-container {float: left; width: 45%;}
+
+.critics-container ul {
+    list-style: none;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+    width: 80%;
+    margin-top: 20px;
+}
+.critics-container ul li.reviewer {
+    float: left;
+    list-style: none;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    padding: 5px;
+}
+.critics-container ul li.reviewer:hover{background-color: #eee;}
+.critics-container ul li.reviewer div { float: left;}
+.critics-container ul li.reviewer .movie-poster { width: 50px; height: 50px; float: left; }
 
 .critics-left {
     float: left;
@@ -58,9 +74,9 @@
     height: 165px;
 }
 
-.arrow_container {
+/*.arrow_container {
     height: 230px !important;
-}
+}*/
 
 .critic-review {
     float: left;

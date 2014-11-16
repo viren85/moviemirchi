@@ -8,12 +8,13 @@
 var ShowReviews = function (data) {
     try {
         var result = JSON.parse(data);
+
         if (result.Status != undefined || result.Status == "Error") {
             $(".movies").html(result.UserMessage);
         }
         else {
             if (result.ReviewsDetails != undefined && result.ReviewsDetails != null && result.ReviewsDetails.length > 0) {
-                $(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager"));
+                //$(".movies").append(GetTubeControl(result.Name, "review-list", "review-pager"));
 
                 var fileName = "/images/user.png";
                 var name = result.Name;
@@ -27,7 +28,11 @@ var ShowReviews = function (data) {
                     }
                 }
 
-                $(".movies").find(".review-list").each(function () {
+                $(".movies").append("<div class=\"movie-details\" style=\"margin-left: 0px\"><div class=\"tube-tilte\"  style=\"width: 200px\">" + new Util().toPascalCase(name) + " </div><div class=\"artist-bio\">" + ShowPersonBio(affiliation) + "</div></div>");
+                $(".bio-pic").append($("<img/>").attr("src", fileName).css("width", "100px").css("height", "120px"));
+                $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/\">Movie Mirchi</a>");
+
+                /*$(".movies").find(".review-list").each(function () {
                     $(this).prepend(ShowPersonBio(affiliation));
                     $(this).find("img").removeAttr("style").css("width", "225px").css("float", "left");
                     InitBio();
@@ -35,7 +40,7 @@ var ShowReviews = function (data) {
                     // Need to populate this text from DB
                     $(".intro-text").css("margin-left", "0px").html("Currently this critic does not have any biography on <a href=\"/\">Movie Mirchi</a>");
 
-                });
+                });*/
 
                 var reviews = [];
                 //var reviewTitle = GetTubeControl("Reviews", "reviews", "review-list-pager", null, "review_list_pagger");
@@ -44,15 +49,23 @@ var ShowReviews = function (data) {
                     $("<div class=\"section-title large-fonts\" style=\"margin-left: 0%\">Reviews</div>").insertBefore(this);
                 });*/
 
+                $(".movies").append("<div class=\"review-list-now-playing\"></div>");
+                $(".movies").append("<div class=\"review-list-other\"></div>");
+                $(".movies").append("<div class=\"recent-container\"><div class=\"tube-tilte\">Recent</div></div>");
+
                 reviews = result.ReviewsDetails;
                 ShowReviewsByReviewer(reviews);
-                $(".movies").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager"));
+                //$(".movies").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager"));
+                TrackRecentCriticsVisit(name);
                 LoadRecentVisits();
             }
         }
     } catch (e) {
+        
         $(".movies").html("Unable to get reviewer details.");
     }
+                
+    $(".footer").show();
 }
 
 var hasArchivedReviews = false;
@@ -63,13 +76,32 @@ var ShowReviewsByReviewer = function (review) {
     // when movies does not have any associated reivews
     //if (review != "undefined" && review != null && review.length > 0) {
 
-    $(".movies").append(GetTubeControl("Latest Reviews", "review-list-now-playing", "now-pager"));
+    //$(".movies").append(GetTubeControl("Latest Reviews", "review-list-now-playing", "now-pager"));
     /*$(".movies").append(GetTubeControl("Upcoming", "review-list-upcoming", "upcoming-pager"));*/
-    $(".movies").append(GetTubeControl("Previous Reviews", "review-list-other", "other-pager"));
-
+    //$(".movies").append(GetTubeControl("Previous Reviews", "review-list-other", "other-pager"));
+    
     if (review != "undefined" && review != null) {
         $(".link-container").show();
-        GetReviewerReviews("movie-review-details", review);
+        var np = [];
+        var om = [];
+        
+        for (i = 0; i < review.length; i++) {
+            if (review[i].MovieStatus == "now-playing" || review[i].MovieStatus == "now playing") {
+                np.push(review[i]);
+            }
+            else if (review[i].MovieStatus == "" || review[i].MovieStatus == "released") {
+                om.push(review[i]);
+            }
+        }
+        
+        $(".review-list-now-playing").append(LoadCriticReviewsTube(np, "Now Playing"));
+        $(".review-list-other").append(LoadCriticReviewsTube(om, "Previous"));
+
+        var tubeWidth = $(window).width() - Math.round($(window).width() / 3);
+        $(".review-tube-container").css("width", tubeWidth + "px");
+
+        InitTrailerTube(".review-list-now-playing");
+        InitTrailerTube(".review-list-other");
     }
     else {
         $(".movie-review-details").hide();
@@ -81,7 +113,7 @@ var ShowReviewsByReviewer = function (review) {
     }
 
     /*Pagination for movies */
-    if ($(window).width() < 768) {
+    /*if ($(window).width() < 768) {
         new Pager($(".review-list-now-playing"), "#now-pager");
         new Pager($(".review-list-other"), "#other-pager");
     }
@@ -106,6 +138,6 @@ var ShowReviewsByReviewer = function (review) {
     }
     if (!hasLatestReviews) {
         $("#now_playing").hide();
-    }
+    }*/
 }
 

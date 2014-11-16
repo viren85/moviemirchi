@@ -1,5 +1,5 @@
-﻿function LoadTweets(type, name) {
-    $(".tweets").parent().hide();
+﻿function LoadTweets(page, name) {
+    /*$(".tweets").parent().hide();
 
     // Hide from top navigation link
     $(".top-nav-bar").find("li").each(function () {
@@ -15,10 +15,26 @@
     else {
         var tweetPath = "/api/Twitter?start=0&page=20&type=" + type + "&name=" + name;
         CallHandler(tweetPath, ShowTweets);
-    }
+    }*/
+    CallHandler("/api/CrawlTweets?p=" + page + "&n=" + name, function (data) { ShowLatestTweets(data); });
+
 }
 
-var ShowTweets = function (data) {    
+var ShowLatestTweets = function (data) {
+    var tweet = JSON.parse(data);
+    
+    var tweetList = "<ul class=\"tweet-list\">";
+    for (i = 0; i < tweet.length; i++) {
+        var t = tweet[i];
+        var from = t.FromUserId ? t.FromUserId : t.ReplyScreenName;
+        tweetList += "<li><div class=\"tweet\"><span class=\"tweet-from\"><a target=\"_blank\" href=\"http://twitter.com/" + from + "\">" + "@" + from + "</a></span><span class=\"tweet-msg\"> " + t.TextMessage + "</span></div></li>";
+    }
+
+    tweetList += "</ul>";
+    $(".twitter-container").append(tweetList);
+}
+
+var ShowTweets = function (data) {
     try {
         var jdata = JSON.parse(data);
         new Util().RemoveLoadImage($("#tweets-tube"));

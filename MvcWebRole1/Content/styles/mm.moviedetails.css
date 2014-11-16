@@ -4,7 +4,17 @@
     text-align: center;
     /*margin-top: 20px;*/
 }
-
+.movie-details {margin-top: 60px; margin-left: 20px;}
+.movie-details .movie-poster{
+    float: left;
+    width: 100%;
+    height: 100%;
+}
+.movie-poster-container { width: 33%; float: left; margin-right: 20px;}
+.movies .movie-photos { float: left; width: 80%;margin-left: 20px;}
+.movies .movie-songs { float: left; width: 80%;margin-left: 20px;}
+.movies .movie-trailers { float: left; width: 80%;margin-left: 20px;}
+.movies .movie-reviews { float: left; width: 80%;margin-left: 20px;}
 .viewingDiv {
     float: none;
     position: relative;
@@ -91,23 +101,20 @@ div.captionAndNavigate {
 }
 /*.movie-songs { float: left; width: 100%;display:none;}*/
 .movie-songs { float: left; width: 100%;display:block;}
-.movie-songs div { float: left; width: 100%;}
+/*.movie-songs div { float: left; width: 100%;}*/
 .movie-songs span.play{float: right; background-image:url('/images/play.png');background-size: 16px 16px; width: 16px; height: 16px;}
 
 .link-container { display: none; }
-.movie-details, .review-details { float: left; width: 100%; }
-.movie-review-details { width: 100%; float: left; }
-.movie-review-details ul { float: left; margin: 0px; padding: 0px; list-style: none; width: 100%; }
+.movie-details, .movie-reviews { float: left; width: 80%; }
+.movie-reviews { width: 100%; float: left; }
+.movie-reviews ul { float: left; margin: 0px; padding: 0px; list-style: none; }
 .movie-poster-details ul { padding: 0px; }
 .song a:hover{ color: white; }
 .modal-header .close{ color: white; font-size: 32px; }
 /*Movie description end */
 @media screen and (min-width: 768px) {
     .movie-description {
-        width: 44%;float: left;
-    }
-    .movies {
-       padding-top: 40px !important;
+        width: 54%;float: left;
     }
 }
 

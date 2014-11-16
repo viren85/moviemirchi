@@ -1,10 +1,14 @@
-﻿.tweet-container {
+﻿.twitter-container {float: right; width: 25%; }
+.twitter-container .tube-tilte{width: 100% !important;}
+.tweet-container {
     float: left;
     width: 98%;
     max-width: 400px;
     /*margin-left: 3%;*/
 }
-
+.tweet-list { float: left; list-style: none; margin: 0px; padding: 0px; height: 1000px; overflow-y: auto;}
+.tweet-list li { float: left; width: 90%; padding: 10px; border-bottom: 1px solid #ddd;}
+.tweet-list li:hover {background-color: #eee;}
 .tweet-left, .tweet-right {
     width: 50%;
     float: left;
