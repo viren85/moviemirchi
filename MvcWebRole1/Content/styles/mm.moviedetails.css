@@ -117,7 +117,11 @@ div.captionAndNavigate {
         width: 54%;float: left;
     }
 }
-
+@media screen and (max-width: 800px) {
+    .movie-details {margin-top: 10px;}
+    .movie-tube .movie-details {margin-top: 60px;}
+    .artist-bio{margin-left: 30px;}
+}
 @media screen and (min-width: 321px) and (max-width: 767px) {
     #now-pager, #upcoming-pager, #genre-now, #genre-upcoming, #genre-other, #other-pager {
         width: 95%;

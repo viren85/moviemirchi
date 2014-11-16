@@ -198,6 +198,7 @@
 @media screen and (max-width: 800px){
     .movies {padding-top: 50px;}
     .recent-list {margin-top: 0px;margin-left: 3%;}
+    .recent-container .tube-tilte {margin-left: 20px;}
 }
 
 @media screen and (max-width: 768px) {

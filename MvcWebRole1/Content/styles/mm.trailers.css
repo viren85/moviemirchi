@@ -68,6 +68,10 @@
         margin-top: 20px;
     }
     #modal-video .modal-content { background-color: transparent !important; border: 0px; box-shadow: none;}
+    @media screen and (max-width: 800px) {
+        .movie-trailers {margin-top: 0px;}
+    }
+
  @media screen and (max-width: 768px) {
     .trailer {
         margin-left: 0%;

@@ -22,6 +22,12 @@
 .review-list-other{float: left; width: 100%;}
 
 @media screen and (max-width: 800px){
-    .tube-tilte {width: 95%; margin-left: 30px; }
+    .tube-tilte {width: 95%; }
     .movie-tube-container {margin-top: 0px; margin-left: 30px;}
+    .movie-tube-container,.photo-tube-container,.trailer-tube-container,.song-tube-container,.review-tube-container  
+    {margin-top: 0px; }
+    .movies .tube-tilte {margin-left: 30px;}
+    .movie-tube .tube-tilte {margin-left: 0px;}
+    .review-list-now-playing, .review-list-other {width: 95%; margin-left: 20px;}
+    .review-list-now-playing .tube-tilte, .review-list-other .tube-tilte{margin-left: 10px;}
 }
