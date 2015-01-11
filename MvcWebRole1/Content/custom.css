@@ -2,6 +2,7 @@
     float: left;
     width: 100%;
 }
+
     .cast-item:hover {
         background-color: #EEE;
     }
@@ -10,12 +11,15 @@
     float: left;
     min-width: 100px;
 }
+
     .cast-details a {
         cursor: pointer;
     }
+
         .cast-details a:hover {
             text-decoration: underline;
         }
+
 .cast-details-right {
     float: right;
 }
@@ -39,9 +43,11 @@
     float: left;
     width: 93%;
 }
+
 .news-container {
     width: 100%;
 }
+
 .movie-list ul, .critics-container ul, .upcoming-movie-list ul, .others-movie-list ul {
     float: left;
     list-style: none;
@@ -61,6 +67,7 @@
         text-align: left;
         position: relative;
     }
+
 .critics-container {
     width: 100%;
 }
@@ -92,16 +99,37 @@
     font-size: 0.8em;
     width: 100%;
 }
+
 @media screen and (min-width: 321px) and (max-width: 767px) {
-        .movie-list ul li, .upcoming-movie-list ul li {
-            max-width: 225px;
-        }
+    .movie-list ul li, .upcoming-movie-list ul li {
+        max-width: 225px;
+    }
 }
 
 @media screen and (max-width: 320px) {
-        .movie-list ul li, .upcoming-movie-list ul li {
-            width: 50%;
-            max-width: 225px;
-        }
-        .gallery-image{max-width: 265px !important;}
+    .movie-list ul li, .upcoming-movie-list ul li {
+        width: 50%;
+        max-width: 225px;
+    }
+
+    .gallery-image {
+        max-width: 265px !important;
+    }
 }
+
+.g_adv {
+    margin: 2px;
+    padding: 2px;
+}
+
+    .g_adv .left {
+        float: left;
+        width: 320px;
+        height: 220px;
+    }
+
+    .g_adv .right {
+        float: right;
+        width: 320px;
+        height: 110px;
+    }
