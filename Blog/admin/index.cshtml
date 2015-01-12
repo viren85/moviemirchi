@@ -1,0 +1,42 @@
+﻿@using System.Web
+@using System.Web.Optimization
+@using BlogEngine.Core
+@{
+    if (!Security.IsAuthorizedTo(BlogEngine.Core.Rights.AccessAdminPages)){
+        Security.RedirectForUnauthorizedRequest();
+    }
+    string loginUrl = Href(Utils.RelativeWebRoot + "Account/login.aspx");
+    var userRights = string.Join("','", Security.CurrentUserRights().Select(r => r.Flag).ToArray());
+}
+<html>
+<head>
+    <title>@BlogSettings.Instance.Name (@Security.CurrentMembershipUser.UserName)</title>
+    <link rel="shortcut icon" href="@Href(Utils.ApplicationRelativeWebRoot + "pics/blogengine.ico")" type="image/x-icon" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    @Styles.Render("~/Content/css")
+    <script type="text/javascript">
+        var UserVars = { Name: '@Security.CurrentUser.Identity.Name', IsAdmin: '@Security.IsAdministrator', Rights: ['@Html.Raw(userRights)'] };
+        var ActiveTheme = { Theme: '@BlogSettings.Instance.Theme', Mobile: '@BlogSettings.Instance.MobileTheme' }
+        var ServerTime = '@DateTime.Now'
+        if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            var mq = "@@-ms-viewport{width:auto!important}";
+            msViewportStyle.appendChild(document.createTextNode(mq));
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+    </script>
+</head>
+<body>
+    <script type="text/javascript" src="admin.res.axd"></script>
+    <div id="container" class="app-wrapper @Resources.labels.LangDirection">
+        <div data-ng-app="blogAdmin" data-ng-view="" id="ng-view"></div>
+    </div>
+    @*<div data-ng-app="blogAdmin" data-ng-view="" id="ng-view" class="slide-animation"></div>*@
+    @Scripts.Render("~/scripts/blogadmin")
+</body>
+</html>
