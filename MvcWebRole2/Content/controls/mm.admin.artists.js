@@ -81,7 +81,7 @@
         var artistName = new FormBuilder().GetTextField("txtArtistName", "Artist Name", "Artist Name");
         var bio = new FormBuilder().GetTextArea("txtBio", "Bio", "Bio");
         var born = new FormBuilder().GetTextArea("txtBorn", "Born", "Born");
-        var popularity = new FormBuilder().GetTextField("txtPopularity", "Popularity", "Popularity");
+        var popularity = new FormBuilder().GetTextField("txtPopularity", "Popularity", "Popularity");        
 
         $(formContainer).append(isEnabled);
 
@@ -180,6 +180,25 @@
         if (posters.length > 0)
             artist.Posters = JSON.stringify(posters);
 
+        //test code
+        /*artist.ArtistNickName="Artist Nick Name";
+        artist.Age="35";
+        artist.FamilyRelation="Brother of XYZ"; 
+        artist.DateOfBirth="11-01-1980";
+        artist.BornCity="Mumbai";
+        artist.ZodiacSign="Taurus";
+        artist.Hobbies="Watching movies, Playing Cricket";
+        artist.EducationDetails="Matric Pass";
+        artist.SocialActivities="Participate in Anna Hazare Movement";
+        artist.DebutFilms="Sholay";
+        artist.RememberForMovies="Sholay";
+        artist.Awards="Won Film Fare award for Sholay";
+        artist.FacebookURL="www.facebook.com/adman-griff";
+        artist.InstagramURL = "www.instagram.com/adman-griff";
+        artist.TwitterHandle = "www.twitter.com/admin-griff";*/
+        //end
+
+
         var objArtist = {
             "ArtistId": artist.ArtistId,
             "ArtistName": artist.ArtistName,
@@ -190,12 +209,28 @@
             "Popularity": artist.Popularity,
             "Posters": artist.Posters,
             "MyScore": artist.MyScore,
-            "JsonString": artist.JsonString
+            "TwitterHandle": artist.TwitterHandle,
+            "JsonString": artist.JsonString,
+            //added by vasim for extras info
+            "ArtistNickName": artist.ArtistNickName,
+            "Age": artist.Age,
+            "FamilyRelation": artist.FamilyRelation,
+            "DateOfBirth": artist.DateOfBirth,
+            "BornCity": artist.BornCity,
+            "ZodiacSign": artist.ZodiacSign,
+            "Hobbies": artist.Hobbies,
+            "EducationDetails": artist.EducationDetails,
+            "SocialActivities": artist.SocialActivities,
+            "DebutFilms": artist.DebutFilms,
+            "RememberForMovies": artist.RememberForMovies,
+            "Awards": artist.Awards,
+            "FacebookURL": artist.FacebookURL,
+            "InstagramURL": artist.InstagramURL            
+            //end
         };
 
-        // save movie
-        var artistData = JSON.stringify(objArtist);
-        
-        CallController("../Home/UpdateArtists", "data", artistData, function () { $("#status").html("Artist details saved successfully!"); });
+        //UpdateArtist
+        //CallController("../Home/UpdateArtists", "data", artistData, function () { $("#status").html("Artist details saved successfully!"); });
+        CallController("api/UpdateArtist", "data", objArtist, function () { $("#status").html("Artist details saved successfully!"); });
     }
 }
