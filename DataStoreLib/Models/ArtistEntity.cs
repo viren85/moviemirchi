@@ -39,6 +39,7 @@ namespace DataStoreLib.Models
         public string Awards { get; set; } //Shall be json(Multiple entry)
         public string FacebookURL { get; set; } //this is part of social media
         public string InstagramURL { get; set; } //this is part of social media
+        public string Summary { get; set; }
         //end
         #endregion
 
@@ -68,7 +69,7 @@ namespace DataStoreLib.Models
         public static ArtistEntity CreateArtistEntity(string artistName, string uniqueName, string bio, string born, string movieList, string popularity,
             string posters, string myScore, string jsonString, string twitterHandle, string artistNickName, string age, string familyRelation, string dateOfBirth,
             string bornCity, string zodiacSign, string hobbies, string educationDetails, string socialActivities, string debutFilms, string rememberMovie, string awards,
-            string facebookUrl, string instagramUrl)
+            string facebookUrl, string instagramUrl, string summary)
         {
             var artistId = Guid.NewGuid().ToString();
             var artistEntity = new ArtistEntity(uniqueName.ToLower());
@@ -99,8 +100,8 @@ namespace DataStoreLib.Models
             artistEntity.Awards = awards;
             artistEntity.FacebookURL = facebookUrl;
             artistEntity.InstagramURL = instagramUrl;
+            artistEntity.Summary = summary;
             //end
-
 
             return artistEntity;
         }

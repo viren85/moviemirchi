@@ -137,6 +137,113 @@
         $("#txtBio").val(artist.Bio);
         $("#txtBorn").val(artist.Born);
         $("#txtPopularity").val(artist.Popularity);
+        //added by vasim
+        $("#txtNickName").val(artist.ArtistNickName);
+        $("#txtAge").val(artist.Age);
+        $("#txtDateOfBirth").val(artist.DateOfBirth);
+        $("#txtBornCity").val(artist.BornCity);
+        $("#txtZodiacSign").val(artist.ZodiacSign);
+        $("#txtHobbies").val(artist.Hobbies);
+        $("#txtSocialActivities").val(artist.SocialActivities);
+        $("#txtFacebook").val(artist.FacebookURL);
+        $("#txtTwitter").val(artist.TwitterHandle);
+        $("#txtInstagram").val(artist.InstagramURL);
+        $("#txtSummary").val(artist.Summary);
+
+        if (artist.FamilyRelation == null || artist.FamilyRelation == undefined)
+            artist.FamilyRelation = "[]";
+        
+        if (artist.EducationDetails == null || artist.EducationDetails == undefined)
+            artist.EducationDetails = "[]";
+
+        if (artist.DebutFilms == null || artist.DebutFilms == undefined)
+            artist.DebutFilms = "[]";
+
+        if (artist.RememberForMovies == null || artist.RememberForMovies == undefined)
+            artist.RememberForMovies = "[]";
+
+        if (artist.Awards == null || artist.Awards == undefined)
+            artist.Awards = "[]";
+        
+        //populate family relation
+        $("#familylink").html("");
+        var familyRelation = JSON.parse(artist.FamilyRelation);
+
+        if (familyRelation.length > 0) {
+            for (var i = 0; i < familyRelation.length; i++) {
+                if (i == 0)
+                    $("#familylink").append(new Artists().PopulateFamilyRelation(true, familyRelation[i]));
+                else
+                    $("#familylink").append(new Artists().PopulateFamilyRelation(false, familyRelation[i]));
+            }
+        }
+        else {
+            $("#familylink").append(new Artists().PopulateFamilyRelation(true));
+        }
+
+        // populate education details
+        $("#education").html("");
+        var education = JSON.parse(artist.EducationDetails);
+
+        if (education.length > 0) {
+            for (var i = 0; i < education.length; i++) {
+                if (i == 0)
+                    $("#education").append(new Artists().PopulateEducationalDetail(true, education[i]));
+                else
+                    $("#education").append(new Artists().PopulateEducationalDetail(false, education[i]));
+            }
+        }
+        else {
+            $("#education").append(new Artists().PopulateEducationalDetail(true));
+        }
+
+        //populate debut films
+        $("#debut").html("");
+        var debutFilm = JSON.parse(artist.DebutFilms);
+
+        if (debutFilm.length > 0) {
+            for (var i = 0; i < debutFilm.length; i++) {
+                if (i == 0)
+                    $("#debut").append(new Artists().PopulateDebut(true, debutFilm[i]));
+                else
+                    $("#debut").append(new Artists().PopulateDebut(false, debutFilm[i]));
+            }
+        }
+        else {
+            $("#debut").append(new Artists().PopulateDebut(true));
+        }
+
+        // remember movies
+        $("#remembered").html("");
+        var rememberFilm = JSON.parse(artist.RememberForMovies);
+
+        if (rememberFilm.length > 0) {
+            for (var i = 0; i < rememberFilm.length; i++) {
+                if (i == 0)
+                    $("#remembered").append(new Artists().PopulateRememberedFor(true, rememberFilm[i]));
+                else
+                    $("#remembered").append(new Artists().PopulateRememberedFor(false, rememberFilm[i]));
+            }
+        }
+        else {
+            $("#remembered").append(new Artists().PopulateRememberedFor(true));
+        }
+
+        // Awards awards
+        $("#awards").html("");
+        var awards = JSON.parse(artist.Awards);
+
+        if (awards.length > 0) {
+            for (var i = 0; i < awards.length; i++) {
+                if (i == 0)
+                    $("#awards").append(new Artists().PopulateAwards(true, awards[i]));
+                else
+                    $("#awards").append(new Artists().PopulateAwards(false, awards[i]));
+            }
+        }
+        else {
+            $("#awards").append(new Artists().PopulateAwards(true));
+        }
 
         // rating / my score
         if (artist.MyScore != "" && artist.MyScore != undefined) {
@@ -193,6 +300,62 @@
             artist.Popularity = popularity
         }
 
+        //get value for new properties
+        artist.ArtistNickName = $("#txtNickName").val();
+        artist.Age = $("#txtAge").val();
+        artist.DateOfBirth = $("#txtDateOfBirth").val();
+        artist.BornCity = $("#txtBornCity").val();
+        artist.ZodiacSign = $("#txtZodiacSign").val();
+        artist.Hobbies = $("#txtHobbies").val();
+        artist.SocialActivities = $("#txtSocialActivities").val();
+        artist.FacebookURL = $("#txtFacebook").val();
+        artist.TwitterHandle = $("#txtTwitter").val();
+        artist.InstagramURL = $("#txtInstagram").val();
+        artist.Summary = $("#txtSummary").val();
+
+        //get controlls value
+        var familyRelations = [];
+        var educationDetails = [];
+        var debutFilms = [];
+        var rememberFilms = [];
+        var awards = [];
+
+        $("#familylink").find(".Relation").each(function () {
+            var value = $(this).find("input").val();
+            if (value != "" && value != undefined)
+                familyRelations.push(value);
+        });
+
+        $("#education").find(".Educational").each(function () {
+            var value = $(this).find("input").val();
+            if (value != "" && value != undefined)
+                educationDetails.push(value);
+        });
+
+        $("#debut").find(".Debut_Start").each(function () {
+            var value = $(this).find("input").val();
+            if (value != "" && value != undefined)
+                debutFilms.push(value);
+        });
+
+        $("#remembered").find(".Remember").each(function () {
+            var value = $(this).find("input").val();
+            if (value != "" && value != undefined)
+                rememberFilms.push(value);
+        });
+
+        $("#awards").find(".awards-received").each(function () {
+            var value = $(this).find("input").val();
+            if (value != "" && value != undefined)
+                awards.push(value);
+        });
+
+        artist.FamilyRelation = JSON.stringify(familyRelations);
+        artist.EducationDetails = JSON.stringify(educationDetails);
+        artist.DebutFilms = JSON.stringify(debutFilms);
+        artist.RememberForMovies = JSON.stringify(rememberFilms);
+        artist.Awards = JSON.stringify(awards);
+
         //get ratings
         var myScore = { "teekharating": $("#txtTeekhaRate").val(), "feekharating": $("#txtFeekaRate").val(), "criticrating": $("#txtMyScore").val() };
         artist.MyScore = JSON.stringify(myScore);
@@ -214,24 +377,6 @@
 
         if (posters.length > 0)
             artist.Posters = JSON.stringify(posters);
-
-        //test code
-        /*artist.ArtistNickName="Artist Nick Name";
-        artist.Age="35";
-        artist.FamilyRelation="Brother of XYZ"; 
-        artist.DateOfBirth="11-01-1980";
-        artist.BornCity="Mumbai";
-        artist.ZodiacSign="Taurus";
-        artist.Hobbies="Watching movies, Playing Cricket";
-        artist.EducationDetails="Matric Pass";
-        artist.SocialActivities="Participate in Anna Hazare Movement";
-        artist.DebutFilms="Sholay";
-        artist.RememberForMovies="Sholay";
-        artist.Awards="Won Film Fare award for Sholay";
-        artist.FacebookURL="www.facebook.com/adman-griff";
-        artist.InstagramURL = "www.instagram.com/adman-griff";
-        artist.TwitterHandle = "www.twitter.com/admin-griff";*/
-        //end
 
 
         var objArtist = {
@@ -260,7 +405,8 @@
             "RememberForMovies": artist.RememberForMovies,
             "Awards": artist.Awards,
             "FacebookURL": artist.FacebookURL,
-            "InstagramURL": artist.InstagramURL
+            "InstagramURL": artist.InstagramURL,
+            "Summary": artist.Summary
             //end
         };
 
@@ -295,6 +441,7 @@
         return familyRelation;
     }
 
+    //generate controls
     // Educational Detail
     Artists.prototype.AddEducationalDetail = function (isAddButton) {
         var educationalDetail = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "Educational");
@@ -372,9 +519,130 @@
 
     // Awards
     Artists.prototype.AddAwards = function (isAddButton) {
-        var awards = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "Awards Received");
+        var awards = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "awards-received");
         $(awards).append($("<span/>").text("Awards"));
         $(awards).append($("<input/>").attr("type", "text").attr("style", "width:50%").attr("placeholder", "Awards"));
+
+        var button = $("<div/>");
+
+        if (isAddButton) {
+            $(button).attr("class", "btn btn-success").html("Add ...").click(function () {
+                $("#awards").append(new Artists().AddAwards(false));
+            });
+
+        } else {
+            $(button).attr("class", "btn btn-danger").html("X").click(function () {
+                $(awards).remove();
+            });
+        }
+
+        $(awards).append(button);
+
+        return awards;
+    }
+
+    //populate controls
+    Artists.prototype.PopulateFamilyRelation = function (isAddButton, family) {
+        var familyRelation = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "Relation");
+        $(familyRelation).append($("<span/>").text("Family Relationship"));
+
+        $(familyRelation).append($("<input/>").attr("type", "text").attr("style", "width:50%").attr("placeholder", "Family Link").val(family));
+
+        var button = $("<div/>");
+
+        if (isAddButton) {
+            $(button).attr("class", "btn btn-success").html("Add ...").click(function () {
+                $("#familylink").append(new Artists().AddFamilyRelation(false));
+            });
+
+        } else {
+            $(button).attr("class", "btn btn-danger").html("X").click(function () {
+                $(familyRelation).remove();
+            });
+        }
+
+        $(familyRelation).append(button);
+
+        return familyRelation;
+    }
+
+    // Educational Detail
+    Artists.prototype.PopulateEducationalDetail = function (isAddButton, educatoion) {
+        var educationalDetail = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "Educational");
+        $(educationalDetail).append($("<span/>").text("Educational Detail"));
+        $(educationalDetail).append($("<input/>").attr("type", "text").attr("style", "width:50%").attr("placeholder", "Education").val(educatoion));
+
+        var button = $("<div/>");
+
+        if (isAddButton) {
+            $(button).attr("class", "btn btn-success").html("Add ...").click(function () {
+                $("#education").append(new Artists().AddEducationalDetail(false));
+            });
+
+        } else {
+            $(button).attr("class", "btn btn-danger").html("X").click(function () {
+                $(educationalDetail).remove();
+            });
+        }
+
+        $(educationalDetail).append(button);
+
+        return educationalDetail;
+    }
+
+    // Debut Film
+    Artists.prototype.PopulateDebut = function (isAddButton, debutMovie) {
+        var debut = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "Debut_Start");
+        $(debut).append($("<span/>").text("Debut"));
+        $(debut).append($("<input/>").attr("type", "text").attr("style", "width:50%").attr("placeholder", "Debut").val(debutMovie));
+
+        var button = $("<div/>");
+
+        if (isAddButton) {
+            $(button).attr("class", "btn btn-success").html("Add ...").click(function () {
+                $("#debut").append(new Artists().AddDebut(false));
+            });
+
+        } else {
+            $(button).attr("class", "btn btn-danger").html("X").click(function () {
+                $(debut).remove();
+            });
+        }
+
+        $(debut).append(button);
+
+        return debut;
+    }
+
+    // Remembered For
+    Artists.prototype.PopulateRememberedFor = function (isAddButton, rememberMovie) {
+        var rememberedFor = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "Remember");
+        $(rememberedFor).append($("<span/>").text("Remembered For"));
+        $(rememberedFor).append($("<input/>").attr("type", "text").attr("style", "width:50%").attr("placeholder", "Remembered").val(rememberMovie));
+
+        var button = $("<div/>");
+
+        if (isAddButton) {
+            $(button).attr("class", "btn btn-success").html("Add ...").click(function () {
+                $("#remembered").append(new Artists().AddRememberedFor(false));
+            });
+
+        } else {
+            $(button).attr("class", "btn btn-danger").html("X").click(function () {
+                $(rememberedFor).remove();
+            });
+        }
+
+        $(rememberedFor).append(button);
+
+        return rememberedFor;
+    }
+
+    // Awards
+    Artists.prototype.PopulateAwards = function (isAddButton, award) {
+        var awards = $("<div/>").attr("style", "width: 100%;margin: px;").attr("class", "awards-received");
+        $(awards).append($("<span/>").text("Awards"));
+        $(awards).append($("<input/>").attr("type", "text").attr("style", "width:50%").attr("placeholder", "Awards").val(award));
 
         var button = $("<div/>");
 

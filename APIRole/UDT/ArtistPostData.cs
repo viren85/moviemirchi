@@ -30,6 +30,7 @@ namespace CloudMovie.APIRole.UDT
         public string Awards { get; set; } 
         public string FacebookURL { get; set; } 
         public string InstagramURL { get; set; }
+        public string Summary { get; set; }
 
         public ArtistEntity GetArtistEntity()
         {
@@ -60,6 +61,7 @@ namespace CloudMovie.APIRole.UDT
             artistEntity.Awards = this.Awards;
             artistEntity.FacebookURL = this.FacebookURL;
             artistEntity.InstagramURL = this.InstagramURL;
+            artistEntity.Summary = this.Summary;
 
             return artistEntity;
         }
