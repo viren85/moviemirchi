@@ -24,6 +24,23 @@ namespace DataStoreLib.Models
         // For future use
         public string JsonString { get; set; }
 
+        //added by vasim for extra info
+        public string ArtistNickName { get; set; }
+        public string Age { get; set; }
+        public string FamilyRelation { get; set; } //Shall be JSON(Multiple entry)
+        public string DateOfBirth { get; set; }
+        public string BornCity { get; set; }
+        public string ZodiacSign { get; set; }
+        public string Hobbies { get; set; }
+        public string EducationDetails { get; set; } //Shall be json(Multiple entry)
+        public string SocialActivities { get; set; }
+        public string DebutFilms { get; set; } //Shall be json(Multiple entry)
+        public string RememberForMovies { get; set; } //Shall be json(Multiple entry)
+        public string Awards { get; set; } //Shall be json(Multiple entry)
+        public string FacebookURL { get; set; } //this is part of social media
+        public string InstagramURL { get; set; } //this is part of social media
+        public string Summary { get; set; }
+
         #endregion
 
         public ArtistEntity()
@@ -49,7 +66,10 @@ namespace DataStoreLib.Models
             return this.RowKey;
         }
 
-        public static ArtistEntity CreateArtistEntity(string artistName, string uniqueName, string bio, string born, string movieList, string popularity, string posters, string myScore, string jsonString, string twitterHandle)
+        public static ArtistEntity CreateArtistEntity(string artistName, string uniqueName, string bio, string born, string movieList, string popularity,
+           string posters, string myScore, string jsonString, string twitterHandle, string artistNickName, string age, string familyRelation, string dateOfBirth,
+           string bornCity, string zodiacSign, string hobbies, string educationDetails, string socialActivities, string debutFilms, string rememberMovie, string awards,
+           string facebookUrl, string instagramUrl, string summary)
         {
             var artistId = Guid.NewGuid().ToString();
             var artistEntity = new ArtistEntity(uniqueName.ToLower());
@@ -64,6 +84,25 @@ namespace DataStoreLib.Models
             artistEntity.MyScore = myScore;
             artistEntity.JsonString = jsonString;
             artistEntity.TwitterHandle = twitterHandle;
+
+            //added by vasim
+            artistEntity.ArtistNickName = artistNickName;
+            artistEntity.Age = age;
+            artistEntity.FamilyRelation = familyRelation;
+            artistEntity.DateOfBirth = dateOfBirth;
+            artistEntity.BornCity = bornCity;
+            artistEntity.ZodiacSign = zodiacSign;
+            artistEntity.Hobbies = hobbies;
+            artistEntity.EducationDetails = educationDetails;
+            artistEntity.SocialActivities = socialActivities;
+            artistEntity.DebutFilms = debutFilms;
+            artistEntity.RememberForMovies = rememberMovie;
+            artistEntity.Awards = awards;
+            artistEntity.FacebookURL = facebookUrl;
+            artistEntity.InstagramURL = instagramUrl;
+            artistEntity.Summary = summary;
+            //end
+
             return artistEntity;
         }
     }

@@ -8,7 +8,7 @@
         var container = $("<div/>").attr("class", "songs-container");
         var sectionTitle = new MovieInformation().GetMovieInfoContainer("songs-section-title", "Songs");
         
-        var addButton = $("<div/>").attr("title", "add new song").attr("class", "btn btn-success").html("<b>+</b>").attr("style", "position: absolute;top: 12px;right: 2px;float: left;").attr("data-toggle", "modal").attr("data-target", "#mySongModal").click(function () {
+        var addButton = $("<div/>").attr("title", "add new song").attr("class", "btn btn-success").html("<b>+</b>").attr("style", "float: left;margin-top: 15px;").attr("data-toggle", "modal").attr("data-target", "#mySongModal").click(function () {
             //$("#txtSongTitle").val($("#txtFriendly").val());
         });
 

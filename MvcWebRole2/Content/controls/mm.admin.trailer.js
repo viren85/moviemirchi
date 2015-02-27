@@ -8,7 +8,7 @@
         var container = $("<div/>").attr("class", "trailer-container");
         var sectionTitle = new MovieInformation().GetMovieInfoContainer("trailer-section-title", "Trailers");
 
-        var addButton = $("<div/>").attr("title", "add new trailer").attr("class", "btn btn-success").html("<b>+</b>").attr("style", "position: absolute;top: 12px;right: 2px;float: left;").attr("data-toggle", "modal").attr("data-target", "#myModal").click(function () {
+        var addButton = $("<div/>").attr("title", "add new trailer").attr("class", "btn btn-success").html("<b>+</b>").attr("style", "float: left;margin-top: 15px;").attr("data-toggle", "modal").attr("data-target", "#myModal").click(function () {
             $("#txtTitle").val($("#txtFriendly").val() + " Trailer");
         });
 

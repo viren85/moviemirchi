@@ -50,6 +50,7 @@
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />
     <Compile Include="Controllers\api\NewsCrawlerController.cs" />
+    <Compile Include="Controllers\api\UpdateArtistController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
     <Compile Include="Controllers\api\AllSongsController.cs" />
@@ -85,6 +86,7 @@
     <Compile Include="Library\ImageGenerator.cs" />
     <Compile Include="Library\Scorer.cs" />
     <Compile Include="Library\TweetFormatter.cs" />
+    <Compile Include="UDT\ArtistPostData.cs" />
     <Compile Include="UDT\MovieInfo.cs" />
     <Compile Include="UDT\MoviePostData.cs" />
     <Compile Include="UDT\RatingConversion.cs" />
@@ -225,7 +227,7 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="Twitterizer2">
-      <HintPath>..\MvcWebRole2\bin\Twitterizer2.dll</HintPath>
+	  <HintPath>..\MvcWebRole2\bin\Twitterizer2.dll</HintPath>      
     </Reference>
   </ItemGroup>
   <ItemGroup>
