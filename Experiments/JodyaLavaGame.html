@@ -1,0 +1,398 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+
+    <title>Jodya Lava!</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+
+    <style>
+        #container {
+            padding: 20px;
+            margin: 20px;
+            border: 1px solid purple;
+        }
+        /* Add some margin to the page and set a default font and colour */
+
+        /*body {
+            margin: 30px;
+            font-family: "Georgia", serif;
+            line-height: 1.8em;
+            color: #333;
+        }*/
+
+        /* Give headings their own font */
+
+        /*h1, h2, h3, h4 {
+            font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+        }*/
+
+        /* Main content area */
+
+        #content {
+            margin: 80px 70px;
+            text-align: center;
+            -moz-user-select: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Header/footer boxes */
+
+        .wideBox {
+            clear: both;
+            text-align: center;
+            margin: 70px;
+            padding: 10px;
+            background: #ebedf2;
+            border: 1px solid #333;
+        }
+
+            .wideBox h1 {
+                font-weight: bold;
+                margin: 20px;
+                color: #666;
+                font-size: 1.5em;
+            }
+
+        /* Slots for final card positions */
+
+        #cardSlots {
+            margin: 50px auto 0 auto;
+            background: #ddf;
+        }
+
+        /* The initial pile of unsorted cards */
+
+        #cardPile {
+            margin: 0 auto;
+            background: #ffd;
+        }
+
+        #cardSlots, #cardPile {
+            width: 910px;
+            height: 200px;
+            padding: 20px;
+            border: 2px solid #333;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            -moz-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+            -webkit-box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+            box-shadow: 0 0 .3em rgba(0, 0, 0, .8);
+        }
+
+            /* Individual cards and slots */
+
+            #cardSlots div, #cardPile div {
+                float: left;
+                width: 100px;
+                height: 78px;
+                padding: 10px;
+                padding-top: 20px;
+                padding-bottom: 0;
+                border: 2px solid #333;
+                -moz-border-radius: 10px;
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                margin: 0 0 0 10px;
+                background: #fff;
+            }
+
+                #cardSlots div:first-child, #cardPile div:first-child {
+                    margin-left: 0;
+                }
+
+                #cardSlots div.hovered {
+                    background: #aaa;
+                }
+
+            #cardSlots div {
+                border-style: dashed;
+            }
+
+            #cardPile div {
+                background: #666;
+                color: #fff;
+                font-size: 20px;
+                text-shadow: 0 0 3px #000;
+            }
+
+                #cardPile div.ui-draggable-dragging {
+                    -moz-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+                    -webkit-box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+                    box-shadow: 0 0 .5em rgba(0, 0, 0, .8);
+                }
+
+        /* Individually coloured cards */
+        .correct {
+            background: green !important;
+        }
+
+        /* "You did it!" message */
+        #successMessage {
+            position: absolute;
+            left: 580px;
+            top: 250px;
+            width: 0;
+            height: 0;
+            z-index: 100;
+            background: #dfd;
+            border: 2px solid #333;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+            -moz-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+            -webkit-box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+            box-shadow: .3em .3em .5em rgba(0, 0, 0, .8);
+            padding: 20px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        var correctCards = 0;
+        var maxCards = 10;
+        $(init);
+
+        function init() {
+
+            function gameplay(quiz) {
+
+                // Hide the success message
+                $('#successMessage').hide();
+                $('#successMessage').css({
+                    left: '580px',
+                    top: '250px',
+                    width: 0,
+                    height: 0
+                });
+
+                // Reset the game
+                correctCards = 0;
+                $('#cardPile').html('');
+                $('#cardSlots').html('');
+
+                // Create the pile of shuffled cards
+                quiz.q.sort(function () { return Math.random() - .5 });
+                quiz.a.sort(function () { return Math.random() - .25 });
+
+                // Pick only maxCards
+                var len = Math.min(quiz.q.length, quiz.a.length);
+                if (len > maxCards) {
+                    len = maxCards;
+                    quiz.q = quiz.q.splice(0, len);
+                    var ks = quiz.q.map(function (v) { return v.k; });
+                    quiz.a = quiz.a.filter(function (v) {
+                        return ks.indexOf(v.k) !== -1;
+                    });
+                };
+
+                // Create the card pile
+                for (var i = 0; i < len; i++) {
+                    var pair = quiz.q[i];
+                    $('<div>' + pair.name + '</div>')
+                        .data('number', pair.k)
+                        .appendTo('#cardPile')
+                        .draggable({
+                            containment: '#content',
+                            stack: '#cardPile div',
+                            cursor: 'move',
+                            revert: true
+                        });
+                }
+
+                // Create the card slots
+                for (var i = 0; i < len; i++) {
+                    var pair = quiz.a[i];
+                    $('<div>' + pair.name + '</div>')
+                        .data('number', pair.k)
+                        .appendTo('#cardSlots')
+                        .droppable({
+                            accept: '#cardPile div',
+                            hoverClass: 'hovered',
+                            drop: handleCardDrop
+                        });
+                }
+            }
+
+            function handleCardDrop(event, ui) {
+                var slotNumber = $(this).data('number');
+                var cardNumber = ui.draggable.data('number');
+
+                // If the card was dropped to the correct slot,
+                // change the card colour, position it directly
+                // on top of the slot, and prevent it being dragged
+                // again
+
+                if (slotNumber == cardNumber) {
+                    ui.draggable.addClass('correct');
+                    ui.draggable.draggable('disable');
+                    $(this).droppable('disable');
+                    ui.draggable.position({ of: $(this), my: 'left top', at: 'left top' });
+                    ui.draggable.draggable('option', 'revert', false);
+                    correctCards++;
+                }
+
+                // If all the cards have been placed correctly then display a message
+                // and reset the cards for another go
+
+                if (correctCards == maxCards) {
+                    $('#successMessage').show();
+                    $('#successMessage').animate({
+                        left: '380px',
+                        top: '200px',
+                        width: '400px',
+                        height: '100px',
+                        opacity: 1
+                    });
+                }
+            }
+
+            var identityFn = function (v) {
+                return v;
+            },
+            pairs = {
+                'cast': {
+                    key: "Cast",
+                    selector: function (v) {
+                        var arr = {};
+                        try {
+                            arr = JSON.parse(v);
+                        } catch (e) {
+                        }
+                        if (arr.length > 0) {
+                            return arr[0].name;
+                        }
+                        return null;
+                    },
+                },
+                'genre': {
+                    key: "Genre",
+                    selector: identityFn
+                },
+                'pubdate': {
+                    key: "Month",
+                    selector: identityFn
+                },
+            };
+
+            var startGame = function () {
+
+                var movieType = $("#options").find("#movieType input:checked").val();
+                var columnType = $("#options").find("#columnType input:checked").val();
+
+                $.get("http://moviemirchi.co.in:8081/api/Movies?type=" + movieType)
+                .done(function (data) {
+
+                    var match = pairs[columnType.toLowerCase()];
+                    var q = [], a = [];
+                    var movies = JSON.parse(data);
+
+                    movies.forEach(function (movie, k) {
+                        var val = match.selector(movie[match.key]);
+                        if (val) {
+                            q.push({ k: k, name: movie.Name, });
+                            a.push({ k: k, name: val, });
+                        }
+                    });
+
+                    gameplay({ q: q, a: a });
+                });
+            };
+
+            var loadGame = function () {
+                $("#announce").hide();
+                $("#content").show();
+                $("#options").show();
+                $("#game").hide();
+                $("#successMessage").hide();
+
+                $("#startGame").on("click", function () {
+                    $("#options").hide();
+                    $("#game").show();
+                    $("#successMessage").hide();
+
+                    startGame();
+                });
+            };
+
+            $("#content").hide();
+            $("#announce").show();
+
+            $("#loadGame").on("click", function () {
+                loadGame();
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div id="announce">
+        <div class="jumbotron" style="text-align: center">
+            <h1>Jodya Lava!</h1>
+            <p>In this game you have the match the movie from one bucket with the matching entity from the other bucket.</p>
+            <p>
+                <button id="loadGame" type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-king" aria-hidden="true"></span> Load game
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <div id="content">
+
+        <div id="options">
+            <div class="form-group" id="movieType">
+                <label>Select the movies to play with</label>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="movieType" value="current" checked> Now playing movies
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="movieType" value="upcoming"> Upcoming movies
+                    </label>
+                </div>
+            </div>
+            <div class="form-group" id="columnType">
+                <label>Select the column to match movies with</label>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="columnType" value="Cast" checked> Cast
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="columnType" value="Genre"> Genre
+                    </label>
+                </div>
+                <div class="radio-inline">
+                    <label>
+                        <input type="radio" name="columnType" value="PubDate"> Release date
+                    </label>
+                </div>
+            </div>
+            <button id="startGame" type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-king" aria-hidden="true"></span> Start game
+            </button>
+        </div>
+
+        <div id="game">
+            <div id="cardPile"> </div>
+            <div id="cardSlots"> </div>
+        </div>
+
+        <div id="successMessage" style="display:none;">
+            <h2>You did it!</h2>
+            <button onclick="init()">Play Again</button>
+        </div>
+
+    </div>
+    </div>
+</body>
+</html>
