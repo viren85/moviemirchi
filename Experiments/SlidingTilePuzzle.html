@@ -1,0 +1,259 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Sliding Tile Puzzle!</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+    <!--<script type="text/javascript" src="http://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+    <!--<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>-->
+
+    <style type="text/css">
+        #slider {
+            width: 200px;
+        }
+
+        .settings {
+            /*float: left;*/
+            height: auto;
+            width: auto;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+        }
+
+        .left2 {
+            /*float: left;*/
+        }
+
+        .right2 {
+            /*float: right;*/
+            height: 200px;
+            width: 200px;
+        }
+    </style>
+
+    <script type="text/javascript">
+        $(init);
+
+        function init() {
+
+            var puzzle = function (url) {
+                var context = document.getElementById('puzzle').getContext('2d');
+
+                var img = new Image();
+                img.src = url; //'http://www.brucealderman.info/Images/dimetrodon.jpg'
+                img.addEventListener('load', drawTiles, false);
+
+                var boardSize = document.getElementById('puzzle').width;
+                var tileCount = document.getElementById('scale').value;
+
+                var tileSize = boardSize / tileCount;
+
+                var clickLoc = new Object;
+                clickLoc.x = 0;
+                clickLoc.y = 0;
+
+                var emptyLoc = new Object;
+                emptyLoc.x = 0;
+                emptyLoc.y = 0;
+
+                var solved = false;
+
+                var boardParts;
+                setBoard();
+
+                document.getElementById('scale').onchange = function () {
+                    tileCount = this.value;
+                    tileSize = boardSize / tileCount;
+                    setBoard();
+                    drawTiles();
+                };
+
+                document.getElementById('puzzle').onclick = function (e) {
+                    clickLoc.x = Math.floor((e.pageX - this.offsetLeft) / tileSize);
+                    clickLoc.y = Math.floor((e.pageY - this.offsetTop) / tileSize);
+                    if (distance(clickLoc.x, clickLoc.y, emptyLoc.x, emptyLoc.y) == 1) {
+                        slideTile(emptyLoc, clickLoc);
+                        drawTiles();
+                    }
+                    if (solved) {
+                        setTimeout(function () { alert("You solved it!"); }, 500);
+                    }
+                };
+
+                function setBoard() {
+                    boardParts = new Array(tileCount);
+                    for (var i = 0; i < tileCount; ++i) {
+                        boardParts[i] = new Array(tileCount);
+                        for (var j = 0; j < tileCount; ++j) {
+                            boardParts[i][j] = new Object;
+                            boardParts[i][j].x = (tileCount - 1) - i;
+                            boardParts[i][j].y = (tileCount - 1) - j;
+                        }
+                    }
+                    emptyLoc.x = boardParts[tileCount - 1][tileCount - 1].x;
+                    emptyLoc.y = boardParts[tileCount - 1][tileCount - 1].y;
+                    solved = false;
+                }
+
+                function drawTiles() {
+                    context.clearRect(0, 0, boardSize, boardSize);
+                    for (var i = 0; i < tileCount; ++i) {
+                        for (var j = 0; j < tileCount; ++j) {
+                            var x = boardParts[i][j].x;
+                            var y = boardParts[i][j].y;
+                            if (i != emptyLoc.x || j != emptyLoc.y || solved == true) {
+                                context.drawImage(img, x * tileSize, y * tileSize, tileSize, tileSize,
+                                    i * tileSize, j * tileSize, tileSize, tileSize);
+                            }
+                        }
+                    }
+                }
+
+                function distance(x1, y1, x2, y2) {
+                    return Math.abs(x1 - x2) + Math.abs(y1 - y2);
+                }
+
+                function slideTile(toLoc, fromLoc) {
+                    if (!solved) {
+                        boardParts[toLoc.x][toLoc.y].x = boardParts[fromLoc.x][fromLoc.y].x;
+                        boardParts[toLoc.x][toLoc.y].y = boardParts[fromLoc.x][fromLoc.y].y;
+                        boardParts[fromLoc.x][fromLoc.y].x = tileCount - 1;
+                        boardParts[fromLoc.x][fromLoc.y].y = tileCount - 1;
+                        toLoc.x = fromLoc.x;
+                        toLoc.y = fromLoc.y;
+                        checkSolved();
+                    }
+                }
+
+                function checkSolved() {
+                    var flag = true;
+                    for (var i = 0; i < tileCount; ++i) {
+                        for (var j = 0; j < tileCount; ++j) {
+                            if (boardParts[i][j].x != i || boardParts[i][j].y != j) {
+                                flag = false;
+                                solved = flag;
+                                return;
+                            }
+                        }
+                    }
+                    solved = flag;
+                }
+
+            };
+
+            var getUrl = function (data) {
+
+                var baseurl = 'https://moviemirchistorage.blob.core.windows.net/posters/';
+
+                var movies = JSON.parse(data);
+                var posters = [];
+                var boo = movies.map(function (movie) {
+                    var mpost;
+                    try {
+                        mpost = JSON.parse(movie.Posters);
+                    } catch (e) {
+                        return;
+                    }
+                    if (mpost && mpost.length > 0) {
+                        for (var i = 0 ; i < mpost.length; ++i) {
+                            posters.push(mpost[i]);
+                        }
+                    }
+                });
+
+                var rand = Math.floor(Math.random() * 100) % posters.length;
+                var url = baseurl + posters[rand];
+                return url;
+            }
+
+            var setupGame = function() {
+                
+                $.get("http://moviemirchi.co.in:8081/api/Movies?type=current")
+                    .done(function (data) {
+                        
+                        var url = getUrl(data);
+                        debugger;
+                        setPreview(url);
+                        puzzle(url);
+                    });
+            };
+
+            var setPreview = function (url) {
+                var $div = $('#imageid');
+                $div.show();
+                var $img = $div.find('img');
+                $img.load(function () {
+
+                    var width = $img[0].clientWidth;
+                    var height = $img[0].clientHeight;
+
+                    var cW = 200, cH = 200, nH, nW;
+                    if (width < height) {
+                        nH = cH;
+                        nW = nH * width / height;
+                    } else if (width > height) {
+                        nW = cW;
+                        nH = nW * height / width;
+                    } else {
+                        nH = cH;
+                        nW = cW;
+                    }
+
+                    $img[0].width = nW;
+                    $img[0].height = nH;
+                });
+                $img.attr('src', url);
+            };
+
+            var loadGame = function () {
+                $("#announce").hide();
+                $("#content").show();
+
+                setupGame();
+            };
+
+            $("#content").hide();
+            $("#announce").show();
+
+            $("#loadGame").on("click", function () {
+                loadGame();
+            });
+        }
+    </script>
+
+</head>
+<body>
+    <div id="announce">
+        <div class="jumbotron" style="text-align: center">
+            <h1>Sliding Tile Puzzle!</h1>
+            <p>In this game you have the match the movie from one bucket with the matching entity from the other bucket.</p>
+            <p>
+                <button id="loadGame" type="button" class="btn btn-default btn-lg">
+                    <span class="glyphicon glyphicon-king" aria-hidden="true"></span> Load game
+                </button>
+            </p>
+        </div>
+    </div>
+
+    <div id="content">
+        <div class="settings">
+            <div id="slider" class="left2">
+                <form>
+                    <label>Easy</label>
+                    <input type="range" id="scale" value="4" min="3" max="5" step="1">
+                    <label>Hard</label>
+                </form>
+                <br>
+            </div>
+            <div id="imageid" class="right2"><img /></div>
+        </div>
+        <div id="main" class="main" style="border: 1px solid red">
+            <canvas id="puzzle" width="360" height="360"></canvas>
+        </div>
+    </div>
+</body>
+<!--<script src="sliding.js"></script>-->
+</html>
