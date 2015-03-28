@@ -50,6 +50,7 @@
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />
     <Compile Include="Controllers\api\NewsCrawlerController.cs" />
+    <Compile Include="Controllers\api\TrackController.cs" />
     <Compile Include="Controllers\api\UpdateArtistController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\api\ActorController.cs" />
@@ -227,7 +228,7 @@
     </Reference>
     <Reference Include="System.XML" />
     <Reference Include="Twitterizer2">
-	  <HintPath>..\MvcWebRole2\bin\Twitterizer2.dll</HintPath>      
+      <HintPath>..\MvcWebRole2\bin\Twitterizer2.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

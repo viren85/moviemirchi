@@ -762,5 +762,72 @@ namespace DataStoreLib.Storage
         }
 
         #endregion
+
+        #region Track
+        public TrackEntity GetTrackingUser(string userId)
+        {
+            TrackEntity entity = null;
+
+            var table = TableStore.Instance.GetTable(TableStore.TrackTableName) as TrackTable;
+            entity = table.GetUser(userId);
+
+            return entity;
+        }
+
+        private static string TrackHandler(string pstr, string value, string operation)
+        {
+            pstr = pstr ?? "";
+            value = value + ";";
+
+            if (pstr.Contains(value))
+            {
+                if (operation == "remove")
+                {
+                    pstr = pstr.Replace(value, "");
+                }
+            }
+            else
+            {
+                if (operation == "add")
+                {
+                    pstr = pstr + value;
+                }
+            }
+            return pstr;
+        }
+
+        public TrackEntity UpdateTrackingUser(string userId, string type, string value, string operation)
+        {
+            var entity = this.GetTrackingUser(userId);
+            if (entity == null)
+            {
+                entity = new TrackEntity(userId);
+            }
+
+            type = type.ToLower();
+            operation = operation.ToLower();
+
+            switch (type)
+            {
+                case "movie":
+                    entity.MovieId = TrackHandler(entity.MovieId, value, operation);
+                    break;
+                case "artist":
+                    entity.ArtistId = TrackHandler(entity.ArtistId, value, operation);
+                    break;
+                case "reviewer":
+                    entity.ReviewerId = TrackHandler(entity.ReviewerId, value, operation);
+                    break;
+                default:
+                    break;
+            }
+
+            var table = TableStore.Instance.GetTable(TableStore.TrackTableName) as TrackTable;
+            table.InsertOrUpdateUser(userId, entity);
+
+            return entity;
+        }
+
+        #endregion
     }
 }

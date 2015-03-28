@@ -82,6 +82,7 @@
     <Compile Include="Constants\Constants.cs" />
     <Compile Include="Models\AffilationEntity.cs" />
     <Compile Include="Models\IDataStoreTableEntity.cs" />
+    <Compile Include="Models\TrackEntity.cs" />
     <Compile Include="Models\MovieInfo.cs" />
     <Compile Include="Models\PopularOnMovieMirchiEntity.cs" />
     <Compile Include="Models\ArtistEntity.cs" />
@@ -102,6 +103,7 @@
     <Compile Include="Storage\PopularOnMovieMirchiTable.cs" />
     <Compile Include="Storage\RandomDataGenerator.cs" />
     <Compile Include="Storage\ReviewerTable.cs" />
+    <Compile Include="Storage\TrackTable.cs" />
     <Compile Include="Storage\TwitterTable.cs" />
     <Compile Include="Storage\ReviewTable.cs" />
     <Compile Include="Storage\Table.cs" />

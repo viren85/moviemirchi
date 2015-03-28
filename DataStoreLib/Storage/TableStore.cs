@@ -51,6 +51,7 @@ namespace DataStoreLib.Storage
         public static readonly string TwitterTableName = "Twitter";
         public static readonly string NewsTableName = "News";
         public static readonly string ArtistTableName = "Artist";
+        public static readonly string TrackTableName = "Track";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
             new Dictionary<string, Func<CloudTable, Table>>()
@@ -63,9 +64,10 @@ namespace DataStoreLib.Storage
                     {ToBeIndexedTableName, ToBeIndexedTable.CreateTable},
                     {UserFavoriteTableName, UserFavoriteTable.CreateTable},
                     {PopularOnMovieMirchiName, PopularOnMovieMirchiTable.CreateTable},
-                    {TwitterTableName,TwitterTable.CreateTable},
-                    {NewsTableName,NewsTable.CreateTable},
-                    {ArtistTableName,ArtistTable.CreateTable}
+                    {TwitterTableName, TwitterTable.CreateTable},
+                    {NewsTableName, NewsTable.CreateTable},
+                    {ArtistTableName, ArtistTable.CreateTable},
+                    {TrackTableName, TrackTable.CreateTable},
                 };
 
         public Table GetTable(string tableName)
@@ -76,7 +78,7 @@ namespace DataStoreLib.Storage
                 table = CreateTableIfNotExist(tableName);
 
                 bool add = tableList.TryAdd(tableName, table);
-                Trace.TraceInformation("{1} {0} to the store", tableName, add? "Added" : "Failed to add");
+                Trace.TraceInformation("{1} {0} to the store", tableName, add ? "Added" : "Failed to add");
             }
 
             Debug.Assert(table != null);
