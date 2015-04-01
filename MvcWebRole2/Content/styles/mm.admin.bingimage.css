@@ -1,0 +1,14 @@
+﻿#searchbar {
+    margin-left: 8.5%;
+    float: left;
+    margin-top: 10px;
+    width: 90%;
+}
+
+#txtSearchTerm {
+    margin-top: 1%;
+}
+
+#btnSerchTerm {
+    margin-top: 1%;
+}

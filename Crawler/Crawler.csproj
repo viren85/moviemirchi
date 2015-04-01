@@ -72,6 +72,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\System.Spatial.5.6.3\lib\net40\System.Spatial.dll</HintPath>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,6 +81,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArtistCrawler.cs" />
+    <Compile Include="BingImageCrawler.cs" />
     <Compile Include="GenerateXMLFile.cs" />
     <Compile Include="SantaImageCrawler.cs" />
     <Compile Include="ReviewCrawler.cs" />

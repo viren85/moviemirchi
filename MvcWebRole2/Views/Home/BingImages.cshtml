@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "BingImages";
+    Layout = "~/Views/Shared/_AdminMasterLayout.cshtml";
+}
+
+<div id="searchbar">
+    <input type="text" id="txtSearchTerm" name="urllink" placeholder="Enter Url">
+    <div id="btnSerchTerm" value="Search" class="btn btn-success">Search</div>
+    <div id="searchload" class="btn btn-primary">Loading... please wait</div>
+</div>
+
+
+<div class="movie-container">
+    <div class="content-container" style="display:block">
+    </div>
+</div>
+
+<link rel="stylesheet" type="text/css" href="../Content/styles/mm.admin.bingimage.css">
+
+<style type="text/css">
+    .poster-container span {
+        width: 0px;
+    }
+
+    .form-container {
+        width: 96%;
+    }
+
+    #poster-section-title {
+        width: 250px;
+    }
+
+    .bing-img-container {
+        width: 14%;
+        float: left;
+        padding: 0.5%;
+    }
+
+        .bing-img-container div {
+            width: 16% !important;
+        }
+
+        .bing-img-container img {
+            width: 84% !important;
+        }
+
+    #searchload {
+        margin-top: 1%;
+    }
+</style>
+
+<script type="text/javascript">
+    SetActiveTab("Bing Image");
+
+    $(document).ready(function () {
+        $("#searchload").hide();
+        $('#btnSerchTerm').click(function () {
+            var searchTerm = $("#txtSearchTerm").val();
+
+            if (searchTerm == undefined || searchTerm == "") {
+                return;
+            }
+            $("#searchload").show();
+            $("#btnSerchTerm").hide();
+
+            var url = "api/CrawlBingImages?n=" + searchTerm;
+            CallHandler(url, function (data) {
+
+                $("#btnSerchTerm").show();
+                $("#searchload").hide();
+
+                console.log(JSON.parse(data));
+                $(".content-container").html("");
+                $(".content-container").append(new BingPosters().GetPosterContainer(JSON.parse(data)));
+            });
+
+        });
+    });
+
+
+</script>
+
+
+
