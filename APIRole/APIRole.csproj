@@ -50,6 +50,7 @@
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />
     <Compile Include="Controllers\api\NewsCrawlerController.cs" />
+    <Compile Include="Controllers\api\LikeController.cs" />
     <Compile Include="Controllers\api\TrackController.cs" />
     <Compile Include="Controllers\api\UpdateArtistController.cs" />
     <Compile Include="Controllers\BaseController.cs" />

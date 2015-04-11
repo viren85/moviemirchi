@@ -829,5 +829,72 @@ namespace DataStoreLib.Storage
         }
 
         #endregion
+
+        #region Like
+        public LikeEntity GetLikingUser(string userId)
+        {
+            LikeEntity entity = null;
+
+            var table = TableStore.Instance.GetTable(TableStore.LikeTableName) as LikeTable;
+            entity = table.GetUser(userId);
+
+            return entity;
+        }
+
+        private static string LikeHandler(string pstr, string value, string operation)
+        {
+            pstr = pstr ?? "";
+            value = value + ";";
+
+            if (pstr.Contains(value))
+            {
+                if (operation == "remove")
+                {
+                    pstr = pstr.Replace(value, "");
+                }
+            }
+            else
+            {
+                if (operation == "add")
+                {
+                    pstr = pstr + value;
+                }
+            }
+            return pstr;
+        }
+
+        public LikeEntity UpdateLikingUser(string userId, string type, string value, string operation)
+        {
+            var entity = this.GetLikingUser(userId);
+            if (entity == null)
+            {
+                entity = new LikeEntity(userId);
+            }
+
+            type = type.ToLower();
+            operation = operation.ToLower();
+
+            switch (type)
+            {
+                case "movie":
+                    entity.MovieId = LikeHandler(entity.MovieId, value, operation);
+                    break;
+                case "artist":
+                    entity.ArtistId = LikeHandler(entity.ArtistId, value, operation);
+                    break;
+                case "reviewer":
+                    entity.ReviewerId = LikeHandler(entity.ReviewerId, value, operation);
+                    break;
+                default:
+                    break;
+            }
+
+            var table = TableStore.Instance.GetTable(TableStore.LikeTableName) as LikeTable;
+            table.InsertOrUpdateUser(userId, entity);
+
+            return entity;
+        }
+
+        #endregion
     }
 }

@@ -52,6 +52,7 @@ namespace DataStoreLib.Storage
         public static readonly string NewsTableName = "News";
         public static readonly string ArtistTableName = "Artist";
         public static readonly string TrackTableName = "Track";
+        public static readonly string LikeTableName = "Like";
 
         internal IDictionary<string, Func<CloudTable, Table>> tableDict =
             new Dictionary<string, Func<CloudTable, Table>>()
@@ -68,6 +69,7 @@ namespace DataStoreLib.Storage
                     {NewsTableName, NewsTable.CreateTable},
                     {ArtistTableName, ArtistTable.CreateTable},
                     {TrackTableName, TrackTable.CreateTable},
+                    {LikeTableName, LikeTable.CreateTable},
                 };
 
         public Table GetTable(string tableName)
