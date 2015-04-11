@@ -195,6 +195,19 @@ namespace MvcWebRole2.Controllers
         }
          * */
         #endregion
+
+
+        public ActionResult BingImages()
+        {
+            if (Session["AdminUserName"] == null || Session["AdminPassword"] == null)
+            {
+                return new RedirectResult("/Home/Login");
+            }
+            else
+            {
+                return View();
+            }
+        }
     }
 
 

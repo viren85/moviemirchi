@@ -247,6 +247,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.min.js" />
     <Content Include="Content\controls\mm.admin.artists.js" />
+    <Content Include="Content\controls\mm.admin.bingimage.js" />
     <Content Include="Content\controls\mm.admin.core.js" />
     <Content Include="Content\controls\mm.admin.crawler.js" />
     <Content Include="Content\controls\mm.admin.movie.basics.js" />
@@ -273,6 +274,7 @@
     <Content Include="Content\movie.style.css" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\styles\mm.admin.artists.css" />
+    <Content Include="Content\styles\mm.admin.bingimage.css" />
     <Content Include="Content\styles\mm.admin.news.css" />
     <Content Include="Content\styles\mm.admin.posters.css" />
     <Content Include="Content\styles\mm.admin.search.css" />
@@ -357,6 +359,7 @@
     <Content Include="Views\Home\News.cshtml" />
     <Content Include="Views\Home\Twitter.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\BingImages.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="lucene_index\_b4.fdt" />

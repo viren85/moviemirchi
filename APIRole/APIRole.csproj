@@ -46,6 +46,7 @@
     <Compile Include="Controllers\api\AlgorithmLogController.cs" />
     <Compile Include="Controllers\api\BuildLuceneController.cs" />
     <Compile Include="Controllers\api\AutoCompleteController.cs" />
+    <Compile Include="Controllers\api\CrawlBingImagesController.cs" />
     <Compile Include="Controllers\api\CrawlTweetsController.cs" />
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />

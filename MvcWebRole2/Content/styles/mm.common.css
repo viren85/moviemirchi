@@ -31,7 +31,8 @@
 /*Left navigation links*/
 .left-nav { float: left; width: 80px; border-right: 1px solid #368BC1; height: 100%; min-height: 580px; position: fixed; }
 .left-nav ul {float: left; margin: 0px; padding: 0px;list-style:none; width: 100%; }
-.left-nav ul li {height: 100px;border-bottom: 1px solid #368BC1; padding-top: 30px; text-align:center; cursor: pointer;}
+/*.left-nav ul li {height: 100px;border-bottom: 1px solid #368BC1; padding-top: 30px; text-align:center; cursor: pointer;}*/
+.left-nav ul li {height: 88px;border-bottom: 1px solid #368BC1; padding-top: 30px; text-align:center; cursor: pointer;}
 .left-nav ul li:hover, .left-nav ul li.active{color:white; background-color: #368BC1;}
 .left-nav ul li.active a {color: white;}
 .left-nav ul li:hover a {color: white;}
