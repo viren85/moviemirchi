@@ -10,7 +10,7 @@ namespace MvcWebRole1
         {
             // JS
             bundles.Add(new ScriptBundle("~/bundles/script/jquery").Include(
-                 "~/content/jquery-2.1.1.min.js",
+                 "~/content/jquery-2.1.3.min.js",
                  "~/content/jquery.cookie.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/script/bootstrap").Include(

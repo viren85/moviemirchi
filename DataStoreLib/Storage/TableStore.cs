@@ -2,8 +2,7 @@
 namespace DataStoreLib.Storage
 {
     using DataStoreLib.Utils;
-    using Microsoft.WindowsAzure;
-    using Microsoft.WindowsAzure.Storage;
+    using Microsoft.Azure;
     using Microsoft.WindowsAzure.Storage.Table;
     using System;
     using System.Collections.Concurrent;

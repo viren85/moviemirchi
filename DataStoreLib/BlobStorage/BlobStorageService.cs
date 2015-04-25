@@ -1,6 +1,7 @@
 ﻿
 namespace DataStoreLib.BlobStorage
 {
+    using Microsoft.Azure;
     using Microsoft.WindowsAzure.Storage;
     using Microsoft.WindowsAzure.Storage.Blob;
     using System;
@@ -19,7 +20,7 @@ namespace DataStoreLib.BlobStorage
         #region Private Methods
         private CloudBlobContainer GetCloudBlobContainer(string containerName)
         {
-            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(Microsoft.WindowsAzure.CloudConfigurationManager.GetSetting("StorageTableConnectionString"));
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(CloudConfigurationManager.GetSetting("StorageTableConnectionString"));
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlobContainer blobCantainer = blobClient.GetContainerReference(containerName);
 

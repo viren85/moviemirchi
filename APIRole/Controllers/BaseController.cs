@@ -2,7 +2,7 @@
 namespace CloudMovie.APIRole.API
 {
     using DataStoreLib.Utils;
-    using Microsoft.WindowsAzure;
+    using Microsoft.Azure;
     using System.Diagnostics;
     using System.Web.Http;
 
