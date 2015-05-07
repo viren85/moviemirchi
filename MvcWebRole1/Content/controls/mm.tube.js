@@ -13,15 +13,5 @@ function GetTubeControl(sectionTitle, tileContainer, pagerContainerId, classId) 
         pagerId = pagerContainerId;
     }
 
-    //var tubeControl = $("<div class=\"tube-container\"><div class=\"section-title large-fonts\">" + sectionTitle + "</div><div class=\"" + tileContainer + "\"><ul></ul><div id=\"" + pagerId + "\"></div></div></div>");
-    var tubeControl;
-
-    if (classId != null && classId != "undefined") {
-        tubeControl = $("<div id=\"" + tileContainer + "-tube\" class=\"tube-container " + classId + "\"><div class=\"section-title large-fonts\">" + sectionTitle + "</div><div class=\"" + tileContainer + "\"><ul></ul><div id=\"" + pagerId + "\"></div></div></div>");
-    }
-    else {
-        tubeControl = $("<div  id=\"" + tileContainer + "-tube" + "\" class=\"tube-container\"><div class=\"section-title large-fonts\">" + sectionTitle + "</div><div class=\"" + tileContainer + "\"><ul></ul><div id=\"" + pagerId + "\"></div></div></div>");
-    }
-
-    return tubeControl;
+    return $("<div id=\"" + tileContainer + "-tube\" class=\"tube-container " + (classId ? classId : "") + "\"><div class=\"" + tileContainer + "\"><ul></ul><div id=\"" + pagerId + "\"></div></div></div>");
 }

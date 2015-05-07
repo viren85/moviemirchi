@@ -78,23 +78,23 @@ var RecentlyViewedCookies = {
 };
 
 function PrepareHomePage() {
-    var json = [
-                    { "title": "Now Playing", "section": "movie-list-tube" },
-                    { "title": "Upcoming Releases", "section": "upcoming-movie-list-tube" },
-                    { "title": "News", "section": "news-container-tube" },
-                    { "title": "Tweets", "section": "tweets-tube" },
-                    { "title": "Critics", "section": "critics-container-tube" },
-                    { "title": "Recently Viewed", "section": "recent-container-tube" }
-    ];
+    //var json = [
+    //                { "title": "Now Playing", "section": "movie-list-tube" },
+    //                { "title": "Upcoming Releases", "section": "upcoming-movie-list-tube" },
+    //                { "title": "News", "section": "news-container-tube" },
+    //                { "title": "Tweets", "section": "tweets-tube" },
+    //                { "title": "Critics", "section": "critics-container-tube" },
+    //                { "title": "Recently Viewed", "section": "recent-container-tube" }
+    //];
 
-    $(".nav-bar-container").append(GetNavBar(json));
+    //$(".nav-bar-container").append(GetNavBar(json));
 
-    $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
-    $(".movies").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
-    $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
-    $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
-    $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
-    $(".movies").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager", "width30"));
+    $(".movies_nowplaying").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
+    $(".movies_upcoming").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
+    $(".movies_news").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
+    $(".movies_tweets").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
+    $(".movies_topcritics").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
+    $(".movies_recentlyviewed").append(GetTubeControl("Recently Viewed", "recent-container", "recent-pager", "width30"));
 
     $(".section-title").each(function () {
         new Util().AppendLoadImage($(this));

@@ -11,7 +11,8 @@
 .movie-panel {
     margin-top: 60px;
 }
-.share-buttons{
+
+.share-buttons {
     position: fixed;
     top: 25%;
     left: 0%;
@@ -23,15 +24,20 @@
     border-radius: 0px 3px 3px 0px;
     border-left: 0px;
 }
-.movies{
+
+.movies {
     float: left;
     margin-left: 7%;
     padding-top: 20px;
-        /*
+    /*
         width: 86%;
         */
-    }
-.reviewer-info{margin-top: 4%;}
+}
+
+.reviewer-info {
+    margin-top: 4%;
+}
+
 .large-fonts {
     font-size: 2em;
     font-family: Segoe UI Light;
@@ -53,14 +59,23 @@
     float: left;
     width: 100%;
 }
+
 .about-us {
-   float: left;
-   margin-left: 7%;
-   margin-right: 7%;
-   text-align: justify;
+    float: left;
+    margin-left: 7%;
+    margin-right: 7%;
+    text-align: justify;
 }
-.gallery li { list-style: none; }
-.active { color: #696464; background-color: #BDB58B;}
+
+.gallery li {
+    list-style: none;
+}
+
+/*This is overriding class in bootstrap*/
+.active {
+    color: #696464;
+    /*background-color: #BDB58B;*/ /*This is overriding class in bootstrap*/
+}
 
 .width60 {
     width: 63%;
@@ -70,6 +85,7 @@
     width: 36%;
     float: left;
 }
+
 .section-title {
     float: left;
     color: #368BC1;
@@ -79,8 +95,11 @@
     border-left: 10px solid #368BC1;
     padding-left: 20px;
 }
-.loadimage{
-    margin-left: 20px; width: 35px; height: 35px;
+
+.loadimage {
+    margin-left: 20px;
+    width: 35px;
+    height: 35px;
 }
 /* Rating Control */
 .rate-container {
@@ -135,15 +154,17 @@
     /*margin-top: 10px;*/
     margin-bottom: 3px;
 }
-.rate-value{
+
+.rate-value {
     float: left;
     font-weight: bold;
     font-size: 2em;
-    color:red;
+    color: red;
     margin-left: 20px;
     margin-top: 10px;
     margin-right: 50px;
 }
+
 .rate-1 {
     background-position: 0px 0px;
 }
@@ -185,14 +206,16 @@
     background-position: -689px 0px;
 }
 /*end*/
-#recent-container-tube .section-title{
+#recent-container-tube .section-title {
     width: 100%;
 }
 
 /* End - Rating Control */
 @media screen and (max-width: 768px) {
     /*.tube-container {margin-top: 20px;}*/
-    .large-fonts{font-size:1.5em;}
+    .large-fonts {
+        font-size: 1.5em;
+    }
 }
 
 @media screen and (min-width: 321px) and (max-width: 1350px) {
@@ -211,8 +234,20 @@
 }
 
 @media screen and (max-width: 320px) {
-    .tube-container {margin-top: 0px;}
-    .tags { float: left; width: 260px;}
-    .section-title{padding-left: 10px;}
-    .large-fonts{font-size:1.5em;}
+    .tube-container {
+        margin-top: 0px;
+    }
+
+    .tags {
+        float: left;
+        width: 260px;
+    }
+
+    .section-title {
+        padding-left: 10px;
+    }
+
+    .large-fonts {
+        font-size: 1.5em;
+    }
 }

@@ -6,11 +6,33 @@
 <meta name="keywords" content="Movie Mirchi,Bollywood,Entertainment,Movie Reviews,Critics Review,Movie Rating,Trailers,Songs,Photos,Pictures,Bollywood News,Genre">
 <meta name="author" content="Movie Mirchi">
 
-<div class="movies" style="padding-top: 2%">
-</div>
-<script>
-    var indexer = 0;
-    $(document).ready(function () {
-        PrepareHomePage();
-    });
-</script>
+@section NowPlayingMovies {
+    <div class="movies_nowplaying">
+    </div>
+}
+
+@section UpcomingMovies {
+    <div class="movies_upcoming">
+    </div>
+}
+
+@section News {
+    <div class="movies_news">
+    </div>
+}
+
+@section Tweets {
+    <div class="movies_tweets">
+    </div>
+}
+
+@section General {
+    <div class="movies">
+    </div>
+    <script>
+        var indexer = 0;
+        $(document).ready(function () {
+            PrepareHomePage();
+        });
+    </script>
+}

@@ -2,6 +2,80 @@
     return v.YoutubeURL;
 };
 
+function PopulatingcarouselMovie(movie, options) {
+
+    var poster = [];
+    poster = JSON.parse(movie.Posters);
+    var src = (poster != null && poster.length > 0) ? PUBLIC_BLOB_URL + poster[poster.length - 1] : PUBLIC_BLOB_URL + "default-movie.jpg";
+
+    var list = $("<div itemscope itemtype=\"http://schema.org/Movie\" class=\"movie\"></div>");
+    var anchor = $("<a title=\"" + movie.Name + "\"></a>");
+    if (options && options.disableClick) {
+    } else {
+        anchor.attr("href", "/movie/" + movie.UniqueName);
+    }
+    anchor.prepend("<meta itemprop=\"url\" content=\"/movie/" + movie.UniqueName + "\">");
+
+    var synopsis = movie.Synopsis && movie.Synopsis.length > 500 ? movie.Synopsis.substring(0, 500) + "..." : movie.Synopsis ? movie.Synopsis : "";
+
+    var criticRating;
+    var hide = false;
+    if (!movie.MyScore || movie.MyScore === "") {
+        criticRating = 0;
+        hide = true;
+    } else {
+
+        criticRating = JSON.parse(movie.MyScore).criticrating;
+        if (!criticRating || criticRating === "") {
+            criticRating = 0;
+            hide = true;
+        } else {
+            criticRating = parseInt(criticRating) / 10;
+        }
+    }
+
+    if (TILE_MODE == 0) {
+        // TODO: Fix condition for review indicator
+        html = "<div id=\"picAndCaption\" class=\"viewingDiv " + movie.UniqueName + "\">" +
+                    "<div id=\"imageContainer\" class=\"viewer\" style=\"height: 340px;\">" +
+                        "<img itemprop=\"image\" id=\"imageEl\" onerror=\"LoadDefaultImage(this);\" onload=\"MovieImageLoaded(this);\" class=\"movie-poster shownImage\" title=\"" + movie.Name + "\" alt=\"" + movie.Name + "\" src=\"" + src + "\" style=\"margin: auto;\"/>" +
+                        "<div class=\"captionAndNavigate\">" +
+                            "<div id=\"captionCredit\" class=\"multimediaCaption\">" +
+                                "<div id=\"photoCaption\">" +
+                                    "<meta itemprop=\"name\" content=\"" + movie.Name + "\">" +
+                                    "<meta itemprop=\"datePublished\" content=\"" + movie.Month + "\">" +
+                                    "<div class=\"img-movie-name img-movie-name-tile-type-" + TILE_MODE + "\">" + movie.Name + "</div>" +
+                                    "<div class=\"img-movie-genre img-movie-genre-tile-type-" + TILE_MODE + "\">" + movie.Genre + "</div>" +
+                                    "<div class=\"img-movie-date img-movie-date-tile-type-" + TILE_MODE + "\">" + movie.Month + "</div>" +
+                                    (!hide ? GetMovieRateControl(criticRating, movie.Rating) : "") +
+                                    "<div class=\"additives\">" +
+                                        "<div class=\"aleft\">" +
+                                            "<span class=\"myglyphicon " + ((movie.Trailers && movie.Trailers !== "[]" && JSON.parse(movie.Trailers).filter(isLink).length > 0) ? "trailer" : "") + "\"></span>" +
+                                        "</div>" +
+                                        "<div class=\"aright\">" +
+                                            "<span class=\"myglyphicon " + ((movie.Songs && movie.Songs !== "[]" && JSON.parse(movie.Songs).filter(isLink).length > 0) ? "song" : "") + "\"></span>" +
+                                        "</div>" +
+                                        "<div class=\"aleft\">" +
+                                            "<span class=\"myglyphicon " + ((movie.Posters && movie.Posters !== "[]" && JSON.parse(movie.Posters).length > 1) ? "photo" : "") + "\"></span>" +
+                                        "</div>" +
+                                        "<div class=\"aright\">" +
+                                            "<span class=\"myglyphicon " + (1 === 0 ? "review" : "") + "\"></span>" +
+                                        "</div>" +
+                                    "</div>" +
+                                    "<div class=\"movie-synopsis\" style=\"display: none;\">" + synopsis + "</div>" +
+                                "</div>" +
+                            "</div>" +
+                        "</div>" +
+                    "</div>" +
+                "</div>";
+    }
+
+    anchor.append(html);
+    list.append(anchor);
+
+    return list.html();
+}
+
 function PopulatingMovies(movie, container, options) {
     var movieContainer = $("." + container + " ul");
 

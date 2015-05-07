@@ -82,33 +82,58 @@ function LoadMovies(result, options) {
             $list.html(result.UserMessage);
         } else {
             if (result.length > 0) {
-                // adding images
-                $.each(result, function () {
-                    try{
-                        PopulatingMovies(this, options.listClassName);
-                    }
-                    catch (e) {
+                //// adding images
+                //$.each(result, function () {
+                //    try{
+                //        PopulatingMovies(this, options.listClassName);
+                //    }
+                //    catch (e) {
 
-                    }
-                })
+                //    }
+                //})
 
-                SetTileSize(options.listSelector);
+                //SetTileSize(options.listSelector);
 
-                ScaleElement($(options.listSelector + " ul"));
+                //ScaleElement($(options.listSelector + " ul"));
 
-                if ($(window).width() < 768) {
-                    new Pager($list, options.pagerSelector);
-                } else {
-                    PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
-                }
+                //if ($(window).width() < 768) {
+                //    new Pager($list, options.pagerSelector);
+                //} else {
+                //    PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
+                //}
 
-                $(window).resize(function () {
-                    if ($(window).width() < 785) {
-                        $(options.pagerSelector + " .pager-container").remove();
-                        new Pager($list, options.pagerSelector);
-                    } else {
-                        PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
-                    }
+                //$(window).resize(function () {
+                //    if ($(window).width() < 785) {
+                //        $(options.pagerSelector + " .pager-container").remove();
+                //        new Pager($list, options.pagerSelector);
+                //    } else {
+                //        PreparePaginationControl($list, { pagerContainerId: options.pagerId, tileWidth: "275" });
+                //    }
+                //});
+
+                $list.html(
+                    '<div id="myCarousel_' + options.pagerId + '" class="carousel slide" data-ride="carousel">' +
+                        //<!-- Carousel items -->
+                        '<div class="carousel-inner" role="listbox"></div>' +
+
+                        //<!-- Carousel nav -->
+                        //<!-- Left and right controls -->
+                        '<a class="left carousel-control" href="#myCarousel_' + options.pagerId + '" role="button" data-slide="prev">' +
+                            '<div class="tp-leftarrow tparrows default" style="position: absolute; top: 50%; right: 20px;"></div>' +
+                        '</a>' +
+                        '<a class="right carousel-control" href="#myCarousel_' + options.pagerId + '" role="button" data-slide="next">' +
+                            '<div class="tp-rightarrow tparrows default" style="position: absolute; top: 50%; right: 20px;"></div>' +
+                        '</a>' +
+                    '</div>'
+                );
+
+                var $inner = $list.find(".carousel-inner");
+                $.each(result, function (k, movie) {
+                    $inner.append(
+                        '<div class="item ' + (k == 0 ? "active" : "") + '">' +
+                            PopulatingcarouselMovie(movie) +
+                        '</div>'
+                    );
                 });
             }
         }
