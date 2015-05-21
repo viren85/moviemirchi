@@ -107,12 +107,13 @@ namespace Crawler.Reviews
         {
             double rate = 0;
             string imageSrc = string.Empty;
-            var reviewContentNode = helper.GetElementWithAttribute(ratingNode, "img", "class", "imgwidth");
-            HtmlAttribute src = reviewContentNode.Attributes["src"];
-            imageSrc = src.Value;
-            if (imageSrc != null)
+            try
             {
-                try
+                var reviewContentNode = helper.GetElementWithAttribute(ratingNode, "img", "class", "imgwidth");
+                HtmlAttribute src = reviewContentNode.Attributes["src"];
+                imageSrc = src.Value;
+
+                if (imageSrc != null)
                 {
                     string[] numbers = Regex.Split(imageSrc, @"\D+");
 
@@ -121,7 +122,7 @@ namespace Crawler.Reviews
 
                         if (!string.IsNullOrEmpty(value))
                         {
-                            if (rate ==  0)
+                            if (rate == 0)
                             {
                                 if (double.Parse(value) > 0 && double.Parse(value) < 9)
                                 {
@@ -137,10 +138,11 @@ namespace Crawler.Reviews
                         rate = rate * 2;
                     }
                 }
-                catch (Exception)
-                {
-                }
             }
+            catch (Exception)
+            {
+            }
+
             return rate.ToString();
         }
     }

@@ -226,6 +226,7 @@ namespace CloudMovie.APIRole.API
                                             re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                         case "Box Office India":
+                                        case "Box office India":
                                             re = boi.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                         case "DNA":
@@ -237,6 +238,7 @@ namespace CloudMovie.APIRole.API
                                         case "Indian Express":
                                             re = ie.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
+                                        case "Komal Nahta":
                                         case "Komal Nahta's Blog":
                                             re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;

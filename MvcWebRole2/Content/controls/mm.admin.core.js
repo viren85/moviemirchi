@@ -129,7 +129,8 @@ function UploadSelectedFile(element, txtName, imgType) {
 
                 // Since base url will point to the API site
                 //xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
-                xhr.open('POST', 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                //xhr.open('POST', 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                xhr.open('POST', '../Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
                 xhr.setRequestHeader('X-FILE-NAME', file.name);
                 xhr.send(file);
             };

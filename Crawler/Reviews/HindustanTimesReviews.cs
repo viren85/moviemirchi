@@ -69,11 +69,13 @@ namespace Crawler.Reviews
                     Console.WriteLine("body node is null");
                 }
                 else
-                {
-                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story_wid");
-                    var reviewerName = helper.GetElementWithAttribute(headerNode, "span", "class", "sty_agn");
-
-                    HtmlNode node = reviewerName.Element("a");
+                { 
+                    //var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story_wid");
+                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story_page_content_bg");
+                    //var reviewerName = helper.GetElementWithAttribute(headerNode, "span", "class", "sty_agn");
+                    var reviewerName = helper.GetElementWithAttribute(headerNode, "ul", "class", "page_update");
+                    
+                    HtmlNode node = reviewerName.Element("li");
                     var reviewName = node == null ? reviewerName.InnerHtml : node.InnerText;
 
                     var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", "sty_txt");
