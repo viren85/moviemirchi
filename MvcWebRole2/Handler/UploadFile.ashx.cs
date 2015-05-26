@@ -3,6 +3,8 @@ namespace MvcWebRole2.Handler
 {
     using DataStoreLib.BlobStorage;
     using System;
+    using System.Collections.Generic;
+    using System.IO;
     using System.Web;
     using System.Web.Script.Serialization;
     using System.Web.SessionState;
@@ -25,41 +27,58 @@ namespace MvcWebRole2.Handler
 
             context.Response.AppendHeader("Access-Control-Allow-Origin", "*");
 
-            if (!string.IsNullOrEmpty(context.Request.Headers["X-File-Name"]))
+            try
             {
-                try
+                if (context.Request.Files.Count > 0)
                 {
+                    List<string> uploadedFiles = new List<string>();
+
                     BlobStorageService _blobStorageService = new BlobStorageService();
 
-                    string xFileName = context.Request.Headers["X-File-Name"];
-                    string xfileExtention = xFileName.Substring(xFileName.LastIndexOf(".") + 1);
+                    HttpFileCollection SelectedFiles = context.Request.Files;
 
-                    if (type == "poster")
+                    int posterCount = _blobStorageService.GetImageFileCount(BlobStorageService.Blob_ImageContainer, name.Replace(" ", "-").ToLower() + "-poster-");
+
+                    for (int i = 0; i < SelectedFiles.Count; i++)
                     {
-                        int posterCount = _blobStorageService.GetImageFileCount(BlobStorageService.Blob_ImageContainer, name.Replace(" ", "-").ToLower() + "-poster-");
+                        HttpPostedFile postedFile = SelectedFiles[i];
+                        
+                        string xfileExtention = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf(".") + 1);
 
-                        string newPosterName = name.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
-                        // upload file on blob
-                        string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, newPosterName, context.Request.InputStream);
+                        if (type == "poster")
+                        {
+                            string newPosterName = name.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
+                            // upload file on blob
+                            string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, newPosterName, postedFile.InputStream);
+                            
+                            uploadedFiles.Add(newPosterName);
+                            posterCount++;
+                        }
+                        else
+                        {
+                            string fileName = name.Replace(" ", "-").ToLower() + "." + xfileExtention;
 
-                        context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = newPosterName }));
+                            _blobStorageService.DeleteFileFromBlob(BlobStorageService.Blob_ImageContainer, fileName);
+
+                            string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, postedFile.InputStream);
+
+                            uploadedFiles.Add(fileName);
+                            break;                           
+                        }
                     }
-                    else
-                    {
-                        string fileName = name.Replace(" ", "-").ToLower() + "." + xfileExtention;
 
-                        _blobStorageService.DeleteFileFromBlob(BlobStorageService.Blob_ImageContainer, fileName);
-
-                        string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, context.Request.InputStream);
-
-                        context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = fileName }));
-                    }
+                    context.Response.Write(jss.Serialize(new { Status = "Ok", Message = "file uploaded successfully", FileUrl = uploadedFiles }));
                 }
-                catch (Exception ex)
+                else
                 {
-                    context.Response.StatusCode = 500;
-                    context.Response.Write(jss.Serialize(new { Status = "Error", Error = ex.Message, Message = "Sorry! An error occured while uploading image on mooc server" }));
+                    context.Response.ContentType = "text/plain";
+                    context.Response.Write("Please Select Files");
                 }
+            }
+            catch (Exception ex)
+            {
+                context.Response.StatusCode = 500;
+                context.Response.Write(jss.Serialize(new { Status = "Error", Error = ex.Message, Message = "Sorry! An error occured while uploading image" }));
             }
         }
 
