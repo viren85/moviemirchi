@@ -42,7 +42,7 @@ namespace MvcWebRole2.Handler
                     for (int i = 0; i < SelectedFiles.Count; i++)
                     {
                         HttpPostedFile postedFile = SelectedFiles[i];
-                        
+
                         string xfileExtention = postedFile.FileName.Substring(postedFile.FileName.LastIndexOf(".") + 1);
 
                         if (type == "poster")
@@ -50,7 +50,7 @@ namespace MvcWebRole2.Handler
                             string newPosterName = name.ToLower() + "-poster-" + posterCount + "." + xfileExtention;
                             // upload file on blob
                             string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, newPosterName, postedFile.InputStream);
-                            
+
                             uploadedFiles.Add(newPosterName);
                             posterCount++;
                         }
@@ -63,7 +63,7 @@ namespace MvcWebRole2.Handler
                             string uploadedFile = _blobStorageService.UploadImageFileOnBlob(BlobStorageService.Blob_ImageContainer, fileName, postedFile.InputStream);
 
                             uploadedFiles.Add(fileName);
-                            break;                           
+                            break;
                         }
                     }
 
@@ -71,8 +71,7 @@ namespace MvcWebRole2.Handler
                 }
                 else
                 {
-                    context.Response.ContentType = "text/plain";
-                    context.Response.Write("Please Select Files");
+                    context.Response.Write(jss.Serialize(new { Status = "Error", Message = "Please select file" }));
                 }
             }
             catch (Exception ex)

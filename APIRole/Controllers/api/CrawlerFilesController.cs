@@ -278,12 +278,12 @@ namespace CloudMovie.APIRole.API
                                     critics.Add(re.ReviewerName);
 
                                     // update the IDs - Movie Id, Reviewer Id etc.
-                                    string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
-                                    //re.RowKey = re.ReviewId = new Guid().ToString();
-                                    re.ReviewerId = reviewerId;
-                                    re.MovieId = mov.MovieId;
-                                    re.OutLink = reviewLink;
-                                    tblMgr.UpdateReviewById(re);
+                                     string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
+                                     //re.RowKey = re.ReviewId = new Guid().ToString();
+                                     re.ReviewerId = reviewerId;
+                                     re.MovieId = mov.MovieId;
+                                     re.OutLink = reviewLink;
+                                     tblMgr.UpdateReviewById(re);
                                 }
                             }
                             catch (Exception)
@@ -401,7 +401,7 @@ namespace CloudMovie.APIRole.API
             List<string> processedUrl = json.Deserialize<List<string>>(me.Posters);
 
             me.Pictures = (string.IsNullOrEmpty(me.Pictures) || me.Pictures == "null") ? "[]" : me.Pictures;
-            
+
             List<CloudMovie.APIRole.UDT.PosterInfo> posters = json.Deserialize<List<CloudMovie.APIRole.UDT.PosterInfo>>(me.Pictures);
 
             int imageCounter = 1;

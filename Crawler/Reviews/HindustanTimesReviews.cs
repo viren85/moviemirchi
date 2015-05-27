@@ -69,23 +69,41 @@ namespace Crawler.Reviews
                     Console.WriteLine("body node is null");
                 }
                 else
-                { 
+                {
                     //var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story_wid");
                     var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "story_page_content_bg");
                     //var reviewerName = helper.GetElementWithAttribute(headerNode, "span", "class", "sty_agn");
                     var reviewerName = helper.GetElementWithAttribute(headerNode, "ul", "class", "page_update");
-                    
+
                     HtmlNode node = reviewerName.Element("li");
                     var reviewName = node == null ? reviewerName.InnerHtml : node.InnerText;
 
                     var reviewContent = helper.GetElementWithAttribute(headerNode, "div", "class", "sty_txt");
+
                     var review = reviewContent.InnerText;
+
+                    // added code for getting rating
+                    double rate = 0;
+
+                    try
+                    {
+                        var ratingNode = reviewContent.SelectSingleNode("p");
+                        var ratingText = ratingNode.InnerHtml;
+                        int ratingIndex = ratingText.IndexOf("Rating:");
+
+                        var ratingString = ratingText.Substring(ratingIndex + 17, 1);
+
+                        rate = Convert.ToDouble(ratingString) * 2;
+                    }
+                    catch (Exception)
+                    {
+                    }
 
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation.Trim();
                     re.Review = review.Trim();
                     re.ReviewerName = reviewName.Trim();
-                    re.ReviewerRating = string.Empty;
+                    re.ReviewerRating = rate.ToString();
                     re.MyScore = string.Empty;
                     re.JsonString = string.Empty;
                     return re;
