@@ -14,9 +14,6 @@
     <meta name="description" content="Movie Mirchi :: Largest aggregator Of Bollywood Entertainment Content - View Movie Information, Critics Review and Bollywood News.">
     <meta name="keywords" content="Movie Mirchi,Bollywood,Entertainment,Movie Reviews,Critics Review,Movie Rating,Trailers,Songs,Photos,Pictures,Bollywood News,Genre">
     <meta name="author" content="Movie Mirchi">
-    <script>
-        var fbAppId = '@ConfigurationManager.AppSettings["FacebookAppId"]';
-    </script>
     @Styles.Render("~/Content/bootstrap.min.css")
     @Styles.Render("~/bundles/style/custom")
     @Styles.Render("~/Content/styles/linkreference/mm.linkreference.css")
@@ -30,6 +27,21 @@
     @Scripts.Render("~/bundles/script/moviecore")
     @Scripts.Render("~/bundles/script/controls")
     @Scripts.Render("~/bundles/script/pages")
+
+    <script type="text/javascript">
+        var appInsights = window.appInsights || function (config) {
+            function s(config) { t[config] = function () { var i = arguments; t.queue.push(function () { t[config].apply(t, i) }) } } var t = { config: config }, r = document, f = window, e = "script", o = r.createElement(e), i, u; for (o.src = config.url || "//az416426.vo.msecnd.net/scripts/a/ai.0.js", r.getElementsByTagName(e)[0].parentNode.appendChild(o), t.cookie = r.cookie, t.queue = [], i = ["Event", "Exception", "Metric", "PageView", "Trace"]; i.length;) s("track" + i.pop()); return config.disableExceptionTracking || (i = "onerror", s("_" + i), u = f[i], f[i] = function (config, r, f, e, o) { var s = u && u(config, r, f, e, o); return s !== !0 && t["_" + i](config, r, f, e, o), s }), t
+        }({
+            instrumentationKey: "a40f95e9-1e98-4991-883d-b089dc2dbae5"
+        });
+
+        window.appInsights = appInsights;
+        appInsights.trackPageView();
+    </script>
+
+    <script>
+        var fbAppId = '@ConfigurationManager.AppSettings["FacebookAppId"]';
+    </script>
 
     @*<script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     <script>
