@@ -412,7 +412,7 @@
 
         //UpdateArtist
         //CallController("../Home/UpdateArtists", "data", artistData, function () { $("#status").html("Artist details saved successfully!"); });
-        CallController("api/UpdateArtist", "data", objArtist, function () { $("#status").html("Artist details saved successfully!"); });
+        CallController("api/UpdateArtist", "data", objArtist, function () { $("#status").html("Artist details saved successfully!"); });       
     }
 
     // added on 23-feb-2015
