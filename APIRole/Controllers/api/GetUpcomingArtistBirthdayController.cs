@@ -25,32 +25,31 @@ namespace CloudMovie.APIRole.API
         protected override string ProcessRequest()
         {
             try
-            {
+            {                
                 var tableMgr = new TableManager();
 
-                var artists = tableMgr.GetAllArtist("").ToList();
+                var artists = tableMgr.GetAllArtist("");
+                var now = DateTime.Now.Date;
+                var nextNow = now.AddDays(10);
 
-                var list = Enumerable.Empty<object>()
-                    .Select(r => new { Name = "", BirthDateStr = "", BirthDate = DateTime.Now }) // prototype of anonymous type
-                    .ToList();
+                var selectedArtist =
+                  artists
+                      .Where(artist => !string.IsNullOrEmpty(artist.Born))
+                      .Select(artist =>
+                      {
+                          string birthDateStr;
+                          DateTime birthDate = Utils.GetBornDate(artist.Born, out birthDateStr);
 
-                foreach (ArtistEntity artist in artists)
-                {
-                    if (!string.IsNullOrEmpty(artist.Born))
-                    {
-                        string birthDateStr;
-                        DateTime birthDate = Utils.GetBornDate(artist.Born, out birthDateStr);
+                          if (!string.IsNullOrEmpty(birthDateStr) && (birthDate >= now && birthDate <= nextNow))
+                          {
+                              return new { Name = artist.ArtistName, BirthDateStr = birthDateStr, BirthDate = birthDate };
+                          }
 
-                        if (!string.IsNullOrEmpty(birthDateStr))
-                        {
-                            list.Add(new { Name = artist.ArtistName, BirthDateStr = birthDateStr, BirthDate = birthDate });
-                        }
-                    }
-                }
+                          return null;
+                      })
+                      .Where(ad => ad != null).OrderBy(o => o.BirthDate);
 
-                list = list.Where(ad => ad.BirthDate >= DateTime.Now && ad.BirthDate < DateTime.Now.AddDays(10)).ToList().OrderBy(ad => ad.BirthDate).ToList();
-
-                return jsonSerializer.Value.Serialize(list);
+                return jsonSerializer.Value.Serialize(selectedArtist);
             }
             catch (Exception)
             {
