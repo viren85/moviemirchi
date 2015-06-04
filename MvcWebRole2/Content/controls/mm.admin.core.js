@@ -44,7 +44,7 @@ var FormBuilder = function () {
     FormBuilder.prototype.GetFileUploadControl = function (id, placeholder, label) {
         var fieldContainer = $("<div/>");
         var lbl = $("<span/>").html(label);
-        var file = $("<input/>").attr("id", id).attr("placeholder", placeholder).attr("type", "file");
+        var file = $("<input/>").attr("id", id).attr("placeholder", placeholder).attr("type", "file").attr("multiple", "multiple");
         $(fieldContainer).append(lbl);
         $(fieldContainer).append(file);
         return fieldContainer;
@@ -68,7 +68,8 @@ function CallHandler(queryString, OnComp) {
 function OnFail() { }
 
 function CallController(queryString, paramName, data, OnComplete) {
-    //data = encodeURI(data);
+    //data = encodeURI(data);   
+
     $.ajax({
         url: BASE_URL + queryString,
         data: data,
@@ -81,73 +82,81 @@ function CallController(queryString, paramName, data, OnComplete) {
     return false;
 }
 
-function UploadSelectedFile(element, txtName, imgType) {
+function UploadSelectedFile1(element, txtName, imgType) {
 
     var _URL = window.URL || window.webkitURL;
-    var file = element.files[0];
 
-    var sFileExtension = file.name.split('.')[file.name.split('.').length - 1];
-    sFileExtension = sFileExtension.toLowerCase();
-    if (sFileExtension == "jpg" || sFileExtension == "tif" || sFileExtension == "gif" || sFileExtension == "png" || sFileExtension == "jfif" || sFileExtension == "bmp") {
-        var vid = element.id;
-        vid = vid.replace("ctl00_ContentPlaceHolder1_fu_", "");
+    for (var imgCount = 0; imgCount < element.files.length; imgCount++) {
 
-        if (file.size > 10000000) {
-            alert('File too large!');
-            return false;
-        }
+        var file = element.files[imgCount];
 
-        var xhr = new XMLHttpRequest();
-        var imageFetcher = new XMLHttpRequest();
-        var maxId = 0;
-        var type = "dynamic";
-        var img;
-        if ((file = element.files[0])) {
-            img = new Image();
-            img.onload = function () {
-                xhr.onreadystatechange = function (event) {
-                    var target = event.target ? event.target : event.srcElement;
-                    if (target.readyState == 4) {
-                        if (target.status == 200 || target.status == 304) {
-                            //alert(target.responseText);
+        var sFileExtension = file.name.split('.')[file.name.split('.').length - 1];
+        sFileExtension = sFileExtension.toLowerCase();
 
-                            var ResJSON = [];
-                            ResJSON = JSON.parse(target.responseText);
-                            $("#imgProp").attr("orignal", ResJSON.FileUrl);
+        if (sFileExtension == "jpg" || sFileExtension == "tif" || sFileExtension == "gif" || sFileExtension == "png" || sFileExtension == "jfif" || sFileExtension == "bmp") {
+            var vid = element.id;
+            vid = vid.replace("ctl00_ContentPlaceHolder1_fu_", "");
 
-                            if (imgType == "reviewerPhotot") {
-                                $(".single-poster").remove();
-                                $(".search-result-container").children("ul").remove();
+            if (file.size > 10000000) {
+                alert('File too large!');
+                return false;
+            }
 
-                                CallHandler("/api/Reviewer", new Search().PopulateCriticsResult);
+            var xhr = new XMLHttpRequest();
+            var imageFetcher = new XMLHttpRequest();
+            var maxId = 0;
+            var type = "dynamic";
+            var img;
+
+            if ((file = element.files[imgCount])) {
+
+                img = new Image();
+                img.onload = function () {
+                    xhr.onreadystatechange = function (event) {
+                        var target = event.target ? event.target : event.srcElement;
+                        if (target.readyState == 4) {
+                            if (target.status == 200 || target.status == 304) {
+                                //alert(target.responseText);
+
+                                var ResJSON = [];
+                                ResJSON = JSON.parse(target.responseText);
+                                $("#imgProp").attr("orignal", ResJSON.FileUrl);
+
+                                if (imgType == "reviewerPhotot") {
+                                    $(".single-poster").remove();
+                                    $(".search-result-container").children("ul").remove();
+
+                                    CallHandler("/api/Reviewer", new Search().PopulateCriticsResult);
+                                }
+
+                                new Posters().AddSinglePoster(ResJSON.FileUrl, imgType);
                             }
-
-                            new Posters().AddSinglePoster(ResJSON.FileUrl, imgType);
                         }
-                    }
+                    };
+
+                    // Since base url will point to the API site
+                    //xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                    //xhr.open('POST', 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                    xhr.open('POST', '../Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
+                    xhr.setRequestHeader('X-FILE-NAME', file.name);
+                    xhr.send(file);
                 };
 
-                // Since base url will point to the API site
-                //xhr.open('POST', BASE_URL + 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
-                xhr.open('POST', 'Handler/UploadFile.ashx?name=' + $(txtName).val() + '&type=' + imgType, true);
-                xhr.setRequestHeader('X-FILE-NAME', file.name);
-                xhr.send(file);
-            };
+                //alert(_URL.createObjectURL(file));
+                img.id = "UploadedImage";
+                img.src = _URL.createObjectURL(file);
 
-            //alert(_URL.createObjectURL(file));
-            img.id = "UploadedImage";
-            img.src = _URL.createObjectURL(file);
-
-            /*$("#imgLocal").attr("src", _URL.createObjectURL(file));
-            $("#localImg").show();
-
-            $("#status").html("");
-            $("#status").hide();*/
+                /*$("#imgLocal").attr("src", _URL.createObjectURL(file));
+                $("#localImg").show();
+    
+                $("#status").html("");
+                $("#status").hide();*/
+            }
         }
-    }
-    else {
-        $("#status").html("Please upload valid image file");
-        $("#status").show();
+        else {
+            $("#status").html("Please upload valid image file");
+            $("#status").show();
+        }
     }
 }
 
@@ -187,4 +196,59 @@ function IsURLExists(url) {
     });*/
 
     return isUrlExist;
+}
+
+function UploadSelectedFile(element, txtName, imgType) {
+
+    var uploadedfiles = element.files;
+
+    var fromdata = new FormData();
+
+    for (var i = 0; i < uploadedfiles.length; i++) {
+        fromdata.append(uploadedfiles[i].name, uploadedfiles[i]);
+    }
+
+    var choice = {};
+
+    //choice.url = "UploadHandler.ashx";
+    choice.url = "../Handler/UploadFile.ashx?name=" + $(txtName).val() + "&type=" + imgType;
+    choice.type = "POST";
+    choice.data = fromdata;
+    choice.contentType = false;
+    choice.processData = false;
+
+    choice.success = function (result) {
+        //alert(result);
+        var resultJSON = JSON.parse(result);
+
+        if (resultJSON.Status == "Ok") {
+
+            var files = resultJSON.FileUrl;
+
+            for (var i = 0; i < files.length; i++) {
+
+                $("#imgProp").attr("orignal", files[i]);
+
+                if (imgType == "reviewerPhotot") {
+                    $(".single-poster").remove();
+                    $(".search-result-container").children("ul").remove();
+
+                    CallHandler("/api/Reviewer", new Search().PopulateCriticsResult);
+                }
+
+                new Posters().AddSinglePoster(files[i], imgType);
+            }
+        }
+        else {
+            alert(resultJSON.Message);
+        }
+    };
+
+    choice.error = function (err) {
+        alert(err.statusText);
+    };
+
+    $.ajax(choice);
+
+    event.preventDefault();
 }

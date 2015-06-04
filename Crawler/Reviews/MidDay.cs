@@ -55,7 +55,7 @@ namespace Crawler.Reviews
         }
 
         public ReviewEntity PopulateReviewDetail(string html, string affiliation)
-         {
+        {
             ReviewEntity re = new ReviewEntity();
             string rating = string.Empty;
             HtmlAgilityPack.HtmlDocument htmlDoc = new HtmlAgilityPack.HtmlDocument();
@@ -80,29 +80,43 @@ namespace Crawler.Reviews
 
                     int rn = reviewName.IndexOf("|");
                     reviewName = reviewName.Substring(0, rn);
-                  
 
-                     //   reviewName = reviewName.Substring(0, reviewName.Length - 20);
+
+                    //   reviewName = reviewName.Substring(0, reviewName.Length - 20);
 
                     var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "span", "itemprop", "articleBody");
                     HtmlNodeCollection nodes = reviewContentNode.SelectNodes("p");
-                    var review = string.Empty;                    
+                    var review = string.Empty;
+
                     foreach (var ratingNode in nodes)
                     {
                         review += ratingNode.InnerText;
+
+                        // change code for getting rating, existing code not working
+                        if (ratingNode.InnerText.ToLower().Contains("rating:"))
+                        {
+                            try
+                            {
+                                rating = PrepareRatingValue(ratingNode);
+                            }
+                            catch (Exception)
+                            {
+                            }
+                        }
                     }
 
-                    var reviewerRating = helper.GetElementWithAttribute(bodyNode, "h2", "class", "footer_style");                    
+                    // this code is not working, hence comentted
+                    /*var reviewerRating = helper.GetElementWithAttribute(bodyNode, "h2", "class", "footer_style");
                     if (reviewerRating != null)
                     {
                         try
                         {
-                                rating = PrepareRatingValue(reviewerRating);
+                            rating = PrepareRatingValue(reviewerRating);
                         }
                         catch (Exception)
                         {
                         }
-                    }
+                    }*/
 
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation.Trim();
@@ -149,10 +163,10 @@ namespace Crawler.Reviews
                     }
                     if (imageSrc.ToLower().Contains("half"))
                     {
-                        rate += 0.5;                       
+                        rate += 0.5;
                     }
 
-                    rate = rate * 2;                    
+                    rate = rate * 2;
                 }
                 catch (Exception)
                 {

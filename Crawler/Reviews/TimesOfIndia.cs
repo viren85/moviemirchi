@@ -70,17 +70,46 @@ namespace Crawler.Reviews
                 }
                 else
                 {
-                    var headerNode = helper.GetElementWithAttribute(bodyNode, "span", "class", "arttle");
+                    
+            
+                    //var headerNode = helper.GetElementWithAttribute(bodyNode, "span", "class", "arttle");
+                    var headerNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "movieReviewLeft");
+
+                    var reviewerNode = helper.GetElementWithAttribute(headerNode, "div", "class", "flmcasting");
+
+                    //reviewer
+                    var ratingNode = helper.GetElementWithAttribute(reviewerNode, "span", "class", "ratingMovie");
+
+                    //change code for getting critics rating, existing code not working.
+                    double rate = 0;
+
+                    try
+                    {
+                        if (ratingNode != null)
+                        {
+                            string ratStr = ratingNode.InnerText.Substring(0, 3);
+
+                            rate = Convert.ToDouble(ratStr) * 2;
+                        }
+                    }
+                    catch (Exception)
+                    {
+                    }                    
+
+                    reviewerNode = helper.GetElementWithAttribute(reviewerNode, "span", "class", "movietime");
+
                     HtmlNode head = headerNode.SelectSingleNode("h1");
                     var header = head == null ? string.Empty : head.InnerText;
-                    /*
-                    var reviewerName = helper.GetElementWithAttribute(bodyNode, "span", "class", "grey1");
+
+                    var reviewerName = reviewerNode.SelectSingleNode("a");
                     var reviewName = reviewerName == null ? string.Empty : reviewerName.InnerText;
-                    */
-                    var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "Normal");
+
+                    var reviewContentNode = helper.GetElementWithAttribute(headerNode, "div", "class", "Normal");
+
                     var review = reviewContentNode == null ?  string.Empty : reviewContentNode.InnerText;
 
-                    var reviewRatingNode = helper.GetElementWithAttribute(bodyNode, "div", "id", "sshow");
+                    //this code is not working for getting critics rating, hence comentted              
+                    /*var reviewRatingNode = helper.GetElementWithAttribute(bodyNode, "div", "id", "sshow");
                     var ratingNode = helper.GetElementWithAttribute(reviewRatingNode, "td", "class", "flmcast");
                     var rates = helper.GetElementWithAttribute(ratingNode, "span", "id", "stp");
                     var rate = rates == null ? string.Empty : rates.InnerText;
@@ -91,13 +120,14 @@ namespace Crawler.Reviews
                         rate = rate.Substring(rate.Length - 1);
                     }
 
-                    rate = (Double.Parse(rate) * 2).ToString();
+                    rate = (Double.Parse(rate) * 2).ToString();*/
 
                     re.RowKey = re.ReviewId = Guid.NewGuid().ToString();
                     re.Affiliation = affiliation.Trim();
                     re.Review = review.Trim();
-                    re.ReviewerName = "Gaurav Malani";
-                    re.ReviewerRating = rate;
+                    //re.ReviewerName = "Gaurav Malani";
+                    re.ReviewerName = reviewName;
+                    re.ReviewerRating = rate.ToString();
                     re.MyScore = string.Empty;
                     re.JsonString = string.Empty;
                     return re;

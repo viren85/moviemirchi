@@ -75,7 +75,8 @@ namespace Crawler.Reviews
                     var header = headerNode == null ? string.Empty : headerNode.InnerText;
 
                     var reviewContentNode = helper.GetElementWithAttribute(bodyNode, "div", "class", "book_para");
-                    HtmlNodeCollection nodes = reviewContentNode.SelectNodes("p");
+                    //HtmlNodeCollection nodes = reviewContentNode.SelectNodes("p");
+                    HtmlNodeCollection nodes = reviewContentNode.SelectNodes("div");
                     var review = string.Empty;
                     foreach (var ratingNode in nodes)
                     {

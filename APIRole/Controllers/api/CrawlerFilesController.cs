@@ -226,6 +226,7 @@ namespace CloudMovie.APIRole.API
                                             re = cibn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                         case "Box Office India":
+                                        case "Box office India":
                                             re = boi.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
                                         case "DNA":
@@ -237,6 +238,7 @@ namespace CloudMovie.APIRole.API
                                         case "Indian Express":
                                             re = ie.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
+                                        case "Komal Nahta":
                                         case "Komal Nahta's Blog":
                                             re = kn.Crawl(reviewLink, review.Attributes["name"].Value);
                                             break;
@@ -276,12 +278,12 @@ namespace CloudMovie.APIRole.API
                                     critics.Add(re.ReviewerName);
 
                                     // update the IDs - Movie Id, Reviewer Id etc.
-                                    string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
-                                    //re.RowKey = re.ReviewId = new Guid().ToString();
-                                    re.ReviewerId = reviewerId;
-                                    re.MovieId = mov.MovieId;
-                                    re.OutLink = reviewLink;
-                                    tblMgr.UpdateReviewById(re);
+                                     string reviewerId = ReviewCrawler.SetReviewer(re.ReviewerName, review.Attributes["name"].Value);
+                                     //re.RowKey = re.ReviewId = new Guid().ToString();
+                                     re.ReviewerId = reviewerId;
+                                     re.MovieId = mov.MovieId;
+                                     re.OutLink = reviewLink;
+                                     tblMgr.UpdateReviewById(re);
                                 }
                             }
                             catch (Exception)
@@ -399,7 +401,7 @@ namespace CloudMovie.APIRole.API
             List<string> processedUrl = json.Deserialize<List<string>>(me.Posters);
 
             me.Pictures = (string.IsNullOrEmpty(me.Pictures) || me.Pictures == "null") ? "[]" : me.Pictures;
-            
+
             List<CloudMovie.APIRole.UDT.PosterInfo> posters = json.Deserialize<List<CloudMovie.APIRole.UDT.PosterInfo>>(me.Pictures);
 
             int imageCounter = 1;

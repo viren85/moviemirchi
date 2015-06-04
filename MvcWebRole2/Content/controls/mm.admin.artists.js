@@ -268,7 +268,7 @@
         $(".shortcut-container").append($("<a/>").html("Save changes").attr("onclick", "updateArtist()").attr("class", "btn btn-success").attr("title", "click here to save all the changes."));
         $(".shortcut-container").append($("<div>").attr("id", "status"));
         // upload files
-        $("#poster-upload").attr("onchange", "UploadSelectedFile(this)");
+        $("#poster-upload").attr("onchange", "UploadSelectedFile(this, '#txtUnique','poster')");
     }
 
     Artists.prototype.UpdateArtistDetails = function (artist) {
@@ -412,7 +412,7 @@
 
         //UpdateArtist
         //CallController("../Home/UpdateArtists", "data", artistData, function () { $("#status").html("Artist details saved successfully!"); });
-        CallController("api/UpdateArtist", "data", objArtist, function () { $("#status").html("Artist details saved successfully!"); });
+        CallController("api/UpdateArtist", "data", objArtist, function () { $("#status").html("Artist details saved successfully!"); });       
     }
 
     // added on 23-feb-2015

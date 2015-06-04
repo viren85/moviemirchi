@@ -38,7 +38,6 @@ namespace CloudMovie.APIRole.API
                 // as per current records in our database.
                 artist.RowKey = artist.UniqueName.ToLower();
                 tableMgr.UpdateArtistById(artist);
-
             }
             catch (Exception)
             {
