@@ -1,0 +1,74 @@
+﻿@helper MovieListCarousel(
+    string id,
+    IEnumerable<MvcWebRole1.Models.Interface.Movie> movies)
+{
+    <div class="movie-list">
+
+        <div id="@id" class="carousel slide" data-ride="carousel">
+
+            <div class="carousel-inner" role="listbox">
+
+                @{
+                    bool first = true;
+                    foreach (var movie in movies)
+                    {
+                        string className = "item";
+                        if (first == true) { className += " active"; first = false; }
+
+                        @UXComponents.MovieTile(className, movie)
+                    }
+                }
+            </div>
+            <a class="left carousel-control" href="#@id" role="button" data-slide="prev">
+                <div class="tp-leftarrow tparrows default" style="position: absolute; top: 50%; right: 20px;"></div>
+            </a>
+            <a class="right carousel-control" href="#@id" role="button" data-slide="next">
+                <div class="tp-rightarrow tparrows default" style="position: absolute; top: 50%; right: 20px;"></div>
+            </a>
+        </div>
+    </div>
+}
+
+
+@helper MovieTile(
+    string itemCssClass,
+    MvcWebRole1.Models.Interface.Movie movie)
+{
+    string song = movie.IsSong ? "song" : "";
+    string trailer = movie.IsTrailer ? "trailer" : "";
+    string photo = movie.IsPoster ? "photo" : "";
+    string review = "";
+    string poster = "https://moviemirchistorage.blob.core.windows.net/posters/" + (movie.IsPoster ? movie.Poster : "default-movie.jpg");
+
+    <div class="@itemCssClass">
+        <a title="@movie.Name" href="/movie/@movie.UniqueName">
+            <meta itemprop="url" content="/movie/@movie.UniqueName">
+            <div id="picAndCaption" class="viewingDiv @movie.UniqueName">
+                <div id="imageContainer" class="viewer" style="height: 340px;">
+                    <img itemprop="image" id="imageEl" onerror="LoadDefaultImage(this);" onload="MovieImageLoaded(this);" class="movie-poster shownImage"
+                         title="@movie.Name" alt="@movie.Name" src="@poster" style="margin: auto; width: 225px; height: 340px;">
+                    <div class="captionAndNavigate">
+                        <div id="captionCredit" class="multimediaCaption">
+                            <div id="photoCaption">
+                                <meta itemprop="name" content="@movie.Name">
+                                <meta itemprop="datePublished" content="@movie.Month">
+                                <div class="img-movie-name img-movie-name-tile-type-0">@movie.Name</div>
+                                <div class="img-movie-genre img-movie-genre-tile-type-0">@movie.Genre</div>
+                                <div class="img-movie-date img-movie-date-tile-type-0">@movie.Month</div>
+                                <div class="additives">
+                                    <div class="aleft"><span class="myglyphicon @trailer"></span></div>
+                                    <div class="aright"><span class="myglyphicon @song"></span></div>
+                                    <div class="aleft"><span class="myglyphicon @photo"></span></div>
+                                    <div class="aright"><span class="myglyphicon @review"></span></div>
+                                </div>
+                                <div class="movie-synopsis" style="display: none;">
+                                    @movie.Synopsis
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+}

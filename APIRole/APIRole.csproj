@@ -51,6 +51,7 @@
     <Compile Include="Controllers\api\CrawlPostersController.cs" />
     <Compile Include="Controllers\api\GetUpcomingArtistBirthdayController.cs" />
     <Compile Include="Controllers\api\MovieController.cs" />
+    <Compile Include="Controllers\api\RazorMoviesController.cs" />
     <Compile Include="Controllers\api\NewsCrawlerController.cs" />
     <Compile Include="Controllers\api\LikeController.cs" />
     <Compile Include="Controllers\api\TrackController.cs" />

@@ -1,4 +1,6 @@
-﻿@{
+﻿@inherits System.Web.Mvc.WebViewPage<MvcWebRole1.Models.Page.HomePage>
+
+@{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_MovieLayout.cshtml";
 }
@@ -8,11 +10,17 @@
 
 @section NowPlayingMovies {
     <div class="movies_nowplaying">
+        <div id="movie-list-tube" class="tube-container ">
+            @UXComponents.MovieListCarousel("myCarousel_nowpager", Model.NowPlayingMovies)
+        </div>
     </div>
 }
 
 @section UpcomingMovies {
     <div class="movies_upcoming">
+        <div id="movie-list-tube" class="tube-container ">
+            @UXComponents.MovieListCarousel("myCarousel_upcomingpager", Model.UpcomingMovies)
+        </div>
     </div>
 }
 

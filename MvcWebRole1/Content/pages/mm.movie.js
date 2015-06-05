@@ -89,8 +89,8 @@ function PrepareHomePage() {
 
     //$(".nav-bar-container").append(GetNavBar(json));
 
-    $(".movies_nowplaying").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
-    $(".movies_upcoming").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
+    //$(".movies_nowplaying").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
+    //$(".movies_upcoming").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
     $(".movies_news").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
     $(".movies_tweets").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
     $(".movies_topcritics").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
@@ -104,8 +104,8 @@ function PrepareHomePage() {
 
     LoadCritics();
     LoadNews();
-    LoadCurrentMovies();
-    LoadUpcomingMovies();
+    //LoadCurrentMovies();
+    //LoadUpcomingMovies();
     LoadTweets();
     LoadRecentVisits();
 }
