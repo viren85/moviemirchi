@@ -328,23 +328,24 @@
                     </div>
                 </div>
             </div>
-            <section id="tweets">
-                <div class="container">
-                    <div class="section-heading scrollpoint sp-effect3">
-                        <h1>Tweets</h1>
-                        <div class="divider"></div>
-                        <p>Tweets from your favorite celebrities</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-8 col-md-offset-2 scrollpoint sp-effect2">
-                            <div id="container">
-                                @RenderSection("Tweets", false)
-                            </div>
+        </section>
+        <section id="tweets">
+            <div class="container">
+                <div class="section-heading scrollpoint sp-effect3">
+                    <h1>Tweets</h1>
+                    <div class="divider"></div>
+                    <p>Tweets from your favorite celebrities</p>
+                </div>
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2 scrollpoint sp-effect2">
+                        <div id="container">
+                            @RenderSection("Tweets", false)
                         </div>
                     </div>
                 </div>
-            </section>
-            @RenderSection("General", false)
+            </div>
+        </section>
+        @RenderSection("General", false)
     </div>
 
     <script src="js/slick.min.js"></script>
