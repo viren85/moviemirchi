@@ -81,6 +81,7 @@ function PrepareHomePage() {
     var json = [
                     { "title": "Now Playing", "section": "movie-list-tube" },
                     { "title": "Upcoming Releases", "section": "upcoming-movie-list-tube" },
+                    { "title": "Twitter Feed", "section": "twitterfeed-container-tube" },
                     { "title": "News", "section": "news-container-tube" },
                     { "title": "Tweets", "section": "tweets-tube" },
                     { "title": "Critics", "section": "critics-container-tube" },
@@ -91,6 +92,7 @@ function PrepareHomePage() {
 
     $(".movies").append(GetTubeControl("Now Playing", "movie-list", "now-pager"));
     $(".movies").append(GetTubeControl("Upcoming Releases", "upcoming-movie-list", "upcoming-pager"));
+    $(".movies").append(GetTubeControl("Twitter Feed", "twitterfeed-container", "twitterfeed-pager"));
     $(".movies").append(GetTubeControl("News", "news-container", "news-pager", "width60"));
     $(".movies").append(GetTubeControl("Tweets", "tweets", "tweet-pager", "width30"));
     $(".movies").append(GetTubeControl("Top Critics", "critics-container", "critics-pager", "width60"));
@@ -100,12 +102,20 @@ function PrepareHomePage() {
         new Util().AppendLoadImage($(this));
     });
 
+    new Util().RemoveLoadImage($("#twitterfeed-container-tube"));
     new Util().RemoveLoadImage($("#critics-container-tube"));
 
     LoadCritics();
+    LoadTwitterFeed(".twitterfeed-container");
     LoadNews();
     LoadCurrentMovies();
     LoadUpcomingMovies();
     LoadTweets();
     LoadRecentVisits();
 }
+
+var LoadTwitterFeed = function (selector) {
+    var $selector = $(selector),
+        widget = '<a class="twitter-timeline" href="https://twitter.com/MovieMirchiCo" data-widget-id="673937877177229312">Tweets by @MovieMirchiCo</a><script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?\"http\":\"https\";if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>';
+    $selector.append(widget);
+};
