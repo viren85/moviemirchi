@@ -1,8 +1,5 @@
 ﻿var Posters = function () {
-    var testPosters = [
-            "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg",
-            "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg", "poster-1.jpg"
-    ];
+    var Counter = -1;
 
     Posters.prototype.GetPosterContainer = function (posters) {
         var container = $("<div/>").attr("class", "form-container");
@@ -43,10 +40,8 @@
                 $(singlePoster).append(editPoster);
 
                 $(container).append($(singlePoster).append(rad).append(img));
-                Counter = i;
+                this.Counter = i;
             }
-
-            //console.log(Counter);
         }
         return container;
     }
@@ -55,15 +50,15 @@
         var container = $(".poster-container");
         if (poster != null && poster != undefined) {
             if (type == "poster") {
-                Counter = Counter + 1;
-                var singlePoster = $("<div/>").attr("class", "single-poster").attr("id", "singleposter_" + Counter).attr("onmouseover", "show(" + Counter + ");").attr("onmouseout", "hide(" + Counter + ");");
+                this.Counter = this.Counter + 1;
+                var singlePoster = $("<div/>").attr("class", "single-poster").attr("id", "singleposter_" + this.Counter).attr("onmouseover", "show(" + this.Counter + ");").attr("onmouseout", "hide(" + this.Counter + ");");
                 var rad = new FormBuilder().GetRadioButton(poster, "", "posters", false);
                 var img = $("<img/>").attr("src", PUBLIC_BLOB_URL + poster);
                 //var img = $("<img/>").attr("src", poster);
 
                 // edit poster div
-                var editPoster = $("<div/>").attr("id", Counter).append(new FormBuilder().GetCheckBox("isActive", "", true));
-                $(editPoster).append($("<div/>").attr("class", "btn btn-danger").attr("style", "float:right").attr("onclick", "RemoveDiv(" + Counter + ");").html("Delete"));
+                var editPoster = $("<div/>").attr("id", this.Counter).append(new FormBuilder().GetCheckBox("isActive", "", true));
+                $(editPoster).append($("<div/>").attr("class", "btn btn-danger").attr("style", "float:right").attr("onclick", "RemoveDiv(" + this.Counter + ");").html("Delete"));
                 $(editPoster).attr("class", "edit-poster");
                 $(singlePoster).append(editPoster);
 
