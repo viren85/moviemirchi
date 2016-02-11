@@ -48,13 +48,13 @@ namespace SmartMonkey
             }
 
             var seg =
-                test.Data.Split(new string[] { "Actor" }, StringSplitOptions.None).Take(5);
+                test.Data.Split(new string[] { "\\\"Actor\\\"" }, StringSplitOptions.None).Take(5);
 
             var actors = seg
                 .Select(s =>
                     (s.Split(new string[] { "\"name\\\\\\\":\\\\\\\"" }, StringSplitOptions.None).LastOrDefault() ?? "")
                     .Split(new string[] { "\\\\\\\"" }, StringSplitOptions.None).FirstOrDefault())
-                .Where(s => !String.IsNullOrWhiteSpace(s));
+                .Where(s => !String.IsNullOrWhiteSpace(s) && s.Length <= 25);
 
             return actors.SelectMany(a => new Url[] {
                 new Url(this.WebUrl, "artists/" + a.Replace(" ", "-")),
